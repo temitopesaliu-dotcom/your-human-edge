@@ -25,7 +25,7 @@ body {
 }
 
 body {
-  padding-bottom: 0;
+  padding-bottom: 88px;
 }
 
 .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }
@@ -57,9 +57,20 @@ nav {
 
 /* FOOTER */
 footer {
-  background: var(--ink); color: rgba(255,255,255,.4); padding: 20px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  background: var(--ink);
+  color: rgba(255,255,255,.4);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 -10px 24px rgba(26, 16, 64, 0.08);
 }
 footer strong { color: rgba(255,255,255,.8); font-family: 'Cormorant Garamond', serif; font-size: 12px; }
 .f-links { display: flex; gap: 20px; list-style: none; }
@@ -91,6 +102,16 @@ footer strong { color: rgba(255,255,255,.8); font-family: 'Cormorant Garamond', 
 
 .mobile-quick-actions {
   display: none;
+}
+
+.home-page #quiz {
+  min-height: calc(100vh - 62px - 88px);
+  display: flex;
+  align-items: center;
+}
+
+.home-page #quiz .container {
+  width: 100%;
 }
 
 /* RESPONSIVE LAYOUT */
@@ -132,10 +153,6 @@ footer strong { color: rgba(255,255,255,.8); font-family: 'Cormorant Garamond', 
     gap: 28px;
     animation-duration: 20s;
   }
-
-  body {
-    padding-bottom: calc(96px + env(safe-area-inset-bottom));
-  }
 }
 
 @media (max-width: 640px) {
@@ -169,8 +186,18 @@ footer strong { color: rgba(255,255,255,.8); font-family: 'Cormorant Garamond', 
   }
 
   footer {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    z-index: auto;
     padding: 18px 16px;
     gap: 10px;
+    box-shadow: none;
+  }
+
+  body {
+    padding-bottom: 0;
   }
 
   .f-links {
