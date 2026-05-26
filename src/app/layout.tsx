@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <nav className="mobile-dock" aria-label="Mobile navigation">
-          <Link href="/" className="mobile-dock__item">
+          <Link href="/quiz" className="mobile-dock__item">
             <span>⌂</span>
             <span>Home</span>
           </Link>
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span>▦</span>
             <span>Paths</span>
           </Link>
-          <Link href="/" className="mobile-dock__item mobile-dock__item--primary">
+          <Link href="/quiz" className="mobile-dock__item mobile-dock__item--primary">
             <span>✦</span>
             <span>Quiz</span>
           </Link>

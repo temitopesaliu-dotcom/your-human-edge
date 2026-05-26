@@ -62,7 +62,7 @@ function PlaybookContent() {
   return (
     <>
       <nav style={{ position: 'sticky', top: 0, zIndex: 99, background: 'rgba(26,16,64,.96)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px' }}>
-        <Link href="/" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <span style={{ fontSize: '.72rem', color: 'rgba(255,255,255,.4)', letterSpacing: '.04em' }}>✓ Verified Access</span>
           <a href={`/api/download-pdf?session_id=${sessionId}&arch=${archKey}`}
@@ -120,7 +120,7 @@ function PlaybookContent() {
       <footer>
         <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
-          <li><Link href="/">Take the quiz</Link></li>
+          <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
           <li><Link href="/paths">50 AI Paths</Link></li>
         </ul>

@@ -74,7 +74,7 @@ function GateContent() {
   return (
     <div className="gate-page">
       <nav style={{ background: 'rgba(26,16,64,.96)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px', position: 'sticky', top: 0, zIndex: 99 }}>
-        <Link href="/" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
       </nav>
 
       <div style={{ background: 'var(--ink)', padding: '52px 24px 48px', textAlign: 'center' }}>

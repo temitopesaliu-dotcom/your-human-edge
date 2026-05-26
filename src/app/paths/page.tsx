@@ -82,12 +82,12 @@ export default function PathsPage() {
   return (
     <div className="paths-page">
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 99, background: 'rgba(26,16,64,.94)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px' }}>
-        <Link href="/" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
         <ul className="nav-links">
-          <li><Link href="/">Home</Link></li>
+          <li><Link href="/quiz">Home</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
         </ul>
-        <Link href="/" className="nav-cta">Take the quiz</Link>
+        <Link href="/quiz" className="nav-cta">Take the quiz</Link>
       </nav>
 
       {/* HERO */}
@@ -115,7 +115,7 @@ export default function PathsPage() {
       {/* CTA BAND */}
       <div style={{ background: 'var(--paper)', borderBottom: '1px solid var(--border)', padding: '18px 28px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
         <span style={{ fontSize: '.88rem', color: 'var(--soft)' }}>Not sure which archetype you are?</span>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.82rem', fontWeight: 600, padding: '9px 20px', borderRadius: '40px', textDecoration: 'none' }}>
+        <Link href="/quiz" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.82rem', fontWeight: 600, padding: '9px 20px', borderRadius: '40px', textDecoration: 'none' }}>
           Take the free 10-question quiz →
         </Link>
       </div>
@@ -175,13 +175,13 @@ export default function PathsPage() {
         <p style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.5)', maxWidth: '440px', margin: '0 auto 28px' }}>
           The quiz takes 3 minutes. Your archetype shapes which of these 50 paths you should actually pursue — and in what order.
         </p>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem', fontWeight: 600, padding: '15px 34px', borderRadius: '50px', textDecoration: 'none' }}>
+        <Link href="/quiz" style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem', fontWeight: 600, padding: '15px 34px', borderRadius: '50px', textDecoration: 'none' }}>
           Find My Archetype — Free →
         </Link>
       </div>
 
       <div className="mobile-quick-actions" aria-label="Quick actions">
-        <Link className="mobile-quick-actions__secondary" href="/">
+        <Link className="mobile-quick-actions__secondary" href="/quiz">
           Take Quiz
         </Link>
         <Link className="mobile-quick-actions__primary" href="/coming-soon">
@@ -192,7 +192,7 @@ export default function PathsPage() {
       <footer>
         <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
-          <li><Link href="/">Take the quiz</Link></li>
+          <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
         </ul>
         <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 temitopesaliu.com</div>

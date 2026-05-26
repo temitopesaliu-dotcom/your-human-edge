@@ -5,7 +5,7 @@ import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
 function getStripe() {
   const apiKey = process.env.STRIPE_SECRET_KEY;
   if (!apiKey) {
-    throw new Error('STRIPE_SECRET_KEY is not set.');
+    throw new Error('STRIPE_SECRET_KEY is not set. Add it to .env.local or Vercel environment variables.');
   }
 
   return new Stripe(apiKey);
@@ -39,7 +39,9 @@ export async function POST(req: NextRequest) {
       ? (normalized as ArchetypeKey)
       : 'H';
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://temitopesaliu.com';
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://temitopesaliu.com');
     const stripe = getStripe();
 
     const session = await stripe.checkout.sessions.create({
@@ -71,7 +73,17 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (err: unknown) {
-    console.error('[create-checkout] Stripe error:', err instanceof Error ? err.message : String(err));
-    return NextResponse.json({ error: 'Failed to create checkout session.' }, { status: 500 });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[create-checkout] Stripe error:', message);
+
+    return NextResponse.json(
+      {
+        error:
+          process.env.NODE_ENV === 'production'
+            ? 'Failed to create checkout session.'
+            : message,
+      },
+      { status: 500 }
+    );
   }
 }

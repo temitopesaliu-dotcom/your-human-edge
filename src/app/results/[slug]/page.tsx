@@ -118,8 +118,8 @@ export default function ResultPage({ params }: { params: Promise<{ slug: string 
   return (
     <div className="result-page">
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 99, background: 'rgba(26,16,64,.94)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px' }}>
-        <Link href="/" className="nav-logo">human<span>+</span>ai</Link>
-        <Link href="/" className="nav-cta">Take the quiz again</Link>
+        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-cta">Take the quiz again</Link>
       </nav>
 
       {/* HERO */}
@@ -259,7 +259,7 @@ export default function ResultPage({ params }: { params: Promise<{ slug: string 
       <footer>
         <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
-          <li><Link href="/">Take the quiz</Link></li>
+          <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
         </ul>
         <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 temitopesaliu.com</div>

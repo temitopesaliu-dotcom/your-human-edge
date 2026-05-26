@@ -9,8 +9,8 @@ export default function ComingSoonPage() {
   return (
     <div className="simple-page coming-soon-page">
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 99, background: 'rgba(26,16,64,.94)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px' }}>
-        <Link href="/" className="nav-logo">human<span>+</span>ai</Link>
-        <Link href="/" className="nav-cta">Take the quiz</Link>
+        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-cta">Take the quiz</Link>
       </nav>
 
       <div style={{ minHeight: '100vh', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 28px', position: 'relative', overflow: 'hidden' }}>
@@ -37,7 +37,7 @@ export default function ComingSoonPage() {
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem', fontWeight: 600, padding: '15px 34px', borderRadius: '50px', textDecoration: 'none' }}>
+            <Link href="/quiz" style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', background: 'var(--coral)', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem', fontWeight: 600, padding: '15px 34px', borderRadius: '50px', textDecoration: 'none' }}>
               Take the quiz & get notified →
             </Link>
             <Link href="/paths" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.4)', textDecoration: 'none' }}>
@@ -66,7 +66,7 @@ export default function ComingSoonPage() {
         <Link className="mobile-quick-actions__secondary" href="/paths">
           Explore Paths
         </Link>
-        <Link className="mobile-quick-actions__primary" href="/">
+        <Link className="mobile-quick-actions__primary" href="/quiz">
           Take Quiz
         </Link>
       </div>

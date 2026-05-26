@@ -76,6 +76,19 @@ npx vercel link && npx vercel env pull
 npm run dev
 ```
 
+For local testing, keep these values pointed at localhost:
+- `NEXT_PUBLIC_SITE_URL=http://localhost:3000`
+- Stripe test keys, not live keys
+
+If you want the full purchase flow to work locally, your `.env.local` must also have:
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `RESEND_API_KEY`
+- `MAILERLITE_API_KEY`
+- KV variables from Vercel or a local KV-compatible store
+
+The repo now includes a starter [`.env.local`](/Users/Ayodele's%20Mac/Downloads/yhe-nextjs/.env.local#L1) with localhost defaults and placeholder values so you can paste in your test credentials directly.
+
 ## Structure
 src/app/
   page.tsx                     Quiz (/)
