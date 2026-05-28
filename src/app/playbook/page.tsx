@@ -1,22 +1,13 @@
 'use client';
-import { Suspense, useEffect, useState, useSyncExternalStore } from 'react';
+import { Suspense, useEffect, useSyncExternalStore } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getArchetypeByKey } from '@/lib/archetypes';
 import { buildPlaybookPageMarkup } from '@/lib/playbook-document';
 
 const STRIPE_SESSION_PATTERN = /^cs_(live|test)_[A-Za-z0-9]{40,}$/;
 
-function cacheKeyFor(sessionId: string, archKey: string) {
-  return `yhe_pb_ok:${sessionId}:${archKey}`;
-}
-
-function readCachedGrant(key: string): boolean {
-  try {
-    return typeof window !== 'undefined' && sessionStorage.getItem(key) === '1';
-  } catch {
-    return false;
-  }
-}
+const noopSubscribe = () => () => {};
+const getServerEmpty = () => '';
 
 function PlaybookContent() {
   const router = useRouter();
@@ -24,79 +15,47 @@ function PlaybookContent() {
   const sessionId = params.get('session_id') || '';
   const archKey = (params.get('arch') || 'H').toUpperCase();
   const arch = getArchetypeByKey(archKey);
+  const sessionLooksValid = STRIPE_SESSION_PATTERN.test(sessionId);
 
-  const [status, setStatus] = useState<'validating' | 'granted' | 'denied'>(() =>
-    readCachedGrant(cacheKeyFor(sessionId, archKey)) ? 'granted' : 'validating'
-  );
   const storedName = useSyncExternalStore(
-    () => () => {},
+    noopSubscribe,
     () => localStorage.getItem('yhe_name') || '',
-    () => ''
+    getServerEmpty
   );
 
   useEffect(() => {
+    if (!sessionLooksValid) {
+      router.replace('/access-denied');
+      return;
+    }
+
     let cancelled = false;
-    const cacheKey = cacheKeyFor(sessionId, archKey);
 
     async function validate() {
-      if (!sessionId || !STRIPE_SESSION_PATTERN.test(sessionId)) {
-        if (!readCachedGrant(cacheKey)) router.replace('/access-denied');
-        return;
-      }
-
       try {
         const qs = new URLSearchParams({ session_id: sessionId, arch: archKey });
         const res = await fetch(`/api/validate-session?${qs.toString()}`, { cache: 'no-store' });
         if (cancelled) return;
-
-        if (res.ok) {
-          try { sessionStorage.setItem(cacheKey, '1'); } catch {}
-          setStatus('granted');
-        } else if (!readCachedGrant(cacheKey)) {
-          try { sessionStorage.removeItem(cacheKey); } catch {}
-          router.replace('/access-denied');
-        }
+        if (res.status === 403) router.replace('/access-denied');
       } catch {
-        if (cancelled) return;
-        setStatus('granted');
+        // Network error — leave the page as-is.
       }
     }
 
     void validate();
 
     function onPageShow(e: PageTransitionEvent) {
-      if (e.persisted) {
-        if (readCachedGrant(cacheKey)) setStatus('granted');
-        void validate();
-      }
-    }
-    function onVisible() {
-      if (document.visibilityState === 'visible') {
-        if (readCachedGrant(cacheKey)) setStatus('granted');
-      }
+      if (e.persisted) void validate();
     }
     window.addEventListener('pageshow', onPageShow);
-    document.addEventListener('visibilitychange', onVisible);
 
     return () => {
       cancelled = true;
       window.removeEventListener('pageshow', onPageShow);
-      document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [archKey, router, sessionId]);
+  }, [archKey, router, sessionId, sessionLooksValid]);
 
-  if (status === 'validating') {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--ink)' }}>
-        <div style={{ textAlign: 'center', color: '#fff' }}>
-          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', marginBottom: '12px' }}>Verifying access…</div>
-          <div style={{ fontSize: '.85rem', color: 'rgba(255,255,255,.4)' }}>Checking your purchase confirmation</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!arch) return null;
+  if (!arch || !sessionLooksValid) return null;
 
   const downloadHref = `/api/download-pdf?session_id=${encodeURIComponent(sessionId)}&arch=${arch.key}`;
 
