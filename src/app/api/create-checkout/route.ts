@@ -59,6 +59,14 @@ export async function POST(req: NextRequest) {
     const siteUrl = resolveSiteUrl(req);
     const stripe = getStripe();
 
+    const priceId = process.env.STRIPE_PRICE_ID;
+    if (!priceId) {
+      return NextResponse.json(
+        { error: 'STRIPE_PRICE_ID is not set.' },
+        { status: 500 }
+      );
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -69,14 +77,7 @@ export async function POST(req: NextRequest) {
       },
       line_items: [
         {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Your Human Edge — AI Career Playbook',
-              description: '50 AI Career Paths + Personalised Strategy for your archetype. Instant access.',
-            },
-            unit_amount: 599, // $5.99
-          },
+          price: priceId,
           quantity: 1,
         },
       ],
