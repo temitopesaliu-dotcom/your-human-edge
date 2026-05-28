@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ARCHETYPES, type ArchetypeKey } from '@/lib/archetypes';
+import { SITE_DISPLAY } from '@/lib/site';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
   H: [
@@ -114,7 +115,7 @@ function GateContent() {
       </div>
 
       <footer>
-        <strong>temitopesaliu.com</strong>
+        <strong>{SITE_DISPLAY}</strong>
         <span style={{ opacity: .25, fontSize: '.7rem' }}>© 2025</span>
       </footer>
     </div>

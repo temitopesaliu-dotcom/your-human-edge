@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/archetypes';
+import { SITE_DISPLAY } from '@/lib/site';
 import Link from 'next/link';
 
 type Scores = Record<ArchetypeKey, number>;
@@ -159,13 +160,13 @@ export default function QuizPage() {
       )}
 
       <footer>
-        <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
+        <div><strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
           <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
           <li><Link href="/paths">50 AI Paths</Link></li>
         </ul>
-        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 temitopesaliu.com</div>
+        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 {SITE_DISPLAY}</div>
       </footer>
       <TrackingScript />
     </div>

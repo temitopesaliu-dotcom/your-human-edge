@@ -15,7 +15,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://temitopesaliu.com';
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl) ? envUrl : 'https://temitopesaliu.vercel.app';
   const ctaUrl = `${siteUrl}/#quiz`;
 
   const records = await listActiveSequences(50);

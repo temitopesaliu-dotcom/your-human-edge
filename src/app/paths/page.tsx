@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { SITE_DISPLAY } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: '50 AI Career Paths | Your Human Edge',
@@ -190,12 +191,12 @@ export default function PathsPage() {
       </div>
 
       <footer>
-        <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
+        <div><strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
           <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/coming-soon">Community</Link></li>
         </ul>
-        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 temitopesaliu.com</div>
+        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 {SITE_DISPLAY}</div>
       </footer>
     </div>
   );

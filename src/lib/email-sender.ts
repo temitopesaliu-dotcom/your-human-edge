@@ -1,4 +1,5 @@
 import { ARCHETYPES, type ArchetypeKey } from './archetypes';
+import { SITE_URL, SITE_DISPLAY } from './site';
 
 const FROM = process.env.EMAIL_FROM || 'Temitope | Your Human Edge <hello@temitopesaliu.com>';
 
@@ -43,7 +44,7 @@ function wrapEmail(content: string, preheader = ''): string {
 ${preheader ? `<span style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:#faf8f4;">${preheader}&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌</span>` : ''}
 <div class="wrap">
   <div class="hdr">
-    <a class="logo" href="https://temitopesaliu.com">YOUR HUMAN <span class="logo-dot">EDGE</span></a>
+    <a class="logo" href="${SITE_URL}">YOUR HUMAN <span class="logo-dot">EDGE</span></a>
   </div>
   <div class="body">
     ${content}
@@ -51,11 +52,11 @@ ${preheader ? `<span style="display:none;max-height:0;overflow:hidden;font-size:
     <div class="sig">
       Keep going,<br>
       <span class="sig-name">Temitope Saliu</span>
-      <span class="sig-role">AI × Human Psychology &nbsp;·&nbsp; temitopesaliu.com</span>
+      <span class="sig-role">AI × Human Psychology &nbsp;·&nbsp; ${SITE_DISPLAY}</span>
     </div>
   </div>
   <div class="ftr">
-    <p>You&apos;re receiving this because you took the AI Archetype Quiz at <a href="https://temitopesaliu.com">temitopesaliu.com</a></p>
+    <p>You&apos;re receiving this because you took the AI Archetype Quiz at <a href="${SITE_URL}">${SITE_DISPLAY}</a></p>
   </div>
 </div>
 </body>
@@ -220,7 +221,7 @@ export function getPurchaseConfirmationEmail(name: string, archetype: ArchetypeK
 <span style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:#faf8f4;">Purchase confirmed. Your permanent access link is below.&nbsp;‌&nbsp;‌&nbsp;‌</span>
 <div class="wrap">
   <div class="hdr">
-    <a class="logo" href="https://temitopesaliu.com">YOUR HUMAN <span class="logo-dot">EDGE</span></a>
+    <a class="logo" href="${SITE_URL}">YOUR HUMAN <span class="logo-dot">EDGE</span></a>
   </div>
   <div class="hero">
     <div class="confirm-badge">✓ &nbsp; Purchase Confirmed</div>
@@ -242,12 +243,12 @@ export function getPurchaseConfirmationEmail(name: string, archetype: ArchetypeK
       <div class="checklist-item">Your archetype&apos;s exact tool stack with specific use cases</div>
       <div class="checklist-item">Three income models: consulting, training, and community</div>
       <div class="checklist-item">The psychology of AI resistance — your specific identity threat and the reframe</div>
-      <div class="checklist-item"><strong>Buyer Bonus:</strong> The full 50 AI Career Paths directory at temitopesaliu.com/paths</div>
+      <div class="checklist-item"><strong>Buyer Bonus:</strong> The full 50 AI Career Paths directory at ${SITE_DISPLAY}/paths</div>
     </div>
     <p>If you have any questions, reply to this email directly.</p>
     <div style="padding-top:8px;">
       <span style="font-weight:700;color:#1a1040;font-size:16px;display:block;">Temitope Saliu</span>
-      <span style="font-size:13px;color:#9b92b8;">Founder · Your Human Edge · temitopesaliu.com</span>
+      <span style="font-size:13px;color:#9b92b8;">Founder · Your Human Edge · ${SITE_DISPLAY}</span>
     </div>
   </div>
   <div class="ftr">

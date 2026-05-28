@@ -1,4 +1,5 @@
 import { getArchetypeByKey, type Archetype } from '@/lib/archetypes';
+import { SITE_DISPLAY } from '@/lib/site';
 
 type PlaybookRenderOptions = {
   archetype: Archetype;
@@ -399,13 +400,13 @@ export function buildPlaybookPageMarkup({ archetype, sessionId, storedName }: Pl
     </div>
 
     <footer class="playbook-footer">
-      <div><strong>temitopesaliu.com</strong> &nbsp;·&nbsp; <span style="font-style:italic;opacity:.6;">AI x Human Psychology</span></div>
+      <div><strong>${SITE_DISPLAY}</strong> &nbsp;·&nbsp; <span style="font-style:italic;opacity:.6;">AI x Human Psychology</span></div>
       <ul class="f-links">
         <li><a href="/quiz">Take the quiz</a></li>
         <li><a href="/coming-soon">Community</a></li>
         <li><a href="/paths">50 AI Paths</a></li>
       </ul>
-      <div style="font-size:.7rem;opacity:.25;">© 2025 temitopesaliu.com</div>
+      <div style="font-size:.7rem;opacity:.25;">© 2025 ${SITE_DISPLAY}</div>
     </footer>
   `;
 }

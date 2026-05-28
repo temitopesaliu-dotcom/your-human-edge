@@ -40,7 +40,8 @@ export async function POST(req: NextRequest) {
       const archetype = (session.metadata?.archetype || 'H') as ArchetypeKey;
       const buyerEmail = session.customer_email || session.customer_details?.email || '';
       const buyerName = session.customer_details?.name || '';
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://temitopesaliu.com';
+      const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+      const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl) ? envUrl : 'https://temitopesaliu.vercel.app';
       const accessLink = `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
       // Write validated session to KV

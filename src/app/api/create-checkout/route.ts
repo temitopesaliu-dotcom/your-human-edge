@@ -11,6 +11,23 @@ function getStripe() {
   return new Stripe(apiKey);
 }
 
+function resolveSiteUrl(req: NextRequest): string {
+  const origin = req.headers.get('origin');
+  if (origin && !/localhost|127\.0\.0\.1/.test(origin)) return origin;
+
+  const forwardedHost = req.headers.get('x-forwarded-host');
+  const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
+  if (forwardedHost && !/localhost|127\.0\.0\.1/.test(forwardedHost)) {
+    return `${forwardedProto}://${forwardedHost}`;
+  }
+
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)) return envUrl;
+
+  if (process.env.NODE_ENV === 'development') return 'http://localhost:3000';
+  return 'https://temitopesaliu.vercel.app';
+}
+
 // Map full archetype names back to keys (KPI #3 fix)
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',
@@ -39,9 +56,7 @@ export async function POST(req: NextRequest) {
       ? (normalized as ArchetypeKey)
       : 'H';
 
-    const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://temitopesaliu.com');
+    const siteUrl = resolveSiteUrl(req);
     const stripe = getStripe();
 
     const session = await stripe.checkout.sessions.create({
