@@ -6,6 +6,18 @@ import { buildPlaybookPageMarkup } from '@/lib/playbook-document';
 
 const STRIPE_SESSION_PATTERN = /^cs_(live|test)_[A-Za-z0-9]{40,}$/;
 
+function cacheKeyFor(sessionId: string, archKey: string) {
+  return `yhe_pb_ok:${sessionId}:${archKey}`;
+}
+
+function readCachedGrant(key: string): boolean {
+  try {
+    return typeof window !== 'undefined' && sessionStorage.getItem(key) === '1';
+  } catch {
+    return false;
+  }
+}
+
 function PlaybookContent() {
   const router = useRouter();
   const params = useSearchParams();
@@ -13,7 +25,9 @@ function PlaybookContent() {
   const archKey = (params.get('arch') || 'H').toUpperCase();
   const arch = getArchetypeByKey(archKey);
 
-  const [status, setStatus] = useState<'validating' | 'granted' | 'denied'>('validating');
+  const [status, setStatus] = useState<'validating' | 'granted' | 'denied'>(() =>
+    readCachedGrant(cacheKeyFor(sessionId, archKey)) ? 'granted' : 'validating'
+  );
   const storedName = useSyncExternalStore(
     () => () => {},
     () => localStorage.getItem('yhe_name') || '',
@@ -21,29 +35,54 @@ function PlaybookContent() {
   );
 
   useEffect(() => {
-    void (async () => {
-      // Basic client-side format check first
+    let cancelled = false;
+    const cacheKey = cacheKeyFor(sessionId, archKey);
+
+    async function validate() {
       if (!sessionId || !STRIPE_SESSION_PATTERN.test(sessionId)) {
-        router.replace('/access-denied');
+        if (!readCachedGrant(cacheKey)) router.replace('/access-denied');
         return;
       }
 
       try {
-        // Call our validation endpoint
-        const res = await fetch(
-          `/api/validate-session?session_id=${encodeURIComponent(sessionId)}&arch=${archKey}`
-        );
+        const qs = new URLSearchParams({ session_id: sessionId, arch: archKey });
+        const res = await fetch(`/api/validate-session?${qs.toString()}`, { cache: 'no-store' });
+        if (cancelled) return;
+
         if (res.ok) {
+          try { sessionStorage.setItem(cacheKey, '1'); } catch {}
           setStatus('granted');
-        } else {
+        } else if (!readCachedGrant(cacheKey)) {
+          try { sessionStorage.removeItem(cacheKey); } catch {}
           router.replace('/access-denied');
         }
       } catch {
-        // If validation API fails, do client-side check as fallback
-        // (Edge validation happens server-side via middleware)
+        if (cancelled) return;
         setStatus('granted');
       }
-    })();
+    }
+
+    void validate();
+
+    function onPageShow(e: PageTransitionEvent) {
+      if (e.persisted) {
+        if (readCachedGrant(cacheKey)) setStatus('granted');
+        void validate();
+      }
+    }
+    function onVisible() {
+      if (document.visibilityState === 'visible') {
+        if (readCachedGrant(cacheKey)) setStatus('granted');
+      }
+    }
+    window.addEventListener('pageshow', onPageShow);
+    document.addEventListener('visibilitychange', onVisible);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener('pageshow', onPageShow);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, [archKey, router, sessionId]);
 
   if (status === 'validating') {
