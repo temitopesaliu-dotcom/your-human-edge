@@ -657,7 +657,7 @@ export default function ResultPage({
 							}}>
 							Your free results show you <em>who</em> you are. The Playbook
 							shows you exactly <em>what to do</em> — every AI career path,
-							income strategy, tool stack, and 30-day action plan built for The{" "}
+							income strategy, tool stack, and 90-day action plan built for The{" "}
 							{arch.name}.
 						</p>
 						<div
@@ -670,7 +670,7 @@ export default function ResultPage({
 							}}>
 							{[
 								"Deep-dive into your archetype's skills, tools and income strategies",
-								"Your 90-Day AI Activation Blueprint — week-by-week, no guesswork",
+								"Your 30-Day AI Activation Blueprint — week-by-week, no guesswork",
 								"Archetype-specific tool stack — the exact AI tools that fit how you work",
 								"The psychology behind AI resistance — and how to move past yours",
 								"Income pathways: coaching, community, courses, and consulting",

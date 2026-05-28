@@ -59,16 +59,49 @@ function PlaybookContent() {
 
   if (!arch) return null;
 
+  const downloadHref = `/api/download-pdf?session_id=${encodeURIComponent(sessionId)}&arch=${arch.key}`;
+
   return (
-    <div
-      dangerouslySetInnerHTML={{
-        __html: buildPlaybookPageMarkup({
-          archetype: arch,
-          sessionId,
-          storedName,
-        }),
-      }}
-    />
+    <>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: buildPlaybookPageMarkup({
+            archetype: arch,
+            sessionId,
+            storedName,
+          }),
+        }}
+      />
+      <a
+        href={downloadHref}
+        download
+        style={{
+          position: 'fixed',
+          bottom: 'calc(24px + env(safe-area-inset-bottom))',
+          right: 24,
+          zIndex: 60,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          background: '#1a1040',
+          color: '#fff',
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: 13,
+          fontWeight: 600,
+          padding: '12px 20px',
+          borderRadius: 999,
+          textDecoration: 'none',
+          boxShadow: '0 8px 24px rgba(26,16,64,.28)',
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Download PDF
+      </a>
+    </>
   );
 }
 
