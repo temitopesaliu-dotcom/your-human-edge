@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { setSession } from '@/lib/kv';
-import { getPurchaseConfirmationEmail, sendEmail } from '@/lib/email-sender';
 import { addBuyerToMailerLite } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
 
@@ -65,19 +64,11 @@ export async function POST(req: NextRequest) {
         console.error('[webhook] KV write error:', e);
       }
 
-      // Add to MailerLite buyers group
+      // Add to MailerLite buyers group — a MailerLite automation
+      // triggered on "joins group" sends the purchase confirmation email
+      // using {$fields.access_link} as the dynamic playbook URL.
       if (buyerEmail) {
-        await addBuyerToMailerLite(buyerEmail, buyerName, archetype).catch(() => {});
-      }
-
-      // Send purchase confirmation email
-      if (buyerEmail) {
-        try {
-          const { subject, html } = getPurchaseConfirmationEmail(buyerName, archetype, accessLink);
-          await sendEmail(buyerEmail, subject, html);
-        } catch (e) {
-          console.error('[webhook] Confirmation email error:', e);
-        }
+        await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink).catch(() => {});
       }
     }
   }

@@ -66,7 +66,8 @@ export async function addSubscriberToMailerLite(
 export async function addBuyerToMailerLite(
   email: string,
   name: string,
-  archetype: ArchetypeKey
+  archetype: ArchetypeKey,
+  accessLink: string
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const buyersGroup = process.env.MAILERLITE_BUYERS_GROUP_ID;
@@ -86,7 +87,7 @@ export async function addBuyerToMailerLite(
       body: JSON.stringify({
         email,
         status: 'active',
-        fields: { name, ai_archetype: archetype, is_buyer: 'true' },
+        fields: { name, ai_archetype: archetype, is_buyer: 'true', access_link: accessLink },
         ...(groups.length ? { groups } : {}),
       }),
     });
