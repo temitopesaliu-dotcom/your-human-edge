@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDay1Email, sendEmail } from '@/lib/email-sender';
 import { addSubscriberToMailerLite } from '@/lib/mailer';
 import { setSequenceRecord } from '@/lib/kv';
 import { type ArchetypeKey } from '@/lib/archetypes';
@@ -18,10 +17,12 @@ export async function POST(req: NextRequest) {
     }
     if (!VALID_ARCHETYPES.includes(archetype)) archetype = 'H';
 
-    // 1. Add to MailerLite — segmented by archetype (KPI #4)
+    // 1. Add to MailerLite — segmented by archetype.
+    // A MailerLite automation triggered on "joins group AI Archetype Quiz Takers"
+    // sends the welcome email using {$ai_archetype} and {$name} for personalization.
     await addSubscriberToMailerLite(email, name, archetype).catch(() => {});
 
-    // 2. Write sequence tracking record to KV
+    // 2. Write sequence tracking record to KV (used by the Days 2–5 drip cron)
     try {
       await setSequenceRecord(email, {
         email,
@@ -34,15 +35,6 @@ export async function POST(req: NextRequest) {
       });
     } catch (e) {
       console.error('[subscribe] KV write error (non-fatal):', e);
-    }
-
-    // 3. Send Day 1 email immediately
-    try {
-      const { subject, html } = getDay1Email(name, archetype);
-      const result = await sendEmail(email, subject, html);
-      if (!result.success) console.error('[subscribe] Day 1 email failed:', result.error);
-    } catch (e) {
-      console.error('[subscribe] Day 1 email error:', e);
     }
 
     return NextResponse.json({ success: true });
