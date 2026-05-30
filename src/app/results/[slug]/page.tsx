@@ -731,7 +731,7 @@ export default function ResultPage({
 								margin: "6px 0 26px",
 								letterSpacing: ".03em",
 							}}>
-							🔥 Launch Price — Valid for the first 30 days
+							🔥 Launch Price — Valid for the first 10 subscribers
 						</div>
 						<br />
 						<button
