@@ -76,8 +76,18 @@ export async function addBuyerToMailerLite(
   const groups: string[] = [];
   if (buyersGroup) groups.push(buyersGroup);
 
+  // Map archetype to PDF download link
+  const pdfLinks: Record<ArchetypeKey, string> = {
+      H: 'https://drive.google.com/uc?export=download&id=1E1gatayEMJ8Pv348d0A9S6yt5c4DpQJM',
+    C: 'https://drive.google.com/uc?export=download&id=15yRvqLocJlXKF9AhlTOX16lqKdCKeV-U',
+    S: 'https://drive.google.com/uc?export=download&id=1qMEuPh88pc1oI9QOGqx7b5lh7q0dfMuT',
+    G: 'https://drive.google.com/uc?export=download&id=1w_bArlRwEaJwOKvQk4mWXineOHx7XJyM',
+  };
+
+  const pdfDownloadLink = pdfLinks[archetype];
+
   try {
-    await fetch('https://connect.mailerlite.com/api/subscribers', {
+    const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -86,12 +96,26 @@ export async function addBuyerToMailerLite(
       },
       body: JSON.stringify({
         email,
+        name,                               // ✅ Now at root level for {$name}
         status: 'active',
-        fields: { name, ai_archetype: archetype, is_buyer: 'true', access_link: accessLink },
+        fields: {
+          ai_archetype: archetype,          // Matches {$ai_archetype}
+          is_buyer: 'true',                 // Matches {$is_buyer}
+          access_link: accessLink,          // Matches {$access_link}
+          pdf_download_link: pdfDownloadLink // Matches {$pdf_download_link}
+        },
         ...(groups.length ? { groups } : {}),
       }),
     });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.warn(`[mailer] MailerLite API error (${response.status}): ${errorBody}`);
+    }
   } catch (err: unknown) {
-    console.warn('[mailer] Buyer MailerLite update failed (non-fatal):', err instanceof Error ? err.message : String(err));
+    console.warn(
+      '[mailer] Network error adding buyer:',
+      err instanceof Error ? err.message : String(err)
+    );
   }
 }
