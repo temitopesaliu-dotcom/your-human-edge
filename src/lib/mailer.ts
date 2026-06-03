@@ -1,4 +1,4 @@
-import { type ArchetypeKey } from './archetypes';
+import { type ArchetypeKey, ARCHETYPES } from './archetypes';
 
 // Per-archetype MailerLite group IDs (set in Vercel env vars)
 // KPI #4: every archetype gets its own group + the all-subscribers group
@@ -46,15 +46,14 @@ export async function addSubscriberToMailerLite(
       },
       body: JSON.stringify({
         email,
-        status: 'active',
-        fields: { name, ai_archetype: archetype },
-        ...(groups.length ? { groups } : {}),
+        fields: { name, ai_archetype: ARCHETYPES[archetype].name },
+        groups,
       }),
     });
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      console.warn('[mailer] MailerLite add failed (non-fatal):', JSON.stringify(err));
+      const errText = await res.text();
+      console.error('[mailer] MailerLite add failed:', res.status, errText);
     } else {
       console.log(`[mailer] ${email} added to MailerLite groups: ${groups.join(', ')}`);
     }
@@ -73,21 +72,16 @@ export async function addBuyerToMailerLite(
   const buyersGroup = process.env.MAILERLITE_BUYERS_GROUP_ID;
   if (!apiKey) return;
 
-  const groups: string[] = [];
-  if (buyersGroup) groups.push(buyersGroup);
-
-  // Map archetype to PDF download link
   const pdfLinks: Record<ArchetypeKey, string> = {
-      H: 'https://drive.google.com/uc?export=download&id=1E1gatayEMJ8Pv348d0A9S6yt5c4DpQJM',
+    H: 'https://drive.google.com/uc?export=download&id=1E1gatayEMJ8Pv348d0A9S6yt5c4DpQJM',
     C: 'https://drive.google.com/uc?export=download&id=15yRvqLocJlXKF9AhlTOX16lqKdCKeV-U',
     S: 'https://drive.google.com/uc?export=download&id=1qMEuPh88pc1oI9QOGqx7b5lh7q0dfMuT',
     G: 'https://drive.google.com/uc?export=download&id=1w_bArlRwEaJwOKvQk4mWXineOHx7XJyM',
   };
 
-  const pdfDownloadLink = pdfLinks[archetype];
-
   try {
-    const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
+    // Update existing subscriber fields
+    const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,26 +90,40 @@ export async function addBuyerToMailerLite(
       },
       body: JSON.stringify({
         email,
-        name,                               // ✅ Now at root level for {$name}
-        status: 'active',
         fields: {
-          ai_archetype: archetype,          // Matches {$ai_archetype}
-          is_buyer: 'true',                 // Matches {$is_buyer}
-          access_link: accessLink,          // Matches {$access_link}
-          pdf_download_link: pdfDownloadLink // Matches {$pdf_download_link}
+          name,
+          ai_archetype: ARCHETYPES[archetype].name,
+          is_buyer: 'true',
+          access_link: accessLink,
+          pdf_download_link: pdfLinks[archetype],
         },
-        ...(groups.length ? { groups } : {}),
       }),
     });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.warn(`[mailer] MailerLite API error (${response.status}): ${errorBody}`);
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      console.error('[mailer] Buyer update failed:', updateRes.status, errText);
+      return;
+    }
+
+    // Add to buyers group
+    if (buyersGroup) {
+      const groupRes = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+      });
+
+      if (!groupRes.ok) {
+        const errText = await groupRes.text();
+        console.error('[mailer] Add to buyers group failed:', groupRes.status, errText);
+      } else {
+        console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
+      }
     }
   } catch (err: unknown) {
-    console.warn(
-      '[mailer] Network error adding buyer:',
-      err instanceof Error ? err.message : String(err)
-    );
+    console.error('[mailer] Buyer MailerLite error:', err instanceof Error ? err.message : String(err));
   }
 }

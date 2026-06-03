@@ -69,10 +69,10 @@ export default function ComingSoonPage() {
 
     setSubmitting(true);
     try {
-      const res = await fetch('/api/subscribe', {
+      const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, archetype: 'H' }),
+        body: JSON.stringify({ name, email }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
