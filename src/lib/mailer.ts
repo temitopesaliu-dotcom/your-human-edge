@@ -73,10 +73,10 @@ export async function addBuyerToMailerLite(
   if (!apiKey) return;
 
   const pdfLinks: Record<ArchetypeKey, string> = {
-    H: 'https://drive.google.com/uc?export=download&id=1E1gatayEMJ8Pv348d0A9S6yt5c4DpQJM',
-    C: 'https://drive.google.com/uc?export=download&id=15yRvqLocJlXKF9AhlTOX16lqKdCKeV-U',
-    S: 'https://drive.google.com/uc?export=download&id=1qMEuPh88pc1oI9QOGqx7b5lh7q0dfMuT',
-    G: 'https://drive.google.com/uc?export=download&id=1w_bArlRwEaJwOKvQk4mWXineOHx7XJyM',
+    H: 'https://drive.google.com/uc?export=download&id=1ZH76fQRErkTMCVvKvSAMWbfA3dcm1QdZ',
+    C: 'https://drive.google.com/uc?export=download&id=11NKF_8829SdfBD1SBqnOWHL8IAClNuDn',
+    S: 'https://drive.google.com/uc?export=download&id=1Vxyv0xxIOElHIZC6YONBefeL8PT5CH2R',
+    G: 'https://drive.google.com/uc?export=download&id=1pRzI9F3mask-Ot4g7S0HZOtA5ST1pi3G',
   };
 
   try {
