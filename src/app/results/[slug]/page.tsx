@@ -774,75 +774,6 @@ export default function ResultPage({
 							Instant access · Secure checkout · 100% satisfaction guaranteed
 						</div>
 					</div>
-
-					{/* COMMUNITY */}
-					<div
-						style={{
-							background: arch.color,
-							borderRadius: "12px",
-							padding: "22px 28px",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "space-between",
-							flexWrap: "wrap",
-							gap: "14px",
-							marginTop: "20px",
-						}}>
-						<div>
-							<div
-								style={{
-									fontSize: ".7rem",
-									letterSpacing: ".16em",
-									textTransform: "uppercase",
-									color: "rgba(255,255,255,.6)",
-									fontWeight: 500,
-									marginBottom: "5px",
-								}}>
-								Coming soon
-							</div>
-							<div
-								style={{
-									fontFamily: "'Cormorant Garamond', serif",
-									fontSize: "1.2rem",
-									color: "#fff",
-									fontWeight: 500,
-								}}>
-								Join the live community — sessions, tools, and your {arch.name}{" "}
-								peer group.
-							</div>
-						</div>
-						<Link
-							href="/coming-soon"
-							onClick={() => track("community_click", { archetype: arch.key })}
-							style={{
-								display: "inline-flex",
-								alignItems: "center",
-								gap: "7px",
-								background: "#fff",
-								color: arch.color,
-								fontFamily: "'DM Sans', sans-serif",
-								fontSize: ".88rem",
-								fontWeight: 600,
-								padding: "11px 22px",
-								borderRadius: "40px",
-								textDecoration: "none",
-								whiteSpace: "nowrap",
-							}}>
-							Join Community →
-						</Link>
-					</div>
-
-					<div className="mobile-quick-actions" aria-label="Quick actions">
-						<Link className="mobile-quick-actions__secondary" href="/paths">
-							Explore Paths
-						</Link>
-						<button
-							className="mobile-quick-actions__primary"
-							onClick={handleBuy}
-							disabled={buying}>
-							{buying ? "Opening..." : "Buy Playbook"}
-						</button>
-					</div>
 				</div>
 			</div>
 
@@ -862,7 +793,7 @@ export default function ResultPage({
 					</li>
 				</ul>
 				<div style={{ fontSize: ".7rem", opacity: 0.25 }}>
-					© 2025 {SITE_DISPLAY}
+					© 2026 {SITE_DISPLAY}
 				</div>
 			</footer>
 		</div>

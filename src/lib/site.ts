@@ -6,4 +6,4 @@ function readSiteUrl(): string {
 }
 
 export const SITE_URL = readSiteUrl();
-export const SITE_DISPLAY = SITE_URL.replace(/^https?:\/\//, '');
+export const SITE_DISPLAY = 'Your Human Edge';

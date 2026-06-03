@@ -457,47 +457,6 @@ footer strong { color: rgba(255,255,255,.8); font-family: 'Cormorant Garamond', 
     padding-bottom: 0;
   }
 
-  .mobile-quick-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    position: static;
-    z-index: 1;
-    margin: 22px 12px 14px;
-    padding: 10px;
-    border-radius: 22px;
-    background: rgba(26, 16, 64, 0.96);
-    border: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 18px 44px rgba(26,16,64,.22);
-    backdrop-filter: blur(18px);
-  }
-
-  .mobile-quick-actions a,
-  .mobile-quick-actions button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 48px;
-    padding: 0 14px;
-    border-radius: 14px;
-    text-decoration: none;
-    border: none;
-    font-size: .82rem;
-    font-weight: 600;
-  }
-
-  .mobile-quick-actions__primary {
-    background: var(--coral);
-    color: #fff;
-  }
-
-  .mobile-quick-actions__secondary {
-    background: rgba(255,255,255,.08);
-    color: rgba(255,255,255,.92);
-    border: 1px solid rgba(255,255,255,.08);
-  }
-
   .simple-page > nav {
     padding: 10px 14px !important;
     flex-wrap: wrap;
