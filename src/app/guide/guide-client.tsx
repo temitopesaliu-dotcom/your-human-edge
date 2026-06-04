@@ -98,7 +98,7 @@ export default function GuideClient() {
           <div style={{ background: 'var(--ink)', borderRadius: '18px', padding: '36px 32px', color: '#fff', boxShadow: '0 12px 48px rgba(26,16,64,.15)' }}>
             <div style={{ fontSize: '.68rem', letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '8px' }}>One-time purchase</div>
             <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '3rem', fontWeight: 600, color: 'var(--gold)', lineHeight: 1, marginBottom: '4px' }}>$19.99</div>
-            <div style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.4)', marginBottom: '24px' }}>Instant access · Yours forever</div>
+
 
             <form onSubmit={handleCheckout} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
