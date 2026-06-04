@@ -1,6 +1,6 @@
 # Your Human Edge — Next.js on Vercel
 
-Full-stack AI archetype quiz funnel. Rebuilt from Netlify static + serverless functions into a production-ready Next.js 14 App Router project.
+Full-stack AI archetype quiz funnel. Next.js App Router on Vercel with Stripe, MailerLite, and Vercel KV.
 
 ## KPI Status
 
@@ -8,110 +8,114 @@ Full-stack AI archetype quiz funnel. Rebuilt from Netlify static + serverless fu
 |---|---|---|
 | 1 | URL changes per page for analytics | ✅ `/`, `/gate`, `/results/[slug]`, `/playbook` |
 | 2 | Concise result + paywalled CTA | ✅ Free profile + $5.99 paywall block |
-| 3 | 4 Stripe flows → correct playbook | ✅ arch key carried through checkout + success URL |
+| 3 | 4 Stripe flows → correct playbook | ✅ archetype from Stripe session (not URL) |
 | 4 | Emails in All + per-archetype MailerLite groups | ✅ MAILERLITE_GROUP_ALL + H/C/S/G per signup |
-| 5 | 5-day drip for non-buyers | ✅ Day 1 immediate, Days 2–5 via Vercel Cron |
+| 5 | Email sequences (quiz + buyers) | ✅ MailerLite automations (see below) |
 | 6 | Analytics | ✅ Custom events → Vercel KV |
-| 7 | 50 AI Career Paths page | ✅ /paths — all 50 paths, income ranges |
+| 7 | 50 AI Career Paths page | ✅ /paths — all 50 paths public |
 | 8 | Community links → coming-soon | ✅ /coming-soon |
+
+## Email: MailerLite only (no app cron)
+
+All drip and post-purchase emails run in **MailerLite automations**. The app only adds subscribers to groups via API.
+
+### Quiz takers (non-buyers) — Days 1–5 sales sequence
+
+1. **Trigger:** Subscriber joins `MAILERLITE_GROUP_ALL` (and archetype group) via `/api/subscribe`.
+2. **Automation:** “Quiz drip” — triggered on *joins group* → All (or a dedicated drip group).
+3. **Emails:** Day 1 immediately, Days 2–5 with ~24h delays. Use fields `{$name}`, `{$ai_archetype}`, CTA to quiz/checkout.
+4. **On purchase:** Stripe webhook adds subscriber to **buyers group** and sets `is_buyer`, `access_link`. In MailerLite, add automation rule: *if joins buyers group → exit quiz drip* (or use separate triggers so buyers never enter the sales sequence).
+
+### Paths guide ($19.99) — email delivery
+
+1. **Trigger:** `/api/stripe-webhook` → `addPathsGuideBuyerToMailerLite()` → `MAILERLITE_PATHS_GUIDE_GROUP_ID`.
+2. **Automation:** Fires on *joins paths guide group* — send the full step-by-step guide (PDF or email body) immediately.
+3. **Post-checkout UX:** User lands on `/guide/success` — confirmation only; content is not on the site.
+
+### Buyers — purchase + ongoing daily emails
+
+1. **Trigger:** `/api/stripe-webhook` → `addBuyerToMailerLite()` → buyers group + fields `access_link`, `pdf_download_link`.
+2. **Automation A:** Purchase confirmation (immediate) using `{$fields.access_link}`.
+3. **Automation B:** Post-purchase daily sequence (your choice of length) — triggered on *joins buyers group*. This replaces the old Resend cron; buyers **keep** receiving emails after purchase.
+
+### Community waitlist
+
+- `/api/waitlist` → `MAILERLITE_WAITLIST_GROUP_ID` (optional env).
+
+### Env vars (email-related)
+
+- `MAILERLITE_API_KEY`
+- `MAILERLITE_GROUP_ALL`, `MAILERLITE_GROUP_H`, `C`, `S`, `G`
+- `MAILERLITE_BUYERS_GROUP_ID` (archetype playbook buyers)
+- `MAILERLITE_PATHS_GUIDE_GROUP_ID` ($19.99 guide — automation emails the PDF/guide)
+- `MAILERLITE_WAITLIST_GROUP_ID` (optional)
+
+Resend is **not** required unless you add it back for transactional mail outside MailerLite.
 
 ## Deploy Steps
 
-### 1. Push to GitHub
-```bash
-git init && git add . && git commit -m "initial commit"
-gh repo create your-human-edge --private --push
-```
+### 1–3. GitHub, Vercel import, KV store
 
-### 2. Import to Vercel
-Go to vercel.com/new → import the repo. Do NOT deploy yet.
+Same as before — connect Vercel KV to the project.
 
-### 3. Create Vercel KV Store
-Vercel Dashboard → Storage → Create Database → KV → Connect to Project.
-This auto-populates KV_URL, KV_REST_API_URL, KV_REST_API_TOKEN.
-
-### 4. Set Environment Variables
-Add everything from .env.example to Project Settings → Environment Variables.
+### 4. Environment variables
 
 Required minimum:
-- STRIPE_SECRET_KEY
-- STRIPE_WEBHOOK_SECRET
-- RESEND_API_KEY + EMAIL_FROM
-- MAILERLITE_API_KEY + MAILERLITE_GROUP_ALL + MAILERLITE_GROUP_H/C/S/G
-- NEXT_PUBLIC_SITE_URL=https://temitopesaliu.com
-- CRON_SECRET (generate: openssl rand -base64 32)
 
-### 5. Deploy
-```bash
-vercel --prod
-```
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_ID` (archetype playbook)
+- `STRIPE_PATHS_GUIDE_PRICE_ID` ($19.99 step-by-step guide from `/paths`)
+- `MAILERLITE_API_KEY` + group IDs above
+- `NEXT_PUBLIC_SITE_URL` (e.g. `https://temitopesaliu.com`)
+- KV vars (auto from Vercel Storage)
 
-### 6. Register Stripe Webhook
-Stripe Dashboard → Webhooks → Add endpoint:
-  URL: https://temitopesaliu.com/api/stripe-webhook
-  Event: checkout.session.completed
-Copy Signing Secret → STRIPE_WEBHOOK_SECRET in Vercel env vars.
+### 5–8. Deploy, Stripe webhook, MailerLite groups
 
-### 7. Verify Resend Domain
-resend.com → Domains → Add temitopesaliu.com → add DNS records.
+Stripe webhook URL: `https://your-domain.com/api/stripe-webhook`  
+Event: `checkout.session.completed`
 
-### 8. Create MailerLite Groups
-Create 5 groups: YHE All, YHE Human Bridge, YHE Creative Amplifier, YHE Systems Architect, YHE Growth Catalyst.
-Copy each Group ID into the corresponding env var.
+Create MailerLite groups and automations as described in **Email: MailerLite only**.
 
 ## Post-Deploy Checklist
+
 - [ ] Stripe test purchase end-to-end
-- [ ] Day 1 email arrives within 60 seconds
-- [ ] Access link in email opens /playbook correctly
-- [ ] /playbook without session_id → /access-denied
-- [ ] /paths loads all 50 paths
-- [ ] /coming-soon loads
-- [ ] Cron job visible in Vercel dashboard
+- [ ] MailerLite Day 1 fires on quiz signup
+- [ ] MailerLite purchase email + buyer daily sequence fire on purchase
+- [ ] Access link opens `/playbook?session_id=...` (sets cookie for return visits)
+- [ ] `/playbook` without valid session → `/access-denied`
+- [ ] `/paths` loads all 50 paths (public)
+- [ ] Quiz drip stops (or switches) when buyer joins buyers group in MailerLite
 
 ## Local Development
+
 ```bash
 npm install
-cp .env.example .env.local   # fill in test values
 npx vercel link && npx vercel env pull
 npm run dev
 ```
 
-For local testing, keep these values pointed at localhost:
-- `NEXT_PUBLIC_SITE_URL=http://localhost:3000`
-- Stripe test keys, not live keys
-
-If you want the full purchase flow to work locally, your `.env.local` must also have:
-- `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `RESEND_API_KEY`
-- `MAILERLITE_API_KEY`
-- KV variables from Vercel or a local KV-compatible store
-
-The repo now includes a starter [`.env.local`](/Users/Ayodele's%20Mac/Downloads/yhe-nextjs/.env.local#L1) with localhost defaults and placeholder values so you can paste in your test credentials directly.
+Use `NEXT_PUBLIC_SITE_URL=http://localhost:3000` and Stripe test keys.
 
 ## Structure
-src/app/
-  page.tsx                     Quiz (/)
-  gate/page.tsx                Email capture (/gate)
-  results/[slug]/page.tsx      Archetype result pages
-  playbook/page.tsx            Gated playbook
-  paths/page.tsx               50 AI Paths
-  coming-soon/page.tsx         Community placeholder
-  access-denied/page.tsx       Playbook bounce page
-  api/subscribe/               Email capture + Day 1 email
-  api/create-checkout/         Stripe checkout session
-  api/stripe-webhook/          Post-payment: KV + email + MailerLite
-  api/validate-session/        Playbook access guard
-  api/track/                   Analytics events
-  api/download-pdf/            PDF generation
-  api/cron/send-sequence/      Daily drip (Vercel Cron)
-src/lib/
-  archetypes.ts                All archetype data + quiz questions
-  email-sender.ts              6 email templates + Resend send()
-  kv.ts                        Vercel KV data layer
-  mailer.ts                    MailerLite per-archetype segmentation
 
-## Notes
-- Price: all email templates updated to $5.99 (from original $9.99)
-- PDF download: run `npm install @sparticuz/chromium puppeteer-core`
-- KV scan: capped at 50/run; add pagination at >200 active subscribers
+```
+src/app/
+  quiz/, gate/, results/[slug]/   Funnel pages (server metadata + client UI)
+  playbook/page.tsx              Server-gated playbook (no client bundle leak)
+  paths/page.tsx                 50 AI paths (public)
+  guide/page.tsx                 $19.99 paths guide checkout
+  guide/success/page.tsx         Post-purchase confirmation (guide sent by email)
+  api/subscribe/                 MailerLite quiz signup
+  api/create-checkout/           Stripe checkout (rate-limited)
+  api/stripe-webhook/            KV session + MailerLite buyer
+  api/validate-session/          Access check + cookie
+  api/track/                     Analytics
+src/lib/
+  playbook-access.ts             Shared Stripe/KV access validation
+  archetypes.ts, playbook-document.ts, kv.ts, mailer.ts
+```
+
+## Access model
+
+- Playbook content is rendered **on the server** after validating the Stripe session.
+- Paid archetype comes from **Stripe metadata**, not the `arch` query param.
+- `yhe_access` HttpOnly cookie (90 days) avoids relying on IP or `session_id` in every URL.

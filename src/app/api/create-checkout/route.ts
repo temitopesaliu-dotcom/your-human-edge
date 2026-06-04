@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
+import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { normalizeProduct, type ProductType } from '@/lib/products';
 
-function getStripe() {
+const stripe = (() => {
   const apiKey = process.env.STRIPE_SECRET_KEY;
-  if (!apiKey) {
-    throw new Error('STRIPE_SECRET_KEY is not set. Add it to .env.local or Vercel environment variables.');
-  }
-
+  if (!apiKey) throw new Error('STRIPE_SECRET_KEY is not set. Add it to .env.local or Vercel environment variables.');
   return new Stripe(apiKey);
-}
+})();
 
 function resolveSiteUrl(req: NextRequest): string {
   const origin = req.headers.get('origin');
@@ -28,7 +27,6 @@ function resolveSiteUrl(req: NextRequest): string {
   return 'https://temitopesaliu.vercel.app';
 }
 
-// Map full archetype names back to keys (KPI #3 fix)
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',
   'Human Bridge': 'H',
@@ -41,30 +39,57 @@ const NAME_TO_KEY: Record<string, ArchetypeKey> = {
 };
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!(await rateLimit(ip, 10, 60))) {
+    return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+  }
+
   try {
     const body = await req.json();
     const email = (body.email || '').trim();
-    const archetypeRaw = (body.archetype || 'H').trim();
+    const product = normalizeProduct(body.product);
+    const siteUrl = resolveSiteUrl(req);
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'A valid email is required.' }, { status: 400 });
     }
 
-    // Normalise archetype — accepts key (H/C/S/G) or full name
+    if (product === 'paths-guide') {
+      const priceId = process.env.STRIPE_PATHS_GUIDE_PRICE_ID;
+      if (!priceId) {
+        return NextResponse.json(
+          { error: 'STRIPE_PATHS_GUIDE_PRICE_ID is not set.' },
+          { status: 500 }
+        );
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'payment',
+        customer_email: email,
+        metadata: {
+          product: 'paths-guide',
+          source: 'paths-page',
+        },
+        line_items: [{ price: priceId, quantity: 1 }],
+        success_url: `${siteUrl}/guide/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${siteUrl}/guide`,
+        allow_promotion_codes: true,
+      });
+
+      return NextResponse.json({ url: session.url });
+    }
+
+    // Default: archetype playbook ($5.99 quiz funnel)
+    const archetypeRaw = (body.archetype || 'H').trim();
     const normalized = (NAME_TO_KEY[archetypeRaw] || archetypeRaw.toUpperCase()) as string;
     const archetypeKey: ArchetypeKey = ['H', 'C', 'S', 'G'].includes(normalized)
       ? (normalized as ArchetypeKey)
       : 'H';
 
-    const siteUrl = resolveSiteUrl(req);
-    const stripe = getStripe();
-
     const priceId = process.env.STRIPE_PRICE_ID;
     if (!priceId) {
-      return NextResponse.json(
-        { error: 'STRIPE_PRICE_ID is not set.' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'STRIPE_PRICE_ID is not set.' }, { status: 500 });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -72,16 +97,11 @@ export async function POST(req: NextRequest) {
       mode: 'payment',
       customer_email: email,
       metadata: {
-        archetype: archetypeKey,   // always store SHORT key (H/C/S/G)
+        product: 'playbook',
+        archetype: archetypeKey,
         source: 'quiz-funnel',
       },
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      // KPI #3: success_url carries short archetype key for correct playbook routing
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${siteUrl}/playbook?session_id={CHECKOUT_SESSION_ID}&arch=${archetypeKey}`,
       cancel_url: `${siteUrl}/results/${ARCHETYPE_SLUGS[archetypeKey] || 'human-bridge'}#upgrade`,
       allow_promotion_codes: true,

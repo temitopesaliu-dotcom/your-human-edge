@@ -20,7 +20,7 @@ export default function AccessDeniedPage() {
             Access <em style={{ color: '#e57373' }}>Denied</em>
           </h1>
           <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.55)', lineHeight: 1.8, marginBottom: '14px' }}>
-            This playbook is only accessible with a valid purchase link. Your link may be invalid, expired, or has been used from a different device.
+            This playbook is only accessible with a valid purchase link from your confirmation email. Your link may be invalid or the payment may not have completed yet.
           </p>
           <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.35)', lineHeight: 1.75, marginBottom: '36px' }}>
             If you purchased and are seeing this in error, check your confirmation email for your personal access link. Still stuck? Reply to your confirmation email.

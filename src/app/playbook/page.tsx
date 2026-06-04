@@ -1,81 +1,68 @@
-'use client';
-import { Suspense, useEffect, useSyncExternalStore } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getArchetypeByKey } from '@/lib/archetypes';
 import { buildPlaybookPageMarkup } from '@/lib/playbook-document';
+import { validatePlaybookAccess } from '@/lib/playbook-access';
+import {
+  accessCookieForProduct,
+  isValidSessionId,
+  PURCHASE_COOKIE_MAX_AGE,
+} from '@/lib/products';
 
-const STRIPE_SESSION_PATTERN = /^cs_(live|test)_[A-Za-z0-9]{40,}$/;
+export const metadata: Metadata = {
+  title: 'Your AI Career Playbook | Your Human Edge',
+  description:
+    'Access your personalized AI career playbook with archetype-specific strategies, income pathways, and 90-day action plan.',
+  robots: 'noindex, nofollow',
+};
 
-const noopSubscribe = () => () => {};
-const getServerEmpty = () => '';
+type PageProps = {
+  searchParams: Promise<{ session_id?: string; arch?: string }>;
+};
 
-function PlaybookContent() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const sessionId = params.get('session_id') || '';
-  const archKey = (params.get('arch') || 'H').toUpperCase();
-  const arch = getArchetypeByKey(archKey);
-  const sessionLooksValid = STRIPE_SESSION_PATTERN.test(sessionId);
+export default async function PlaybookPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const cookieStore = await cookies();
+  const playbookCookie = accessCookieForProduct('playbook');
+  const sessionId =
+    (params.session_id && isValidSessionId(params.session_id)
+      ? params.session_id
+      : '') || cookieStore.get(playbookCookie)?.value || '';
 
-  const storedName = useSyncExternalStore(
-    noopSubscribe,
-    () => localStorage.getItem('yhe_name') || '',
-    getServerEmpty
-  );
+  if (!sessionId || !isValidSessionId(sessionId)) {
+    redirect('/access-denied');
+  }
 
-  useEffect(() => {
-    if (!sessionLooksValid) {
-      router.replace('/access-denied');
-      return;
-    }
+  const access = await validatePlaybookAccess(sessionId);
+  if (!access.ok) {
+    redirect('/access-denied');
+  }
 
-    let cancelled = false;
+  const arch = getArchetypeByKey(access.archetype);
+  if (!arch) {
+    redirect('/access-denied');
+  }
 
-    async function validate() {
-      try {
-        const qs = new URLSearchParams({ session_id: sessionId, arch: archKey });
-        const res = await fetch(`/api/validate-session?${qs.toString()}`, { cache: 'no-store' });
-        if (cancelled) return;
-        if (res.status === 403) router.replace('/access-denied');
-      } catch {
-        // Network error — leave the page as-is.
-      }
-    }
+  cookieStore.set(playbookCookie, sessionId, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: PURCHASE_COOKIE_MAX_AGE,
+    path: '/',
+  });
 
-    void validate();
-
-    function onPageShow(e: PageTransitionEvent) {
-      if (e.persisted) void validate();
-    }
-    window.addEventListener('pageshow', onPageShow);
-
-    return () => {
-      cancelled = true;
-      window.removeEventListener('pageshow', onPageShow);
-    };
-  }, [archKey, router, sessionId, sessionLooksValid]);
-
-  if (!arch || !sessionLooksValid) return null;
+  const html = buildPlaybookPageMarkup({
+    archetype: arch,
+    storedName: access.name,
+  });
 
   return (
     <div
-      dangerouslySetInnerHTML={{
-        __html: buildPlaybookPageMarkup({
-          archetype: arch,
-          sessionId,
-          storedName,
-        }),
-      }}
+      className="playbook-page"
+      role="main"
+      aria-label="AI Career Playbook"
+      dangerouslySetInnerHTML={{ __html: html }}
     />
-  );
-}
-
-export default function PlaybookPage() {
-  return (
-    <div className="playbook-page">
-      <Suspense fallback={<div style={{ minHeight: '100vh', background: 'var(--ink)' }} />}>
-        <PlaybookContent />
-      </Suspense>
-    </div>
   );
 }

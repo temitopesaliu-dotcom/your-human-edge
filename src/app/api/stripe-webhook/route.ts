@@ -1,31 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { setSession } from '@/lib/kv';
-import { addBuyerToMailerLite } from '@/lib/mailer';
+import { getSession, setSession } from '@/lib/kv';
+import { addBuyerToMailerLite, addPathsGuideBuyerToMailerLite } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
+import { normalizeProduct } from '@/lib/products';
 
-function getStripe() {
+const stripe = (() => {
   const apiKey = process.env.STRIPE_SECRET_KEY;
-  if (!apiKey) {
-    throw new Error('STRIPE_SECRET_KEY is not set.');
-  }
-
+  if (!apiKey) throw new Error('STRIPE_SECRET_KEY is not set.');
   return new Stripe(apiKey);
-}
+})();
 
 export async function POST(req: NextRequest) {
   const signature = req.headers.get('stripe-signature');
   if (!signature) return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
 
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    console.error('[webhook] STRIPE_WEBHOOK_SECRET is not set.');
+    return NextResponse.json({ error: 'Webhook not configured' }, { status: 500 });
+  }
+
   let stripeEvent: Stripe.Event;
   try {
     const rawBody = await req.text();
-    const stripe = getStripe();
-    stripeEvent = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    stripeEvent = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('[webhook] Signature failed:', message);
@@ -36,16 +35,17 @@ export async function POST(req: NextRequest) {
     const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
     if (session.payment_status === 'paid') {
+      const product = normalizeProduct(session.metadata?.product);
       const archetype = (session.metadata?.archetype || 'H') as ArchetypeKey;
       const buyerEmail = session.customer_email || session.customer_details?.email || '';
       const buyerName = session.customer_details?.name || '';
       const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
       const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl) ? envUrl : 'https://temitopesaliu.vercel.app';
+
       const accessLink = `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
-      // Write validated session to KV
       try {
-        const existing = await import('@/lib/kv').then(m => m.getSession(session.id));
+        const existing = await getSession(session.id);
         if (!existing) {
           await setSession(session.id, {
             createdAt: Date.now(),
@@ -56,6 +56,7 @@ export async function POST(req: NextRequest) {
             email: buyerEmail,
             name: buyerName,
             archetype,
+            product,
             paid: true,
             webhookSource: true,
           });
@@ -64,11 +65,12 @@ export async function POST(req: NextRequest) {
         console.error('[webhook] KV write error:', e);
       }
 
-      // Add to MailerLite buyers group — a MailerLite automation
-      // triggered on "joins group" sends the purchase confirmation email
-      // using {$fields.access_link} as the dynamic playbook URL.
-      if (buyerEmail) {
+      if (buyerEmail && product === 'playbook') {
         await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink).catch(() => {});
+      }
+
+      if (buyerEmail && product === 'paths-guide') {
+        await addPathsGuideBuyerToMailerLite(buyerEmail, buyerName).catch(() => {});
       }
     }
   }

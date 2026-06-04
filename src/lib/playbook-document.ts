@@ -3,7 +3,6 @@ import { SITE_DISPLAY } from '@/lib/site';
 
 type PlaybookRenderOptions = {
   archetype: Archetype;
-  sessionId: string;
   storedName?: string;
 };
 
@@ -549,22 +548,8 @@ function renderPlaybookBody(d: PlaybookData): string {
   `;
 }
 
+
 export function buildPlaybookPageMarkup({ archetype }: PlaybookRenderOptions): string {
   const data = PLAYBOOK_DATA[archetype.key];
   return `<style>${renderPlaybookStyles(data)}</style>${renderPlaybookBody(data)}`;
-}
-
-export function buildPlaybookDocumentHtml({ archetype }: PlaybookRenderOptions): string {
-  const data = PLAYBOOK_DATA[archetype.key];
-  const archName = `${data.archetypeWord.before} ${data.archetypeWord.emphasis} ${data.archetypeWord.after}`.replace(/\s+/g, ' ').trim();
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>${escapeHtml(archName)} — Your Personal AI Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>${renderPlaybookStyles(data)}</style>
-</head>
-<body>${renderPlaybookBody(data)}</body>
-</html>`;
 }
