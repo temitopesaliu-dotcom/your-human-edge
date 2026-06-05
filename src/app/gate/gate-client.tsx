@@ -4,6 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ARCHETYPES, type ArchetypeKey } from '@/lib/archetypes';
 import { SITE_DISPLAY } from '@/lib/site';
+import {
+  markLocallySubscribed,
+} from '@/lib/subscriber';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
   H: [
@@ -59,8 +62,9 @@ function GateContent() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong.');
 
-      localStorage.setItem('yhe_name', name.trim());
-      localStorage.setItem('yhe_email', email.trim().toLowerCase());
+      // Set subscriber flag so other gates (e.g. /paths) recognise them.
+      markLocallySubscribed(name.trim(), email.trim().toLowerCase());
+
       localStorage.setItem('yhe_arch', archKey);
       localStorage.setItem('yhe_arch_name', arch.name);
 
