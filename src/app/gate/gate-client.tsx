@@ -54,7 +54,7 @@ function GateContent() {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), name: name.trim(), archetype: archKey }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), name: name.trim(), archetype: archKey, source: 'quiz' }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong.');

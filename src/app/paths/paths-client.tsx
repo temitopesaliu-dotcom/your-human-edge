@@ -1,7 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { SITE_DISPLAY } from '@/lib/site';
+import {
+  isLocallySubscribed,
+  markLocallySubscribed,
+  checkRemoteSubscriber,
+} from '@/lib/subscriber';
 
 type CategoryKey = 'creative' | 'human' | 'business' | 'technical' | 'niche';
 
@@ -187,6 +192,68 @@ const STYLES = `
 export default function PathsClient() {
   const [filter, setFilter] = useState<CategoryKey | 'all'>('all');
   const [openCards, setOpenCards] = useState<Record<string, boolean>>({});
+  const [gatePhase, setGatePhase] = useState<'loading' | 'gate' | 'content'>('loading');
+  const [gateName, setGateName] = useState('');
+  const [gateEmail, setGateEmail] = useState('');
+  const [gateError, setGateError] = useState('');
+  const [gateSubmitting, setGateSubmitting] = useState(false);
+
+  // On mount, check if already subscribed (localStorage fast path).
+  useEffect(() => {
+    if (isLocallySubscribed()) {
+      setGatePhase('content');
+    } else {
+      setGatePhase('gate');
+    }
+  }, []);
+
+  async function handleGateSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setGateError('');
+
+    const name = gateName.trim();
+    const email = gateEmail.trim().toLowerCase();
+
+    if (!name || !email) {
+      setGateError('Please fill in both fields.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setGateError('Please enter a valid email address.');
+      return;
+    }
+
+    setGateSubmitting(true);
+
+    try {
+      // 1. Check if already a subscriber (prevents duplicate MailerLite calls).
+      const alreadySubscribed = await checkRemoteSubscriber(email);
+
+      // 2. Subscribe (idempotent — skips MailerLite if already in KV).
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          archetype: 'H',
+          source: 'paths',
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      // 3. Mark locally and show content.
+      markLocallySubscribed(name, email);
+      setGatePhase('content');
+    } catch (err: unknown) {
+      setGateError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      setGateSubmitting(false);
+    }
+  }
 
   function toggle(num: string) {
     setOpenCards(prev => ({ ...prev, [num]: !prev[num] }));
@@ -195,6 +262,127 @@ export default function PathsClient() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+
+      {/* ── Email gate overlay ── */}
+      {gatePhase === 'gate' && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
+          padding: '24px',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '18px',
+            border: '1px solid var(--border)',
+            padding: '44px 36px', maxWidth: '460px', width: '100%',
+            boxShadow: '0 24px 80px rgba(0,0,0,.4)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              width: 52, height: 52, borderRadius: '50%',
+              background: '#fdf0ea', color: 'var(--coral)',
+              fontSize: '1.5rem', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', margin: '0 auto 18px',
+            }} aria-hidden>📋</div>
+            <div style={{
+              fontSize: '.68rem', letterSpacing: '.16em', textTransform: 'uppercase',
+              color: 'var(--coral)', fontWeight: 600, marginBottom: '10px',
+            }}>
+              Free access
+            </div>
+            <h2 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(1.4rem,4vw,1.8rem)', fontWeight: 400,
+              lineHeight: 1.2, color: 'var(--ink)', marginBottom: '10px',
+            }}>
+              50 AI Career Paths
+            </h2>
+            <p style={{
+              fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7,
+              marginBottom: '24px',
+            }}>
+              Enter your details below to unlock the full directory — and get notified when new free resources drop.
+            </p>
+
+            <form onSubmit={handleGateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div>
+                <label style={{
+                  fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
+                  color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
+                }}>
+                  First name
+                </label>
+                <input
+                  type="text" value={gateName} onChange={e => setGateName(e.target.value)}
+                  placeholder="Your first name" required aria-label="First name"
+                  style={{
+                    width: '100%', padding: '13px 16px', borderRadius: '10px',
+                    border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '.92rem', color: 'var(--ink)', background: 'var(--warm)',
+                    outline: 'none',
+                  }}
+                  onFocus={e => e.target.style.borderColor = 'var(--coral)'}
+                  onBlur={e => e.target.style.borderColor = 'var(--border)'}
+                />
+              </div>
+              <div>
+                <label style={{
+                  fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
+                  color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
+                }}>
+                  Email address
+                </label>
+                <input
+                  type="email" value={gateEmail} onChange={e => setGateEmail(e.target.value)}
+                  placeholder="you@email.com" required aria-label="Email address"
+                  style={{
+                    width: '100%', padding: '13px 16px', borderRadius: '10px',
+                    border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '.92rem', color: 'var(--ink)', background: 'var(--warm)',
+                    outline: 'none',
+                  }}
+                  onFocus={e => e.target.style.borderColor = 'var(--coral)'}
+                  onBlur={e => e.target.style.borderColor = 'var(--border)'}
+                />
+              </div>
+              {gateError && (
+                <div style={{
+                  color: '#c0392b', fontSize: '.82rem',
+                  background: '#fdf0ea', padding: '8px 12px',
+                  borderRadius: '8px', textAlign: 'center',
+                }}>{gateError}</div>
+              )}
+              <button type="submit" disabled={gateSubmitting} aria-label="Unlock the 50 AI career paths"
+                style={{
+                  width: '100%', padding: '15px', background: 'var(--coral)', color: '#fff',
+                  border: 'none', borderRadius: '40px', cursor: gateSubmitting ? 'not-allowed' : 'pointer',
+                  fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem', fontWeight: 600,
+                  opacity: gateSubmitting ? .6 : 1, marginTop: '4px',
+                }}>
+                {gateSubmitting ? 'Just a moment…' : 'Unlock free access →'}
+              </button>
+            </form>
+            <p style={{
+              fontSize: '.7rem', color: 'var(--soft)', marginTop: '14px', opacity: .6,
+            }}>
+              No spam. Unsubscribe anytime. Same access across all free resources.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Loading state ── */}
+      {gatePhase === 'loading' && (
+        <div style={{
+          minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: '#faf8f4', color: 'var(--soft)', fontSize: '.9rem',
+        }}>
+          Loading…
+        </div>
+      )}
+
+      {/* ── Main content (visible only after gate) ── */}
+      {gatePhase === 'content' && (
       <div className="paths-root">
         <div className="paths-cover">
           <div className="paths-eye">HUMAN + AI · FREE GUIDE</div>
@@ -273,6 +461,7 @@ export default function PathsClient() {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 }

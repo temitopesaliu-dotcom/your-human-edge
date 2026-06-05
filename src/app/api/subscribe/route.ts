@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addSubscriberToMailerLite } from '@/lib/mailer';
+import { getSubscriber, setSubscriber } from '@/lib/kv';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
 
@@ -7,6 +8,9 @@ import { rateLimit, getClientIp } from '@/lib/rate-limit';
 const ALLOWED_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '');
 
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
+
+/** Sources that can trigger a subscription. */
+type SubscriberSource = 'quiz' | 'paths' | string;
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -19,6 +23,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const email = (body.email || '').trim().toLowerCase();
     const name = (body.name || '').trim();
+    const source = (body.source || 'quiz').trim() as SubscriberSource;
     let archetype = (body.archetype || 'H').trim().toUpperCase() as ArchetypeKey;
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -26,11 +31,26 @@ export async function POST(req: NextRequest) {
     }
     if (!VALID_ARCHETYPES.includes(archetype)) archetype = 'H';
 
-    // MailerLite: quiz-taker groups + automations handle Day 1 and Days 2–5 drip.
-    // Buyers: separate MailerLite buyers-group automation (post-purchase daily emails).
-    await addSubscriberToMailerLite(email, name, archetype).catch(() => {});
+    // Check if already subscribed (prevents duplicate MailerLite calls).
+    const existing = await getSubscriber(email);
 
-    return NextResponse.json({ success: true });
+    if (existing) {
+      // Already in MailerLite — just record this new source.
+      console.log(`[subscribe] ${email} already subscribed via ${existing.source}; skipping MailerLite.`);
+    } else {
+      // First time: add to MailerLite and record in KV.
+      await addSubscriberToMailerLite(email, name, archetype).catch(() => {});
+    }
+
+    // Always upsert the KV record so we track the earliest source.
+    await setSubscriber(email, {
+      email,
+      name,
+      subscribedAt: existing?.subscribedAt ?? Date.now(),
+      source: existing?.source ?? source,
+    }).catch(() => {});
+
+    return NextResponse.json({ success: true, isNew: !existing });
   } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
