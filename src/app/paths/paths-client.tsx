@@ -139,8 +139,6 @@ const STYLES = `
   .paths-cta-row{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
   .paths-btn-1{display:inline-flex;align-items:center;gap:7px;background:#c94f2a;color:#fff;font-size:11.5px;font-weight:500;padding:10px 22px;border-radius:40px;border:none;cursor:pointer;text-decoration:none;transition:all .2s}
   .paths-btn-1:hover{background:#fff;color:#1a1040}
-  .paths-btn-2{display:inline-flex;align-items:center;gap:7px;background:transparent;color:rgba(255,255,255,.8);font-size:11.5px;font-weight:500;padding:10px 22px;border-radius:40px;border:1px solid rgba(255,255,255,.3);cursor:pointer;text-decoration:none;transition:all .2s}
-  .paths-btn-2:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
   .paths-cover-logo{position:absolute;bottom:26px;right:48px;font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(255,255,255,.3);letter-spacing:.08em}
   .paths-filter-bar{background:#fff;border-bottom:1px solid #ddd8cf;padding:12px 32px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:99}
   .paths-filter-btn{padding:6px 16px;border-radius:40px;font-size:11px;font-weight:500;border:1.5px solid #ddd8cf;color:#4a3f6b;background:#faf8f4;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.02em}
@@ -178,14 +176,7 @@ const STYLES = `
   .paths-card-body .money+ul li::before{background:#c94f2a;opacity:.5}
   .chip-row{display:flex;flex-wrap:wrap;gap:4px}
   .chip{display:inline-block;background:#f2ede6;border:1px solid #ddd8cf;border-radius:4px;padding:1px 6px;font-size:9.5px;color:#1a1040;font-weight:500}
-  .paths-section-cta{display:flex;gap:10px;margin:16px 0 8px;flex-wrap:wrap}
-  .paths-btn-sc1{display:inline-flex;align-items:center;gap:6px;background:#c94f2a;color:#fff;font-size:10.5px;font-weight:500;padding:8px 18px;border-radius:40px;border:none;cursor:pointer;text-decoration:none;transition:all .18s}
-  .paths-btn-sc1:hover{background:#1a1040}
-  .paths-btn-sc2{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#4a3f6b;font-size:10.5px;font-weight:500;padding:8px 18px;border-radius:40px;border:1.5px solid #ddd8cf;cursor:pointer;text-decoration:none;transition:all .18s}
-  .paths-btn-sc2:hover{border-color:#534ab7;color:#534ab7}
   .paths-doc-footer{background:#1a1040;color:rgba(255,255,255,.45);padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px;font-size:9.5px;letter-spacing:.04em;flex-wrap:wrap}
-  .paths-doc-footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;font-size:11px}
-  .paths-footer-cta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   @media(max-width:560px){.paths-doc-footer{padding:16px 20px}}
 `;
 
@@ -389,8 +380,7 @@ export default function PathsClient() {
           <h1>50 AI Career Paths<br />for Different Personalities</h1>
           <p className="sub">Every path. Every tool. Every income stream. Built for the person who already has the gift — and just needs to know which corner of AI was made for it.</p>
           <div className="paths-cta-row">
-            <Link href="/guide" className="paths-btn-1">Get step-by-step guide →</Link>
-            <Link href="/resources" className="paths-btn-2">Explore all resources →</Link>
+            <Link href="/resources" className="paths-btn-1">Explore all resources →</Link>
           </div>
           <div className="paths-cover-logo">{SITE_DISPLAY}</div>
         </div>
@@ -442,10 +432,7 @@ export default function PathsClient() {
                   );
                 })}
               </div>
-              <div className="paths-section-cta">
-                <Link href="/guide" className="paths-btn-sc1">Get step-by-step guide →</Link>
-                <Link href="/resources" className="paths-btn-sc2">Explore all resources →</Link>
-              </div>
+
             </div>
           ))}
         </div>
@@ -454,10 +441,6 @@ export default function PathsClient() {
           <div>
             <strong>{SITE_DISPLAY}</strong><br />
             Take the archetype quiz · Link in bio
-          </div>
-          <div className="paths-footer-cta">
-            <Link href="/guide" className="paths-btn-sc1">Get step-by-step guide →</Link>
-            <Link href="/resources" className="paths-btn-sc2" style={{ color: 'rgba(255,255,255,.7)', borderColor: 'rgba(255,255,255,.3)' }}>All resources →</Link>
           </div>
         </div>
       </div>
