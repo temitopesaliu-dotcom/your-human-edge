@@ -41,7 +41,7 @@ export default async function GuideSuccessPage({ searchParams }: PageProps) {
     >
       <nav>
         <Link href="/paths" className="nav-logo">
-          human<span>+</span>ai
+          Your Human Edge in the AI Era
         </Link>
       </nav>
 
@@ -195,7 +195,7 @@ export default async function GuideSuccessPage({ searchParams }: PageProps) {
       </main>
 
       <footer>
-        <strong>{SITE_DISPLAY}</strong>
+        <div className="footer-brand">human<span>+</span>ai</div>
         <span style={{ opacity: 0.25, fontSize: '.7rem' }}>© 2025</span>
       </footer>
     </div>

@@ -9,7 +9,7 @@ export default function AccessDeniedPage() {
   return (
     <div className="simple-page access-denied-page">
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 99, background: 'rgba(26,16,64,.94)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,.07)', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '62px' }}>
-        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
         <Link href="/quiz" className="nav-cta">Take the quiz</Link>
       </nav>
 

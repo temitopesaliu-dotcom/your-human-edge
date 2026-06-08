@@ -97,17 +97,28 @@ export default function ResourcesClient() {
         .rb-link { text-decoration: none; color: inherit; display: block; }
         @keyframes rb-fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         .rb-fade { animation: rb-fade-up 0.4s ease both; }
+
+        @media (min-width: 641px) and (max-width: 900px) {
+          .rb-cat-grid { gap: 10px !important; }
+          .rb-feat-pad { padding: 32px !important; }
+          .rb-content-pad { padding: 36px 24px 64px !important; }
+          .rb-grid-2 { grid-template-columns: 1fr 1fr !important; }
+        }
+
         @media (max-width: 640px) {
-          .rb-cat-grid { grid-template-columns: 1fr !important; }
-          .rb-feat-grid { grid-template-columns: 1fr !important; }
+          .rb-cat-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+          .rb-feat-pad { padding: 24px !important; }
           .rb-grid-2 { grid-template-columns: 1fr !important; }
+          .rb-content-pad { padding: 28px 16px 48px !important; }
+          .rb-hero-pad { padding-top: 96px !important; padding-bottom: 40px !important; padding-left: 20px !important; padding-right: 20px !important; }
+          .rb-cat-desc { display: none; }
         }
       `}</style>
 
       {/* ── NAV ── */}
       <nav>
         <Link href="/quiz" className="nav-logo">
-          human<span>+</span>ai
+          Your Human Edge in the AI Era
         </Link>
         <ul className="nav-links">
           <li>
@@ -126,6 +137,7 @@ export default function ResourcesClient() {
           HERO
           ═══════════════════════════════════════════════════════ */}
       <div
+        className="rb-hero-pad"
         style={{
           background: 'linear-gradient(135deg, #1a1040 0%, #2d1b6e 100%)',
           padding: '112px 28px 52px',
@@ -169,6 +181,7 @@ export default function ResourcesClient() {
                 background: '#c8940a',
                 display: 'inline-block',
               }}
+              aria-hidden
             />
             Free resource library
           </div>
@@ -176,15 +189,15 @@ export default function ResourcesClient() {
           <h1
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(2.4rem, 7vw, 4rem)',
+              fontSize: 'clamp(2rem, 7vw, 4rem)',
               fontWeight: 400,
               color: '#fff',
               lineHeight: 1.08,
               marginBottom: 16,
             }}
           >
-            Explore guides, frameworks<br />
-            and tools for thriving <em style={{ color: '#c8940a', fontStyle: 'italic' }}>with AI.</em>
+            Explore guides, frameworks and tools for thriving{' '}
+            <em style={{ color: '#c8940a', fontStyle: 'italic' }}>with AI.</em>
           </h1>
 
           <p
@@ -217,6 +230,7 @@ export default function ResourcesClient() {
                 <button
                   key={cat.key}
                   type="button"
+                  aria-pressed={isActive}
                   onClick={() => {
                     setActiveTab(cat.key);
                     track_event('resources_category_switch', { category: cat.key });
@@ -232,12 +246,13 @@ export default function ResourcesClient() {
                     fontFamily: "'DM Sans', sans-serif",
                     textAlign: 'left',
                     background: isActive
-                      ? `rgba(255,255,255,.08)`
+                      ? 'rgba(255,255,255,.08)'
                       : 'rgba(255,255,255,.03)',
                     backdropFilter: isActive ? 'blur(4px)' : 'none',
                     transition: 'all 250ms ease, border-color 250ms ease',
                     position: 'relative',
                     overflow: 'hidden',
+                    boxShadow: isActive ? `0 0 0 3px ${cat.colorSolid}26` : 'none',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
@@ -259,11 +274,10 @@ export default function ResourcesClient() {
                       style={{
                         position: 'absolute',
                         inset: 0,
-                        background: isActive
-                          ? cat.key === 'individual'
+                        background:
+                          cat.key === 'individual'
                             ? 'radial-gradient(ellipse at 20% 50%, rgba(83,74,183,.12), transparent 70%)'
-                            : 'radial-gradient(ellipse at 20% 50%, rgba(15,110,86,.12), transparent 70%)'
-                          : 'none',
+                            : 'radial-gradient(ellipse at 20% 50%, rgba(15,110,86,.12), transparent 70%)',
                         pointerEvents: 'none',
                       }}
                       aria-hidden
@@ -290,24 +304,25 @@ export default function ResourcesClient() {
                       {cat.label}
                     </span>
                     <span
+                      aria-hidden
                       style={{
                         marginLeft: 'auto',
                         fontSize: '.75rem',
                         fontWeight: 600,
                         color: isActive ? '#fff' : cat.color,
-                        background: isActive
-                          ? cat.color
-                          : cat.bgColor,
+                        background: isActive ? cat.color : cat.bgColor,
                         borderRadius: 40,
                         padding: '2px 10px',
-                        transition: 'color 250ms ease, background 250ms ease',
+                        transition: 'color 250ms ease, background 250ms ease, transform 250ms ease',
                         border: isActive ? 'none' : `1px solid ${cat.borderColor}`,
+                        transform: isActive ? 'scale(1.1)' : 'scale(1)',
                       }}
                     >
                       {RESOURCES.filter((r) => r.category === cat.key).length}
                     </span>
                   </div>
                   <span
+                    className="rb-cat-desc"
                     style={{
                       fontSize: '.76rem',
                       color: isActive ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.35)',
@@ -342,6 +357,7 @@ export default function ResourcesClient() {
                 background: activeCategory.color,
                 display: 'inline-block',
               }}
+              aria-hidden
             />
             {filtered.length} resource{filtered.length !== 1 ? 's' : ''} available
             {filtered.length > 0 && activeTab === 'individual' && ' — 1 featured below'}
@@ -358,6 +374,7 @@ export default function ResourcesClient() {
         }}
       >
         <div
+          className="rb-content-pad"
           style={{
             maxWidth: 900,
             margin: '0 auto',
@@ -371,7 +388,7 @@ export default function ResourcesClient() {
             <div className="rb-fade" style={{ animationDelay: '0.1s' }}>
               <Link
                 href={featured.href}
-                className="rb-link"
+                className="rb-link rb-feat-pad"
                 style={{
                   background: '#fff',
                   border: '1px solid var(--border)',
@@ -399,7 +416,7 @@ export default function ResourcesClient() {
                     top: 0,
                     left: 0,
                     right: 0,
-                    height: 3,
+                    height: 4,
                     background: `linear-gradient(90deg, ${activeCategory.colorSolid}, rgba(200,148,10,.3))`,
                   }}
                   aria-hidden
@@ -430,6 +447,7 @@ export default function ResourcesClient() {
                         background: 'var(--coral)',
                         display: 'inline-block',
                       }}
+                      aria-hidden
                     />
                     {featured.badge}
                   </span>
@@ -498,6 +516,7 @@ export default function ResourcesClient() {
                               background: activeCategory.color,
                               flexShrink: 0,
                             }}
+                            aria-hidden
                           />
                           {b}
                         </li>
@@ -515,10 +534,14 @@ export default function ResourcesClient() {
                         fontWeight: 500,
                         padding: '12px 26px',
                         borderRadius: 40,
-                        transition: 'background 250ms ease',
+                        transition: 'background 250ms ease, gap 250ms ease',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = activeCategory.colorSolid)}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--ink)')}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = activeCategory.colorSolid;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'var(--ink)';
+                      }}
                     >
                       {featured.cta}
                     </span>
@@ -586,13 +609,17 @@ export default function ResourcesClient() {
                   textAlign: 'center',
                 }}
               >
+                <div style={{ fontSize: '2.4rem', marginBottom: 16, opacity: 0.4 }} aria-hidden>
+                  {activeTab === 'company' ? '🏢' : '🧭'}
+                </div>
                 <h3
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: '1.3rem',
-                    fontWeight: 400,
+                    fontSize: '1.5rem',
+                    fontWeight: 500,
                     color: 'var(--soft)',
                     marginBottom: 8,
+                    lineHeight: 1.2,
                   }}
                 >
                   More resources coming soon
@@ -703,11 +730,29 @@ export default function ResourcesClient() {
                             color: 'var(--ink)',
                             transition: 'color 250ms ease',
                           }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = activeCategory.colorSolid)}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ink)')}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = activeCategory.colorSolid;
+                            const arrow = e.currentTarget.querySelector('.rb-arrow');
+                            if (arrow) (arrow as HTMLElement).style.transform = 'translateX(2px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = 'var(--ink)';
+                            const arrow = e.currentTarget.querySelector('.rb-arrow');
+                            if (arrow) (arrow as HTMLElement).style.transform = 'translateX(0)';
+                          }}
                         >
                           {r.cta}
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                          <svg
+                            className="rb-arrow"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            aria-hidden="true"
+                            style={{ transition: 'transform 250ms ease' }}
+                          >
                             <path d="M5 12h14M12 5l7 7-7 7" />
                           </svg>
                         </div>
@@ -745,13 +790,13 @@ export default function ResourcesClient() {
       </div>
 
       {/* ── FOOTER ── */}
-      <footer>
-        <div>
-          <strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp;{' '}
-          <span style={{ fontStyle: 'italic', opacity: 0.6 }}>
-            AI x Human Psychology
-          </span>
-        </div>
+      <footer
+        style={{
+          borderTop: '1px solid transparent',
+          borderImage: 'linear-gradient(90deg, #2d1b6e, transparent) 1',
+        }}
+      >
+        <div className="footer-brand">human<span>+</span>ai</div>
         <ul className="f-links">
           <li>
             <Link href="/quiz">Take the quiz</Link>
@@ -761,7 +806,7 @@ export default function ResourcesClient() {
           </li>
         </ul>
         <div style={{ fontSize: '.7rem', opacity: 0.25 }}>
-          © 2026 {SITE_DISPLAY}
+          &copy; 2026
         </div>
       </footer>
     </div>

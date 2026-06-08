@@ -7,7 +7,7 @@ export default function GuideClient() {
   return (
     <div className="guide-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '62px' }}>
       <nav>
-        <Link href="/paths" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/paths" className="nav-logo">Your Human Edge in the AI Era</Link>
         <Link href="/paths" className="nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.25)' }}>
           ← Back to paths
         </Link>
@@ -37,7 +37,7 @@ export default function GuideClient() {
       </div>
 
       <footer>
-        <strong>{SITE_DISPLAY}</strong>
+        <div className="footer-brand">human<span>+</span>ai</div>
         <ul className="f-links">
           <li><Link href="/paths">50 AI Paths</Link></li>
           <li><Link href="/quiz">Take the quiz</Link></li>

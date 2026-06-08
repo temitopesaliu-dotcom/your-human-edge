@@ -332,7 +332,7 @@ export default function ResultsClient({ slug }: { slug: string }) {
 					height: "62px",
 				}}>
 				<Link href="/quiz" className="nav-logo" aria-label="Your Human Edge home">
-					human<span>+</span>ai
+					Your Human Edge in the AI Era
 				</Link>
 				<Link href="/quiz" className="nav-cta" aria-label="Retake the archetype quiz">
 					Take the quiz again
@@ -786,12 +786,7 @@ export default function ResultsClient({ slug }: { slug: string }) {
 			</main>
 
 			<footer role="contentinfo">
-				<div>
-					<strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp;{" "}
-					<span style={{ fontStyle: "italic", opacity: 0.6 }}>
-						AI x Human Psychology
-					</span>
-				</div>
+				<div className="footer-brand">human<span>+</span>ai</div>
 				<ul className="f-links">
 					<li>
 						<Link href="/quiz">Take the quiz</Link>
@@ -801,7 +796,7 @@ export default function ResultsClient({ slug }: { slug: string }) {
 					</li>
 				</ul>
 				<div style={{ fontSize: ".7rem", opacity: 0.25 }}>
-					© 2026 {SITE_DISPLAY}
+					© 2026
 				</div>
 			</footer>
 		</div>

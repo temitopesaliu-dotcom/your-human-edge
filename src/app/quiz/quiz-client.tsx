@@ -48,7 +48,7 @@ export default function QuizClient() {
   return (
     <div className="home-page">
       <nav>
-        <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
+        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
         <ul className="nav-links">
           <li><Link href="/quiz">Home</Link></li>
           <li><Link href="/resources">Resources</Link></li>
@@ -58,15 +58,6 @@ export default function QuizClient() {
 
       {phase === 'landing' && (
         <div id="landing" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '62px' }}>
-          <div className="band" aria-hidden="true">
-            <div className="band-inner">
-              {[...Array(2)].flatMap(() => [
-                'Your Human Edge', 'AI x Human Psychology', 'Know Your Archetype', 'Find Your AI Path', 'Inherent Skills First'
-              ]).map((t, i) => (
-                <span key={i} className="band-item">{t} <span>◆</span></span>
-              ))}
-            </div>
-          </div>
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', padding: '52px 24px 72px' }}>
             <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
               <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '.7rem', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--teal)', fontWeight: 500, marginBottom: '22px', padding: '5px 16px', border: '1px solid var(--teal)', borderRadius: '40px' }}>
@@ -165,12 +156,12 @@ export default function QuizClient() {
       )}
 
       <footer>
-        <div><strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
+        <div className="footer-brand">human<span>+</span>ai</div>
         <ul className="f-links">
           <li><Link href="/quiz">Take the quiz</Link></li>
           <li><Link href="/resources">Resources</Link></li>
         </ul>
-        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2026 {SITE_DISPLAY}</div>
+        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2026</div>
       </footer>
       <TrackingScript />
     </div>

@@ -385,7 +385,7 @@ export default function PathsClient() {
       {gatePhase === 'content' && (
       <div className="paths-root">
         <div className="paths-cover">
-          <div className="paths-eye">HUMAN + AI · FREE GUIDE</div>
+          <div className="paths-eye">YOUR HUMAN EDGE IN THE AI ERA · FREE GUIDE</div>
           <h1>50 AI Career Paths<br />for Different Personalities</h1>
           <p className="sub">Every path. Every tool. Every income stream. Built for the person who already has the gift — and just needs to know which corner of AI was made for it.</p>
           <div className="paths-cta-row">
