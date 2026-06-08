@@ -172,3 +172,59 @@ export async function addBuyerToMailerLite(
     console.error('[mailer] Buyer MailerLite error:', err instanceof Error ? err.message : String(err));
   }
 }
+
+/** Paths guide ($19.99) — triggers MailerLite automation that emails the guide. */
+export async function addPathsGuideBuyerToMailerLite(
+  email: string,
+  name: string
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const guideGroup = process.env.MAILERLITE_PATHS_GUIDE_GROUP_ID;
+  if (!apiKey) return;
+
+  try {
+    const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        fields: {
+          name,
+          paths_guide_buyer: 'true',
+        },
+      }),
+    });
+
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      console.error('[mailer] Paths guide update failed:', updateRes.status, errText);
+      return;
+    }
+
+    if (guideGroup) {
+      const groupRes = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${guideGroup}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+
+      if (!groupRes.ok) {
+        const errText = await groupRes.text();
+        console.error('[mailer] Paths guide group add failed:', groupRes.status, errText);
+      } else {
+        console.log(`[mailer] ${email} added to paths guide group ${guideGroup}`);
+      }
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Paths guide MailerLite error:', err instanceof Error ? err.message : String(err));
+  }
+}
