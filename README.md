@@ -13,7 +13,7 @@ Full-stack AI archetype quiz funnel. Next.js App Router on Vercel with Stripe, M
 | 5 | Email sequences (quiz + buyers) | ✅ MailerLite automations (see below) |
 | 6 | Analytics | ✅ Custom events → Vercel KV |
 | 7 | 50 AI Career Paths page | ✅ /paths — all 50 paths public |
-| 8 | Community links → coming-soon | ✅ /coming-soon |
+| 8 | Community links → resources | ✅ /resources |
 
 ## Email: MailerLite only (no app cron)
 
@@ -70,7 +70,7 @@ Required minimum:
 
 ### 5–8. Deploy, Stripe webhook, MailerLite groups
 
-Stripe webhook URL: `https://your-domain.com/api/stripe-webhook`  
+Stripe webhook URL: `https://your-domain.com/api/stripe-webhook`
 Event: `checkout.session.completed`
 
 Create MailerLite groups and automations as described in **Email: MailerLite only**.

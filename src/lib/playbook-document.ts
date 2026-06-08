@@ -521,7 +521,7 @@ function renderPlaybookBody(d: PlaybookData): string {
             <div class="lbl">Ready to go deeper?</div>
             <div class="title">Get hands-on support, live sessions &amp; your full community inside.</div>
           </div>
-          <a href="/coming-soon">Join Community for all access →</a>
+          <a href="/resources">Explore all resources →</a>
         </div>
       </div>
 
@@ -543,7 +543,7 @@ function renderPlaybookBody(d: PlaybookData): string {
 
     <div class="pb-bottom-ctas">
       <a href="/paths" class="primary">Access the full 50+ paths →</a>
-      <a href="/coming-soon" class="secondary">Join Community for all access</a>
+      <a href="/resources" class="secondary">Explore all resources →</a>
     </div>
   `;
 }

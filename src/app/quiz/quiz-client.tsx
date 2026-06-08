@@ -51,8 +51,7 @@ export default function QuizClient() {
         <Link href="/quiz" className="nav-logo">human<span>+</span>ai</Link>
         <ul className="nav-links">
           <li><Link href="/quiz">Home</Link></li>
-          <li><Link href="/coming-soon">Community</Link></li>
-          <li><Link href="/paths">50 AI Paths</Link></li>
+          <li><Link href="/resources">Resources</Link></li>
         </ul>
         <button className="nav-cta" onClick={startQuiz} aria-label="Start archetype quiz">Find my archetype</button>
       </nav>
@@ -169,10 +168,9 @@ export default function QuizClient() {
         <div><strong>{SITE_DISPLAY}</strong> &nbsp;·&nbsp; <span style={{ fontStyle: 'italic', opacity: .6 }}>AI x Human Psychology</span></div>
         <ul className="f-links">
           <li><Link href="/quiz">Take the quiz</Link></li>
-          <li><Link href="/coming-soon">Community</Link></li>
-          <li><Link href="/paths">50 AI Paths</Link></li>
+          <li><Link href="/resources">Resources</Link></li>
         </ul>
-        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2025 {SITE_DISPLAY}</div>
+        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2026 {SITE_DISPLAY}</div>
       </footer>
       <TrackingScript />
     </div>

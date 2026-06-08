@@ -62,6 +62,44 @@ export async function addSubscriberToMailerLite(
   }
 }
 
+/**
+ * Remove a subscriber from a specific MailerLite group.
+ * The subscriber is identified by email (MailerLite accepts email as a
+ * subscriber identifier in the URL).
+ */
+export async function removeSubscriberFromGroup(
+  email: string,
+  groupId: string
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) return;
+
+  try {
+    const res = await fetch(
+      `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${groupId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('[mailer] Remove from group failed:', res.status, errText);
+    } else {
+      console.log(`[mailer] ${email} removed from group ${groupId}`);
+    }
+  } catch (err: unknown) {
+    console.warn(
+      '[mailer] MailerLite remove-from-group network error:',
+      err instanceof Error ? err.message : String(err)
+    );
+  }
+}
+
 export async function addBuyerToMailerLite(
   email: string,
   name: string,
@@ -73,10 +111,10 @@ export async function addBuyerToMailerLite(
   if (!apiKey) return;
 
   const pdfLinks: Record<ArchetypeKey, string> = {
-    H: 'https://drive.google.com/uc?export=download&id=1ZH76fQRErkTMCVvKvSAMWbfA3dcm1QdZ',
-    C: 'https://drive.google.com/uc?export=download&id=11NKF_8829SdfBD1SBqnOWHL8IAClNuDn',
-    S: 'https://drive.google.com/uc?export=download&id=1Vxyv0xxIOElHIZC6YONBefeL8PT5CH2R',
-    G: 'https://drive.google.com/uc?export=download&id=1pRzI9F3mask-Ot4g7S0HZOtA5ST1pi3G',
+    H: 'https://drive.google.com/uc?export=download&id=1x4qsoiiPFMozkBFgSCdnvjEGPDticUJE',
+    C: 'https://drive.google.com/uc?export=download&id=1uvxoEnVJkDLqnmyDuLPMQs9FSu1G2IRv',
+    S: 'https://drive.google.com/uc?export=download&id=1AnXFT8x8WOvbefxymlYhUNZSTz2Gh4JU',
+    G: 'https://drive.google.com/uc?export=download&id=1x9HTtZyxgsOLW1a4rCB78EBZirHQZ0X1',
   };
 
   try {
@@ -123,63 +161,14 @@ export async function addBuyerToMailerLite(
         console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
       }
     }
+
+    // Remove subscriber from their archetype-specific free group
+    // (but keep them in the all-subscribers group)
+    const archGroup = process.env[ARCHETYPE_GROUP_ENV[archetype]];
+    if (archGroup) {
+      await removeSubscriberFromGroup(email, archGroup);
+    }
   } catch (err: unknown) {
     console.error('[mailer] Buyer MailerLite error:', err instanceof Error ? err.message : String(err));
-  }
-}
-
-/** Paths guide ($19.99) — triggers MailerLite automation that emails the guide. */
-export async function addPathsGuideBuyerToMailerLite(
-  email: string,
-  name: string
-): Promise<void> {
-  const apiKey = process.env.MAILERLITE_API_KEY;
-  const guideGroup = process.env.MAILERLITE_PATHS_GUIDE_GROUP_ID;
-  if (!apiKey) return;
-
-  try {
-    const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        email,
-        fields: {
-          name,
-          paths_guide_buyer: 'true',
-        },
-      }),
-    });
-
-    if (!updateRes.ok) {
-      const errText = await updateRes.text();
-      console.error('[mailer] Paths guide update failed:', updateRes.status, errText);
-      return;
-    }
-
-    if (guideGroup) {
-      const groupRes = await fetch(
-        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${guideGroup}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-
-      if (!groupRes.ok) {
-        const errText = await groupRes.text();
-        console.error('[mailer] Paths guide group add failed:', groupRes.status, errText);
-      } else {
-        console.log(`[mailer] ${email} added to paths guide group ${guideGroup}`);
-      }
-    }
-  } catch (err: unknown) {
-    console.error('[mailer] Paths guide MailerLite error:', err instanceof Error ? err.message : String(err));
   }
 }

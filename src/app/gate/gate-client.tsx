@@ -126,7 +126,7 @@ function GateContent() {
 
       <footer>
         <strong>{SITE_DISPLAY}</strong>
-        <span style={{ opacity: .25, fontSize: '.7rem' }}>© 2025</span>
+        <span style={{ opacity: .25, fontSize: '.7rem' }}>© 2026</span>
       </footer>
     </div>
   );

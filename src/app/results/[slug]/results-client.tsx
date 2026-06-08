@@ -797,11 +797,11 @@ export default function ResultsClient({ slug }: { slug: string }) {
 						<Link href="/quiz">Take the quiz</Link>
 					</li>
 					<li>
-						<Link href="/coming-soon">Community</Link>
+						<Link href="/resources">Resources</Link>
 					</li>
 				</ul>
 				<div style={{ fontSize: ".7rem", opacity: 0.25 }}>
-					© 2025 {SITE_DISPLAY}
+					© 2026 {SITE_DISPLAY}
 				</div>
 			</footer>
 		</div>

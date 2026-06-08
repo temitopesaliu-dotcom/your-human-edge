@@ -45,12 +45,9 @@ export default function RootLayout({
 						<span>✦</span>
 						<span>Quiz</span>
 					</Link>
-					<Link href="/coming-soon" className="mobile-dock__item">
-						<span>◌</span>
-						<span>Community</span>
-					</Link>
 				</nav> */}
 			</body>
 		</html>
 	);
 }
+

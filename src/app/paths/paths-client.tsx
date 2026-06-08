@@ -390,7 +390,7 @@ export default function PathsClient() {
           <p className="sub">Every path. Every tool. Every income stream. Built for the person who already has the gift — and just needs to know which corner of AI was made for it.</p>
           <div className="paths-cta-row">
             <Link href="/guide" className="paths-btn-1">Get step-by-step guide →</Link>
-            <Link href="/coming-soon" className="paths-btn-2">Join Community for all access</Link>
+            <Link href="/resources" className="paths-btn-2">Explore all resources →</Link>
           </div>
           <div className="paths-cover-logo">{SITE_DISPLAY}</div>
         </div>
@@ -444,7 +444,7 @@ export default function PathsClient() {
               </div>
               <div className="paths-section-cta">
                 <Link href="/guide" className="paths-btn-sc1">Get step-by-step guide →</Link>
-                <Link href="/coming-soon" className="paths-btn-sc2">Join Community for all access</Link>
+                <Link href="/resources" className="paths-btn-sc2">Explore all resources →</Link>
               </div>
             </div>
           ))}
@@ -457,7 +457,7 @@ export default function PathsClient() {
           </div>
           <div className="paths-footer-cta">
             <Link href="/guide" className="paths-btn-sc1">Get step-by-step guide →</Link>
-            <Link href="/coming-soon" className="paths-btn-sc2" style={{ color: 'rgba(255,255,255,.7)', borderColor: 'rgba(255,255,255,.3)' }}>Join Community</Link>
+            <Link href="/resources" className="paths-btn-sc2" style={{ color: 'rgba(255,255,255,.7)', borderColor: 'rgba(255,255,255,.3)' }}>All resources →</Link>
           </div>
         </div>
       </div>
