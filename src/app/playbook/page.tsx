@@ -7,7 +7,6 @@ import { validatePlaybookAccess } from '@/lib/playbook-access';
 import {
   accessCookieForProduct,
   isValidSessionId,
-  PURCHASE_COOKIE_MAX_AGE,
 } from '@/lib/products';
 
 export const metadata: Metadata = {
@@ -25,10 +24,19 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const cookieStore = await cookies();
   const playbookCookie = accessCookieForProduct('playbook');
-  const sessionId =
-    (params.session_id && isValidSessionId(params.session_id)
+  const existingCookie = cookieStore.get(playbookCookie)?.value || '';
+  const sessionIdFromParams =
+    params.session_id && isValidSessionId(params.session_id)
       ? params.session_id
-      : '') || cookieStore.get(playbookCookie)?.value || '';
+      : '';
+
+  // If we have a session_id in the URL but no cookie yet, redirect through
+  // the route handler to set the cookie (can't do it from a Server Component).
+  if (sessionIdFromParams && !existingCookie) {
+    redirect(`/api/set-playbook-cookie?session_id=${sessionIdFromParams}`);
+  }
+
+  const sessionId = sessionIdFromParams || existingCookie;
 
   if (!sessionId || !isValidSessionId(sessionId)) {
     redirect('/access-denied');
@@ -43,14 +51,6 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
   if (!arch) {
     redirect('/access-denied');
   }
-
-  cookieStore.set(playbookCookie, sessionId, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: PURCHASE_COOKIE_MAX_AGE,
-    path: '/',
-  });
 
   const html = buildPlaybookPageMarkup({
     archetype: arch,

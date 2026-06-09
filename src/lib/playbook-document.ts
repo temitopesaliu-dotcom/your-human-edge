@@ -391,21 +391,12 @@ function renderPlaybookStyles(d: PlaybookData): string {
     .pb-week-body ul li{font-size:11.5px;color:#4a3f6b;padding:4px 0 4px 12px;position:relative;border-bottom:1px solid #ddd8cf;line-height:1.45}
     .pb-week-body ul li:last-child{border-bottom:none}
     .pb-week-body ul li::before{content:'▸';position:absolute;left:0;color:${d.accent};font-size:.6rem;top:6px}
-    .pb-bonus{background:linear-gradient(135deg,#1a1040,#534ab7);color:#fff;border-radius:12px;padding:24px 26px;text-align:center;margin-top:8px}
-    .pb-bonus-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#e8a020;margin-bottom:10px;font-weight:500}
-    .pb-bonus h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;margin-bottom:8px;color:#fff}
-    .pb-bonus p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:16px}
-    .pb-btn-bonus{display:inline-flex;align-items:center;gap:7px;background:#e8a020;color:#1a1040;font-size:12px;font-weight:600;padding:10px 24px;border-radius:40px;text-decoration:none}
     .pb-cta-strip{background:${d.ctaBg};border-radius:12px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
     .pb-cta-strip .lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:500;margin-bottom:6px}
     .pb-cta-strip .title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:#fff;line-height:1.2}
     .pb-cta-strip a{display:inline-flex;align-items:center;gap:8px;background:#fff;color:${d.ctaText};font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:12px 24px;border-radius:40px;text-decoration:none;white-space:nowrap;flex-shrink:0}
     .pb-foot{background:#1a1040;color:rgba(255,255,255,.4);padding:18px 52px;display:flex;justify-content:space-between;align-items:center;font-size:9.5px;gap:16px;flex-wrap:wrap}
     .pb-foot strong{color:rgba(255,255,255,.75);font-family:'Cormorant Garamond',serif;font-size:12px}
-    .pb-bottom-ctas{background:#faf8f4;border-top:1px solid #e2dbd0;padding:20px 52px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .pb-bottom-ctas a{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:12px 28px;border-radius:40px;text-decoration:none}
-    .pb-bottom-ctas a.primary{background:${d.accent};color:#fff}
-    .pb-bottom-ctas a.secondary{background:transparent;color:#4a3f6b;border:1.5px solid #ddd8cf}
     @media(max-width:760px){
       .pb-cover{padding:40px 24px 36px}
       .pb-cover h1{font-size:34px}
@@ -416,7 +407,6 @@ function renderPlaybookStyles(d: PlaybookData): string {
       .pb-incomes{grid-template-columns:1fr}
       .pb-plan{grid-template-columns:1fr}
       .pb-foot{padding:18px 24px}
-      .pb-bottom-ctas{padding:20px 24px}
     }
   `;
 }
@@ -432,7 +422,6 @@ function renderPlaybookBody(d: PlaybookData): string {
         <span class="pb-badge">30-Day Plan</span>
         <span class="pb-badge">Income Streams</span>
         <span class="pb-badge">Case Studies</span>
-        <span class="pb-badge">Bonus: 50+ Paths</span>
       </div>
       <div class="pb-cover-logo">${escapeHtml(SITE_DISPLAY)}</div>
     </div>
@@ -525,25 +514,11 @@ function renderPlaybookBody(d: PlaybookData): string {
         </div>
       </div>
 
-      <div class="pb-sec">
-        <div class="pb-bonus">
-          <div class="pb-bonus-lbl">Bonus Included</div>
-          <h3>50+ AI Career Paths — Full Interactive Guide</h3>
-          <p>Your complete reference to every AI career path organised by personality type — with tools, upskill steps and income streams for each.</p>
-          <a href="/paths" class="pb-btn-bonus">Access the full 50+ paths →</a>
-        </div>
-      </div>
-
     </div>
 
     <div class="pb-foot">
       <div><strong>${escapeHtml(SITE_DISPLAY)}</strong><br>${escapeHtml(d.footerTagline)}</div>
       <div style="text-align:right;opacity:.7">Your gift already exists.<br>AI is the amplifier.</div>
-    </div>
-
-    <div class="pb-bottom-ctas">
-      <a href="/paths" class="primary">Access the full 50+ paths →</a>
-      <a href="/resources" class="secondary">Explore all resources →</a>
     </div>
   `;
 }
