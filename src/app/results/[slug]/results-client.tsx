@@ -1,846 +1,327 @@
 "use client";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArchetypeBySlug } from "@/lib/archetypes";
-import { SITE_DISPLAY } from "@/lib/site";
+import CreativeAmplifierPage from "@/components/results/creative-amplifier";
+import GrowthCatalystPage from "@/components/results/growth-catalyst";
+import SystemsArchitectPage from "@/components/results/systems-architect";
+import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
 
-const CAREER_DETAILS: Record<
-	string,
-	{ title: string; desc: string; earn: string }[]
-> = {
-	H: [
-		{
-			title: "AI Life Coach (Augmented)",
-			desc: "Use AI for session prep, notes and content. You stay fully present.",
-			earn: "$1k–$5k/mo",
-		},
-		{
-			title: "AI Community Architect",
-			desc: "Build and run a paid community. AI handles content; you hold the space.",
-			earn: "$2k–$10k/mo",
-		},
-		{
-			title: "AI Corporate Wellbeing Trainer",
-			desc: "Run workshops on psychological safety, empathy and AI transition.",
-			earn: "$2k–$10k/day",
-		},
-		{
-			title: "AI Relationship Coach",
-			desc: "Coach individuals and couples using AI to prep and scale your practice.",
-			earn: "$800–$3k/mo",
-		},
-		{
-			title: "AI Educator / Course Creator",
-			desc: "Package your knowledge into courses. AI builds the infrastructure.",
-			earn: "$500–$50k/launch",
-		},
-		{
-			title: "AI Career Transition Coach",
-			desc: "Help people rebuild identity and direction after layoffs.",
-			earn: "$1k–$3k/client",
-		},
-	],
-	C: [
-		{
-			title: "AI Brand Strategist",
-			desc: "Define brand voice and visual identity using AI to rapid-prototype creative.",
-			earn: "$3k–$12k/mo",
-		},
-		{
-			title: "AI Creative Director",
-			desc: "Lead AI-augmented creative studios. Your taste is the differentiator.",
-			earn: "$5k–$20k/mo",
-		},
-		{
-			title: "AI Content Studio Owner",
-			desc: "Package production: writing, video, design via AI + your editorial eye.",
-			earn: "$2k–$15k/mo",
-		},
-		{
-			title: "AI Visual Storyteller",
-			desc: "Midjourney, Runway, Sora — you direct. AI executes at scale.",
-			earn: "$1k–$8k/project",
-		},
-		{
-			title: "AI Music Producer",
-			desc: "Suno, Udio, Splice AI — composition and production at creative velocity.",
-			earn: "$500–$5k/project",
-		},
-		{
-			title: "AI UX / Product Designer",
-			desc: "Figma AI + v0 + Claude. Design systems in hours, not weeks.",
-			earn: "$80k–$180k/yr",
-		},
-	],
-	S: [
-		{
-			title: "AI Automation Consultant",
-			desc: "Build Make/Zapier/n8n workflows for SMBs. Retainer model.",
-			earn: "$3k–$10k/mo",
-		},
-		{
-			title: "No-Code AI Systems Designer",
-			desc: "Create business intelligence systems without engineering teams.",
-			earn: "$5k–$15k/project",
-		},
-		{
-			title: "AI Integration Architect",
-			desc: "Connect existing company systems to AI layers. Enterprise-level.",
-			earn: "$120k–$280k/yr",
-		},
-		{
-			title: "AI Ops Engineer",
-			desc: "Build, deploy and monitor LLM pipelines in production environments.",
-			earn: "$100k–$200k/yr",
-		},
-		{
-			title: "Prompt Engineering Consultant",
-			desc: "Systematic prompt libraries, evaluation frameworks, and fine-tuning.",
-			earn: "$2k–$8k/mo",
-		},
-		{
-			title: "AI Product Manager",
-			desc: "Spec, prioritise and ship AI-native features in product teams.",
-			earn: "$110k–$200k/yr",
-		},
-	],
-	G: [
-		{
-			title: "AI Growth Strategist",
-			desc: "Build AI-powered acquisition and retention systems for startups.",
-			earn: "$5k–$20k/mo",
-		},
-		{
-			title: "AI GTM Architect",
-			desc: "Design go-to-market systems using Clay, Apollo, AI for outbound.",
-			earn: "$4k–$15k/mo",
-		},
-		{
-			title: "Revenue Acceleration Consultant",
-			desc: "Audit and rebuild sales pipelines with AI tooling.",
-			earn: "$8k–$25k/project",
-		},
-		{
-			title: "AI Marketing Director",
-			desc: "Own performance, content and lifecycle with AI-native strategy.",
-			earn: "$120k–$250k/yr",
-		},
-		{
-			title: "Fractional CMO (AI-native)",
-			desc: "Serve 3–5 companies simultaneously with AI as leverage.",
-			earn: "$5k–$15k/mo each",
-		},
-		{
-			title: "AI Affiliate / Growth Partner",
-			desc: "Build content + funnels to monetise AI tool referrals.",
-			earn: "$2k–$50k/mo",
-		},
-	],
-};
+// ─── Human Bridge (H) inline data ────────────────────────────────────
 
-const TOOLS: Record<string, { name: string; desc: string; price: string }[]> = {
-	H: [
-		{
-			name: "Claude",
-			desc: "Primary thinking partner. Session prep, content, difficult email drafting.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Notion AI",
-			desc: "Client management and knowledge base.",
-			price: "FREE TIER",
-		},
-		{
-			name: "HeyGen",
-			desc: "AI avatar content. Scale your video presence.",
-			price: "FROM $29/mo",
-		},
-		{
-			name: "Loom AI",
-			desc: "Async video check-ins with auto-captions and summaries.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Circle / Skool",
-			desc: "Your community platform. AI handles content infrastructure.",
-			price: "FROM $49/mo",
-		},
-		{
-			name: "Beehiiv",
-			desc: "Your email list. The audience you own.",
-			price: "FREE TIER",
-		},
-	],
-	C: [
-		{
-			name: "Midjourney",
-			desc: "Visual ideation at speed. Your eye + AI production.",
-			price: "FROM $10/mo",
-		},
-		{
-			name: "Claude",
-			desc: "Strategic narrative and copy. Editorial thinking partner.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Runway",
-			desc: "AI video editing and generation.",
-			price: "FROM $15/mo",
-		},
-		{
-			name: "Figma AI",
-			desc: "Design at velocity. AI-assisted component generation.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Suno",
-			desc: "AI music creation from text prompts.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Framer AI",
-			desc: "Website creation from descriptions. No code.",
-			price: "FROM $19/mo",
-		},
-	],
-	S: [
-		{
-			name: "Make (Integromat)",
-			desc: "Multi-step AI automation workflows.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Claude",
-			desc: "Intelligence layer inside your workflows.",
-			price: "FREE TIER",
-		},
-		{
-			name: "n8n",
-			desc: "Self-hosted automation with AI nodes.",
-			price: "FREE SELF-HOST",
-		},
-		{
-			name: "Airtable AI",
-			desc: "Structured data + AI inference in one system.",
-			price: "FROM $20/mo",
-		},
-		{
-			name: "Cursor / Copilot",
-			desc: "AI-native coding. 10x your build speed.",
-			price: "FROM $20/mo",
-		},
-		{
-			name: "Retool",
-			desc: "Internal tools on top of AI APIs.",
-			price: "FREE TIER",
-		},
-	],
-	G: [
-		{
-			name: "Clay",
-			desc: "AI-powered lead research and enrichment at scale.",
-			price: "FROM $149/mo",
-		},
-		{
-			name: "Claude",
-			desc: "Hyper-personalised outreach based on Clay research.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Apollo.io",
-			desc: "AI-enhanced prospecting and email sequencing.",
-			price: "FREE TIER",
-		},
-		{
-			name: "HubSpot AI",
-			desc: "CRM + AI insights. Pipeline intelligence.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Perplexity",
-			desc: "Real-time research and competitor intelligence.",
-			price: "FREE TIER",
-		},
-		{
-			name: "Jasper / Copy.ai",
-			desc: "Brand-voice content at scale.",
-			price: "FROM $49/mo",
-		},
-	],
-};
+const H_CAREERS = [
+  { title: "AI Life Coach (Augmented)", desc: "Use AI for session prep, notes and content. You stay fully present.", earn: "$1k–$5k/mo" },
+  { title: "AI Community Architect", desc: "Build and run a paid community. AI handles content; you hold the space.", earn: "$2k–$10k/mo" },
+  { title: "AI Corporate Wellbeing Trainer", desc: "Run workshops on psychological safety, empathy and AI transition.", earn: "$2k–$10k/day" },
+  { title: "AI Relationship Coach", desc: "Coach individuals and couples using AI to prep and scale your practice.", earn: "$800–$3k/mo" },
+  { title: "AI Educator / Course Creator", desc: "Package your knowledge into courses. AI builds the infrastructure.", earn: "$500–$50k/launch" },
+  { title: "AI Career Transition Coach", desc: "Help people rebuild identity and direction after layoffs.", earn: "$1k–$3k/client" },
+];
+
+const H_CORE = [
+  "Empathy & Emotional Intelligence",
+  "Building Trust Rapidly",
+  "Creating Psychological Safety",
+  "Deep Listening",
+  "Making People Feel Seen",
+  "Holding Space for Complexity",
+  "Connecting Across Difference",
+];
+
+const H_BEFORE_AFTER = [
+  { before: "1:1 coaching: you can only trade time for money", after: "Group coaching + digital products: AI helps you deliver at scale without losing the human touch" },
+  { before: "Workshop prep: hours of manual research and personalisation", after: "15 minutes: AI builds the research and personalisation backbone" },
+  { before: "Content: sharing your wisdom requires writing everything from scratch", after: "1 voice memo → 5 pieces of content in your voice" },
+  { before: "Client notes: manual, scattered, easy to lose", after: "AI handles all session summaries, follow-ups, and insights" },
+  { before: "Course creation: months of curriculum design and recording", after: "Full course structure in 2 days with AI" },
+];
+
+const H_CASE_STUDIES = [
+  {
+    name: "Sofia A.",
+    role: "Life Coach",
+    location: "Nigeria",
+    result: "Grew from 3 to 18 coaching clients in 6 weeks using AI-augmented outreach and content systems.",
+    quote: "I was spending 15 hours a week on content and getting nothing back. Now I spend 3 hours and get 10x the engagement.",
+  },
+  {
+    name: "Michael O.",
+    role: "HR Leader",
+    location: "UK",
+    result: "Secured a fractional Chief Wellbeing Officer role paying £4,200/month.",
+    quote: "The AI archetype assessment showed me exactly where my human skills are most valuable in the AI economy.",
+  },
+  {
+    name: "Tolu E.",
+    role: "Therapist",
+    location: "Canada",
+    result: "Launched a paid community for mental wellness ($49/month, 87 members in 90 days).",
+    quote: "I never thought I could build an online community. AI handled the content engine; I just showed up and held the space.",
+  },
+];
+
+const H_INCOME_PATHS = [
+  {
+    label: "The Coach",
+    title: "High-Touch Premium",
+    range: "$5k – $15k/month",
+    items: [
+      "1:1 coaching packages: $2k–$5k per 4–6 week engagement",
+      "Group coaching programmes: $500–$2k per person per cohort",
+      "Paid community membership: $97–$297/month recurring",
+      "VIP intensive day: $3k–$8k per session",
+    ],
+  },
+  {
+    label: "The Consultant",
+    title: "Organisational Impact",
+    range: "$8k – $25k/month",
+    items: [
+      "Fractional C-suite roles: $5k–$15k/month per engagement",
+      "Advisory board roles: equity + $2k–$5k monthly retainer",
+      "Market entry consulting: $5k–$20k per project",
+      "Executive training and workshops: $2k–$10k per day",
+    ],
+  },
+];
+
+// ─── Styles for H page ───────────────────────────────────────────────
+
+
+// ─── Main Component ──────────────────────────────────────────────────
 
 export default function ResultsClient({ slug }: { slug: string }) {
-	const arch = getArchetypeBySlug(slug);
-	if (!arch) notFound();
+  const arch = getArchetypeBySlug(slug);
+  if (!arch) return notFound();
+  const archKey = arch.key;
 
-	const careers = CAREER_DETAILS[arch.key] || [];
-	const tools = TOOLS[arch.key] || [];
+  // For C, G, S — render the new dedicated component
+  if (archKey === "C") return <CreativeAmplifierPage />;
+  if (archKey === "G") return <GrowthCatalystPage />;
+  if (archKey === "S") return <SystemsArchitectPage />;
 
-	const storedName = useSyncExternalStore(
-		() => () => {},
-		() => localStorage.getItem("yhe_name") || "",
-		() => ""
-	);
-	const [buying, setBuying] = useState(false);
-	const [buyError, setBuyError] = useState("");
+  // ─── H (Human Bridge) — render inline ──────────────────────────────
+  const [buying, setBuying] = useState(false);
+  const [buyError, setBuyError] = useState("");
 
-	useEffect(() => {
-		track("result_view", { archetype: arch.key });
-	}, [arch.key]);
+  useEffect(() => {
+    track("result_view", { archetype: archKey });
+  }, [archKey]);
 
-	async function handleBuy() {
-		setBuyError("");
-		setBuying(true);
-		track("buy_click", { archetype: arch?.key });
+  async function onBuy() {
+    setBuyError("");
+    setBuying(true);
+    try {
+      const url = await buyPlaybook(archKey);
+      window.location.href = url;
+    } catch (err: unknown) {
+      setBuying(false);
+      setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
+    }
+  }
 
-		try {
-			const email = localStorage.getItem("yhe_email") || "";
-			const res = await fetch("/api/create-checkout", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email, archetype: arch?.key ?? "H" }),
-			});
-			const data = await res.json();
-			if (!res.ok || !data.url)
-				throw new Error(data.error || "Checkout unavailable.");
-			window.location.href = data.url;
-		} catch (err: unknown) {
-			setBuying(false);
-			setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
-		}
-	}
+  return (
+    <div className="result-page" style={{ background: "var(--ivory)", fontFamily: "'DM Sans', sans-serif", color: "var(--ink)", overflowX: "hidden", lineHeight: 1.72 }}>
+      <style>{`
+        :root{--coral:#D85A30;--coral2:#E06040;--coral-soft:#FEF0EA;--ink:#1A0F38;--soft:#4a3f6b;--ivory:#FAF8F4;--paper:#F2EDE5;--gold:#C8940A;--gold2:#E8A020;--teal:#0C6B51;--teal-soft:#E1F5EE;--purple:#534AB7;--purple-soft:#EEEDFE;--blue:#1565C0;--blue-soft:#E8F0FE;--border:#E4DDD4;}
+        html{scroll-behavior:smooth}
+        a{text-decoration:none;color:inherit}
+        .tw{max-width:860px;margin:0 auto;padding:0 28px}
+        .h-hero{background:linear-gradient(145deg,#2D1050 0%,#534AB7 55%,#1565C0 100%);padding:104px 28px 60px;text-align:center;position:relative;overflow:hidden}
+        .h-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(255,255,255,.12),transparent 60%)}
+        .h-hero-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+        .h-hero .dot{color:var(--gold2);font-size:.8rem}
+        .h-section{padding:60px 0}
+        .h-sec-alt{background:var(--paper)}
+        .h-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px 32px}
+        .h-eye{font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+        .h-eye::before{content:"◆";font-size:.52rem}
+        .h-title{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.12;margin-bottom:12px}
+        .h-sub{font-size:.97rem;color:var(--soft);line-height:1.82;max-width:580px;margin-bottom:32px}
+        .h-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:40px;font-size:.85rem;background:var(--ivory);color:var(--ink);border:1.5px solid var(--border);transition:all .18s}
+        .h-chip:hover{background:var(--purple-soft);border-color:var(--purple);color:var(--purple)}
+        @keyframes h-pop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+      `}</style>
 
-	return (
-		<div className="result-page">
-			<nav
-				role="navigation"
-				aria-label="Main navigation"
-				style={{
-					position: "fixed",
-					top: 0,
-					left: 0,
-					right: 0,
-					zIndex: 99,
-					background: "rgba(26,16,64,.94)",
-					backdropFilter: "blur(14px)",
-					borderBottom: "1px solid rgba(255,255,255,.07)",
-					padding: "0 32px",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-					height: "62px",
-				}}>
-				<Link href="/quiz" className="nav-logo" aria-label="Your Human Edge home">
-					Your Human Edge in the AI Era
-				</Link>
-				<Link href="/quiz" className="nav-cta" aria-label="Retake the archetype quiz">
-					Take the quiz again
-				</Link>
-			</nav>
+      {/* NAV */}
+      <nav>
+        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
+        <ul className="nav-links">
+          <li><Link href="/quiz">Home</Link></li>
+          <li><Link href="/resources">Resources</Link></li>
+        </ul>
+        <Link href="#paywall" className="nav-cta">Get the Playbook →</Link>
+      </nav>
 
-			<header
-				role="banner"
-				style={{
-					background: `linear-gradient(135deg,${arch.colorDark} 0%,${arch.color} 100%)`,
-					padding: "120px 28px 64px",
-					textAlign: "center",
-					position: "relative",
-					overflow: "hidden",
-				}}>
-				<div
-					className="result-page__glow"
-					aria-hidden="true"
-					style={{
-						position: "absolute",
-						inset: 0,
-						background:
-							"radial-gradient(ellipse at 30% 60%,rgba(255,255,255,.15),transparent 60%)",
-					}}
-				/>
-				{storedName && (
-					<div
-						style={{
-							fontFamily: "'Cormorant Garamond', serif",
-							fontSize: "1.05rem",
-							color: "rgba(255,255,255,.6)",
-							marginBottom: "20px",
-							fontStyle: "italic",
-							position: "relative",
-							zIndex: 1,
-						}}>
-						{storedName}, meet your archetype.
-					</div>
-				)}
-				<span
-					style={{
-						fontSize: "3.2rem",
-						display: "block",
-						marginBottom: "14px",
-						position: "relative",
-						zIndex: 1,
-					}}
-					role="img"
-					aria-label={`${arch.name} emoji`}>
-					{arch.emoji}
-				</span>
-				<div
-					style={{
-						fontSize: ".7rem",
-						letterSpacing: ".2em",
-						textTransform: "uppercase",
-						color: "rgba(255,255,255,.7)",
-						fontWeight: 500,
-						marginBottom: "8px",
-						position: "relative",
-						zIndex: 1,
-					}}>
-					Your AI Archetype
-				</div>
-				<h1
-					style={{
-						fontFamily: "'Cormorant Garamond', serif",
-						fontSize: "clamp(2.4rem,7vw,4rem)",
-						fontWeight: 600,
-						color: "#fff",
-						lineHeight: 1.06,
-						marginBottom: "12px",
-						position: "relative",
-						zIndex: 1,
-					}}>
-					The {arch.name}
-				</h1>
-				<p
-					style={{
-						fontFamily: "'Cormorant Garamond', serif",
-						fontStyle: "italic",
-						fontSize: "1.1rem",
-						color: "rgba(255,255,255,.82)",
-						position: "relative",
-						zIndex: 1,
-					}}>
-					&quot;{arch.tagline}&quot;
-				</p>
-			</header>
+      {/* HERO */}
+      <div className="h-hero">
+        <div className="h-hero-inner">
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", fontStyle: "italic", color: "rgba(255,255,255,.55)", marginBottom: "10px" }}>Your result is in.</div>
+          <span style={{ fontSize: "3rem", display: "block", marginBottom: "12px", animation: "h-pop .5s cubic-bezier(.4,0,.2,1) both" }}>{arch.emoji}</span>
+          <div style={{ fontSize: ".68rem", letterSpacing: ".22em", textTransform: "uppercase", color: "rgba(255,255,255,.6)", fontWeight: 500, marginBottom: "8px" }}>Your AI Archetype</div>
+          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.8rem,7vw,4.4rem)", fontWeight: 700, color: "#fff", lineHeight: 1.05, marginBottom: "10px" }}>{arch.name}</h1>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontStyle: "italic", color: "rgba(255,255,255,.65)", marginBottom: "28px" }}>{arch.tagline}</div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "26px" }}>
+            <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,.2)" }}></div>
+            <div className="dot">◆</div>
+            <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,.2)" }}></div>
+          </div>
+          <div style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.14)", borderRadius: "14px", padding: "20px 26px", textAlign: "left" }}>
+            <span style={{ fontSize: ".66rem", letterSpacing: ".18em", textTransform: "uppercase", color: "var(--gold2)", fontWeight: 600, marginBottom: "8px", display: "block" }}>Your human edge · and your current ceiling</span>
+            <div style={{ fontSize: ".96rem", color: "rgba(255,255,255,.82)", lineHeight: 1.76 }}>{arch.reframe}</div>
+          </div>
+        </div>
+      </div>
 
-			<main style={{ padding: "60px 0 80px" }}>
-				<div className="container">
-					<article style={cardStyle}>
-						<h2 style={labelStyle("var(--purple)")}>Who you are</h2>
-						<p style={bodyTextStyle}>{arch.reframe}</p>
-						<h3 style={labelStyle("var(--teal)")}>Natural strengths</h3>
-						<div style={{ margin: "8px 0 4px" }}>
-							{[
-								"Deep Listener",
-								"Natural Coach",
-								"Emotionally Intelligent",
-								"Systems Thinker",
-								"Strategic Vision",
-								"People-First",
-							].map((s) => (
-								<span
-									key={s}
-									style={{
-										display: "inline-block",
-										padding: "5px 14px",
-										borderRadius: "40px",
-										fontSize: ".78rem",
-										fontWeight: 500,
-										background: "var(--paper)",
-										color: "var(--ink)",
-										border: "1px solid var(--border)",
-										margin: "3px",
-									}}>
-									{s}
-								</span>
-							))}
-						</div>
-						<h3 style={labelStyle("var(--coral)")}>Where AI fits you</h3>
-						<p style={bodyTextStyle}>
-							Your archetype&apos;s tool: <strong>{arch.tool}</strong>.{" "}
-							{arch.useCase}
-						</p>
-					</article>
+      {/* WHO YOU ARE */}
+      <section className="h-section">
+        <div className="tw">
+          <div className="h-card">
+            <div className="h-eye" style={{ color: "var(--purple)" }}>Who you are</div>
+            <p style={{ fontSize: ".97rem", color: "var(--soft)", lineHeight: 1.82, marginBottom: "22px" }}>{arch.fear}</p>
+            <div className="h-eye" style={{ color: "var(--purple)", marginTop: "22px" }}>Natural Strengths</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+              {H_CORE.map((s) => (<span key={s} className="h-chip">{s}</span>))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-					<section style={cardStyle} aria-labelledby="career-paths-heading">
-						<h2 id="career-paths-heading" style={{ ...labelStyle("#b8860b"), marginTop: 0 }}>
-							AI career paths for your archetype
-						</h2>
-						<div className="table-scroll">
-							<table
-								style={{
-									width: "100%",
-									borderCollapse: "collapse",
-									background: "#fff",
-									borderRadius: "10px",
-									overflow: "hidden",
-									border: "1px solid var(--border)",
-								}}>
-								<thead>
-									<tr>
-										{["Career Path", "What you do", "Earning range"].map(
-											(h) => (
-												<th
-													key={h}
-													scope="col"
-													style={{
-														background: "var(--ink)",
-														color: "#fff",
-														padding: "10px 14px",
-														textAlign: "left",
-														fontSize: "9.5px",
-														letterSpacing: ".1em",
-														textTransform: "uppercase",
-														fontWeight: 500,
-													}}>
-													{h}
-												</th>
-											)
-										)}
-									</tr>
-								</thead>
-								<tbody>
-									{careers.map((c, i) => (
-										<tr
-											key={i}
-											style={{ borderBottom: "1px solid var(--border)" }}>
-											<td
-												style={{
-													padding: "10px 14px",
-													fontSize: ".88rem",
-													fontWeight: 600,
-												}}>
-												{c.title}
-											</td>
-											<td
-												style={{
-													padding: "10px 14px",
-													fontSize: ".84rem",
-													color: "var(--soft)",
-												}}>
-												{c.desc}
-											</td>
-											<td style={{ padding: "10px 14px" }}>
-												<span
-													style={{
-														display: "inline-block",
-														borderRadius: "4px",
-														padding: "2px 8px",
-														fontSize: ".78rem",
-														fontWeight: 600,
-														background: arch.colorLight,
-														color: arch.color,
-													}}>
-													{c.earn}
-												</span>
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
-					</section>
+      {/* BEFORE / AFTER */}
+      <section className="h-section h-sec-alt">
+        <div className="tw">
+          <div className="h-eye" style={{ color: "var(--purple)" }}>The leverage gap</div>
+          <h2 className="h-title">What AI actually changes<br />for <em style={{ fontStyle: "italic", color: "var(--purple)" }}>your specific archetype</em></h2>
+          <p className="h-sub">This is not a tool list. This is the exact before and after for a Human Bridge who implements the playbook in 90 days.</p>
+          <div style={{ borderRadius: "14px", overflow: "hidden", border: "1px solid var(--border)" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", background: "var(--ink)" }}>
+              <div style={{ padding: "13px 20px", fontSize: ".68rem", fontWeight: 600, letterSpacing: ".14em", textTransform: "uppercase", textAlign: "center", color: "rgba(255,255,255,.4)", borderRight: "1px solid rgba(255,255,255,.08)" }}>Without the playbook</div>
+              <div style={{ padding: "13px 20px", fontSize: ".68rem", fontWeight: 600, letterSpacing: ".14em", textTransform: "uppercase", textAlign: "center", color: "var(--gold2)" }}>With the playbook ◆</div>
+            </div>
+            {H_BEFORE_AFTER.map((row, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", background: "#fff", borderBottom: i < H_BEFORE_AFTER.length - 1 ? "1px solid var(--border)" : "none" }}>
+                <div style={{ padding: "15px 20px", fontSize: ".9rem", lineHeight: 1.55, display: "flex", alignItems: "flex-start", gap: "10px", color: "var(--soft)", borderRight: "1px solid var(--border)" }}>
+                  <span style={{ color: "#E53935", fontSize: ".82rem", flexShrink: 0, fontWeight: 700, marginTop: "2px" }}>✗</span>{row.before}
+                </div>
+                <div style={{ padding: "15px 20px", fontSize: ".9rem", lineHeight: 1.55, display: "flex", alignItems: "flex-start", gap: "10px", color: "var(--ink)", fontWeight: 500 }}>
+                  <span style={{ color: "var(--teal)", fontSize: ".82rem", flexShrink: 0, fontWeight: 700, marginTop: "2px" }}>✓</span>{row.after}
+                </div>
+              </div>
+            ))}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", background: "var(--purple-soft)" }}>
+              <div style={{ padding: "16px 20px", textAlign: "center", borderRight: "1px solid var(--border)" }}>
+                <div style={{ fontSize: ".65rem", fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--soft)", marginBottom: "4px" }}>Current income ceiling</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.45rem", fontWeight: 700, color: "#E53935" }}>$1k – $3k/mo</div>
+              </div>
+              <div style={{ padding: "16px 20px", textAlign: "center" }}>
+                <div style={{ fontSize: ".65rem", fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--soft)", marginBottom: "4px" }}>AI-amplified capacity</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.45rem", fontWeight: 700, color: "var(--teal)" }}>$8k – $15k/mo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-					<section style={cardStyle} aria-labelledby="tools-heading">
-						<h2 id="tools-heading" style={labelStyle("var(--purple)")}>
-							Your natural AI tools
-						</h2>
-						<div
-							style={{
-								display: "grid",
-								gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))",
-								gap: "10px",
-								margin: "10px 0",
-							}}>
-							{tools.map((t) => (
-								<div
-									key={t.name}
-									style={{
-										background: "#fff",
-										border: "1px solid var(--border)",
-										borderRadius: "10px",
-										padding: "12px 14px",
-										display: "flex",
-										alignItems: "flex-start",
-										gap: "10px",
-									}}>
-									<span
-										aria-hidden="true"
-										style={{
-											width: 5,
-											height: 5,
-											borderRadius: "50%",
-											background: arch.color,
-											flexShrink: 0,
-											marginTop: 6,
-										}}
-									/>
-									<div>
-										<div
-											style={{
-												fontSize: ".88rem",
-												fontWeight: 500,
-												color: "var(--ink)",
-											}}>
-											{t.name}
-										</div>
-										<div
-											style={{
-												fontSize: ".78rem",
-												color: "var(--soft)",
-												lineHeight: 1.5,
-											}}>
-											{t.desc}
-										</div>
-										<span
-											style={{
-												display: "inline-block",
-												marginTop: "5px",
-												fontSize: ".72rem",
-												color: arch.color,
-												background: arch.colorLight,
-												borderRadius: "4px",
-												padding: "1px 7px",
-												fontWeight: 600,
-											}}>
-											{t.price}
-										</span>
-									</div>
-								</div>
-							))}
-						</div>
-					</section>
+      {/* CAREER PATHS */}
+      <section className="h-section">
+        <div className="tw">
+          <div className="h-eye" style={{ color: "var(--gold)" }}>AI career paths for your archetype</div>
+          <h2 className="h-title">Roles built for<br /><em style={{ fontStyle: "italic", color: "var(--purple)" }}>exactly how you relate</em></h2>
+          <p className="h-sub">These are real roles Human Bridges with your skills are filling and earning from today.</p>
+          <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border)" }}>
+            <thead>
+              <tr style={{ background: "var(--ink)", color: "#fff" }}>
+                <th style={{ padding: "11px 16px", textAlign: "left", fontSize: ".68rem", letterSpacing: ".1em", textTransform: "uppercase", fontWeight: 500 }}>Career Path</th>
+                <th style={{ padding: "11px 16px", textAlign: "left", fontSize: ".68rem", letterSpacing: ".1em", textTransform: "uppercase", fontWeight: 500 }}>What You Do</th>
+                <th style={{ padding: "11px 16px", textAlign: "left", fontSize: ".68rem", letterSpacing: ".1em", textTransform: "uppercase", fontWeight: 500 }}>Earning Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              {H_CAREERS.map((c) => (
+                <tr key={c.title}>
+                  <td style={{ padding: "13px 16px", borderBottom: "1px solid var(--border)", fontSize: ".9rem", fontWeight: 600, color: "var(--ink)" }}>{c.title}</td>
+                  <td style={{ padding: "13px 16px", borderBottom: "1px solid var(--border)", fontSize: ".88rem", color: "var(--soft)" }}>{c.desc}</td>
+                  <td style={{ padding: "13px 16px", borderBottom: "1px solid var(--border)", fontSize: ".9rem" }}>
+                    <span style={{ display: "inline-block", background: "var(--purple-soft)", color: "var(--purple)", borderRadius: "6px", padding: "3px 10px", fontSize: ".78rem", fontWeight: 600 }}>{c.earn}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-					<section
-						id="upgrade"
-						aria-labelledby="playbook-heading"
-						style={{
-							background: "var(--ink)",
-							borderRadius: "18px",
-							padding: "48px 40px",
-							textAlign: "center",
-							color: "#fff",
-							marginTop: "24px",
-						}}>
-						<div
-							style={{
-								fontSize: ".68rem",
-								letterSpacing: ".2em",
-								textTransform: "uppercase",
-								color: "#e8a020",
-								fontWeight: 500,
-								marginBottom: "14px",
-							}}>
-							Your Personal Playbook · $9.99
-						</div>
-						<h2
-							id="playbook-heading"
-							style={{
-								fontFamily: "'Cormorant Garamond', serif",
-								fontSize: "clamp(1.8rem,4vw,2.4rem)",
-								fontWeight: 500,
-								color: "#fff",
-								marginBottom: "12px",
-								lineHeight: 1.2,
-							}}>
-							Get the full map.
-							<br />
-							Not just the archetype.
-						</h2>
-						<p
-							style={{
-								fontSize: ".92rem",
-								color: "rgba(255,255,255,.6)",
-								lineHeight: 1.78,
-								maxWidth: "480px",
-								margin: "0 auto 26px",
-							}}>
-							Your free results show you <em>who</em> you are. The Playbook
-							shows you exactly <em>what to do</em> — every AI career path,
-							income strategy, tool stack, and 90-day action plan built for The{" "}
-							{arch.name}.
-						</p>
-						<div
-							style={{
-								background: "rgba(255,255,255,.06)",
-								borderRadius: "12px",
-								padding: "22px 24px",
-								marginBottom: "28px",
-								textAlign: "left",
-							}}>
-							{[
-								"Deep-dive into your archetype's skills, tools and income strategies",
-								"Your 30-Day AI Activation Blueprint — week-by-week, no guesswork",
-								"Archetype-specific tool stack — the exact AI tools that fit how you work",
-								"The psychology behind AI resistance — and how to move past yours",
-								"Income pathways: coaching, community, courses, and consulting",
-								`Common traps ${arch.name}s fall into — and how to avoid every one`,
-								"+ Bonus: The AI Career Map — 50+ roles, real income ranges & your archetype's top picks",
-							].map((item, i) => (
-								<p
-									key={i}
-									style={{
-										color: i === 6 ? "#e8a020" : "rgba(255,255,255,.88)",
-										fontSize: ".88rem",
-										display: "flex",
-										alignItems: "flex-start",
-										gap: "9px",
-										padding: "5px 0",
-										lineHeight: 1.5,
-									}}>
-									<span
-										aria-hidden="true"
-										style={{
-											color: "#e8a020",
-											fontWeight: 700,
-											flexShrink: 0,
-										}}>
-										✓
-									</span>
-									{item}
-								</p>
-							))}
-						</div>
-						<div
-							style={{
-								fontSize: ".88rem",
-								color: "rgba(255,255,255,.35)",
-								textDecoration: "line-through",
-								marginBottom: "4px",
-							}}>
-							Valued at $57
-						</div>
-						<div
-							style={{
-								fontFamily: "'Cormorant Garamond', serif",
-								fontSize: "3.2rem",
-								fontWeight: 600,
-								color: "#e8a020",
-								lineHeight: 1,
-							}}>
-							$9.99
-						</div>
-						<div
-							style={{
-								display: "inline-block",
-								background: "rgba(232,160,32,.15)",
-								border: "1px solid rgba(232,160,32,.35)",
-								borderRadius: "40px",
-								padding: "4px 14px",
-								fontSize: ".73rem",
-								color: "#e8a020",
-								margin: "6px 0 26px",
-								letterSpacing: ".03em",
-							}}>
-							🔥 Launch Price — Valid for the first 10 subscribers
-						</div>
-						<br />
-						<button
-							onClick={handleBuy}
-							disabled={buying}
-							aria-label="Purchase AI career playbook for $9.99"
-							style={{
-								display: "inline-flex",
-								alignItems: "center",
-								gap: "9px",
-								background: arch.color,
-								color: "#fff",
-								fontFamily: "'DM Sans', sans-serif",
-								fontSize: "1rem",
-								fontWeight: 600,
-								padding: "16px 42px",
-								borderRadius: "50px",
-								border: "none",
-								cursor: buying ? "not-allowed" : "pointer",
-								opacity: buying ? 0.6 : 1,
-								marginBottom: "10px",
-								transition: 'transform .2s, box-shadow .2s',
-							}}
-							onMouseEnter={(e) => !buying && (e.currentTarget.style.transform = 'translateY(-2px)', e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,.3)')}
-							onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)', e.currentTarget.style.boxShadow = 'none')}
-							onFocus={(e) => e.currentTarget.style.outline = '2px solid #fff'}
-							onBlur={(e) => e.currentTarget.style.outline = 'none'}>
-							{buying ? "Preparing checkout…" : "Get My AI Guide →"}
-						</button>
-						{buyError && (
-							<div
-								role="alert"
-								style={{
-									color: "#ffcdd2",
-									fontSize: ".8rem",
-									marginTop: "8px",
-								}}>
-								{buyError}
-							</div>
-						)}
-						<div
-							style={{
-								fontSize: ".75rem",
-								color: "rgba(255,255,255,.3)",
-								display: "block",
-							}}>
-							Instant access · Secure checkout · 100% satisfaction guaranteed
-						</div>
-					</section>
-				</div>
-			</main>
+      {/* CASE STUDIES */}
+      <section className="h-section h-sec-alt">
+        <div className="tw">
+          <div className="h-eye" style={{ color: "var(--gold)" }}>Real human bridges. Real results.</div>
+          <h2 className="h-title">They were where you are.<br />Here is what <em style={{ fontStyle: "italic", color: "var(--purple)" }}>changed.</em></h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginTop: "4px" }}>
+            {H_CASE_STUDIES.map((cs, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: "14px", padding: "22px 24px", borderLeft: `4px solid ${["var(--purple)", "var(--teal)", "var(--gold)"][i] || "var(--purple)"}` }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.06rem", fontStyle: "italic", color: "var(--ink)", lineHeight: 1.7, marginBottom: "14px" }}>&ldquo;{cs.quote}&rdquo;</div>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{ width: "38px", height: "38px", borderRadius: "50%", background: "var(--purple-soft)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", fontWeight: 700, color: "var(--purple)", flexShrink: 0 }}>{cs.name[0]}</div>
+                  <div><div style={{ fontWeight: 500, fontSize: ".88rem", color: "var(--ink)" }}>{cs.name}</div><div style={{ fontSize: ".78rem", color: "var(--soft)" }}>{cs.role} · {cs.location}</div></div>
+                </div>
+                <div style={{ marginTop: "10px", padding: "7px 14px", borderRadius: "8px", background: "var(--purple-soft)", display: "inline-flex", alignItems: "center", gap: "6px", fontSize: ".78rem", fontWeight: 600, color: "var(--purple)" }}>
+                  ◆ {cs.result}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-			<footer role="contentinfo">
-				<div className="footer-brand">human<span>+</span>ai</div>
-				<ul className="f-links">
-					<li>
-						<Link href="/quiz">Take the quiz</Link>
-					</li>
-					<li>
-						<Link href="/resources">Resources</Link>
-					</li>
-				</ul>
-				<div style={{ fontSize: ".7rem", opacity: 0.25 }}>
-					© 2026
-				</div>
-			</footer>
-		</div>
-	);
-}
+      {/* INCOME */}
+      <section className="h-section">
+        <div className="tw">
+          <div className="h-eye" style={{ color: "var(--teal)" }}>Your income model</div>
+          <h2 className="h-title">How Human Bridges<br /><em style={{ fontStyle: "italic", color: "var(--purple)" }}>actually</em> earn with AI</h2>
+          <p className="h-sub">Four income paths. Each one specific to how your archetype operates. Full breakdown inside the playbook.</p>
+          <div style={{ position: "relative" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+              {H_INCOME_PATHS.map((p) => (
+                <div key={p.label} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: "14px", padding: "22px", borderTop: `4px solid var(--purple)` }}>
+                  <div style={{ fontSize: ".64rem", fontWeight: 600, letterSpacing: ".16em", textTransform: "uppercase", marginBottom: "5px", color: "var(--purple)" }}>{p.label}</div>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.12rem", fontWeight: 700, color: "var(--ink)", marginBottom: "5px" }}>{p.title}</div>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.38rem", fontWeight: 700, marginBottom: "8px", color: "var(--purple)" }}>{p.range}</div>
+                  <ul style={{ listStyle: "none" }}>
+                    {p.items.map((item) => (
+                      <li key={item} style={{ fontSize: ".8rem", color: "var(--soft)", padding: "5px 0 5px 15px", position: "relative", borderBottom: "1px solid var(--border)", lineHeight: 1.45 }}>
+                        <span style={{ position: "absolute", left: 0, fontSize: ".72rem", color: "var(--purple)" }}>→</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "58%", background: "linear-gradient(to bottom, transparent 0%, rgba(250,248,244,.96) 50%, var(--ivory) 100%)", zIndex: 2, pointerEvents: "none" }}></div>
+          </div>
+        </div>
+      </section>
 
-const cardStyle: React.CSSProperties = {
-	background: "#fff",
-	border: "1px solid var(--border)",
-	borderRadius: "14px",
-	padding: "32px 36px",
-	marginBottom: "20px",
-	boxShadow: "0 2px 20px rgba(26,16,64,.05)",
-};
-const bodyTextStyle: React.CSSProperties = {
-	fontSize: ".97rem",
-	color: "var(--soft)",
-	lineHeight: 1.82,
-	marginBottom: "8px",
-};
-function labelStyle(color: string): React.CSSProperties {
-	return {
-		fontSize: ".68rem",
-		letterSpacing: ".18em",
-		textTransform: "uppercase",
-		fontWeight: 600,
-		marginBottom: "10px",
-		marginTop: "26px",
-		display: "block",
-		color,
-	};
-}
-function track(event: string, data?: Record<string, unknown>) {
-	try {
-		const payload = JSON.stringify({
-			event,
-			data,
-			page: window.location.pathname,
-			ts: Date.now(),
-		});
-		if (navigator?.sendBeacon)
-			navigator.sendBeacon(
-				"/api/track",
-				new Blob([payload], { type: "application/json" })
-			);
-	} catch {}
+      {/* PAYWALL */}
+      <div id="paywall" style={{ background: "var(--ink)", padding: "64px 28px 100px" }}>
+        <div style={{ maxWidth: "680px", margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: ".66rem", letterSpacing: ".2em", textTransform: "uppercase", color: "var(--gold2)", fontWeight: 600, marginBottom: "14px" }}>Your Personal Playbook · $9.99</div>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem,5vw,3.2rem)", fontWeight: 700, color: "#fff", lineHeight: 1.08, marginBottom: "16px", letterSpacing: "-.01em" }}>Your Path to your first<br /><em style={{ fontStyle: "italic", color: "var(--gold2)" }}>$10,000 month</em> using AI</h2>
+          <p style={{ fontSize: ".97rem", color: "rgba(255,255,255,.58)", lineHeight: 1.82, maxWidth: "500px", margin: "0 auto 36px" }}>Your free results show you <em style={{ fontStyle: "italic", color: "rgba(255,255,255,.85)" }}>who</em> you are. The Playbook shows you exactly <em style={{ fontStyle: "italic", color: "rgba(255,255,255,.85)" }}>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for {arch.name}.</p>
+          <div style={{ fontSize: ".88rem", color: "rgba(255,255,255,.28)", textDecoration: "line-through", marginBottom: "5px" }}>Valued at $57</div>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "4rem", fontWeight: 700, color: "var(--gold2)", lineHeight: 1, marginBottom: "14px" }}>$9.99</div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(232,160,32,.1)", border: "1px solid rgba(232,160,32,.28)", borderRadius: "40px", padding: "6px 18px", fontSize: ".8rem", fontWeight: 600, color: "var(--gold2)", marginBottom: "28px" }}>🔥 Launch Price — Valid for the first 10 Buyers</div>
+          <div><button onClick={onBuy} disabled={buying} style={{ display: "inline-flex", alignItems: "center", gap: "10px", background: "var(--coral)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontSize: "1.08rem", fontWeight: 600, padding: "17px 48px", borderRadius: "50px", border: "none", cursor: buying ? "not-allowed" : "pointer", opacity: buying ? 0.6 : 1, transition: "all .25s", textDecoration: "none", letterSpacing: ".02em" }}>{buying ? "Preparing checkout…" : "Buy Playbook →"}</button>{buyError && <div role="alert" style={{ color: "#ffcdd2", fontSize: ".8rem", marginTop: "8px" }}>{buyError}</div>}</div>
+          <div style={{ fontSize: ".82rem", color: "rgba(255,255,255,.35)", marginTop: "16px" }}>More income paths, tool stack, and 90 day plan inside the playbook</div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+            <footer>
+        <div className="footer-brand">human<span>+</span>ai</div>
+
+        <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>
+      </footer>
+    </div>
+  );
 }
