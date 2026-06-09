@@ -343,50 +343,6 @@ export default function GrowthCatalystPage() {
   </div>
 </section>
 
-<section className="sec-alt">
-  <div className="wrap">
-    <div className="sec-eye eye-blue">The leverage gap</div>
-    <h2 className="sec-title">What AI actually changes<br />for <em>your specific archetype</em></h2>
-    <p className="sec-sub">This is not a tool list. This is the exact before and after for a Growth Catalyst who implements the playbook in 90 days.</p>
-    <div className="matrix">
-      <div className="matrix-head">
-        <div className="mh before">Without the playbook</div>
-        <div className="mh after">With the playbook ◆</div>
-      </div>
-      <div className="matrix-row">
-        <div className="mc before">Research one prospect: 2 to 3 hours of manual work</div>
-        <div className="mc after">Research 50 prospects: 40 minutes with Perplexity + Apollo</div>
-      </div>
-      <div className="matrix-row">
-        <div className="mc before">Outreach: 15 to 20 emails per day, written manually</div>
-        <div className="mc after">Outreach: 150 to 200 personalised emails per day, automated</div>
-      </div>
-      <div className="matrix-row">
-        <div className="mc before">Proposal writing: 3 to 4 hours per client, from scratch</div>
-        <div className="mc after">Proposal writing: 20 minutes using your Claude prompt template</div>
-      </div>
-      <div className="matrix-row">
-        <div className="mc before">Content: 1 idea becomes 1 post, if you find the time</div>
-        <div className="mc after">Content: 1 voice memo becomes 14 pieces across platforms</div>
-      </div>
-      <div className="matrix-row">
-        <div className="mc before">Pipeline: scattered, missed follow-ups, lost deals</div>
-        <div className="mc after">Pipeline: automated CRM updates, follow-ups triggered, nothing lost</div>
-      </div>
-      <div className="matrix-foot">
-        <div className="mf before">
-          <div className="mf-label">Current income ceiling</div>
-          <div className="mf-val">$2k – $5k/mo</div>
-        </div>
-        <div className="mf after">
-          <div className="mf-label">AI-amplified income capacity</div>
-          <div className="mf-val">$10k – $25k/mo</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section>
   <div className="wrap">
     <div className="sec-eye eye-gold">AI career paths for your archetype</div>
@@ -433,8 +389,56 @@ export default function GrowthCatalystPage() {
         </tr>
       </tbody>
     </table>
+    <div style={{textAlign:'center', marginTop:'28px'}}>
+      <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
+    </div>
   </div>
 </section>
+
+<section className="sec-alt">
+  <div className="wrap">
+    <div className="sec-eye eye-blue">The leverage gap</div>
+    <h2 className="sec-title">What AI actually changes<br />for <em>your specific archetype</em></h2>
+    <p className="sec-sub">This is not a tool list. This is the exact before and after for a Growth Catalyst who implements the playbook in 90 days.</p>
+    <div className="matrix">
+      <div className="matrix-head">
+        <div className="mh before">Without the playbook</div>
+        <div className="mh after">With the playbook ◆</div>
+      </div>
+      <div className="matrix-row">
+        <div className="mc before">Research one prospect: 2 to 3 hours of manual work</div>
+        <div className="mc after">Research 50 prospects: 40 minutes with Perplexity + Apollo</div>
+      </div>
+      <div className="matrix-row">
+        <div className="mc before">Outreach: 15 to 20 emails per day, written manually</div>
+        <div className="mc after">Outreach: 150 to 200 personalised emails per day, automated</div>
+      </div>
+      <div className="matrix-row">
+        <div className="mc before">Proposal writing: 3 to 4 hours per client, from scratch</div>
+        <div className="mc after">Proposal writing: 20 minutes using your Claude prompt template</div>
+      </div>
+      <div className="matrix-row">
+        <div className="mc before">Content: 1 idea becomes 1 post, if you find the time</div>
+        <div className="mc after">Content: 1 voice memo becomes 14 pieces across platforms</div>
+      </div>
+      <div className="matrix-row">
+        <div className="mc before">Pipeline: scattered, missed follow-ups, lost deals</div>
+        <div className="mc after">Pipeline: automated CRM updates, follow-ups triggered, nothing lost</div>
+      </div>
+      <div className="matrix-foot">
+        <div className="mf before">
+          <div className="mf-label">Current income ceiling</div>
+          <div className="mf-val">$2k – $5k/mo</div>
+        </div>
+        <div className="mf after">
+          <div className="mf-label">AI-amplified income capacity</div>
+          <div className="mf-val">$10k – $25k/mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section className="sec-alt">
   <div className="wrap">
@@ -474,6 +478,9 @@ export default function GrowthCatalystPage() {
         </div>
         <div className="testi-result">80% less research time · 5x more outreach</div>
       </div>
+    </div>
+    <div style={{textAlign:'center', marginTop:'28px'}}>
+      <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
     </div>
   </div>
 </section>

@@ -215,6 +215,29 @@ export default function SystemsArchitectPage() {
     </div>
   </div>
 </section>
+<section>
+  <div className="wrap">
+    <div className="sec-eye eye-gold">AI career paths for your archetype</div>
+    <h2 className="sec-title">Roles built for<br /><em>exactly how you think</em></h2>
+    <p className="sec-sub">These are real paths Systems Architects are filling and earning from today.</p>
+    <table className="career-table">
+      <thead>
+        <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Operations Consultant</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Audit business operations, diagnose inefficiencies, deliver a clear action plan.</td><td><span className="earn-pill">$1k–$5k/project</span></td></tr>
+        <tr><td>Fractional COO</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Part-time operations leader for 2 to 3 growing businesses. AI handles all documentation and reporting.</td><td><span className="earn-pill">$3k–$8k/mo each</span></td></tr>
+        <tr><td>SOP and Docs Specialist</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Write the processes that make businesses scalable. Claude produces them 3x faster.</td><td><span className="earn-pill">$300–$1,500 per SOP</span></td></tr>
+        <tr><td>Business Automation Consultant</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Build Make.com and Zapier automations for businesses. $1k to $5k per project.</td><td><span className="earn-pill">$2k–$10k/mo</span></td></tr>
+        <tr><td>Data and Reporting Analyst</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Turn business data into clear narratives and dashboards leaders can act on.</td><td><span className="earn-pill">$3k–$10k/mo</span></td></tr>
+        <tr><td>Systems Template Creator</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Package your systems into Notion or Airtable templates. Build once, sell to many.</td><td><span className="earn-pill">$97–$997 per product</span></td></tr>
+      </tbody>
+    </table>
+    <div style={{textAlign:'center', marginTop:'28px'}}>
+      <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
+    </div>
+  </div>
+</section>
 <section className="sec-alt">
   <div className="wrap">
     <div className="sec-eye eye-purple">The leverage gap</div>
@@ -258,26 +281,6 @@ export default function SystemsArchitectPage() {
     </div>
   </div>
 </section>
-<section>
-  <div className="wrap">
-    <div className="sec-eye eye-gold">AI career paths for your archetype</div>
-    <h2 className="sec-title">Roles built for<br /><em>exactly how you think</em></h2>
-    <p className="sec-sub">These are real paths Systems Architects are filling and earning from today.</p>
-    <table className="career-table">
-      <thead>
-        <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Operations Consultant</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Audit business operations, diagnose inefficiencies, deliver a clear action plan.</td><td><span className="earn-pill">$1k–$5k/project</span></td></tr>
-        <tr><td>Fractional COO</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Part-time operations leader for 2 to 3 growing businesses. AI handles all documentation and reporting.</td><td><span className="earn-pill">$3k–$8k/mo each</span></td></tr>
-        <tr><td>SOP and Docs Specialist</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Write the processes that make businesses scalable. Claude produces them 3x faster.</td><td><span className="earn-pill">$300–$1,500 per SOP</span></td></tr>
-        <tr><td>Business Automation Consultant</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Build Make.com and Zapier automations for businesses. $1k to $5k per project.</td><td><span className="earn-pill">$2k–$10k/mo</span></td></tr>
-        <tr><td>Data and Reporting Analyst</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Turn business data into clear narratives and dashboards leaders can act on.</td><td><span className="earn-pill">$3k–$10k/mo</span></td></tr>
-        <tr><td>Systems Template Creator</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Package your systems into Notion or Airtable templates. Build once, sell to many.</td><td><span className="earn-pill">$97–$997 per product</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 <section className="sec-alt">
   <div className="wrap">
     <div className="sec-eye eye-gold">Real Systems Architects. Real results.</div>
@@ -307,6 +310,9 @@ export default function SystemsArchitectPage() {
         </div>
         <div className="testi-result">3 retainers · $10,500/month · left full-time employment</div>
       </div>
+    </div>
+    <div style={{textAlign:'center', marginTop:'28px'}}>
+      <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
     </div>
   </div>
 </section>

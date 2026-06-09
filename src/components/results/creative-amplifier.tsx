@@ -267,6 +267,28 @@ export default function CreativeAmplifierPage() {
         </div>
       </section>
 
+      <section>
+        <div className="wrap">
+          <div className="sec-eye eye-gold">AI career paths for your archetype</div>
+          <h2 className="sec-title">Roles built for<br /><em>exactly how you create</em></h2>
+          <p className="sec-sub">These are real paths Creative Amplifiers are building and earning from today.</p>
+          <table className="career-table">
+            <thead><tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr></thead>
+            <tbody>
+              <tr><td>Digital Product Creator</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Package your creative skills: preset packs, templates, guides, courses. Build once, sell to many.</td><td><span className="earn-pill">$500–$10k/mo</span></td></tr>
+              <tr><td>Brand Content Partner</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Brands pay you to create content that feels native. Your creative credibility is the product.</td><td><span className="earn-pill">$1k–$10k per deal</span></td></tr>
+              <tr><td>Paid Newsletter or Community</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Share your creative perspective consistently. Audience grows. Launch a paid tier or community.</td><td><span className="earn-pill">$500–$8k/mo</span></td></tr>
+              <tr><td>Podcast Monetisation</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Your voice and audience are the product. Descript handles editing. Claude writes all surrounding content.</td><td><span className="earn-pill">$500–$5k per episode</span></td></tr>
+              <tr><td>Freelance Creative Services</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Photography, video, writing, design for clients. AI handles proposals, admin, post-production.</td><td><span className="earn-pill">$2k–$15k/mo</span></td></tr>
+              <tr><td>Creative Education</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Teach your craft. Online course, workshop, mentorship. AI builds the curriculum. You deliver.</td><td><span className="earn-pill">$1k–$20k/launch</span></td></tr>
+            </tbody>
+          </table>
+          <div style={{textAlign:'center', marginTop:'28px'}}>
+            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
+          </div>
+        </div>
+      </section>
+
       <section className="sec-alt">
         <div className="wrap">
           <div className="sec-eye eye-coral">The production gap</div>
@@ -287,24 +309,6 @@ export default function CreativeAmplifierPage() {
         </div>
       </section>
 
-      <section>
-        <div className="wrap">
-          <div className="sec-eye eye-gold">AI career paths for your archetype</div>
-          <h2 className="sec-title">Roles built for<br /><em>exactly how you create</em></h2>
-          <p className="sec-sub">These are real paths Creative Amplifiers are building and earning from today.</p>
-          <table className="career-table">
-            <thead><tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr></thead>
-            <tbody>
-              <tr><td>Digital Product Creator</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Package your creative skills: preset packs, templates, guides, courses. Build once, sell to many.</td><td><span className="earn-pill">$500–$10k/mo</span></td></tr>
-              <tr><td>Brand Content Partner</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Brands pay you to create content that feels native. Your creative credibility is the product.</td><td><span className="earn-pill">$1k–$10k per deal</span></td></tr>
-              <tr><td>Paid Newsletter or Community</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Share your creative perspective consistently. Audience grows. Launch a paid tier or community.</td><td><span className="earn-pill">$500–$8k/mo</span></td></tr>
-              <tr><td>Podcast Monetisation</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Your voice and audience are the product. Descript handles editing. Claude writes all surrounding content.</td><td><span className="earn-pill">$500–$5k per episode</span></td></tr>
-              <tr><td>Freelance Creative Services</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Photography, video, writing, design for clients. AI handles proposals, admin, post-production.</td><td><span className="earn-pill">$2k–$15k/mo</span></td></tr>
-              <tr><td>Creative Education</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Teach your craft. Online course, workshop, mentorship. AI builds the curriculum. You deliver.</td><td><span className="earn-pill">$1k–$20k/launch</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
 
       <section className="sec-alt">
         <div className="wrap">
@@ -326,6 +330,9 @@ export default function CreativeAmplifierPage() {
               <div className="testi-meta"><div className="testi-avatar">O</div><div><div className="testi-name">Ola M.</div><div className="testi-role">Content Creator · UK</div></div></div>
               <div className="testi-result">$6,200 first product launch · 2,400 subscribers in 90 days</div>
             </div>
+          </div>
+          <div style={{textAlign:'center', marginTop:'28px'}}>
+            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
           </div>
         </div>
       </section>
