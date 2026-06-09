@@ -176,6 +176,9 @@ const STYLES = `
   .paths-card-body .money+ul li::before{background:#c94f2a;opacity:.5}
   .chip-row{display:flex;flex-wrap:wrap;gap:4px}
   .chip{display:inline-block;background:#f2ede6;border:1px solid #ddd8cf;border-radius:4px;padding:1px 6px;font-size:9.5px;color:#1a1040;font-weight:500}
+  .paths-section-cta{display:flex;gap:10px;margin:16px 0 8px;flex-wrap:wrap}
+  .paths-btn-sc2{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#4a3f6b;font-size:10.5px;font-weight:500;padding:8px 18px;border-radius:40px;border:1.5px solid #ddd8cf;cursor:pointer;text-decoration:none;transition:all .18s}
+  .paths-btn-sc2:hover{border-color:#534ab7;color:#534ab7}
   .paths-doc-footer{background:#1a1040;color:rgba(255,255,255,.45);padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px;font-size:9.5px;letter-spacing:.04em;flex-wrap:wrap}
   @media(max-width:560px){.paths-doc-footer{padding:16px 20px}}
 `;
@@ -380,7 +383,7 @@ export default function PathsClient() {
           <h1>50 AI Career Paths<br />for Different Personalities</h1>
           <p className="sub">Every path. Every tool. Every income stream. Built for the person who already has the gift — and just needs to know which corner of AI was made for it.</p>
           <div className="paths-cta-row">
-            <Link href="/resources" className="paths-btn-1">Explore all resources →</Link>
+            <Link href="/quiz" className="paths-btn-1">Find your extended Career Path →</Link>
           </div>
           <div className="paths-cover-logo">{SITE_DISPLAY}</div>
         </div>
@@ -432,7 +435,9 @@ export default function PathsClient() {
                   );
                 })}
               </div>
-
+              <div className="paths-section-cta">
+                <Link href="/quiz" className="paths-btn-sc2">Find your extended Career Path →</Link>
+              </div>
             </div>
           ))}
         </div>
@@ -442,7 +447,10 @@ export default function PathsClient() {
             <strong>{SITE_DISPLAY}</strong><br />
             Take the archetype quiz · Link in bio
           </div>
-        </div>
+          <div className="paths-section-cta">
+            <Link href="/quiz" className="paths-btn-sc2">Find your extended Career Path →</Link>
+          </div>
+            </div>
       </div>
       )}
     </>
