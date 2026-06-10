@@ -6,6 +6,7 @@ export const metadata: Metadata = {
 	title: "Your Human Edge | AI Archetype Quiz",
 	description:
 		"Stop trying to learn all of AI. Discover which corner of AI fits your inherent skills, personality and values.",
+	viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
 };
 
 export default function RootLayout({
