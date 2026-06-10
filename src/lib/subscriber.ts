@@ -34,6 +34,7 @@ export function isLocallySubscribed(): boolean {
  */
 export function markLocallySubscribed(name: string, email: string): void {
   try {
+    if (typeof window === 'undefined') return;
     localStorage.setItem(STORAGE_KEY_SUBSCRIBED, 'true');
     localStorage.setItem('yhe_name', name);
     localStorage.setItem('yhe_email', email.toLowerCase());

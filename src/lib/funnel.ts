@@ -35,7 +35,11 @@ export function track(event: string, data?: Record<string, unknown>) {
  * @returns The checkout URL (the caller can also use it), or throws on failure.
  */
 export async function handleBuy(archetype: string): Promise<string> {
-  const email = localStorage.getItem("yhe_email") || "";
+  if (typeof window === 'undefined') throw new Error('Client-only function');
+  const email = (() => {
+    try { return localStorage.getItem("yhe_email") || ""; } catch { return ""; }
+  })();
+
   if (!email) {
     throw new Error("No email found. Please retake the quiz.");
   }

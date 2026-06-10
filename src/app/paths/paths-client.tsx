@@ -8,6 +8,8 @@ import {
   checkRemoteSubscriber,
 } from '@/lib/subscriber';
 
+import { useRef, useCallback } from 'react';
+
 type CategoryKey = 'creative' | 'human' | 'business' | 'technical' | 'niche';
 
 type Path = {
@@ -201,52 +203,41 @@ export default function PathsClient() {
     }
   }, []);
 
+const mountedRef = useRef(true);
+useEffect(() => {
+  mountedRef.current = true;
+  return () => { mountedRef.current = false; };
+}, []);
+
   async function handleGateSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setGateError('');
-
-    const name = gateName.trim();
-    const email = gateEmail.trim().toLowerCase();
-
-    if (!name || !email) {
-      setGateError('Please fill in both fields.');
-      return;
+  e.preventDefault();
+  setGateError('');
+  const name = gateName.trim();
+  const email = gateEmail.trim().toLowerCase();
+  if (!name || !email) { setGateError('Please fill in both fields.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setGateError('Please enter a valid email address.');
+    return;
+  }
+  setGateSubmitting(true);
+  try {
+    await checkRemoteSubscriber(email); // result unused — just triggers subscribe idempotently
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name, archetype: 'H', source: 'paths' }),
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || 'Something went wrong.');
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setGateError('Please enter a valid email address.');
-      return;
-    }
-
-    setGateSubmitting(true);
-
-    try {
-      // 1. Check if already a subscriber (prevents duplicate MailerLite calls).
-      const alreadySubscribed = await checkRemoteSubscriber(email);
-
-      // 2. Subscribe (idempotent — skips MailerLite if already in KV).
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          name,
-          archetype: 'H',
-          source: 'paths',
-        }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Something went wrong.');
-      }
-
-      // 3. Mark locally and show content.
-      markLocallySubscribed(name, email);
-      setGatePhase('content');
-    } catch (err: unknown) {
-      setGateError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-      setGateSubmitting(false);
-    }
+    if (!mountedRef.current) return;
+    markLocallySubscribed(name, email);
+    setGatePhase('content');
+  } catch (err: unknown) {
+    if (!mountedRef.current) return;
+    setGateError(err instanceof Error ? err.message : 'Something went wrong.');
+    setGateSubmitting(false);
   }
 
   function toggle(num: string) {
@@ -455,4 +446,5 @@ export default function PathsClient() {
       )}
     </>
   );
+}
 }

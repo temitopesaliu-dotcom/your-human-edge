@@ -58,33 +58,34 @@ export async function POST(req: NextRequest) {
       const buyerEmail = session.customer_email || session.customer_details?.email || '';
       const buyerName = session.customer_details?.name || '';
       const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-      const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)
+      const siteUrl = (envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)
         ? envUrl
-        : 'temitopesaliu.com';
+        : 'https://temitopesaliu.com'
+        ).replace(/\/$/, '');
 
       const accessLink = `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
-      try {
-        const existing = await getSession(session.id);
-        if (!existing) {
-          await setSession(session.id, {
-            createdAt: Date.now(),
-            visitCount: 0,
-            lastVisit: null,
-            firstIP: '',
-            lastIP: '',
-            email: buyerEmail,
-            name: buyerName,
-            archetype,
-            product,
-            paid: true,
-            webhookSource: true,
-          });
-        }
-      } catch (e) {
-        console.error('[webhook] KV write error:', e);
-      }
-
+  try {
+    const existing = await getSession(session.id);
+    if (!existing) {
+      await setSession(session.id, {
+        createdAt: Date.now(),
+        visitCount: 0,
+        lastVisit: null,
+        firstIP: '',
+        lastIP: '',
+        email: buyerEmail,
+        name: buyerName,
+        archetype,
+        product,
+        paid: true,
+        webhookSource: true,
+      });
+    }
+  } catch (e) {
+    console.error('[webhook] KV write error — returning 500 for Stripe retry:', e);
+    return NextResponse.json({ error: 'KV write failed' }, { status: 500 });
+  }
       if (buyerEmail && product === 'playbook') {
         try {
           await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink);
