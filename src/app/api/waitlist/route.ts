@@ -5,7 +5,7 @@ const ALLOWED_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
-  if (!await rateLimit(ip, 10, 60)) {
+  if (!await rateLimit(ip, 10, 60, 'waitlist')) {
     return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
   }
   try {
@@ -72,3 +72,4 @@ export async function OPTIONS(req: NextRequest) {
     },
   });
 }
+

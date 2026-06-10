@@ -14,7 +14,7 @@ type SubscriberSource = 'quiz' | 'paths' | string;
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
-  const allowed = await rateLimit(ip, 10, 60);
+  const allowed = await rateLimit(ip, 10, 60, 'subscribe');
   if (!allowed) {
     return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
   }
@@ -78,3 +78,4 @@ export async function OPTIONS(req: NextRequest) {
     },
   });
 }
+

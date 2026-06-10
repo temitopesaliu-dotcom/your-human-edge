@@ -144,6 +144,7 @@ export default function QuizClient() {
                     padding: '11px 26px', borderRadius: '40px', cursor: selected ? 'pointer' : 'not-allowed',
                     fontFamily: "'DM Sans', sans-serif", fontSize: '.88rem', fontWeight: 500,
                     opacity: selected ? 1 : .35, transition: 'all .2s',
+                    minHeight: '44px',
                   }}
                   onFocus={(e) => selected && (e.currentTarget.style.outline = '2px solid var(--coral)')}
                   onBlur={(e) => e.currentTarget.style.outline = 'none'}>

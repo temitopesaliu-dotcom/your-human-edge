@@ -40,7 +40,7 @@ const NAME_TO_KEY: Record<string, ArchetypeKey> = {
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
-  if (!(await rateLimit(ip, 10, 60))) {
+  if (!(await rateLimit(ip, 10, 60, 'create-checkout'))) {
     return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
   }
 
@@ -123,3 +123,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+

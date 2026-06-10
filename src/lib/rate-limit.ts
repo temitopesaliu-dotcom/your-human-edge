@@ -12,17 +12,20 @@ import { kv } from '@vercel/kv';
  * @param identifier  Usually the client IP address.
  * @param limit       Max requests per window.
  * @param windowSecs  Window size in seconds (default 60).
+ * @param prefix      A namespace prefix so different API routes have
+ *                    independent counters (e.g. 'subscribe', 'track').
  */
 
 export async function rateLimit(
   identifier: string,
   limit = 10,
-  windowSecs = 60
+  windowSecs = 60,
+  prefix = 'default'
 ): Promise<boolean> {
   // Sanitise the identifier so it is safe as a Redis key segment.
   const safe = identifier.replace(/[^a-zA-Z0-9:.]/g, '_').slice(0, 64);
   const window = Math.floor(Date.now() / (windowSecs * 1000));
-  const key = `rl:${safe}:${window}`;
+  const key = `rl:${prefix}:${safe}:${window}`;
 
   try {
     const count = await kv.incr(key);
@@ -57,3 +60,4 @@ export function getClientIp(headers: Headers): string {
 
   return 'unknown';
 }
+

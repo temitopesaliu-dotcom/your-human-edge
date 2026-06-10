@@ -3,6 +3,10 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { type ArchetypeKey } from "@/lib/archetypes";
 
+// Import PDF CSS eagerly so it's available before the lazy-loaded renderer mounts
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+
 const PDF_MAP: Record<ArchetypeKey, string> = {
   H: "/pdfs/Human_Bridge_Premium_Playbook.pdf",
   C: "/pdfs/Creative_Amplifier_Premium_Playbook.pdf",

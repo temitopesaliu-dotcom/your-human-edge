@@ -3,8 +3,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { type ArchetypeKey } from "@/lib/archetypes";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
 
 // Configure pdf.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdfs/pdf.worker.min.mjs";
@@ -411,7 +409,7 @@ const navStyles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
     fontFamily: "'DM Sans', sans-serif",
-    minHeight: "34px",
+    minHeight: "44px",
     whiteSpace: "nowrap",
   },
   zoomLevel: {
@@ -434,8 +432,8 @@ const mobileZoomStyles: Record<string, React.CSSProperties> = {
     overflow: "hidden",
   },
   btn: {
-    width: "40px",
-    height: "40px",
+    width: "44px",
+    height: "44px",
     borderRadius: "10px",
     border: "1px solid #e4ddd4",
     background: "#f5f3ef",

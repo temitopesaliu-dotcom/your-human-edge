@@ -5,7 +5,7 @@ import { rateLimit, getClientIp } from '@/lib/rate-limit';
 export async function POST(req: NextRequest) {
   // Always return 200 — analytics never breaks UX
   const ip = getClientIp(req.headers);
-  const allowed = await rateLimit(ip, 30, 60);
+  const allowed = await rateLimit(ip, 30, 60, 'track');
   if (!allowed) return NextResponse.json({ ok: false }); // silent drop
   try {
     const payload = await req.json();
@@ -33,3 +33,4 @@ export async function OPTIONS(req: NextRequest) {
     },
   });
 }
+

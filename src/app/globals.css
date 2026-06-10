@@ -206,11 +206,11 @@ footer .footer-brand span { color: var(--coral); }
   }
 
   footer {
-    padding-bottom: calc(18px + env(safe-area-inset-bottom));
-  }
-
-  body {
-    padding-bottom: 0;
+    position: static;
+    padding: 18px 16px;
+    gap: 10px;
+    box-shadow: none;
+    display: flex;
   }
 
   .f-links {
@@ -461,10 +461,6 @@ footer .footer-brand span { color: var(--coral); }
 
   .mobile-dock {
     display: none;
-  }
-
-  body {
-    padding-bottom: 0;
   }
 
   .simple-page > nav {

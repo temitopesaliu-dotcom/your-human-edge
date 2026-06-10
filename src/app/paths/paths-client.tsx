@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { SITE_DISPLAY } from '@/lib/site';
 import {
@@ -7,8 +7,6 @@ import {
   markLocallySubscribed,
   checkRemoteSubscriber,
 } from '@/lib/subscriber';
-
-import { useRef, useCallback } from 'react';
 
 type CategoryKey = 'creative' | 'human' | 'business' | 'technical' | 'niche';
 
@@ -143,7 +141,7 @@ const STYLES = `
   .paths-btn-1:hover{background:#fff;color:#1a1040}
   .paths-cover-logo{position:absolute;bottom:26px;right:48px;font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(255,255,255,.3);letter-spacing:.08em}
   .paths-filter-bar{background:#fff;border-bottom:1px solid #ddd8cf;padding:12px 32px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:99}
-  .paths-filter-btn{padding:6px 16px;border-radius:40px;font-size:11px;font-weight:500;border:1.5px solid #ddd8cf;color:#4a3f6b;background:#faf8f4;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.02em}
+  .paths-filter-btn{padding:6px 16px;border-radius:40px;font-size:11px;font-weight:500;border:1.5px solid #ddd8cf;color:#4a3f6b;background:#faf8f4;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
   .paths-filter-btn:hover{border-color:#534ab7;color:#534ab7}
   .paths-filter-btn.active{background:#1a1040;color:#fff;border-color:#1a1040}
   .paths-body{padding:0 32px}
@@ -188,20 +186,16 @@ const STYLES = `
 export default function PathsClient() {
   const [filter, setFilter] = useState<CategoryKey | 'all'>('all');
   const [openCards, setOpenCards] = useState<Record<string, boolean>>({});
-  const [gatePhase, setGatePhase] = useState<'loading' | 'gate' | 'content'>('loading');
+  // No 'loading' state needed: isLocallySubscribed() is synchronous (localStorage).
+  // Start at 'gate' by default; returning subscribers get 'content' immediately
+  // via the lazy initializer, avoiding a flash / CLS from a near-empty loader.
+  const [gatePhase, setGatePhase] = useState<'gate' | 'content'>(
+    () => isLocallySubscribed() ? 'content' : 'gate'
+  );
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
   const [gateError, setGateError] = useState('');
   const [gateSubmitting, setGateSubmitting] = useState(false);
-
-  // On mount, check if already subscribed (localStorage fast path).
-  useEffect(() => {
-    if (isLocallySubscribed()) {
-      setGatePhase('content');
-    } else {
-      setGatePhase('gate');
-    }
-  }, []);
 
 const mountedRef = useRef(true);
 useEffect(() => {
@@ -239,6 +233,7 @@ useEffect(() => {
     setGateError(err instanceof Error ? err.message : 'Something went wrong.');
     setGateSubmitting(false);
   }
+}
 
   function toggle(num: string) {
     setOpenCards(prev => ({ ...prev, [num]: !prev[num] }));
@@ -356,16 +351,6 @@ useEffect(() => {
         </div>
       )}
 
-      {/* ── Loading state ── */}
-      {gatePhase === 'loading' && (
-        <div style={{
-          minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: '#faf8f4', color: 'var(--soft)', fontSize: '.9rem',
-        }}>
-          Loading…
-        </div>
-      )}
-
       {/* ── Main content (visible only after gate) ── */}
       {gatePhase === 'content' && (
       <div className="paths-root">
@@ -447,4 +432,4 @@ useEffect(() => {
     </>
   );
 }
-}
+
