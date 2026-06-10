@@ -82,11 +82,21 @@ export default function PdfRenderer({
 
   // ── Touch swipe handling for mobile ──
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Only track single-finger swipes — ignore multi-touch (pinch zoom)
+    if (e.touches.length !== 1) {
+      touchStartX.current = null;
+      return;
+    }
     touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
+    // Ignore if more than one finger was involved
+    if (e.changedTouches.length !== 1) {
+      touchStartX.current = null;
+      return;
+    }
     const diff = e.changedTouches[0].clientX - touchStartX.current;
     const threshold = 60;
     if (Math.abs(diff) > threshold) {
@@ -106,25 +116,14 @@ export default function PdfRenderer({
         .react-pdf__Page {
           margin: 0 auto;
         }
-        .react-pdf__Page canvas,
-        .react-pdf__Page svg {
-          max-width: 100% !important;
-          height: auto !important;
-        }
         .react-pdf__message {
           padding: 40px 20px;
           text-align: center;
           color: #4a3f6b;
         }
-        @media (max-width: 768px) {
-          .react-pdf__Page {
-            max-width: 100vw;
-          }
-          .react-pdf__Page canvas,
-          .react-pdf__Page svg {
-            max-width: 100% !important;
-            height: auto !important;
-          }
+        /* Allow browser pinch-zoom to work naturally on the canvas */
+        .react-pdf__Page canvas {
+          touch-action: pan-y pinch-zoom !important;
         }
         @keyframes pb-spin {
           0% { transform: rotate(0deg); }
@@ -588,7 +587,7 @@ const docStyles: Record<string, React.CSSProperties> = {
   wrapperMobile: {
     padding: "8px 4px 20px",
     minHeight: "400px",
-    overflowX: "hidden",
+    overflowX: "auto",
     overflowY: "auto",
     WebkitOverflowScrolling: "touch",
   },
