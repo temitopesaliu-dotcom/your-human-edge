@@ -10,7 +10,7 @@ export {
 } from '@/lib/products';
 
 export type PlaybookAccessResult =
-  | { ok: true; sessionId: string; archetype: ArchetypeKey; name: string }
+  | { ok: true; sessionId: string; archetype: ArchetypeKey; name: string; email: string }
   | { ok: false };
 
 /** Validate a Stripe checkout session for playbook access. */
@@ -22,5 +22,7 @@ export async function validatePlaybookAccess(sessionId: string): Promise<Playboo
     sessionId: result.sessionId,
     archetype: result.archetype,
     name: result.name,
+    email: result.email,
   };
 }
+
