@@ -11,6 +11,24 @@ const stripe = (() => {
   return new Stripe(apiKey);
 })();
 
+/** Extract archetype from metadata, or fall back to parsing the success_url.
+ *  Covers API-created sessions (metadata.archetype) and
+ *  Payment Link sessions (arch param in success_url). */
+function extractArchetype(session: Stripe.Checkout.Session): ArchetypeKey {
+  const fromMeta = session.metadata?.archetype?.toUpperCase();
+  if (fromMeta && ['H', 'C', 'S', 'G'].includes(fromMeta)) {
+    return fromMeta as ArchetypeKey;
+  }
+  try {
+    const url = new URL(session.success_url ?? '');
+    const arch = url.searchParams.get('arch')?.toUpperCase();
+    if (arch && ['H', 'C', 'S', 'G'].includes(arch)) {
+      return arch as ArchetypeKey;
+    }
+  } catch {}
+  return 'H';
+}
+
 export async function POST(req: NextRequest) {
   const signature = req.headers.get('stripe-signature');
   if (!signature) return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
@@ -36,11 +54,13 @@ export async function POST(req: NextRequest) {
 
     if (session.payment_status === 'paid') {
       const product = normalizeProduct(session.metadata?.product);
-      const archetype = (session.metadata?.archetype || 'H') as ArchetypeKey;
+      const archetype = extractArchetype(session);
       const buyerEmail = session.customer_email || session.customer_details?.email || '';
       const buyerName = session.customer_details?.name || '';
       const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-      const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl) ? envUrl : 'https://temitopesaliu.vercel.app';
+      const siteUrl = envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)
+        ? envUrl
+        : 'temitopesaliu.com';
 
       const accessLink = `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
@@ -66,11 +86,19 @@ export async function POST(req: NextRequest) {
       }
 
       if (buyerEmail && product === 'playbook') {
-        await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink).catch(() => {});
+        try {
+          await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink);
+        } catch (err: unknown) {
+          console.error('[webhook] addBuyerToMailerLite failed:', err instanceof Error ? err.message : String(err));
+        }
       }
 
       if (buyerEmail && product === 'paths-guide') {
-        await addPathsGuideBuyerToMailerLite(buyerEmail, buyerName).catch(() => {});
+        try {
+          await addPathsGuideBuyerToMailerLite(buyerEmail, buyerName);
+        } catch (err: unknown) {
+          console.error('[webhook] addPathsGuideBuyerToMailerLite failed:', err instanceof Error ? err.message : String(err));
+        }
       }
     }
   }

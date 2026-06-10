@@ -48,7 +48,11 @@ async function verifyWithStripe(sessionId: string): Promise<SessionRecord | null
       webhookSource: false,
     };
 
-    await setSession(sessionId, record).catch(() => {});
+    try {
+      await setSession(sessionId, record);
+    } catch (err: unknown) {
+      console.error('[purchase-access] setSession failed:', err instanceof Error ? err.message : String(err));
+    }
     return record;
   } catch {
     return null;
@@ -62,7 +66,13 @@ export async function validatePurchaseAccess(
 ): Promise<PurchaseAccessResult> {
   if (!isValidSessionId(sessionId)) return { ok: false };
 
-  let record = await getSession(sessionId).catch(() => null);
+  let record = null;
+  try {
+    record = await getSession(sessionId);
+  } catch (err: unknown) {
+    console.error('[purchase-access] getSession failed:', err instanceof Error ? err.message : String(err));
+    record = null;
+  }
 
   if (!record?.paid) {
     record = await verifyWithStripe(sessionId);
@@ -73,11 +83,15 @@ export async function validatePurchaseAccess(
   const product = normalizeProductType(record.product);
   if (product !== expectedProduct) return { ok: false };
 
-  await setSession(sessionId, {
-    ...record,
-    visitCount: record.visitCount + 1,
-    lastVisit: Date.now(),
-  }).catch(() => {});
+  try {
+    await setSession(sessionId, {
+      ...record,
+      visitCount: record.visitCount + 1,
+      lastVisit: Date.now(),
+    });
+  } catch (err: unknown) {
+    console.error('[purchase-access] setSession update failed:', err instanceof Error ? err.message : String(err));
+  }
 
   return {
     ok: true,

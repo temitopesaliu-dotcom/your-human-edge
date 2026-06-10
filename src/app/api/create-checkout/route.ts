@@ -24,7 +24,7 @@ function resolveSiteUrl(req: NextRequest): string {
   if (envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)) return envUrl;
 
   if (process.env.NODE_ENV === 'development') return 'http://localhost:3000';
-  return 'https://temitopesaliu.vercel.app';
+  return 'https://temitopesaliu.com';
 }
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {

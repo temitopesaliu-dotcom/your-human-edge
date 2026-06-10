@@ -11,18 +11,25 @@ export async function POST(req: NextRequest) {
     const payload = await req.json();
     if (!payload.event) return NextResponse.json({ ok: false });
 
-    const ip =
-      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      req.headers.get('x-real-ip') ||
-      'unknown';
-
-    await writeAnalyticsEvent({ ...payload, ip, server_ts: Date.now() });
+    const ipAddr = getClientIp(req.headers);
+    await writeAnalyticsEvent({ ...payload, ip: ipAddr, server_ts: Date.now() });
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false });
   }
 }
 
-export async function OPTIONS() {
-  return new NextResponse(null, { status: 204 });
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin') || '';
+  const allowed = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '');
+  const corsOrigin = origin === allowed ? allowed : (allowed || '*');
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': corsOrigin,
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      Vary: 'Origin',
+    },
+  });
 }

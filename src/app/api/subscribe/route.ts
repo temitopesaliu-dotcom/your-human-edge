@@ -39,16 +39,25 @@ export async function POST(req: NextRequest) {
       console.log(`[subscribe] ${email} already subscribed via ${existing.source}; skipping MailerLite.`);
     } else {
       // First time: add to MailerLite and record in KV.
-      await addSubscriberToMailerLite(email, name, archetype).catch(() => {});
+      try {
+        await addSubscriberToMailerLite(email, name, archetype);
+      } catch (err: unknown) {
+        console.error('[subscribe] MailerLite add failed:', err instanceof Error ? err.message : String(err));
+      }
     }
 
     // Always upsert the KV record so we track the earliest source.
-    await setSubscriber(email, {
-      email,
-      name,
-      subscribedAt: existing?.subscribedAt ?? Date.now(),
-      source: existing?.source ?? source,
-    }).catch(() => {});
+    try {
+      await setSubscriber(email, {
+        email,
+        name,
+        subscribedAt: existing?.subscribedAt ?? Date.now(),
+        source: existing?.source ?? source,
+      });
+    } catch (err: unknown) {
+      console.error('[subscribe] KV setSubscriber failed:', err instanceof Error ? err.message : String(err));
+      // Non-fatal: keep going, but surface the issue in logs.
+    }
 
     return NextResponse.json({ success: true, isNew: !existing });
   } catch {
