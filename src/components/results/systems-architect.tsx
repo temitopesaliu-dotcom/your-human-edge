@@ -17,6 +17,24 @@ html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--ivory);color:var(--ink);overflow-x:hidden;line-height:1.72}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:860px;margin:0 auto;padding:0 28px}
+/* ── NAV ─────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:99;
+  background:rgba(75,67,173,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  padding:0 32px;display:flex;align-items:center;justify-content:space-between;
+  height:62px;
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:#fff;letter-spacing:.06em}
+.nav-links{display:flex;gap:24px;list-style:none;margin:0}
+.nav-links a{color:rgba(255,255,255,.75);font-size:.85rem;font-family:'DM Sans',sans-serif;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  background:var(--ink);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;padding:9px 22px;border-radius:40px;
+  border:none;cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.nav-cta:hover{background:#fff;color:var(--ink);transform:translateY(-1px)}
 .hero{background:linear-gradient(145deg,#1A1060 0%,var(--purple) 55%,#7B5EA7 100%);padding:104px 28px 60px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(255,255,255,.12),transparent 60%)}
 .hero-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
@@ -76,6 +94,8 @@ section{padding:60px 0}
 .career-table tr:last-child td{border-bottom:none}
 .career-table tr:hover td{background:var(--ivory)}
 .career-table td:first-child{font-weight:600;color:var(--ink)}
+.career-table td:last-child{white-space:nowrap}
+.career-table{min-width:480px}
 .earn-pill{display:inline-block;background:var(--purple-soft);color:var(--purple);border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:600}
 .testimonials{display:flex;flex-direction:column;gap:14px;margin-top:4px}
 .testi{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 24px;border-left:4px solid var(--purple)}
@@ -133,6 +153,14 @@ section{padding:60px 0}
 .btn-buy{display:inline-flex;align-items:center;gap:10px;background:var(--purple);color:#fff;font-family:'DM Sans',sans-serif;font-size:1.08rem;font-weight:600;padding:17px 48px;border-radius:50px;border:none;cursor:pointer;transition:all .25s;text-decoration:none;letter-spacing:.02em}
 .btn-buy:hover{background:var(--gold2);color:var(--ink);transform:translateY(-2px);box-shadow:0 12px 40px rgba(75,67,173,.4)}
 .pw-trust{font-size:.82rem;color:rgba(255,255,255,.35);margin-top:16px;font-family:'DM Sans',sans-serif}
+footer{
+  background:var(--ink);border-top:1px solid rgba(255,255,255,.06);
+  color:rgba(255,255,255,.4);padding:20px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:rgba(255,255,255,.7)}
+.footer-brand span{color:var(--gold2)}
 footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;font-size:12px}
 @media(max-width:600px){
   .income-grid{grid-template-columns:1fr}
@@ -154,6 +182,7 @@ footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;
   .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .pw-price{font-size:3rem}
   footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
+  .sec-cta-link{width:100%;display:block;text-align:center;box-sizing:border-box}
 }`;
 
 function getNameFromURL() {
@@ -408,7 +437,6 @@ export default function SystemsArchitectPage() {
 </div>
       <footer>
         <div className="footer-brand">human<span>+</span>ai</div>
-
         <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>
       </footer>
     </>

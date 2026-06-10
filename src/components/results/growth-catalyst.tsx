@@ -17,7 +17,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--ivory);color:var(--ink);o
 a{text-decoration:none;color:inherit}
 .wrap{max-width:860px;margin:0 auto;padding:0 28px}
 /* ── NAV ─────────────────────────────────────── */
-@media(max-width:600px){}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:99;
+  background:rgba(21,101,192,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  padding:0 32px;display:flex;align-items:center;justify-content:space-between;
+  height:62px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+  font-weight:500;color:#fff;letter-spacing:.06em;
+}
+.nav-links{display:flex;gap:24px;list-style:none;margin:0}
+.nav-links a{color:rgba(255,255,255,.75);font-size:.85rem;font-family:'DM Sans',sans-serif;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  background:var(--ink);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;padding:9px 22px;border-radius:40px;
+  border:none;cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.nav-cta:hover{background:#fff;color:var(--ink);transform:translateY(-1px)}
 /* ── HERO ────────────────────────────────────── */
 .hero{
   background:linear-gradient(145deg,#0D2B6B 0%,var(--blue) 55%,#534AB7 100%);
@@ -137,6 +156,7 @@ section{padding:60px 0}
 .career-table tr:hover td{background:var(--ivory)}
 .career-table td:first-child{font-weight:600;color:var(--ink)}
 .career-table td:last-child{white-space:nowrap}
+.career-table{min-width:480px}
 .earn-pill{
   display:inline-block;background:var(--blue-soft);color:var(--blue);
   border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:600;
@@ -255,6 +275,14 @@ section{padding:60px 0}
   font-family:'DM Sans',sans-serif;
 }
 /* ── FOOTER ──────────────────────────────────── */
+footer{
+  background:var(--ink);border-top:1px solid rgba(255,255,255,.06);
+  color:rgba(255,255,255,.4);padding:20px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:rgba(255,255,255,.7)}
+.footer-brand span{color:var(--gold2)}
 footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;font-size:12px}
 @media(max-width:600px){
   .income-grid{grid-template-columns:1fr}
@@ -276,6 +304,7 @@ footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;
   .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .pw-price{font-size:3rem}
   footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
+  .sec-cta-link{width:100%;display:block;text-align:center;box-sizing:border-box}
 }`;
 
 function getNameFromURL() {
@@ -583,7 +612,6 @@ export default function GrowthCatalystPage() {
 
       <footer>
         <div className="footer-brand">human<span>+</span>ai</div>
-
         <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>
       </footer>
     </>

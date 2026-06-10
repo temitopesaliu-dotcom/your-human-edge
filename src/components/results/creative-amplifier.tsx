@@ -107,6 +107,8 @@ const CSS = `
 .cr-amplifier .career-table tr:last-child td{border-bottom:none}
 .cr-amplifier .career-table tr:hover td{background:var(--ivory)}
 .cr-amplifier .career-table td:first-child{font-weight:600;color:var(--ink)}
+.cr-amplifier .career-table td:last-child{white-space:nowrap}
+.cr-amplifier .career-table{min-width:480px}
 .cr-amplifier .earn-pill{display:inline-block;background:var(--coral-soft);color:var(--coral);border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:600}
 .cr-amplifier .testimonials{display:flex;flex-direction:column;gap:14px;margin-top:4px}
 .cr-amplifier .testi{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 24px;border-left:4px solid var(--coral)}

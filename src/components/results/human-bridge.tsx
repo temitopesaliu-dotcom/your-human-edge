@@ -194,6 +194,8 @@ const CSS = `
 .human-bridge .career-table tr:last-child td{border-bottom:none}
 .human-bridge .career-table tr:hover td{background:var(--ivory)}
 .human-bridge .career-table td:first-child{font-weight:600;color:var(--ink)}
+.human-bridge .career-table td:last-child{white-space:nowrap}
+.human-bridge .career-table{min-width:480px}
 .human-bridge .earn-pill{display:inline-block;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:600}
 
 /* TESTIMONIALS */
