@@ -33,7 +33,6 @@ export default function PdfRenderer({
   const [showZoomControls, setShowZoomControls] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
@@ -79,35 +78,6 @@ export default function PdfRenderer({
 
   const zoomIn = () => setScale((s) => Math.min(s + 0.25, 3));
   const zoomOut = () => setScale((s) => Math.max(s - 0.25, 0.5));
-
-  // ── Touch swipe handling for mobile ──
-  const handleTouchStart = (e: React.TouchEvent) => {
-    // Only track single-finger swipes — ignore multi-touch (pinch zoom)
-    if (e.touches.length !== 1) {
-      touchStartX.current = null;
-      return;
-    }
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    // Ignore if more than one finger was involved
-    if (e.changedTouches.length !== 1) {
-      touchStartX.current = null;
-      return;
-    }
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-    const threshold = 60;
-    if (Math.abs(diff) > threshold) {
-      if (diff < 0) {
-        goToPage(pageNumber + 1);
-      } else {
-        goToPage(pageNumber - 1);
-      }
-    }
-    touchStartX.current = null;
-  };
 
   return (
     <>
@@ -314,8 +284,6 @@ export default function PdfRenderer({
           ...docStyles.wrapper,
           ...(isMobile ? docStyles.wrapperMobile : {}),
         }}
-        onTouchStart={isMobile ? handleTouchStart : undefined}
-        onTouchEnd={isMobile ? handleTouchEnd : undefined}
       >
         {loading && (
           <div
@@ -362,11 +330,6 @@ export default function PdfRenderer({
             }
           />
         </Document>
-
-        {/* Swipe hint on mobile (only shown briefly) */}
-        {isMobile && numPages && numPages > 1 && (
-          <p style={swipeHintStyles}>Swipe left/right to turn pages</p>
-        )}
       </div>
     </>
   );
@@ -616,11 +579,4 @@ const errStyles: Record<string, React.CSSProperties> = {
   detail: { color: "#c94f2a", fontSize: "0.82rem", marginTop: "8px" },
 };
 
-const swipeHintStyles: React.CSSProperties = {
-  fontSize: "0.75rem",
-  color: "#b0a8c0",
-  textAlign: "center",
-  marginTop: "12px",
-  padding: "4px 0",
-  fontFamily: "'DM Sans', sans-serif",
-};
+
