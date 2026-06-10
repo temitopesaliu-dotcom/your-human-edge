@@ -138,6 +138,22 @@ footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;
   .income-grid{grid-template-columns:1fr}
   .matrix-head,.matrix-row,.matrix-foot{grid-template-columns:1fr}
   .mh.before,.mc.before,.mf.before{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  nav{padding:0 14px;height:56px;gap:8px}
+  .nav-links{display:none}
+  .nav-logo{font-size:.95rem}
+  .nav-cta{font-size:.74rem;padding:7px 14px}
+  .hero{padding:88px 16px 40px}
+  section{padding:36px 0}
+  .wrap{padding:0 16px}
+  .card-wrap{padding:22px 18px}
+  .ceiling-box{padding:16px 18px}
+  .testi{padding:18px 16px}
+  .income-card{padding:18px}
+  .paywall-inner{padding:0}
+  .pw-sub{margin-bottom:24px}
+  .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
+  .pw-price{font-size:3rem}
+  footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
 }`;
 
 function getNameFromURL() {
@@ -220,6 +236,7 @@ export default function SystemsArchitectPage() {
     <div className="sec-eye eye-gold">AI career paths for your archetype</div>
     <h2 className="sec-title">Roles built for<br /><em>exactly how you think</em></h2>
     <p className="sec-sub">These are real paths Systems Architects are filling and earning from today.</p>
+    <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
     <table className="career-table">
       <thead>
         <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
@@ -233,6 +250,7 @@ export default function SystemsArchitectPage() {
         <tr><td>Systems Template Creator</td><td style={{color: 'var(--soft)', fontSize: '.88rem'}}>Package your systems into Notion or Airtable templates. Build once, sell to many.</td><td><span className="earn-pill">$97–$997 per product</span></td></tr>
       </tbody>
     </table>
+  </div>
     <div style={{textAlign:'center', marginTop:'28px'}}>
       <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
     </div>

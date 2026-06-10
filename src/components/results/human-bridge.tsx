@@ -275,6 +275,22 @@ const CSS = `
   .human-bridge .income-grid{grid-template-columns:1fr}
   .human-bridge .matrix-head,.human-bridge .matrix-row,.human-bridge .matrix-foot{grid-template-columns:1fr}
   .human-bridge .mh.before,.human-bridge .mc.before,.human-bridge .mf.before{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .human-bridge nav{padding:0 14px;height:56px;gap:8px}
+  .human-bridge .nav-links{display:none}
+  .human-bridge .nav-logo{font-size:.95rem}
+  .human-bridge .nav-cta{font-size:.74rem;padding:7px 14px}
+  .human-bridge .hero{padding:88px 16px 40px}
+  .human-bridge section{padding:36px 0}
+  .human-bridge .wrap{padding:0 16px}
+  .human-bridge .card-wrap{padding:22px 18px}
+  .human-bridge .ceiling-box{padding:16px 18px}
+  .human-bridge .testi{padding:18px 16px}
+  .human-bridge .income-card{padding:18px}
+  .human-bridge .paywall-inner{padding:0}
+  .human-bridge .pw-sub{margin-bottom:24px}
+  .human-bridge .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
+  .human-bridge .pw-price{font-size:3rem}
+  .human-bridge footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
 }
 `;
 
@@ -366,6 +382,7 @@ export default function HumanBridgePage() {
           <div className="sec-eye eye-gold">AI career paths for your archetype</div>
           <h2 className="sec-title">Roles built for<br /><em>exactly how you connect</em></h2>
           <p className="sec-sub">These are real paths Human Bridges are building and earning from today.</p>
+          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
           <table className="career-table">
             <thead>
               <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
@@ -380,6 +397,7 @@ export default function HumanBridgePage() {
               ))}
             </tbody>
            </table>
+          </div>
           <div style={{textAlign:'center', marginTop:'28px'}}>
             <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
           </div>

@@ -101,14 +101,14 @@ function GateContent() {
             <div>
               <label style={{ fontSize: '.74rem', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--soft)', fontWeight: 500, marginBottom: '6px', display: 'block' }}>First name</label>
               <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your first name" required aria-label="First name"
-                style={{ width: '100%', padding: '14px 16px', borderRadius: '10px', border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif", fontSize: '.94rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none', transition: 'border-color .2s' }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '10px', border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none', transition: 'border-color .2s' }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--coral)'}
                 onBlur={(e) => e.target.style.borderColor = 'var(--border)'} />
             </div>
             <div>
               <label style={{ fontSize: '.74rem', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--soft)', fontWeight: 500, marginBottom: '6px', display: 'block' }}>Email address</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email address" required aria-label="Email address"
-                style={{ width: '100%', padding: '14px 16px', borderRadius: '10px', border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif", fontSize: '.94rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none', transition: 'border-color .2s' }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '10px', border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none', transition: 'border-color .2s' }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--coral)'}
                 onBlur={(e) => e.target.style.borderColor = 'var(--border)'} />
             </div>

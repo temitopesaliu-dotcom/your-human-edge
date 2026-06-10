@@ -298,7 +298,7 @@ useEffect(() => {
                   style={{
                     width: '100%', padding: '13px 16px', borderRadius: '10px',
                     border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '.92rem', color: 'var(--ink)', background: 'var(--warm)',
+                    fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)',
                     outline: 'none',
                   }}
                   onFocus={e => e.target.style.borderColor = 'var(--coral)'}
@@ -318,7 +318,7 @@ useEffect(() => {
                   style={{
                     width: '100%', padding: '13px 16px', borderRadius: '10px',
                     border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '.92rem', color: 'var(--ink)', background: 'var(--warm)',
+                    fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)',
                     outline: 'none',
                   }}
                   onFocus={e => e.target.style.borderColor = 'var(--coral)'}

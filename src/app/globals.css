@@ -24,10 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-body {
-  padding-bottom: 88px;
-}
-
 .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }
 
 /* NAV */
@@ -112,7 +108,7 @@ footer .footer-brand span { color: var(--coral); }
 }
 
 .home-page #quiz {
-  min-height: calc(100vh - 62px - 88px);
+  min-height: calc(100vh - 62px);
   display: flex;
   align-items: center;
 }

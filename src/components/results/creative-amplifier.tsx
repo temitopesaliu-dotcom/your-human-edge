@@ -183,6 +183,22 @@ const CSS = `
   .cr-amplifier .income-grid{grid-template-columns:1fr}
   .cr-amplifier .matrix-head,.cr-amplifier .matrix-row,.cr-amplifier .matrix-foot{grid-template-columns:1fr}
   .cr-amplifier .mh.before,.cr-amplifier .mc.before,.cr-amplifier .mf.before{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .cr-amplifier nav{padding:0 14px;height:56px;gap:8px}
+  .cr-amplifier .nav-links{display:none}
+  .cr-amplifier .nav-logo{font-size:.95rem}
+  .cr-amplifier .nav-cta{font-size:.74rem;padding:7px 14px}
+  .cr-amplifier .hero{padding:88px 16px 40px}
+  .cr-amplifier section{padding:36px 0}
+  .cr-amplifier .wrap{padding:0 16px}
+  .cr-amplifier .card-wrap{padding:22px 18px}
+  .cr-amplifier .ceiling-box{padding:16px 18px}
+  .cr-amplifier .testi{padding:18px 16px}
+  .cr-amplifier .income-card{padding:18px}
+  .cr-amplifier .paywall-inner{padding:0}
+  .cr-amplifier .pw-sub{margin-bottom:24px}
+  .cr-amplifier .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
+  .cr-amplifier .pw-price{font-size:3rem}
+  .cr-amplifier footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
 }
 `;
 
@@ -272,6 +288,7 @@ export default function CreativeAmplifierPage() {
           <div className="sec-eye eye-gold">AI career paths for your archetype</div>
           <h2 className="sec-title">Roles built for<br /><em>exactly how you create</em></h2>
           <p className="sec-sub">These are real paths Creative Amplifiers are building and earning from today.</p>
+          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
           <table className="career-table">
             <thead><tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr></thead>
             <tbody>
@@ -283,6 +300,7 @@ export default function CreativeAmplifierPage() {
               <tr><td>Creative Education</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Teach your craft. Online course, workshop, mentorship. AI builds the curriculum. You deliver.</td><td><span className="earn-pill">$1k–$20k/launch</span></td></tr>
             </tbody>
           </table>
+          </div>
           <div style={{textAlign:'center', marginTop:'28px'}}>
             <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
           </div>
