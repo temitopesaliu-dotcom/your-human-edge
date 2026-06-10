@@ -1,7 +1,6 @@
 import { type ArchetypeKey, ARCHETYPES } from './archetypes';
 
-// Per-archetype MailerLite group IDs (set in Vercel env vars)
-// KPI #4: every archetype gets its own group + the all-subscribers group
+// Per-archetype MailerLite group IDs
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
   C: 'MAILERLITE_GROUP_C',
@@ -9,16 +8,30 @@ const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   G: 'MAILERLITE_GROUP_G',
 };
 
+// Per-archetype funnel drip group IDs
+const ARCHETYPE_DRIP_GROUP_ENV: Record<ArchetypeKey, string> = {
+  H: 'MAILERLITE_FUNNEL_DRIP_GROUP_H',
+  C: 'MAILERLITE_FUNNEL_DRIP_GROUP_C',
+  S: 'MAILERLITE_FUNNEL_DRIP_GROUP_S',
+  G: 'MAILERLITE_FUNNEL_DRIP_GROUP_G',
+};
+
+function getDripGroupId(archetype: ArchetypeKey): string | undefined {
+  return process.env[ARCHETYPE_DRIP_GROUP_ENV[archetype]];
+}
+
 function getGroupIds(archetype: ArchetypeKey): string[] {
   const groups: string[] = [];
 
-  // All-subscribers group
   const allGroup = process.env.MAILERLITE_GROUP_ALL;
   if (allGroup) groups.push(allGroup);
 
-  // Archetype-specific group
   const archGroup = process.env[ARCHETYPE_GROUP_ENV[archetype]];
   if (archGroup) groups.push(archGroup);
+
+  // Add to the archetype-specific 5-day funnel drip group
+  const dripGroup = getDripGroupId(archetype);
+  if (dripGroup) groups.push(dripGroup);
 
   return groups;
 }
@@ -64,8 +77,6 @@ export async function addSubscriberToMailerLite(
 
 /**
  * Remove a subscriber from a specific MailerLite group.
- * The subscriber is identified by email (MailerLite accepts email as a
- * subscriber identifier in the URL).
  */
 export async function removeSubscriberFromGroup(
   email: string,
@@ -118,7 +129,7 @@ export async function addBuyerToMailerLite(
   };
 
   try {
-    // Update existing subscriber fields
+    // Update subscriber fields
     const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
@@ -146,13 +157,16 @@ export async function addBuyerToMailerLite(
 
     // Add to buyers group
     if (buyersGroup) {
-      const groupRes = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-      });
+      const groupRes = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
 
       if (!groupRes.ok) {
         const errText = await groupRes.text();
@@ -162,8 +176,13 @@ export async function addBuyerToMailerLite(
       }
     }
 
-    // Remove subscriber from their archetype-specific free group
-    // (but keep them in the all-subscribers group)
+    // Remove from their archetype-specific funnel drip group — stops the sequence mid-flight
+    const dripGroup = getDripGroupId(archetype);
+    if (dripGroup) {
+      await removeSubscriberFromGroup(email, dripGroup);
+    }
+
+    // Remove from their archetype-specific free group
     const archGroup = process.env[ARCHETYPE_GROUP_ENV[archetype]];
     if (archGroup) {
       await removeSubscriberFromGroup(email, archGroup);
