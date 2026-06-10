@@ -87,6 +87,17 @@ export default function PlaybookPdfViewer({
           100% { opacity: 0; transform: translateX(40px) scale(0.95); }
         }
         body { padding-bottom: 0 !important; }
+
+        /* Mobile responsive toast */
+        @media (max-width: 640px) {
+          .pb-toast {
+            top: 8px !important;
+            right: 8px !important;
+            left: 8px !important;
+            max-width: none !important;
+            width: auto !important;
+          }
+        }
       `}</style>
       <div style={rootStyles.container}>
         {showToast && <EmailToast email={userEmail!} />}
@@ -130,6 +141,7 @@ function EmailToast({ email }: { email: string }) {
 
   return (
     <div
+      className="pb-toast"
       style={{
         position: "fixed",
         top: "16px",
