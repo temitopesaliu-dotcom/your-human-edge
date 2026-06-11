@@ -15,6 +15,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+	const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 	return (
 		<html lang="en">
@@ -27,6 +28,24 @@ export default function RootLayout({
 							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 						})(window,document,"clarity","script","${clarityId}");`}
 					</Script>
+				)}
+				{gaId && (
+					<>
+						<Script
+							src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+							strategy="afterInteractive"
+						/>
+						<Script id="google-analytics" strategy="afterInteractive">
+							{`
+								window.dataLayer = window.dataLayer || [];
+								function gtag(){dataLayer.push(arguments);}
+								gtag('js', new Date());
+								gtag('config', '${gaId}', {
+									page_path: window.location.pathname,
+								});
+							`}
+						</Script>
+					</>
 				)}
 			</head>
 			<body>
@@ -51,4 +70,3 @@ export default function RootLayout({
 		</html>
 	);
 }
-
