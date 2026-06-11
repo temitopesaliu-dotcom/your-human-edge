@@ -101,7 +101,6 @@ export default function ResourcesClient() {
         background: 'var(--warm)',
         color: 'var(--ink)',
         minHeight: '100vh',
-        paddingBottom: '88px',
       }}
     >
       <style>{`
@@ -397,9 +396,8 @@ export default function ResourcesClient() {
               ─────────────────────────────────────────────────────── */}
           {featured && (
             <div className="rb-fade" style={{ animationDelay: '0.1s' }}>
-              <Link
-                href={featured.href}
-                className="rb-link rb-feat-pad"
+              <div
+                className="rb-feat-pad"
                 style={{
                   background: '#fff',
                   border: '1px solid var(--border)',
@@ -534,7 +532,8 @@ export default function ResourcesClient() {
                       ))}
                     </ul>
 
-                    <span
+                    <Link
+                      href={featured.href}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -545,6 +544,7 @@ export default function ResourcesClient() {
                         fontWeight: 500,
                         padding: '12px 26px',
                         borderRadius: 40,
+                        textDecoration: 'none',
                         transition: 'background 250ms ease, gap 250ms ease',
                       }}
                       onMouseEnter={(e) => {
@@ -555,10 +555,10 @@ export default function ResourcesClient() {
                       }}
                     >
                       {featured.cta}
-                    </span>
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             </div>
           )}
 
@@ -660,10 +660,8 @@ export default function ResourcesClient() {
                     }}
                   >
                     {remaining.map((r) => (
-                      <Link
+                      <div
                         key={r.id}
-                        href={r.href}
-                        className="rb-link"
                         style={{
                           background: '#fff',
                           border: '1px solid var(--border)',
@@ -730,16 +728,19 @@ export default function ResourcesClient() {
                           {r.description}
                         </p>
 
-                        <div
+                        <Link
+                          href={r.href}
                           style={{
                             marginTop: 20,
-                            display: 'flex',
+                            display: 'inline-flex',
                             alignItems: 'center',
                             gap: 8,
                             fontSize: '.84rem',
                             fontWeight: 500,
                             color: 'var(--ink)',
+                            textDecoration: 'none',
                             transition: 'color 250ms ease',
+                            alignSelf: 'flex-start',
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.color = activeCategory.colorSolid;
@@ -766,8 +767,8 @@ export default function ResourcesClient() {
                           >
                             <path d="M5 12h14M12 5l7 7-7 7" />
                           </svg>
-                        </div>
                       </Link>
+                      </div>
                     ))}
                   </div>
                 ) : (
