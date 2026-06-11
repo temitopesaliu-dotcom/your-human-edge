@@ -116,7 +116,9 @@ export default function B2BPromptClient() {
   const [copied, setCopied] = useState(false);
 
   // ── Gate state ──
-  const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content'>('gate');
+  // null = not yet determined (pre-mount). Renders nothing until localStorage is read.
+  // This prevents the gate from flashing briefly on refresh for already-subscribed users.
+  const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content' | null>(null);
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
   const [gateType, setGateType] = useState<'individual' | 'company'>('individual');
@@ -129,9 +131,9 @@ export default function B2BPromptClient() {
     return () => { mountedRef.current = false; };
   }, []);
 
-  // ── On mount, check if the user is already subscribed ──
+  // ── On mount, determine gate phase synchronously first, then async if needed ──
   useEffect(() => {
-    // Fast path: already confirmed subscribed in this browser
+    // Fast path: already confirmed subscribed in this browser (synchronous)
     if (isLocallySubscribed()) {
       setGatePhase('content');
       return;
@@ -141,8 +143,13 @@ export default function B2BPromptClient() {
     const storedEmail = (() => {
       try { return localStorage.getItem('yhe_email'); } catch { return null; }
     })();
-    if (!storedEmail) return; // no email → keep gate visible
+    if (!storedEmail) {
+      // No email stored → show gate immediately
+      setGatePhase('gate');
+      return;
+    }
 
+    // Has an email but no subscribed flag → check remotely
     setGatePhase('checking');
     checkRemoteSubscriber(storedEmail).then(subscribed => {
       if (!mountedRef.current) return;
@@ -206,8 +213,11 @@ export default function B2BPromptClient() {
 
   return (
     <>
+      {/* ── Nothing rendered until mount resolves gate phase ── */}
+      {gatePhase === null && null}
+
       {/* ── Gate overlay ── */}
-      {gatePhase !== 'content' && (
+      {gatePhase !== null && gatePhase !== 'content' && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',

@@ -187,10 +187,9 @@ const STYLES = `
 export default function PathsClient() {
   const [filter, setFilter] = useState<CategoryKey | 'all'>('all');
   const [openCards, setOpenCards] = useState<Record<string, boolean>>({});
-  // No 'loading' state needed: isLocallySubscribed() is synchronous (localStorage).
-  // Start at 'gate' by default; returning subscribers get 'content' immediately
-  // via the lazy initializer, avoiding a flash / CLS from a near-empty loader.
-  const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content'>('gate');
+  // null = not yet determined (pre-mount). Renders nothing until localStorage is read.
+  // This prevents the gate from flashing briefly on refresh for already-subscribed users.
+  const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content' | null>(null);
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
   const [gateType, setGateType] = useState<'individual' | 'company'>('individual');
@@ -203,9 +202,9 @@ useEffect(() => {
   return () => { mountedRef.current = false; };
 }, []);
 
-// ── On mount, check if the user is already subscribed ──
+// ── On mount, determine gate phase synchronously first, then async if needed ──
 useEffect(() => {
-  // Fast path: already confirmed subscribed in this browser
+  // Fast path: already confirmed subscribed in this browser (synchronous)
   if (isLocallySubscribed()) {
     setGatePhase('content');
     return;
@@ -215,8 +214,13 @@ useEffect(() => {
   const storedEmail = (() => {
     try { return localStorage.getItem('yhe_email'); } catch { return null; }
   })();
-  if (!storedEmail) return; // no email → keep gate visible
+  if (!storedEmail) {
+    // No email stored → show gate immediately
+    setGatePhase('gate');
+    return;
+  }
 
+  // Has an email but no subscribed flag → check remotely
   setGatePhase('checking');
   checkRemoteSubscriber(storedEmail).then(subscribed => {
     if (!mountedRef.current) return;
@@ -279,6 +283,9 @@ useEffect(() => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+
+      {/* ── Nothing rendered until mount resolves gate phase ── */}
+      {gatePhase === null && null}
 
       {/* ── Loading overlay (checking remote subscription) ── */}
       {gatePhase === 'checking' && (
