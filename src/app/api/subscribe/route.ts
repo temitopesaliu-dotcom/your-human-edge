@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addSubscriberToMailerLite } from '@/lib/mailer';
+import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite } from '@/lib/mailer';
 import { getSubscriber, setSubscriber } from '@/lib/kv';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
@@ -10,7 +10,7 @@ const ALLOWED_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 
 /** Sources that can trigger a subscription. */
-type SubscriberSource = 'quiz' | 'paths' | string;
+type SubscriberSource = 'quiz' | 'paths' | 'b2b-prompt' | string;
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     const email = (body.email || '').trim().toLowerCase();
     const name = (body.name || '').trim();
     const source = (body.source || 'quiz').trim() as SubscriberSource;
+    const isCompany = body.isCompany === true || body.isCompany === 'true';
     let archetype = (body.archetype || 'H').trim().toUpperCase() as ArchetypeKey;
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -35,14 +36,24 @@ export async function POST(req: NextRequest) {
     const existing = await getSubscriber(email);
 
     if (existing) {
-      // Already in MailerLite — just record this new source.
+      // Already in KV — just record this new source.
       console.log(`[subscribe] ${email} already subscribed via ${existing.source}; skipping MailerLite.`);
     } else {
       // First time: add to MailerLite and record in KV.
-      try {
-        await addSubscriberToMailerLite(email, name, archetype);
-      } catch (err: unknown) {
-        console.error('[subscribe] MailerLite add failed:', err instanceof Error ? err.message : String(err));
+      // Free resource gates (paths, b2b-prompt) use addFreeResourceSubscriberToMailerLite
+      // so we can route companies to a separate group. Quiz signups use the original flow.
+      if (source === 'paths' || source === 'b2b-prompt') {
+        try {
+          await addFreeResourceSubscriberToMailerLite(email, name, isCompany);
+        } catch (err: unknown) {
+          console.error('[subscribe] Free resource MailerLite add failed:', err instanceof Error ? err.message : String(err));
+        }
+      } else {
+        try {
+          await addSubscriberToMailerLite(email, name, archetype);
+        } catch (err: unknown) {
+          console.error('[subscribe] MailerLite add failed:', err instanceof Error ? err.message : String(err));
+        }
       }
     }
 

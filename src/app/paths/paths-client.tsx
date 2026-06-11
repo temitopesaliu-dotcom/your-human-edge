@@ -193,6 +193,7 @@ export default function PathsClient() {
   const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content'>('gate');
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
+  const [gateType, setGateType] = useState<'individual' | 'company'>('individual');
   const [gateError, setGateError] = useState('');
   const [gateSubmitting, setGateSubmitting] = useState(false);
 
@@ -202,8 +203,15 @@ useEffect(() => {
   return () => { mountedRef.current = false; };
 }, []);
 
-// ── On mount, check if the user already has a stored email from checkout ──
+// ── On mount, check if the user is already subscribed ──
 useEffect(() => {
+  // Fast path: already confirmed subscribed in this browser
+  if (isLocallySubscribed()) {
+    setGatePhase('content');
+    return;
+  }
+
+  // Fallback: check if we have a stored email to verify remotely
   const storedEmail = (() => {
     try { return localStorage.getItem('yhe_email'); } catch { return null; }
   })();
@@ -249,7 +257,7 @@ useEffect(() => {
     const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name, archetype: 'H', source: 'paths' }),
+      body: JSON.stringify({ email, name, archetype: 'H', source: 'paths', isCompany: gateType === 'company' }),
     });
     if (!res.ok) {
       const data = await res.json();
@@ -276,18 +284,20 @@ useEffect(() => {
       {/* ── Loading overlay (checking remote subscription) ── */}
       {gatePhase === 'checking' && (
         <div style={{
-          position: 'fixed', inset: 0, zIndex: 9999,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
-          padding: '24px',
+      position: 'fixed', inset: 0, zIndex: 9999,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
+      padding: '16px',
         }}>
-          <div style={{
-            background: '#fff', borderRadius: '18px',
-            border: '1px solid var(--border)',
-            padding: '44px 36px', maxWidth: '460px', width: '100%',
-            boxShadow: '0 24px 80px rgba(0,0,0,.4)',
-            textAlign: 'center',
-          }}>
+      <div style={{
+        background: '#fff', borderRadius: '18px',
+        border: '1px solid var(--border)',
+        padding: '44px 36px', maxWidth: '460px', width: '100%',
+        boxShadow: '0 24px 80px rgba(0,0,0,.4)',
+        textAlign: 'center',
+        maxHeight: '90vh', overflowY: 'auto',
+        boxSizing: 'border-box',
+      }}>
             <div style={{
               width: 52, height: 52, borderRadius: '50%',
               background: '#fdf0ea', color: 'var(--coral)',
@@ -321,7 +331,7 @@ useEffect(() => {
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
-          padding: '24px',
+          padding: '16px',
         }}>
           <div style={{
             background: '#fff', borderRadius: '18px',
@@ -329,6 +339,8 @@ useEffect(() => {
             padding: '44px 36px', maxWidth: '460px', width: '100%',
             boxShadow: '0 24px 80px rgba(0,0,0,.4)',
             textAlign: 'center',
+            maxHeight: '90vh', overflowY: 'auto',
+            boxSizing: 'border-box',
           }}>
             <div style={{
               width: 52, height: 52, borderRadius: '50%',
@@ -396,6 +408,53 @@ useEffect(() => {
                   onFocus={e => e.target.style.borderColor = 'var(--coral)'}
                   onBlur={e => e.target.style.borderColor = 'var(--border)'}
                 />
+              </div>
+              <div>
+                <label style={{
+                  fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
+                  color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
+                }}>
+                  I'm signing up as
+                </label>
+                <div style={{
+                  display: 'flex', gap: '8px', width: '100%',
+                  maxWidth: '100%', boxSizing: 'border-box',
+                }}>
+                  <button
+                    type="button"
+                    onClick={() => setGateType('individual')}
+                    style={{
+                      flex: 1, padding: '11px 16px', borderRadius: '10px',
+                      border: `1.5px solid ${gateType === 'individual' ? 'var(--coral)' : 'var(--border)'}`,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: '.95rem', fontWeight: gateType === 'individual' ? 600 : 400,
+                      color: gateType === 'individual' ? '#fff' : 'var(--ink)',
+                      background: gateType === 'individual' ? 'var(--coral)' : 'var(--warm)',
+                      cursor: 'pointer', outline: 'none',
+                      boxSizing: 'border-box', transition: 'all .15s',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    Individual
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setGateType('company')}
+                    style={{
+                      flex: 1, padding: '11px 16px', borderRadius: '10px',
+                      border: `1.5px solid ${gateType === 'company' ? 'var(--coral)' : 'var(--border)'}`,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: '.95rem', fontWeight: gateType === 'company' ? 600 : 400,
+                      color: gateType === 'company' ? '#fff' : 'var(--ink)',
+                      background: gateType === 'company' ? 'var(--coral)' : 'var(--warm)',
+                      cursor: 'pointer', outline: 'none',
+                      boxSizing: 'border-box', transition: 'all .15s',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    Company / Organisation
+                  </button>
+                </div>
               </div>
               {gateError && (
                 <div style={{
@@ -504,4 +563,6 @@ useEffect(() => {
     </>
   );
 }
+
+
 

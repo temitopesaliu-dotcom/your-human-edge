@@ -248,3 +248,53 @@ export async function addPathsGuideBuyerToMailerLite(
     console.error('[mailer] Paths guide MailerLite error:', err instanceof Error ? err.message : String(err));
   }
 }
+
+/** Free resource subscriber — optionally adds to the company free resource MailerLite group. */
+export async function addFreeResourceSubscriberToMailerLite(
+  email: string,
+  name: string,
+  isCompany: boolean
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) {
+    console.warn('[mailer] MAILERLITE_API_KEY not set — skipping');
+    return;
+  }
+
+  const companyGroup = process.env.MAILERLITE_COMPANY_FREE_RESOURCE_GROUP;
+  const groups: string[] = [];
+
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+
+  if (isCompany && companyGroup) {
+    groups.push(companyGroup);
+  }
+
+  if (groups.length === 0) return;
+
+  try {
+    const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        fields: { name, subscriber_type: isCompany ? 'company' : 'individual' },
+        groups,
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('[mailer] Free resource subscriber add failed:', res.status, errText);
+    } else {
+      console.log(`[mailer] ${email} added to free resource groups: ${groups.join(', ')}`);
+    }
+  } catch (err: unknown) {
+    console.warn('[mailer] Free resource subscriber network error:', err instanceof Error ? err.message : String(err));
+  }
+}
