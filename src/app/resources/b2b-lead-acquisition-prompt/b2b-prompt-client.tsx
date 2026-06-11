@@ -96,22 +96,6 @@ const HOW_STEPS = [
   { step: 4, title: 'Get your playbook', desc: 'The AI outputs a complete 7-stage operational playbook tailored to your business. Hand it to someone on day 1. They can be running the system by day 5.' },
 ];
 
-// ── Styles ──
-const theme = {
-  bg: '#0A0A0F',
-  surface: '#111118',
-  card: '#16161F',
-  border: '#22222E',
-  borderBr: '#2E2E40',
-  white: '#F0F0F8',
-  muted: '#7070A0',
-  mutedBr: '#9090B8',
-  accent: '#6B6BFF',
-  accentDim: '#2A2A60',
-  accentGlow: 'rgba(107,107,255,0.06)',
-  green: '#22C97A',
-};
-
 export default function B2BPromptClient() {
   const [copied, setCopied] = useState(false);
 
@@ -213,6 +197,41 @@ export default function B2BPromptClient() {
 
   return (
     <>
+      <style>{`
+        @keyframes b2b-spin { to { transform: rotate(360deg); } }
+        .b2b-stage-card {
+          display: grid;
+          grid-template-columns: 44px 1fr;
+          gap: 16px;
+          align-items: start;
+          background: #fff;
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 1.1rem 1.3rem;
+          transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+        }
+        .b2b-stage-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 36px rgba(26,16,64,.09);
+          border-color: var(--teal);
+        }
+        .b2b-step-row { display: flex; gap: 16px; align-items: flex-start; }
+        .b2b-prompt-box {
+          background: var(--paper);
+          border: 1px solid var(--border);
+          border-radius: 18px;
+          padding: 2rem;
+          margin-bottom: 4rem;
+        }
+        @media (max-width: 640px) {
+          .b2b-hero-pad { padding: 96px 20px 48px !important; }
+          .b2b-content-pad { padding: 36px 16px 80px !important; }
+          .b2b-prompt-box { padding: 1.4rem !important; }
+          .b2b-pills { gap: 8px !important; }
+          .b2b-pill { font-size: .72rem !important; }
+        }
+      `}</style>
+
       {/* ── Nothing rendered until mount resolves gate phase ── */}
       {gatePhase === null && null}
 
@@ -221,14 +240,14 @@ export default function B2BPromptClient() {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(10,10,15,.92)', backdropFilter: 'blur(8px)',
+          background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
           padding: '16px',
         }}>
           <div style={{
             background: '#fff', borderRadius: '18px',
             border: '1px solid var(--border)',
             padding: '44px 36px', maxWidth: '460px', width: '100%',
-            boxShadow: '0 24px 80px rgba(0,0,0,.5)',
+            boxShadow: '0 24px 80px rgba(0,0,0,.4)',
             textAlign: 'center',
             maxHeight: '90vh', overflowY: 'auto',
             boxSizing: 'border-box',
@@ -237,7 +256,7 @@ export default function B2BPromptClient() {
               <>
                 <div style={{
                   width: 52, height: 52, borderRadius: '50%',
-                  background: '#fdf0ea', color: 'var(--coral)',
+                  background: 'rgba(216,90,48,.08)', color: 'var(--coral)',
                   fontSize: '1.5rem', display: 'flex', alignItems: 'center',
                   justifyContent: 'center', margin: '0 auto 18px',
                 }} aria-hidden>🔍</div>
@@ -247,10 +266,7 @@ export default function B2BPromptClient() {
                 }}>
                   Checking your access
                 </div>
-                <div style={{
-                  fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7,
-                  marginBottom: '8px',
-                }}>
+                <div style={{ fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7, marginBottom: '8px' }}>
                   Just a moment…
                 </div>
                 <div style={{
@@ -263,7 +279,7 @@ export default function B2BPromptClient() {
               <>
                 <div style={{
                   width: 52, height: 52, borderRadius: '50%',
-                  background: '#fdf0ea', color: 'var(--coral)',
+                  background: 'rgba(216,90,48,.08)', color: 'var(--coral)',
                   fontSize: '1.5rem', display: 'flex', alignItems: 'center',
                   justifyContent: 'center', margin: '0 auto 18px',
                 }} aria-hidden>📋</div>
@@ -280,10 +296,7 @@ export default function B2BPromptClient() {
                 }}>
                   B2B Lead Acquisition Prompt
                 </h2>
-                <p style={{
-                  fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7,
-                  marginBottom: '24px',
-                }}>
+                <p style={{ fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7, marginBottom: '24px' }}>
                   Enter your details below to unlock this free resource — and get notified when new resources drop.
                 </p>
 
@@ -292,17 +305,14 @@ export default function B2BPromptClient() {
                     <label style={{
                       fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
                       color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
-                    }}>
-                      First name
-                    </label>
+                    }}>First name</label>
                     <input
                       type="text" value={gateName} onChange={e => setGateName(e.target.value)}
                       placeholder="Your first name" required aria-label="First name"
                       style={{
                         width: '100%', padding: '13px 16px', borderRadius: '10px',
                         border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
-                        fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)',
-                        outline: 'none',
+                        fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none',
                       }}
                       onFocus={e => e.target.style.borderColor = 'var(--coral)'}
                       onBlur={e => e.target.style.borderColor = 'var(--border)'}
@@ -312,17 +322,14 @@ export default function B2BPromptClient() {
                     <label style={{
                       fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
                       color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
-                    }}>
-                      Email address
-                    </label>
+                    }}>Email address</label>
                     <input
                       type="email" value={gateEmail} onChange={e => setGateEmail(e.target.value)}
                       placeholder="you@email.com" required aria-label="Email address"
                       style={{
                         width: '100%', padding: '13px 16px', borderRadius: '10px',
                         border: '1.5px solid var(--border)', fontFamily: "'DM Sans', sans-serif",
-                        fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)',
-                        outline: 'none',
+                        fontSize: '1rem', color: 'var(--ink)', background: 'var(--warm)', outline: 'none',
                       }}
                       onFocus={e => e.target.style.borderColor = 'var(--coral)'}
                       onBlur={e => e.target.style.borderColor = 'var(--border)'}
@@ -332,53 +339,32 @@ export default function B2BPromptClient() {
                     <label style={{
                       fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
                       color: 'var(--soft)', fontWeight: 500, marginBottom: '5px', display: 'block',
-                    }}>
-                      I'm signing up as
-                    </label>
-                    <div style={{
-                      display: 'flex', gap: '8px', width: '100%',
-                      maxWidth: '100%', boxSizing: 'border-box',
-                    }}>
-                      <button
-                        type="button"
-                        onClick={() => setGateType('individual')}
-                        style={{
-                          flex: 1, padding: '11px 16px', borderRadius: '10px',
-                          border: `1.5px solid ${gateType === 'individual' ? 'var(--coral)' : 'var(--border)'}`,
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: '.95rem', fontWeight: gateType === 'individual' ? 600 : 400,
-                          color: gateType === 'individual' ? '#fff' : 'var(--ink)',
-                          background: gateType === 'individual' ? 'var(--coral)' : 'var(--warm)',
-                          cursor: 'pointer', outline: 'none',
-                          boxSizing: 'border-box', transition: 'all .15s',
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        Individual
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setGateType('company')}
-                        style={{
-                          flex: 1, padding: '11px 16px', borderRadius: '10px',
-                          border: `1.5px solid ${gateType === 'company' ? 'var(--coral)' : 'var(--border)'}`,
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: '.95rem', fontWeight: gateType === 'company' ? 600 : 400,
-                          color: gateType === 'company' ? '#fff' : 'var(--ink)',
-                          background: gateType === 'company' ? 'var(--coral)' : 'var(--warm)',
-                          cursor: 'pointer', outline: 'none',
-                          boxSizing: 'border-box', transition: 'all .15s',
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        Company / Organisation
-                      </button>
+                    }}>I&apos;m signing up as</label>
+                    <div style={{ display: 'flex', gap: '8px', width: '100%', boxSizing: 'border-box' }}>
+                      <button type="button" onClick={() => setGateType('individual')} style={{
+                        flex: 1, padding: '11px 16px', borderRadius: '10px',
+                        border: `1.5px solid ${gateType === 'individual' ? 'var(--coral)' : 'var(--border)'}`,
+                        fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem',
+                        fontWeight: gateType === 'individual' ? 600 : 400,
+                        color: gateType === 'individual' ? '#fff' : 'var(--ink)',
+                        background: gateType === 'individual' ? 'var(--coral)' : 'var(--warm)',
+                        cursor: 'pointer', outline: 'none', boxSizing: 'border-box', transition: 'all .15s', lineHeight: 1.2,
+                      }}>Individual</button>
+                      <button type="button" onClick={() => setGateType('company')} style={{
+                        flex: 1, padding: '11px 16px', borderRadius: '10px',
+                        border: `1.5px solid ${gateType === 'company' ? 'var(--coral)' : 'var(--border)'}`,
+                        fontFamily: "'DM Sans', sans-serif", fontSize: '.95rem',
+                        fontWeight: gateType === 'company' ? 600 : 400,
+                        color: gateType === 'company' ? '#fff' : 'var(--ink)',
+                        background: gateType === 'company' ? 'var(--coral)' : 'var(--warm)',
+                        cursor: 'pointer', outline: 'none', boxSizing: 'border-box', transition: 'all .15s', lineHeight: 1.2,
+                      }}>Company / Organisation</button>
                     </div>
                   </div>
                   {gateError && (
                     <div style={{
                       color: '#c0392b', fontSize: '.82rem',
-                      background: '#fdf0ea', padding: '8px 12px',
+                      background: 'rgba(216,90,48,.07)', padding: '8px 12px',
                       borderRadius: '8px', textAlign: 'center',
                     }}>{gateError}</div>
                   )}
@@ -392,9 +378,7 @@ export default function B2BPromptClient() {
                     {gateSubmitting ? 'Just a moment…' : 'Unlock free access →'}
                   </button>
                 </form>
-                <p style={{
-                  fontSize: '.7rem', color: 'var(--soft)', marginTop: '14px', opacity: .6,
-                }}>
+                <p style={{ fontSize: '.7rem', color: 'var(--soft)', marginTop: '14px', opacity: .6 }}>
                   No spam. Unsubscribe anytime. Same access across all free resources.
                 </p>
               </>
@@ -403,408 +387,295 @@ export default function B2BPromptClient() {
         </div>
       )}
 
-      <style>{`
-        @keyframes b2b-spin { to { transform: rotate(360deg); } }
-      `}</style>
-
-    <div
-      style={{
-        background: theme.bg,
-        color: theme.white,
+      {/* ════════════════════════════════════════
+          PAGE SHELL — uses site design system
+          ════════════════════════════════════════ */}
+      <div style={{
+        fontFamily: "'DM Sans', sans-serif",
+        background: 'var(--warm)',
+        color: 'var(--ink)',
         minHeight: '100vh',
-      }}
-    >
-      {/* ── NAV (matches site-wide styles from globals.css) ── */}
-      <nav>
-        <Link href="/quiz" className="nav-logo">
-          Your Human Edge in the AI Era
-        </Link>
-        <ul className="nav-links">
-          <li>
-            <Link href="/quiz">Home</Link>
-          </li>
-          <li>
-            <Link href="/resources">Resources</Link>
-          </li>
-        </ul>
-        <Link href="/quiz" className="nav-cta">
-          Find my archetype
-        </Link>
-      </nav>
+      }}>
 
-      {/* ── HERO ── */}
-      <div
-        style={{
-          padding: '7rem 2rem 4rem',
-          textAlign: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-          borderBottom: `1px solid ${theme.border}`,
-        }}
-      >
+        {/* ── NAV ── */}
+        <nav>
+          <Link href="/quiz" className="nav-logo">
+            Your Human Edge in the AI Era
+          </Link>
+          <ul className="nav-links">
+            <li><Link href="/quiz">Home</Link></li>
+            <li><Link href="/resources">Resources</Link></li>
+          </ul>
+          <Link href="/quiz" className="nav-cta">Find my archetype</Link>
+        </nav>
+
+        {/* ════════════════════════════════════════
+            HERO
+            ════════════════════════════════════════ */}
         <div
+          className="b2b-hero-pad"
           style={{
-            position: 'absolute',
-            top: -80,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 700,
-            height: 400,
-            background: 'radial-gradient(ellipse, rgba(107,107,255,0.07) 0%, transparent 65%)',
+            background: 'linear-gradient(135deg, #1a1040 0%, #2d1b6e 100%)',
+            padding: '112px 28px 64px',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          {/* teal radial glow — matches resources page purple glow style */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'radial-gradient(ellipse at 50% 30%, rgba(15,110,86,.2), transparent 65%)',
             pointerEvents: 'none',
-          }}
-          aria-hidden
-        />
-        <span
-          style={{
-            display: 'inline-block',
-            fontSize: 10,
-            fontWeight: 700,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: theme.accent,
-            border: `0.5px solid ${theme.accentDim}`,
-            borderRadius: 99,
-            padding: '5px 14px',
-            marginBottom: '1.5rem',
-            background: theme.accentGlow,
-          }}
-        >
-          Free Framework
-        </span>
-        <h1
-          style={{
-            fontFamily: "Georgia, 'Times New Roman', serif",
-            fontSize: 'clamp(2rem, 5.5vw, 3.5rem)',
-            fontWeight: 700,
-            color: theme.white,
-            lineHeight: 1.18,
-            marginBottom: '1.2rem',
-            maxWidth: 720,
-            margin: '0 auto 1.2rem',
-          }}
-        >
-          How to acquire B2B leads<br />
-          <span
-            style={{
-              background: 'linear-gradient(90deg, #8B8BFF, #B0B0FF)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            systematically and convert them
-          </span>
-        </h1>
-        <p
-          style={{
-            fontSize: 16,
-            color: theme.muted,
-            maxWidth: 520,
-            margin: '0 auto',
-            lineHeight: 1.7,
-          }}
-        >
-          A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company — in under 2 minutes.
-        </p>
-      </div>
+          }} aria-hidden />
 
-      {/* ── PAGE CONTENT ── */}
-      <div style={{ maxWidth: 860, margin: '0 auto', padding: '4rem 2rem 6rem' }}>
-        {/* ── INTRO STRIP ── */}
+          <div style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
+            {/* Eyebrow — same style as resources page */}
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase',
+              color: '#c8940a', fontWeight: 500, marginBottom: 20,
+              border: '1px solid rgba(200,148,10,.25)', padding: '5px 16px', borderRadius: 40,
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: '#c8940a', display: 'inline-block',
+              }} aria-hidden />
+              Free Framework · For Companies
+            </div>
+
+            <h1 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(2rem, 6vw, 3.8rem)',
+              fontWeight: 400,
+              color: '#fff',
+              lineHeight: 1.1,
+              marginBottom: 18,
+            }}>
+              How to acquire B2B leads<br />
+              <em style={{ color: '#c8940a', fontStyle: 'italic' }}>systematically — and close them.</em>
+            </h1>
+
+            <p style={{
+              fontSize: '1rem',
+              color: 'rgba(255,255,255,.6)',
+              maxWidth: 520,
+              margin: '0 auto 36px',
+              lineHeight: 1.8,
+            }}>
+              A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company — in under 2 minutes.
+            </p>
+
+            {/* Feature pills */}
+            <div className="b2b-pills" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+              {INTRO_ITEMS.map(item => (
+                <div key={item.title} className="b2b-pill" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 7,
+                  background: 'rgba(255,255,255,.07)',
+                  border: '1px solid rgba(255,255,255,.1)',
+                  borderRadius: 40, padding: '7px 16px',
+                  fontSize: '.78rem', color: 'rgba(255,255,255,.75)',
+                }}>
+                  <span aria-hidden>{item.icon}</span>
+                  <span><strong style={{ color: '#fff' }}>{item.title}</strong> — {item.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ════════════════════════════════════════
+            CONTENT
+            ════════════════════════════════════════ */}
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: 10,
-            marginBottom: '4rem',
-          }}
+          className="b2b-content-pad"
+          style={{ maxWidth: 860, margin: '0 auto', padding: '56px 28px 100px' }}
         >
-          {INTRO_ITEMS.map((item) => (
-            <div
-              key={item.title}
-              style={{
-                background: theme.card,
-                border: `0.5px solid ${theme.border}`,
-                borderRadius: 10,
-                padding: '1rem 1.1rem',
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 10,
-              }}
-            >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: 7,
-                  background: theme.accentGlow,
-                  border: `0.5px solid ${theme.accentDim}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 13,
-                  flexShrink: 0,
-                }}
-                aria-hidden
-              >
-                {item.icon}
-              </div>
-              <div>
-                <div style={{ fontSize: 12, fontWeight: 700, color: theme.white, marginBottom: 2 }}>
-                  {item.title}
-                </div>
-                <div style={{ fontSize: 11, color: theme.muted, lineHeight: 1.4 }}>
-                  {item.desc}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* ── WHAT THE PROMPT BUILDS ── */}
-        <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: theme.accent, marginBottom: '0.4rem' }}>
-          What you get
-        </div>
-        <h2
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: theme.white,
-            marginBottom: '0.5rem',
-          }}
-        >
-          The prompt builds all 7 stages
-        </h2>
-        <p
-          style={{
-            fontSize: 13,
-            color: theme.muted,
-            lineHeight: 1.65,
-            marginBottom: '2rem',
-            maxWidth: 580,
-          }}
-        >
-          Paste the prompt, fill in your product details, and the AI outputs a full operational playbook tailored to your business. Here is what each stage covers.
-        </p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: '4rem' }}>
-          {STAGES.map((s) => (
-            <div
-              key={s.num}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '36px 1fr',
-                gap: 12,
-                alignItems: 'start',
-                background: theme.card,
-                border: `0.5px solid ${theme.border}`,
-                borderRadius: 10,
-                padding: '0.9rem 1.1rem',
-                transition: 'border-color 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = theme.borderBr;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = theme.border;
-              }}
-            >
-              <div
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: '50%',
-                  background: theme.accentGlow,
-                  border: `1px solid ${theme.accentDim}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: theme.accent,
-                  fontFamily: "Georgia, serif",
-                  flexShrink: 0,
-                }}
-              >
-                {s.num}
-              </div>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: theme.white, marginBottom: 3 }}>
-                  {s.name}
-                </div>
-                <div style={{ fontSize: 12, color: theme.muted, lineHeight: 1.55 }}>
-                  {s.desc}
-                </div>
-              </div>
+          {/* ── 7 STAGES ── */}
+          <div style={{ marginBottom: '4rem' }}>
+            <div style={{
+              fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
+              textTransform: 'uppercase', color: 'var(--teal)', marginBottom: '0.5rem',
+            }}>
+              What you get
             </div>
-          ))}
-        </div>
+            <h2 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+              fontWeight: 500, color: 'var(--ink)', marginBottom: '0.6rem', lineHeight: 1.15,
+            }}>
+              The prompt builds all 7 stages
+            </h2>
+            <p style={{
+              fontSize: '.92rem', color: 'var(--soft)', lineHeight: 1.75,
+              marginBottom: '1.8rem', maxWidth: 580,
+            }}>
+              Paste the prompt, fill in your product details, and the AI outputs a full operational playbook tailored to your business. Here is what each stage covers.
+            </p>
 
-        {/* ── THE PROMPT BOX ── */}
-        <div
-          style={{
-            background: theme.surface,
-            border: `0.5px solid ${theme.borderBr}`,
-            borderRadius: 16,
-            padding: '2rem',
-            marginBottom: '4rem',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '1.2rem',
-              flexWrap: 'wrap',
-              gap: 10,
-            }}
-          >
-            <div>
-              <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: theme.accent, marginBottom: 2 }}>
-                The master prompt
-              </div>
-              <p style={{ fontSize: 12, color: theme.muted, margin: 0 }}>
-                Fill in the 8 bracketed fields. Paste into any AI assistant.
-              </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {STAGES.map(s => (
+                <div key={s.num} className="b2b-stage-card">
+                  <div style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: 'rgba(15,110,86,.08)',
+                    border: '1.5px solid rgba(15,110,86,.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '1.05rem', fontWeight: 600, color: 'var(--teal)',
+                    fontFamily: "'Cormorant Garamond', serif",
+                    flexShrink: 0,
+                  }}>
+                    {s.num}
+                  </div>
+                  <div>
+                    <div style={{
+                      fontSize: '.9rem', fontWeight: 600, color: 'var(--ink)',
+                      marginBottom: 4, lineHeight: 1.3,
+                    }}>
+                      {s.name}
+                    </div>
+                    <div style={{ fontSize: '.82rem', color: 'var(--soft)', lineHeight: 1.65 }}>
+                      {s.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <button
-              onClick={handleCopy}
-              style={{
-                fontSize: 12,
-                fontWeight: 700,
-                padding: '8px 18px',
-                border: copied ? `0.5px solid ${theme.green}` : `0.5px solid ${theme.accent}`,
-                borderRadius: 8,
-                background: copied ? 'rgba(34,201,122,0.1)' : theme.accentGlow,
-                color: copied ? theme.green : theme.accent,
-                cursor: 'pointer',
-                fontFamily: "'Trebuchet MS', sans-serif",
-                transition: 'all 0.2s',
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                if (!copied) {
-                  e.currentTarget.style.background = theme.accent;
-                  e.currentTarget.style.color = '#fff';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!copied) {
-                  e.currentTarget.style.background = theme.accentGlow;
-                  e.currentTarget.style.color = theme.accent;
-                }
-              }}
-            >
-              {copied ? 'Copied!' : 'Copy prompt'}
-            </button>
           </div>
 
-          <pre
-            style={{
-              background: theme.bg,
-              border: `0.5px solid ${theme.border}`,
-              borderRadius: 10,
+          {/* ── THE PROMPT BOX ── */}
+          <div className="b2b-prompt-box">
+            <div style={{
+              display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
+              marginBottom: '1.2rem', flexWrap: 'wrap', gap: 12,
+            }}>
+              <div>
+                <div style={{
+                  fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
+                  textTransform: 'uppercase', color: 'var(--teal)', marginBottom: 4,
+                }}>
+                  The master prompt
+                </div>
+                <p style={{ fontSize: '.82rem', color: 'var(--soft)', margin: 0, lineHeight: 1.6 }}>
+                  Fill in the 8 bracketed fields. Paste into any AI assistant.
+                </p>
+              </div>
+              <button
+                onClick={handleCopy}
+                style={{
+                  fontSize: '.82rem', fontWeight: 600,
+                  padding: '10px 22px',
+                  border: copied ? '1.5px solid var(--teal)' : '1.5px solid var(--border)',
+                  borderRadius: 40,
+                  background: copied ? 'rgba(15,110,86,.08)' : '#fff',
+                  color: copied ? 'var(--teal)' : 'var(--ink)',
+                  cursor: 'pointer',
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={e => {
+                  if (!copied) {
+                    e.currentTarget.style.background = 'var(--ink)';
+                    e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.borderColor = 'var(--ink)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!copied) {
+                    e.currentTarget.style.background = '#fff';
+                    e.currentTarget.style.color = 'var(--ink)';
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                  }
+                }}
+              >
+                {copied ? '✓ Copied!' : 'Copy prompt'}
+              </button>
+            </div>
+
+            <pre style={{
+              background: '#fff',
+              border: '1px solid var(--border)',
+              borderRadius: 12,
               padding: '1.6rem 1.8rem',
               fontFamily: "'Courier New', Courier, monospace",
               fontSize: 12.5,
-              color: theme.mutedBr,
+              color: 'var(--soft)',
               lineHeight: 1.9,
               whiteSpace: 'pre-wrap',
               wordBreak: 'break-word',
               margin: 0,
               overflow: 'auto',
-              maxHeight: 600,
-            }}
-          >
-            {PROMPT_TEXT}
-          </pre>
-        </div>
-
-        {/* ── HOW TO USE ── */}
-        <div style={{ marginBottom: '4rem' }}>
-          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: theme.accent, marginBottom: '0.4rem' }}>
-            How to use this
+              maxHeight: 560,
+            }}>
+              {PROMPT_TEXT}
+            </pre>
           </div>
-          <h2
-            style={{
-              fontFamily: "Georgia, serif",
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              color: theme.white,
-              marginBottom: '0.5rem',
-            }}
-          >
-            Four steps
-          </h2>
-          <p
-            style={{
-              fontSize: 13,
-              color: theme.muted,
-              lineHeight: 1.65,
-              marginBottom: '1.5rem',
-              maxWidth: 580,
-            }}
-          >
-            From blank page to working lead acquisition system.
-          </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {HOW_STEPS.map((h) => (
-              <div key={h.step} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                <div
-                  style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: '50%',
-                    background: theme.accentGlow,
-                    border: `0.5px solid ${theme.accentDim}`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: theme.accent,
-                    flexShrink: 0,
-                    marginTop: 1,
-                  }}
-                >
-                  {h.step}
-                </div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: theme.white, marginBottom: 2 }}>
-                    {h.title}
+          {/* ── HOW TO USE ── */}
+          <div>
+            <div style={{
+              fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
+              textTransform: 'uppercase', color: 'var(--teal)', marginBottom: '0.5rem',
+            }}>
+              How to use this
+            </div>
+            <h2 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+              fontWeight: 500, color: 'var(--ink)', marginBottom: '0.6rem', lineHeight: 1.15,
+            }}>
+              Four steps from blank page to working system
+            </h2>
+            <p style={{
+              fontSize: '.92rem', color: 'var(--soft)', lineHeight: 1.75,
+              marginBottom: '1.8rem', maxWidth: 580,
+            }}>
+              From blank page to working lead acquisition system.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {HOW_STEPS.map(h => (
+                <div key={h.step} className="b2b-step-row">
+                  <div style={{
+                    width: 36, height: 36, borderRadius: '50%',
+                    background: 'rgba(216,90,48,.08)',
+                    border: '1.5px solid rgba(216,90,48,.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '1rem', fontWeight: 600, color: 'var(--coral)',
+                    fontFamily: "'Cormorant Garamond', serif",
+                    flexShrink: 0, marginTop: 2,
+                  }}>
+                    {h.step}
                   </div>
-                  <span style={{ fontSize: 12, color: theme.muted, lineHeight: 1.55 }}>
-                    {h.desc}
-                  </span>
+                  <div>
+                    <div style={{ fontSize: '.9rem', fontWeight: 600, color: 'var(--ink)', marginBottom: 4 }}>
+                      {h.title}
+                    </div>
+                    <div style={{ fontSize: '.82rem', color: 'var(--soft)', lineHeight: 1.65 }}>
+                      {h.desc}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── FOOTER (matches site-wide styles from globals.css) ── */}
-      <footer>
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <ul className="f-links">
-          <li>
-            <Link href="/quiz">Take the quiz</Link>
-          </li>
-          <li>
-            <Link href="/resources">Resources</Link>
-          </li>
-        </ul>
-        <div style={{ fontSize: '.7rem', opacity: 0.25 }}>
-          &copy; 2026
-        </div>
-      </footer>
-    </div>
+        {/* ── FOOTER ── */}
+        <footer>
+          <div className="footer-brand">human<span>+</span>ai</div>
+          <ul className="f-links">
+            <li><Link href="/quiz">Take the quiz</Link></li>
+            <li><Link href="/resources">Resources</Link></li>
+          </ul>
+          <div style={{ fontSize: '.7rem', opacity: 0.25 }}>
+            &copy; 2026
+          </div>
+        </footer>
+      </div>
     </>
   );
 }
-
-
