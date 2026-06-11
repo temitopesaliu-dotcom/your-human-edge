@@ -26,6 +26,17 @@ const RESOURCES: Resource[] = [
     badge: 'Most popular',
     category: 'individual',
   },
+  {
+    id: 'b2b-prompt',
+    icon: '',
+    title: 'B2B Lead Acquisition Prompt',
+    description:
+      'A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company. Paste into any AI assistant, fill in 8 fields, and get an operational playbook in under 2 minutes.',
+    href: '/resources/b2b-lead-acquisition-prompt',
+    cta: 'Get the prompt →',
+    badge: 'New',
+    category: 'company',
+  },
 ];
 
 const CATEGORIES = [
