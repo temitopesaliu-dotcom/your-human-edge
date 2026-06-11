@@ -253,7 +253,6 @@ useEffect(() => {
   }
   setGateSubmitting(true);
   try {
-    await checkRemoteSubscriber(email); // result unused — just triggers subscribe idempotently
     const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

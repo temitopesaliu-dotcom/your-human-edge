@@ -49,6 +49,7 @@ All drip and post-purchase emails run in **MailerLite automations**. The app onl
 - `MAILERLITE_BUYERS_GROUP_ID` (archetype playbook buyers)
 - `MAILERLITE_PATHS_GUIDE_GROUP_ID` ($19.99 guide — automation emails the PDF/guide)
 - `MAILERLITE_WAITLIST_GROUP_ID` (optional)
+- `MAILERLITE_FREE_RESOURCE_DEFAULT_ARCHETYPE` (optional — the `ai_archetype` value assigned to non-quiz free resource subscribers. Defaults to `'Explorer'`. Prevents blank `{$ai_archetype}` in automated emails.)
 
 Resend is **not** required unless you add it back for transactional mail outside MailerLite.
 

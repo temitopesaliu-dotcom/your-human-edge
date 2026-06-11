@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite } from '@/lib/mailer';
+import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, isMailerLiteBuyer } from '@/lib/mailer';
 import { getSubscriber, setSubscriber } from '@/lib/kv';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
@@ -50,7 +50,9 @@ export async function POST(req: NextRequest) {
         }
       } else {
         try {
-          await addSubscriberToMailerLite(email, name, archetype);
+          // Check buyer status to prevent re-adding buyers to the drip group
+          const alreadyBuyer = await isMailerLiteBuyer(email);
+          await addSubscriberToMailerLite(email, name, archetype, alreadyBuyer);
         } catch (err: unknown) {
           console.error('[subscribe] MailerLite add failed:', err instanceof Error ? err.message : String(err));
         }
