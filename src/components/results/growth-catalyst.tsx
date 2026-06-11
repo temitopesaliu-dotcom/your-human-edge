@@ -275,8 +275,10 @@ footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;
   .pw-sub{margin-bottom:24px}
   .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .pw-price{font-size:3rem}
+    section:last-of-type{padding-bottom:12px}
+  #paywall{padding:12px 16px 100px}
   footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
-}`;
+ }`;
 
 function getNameFromURL() {
   if (typeof window === "undefined") return null;
@@ -287,20 +289,27 @@ function getNameFromURL() {
 export default function GrowthCatalystPage() {
   const [buying, setBuying] = useState(false);
   const [buyError, setBuyError] = useState("");
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [fallbackEmail, setFallbackEmail] = useState("");
 
   useEffect(() => {
     track("result_view", { archetype: "G" });
   }, []);
 
-  async function onBuy() {
+  async function onBuy(email?: string) {
     setBuyError("");
+    setShowEmailInput(false);
     setBuying(true);
     try {
-      const url = await buyPlaybook("G");
+      const url = await buyPlaybook("G", email);
       window.location.href = url;
     } catch (err: unknown) {
       setBuying(false);
-      setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
+      if (err instanceof Error && err.message === "EMAIL_REQUIRED") {
+        setShowEmailInput(true);
+      } else {
+        setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
+      }
     }
   }
 
@@ -575,9 +584,41 @@ export default function GrowthCatalystPage() {
     <div className="pw-price">$9.99</div>
     <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
     <div>
-      <button onClick={onBuy} disabled={buying} className="btn-buy" style={{ opacity: buying ? 0.6 : 1, cursor: buying ? "not-allowed" : "pointer" }}>{buying ? "Preparing checkout…" : "Buy Playbook →"}</button>{buyError && <div role="alert" style={{ color: "#ffcdd2", fontSize: ".8rem", marginTop: "8px" }}>{buyError}</div>}
+      {showEmailInput && (
+        <div style={{ marginBottom: "16px" }}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={fallbackEmail}
+            onChange={(e) => setFallbackEmail(e.target.value)}
+            style={{
+              padding: "10px 16px", borderRadius: "8px", border: "1px solid rgba(255,255,255,.2)",
+              background: "rgba(255,255,255,.08)", color: "#fff", fontSize: ".9rem",
+              width: "100%", maxWidth: "320px", outline: "none", fontFamily: "'DM Sans',sans-serif"
+            }}
+          />
+          <button
+            onClick={() => {
+              const email = fallbackEmail.trim();
+              if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                localStorage.setItem("yhe_email", email);
+                setFallbackEmail("");
+                onBuy(email);
+              }
+            }}
+            style={{
+              display: "block", margin: "8px auto 0", padding: "10px 24px", borderRadius: "8px",
+              border: "none", background: "var(--blue2)", color: "#fff", fontSize: ".85rem",
+              fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif"
+            }}
+          >
+            Continue to Checkout
+          </button>
+        </div>
+      )}
+      <button onClick={() => onBuy()} disabled={buying} className="btn-buy" style={{ opacity: buying ? 0.6 : 1, cursor: buying ? "not-allowed" : "pointer" }}>{buying ? "Preparing checkout…" : "Buy Playbook →"}</button>{buyError && <div role="alert" style={{ color: "#ffcdd2", fontSize: ".8rem", marginTop: "8px" }}>{buyError}</div>}
     </div>
-    <div className="pw-trust">More income paths, tool stack, and 90 day plan inside the playbook</div>
+  <div className="pw-trust">More income paths, tool stack, and 90 day plan inside the playbook</div>
   </div>
 </div>
 

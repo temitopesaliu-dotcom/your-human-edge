@@ -34,7 +34,11 @@ const TEASERS: Record<ArchetypeKey, string[]> = {
 function GateContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const archKey = ((params.get('arch') || 'H').toUpperCase()) as ArchetypeKey;
+  const VALID_ARCH_KEYS: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
+  const rawArch = (params.get('arch') || '').toUpperCase();
+  const archKey: ArchetypeKey = VALID_ARCH_KEYS.includes(rawArch as ArchetypeKey)
+    ? (rawArch as ArchetypeKey)
+    : 'H';
   const arch = ARCHETYPES[archKey] || ARCHETYPES['H'];
   const teaser = TEASERS[archKey][archKey.charCodeAt(0) % TEASERS[archKey].length];
 

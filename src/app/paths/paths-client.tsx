@@ -181,6 +181,7 @@ const STYLES = `
   .paths-btn-sc2:hover{border-color:#534ab7;color:#534ab7}
   .paths-doc-footer{background:#1a1040;color:rgba(255,255,255,.45);padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px;font-size:9.5px;letter-spacing:.04em;flex-wrap:wrap}
   @media(max-width:560px){.paths-doc-footer{padding:16px 20px}}
+  @keyframes paths-spin{to{transform:rotate(360deg)}}
 `;
 
 export default function PathsClient() {
@@ -189,9 +190,7 @@ export default function PathsClient() {
   // No 'loading' state needed: isLocallySubscribed() is synchronous (localStorage).
   // Start at 'gate' by default; returning subscribers get 'content' immediately
   // via the lazy initializer, avoiding a flash / CLS from a near-empty loader.
-  const [gatePhase, setGatePhase] = useState<'gate' | 'content'>(
-    () => isLocallySubscribed() ? 'content' : 'gate'
-  );
+  const [gatePhase, setGatePhase] = useState<'gate' | 'checking' | 'content'>('gate');
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
   const [gateError, setGateError] = useState('');
@@ -201,6 +200,37 @@ const mountedRef = useRef(true);
 useEffect(() => {
   mountedRef.current = true;
   return () => { mountedRef.current = false; };
+}, []);
+
+// ── On mount, check if the user already has a stored email from checkout ──
+useEffect(() => {
+  const storedEmail = (() => {
+    try { return localStorage.getItem('yhe_email'); } catch { return null; }
+  })();
+  if (!storedEmail) return; // no email → keep gate visible
+
+  setGatePhase('checking');
+  checkRemoteSubscriber(storedEmail).then(subscribed => {
+    if (!mountedRef.current) return;
+    if (subscribed) {
+      const storedName = (() => {
+        try { return localStorage.getItem('yhe_name') || ''; } catch { return ''; }
+      })();
+      markLocallySubscribed(storedName, storedEmail);
+      setGatePhase('content');
+    } else {
+      // Clear stale flags so the gate shows for a fresh subscribe
+      try {
+        localStorage.removeItem('yhe_subscribed');
+        localStorage.removeItem('yhe_name');
+        localStorage.removeItem('yhe_email');
+      } catch { /* ignore */ }
+      setGatePhase('gate');
+    }
+  }).catch(() => {
+    if (!mountedRef.current) return;
+    setGatePhase('gate');
+  });
 }, []);
 
   async function handleGateSubmit(e: React.FormEvent) {
@@ -242,6 +272,48 @@ useEffect(() => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+
+      {/* ── Loading overlay (checking remote subscription) ── */}
+      {gatePhase === 'checking' && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(26,16,64,.86)', backdropFilter: 'blur(8px)',
+          padding: '24px',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '18px',
+            border: '1px solid var(--border)',
+            padding: '44px 36px', maxWidth: '460px', width: '100%',
+            boxShadow: '0 24px 80px rgba(0,0,0,.4)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              width: 52, height: 52, borderRadius: '50%',
+              background: '#fdf0ea', color: 'var(--coral)',
+              fontSize: '1.5rem', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', margin: '0 auto 18px',
+            }} aria-hidden>🔍</div>
+            <div style={{
+              fontSize: '.68rem', letterSpacing: '.16em', textTransform: 'uppercase',
+              color: 'var(--coral)', fontWeight: 600, marginBottom: '10px',
+            }}>
+              Checking your access
+            </div>
+            <div style={{
+              fontSize: '.88rem', color: 'var(--soft)', lineHeight: 1.7,
+              marginBottom: '8px',
+            }}>
+              Just a moment…
+            </div>
+            <div style={{
+              margin: '16px auto 0', width: 32, height: 32,
+              border: '3px solid var(--border)', borderTopColor: 'var(--coral)',
+              borderRadius: '50%', animation: 'paths-spin .7s linear infinite',
+            }} />
+          </div>
+        </div>
+      )}
 
       {/* ── Email gate overlay ── */}
       {gatePhase === 'gate' && (

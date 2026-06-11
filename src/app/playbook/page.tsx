@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 type PageProps = {
-  searchParams: Promise<{ session_id?: string; arch?: string }>;
+  searchParams: Promise<{ session_id?: string; arch_verified?: string }>;
 };
 
 export default async function PlaybookPage({ searchParams }: PageProps) {
@@ -30,6 +30,31 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
       ? params.session_id
       : '';
 
+  // ── arch_verified short-circuit ───────────────────────────────────────────
+  // If the set-playbook-cookie route handler just redirected us, it includes
+  // the validated archetype in the query string so we can skip the Stripe API
+  // call entirely and go straight to the playbook.
+  const validKeys = ['H', 'C', 'S', 'G'] as const;
+  const archVerified = params.arch_verified as string | undefined;
+  if (archVerified) {
+    if (!validKeys.includes(archVerified as typeof validKeys[number])) {
+      redirect('/access-denied');
+    }
+    // The cookie should now be set (the route handler set it before redirecting).
+    // If it's somehow missing, that's fine — we don't need it since we already
+    // have the archetype. Render the playbook directly.
+    const arch = getArchetypeByKey(archVerified);
+    if (!arch) {
+      redirect('/access-denied');
+    }
+    return (
+      <div style={{ minHeight: '100vh' }}>
+        <PlaybookPdfViewer archetypeKey={arch.key} />
+      </div>
+    );
+  }
+
+  // ── Normal flow (no arch_verified) ────────────────────────────────────────
   // If we have a session_id in the URL but no cookie yet, redirect through
   // the route handler to set the cookie (can't do it from a Server Component).
   if (sessionIdFromParams && !existingCookie) {
@@ -62,3 +87,4 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     </div>
   );
 }
+

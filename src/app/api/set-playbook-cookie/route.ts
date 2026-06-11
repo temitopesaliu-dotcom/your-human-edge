@@ -24,7 +24,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL('/access-denied', req.url));
   }
 
-  const res = NextResponse.redirect(new URL('/playbook', req.url));
+  const redirectUrl = new URL(`/playbook?arch_verified=${access.archetype}&session_id=${sessionId}`, req.url);
+  const res = NextResponse.redirect(redirectUrl);
 
   res.cookies.set(accessCookieForProduct('playbook'), sessionId, {
     httpOnly: true,
@@ -36,3 +37,4 @@ export async function GET(req: NextRequest) {
 
   return res;
 }
+

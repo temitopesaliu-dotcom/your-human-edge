@@ -129,7 +129,7 @@ export async function addBuyerToMailerLite(
   };
 
   try {
-    // Update subscriber fields
+    // a. Update subscriber fields → fail fast if error
     const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
@@ -155,7 +155,7 @@ export async function addBuyerToMailerLite(
       return;
     }
 
-    // Add to buyers group
+    // b. Add to buyers group → fail fast if error
     if (buyersGroup) {
       const groupRes = await fetch(
         `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`,
@@ -171,18 +171,19 @@ export async function addBuyerToMailerLite(
       if (!groupRes.ok) {
         const errText = await groupRes.text();
         console.error('[mailer] Add to buyers group failed:', groupRes.status, errText);
-      } else {
-        console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
+        return;
       }
+
+      console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
     }
 
-    // Remove from their archetype-specific funnel drip group — stops the sequence mid-flight
+    // c. Remove from drip group → log error, continue
     const dripGroup = getDripGroupId(archetype);
     if (dripGroup) {
       await removeSubscriberFromGroup(email, dripGroup);
     }
 
-    // Remove from their archetype-specific free group
+    // d. Remove from archetype group → log error, continue
     const archGroup = process.env[ARCHETYPE_GROUP_ENV[archetype]];
     if (archGroup) {
       await removeSubscriberFromGroup(email, archGroup);

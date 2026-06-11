@@ -53,6 +53,11 @@ export async function POST(req: NextRequest) {
     const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
     if (session.payment_status === 'paid') {
+      // NOTE: payment_method_types is restricted to ['card'] in
+      // create-checkout to prevent async payment methods (bank transfer, etc.)
+      // where payment_status may be 'unpaid' at webhook time.
+      // If payment methods are ever expanded, add a listener for
+      // payment_intent.succeeded as a secondary confirmation event.
       const product = normalizeProduct(session.metadata?.product);
       const archetype = extractArchetype(session);
       const buyerEmail = session.customer_email || session.customer_details?.email || '';
