@@ -205,14 +205,14 @@ section{padding:60px 0}
 .income-card.creator .ic-list li::before{color:var(--coral)}
 .income-card.operator .ic-list li::before{color:#534AB7}
 /* blur */
-.income-blur-wrap{position:relative}
+.income-blur-wrap{position:relative;-webkit-transform:translateZ(0);transform:translateZ(0)}
 .blur-overlay{
   position:absolute;bottom:0;left:0;right:0;height:58%;
   background:linear-gradient(to bottom,transparent 0%,rgba(250,248,244,.96) 50%,var(--ivory) 100%);
   z-index:2;pointer-events:none;
 }
 /* ── PAYWALL ─────────────────────────────────── */
-#paywall{background:var(--ink);padding:64px 28px 100px}
+#paywall{background:var(--ink);padding:64px 28px;scroll-margin-top:70px}
 .paywall-inner{
   max-width:680px;margin:0 auto;text-align:center;
 }
@@ -373,7 +373,7 @@ export default function GrowthCatalystPage() {
     <div className="sec-eye eye-gold">AI career paths for your archetype</div>
     <h2 className="sec-title">Roles built for<br /><em>exactly how you think</em></h2>
     <p className="sec-sub">These are real roles Growth Catalysts with your skills are filling and earning from today.</p>
-    <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
+    <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
     <table className="career-table">
       <thead>
         <tr>

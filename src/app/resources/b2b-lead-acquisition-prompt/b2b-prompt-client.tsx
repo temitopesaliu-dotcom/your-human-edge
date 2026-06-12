@@ -112,7 +112,7 @@ export default function B2BPromptClient() {
     <>
       <style>{`
         @keyframes b2b-spin { to { transform: rotate(360deg); } }
-        .b2b-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
+        .b2b-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:16px}
         .b2b-loading-spin{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--teal);animation:b2b-spin .8s linear infinite}
         .b2b-loading p{font-size:.88rem;color:var(--soft)}
         .b2b-stage-card {
@@ -146,6 +146,9 @@ export default function B2BPromptClient() {
           .b2b-pills { gap: 8px !important; }
           .b2b-pill { font-size: .72rem !important; }
         }
+        @media (max-width: 640px) {
+      .b2b-prompt-pre { max-height: 360px !important; font-size: 11px !important; }
+    }
       `}</style>
 
       {/* ── Loading state while gate phase resolves ── */}
@@ -177,7 +180,7 @@ export default function B2BPromptClient() {
         fontFamily: "'DM Sans', sans-serif",
         background: 'var(--warm)',
         color: 'var(--ink)',
-        minHeight: '100vh',
+        minHeight: '100dvh',
       }}>
 
         {/* ── NAV ── */}
@@ -378,7 +381,7 @@ export default function B2BPromptClient() {
               </button>
             </div>
 
-            <pre style={{
+            <pre className='b2b-prompt-pre' style={{
               background: '#fff',
               border: '1px solid var(--border)',
               borderRadius: 12,

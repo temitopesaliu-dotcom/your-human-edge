@@ -60,6 +60,8 @@ export default function EmailGateOverlay({
                   value={gateEmail}
                   onChange={e => setGateEmail(e.target.value)}
                   placeholder="you@email.com"
+                  autoComplete='email'
+                  inputMode='email'
                   required
                   aria-label="Email address"
                 />

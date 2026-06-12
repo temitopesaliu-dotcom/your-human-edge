@@ -48,7 +48,7 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
       redirect('/access-denied');
     }
     return (
-      <div style={{ minHeight: '100vh' }}>
+      <div style={{ minHeight: '100dvh' }}>
         <PlaybookPdfViewer archetypeKey={arch.key} />
       </div>
     );
@@ -78,7 +78,7 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div style={{ minHeight: '100dvh' }}>
       <PlaybookPdfViewer
         archetypeKey={arch.key}
         userName={access.name || undefined}

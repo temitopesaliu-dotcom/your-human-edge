@@ -179,7 +179,7 @@ function EmailToast({ email }: { email: string }) {
 
 const rootStyles: Record<string, React.CSSProperties> = {
   container: {
-    minHeight: "100vh",
+    minHeight: "100dvh",
     background: "#f5f3ef",
     display: "flex",
     flexDirection: "column",

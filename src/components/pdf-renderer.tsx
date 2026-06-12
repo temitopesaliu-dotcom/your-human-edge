@@ -92,7 +92,7 @@ export default function PdfRenderer({
         }
         /* Allow browser pinch-zoom to work naturally on the canvas */
         .react-pdf__Page canvas {
-          touch-action: pan-y pinch-zoom !important;
+        touch-action: pan-x pan-y !important;
         }
         @keyframes pb-spin {
           0% { transform: rotate(0deg); }
@@ -232,6 +232,8 @@ export default function PdfRenderer({
               <input
                 type="number"
                 min={1}
+                inputMode="numeric"
+                pattern="[0-9]*"
                 max={numPages || 1}
                 value={pageNumber}
                 onChange={(e) => goToPage(parseInt(e.target.value, 10) || 1)}
@@ -353,8 +355,9 @@ const navStyles: Record<string, React.CSSProperties> = {
     fontFamily: "'DM Sans', sans-serif",
   },
   rootMobile: {
-    padding: "0 14px",
-    height: "54px",
+       padding: "0 14px",
+     height: "54px",
+     paddingTop: "env(safe-area-inset-top)",
   },
   logo: {
     fontFamily: "'Cormorant Garamond', serif",
@@ -424,9 +427,10 @@ const navStyles: Record<string, React.CSSProperties> = {
 const mobileZoomStyles: Record<string, React.CSSProperties> = {
   container: {
     display: "flex",
+    minWidth: 0,
     alignItems: "center",
     justifyContent: "center",
-    gap: "10px",
+    gap: "8px",
     padding: "8px 14px",
     background: "#fff",
     borderBottom: "1px solid #e4ddd4",
@@ -457,7 +461,8 @@ const mobileZoomStyles: Record<string, React.CSSProperties> = {
   },
   slider: {
     flex: 1,
-    maxWidth: "200px",
+    minWidth:0,
+    maxWidth: "140px",
     height: "6px",
     accentColor: "#534ab7",
   },
@@ -477,7 +482,7 @@ const pageNavStyles: Record<string, React.CSSProperties> = {
     padding: "8px 12px",
     gap: "8px",
     position: "sticky",
-    top: "54px",
+    top: "calc(54px + env(safe-area-inset-top))",
     zIndex: 50,
     boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
   },

@@ -149,9 +149,9 @@ const CSS = `
 .cr-amplifier .income-card.content .ic-list li::before{color:var(--purple)}
 .cr-amplifier .income-card.audio .ic-list li::before{color:var(--blue)}
 .cr-amplifier .income-card.writer .ic-list li::before{color:var(--teal)}
-.cr-amplifier .income-blur-wrap{position:relative}
+.cr-amplifier .income-blur-wrap{position:relative;-webkit-transform:translateZ(0);transform:translateZ(0)}
 .cr-amplifier .blur-overlay{position:absolute;bottom:0;left:0;right:0;height:58%;background:linear-gradient(to bottom,transparent 0%,rgba(250,248,244,.96) 50%,var(--ivory) 100%);z-index:2;pointer-events:none}
-.cr-amplifier #paywall{background:var(--ink);padding:64px 28px}
+.cr-amplifier #paywall{background:var(--ink);padding:64px 28px;scroll-margin-top:70px}
 .cr-amplifier .paywall-inner{max-width:680px;margin:0 auto;text-align:center}
 .cr-amplifier .pw-pre{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:14px}
 .cr-amplifier .pw-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-.01em}
@@ -297,7 +297,7 @@ export default function CreativeAmplifierPage() {
           <div className="sec-eye eye-gold">AI career paths for your archetype</div>
           <h2 className="sec-title">Roles built for<br /><em>exactly how you create</em></h2>
           <p className="sec-sub">These are real paths Creative Amplifiers are building and earning from today.</p>
-          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
+          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
           <table className="career-table">
             <thead><tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr></thead>
             <tbody>

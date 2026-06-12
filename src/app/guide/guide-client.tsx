@@ -5,7 +5,7 @@ import { SITE_DISPLAY } from '@/lib/site';
 
 export default function GuideClient() {
   return (
-    <div className="guide-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '62px' }}>
+    <div className="guide-page" style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', paddingTop: '62px' }}>
       <nav>
         <Link href="/paths" className="nav-logo">Your Human Edge in the AI Era</Link>
         <Link href="/paths" className="nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.25)' }}>

@@ -13,7 +13,7 @@ export default function AccessDeniedPage() {
         <Link href="/quiz" className="nav-cta">Take the quiz</Link>
       </nav>
 
-      <div style={{ minHeight: '100vh', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 28px', textAlign: 'center' }}>
+        <div style={{ minHeight: '100dvh', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 28px', textAlign: 'center', paddingTop: 'calc(80px + 62px)' }}>
         <div style={{ maxWidth: '460px' }}>
           <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔒</div>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2rem,5vw,2.8rem)', fontWeight: 400, color: '#fff', marginBottom: '16px' }}>

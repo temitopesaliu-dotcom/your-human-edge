@@ -118,9 +118,9 @@ section{padding:60px 0}
 .income-card.pm .ic-list li::before{color:var(--teal)}
 .income-card.data .ic-list li::before{color:var(--blue)}
 .income-card.admin .ic-list li::before{color:var(--coral)}
-.income-blur-wrap{position:relative}
+.income-blur-wrap{position:relative;-webkit-transform:translateZ(0);transform:translateZ(0)}
 .blur-overlay{position:absolute;bottom:0;left:0;right:0;height:58%;background:linear-gradient(to bottom,transparent 0%,rgba(250,248,244,.96) 50%,var(--ivory) 100%);z-index:2;pointer-events:none}
-#paywall{background:var(--ink);padding:64px 28px 100px}
+#paywall{background:var(--ink);padding:64px 28px;scroll-margin-top:70px}
 .paywall-inner{max-width:680px;margin:0 auto;text-align:center}
 .pw-pre{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:14px}
 .pw-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-.01em}
@@ -245,7 +245,7 @@ export default function SystemsArchitectPage() {
     <div className="sec-eye eye-gold">AI career paths for your archetype</div>
     <h2 className="sec-title">Roles built for<br /><em>exactly how you think</em></h2>
     <p className="sec-sub">These are real paths Systems Architects are filling and earning from today.</p>
-    <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
+    <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
     <table className="career-table">
       <thead>
         <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>

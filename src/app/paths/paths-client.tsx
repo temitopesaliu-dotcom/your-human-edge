@@ -125,18 +125,22 @@ const FILTER_BUTTONS: { key: CategoryKey | 'all'; label: string }[] = [
 ];
 
 const STYLES = `
-  .paths-root{font-family:'DM Sans',sans-serif;background:#faf8f4;color:#1a1040;font-size:13px;line-height:1.6}
+  .paths-root{font-family:'DM Sans',sans-serif;background:#faf8f4;color:#1a1040;font-size:13px;line-height:1.6;overflow-x:hidden}
   .paths-cover{background:#1a1040;color:#fff;padding:52px 48px 44px;position:relative;overflow:hidden}
   .paths-cover::before{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
   .paths-cover::after{content:'';position:absolute;right:80px;top:50px;width:160px;height:160px;border-radius:50%;border:1px solid rgba(255,255,255,.04)}
   .paths-eye{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#b8860b;margin-bottom:18px;font-weight:500;position:relative;z-index:1}
   .paths-cover h1{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;line-height:1.08;margin-bottom:14px;background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1}
+      @media(max-width:380px){
+      .paths-cover h1{font-size:28px}
+      .paths-cover{padding:32px 16px 28px}
+    }
   .paths-cover .sub{font-size:13px;color:rgba(255,255,255,.55);max-width:480px;line-height:1.8;margin-bottom:22px;position:relative;z-index:1}
   .paths-cta-row{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
   .paths-btn-1{display:inline-flex;align-items:center;gap:7px;background:#c94f2a;color:#fff;font-size:11.5px;font-weight:500;padding:10px 22px;border-radius:40px;border:none;cursor:pointer;text-decoration:none;transition:all .2s}
   .paths-btn-1:hover{background:#fff;color:#1a1040}
   .paths-cover-logo{position:absolute;bottom:26px;right:48px;font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(255,255,255,.3);letter-spacing:.08em}
-  .paths-filter-bar{background:#fff;border-bottom:1px solid #ddd8cf;padding:12px 32px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:99}
+  .paths-filter-bar{background:#fff;border-bottom:1px solid #ddd8cf;padding:12px 32px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:98}
   .paths-filter-btn{padding:6px 16px;border-radius:40px;font-size:11px;font-weight:500;border:1.5px solid #ddd8cf;color:#4a3f6b;background:#faf8f4;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
   .paths-filter-btn:hover{border-color:#534ab7;color:#534ab7}
   .paths-filter-btn.active{background:#1a1040;color:#fff;border-color:#1a1040}
@@ -150,7 +154,7 @@ const STYLES = `
   @media(max-width:900px){.paths-grid{grid-template-columns:repeat(2,1fr)}.paths-cover{padding:40px 24px 36px}.paths-cover h1{font-size:34px}.paths-cover-logo{display:none}.paths-body{padding:0 16px}.paths-filter-bar{padding:10px 16px}}
   @media(max-width:560px){.paths-grid{grid-template-columns:1fr}}
   .paths-card{background:#fff;border:1px solid #ddd8cf;border-radius:9px;overflow:hidden}
-  .paths-card-head{display:flex;align-items:flex-start;gap:7px;padding:12px 13px 10px;border-bottom:1px solid #ddd8cf;cursor:pointer;user-select:none;transition:background .15s;border-bottom-color:transparent;border:none;width:100%;background:transparent;font-family:'DM Sans',sans-serif;text-align:left}
+  .paths-card-head{display:flex;align-items:flex-start;gap:7px;padding:12px 13px 10px;min-height:44px;border-bottom:1px solid #ddd8cf;cursor:pointer;user-select:none;transition:background .15s;border-bottom-color:transparent;border:none;width:100%;background:transparent;font-family:'DM Sans',sans-serif;text-align:left}
   .paths-card-head:hover{background:#faf8f4}
   .paths-card-num{font-size:9.5px;color:#4a3f6b;font-weight:500;margin-top:1px;flex-shrink:0;min-width:20px}
   .paths-card-name{font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;line-height:1.2;color:#1a1040;flex:1}

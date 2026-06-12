@@ -118,6 +118,8 @@ function GateContent() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Your email address"
                 required
+                autoComplete='email'
+                inputMode='email'
                 aria-label="Email address"
               />
             </div>

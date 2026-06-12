@@ -240,11 +240,11 @@ const CSS = `
 .human-bridge .income-card.comm .ic-list li::before{color:#1B6B8A}
 .human-bridge .income-card.trainer .ic-list li::before{color:var(--coral)}
 .human-bridge .income-card.counselor .ic-list li::before{color:var(--purple)}
-.human-bridge .income-blur-wrap{position:relative}
+.human-bridge .income-blur-wrap{position:relative;-webkit-transform:translateZ(0);transform:translateZ(0)}
 .human-bridge .blur-overlay{position:absolute;bottom:0;left:0;right:0;height:58%;background:linear-gradient(to bottom,transparent 0%,rgba(250,248,244,.96) 50%,var(--ivory) 100%);z-index:2;pointer-events:none}
 
 /* PAYWALL & FOOTER */
-.human-bridge #paywall{background:var(--ink);padding:64px 28px}
+.human-bridge #paywall{background:var(--ink);padding:64px 28px;scroll-margin-top:70px}
 .human-bridge .paywall-inner{max-width:680px;margin:0 auto;text-align:center}
 .human-bridge .pw-pre{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:14px}
 .human-bridge .pw-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-.01em}
@@ -391,7 +391,7 @@ export default function HumanBridgePage() {
           <div className="sec-eye eye-gold">AI career paths for your archetype</div>
           <h2 className="sec-title">Roles built for<br /><em>exactly how you connect</em></h2>
           <p className="sec-sub">These are real paths Human Bridges are building and earning from today.</p>
-          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch'}}>
+          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
           <table className="career-table">
             <thead>
               <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
