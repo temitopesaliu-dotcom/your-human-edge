@@ -16,6 +16,36 @@ const ARCHETYPE_DRIP_GROUP_ENV: Record<ArchetypeKey, string> = {
   G: 'MAILERLITE_FUNNEL_DRIP_GROUP_G',
 };
 
+async function mailerLiteRequest(
+  path: string,
+  options: { method?: string; body?: unknown } = {}
+): Promise<{ ok: boolean; status: number; data?: any; errorText?: string }> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) return { ok: false, status: 0, errorText: 'MAILERLITE_API_KEY not set' };
+
+  try {
+    const res = await fetch(`https://connect.mailerlite.com/api${path}`, {
+      method: options.method || 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: options.body ? JSON.stringify(options.body) : undefined,
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      return { ok: false, status: res.status, errorText };
+    }
+
+    const data = await res.json().catch(() => undefined);
+    return { ok: true, status: res.status, data };
+  } catch (err: unknown) {
+    return { ok: false, status: -1, errorText: err instanceof Error ? err.message : String(err) };
+  }
+}
+
 function getDripGroupId(archetype: ArchetypeKey): string | undefined {
   return process.env[ARCHETYPE_DRIP_GROUP_ENV[archetype]];
 }
@@ -45,38 +75,17 @@ export async function isMailerLiteBuyer(email: string): Promise<boolean> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return false;
 
-  try {
-    const res = await fetch(
-      `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      // 404 = subscriber doesn't exist, which is fine
-      if (res.status === 404) {
-        console.log(`[mailer] isMailerLiteBuyer: ${email} not found (404)`);
-      } else {
-        const errText = await res.text();
-        console.error('[mailer] isMailerLiteBuyer error:', res.status, errText);
-      }
-      return false;
+  const result = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}`);
+  if (!result.ok) {
+    if (result.status === 404) {
+      console.log(`[mailer] isMailerLiteBuyer: ${email} not found (404)`);
+    } else if (result.status !== 0) {
+      console.error('[mailer] isMailerLiteBuyer error:', result.status, result.errorText);
     }
-
-    const data = await res.json();
-    return data?.data?.fields?.is_buyer === 'true';
-  } catch (err: unknown) {
-    console.warn(
-      '[mailer] isMailerLiteBuyer network error:',
-      err instanceof Error ? err.message : String(err)
-    );
     return false;
   }
+  return result.data?.data?.fields?.is_buyer === 'true';
+
 }
 
 export async function addSubscriberToMailerLite(
@@ -93,29 +102,14 @@ export async function addSubscriberToMailerLite(
 
   const groups = getGroupIds(archetype, skipDrip);
 
-  try {
-    const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        email,
-        fields: { name, ai_archetype: ARCHETYPES[archetype].name },
-        groups,
-      }),
-    });
-
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error('[mailer] MailerLite add failed:', res.status, errText);
-    } else {
-      console.log(`[mailer] ${email} added to MailerLite groups: ${groups.join(', ')}`);
-    }
-  } catch (err: unknown) {
-    console.warn('[mailer] MailerLite network error (non-fatal):', err instanceof Error ? err.message : String(err));
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: { email, fields: { name, ai_archetype: ARCHETYPES[archetype].name }, groups },
+  });
+  if (!result.ok) {
+    console.error('[mailer] MailerLite add failed:', result.status, result.errorText);
+  } else {
+    console.log(`[mailer] ${email} added to MailerLite groups: ${groups.join(', ')}`);
   }
 }
 
@@ -129,39 +123,17 @@ export async function removeSubscriberFromGroup(
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return;
 
-  try {
-    const res = await fetch(
-      `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${groupId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      if (res.status === 404) {
-        console.log(
-          `[mailer] Subscriber not in group ${groupId} — skipping remove`
-        );
-      } else {
-        const errText = await res.text();
-        console.error(
-          '[mailer] Remove from group failed:',
-          res.status,
-          errText
-        );
-      }
-    } else {
-      console.log(`[mailer] ${email} removed from group ${groupId}`);
+  const result = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}/groups/${groupId}`, {
+    method: 'DELETE',
+  });
+  if (!result.ok) {
+    if (result.status === 404) {
+      console.log(`[mailer] Subscriber not in group ${groupId} — skipping remove`);
+    } else if (result.status !== 0) {
+      console.error('[mailer] Remove from group failed:', result.status, result.errorText);
     }
-  } catch (err: unknown) {
-    console.warn(
-      '[mailer] MailerLite remove-from-group network error:',
-      err instanceof Error ? err.message : String(err)
-    );
+  } else {
+    console.log(`[mailer] ${email} removed from group ${groupId}`);
   }
 }
 
@@ -176,39 +148,17 @@ async function isSubscriberInGroup(
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return false;
 
-  try {
-    const res = await fetch(
-      `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      // 404 = subscriber doesn't exist, which is fine
-      if (res.status === 404) {
-        console.log(`[mailer] isSubscriberInGroup: ${email} not found (404)`);
-      } else {
-        const errText = await res.text();
-        console.error('[mailer] isSubscriberInGroup error:', res.status, errText);
-      }
-      return false;
+  const result = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}/groups`);
+  if (!result.ok) {
+    if (result.status === 404) {
+      console.log(`[mailer] isSubscriberInGroup: ${email} not found (404)`);
+    } else if (result.status !== 0) {
+      console.error('[mailer] isSubscriberInGroup error:', result.status, result.errorText);
     }
-
-    const data = await res.json();
-    const groups: Array<{ id: string }> = data?.data ?? [];
-    return groups.some((g) => g.id === groupId);
-  } catch (err: unknown) {
-    console.warn(
-      '[mailer] isSubscriberInGroup network error:',
-      err instanceof Error ? err.message : String(err)
-    );
     return false;
   }
+  const groupsList: Array<{ id: string }> = result.data?.data ?? [];
+  return groupsList.some((g) => g.id === groupId);
 }
 
 export async function addBuyerToMailerLite(
@@ -239,14 +189,9 @@ export async function addBuyerToMailerLite(
     if (allGroup) groupsToAdd.push(allGroup);
 
     // a. Update subscriber fields → fail fast if error
-    const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+    const updateResult = await mailerLiteRequest('/subscribers', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
+      body: {
         email,
         fields: {
           name,
@@ -256,36 +201,26 @@ export async function addBuyerToMailerLite(
           pdf_download_link: pdfLinks[archetype],
         },
         groups: groupsToAdd,
-      }),
+      },
     });
-
-    if (!updateRes.ok) {
-      const errText = await updateRes.text();
-      console.error('[mailer] Buyer update failed:', updateRes.status, errText);
+    if (!updateResult.ok) {
+      console.error('[mailer] Buyer update failed:', updateResult.status, updateResult.errorText);
       return;
     }
 
     // b. Add to buyers group → fail fast if error
     if (buyersGroup) {
-      const groupRes = await fetch(
-        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-
-      if (!groupRes.ok) {
-        const errText = await groupRes.text();
-        console.error('[mailer] Add to buyers group failed:', groupRes.status, errText);
+      if (buyersGroup) {
+      const groupResult = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`, {
+        method: 'POST',
+      });
+      if (!groupResult.ok) {
+        console.error('[mailer] Add to buyers group failed:', groupResult.status, groupResult.errorText);
         return;
       }
-
       console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
     }
+  }
 
     // c. Remove from drip group → log error, continue
     const dripGroup = getDripGroupId(archetype);
@@ -309,61 +244,6 @@ export async function addBuyerToMailerLite(
   }
 }
 
-/** Paths guide ($19.99) — triggers MailerLite automation that emails the guide. */
-export async function addPathsGuideBuyerToMailerLite(
-  email: string,
-  name: string
-): Promise<void> {
-  const apiKey = process.env.MAILERLITE_API_KEY;
-  const guideGroup = process.env.MAILERLITE_PATHS_GUIDE_GROUP_ID;
-  if (!apiKey) return;
-
-  try {
-    const updateRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        email,
-        fields: {
-          name,
-          paths_guide_buyer: 'true',
-        },
-      }),
-    });
-
-    if (!updateRes.ok) {
-      const errText = await updateRes.text();
-      console.error('[mailer] Paths guide update failed:', updateRes.status, errText);
-      return;
-    }
-
-    if (guideGroup) {
-      const groupRes = await fetch(
-        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}/groups/${guideGroup}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-
-      if (!groupRes.ok) {
-        const errText = await groupRes.text();
-        console.error('[mailer] Paths guide group add failed:', groupRes.status, errText);
-      } else {
-        console.log(`[mailer] ${email} added to paths guide group ${guideGroup}`);
-      }
-    }
-  } catch (err: unknown) {
-    console.error('[mailer] Paths guide MailerLite error:', err instanceof Error ? err.message : String(err));
-  }
-}
 
 /** Free resource subscriber — optionally adds to the company free resource MailerLite group. */
 export async function addFreeResourceSubscriberToMailerLite(
@@ -389,29 +269,14 @@ export async function addFreeResourceSubscriberToMailerLite(
 
   if (groups.length === 0) return;
 
-  try {
-    const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        email,
-        fields: { name, subscriber_type: isCompany ? 'company' : 'individual' },
-        groups,
-      }),
-    });
-
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error('[mailer] Free resource subscriber add failed:', res.status, errText);
-    } else {
-      console.log(`[mailer] ${email} added to free resource groups: ${groups.join(', ')}`);
-    }
-  } catch (err: unknown) {
-    console.warn('[mailer] Free resource subscriber network error:', err instanceof Error ? err.message : String(err));
+const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: { email, fields: { name, subscriber_type: isCompany ? 'company' : 'individual' }, groups },
+  });
+  if (!result.ok) {
+    console.error('[mailer] Free resource subscriber add failed:', result.status, result.errorText);
+  } else {
+    console.log(`[mailer] ${email} added to free resource groups: ${groups.join(', ')}`);
   }
 }
 
