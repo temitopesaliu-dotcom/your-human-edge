@@ -148,7 +148,6 @@ export default function B2BPromptClient() {
       {/* ── Nothing rendered until mount resolves gate phase ── */}
       {gatePhase === null && null}
 
-
         <EmailGateOverlay
         gatePhase={gatePhase}
         title="B2B Lead Acquisition Prompt"
