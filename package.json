@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@modelcontextprotocol/server-filesystem": "^2026.1.14",
     "@vercel/kv": "^3.0.0",
     "dotenv": "^17.4.2",
     "next": "16.2.6",
@@ -30,5 +29,4 @@
     "tsx": "^4.22.4",
     "typescript": "^5"
   }
-
 }

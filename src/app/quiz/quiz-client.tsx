@@ -35,8 +35,9 @@ export default function QuizClient() {
       setSelected(null);
     } else {
       const max = Math.max(...Object.values(newScores));
-      const tied = (Object.keys(newScores) as ArchetypeKey[]).filter(k => newScores[k] === max);
-      const arch = tied[Math.floor(Math.random() * tied.length)];
+      const ARCHETYPE_PRIORITY: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
+      const tied = ARCHETYPE_PRIORITY.filter(k => newScores[k] === max);
+      const arch = tied[0];
       track('quiz_complete', { archetype: arch });
       router.push(`/gate?arch=${arch}`);
     }
