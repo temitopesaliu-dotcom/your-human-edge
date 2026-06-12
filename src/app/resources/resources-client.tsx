@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { track } from '@/lib/analytics';
 
 type Resource = {
   id: string;
@@ -67,20 +68,12 @@ const VALUE_BULLETS = [
   'Monetisation strategies and income ranges',
 ];
 
-function track_event(event: string, data?: Record<string, unknown>) {
-  try {
-    const payload = JSON.stringify({ event, data, page: '/resources', ts: Date.now() });
-    if (navigator?.sendBeacon) {
-      navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
-    }
-  } catch {}
-}
 
 export default function ResourcesClient() {
   const [activeTab, setActiveTab] = useState<'individual' | 'company'>('individual');
 
   useEffect(() => {
-    track_event('resources_page_view');
+    track('resources_page_view', undefined, '/resources');
   }, []);
 
   const filtered = RESOURCES.filter((r) => r.category === activeTab);
@@ -134,7 +127,7 @@ export default function ResourcesClient() {
                   aria-pressed={isActive}
                   onClick={() => {
                     setActiveTab(cat.key);
-                    track_event('resources_category_switch', { category: cat.key });
+                    track('resources_category_switch', { category: cat.key }, '/resources');
                   }}
                 >
                   {isActive && (

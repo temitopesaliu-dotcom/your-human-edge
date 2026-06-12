@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ARCHETYPES, type ArchetypeKey } from '@/lib/archetypes';
 import { markLocallySubscribed } from '@/lib/subscriber';
+import { track } from '@/lib/analytics';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
   H: [
@@ -148,11 +149,4 @@ export default function GateClient() {
       <GateContent />
     </Suspense>
   );
-}
-
-function track(event: string, data?: Record<string, unknown>) {
-  try {
-    const payload = JSON.stringify({ event, data, page: '/gate', ts: Date.now() });
-    if (navigator?.sendBeacon) navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
-  } catch {}
 }

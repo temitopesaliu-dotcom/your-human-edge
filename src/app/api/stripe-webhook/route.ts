@@ -4,12 +4,7 @@ import { getSession, setSession } from '@/lib/kv';
 import { addBuyerToMailerLite, addPathsGuideBuyerToMailerLite } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { normalizeProduct } from '@/lib/products';
-
-const stripe = (() => {
-  const apiKey = process.env.STRIPE_SECRET_KEY;
-  if (!apiKey) throw new Error('STRIPE_SECRET_KEY is not set.');
-  return new Stripe(apiKey);
-})();
+import { stripe } from '@/lib/stripe';
 
 /** Extract archetype from metadata, or fall back to parsing the success_url.
  *  Covers API-created sessions (metadata.archetype) and
@@ -25,7 +20,7 @@ function extractArchetype(session: Stripe.Checkout.Session): ArchetypeKey {
     if (arch && ['H', 'C', 'S', 'G'].includes(arch)) {
       return arch as ArchetypeKey;
     }
-  } catch {}
+  } catch { /* malformed URL — fall back to 'H' */ }
   return 'H';
 }
 

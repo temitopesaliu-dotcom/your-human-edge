@@ -38,6 +38,23 @@ export async function writeAnalyticsEvent(payload: Record<string, unknown>): Pro
   await kv.set(key, payload, { ex: 60 * 60 * 24 * 90 }); // 90-day TTL
 }
 
+/**
+ * Write multiple analytics events in a single pipeline.
+ * Dramatically reduces KV round-trips when events are batched client-side.
+ */
+export async function writeAnalyticsEventsBatch(
+  records: Record<string, unknown>[],
+): Promise<void> {
+  if (records.length === 0) return;
+  const pipeline = kv.pipeline();
+  const now = Date.now();
+  for (const record of records) {
+    const key = `evt:${now}-${Math.random().toString(36).slice(2, 8)}`;
+    pipeline.set(key, record, { ex: 60 * 60 * 24 * 90 });
+  }
+  await pipeline.exec();
+}
+
 // ── Subscriber records (free content email gates) ──────────────
 export interface SubscriberRecord {
   email: string;

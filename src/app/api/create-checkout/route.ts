@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
 import { normalizeProduct, type ProductType } from '@/lib/products';
-
-const stripe = (() => {
-  const apiKey = process.env.STRIPE_SECRET_KEY;
-  if (!apiKey) throw new Error('STRIPE_SECRET_KEY is not set. Add it to .env.local or Vercel environment variables.');
-  return new Stripe(apiKey);
-})();
+import { stripe } from '@/lib/stripe';
 
 function resolveSiteUrl(req: NextRequest): string {
   const origin = req.headers.get('origin');

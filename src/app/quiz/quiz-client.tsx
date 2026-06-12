@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/archetypes';
+import { track } from '@/lib/analytics';
 import Link from 'next/link';
 
 type Scores = Record<ArchetypeKey, number>;
@@ -147,18 +148,7 @@ export default function QuizClient() {
   );
 }
 
-function track(event: string, data?: Record<string, unknown>) {
-  try {
-    const payload = JSON.stringify({ event, data, page: '/quiz', ts: Date.now() });
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
-    } else {
-      fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
-    }
-  } catch {}
-}
-
 function TrackingScript() {
-  useEffect(() => { track('page_view'); }, []);
+  useEffect(() => { track('page_view', undefined, '/quiz'); }, []);
   return null;
 }

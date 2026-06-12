@@ -3,27 +3,10 @@
  */
 "use client";
 
-/**
- * Track an analytics event via sendBeacon.
- */
-export function track(event: string, data?: Record<string, unknown>) {
-  try {
-    const payload = JSON.stringify({
-      event,
-      data,
-      page: window.location.pathname,
-      ts: Date.now(),
-    });
-    if (navigator?.sendBeacon) {
-      navigator.sendBeacon(
-        "/api/track",
-        new Blob([payload], { type: "application/json" })
-      );
-    }
-  } catch {
-    // silently ignore tracking errors
-  }
-}
+import { track } from "@/lib/analytics";
+
+// Re-export track so existing importers (`import { track } from "@/lib/funnel"`) continue to work.
+export { track };
 
 /**
  * Initiate a Stripe checkout for the playbook.

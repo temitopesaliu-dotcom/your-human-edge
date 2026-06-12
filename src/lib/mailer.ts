@@ -77,9 +77,7 @@ export async function isMailerLiteBuyer(email: string): Promise<boolean> {
 
   const result = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}`);
   if (!result.ok) {
-    if (result.status === 404) {
-      console.log(`[mailer] isMailerLiteBuyer: ${email} not found (404)`);
-    } else if (result.status !== 0) {
+    if (result.status !== 0 && result.status !== 404) {
       console.error('[mailer] isMailerLiteBuyer error:', result.status, result.errorText);
     }
     return false;
@@ -108,8 +106,6 @@ export async function addSubscriberToMailerLite(
   });
   if (!result.ok) {
     console.error('[mailer] MailerLite add failed:', result.status, result.errorText);
-  } else {
-    console.log(`[mailer] ${email} added to MailerLite groups: ${groups.join(', ')}`);
   }
 }
 
@@ -127,13 +123,9 @@ export async function removeSubscriberFromGroup(
     method: 'DELETE',
   });
   if (!result.ok) {
-    if (result.status === 404) {
-      console.log(`[mailer] Subscriber not in group ${groupId} — skipping remove`);
-    } else if (result.status !== 0) {
+    if (result.status !== 0 && result.status !== 404) {
       console.error('[mailer] Remove from group failed:', result.status, result.errorText);
     }
-  } else {
-    console.log(`[mailer] ${email} removed from group ${groupId}`);
   }
 }
 
@@ -150,9 +142,7 @@ async function isSubscriberInGroup(
 
   const result = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}/groups`);
   if (!result.ok) {
-    if (result.status === 404) {
-      console.log(`[mailer] isSubscriberInGroup: ${email} not found (404)`);
-    } else if (result.status !== 0) {
+    if (result.status !== 0 && result.status !== 404) {
       console.error('[mailer] isSubscriberInGroup error:', result.status, result.errorText);
     }
     return false;
@@ -218,7 +208,6 @@ export async function addBuyerToMailerLite(
         console.error('[mailer] Add to buyers group failed:', groupResult.status, groupResult.errorText);
         return;
       }
-      console.log(`[mailer] ${email} added to buyers group ${buyersGroup}`);
     }
   }
 
@@ -241,6 +230,42 @@ export async function addBuyerToMailerLite(
     }
   } catch (err: unknown) {
     console.error('[mailer] Buyer MailerLite error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
+
+/** Free resource subscriber — optionally adds to the company free resource MailerLite group. */
+export async function addPathsGuideBuyerToMailerLite(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const pathsBuyersGroup = process.env.MAILERLITE_PATHS_GUIDE_BUYERS_GROUP_ID;
+  if (!apiKey) return;
+
+  try {
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    const groupsToAdd: string[] = [];
+    if (allGroup) groupsToAdd.push(allGroup);
+    if (pathsBuyersGroup) groupsToAdd.push(pathsBuyersGroup);
+
+    const updateResult = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: {
+          name,
+          is_buyer: 'true',
+          product: 'paths-guide',
+        },
+        groups: groupsToAdd,
+      },
+    });
+    if (!updateResult.ok) {
+      console.error('[mailer] Paths guide buyer update failed:', updateResult.status, updateResult.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Paths guide buyer MailerLite error:', err instanceof Error ? err.message : String(err));
   }
 }
 
@@ -275,8 +300,6 @@ const result = await mailerLiteRequest('/subscribers', {
   });
   if (!result.ok) {
     console.error('[mailer] Free resource subscriber add failed:', result.status, result.errorText);
-  } else {
-    console.log(`[mailer] ${email} added to free resource groups: ${groups.join(', ')}`);
   }
 }
 

@@ -138,7 +138,7 @@ function EmailToast({ email }: { email: string }) {
 
   useEffect(() => {
     // Mark as shown so it doesn't reappear on refresh
-    try { localStorage.setItem("yhe_email_toast_shown", "true"); } catch {}
+    try { localStorage.setItem("yhe_email_toast_shown", "true"); } catch (e) { console.warn('[playbook] Failed to set toast flag:', e); }
     const timer = setTimeout(() => setVisible(false), 4500);
     return () => clearTimeout(timer);
   }, []);

@@ -38,8 +38,6 @@ export async function POST(req: NextRequest) {
     if (existing) {
       // Already in KV — record this new source, but still ensure the
       // company free resource group is applied if applicable.
-      console.log(`[subscribe] ${email} already subscribed via ${existing.source}; skipping MailerLite.`);
-
       // If the user selected Company on a free resource gate, ensure they
       // get added to the company free resource MailerLite group even if
       // they already exist in KV (e.g. from a previous quiz signup).

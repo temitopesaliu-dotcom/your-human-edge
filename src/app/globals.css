@@ -339,7 +339,8 @@ footer .footer-brand span { color: var(--coral); }
   .playbook-page,
   .gate-page,
   .simple-page,
-  .paths-page{
+  .paths-page,
+  .rb-page {
     padding-bottom: 0 !important;
   }
 

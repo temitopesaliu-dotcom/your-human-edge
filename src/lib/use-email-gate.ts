@@ -48,7 +48,7 @@ export function useEmailGate(source: string) {
           localStorage.removeItem('yhe_subscribed');
           localStorage.removeItem('yhe_name');
           localStorage.removeItem('yhe_email');
-        } catch {}
+        } catch (e) { console.error('[email-gate] localStorage cleanup failed:', e); }
         setGatePhase('gate');
       }
     }).catch(() => {
