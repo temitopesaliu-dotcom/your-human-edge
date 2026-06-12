@@ -296,6 +296,3 @@ export default function PathsClient() {
     </>
   );
 }
-
-
-

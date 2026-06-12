@@ -112,6 +112,9 @@ export default function B2BPromptClient() {
     <>
       <style>{`
         @keyframes b2b-spin { to { transform: rotate(360deg); } }
+        .b2b-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
+        .b2b-loading-spin{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--teal);animation:b2b-spin .8s linear infinite}
+        .b2b-loading p{font-size:.88rem;color:var(--soft)}
         .b2b-stage-card {
           display: grid;
           grid-template-columns: 44px 1fr;
@@ -145,8 +148,13 @@ export default function B2BPromptClient() {
         }
       `}</style>
 
-      {/* ── Nothing rendered until mount resolves gate phase ── */}
-      {gatePhase === null && null}
+      {/* ── Loading state while gate phase resolves ── */}
+      {gatePhase === null && (
+        <div className="b2b-loading">
+          <div className="b2b-loading-spin" />
+          <p>Loading resource…</p>
+        </div>
+      )}
 
         <EmailGateOverlay
         gatePhase={gatePhase}
