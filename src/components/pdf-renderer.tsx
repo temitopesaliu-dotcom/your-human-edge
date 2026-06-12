@@ -39,11 +39,12 @@ export default function PdfRenderer({
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Auto-fit PDF width on mobile once loaded
+  // Auto-fit PDF width on mobile once loaded — use a lower initial scale
+  // to reduce canvas bitmap size and memory usage on mobile devices.
   useEffect(() => {
     if (isMobile && wrapperRef.current && !loading) {
       const w = wrapperRef.current.clientWidth - 16;
-      const fitScale = Math.max(0.5, Math.min(w / 600, 1.2));
+      const fitScale = Math.max(0.4, Math.min(w / 600, 1.0));
       setScale((prev) => Math.min(prev, fitScale));
     }
   }, [isMobile, loading]);
@@ -56,7 +57,7 @@ export default function PdfRenderer({
       // Auto-scale once we know the doc is loaded on mobile
       if (isMobile && wrapperRef.current) {
         const w = wrapperRef.current.clientWidth - 16;
-        const fitScale = Math.max(0.5, Math.min(w / 600, 1.2));
+        const fitScale = Math.max(0.4, Math.min(w / 600, 1.0));
         setScale(fitScale);
       }
     },
@@ -319,8 +320,8 @@ export default function PdfRenderer({
           <Page
             pageNumber={pageNumber}
             scale={scale}
-            renderTextLayer={true}
-            renderAnnotationLayer={true}
+            renderTextLayer={!isMobile}
+            renderAnnotationLayer={!isMobile}
             width={
               isMobile
                 ? Math.min(wrapperRef.current?.clientWidth ?? 600, 600)
