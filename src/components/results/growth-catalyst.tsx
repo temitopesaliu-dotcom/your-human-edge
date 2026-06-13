@@ -276,7 +276,7 @@ footer strong{color:rgba(255,255,255,.8);font-family:'Cormorant Garamond',serif;
   .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .pw-price{font-size:3rem}
     section:last-of-type{padding-bottom:12px}
-  #paywall{padding:12px 16px 100px}
+  #paywall{padding:12px 16px 100px;scroll-margin-top:56px}
   footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
  }`;
 

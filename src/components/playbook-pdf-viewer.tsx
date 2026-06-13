@@ -95,7 +95,7 @@ export default function PlaybookPdfViewer({
         /* Mobile responsive toast */
         @media (max-width: 640px) {
           .pb-toast {
-            top: 8px !important;
+            top: calc(54px + env(safe-area-inset-top) + 8px) !important;
             right: 8px !important;
             left: 8px !important;
             max-width: none !important;

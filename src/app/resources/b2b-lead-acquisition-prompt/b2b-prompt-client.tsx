@@ -149,6 +149,13 @@ export default function B2BPromptClient() {
         @media (max-width: 640px) {
       .b2b-prompt-pre { max-height: 360px !important; font-size: 11px !important; }
     }
+        @media (hover: hover) {
+          .b2b-copy-btn:hover {
+            background: var(--ink) !important;
+            color: #fff !important;
+            border-color: var(--ink) !important;
+          }
+        }
       `}</style>
 
       {/* ── Loading state while gate phase resolves ── */}
@@ -349,6 +356,7 @@ export default function B2BPromptClient() {
               </div>
               <button
                 onClick={handleCopy}
+                className="b2b-copy-btn"
                 style={{
                   fontSize: '.82rem', fontWeight: 600,
                   padding: '10px 22px',
@@ -361,20 +369,6 @@ export default function B2BPromptClient() {
                   transition: 'all 0.2s',
                   flexShrink: 0,
                   whiteSpace: 'nowrap',
-                }}
-                onMouseEnter={e => {
-                  if (!copied) {
-                    e.currentTarget.style.background = 'var(--ink)';
-                    e.currentTarget.style.color = '#fff';
-                    e.currentTarget.style.borderColor = 'var(--ink)';
-                  }
-                }}
-                onMouseLeave={e => {
-                  if (!copied) {
-                    e.currentTarget.style.background = '#fff';
-                    e.currentTarget.style.color = 'var(--ink)';
-                    e.currentTarget.style.borderColor = 'var(--border)';
-                  }
                 }}
               >
                 {copied ? '✓ Copied!' : 'Copy prompt'}

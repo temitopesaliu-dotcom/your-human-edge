@@ -199,7 +199,7 @@ const CSS = `
   .cr-amplifier .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .cr-amplifier .pw-price{font-size:3rem}
   .cr-amplifier section:last-of-type{padding-bottom:12px}
-  .cr-amplifier #paywall{padding:12px 16px}
+  .cr-amplifier #paywall{padding:12px 16px;scroll-margin-top:56px}
   .cr-amplifier footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
 }
 `;

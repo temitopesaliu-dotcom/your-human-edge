@@ -291,7 +291,7 @@ const CSS = `
   .human-bridge .btn-buy{padding:14px 32px;font-size:.95rem;width:100%;justify-content:center}
   .human-bridge .pw-price{font-size:3rem}
   .human-bridge section:last-of-type{padding-bottom:12px}
-  .human-bridge #paywall{padding:12px 16px}
+  .human-bridge #paywall{padding:12px 16px;scroll-margin-top:56px}
   .human-bridge footer{padding:16px 14px;flex-direction:column;text-align:center;gap:6px}
 }
 `;

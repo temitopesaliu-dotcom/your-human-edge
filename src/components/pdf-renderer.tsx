@@ -44,7 +44,7 @@ export default function PdfRenderer({
   useEffect(() => {
     if (isMobile && wrapperRef.current && !loading) {
       const w = wrapperRef.current.clientWidth - 16;
-      const fitScale = Math.max(0.4, Math.min(w / 600, 1.0));
+      const fitScale = Math.max(0.5, Math.min(w / 600, 1.0));
       setScale((prev) => Math.min(prev, fitScale));
     }
   }, [isMobile, loading]);
@@ -57,7 +57,7 @@ export default function PdfRenderer({
       // Auto-scale once we know the doc is loaded on mobile
       if (isMobile && wrapperRef.current) {
         const w = wrapperRef.current.clientWidth - 16;
-        const fitScale = Math.max(0.4, Math.min(w / 600, 1.0));
+        const fitScale = Math.max(0.5, Math.min(w / 600, 1.0));
         setScale(fitScale);
       }
     },
@@ -75,8 +75,8 @@ export default function PdfRenderer({
     }
   };
 
-  const zoomIn = () => setScale((s) => Math.min(s + 0.25, 3));
-  const zoomOut = () => setScale((s) => Math.max(s - 0.25, 0.5));
+  const zoomIn = () => setScale((s) => Math.round(Math.min(s + 0.25, 3) * 100) / 100);
+  const zoomOut = () => setScale((s) => Math.round(Math.max(s - 0.25, 0.5) * 100) / 100);
 
   return (
     <>

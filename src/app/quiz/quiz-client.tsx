@@ -16,7 +16,7 @@ export default function QuizClient() {
 
   function startQuiz() {
     setPhase('quiz');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     track('quiz_start');
   }
 
