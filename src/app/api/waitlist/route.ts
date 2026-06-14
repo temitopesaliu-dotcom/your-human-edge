@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
-
-const ALLOWED_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '');
+import { handleCors } from '@/lib/cors';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -60,16 +59,6 @@ export async function POST(req: NextRequest) {
 }
 
 export async function OPTIONS(req: NextRequest) {
-  const origin = req.headers.get('origin') || '';
-  const corsOrigin = origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : '';
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': corsOrigin || ALLOWED_ORIGIN,
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Vary': 'Origin',
-    },
-  });
+  return handleCors(req);
 }
 

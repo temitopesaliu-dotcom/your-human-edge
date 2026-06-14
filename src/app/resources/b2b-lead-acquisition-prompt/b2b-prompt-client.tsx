@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
+import SiteNav from '@/components/site-nav';
 
 const PROMPT_TEXT = `You are a B2B lead acquisition strategist. Build me a complete, actionable lead acquisition framework for the following business:
 
@@ -191,16 +192,7 @@ export default function B2BPromptClient() {
       }}>
 
         {/* ── NAV ── */}
-        <nav>
-          <Link href="/quiz" className="nav-logo">
-            Your Human Edge in the AI Era
-          </Link>
-          <ul className="nav-links">
-            <li><Link href="/quiz">Home</Link></li>
-            <li><Link href="/resources">Resources</Link></li>
-          </ul>
-          <Link href="/quiz" className="nav-cta">Find my archetype</Link>
-        </nav>
+        <SiteNav />
 
         {/* ════════════════════════════════════════
             HERO

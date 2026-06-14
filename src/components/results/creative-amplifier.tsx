@@ -1,7 +1,8 @@
 "use client";
-import { useState, useEffect, useSyncExternalStore } from "react";
-import Link from "next/link";
-import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
+
+import ArchetypeResultLayout, {
+  type ArchetypeConfig,
+} from "@/components/results/archetype-layout";
 
 const CSS = `
 :root {
@@ -204,262 +205,115 @@ const CSS = `
 }
 `;
 
-function getNameFromURL() {
-  if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  return params.get("name");
-}
+const CONFIG: ArchetypeConfig = {
+  archetypeKey: "C",
+  css: CSS,
+  wrapperClass: "cr-amplifier",
+
+  icon: "🎨",
+  name: "Creative Amplifier",
+  tagline: "You see the finished thing before you have made it. AI closes the gap between the vision and the world.",
+  ceilingLabel: "Your human edge · and your current bottleneck",
+  ceilingContent: `You have more ideas than most people will have in a lifetime. You see the finished piece before you start. You hold a standard for your work that most people cannot even perceive. But right now, <strong>the gap between the vision and the finished thing</strong> is costing you income, audience, and impact. Your ideas are sitting in a notes app. <em>The world has not seen them yet.</em> That is not a creativity problem. That is a production infrastructure problem.`,
+
+  whoYouAre: "You notice things other people walk past. You find meaning in unexpected places and feel compelled to capture it, transform it, and share it in a way that makes people feel something. That intelligence — aesthetic, emotional, and visual — is extraordinarily rare. In a world being flooded with generic AI content, the human with genuine taste and an original point of view is more valuable than ever. You are not behind. You are the answer to what is missing.",
+  whoEyeColor: "eye-coral",
+  strengths: ["Original Vision", "Emotional Resonance", "Eye for Detail", "Aesthetic Intelligence", "Idea Generation", "Unique Voice"],
+  strengthsEyeColor: "eye-coral",
+
+  careerSubtitle: "exactly how you create",
+  careers: [
+    { title: "Digital Product Creator", desc: "Package your creative skills: preset packs, templates, guides, courses. Build once, sell to many.", earn: "$500–$10k/mo" },
+    { title: "Brand Content Partner", desc: "Brands pay you to create content that feels native. Your creative credibility is the product.", earn: "$1k–$10k per deal" },
+    { title: "Paid Newsletter or Community", desc: "Share your creative perspective consistently. Audience grows. Launch a paid tier or community.", earn: "$500–$8k/mo" },
+    { title: "Podcast Monetisation", desc: "Your voice and audience are the product. Descript handles editing. Claude writes all surrounding content.", earn: "$500–$5k per episode" },
+    { title: "Freelance Creative Services", desc: "Photography, video, writing, design for clients. AI handles proposals, admin, post-production.", earn: "$2k–$15k/mo" },
+    { title: "Creative Education", desc: "Teach your craft. Online course, workshop, mentorship. AI builds the curriculum. You deliver.", earn: "$1k–$20k/launch" },
+  ],
+
+  matrixSectionTitle: "The production gap",
+  matrixTitle: `What AI actually closes<br /><em>for your specific archetype</em>`,
+  matrixSubheading: "This is not a tool list. This is the exact before and after for a Creative Amplifier who implements the playbook in 90 days.",
+  matrixEyeColor: "eye-coral",
+  beforeAfter: [
+    { before: "1 idea → 1 post, if you have the time and energy to finish it", after: "1 voice memo → 14 pieces of content across platforms in 20 minutes" },
+    { before: "Video editing: 3 to 4 hours per piece, technical barrier", after: "Video editing: 30 minutes — CapCut AI handles captions, cuts, sync" },
+    { before: "Creative brief: hours of scattered thinking, often never resolved", after: "Creative brief: 15 minutes — describe the idea, Claude structures it" },
+    { before: "Newsletter: takes most of a day, often skipped or delayed", after: "Newsletter: 20 minutes from a voice memo, in your exact voice" },
+    { before: "Digital product: months of building in isolation, never launched", after: "Digital product: live in 14 days with Claude writing the content and copy" },
+  ],
+  matrixFoot: {
+    before: { label: "Ideas that exist in the world", value: "Almost none" },
+    after: { label: "Ideas that exist and earn", value: "Every week" },
+  },
+
+  testimonialsEyebrow: "Real Creative Amplifiers. Real results.",
+  testimonialsEyeColor: "eye-gold",
+  caseStudies: [
+    {
+      name: "Chidi A.",
+      role: "Filmmaker",
+      location: "Lagos",
+      result: "9 years in his head → 80,000 views in month one",
+      quote: "I had the same film in my head for nine years. Not vaguely. Specifically. I could tell you the opening shot. I had tried to make it three times. Each time the production cost made it feel impossible before I started. I found the right tools. I made a four-minute short on my phone. 80,000 views in the first month. Then the brand deals started.",
+    },
+    {
+      name: "Adaeze K.",
+      role: "Essay Writer",
+      location: "UK",
+      result: "$1,683/month recurring from writing she was already doing for free",
+      quote: "I had been writing essays in private for years. A friend read one and said: I would pay for this. I set up a Beehiiv newsletter. Claude helped me write the weekly edition in my voice. Within 90 days I had 2,400 subscribers. I launched a paid tier at $9 a month. 187 people upgraded in the first week. That is $1,683 a month from writing I was already doing for free.",
+    },
+    {
+      name: "Ola M.",
+      role: "Content Creator",
+      location: "UK",
+      result: "$6,200 first product launch · 2,400 subscribers in 90 days",
+      quote: "I went from 2 posts a week to 14 pieces of content from a single 20-minute voice memo. My email list went from 180 to 2,400 in 90 days. First digital product launch: $6,200 in 72 hours. I had been making content for two years. The only thing that changed was having the right production system.",
+    },
+  ],
+
+  incomeEyeColor: "eye-teal",
+  incomeTitle: `How Creative Amplifiers<br /><em>actually</em> earn with AI`,
+  incomeSubheading: "Four income paths. Each one specific to how your archetype creates. Full breakdown inside the playbook.",
+  incomePaths: [
+    {
+      label: "The Visual Creator",
+      title: "Visual Premium",
+      range: "$2k to $20k/month",
+      desc: "Your eye and aesthetic are the product. AI accelerates every part of production except the creative decision itself.",
+      className: "visual",
+      items: ["Freelance photography or video: $500 to $3,000 per project", "Brand content partnership: $1,000 to $10,000 per campaign", "Preset or template pack: $27 to $197 per pack", "Photo or film licensing: $200 to $5,000 per licence"],
+    },
+    {
+      label: "The Content Creator",
+      title: "Audience Leverage",
+      range: "$1k to $30k/month",
+      desc: "Your audience is the asset. AI keeps you consistent enough to build it. Income comes from multiple directions simultaneously.",
+      className: "content",
+      items: ["Brand deals: $500 to $10,000 per post at scale", "Paid community: $49 to $99/month per member", "Digital products: $27 to $497 per product", "Platform ad revenue: grows with audience"],
+    },
+    {
+      label: "The Audio Creator",
+      title: "Voice Value",
+      range: "$1k to $15k/month",
+      desc: "Your voice and perspective are rare. A loyal listening audience pays in multiple ways once you show up consistently.",
+      className: "audio",
+      blurred: true,
+      items: ["Podcast sponsorships: $25 to $50 per 1,000 downloads", "Premium podcast tier: $5 to $20/month per subscriber", "Voiceover work: $500 to $3,000 per project", "Audio course or masterclass: $97 to $500"],
+    },
+    {
+      label: "The Writer",
+      title: "Words as Equity",
+      range: "$2k to $25k/month",
+      desc: "Your perspective compounds over time. Every piece adds to a body of work attracting new readers, clients, and opportunities.",
+      className: "writer",
+      blurred: true,
+      items: ["Paid newsletter: $7 to $20/month per subscriber", "Ghostwriting: $2,000 to $10,000 per project", "Brand copywriting: $1,000 to $5,000 per project", "Book advance or self-publishing: variable"],
+    },
+  ],
+};
 
 export default function CreativeAmplifierPage() {
-  const [buying, setBuying] = useState(false);
-  const [buyError, setBuyError] = useState("");
-  const [showEmailInput, setShowEmailInput] = useState(false);
-  const [fallbackEmail, setFallbackEmail] = useState("");
-
-  useEffect(() => {
-    track("result_view", { archetype: "C" });
-  }, []);
-
-  async function onBuy(email?: string) {
-    setBuyError("");
-    setShowEmailInput(false);
-    setBuying(true);
-    try {
-      const url = await buyPlaybook("C", email);
-      window.location.href = url;
-    } catch (err: unknown) {
-      setBuying(false);
-      if (err instanceof Error && err.message === "EMAIL_REQUIRED") {
-        setShowEmailInput(true);
-      } else {
-        setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
-      }
-    }
-  }
-
-  const name = useSyncExternalStore(
-    (cb) => { window.addEventListener("popstate", cb); return () => window.removeEventListener("popstate", cb); },
-    getNameFromURL,
-    () => null
-  );
-  const greeting = name ? `${name}, meet your archetype.` : "Your result is in.";
-
-  return (
-    <div className="cr-amplifier">
-      <style>{CSS}</style>
-
-      {/* Header – matches GrowthCatalystPage structure */}
-      <nav>
-        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
-        <ul className="nav-links">
-          <li><Link href="/quiz">Home</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <Link href="#paywall" className="nav-cta">Get the Playbook →</Link>
-      </nav>
-
-      {/* Hero and all content sections remain identical to original Creative Amplifier */}
-      <div className="hero">
-        <div className="hero-inner">
-          <div className="hero-greeting">{greeting}</div>
-          <span className="hero-icon">🎨</span>
-          <div className="hero-eyebrow">Your AI Archetype</div>
-          <h1 className="hero-name">The Creative Amplifier</h1>
-          <div className="hero-tagline">"You see the finished thing before you have made it. AI closes the gap between the vision and the world."</div>
-          <div className="hero-sep"><div className="line"></div><div className="dot">◆</div><div className="line"></div></div>
-          <div className="ceiling-box">
-            <span className="ceiling-label">Your human edge · and your current bottleneck</span>
-            <p>You have more ideas than most people will have in a lifetime. You see the finished piece before you start. You hold a standard for your work that most people cannot even perceive. But right now, <strong>the gap between the vision and the finished thing</strong> is costing you income, audience, and impact. Your ideas are sitting in a notes app. <em>The world has not seen them yet.</em> That is not a creativity problem. That is a production infrastructure problem.</p>
-          </div>
-        </div>
-      </div>
-
-      <section>
-        <div className="wrap">
-          <div className="card-wrap">
-            <div className="sec-eye eye-coral">Who you are</div>
-            <p className="who-text">You notice things other people walk past. You find meaning in unexpected places and feel compelled to capture it, transform it, and share it in a way that makes people feel something. That intelligence — aesthetic, emotional, and visual — is extraordinarily rare. In a world being flooded with generic AI content, the human with genuine taste and an original point of view is more valuable than ever. You are not behind. You are the answer to what is missing.</p>
-            <div className="sec-eye eye-coral" style={{ marginTop: "22px" }}>Natural Strengths</div>
-            <div className="chip-row">
-              <span className="chip">Original Vision</span>
-              <span className="chip">Emotional Resonance</span>
-              <span className="chip">Eye for Detail</span>
-              <span className="chip">Aesthetic Intelligence</span>
-              <span className="chip">Idea Generation</span>
-              <span className="chip">Unique Voice</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="wrap">
-          <div className="sec-eye eye-gold">AI career paths for your archetype</div>
-          <h2 className="sec-title">Roles built for<br /><em>exactly how you create</em></h2>
-          <p className="sec-sub">These are real paths Creative Amplifiers are building and earning from today.</p>
-          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
-          <table className="career-table">
-            <thead><tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr></thead>
-            <tbody>
-              <tr><td>Digital Product Creator</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Package your creative skills: preset packs, templates, guides, courses. Build once, sell to many.</td><td><span className="earn-pill">$500–$10k/mo</span></td></tr>
-              <tr><td>Brand Content Partner</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Brands pay you to create content that feels native. Your creative credibility is the product.</td><td><span className="earn-pill">$1k–$10k per deal</span></td></tr>
-              <tr><td>Paid Newsletter or Community</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Share your creative perspective consistently. Audience grows. Launch a paid tier or community.</td><td><span className="earn-pill">$500–$8k/mo</span></td></tr>
-              <tr><td>Podcast Monetisation</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Your voice and audience are the product. Descript handles editing. Claude writes all surrounding content.</td><td><span className="earn-pill">$500–$5k per episode</span></td></tr>
-              <tr><td>Freelance Creative Services</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Photography, video, writing, design for clients. AI handles proposals, admin, post-production.</td><td><span className="earn-pill">$2k–$15k/mo</span></td></tr>
-              <tr><td>Creative Education</td><td style={{color:"var(--soft)", fontSize:".88rem"}}>Teach your craft. Online course, workshop, mentorship. AI builds the curriculum. You deliver.</td><td><span className="earn-pill">$1k–$20k/launch</span></td></tr>
-            </tbody>
-          </table>
-          </div>
-          <div style={{textAlign:'center', marginTop:'28px'}}>
-            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec-alt">
-        <div className="wrap">
-          <div className="sec-eye eye-coral">The production gap</div>
-          <h2 className="sec-title">What AI actually closes<br />for <em>your specific archetype</em></h2>
-          <p className="sec-sub">This is not a tool list. This is the exact before and after for a Creative Amplifier who implements the playbook in 90 days.</p>
-          <div className="matrix">
-            <div className="matrix-head">
-              <div className="mh before">Without the playbook</div>
-              <div className="mh after">With the playbook ◆</div>
-            </div>
-            <div className="matrix-row"><div className="mc before">1 idea → 1 post, if you have the time and energy to finish it</div><div className="mc after">1 voice memo → 14 pieces of content across platforms in 20 minutes</div></div>
-            <div className="matrix-row"><div className="mc before">Video editing: 3 to 4 hours per piece, technical barrier</div><div className="mc after">Video editing: 30 minutes — CapCut AI handles captions, cuts, sync</div></div>
-            <div className="matrix-row"><div className="mc before">Creative brief: hours of scattered thinking, often never resolved</div><div className="mc after">Creative brief: 15 minutes — describe the idea, Claude structures it</div></div>
-            <div className="matrix-row"><div className="mc before">Newsletter: takes most of a day, often skipped or delayed</div><div className="mc after">Newsletter: 20 minutes from a voice memo, in your exact voice</div></div>
-            <div className="matrix-row"><div className="mc before">Digital product: months of building in isolation, never launched</div><div className="mc after">Digital product: live in 14 days with Claude writing the content and copy</div></div>
-            <div className="matrix-foot"><div className="mf before"><div className="mf-label">Ideas that exist in the world</div><div className="mf-val">Almost none</div></div><div className="mf after"><div className="mf-label">Ideas that exist and earn</div><div className="mf-val">Every week</div></div></div>
-          </div>
-        </div>
-      </section>
-
-
-      <section className="sec-alt">
-        <div className="wrap">
-          <div className="sec-eye eye-gold">Real Creative Amplifiers. Real results.</div>
-          <h2 className="sec-title">They were where you are.<br />Here is what <em>changed.</em></h2>
-          <div className="testimonials">
-            <div className="testi">
-              <div className="testi-quote">"I had the same film in my head for nine years. Not vaguely. Specifically. I could tell you the opening shot. I had tried to make it three times. Each time the production cost made it feel impossible before I started. I found the right tools. I made a four-minute short on my phone. 80,000 views in the first month. Then the brand deals started."</div>
-              <div className="testi-meta"><div className="testi-avatar">C</div><div><div className="testi-name">Chidi A.</div><div className="testi-role">Filmmaker · Lagos</div></div></div>
-              <div className="testi-result">9 years in his head → 80,000 views in month one</div>
-            </div>
-            <div className="testi">
-              <div className="testi-quote">"I had been writing essays in private for years. A friend read one and said: I would pay for this. I set up a Beehiiv newsletter. Claude helped me write the weekly edition in my voice. Within 90 days I had 2,400 subscribers. I launched a paid tier at $9 a month. 187 people upgraded in the first week. That is $1,683 a month from writing I was already doing for free."</div>
-              <div className="testi-meta"><div className="testi-avatar">A</div><div><div className="testi-name">Adaeze K.</div><div className="testi-role">Essay Writer · UK</div></div></div>
-              <div className="testi-result">$1,683/month recurring from writing she was already doing for free</div>
-            </div>
-            <div className="testi">
-              <div className="testi-quote">"I went from 2 posts a week to 14 pieces of content from a single 20-minute voice memo. My email list went from 180 to 2,400 in 90 days. First digital product launch: $6,200 in 72 hours. I had been making content for two years. The only thing that changed was having the right production system."</div>
-              <div className="testi-meta"><div className="testi-avatar">O</div><div><div className="testi-name">Ola M.</div><div className="testi-role">Content Creator · UK</div></div></div>
-              <div className="testi-result">$6,200 first product launch · 2,400 subscribers in 90 days</div>
-            </div>
-          </div>
-          <div style={{textAlign:'center', marginTop:'28px'}}>
-            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="wrap">
-          <div className="sec-eye eye-teal">Your income model</div>
-          <h2 className="sec-title">How Creative Amplifiers<br /><em>actually</em> earn with AI</h2>
-          <p className="sec-sub">Four income paths. Each one specific to how your archetype creates. Full breakdown inside the playbook.</p>
-          <div className="income-blur-wrap">
-            <div className="income-grid">
-              <div className="income-card visual">
-                <div className="ic-label">The Visual Creator</div>
-                <div className="ic-title">Visual Premium</div>
-                <div className="ic-range">$2k to $20k/month</div>
-                <div className="ic-desc">Your eye and aesthetic are the product. AI accelerates every part of production except the creative decision itself.</div>
-                <ul className="ic-list"><li>Freelance photography or video: $500 to $3,000 per project</li><li>Brand content partnership: $1,000 to $10,000 per campaign</li><li>Preset or template pack: $27 to $197 per pack</li><li>Photo or film licensing: $200 to $5,000 per licence</li></ul>
-              </div>
-              <div className="income-card content">
-                <div className="ic-label">The Content Creator</div>
-                <div className="ic-title">Audience Leverage</div>
-                <div className="ic-range">$1k to $30k/month</div>
-                <div className="ic-desc">Your audience is the asset. AI keeps you consistent enough to build it. Income comes from multiple directions simultaneously.</div>
-                <ul className="ic-list"><li>Brand deals: $500 to $10,000 per post at scale</li><li>Paid community: $49 to $99/month per member</li><li>Digital products: $27 to $497 per product</li><li>Platform ad revenue: grows with audience</li></ul>
-              </div>
-              <div className="income-card audio" style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none" }}>
-                <div className="ic-label">The Audio Creator</div>
-                <div className="ic-title">Voice Value</div>
-                <div className="ic-range">$1k to $15k/month</div>
-                <div className="ic-desc">Your voice and perspective are rare. A loyal listening audience pays in multiple ways once you show up consistently.</div>
-                <ul className="ic-list"><li>Podcast sponsorships: $25 to $50 per 1,000 downloads</li><li>Premium podcast tier: $5 to $20/month per subscriber</li><li>Voiceover work: $500 to $3,000 per project</li><li>Audio course or masterclass: $97 to $500</li></ul>
-              </div>
-              <div className="income-card writer" style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none" }}>
-                <div className="ic-label">The Writer</div>
-                <div className="ic-title">Words as Equity</div>
-                <div className="ic-range">$2k to $25k/month</div>
-                <div className="ic-desc">Your perspective compounds over time. Every piece adds to a body of work attracting new readers, clients, and opportunities.</div>
-                <ul className="ic-list"><li>Paid newsletter: $7 to $20/month per subscriber</li><li>Ghostwriting: $2,000 to $10,000 per project</li><li>Brand copywriting: $1,000 to $5,000 per project</li><li>Book advance or self-publishing: variable</li></ul>
-              </div>
-            </div>
-            <div className="blur-overlay"></div>
-          </div>
-        </div>
-      </section>
-
-      <div id="paywall">
-        <div className="paywall-inner">
-          <div className="pw-pre">Your Personal Playbook · $9.99</div>
-          <h2 className="pw-title">The Step-by-Step Blueprint to Your First<br /><em>5 Figure Month</em> using AI</h2>
-          <p className="pw-sub">Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The Creative Amplifier.</p>
-          <div className="pw-price-was">Valued at $57</div>
-          <div className="pw-price">$9.99</div>
-          <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
-          <div>
-            {showEmailInput && (
-              <div style={{ marginBottom: "16px" }}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={fallbackEmail}
-                  onChange={(e) => setFallbackEmail(e.target.value)}
-                  style={{
-                    padding: "10px 16px", borderRadius: "8px", border: "1px solid rgba(255,255,255,.2)",
-                    background: "rgba(255,255,255,.08)", color: "#fff", fontSize: ".9rem",
-                    width: "100%", maxWidth: "320px", outline: "none", fontFamily: "'DM Sans',sans-serif"
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    const email = fallbackEmail.trim();
-                    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                      localStorage.setItem("yhe_email", email);
-                      setFallbackEmail("");
-                      onBuy(email);
-                    }
-                  }}
-                  style={{
-                    display: "block", margin: "8px auto 0", padding: "10px 24px", borderRadius: "8px",
-                    border: "none", background: "var(--coral)", color: "#fff", fontSize: ".85rem",
-                    fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif"
-                  }}
-                >
-                  Continue to Checkout
-                </button>
-              </div>
-            )}
-            <button onClick={() => onBuy()} disabled={buying} className="btn-buy" style={{ opacity: buying ? 0.6 : 1, cursor: buying ? "not-allowed" : "pointer" }}>
-              {buying ? "Preparing checkout…" : "Buy Playbook →"}
-            </button>
-            {buyError && <div role="alert" style={{ color: "#ffcdd2", fontSize: ".8rem", marginTop: "8px" }}>{buyError}</div>}
-          </div>
-          <div className="pw-trust">More income paths, tool stack, and 90 day plan inside the playbook</div>
-        </div>
-      </div>
-
-      {/* Footer – matches GrowthCatalystPage structure */}
-      <footer>
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>
-      </footer>
-    </div>
-  );
+  return <ArchetypeResultLayout config={CONFIG} />;
 }

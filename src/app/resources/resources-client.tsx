@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
+import SiteNav from '@/components/site-nav';
 
 type Resource = {
   id: string;
@@ -92,14 +93,7 @@ export default function ResourcesClient() {
   return (
     <div className="rb-page" style={accentVars}>
       {/* ── NAV ── */}
-      <nav>
-        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
-        <ul className="nav-links">
-          <li><Link href="/quiz">Home</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <Link href="/quiz" className="nav-cta">Find my archetype</Link>
-      </nav>
+      <SiteNav />
 
       {/* ═══ HERO ═══ */}
       <div className="rb-hero">

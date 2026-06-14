@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/archetypes';
 import { track } from '@/lib/analytics';
 import Link from 'next/link';
+import SiteNav from '@/components/site-nav';
 
 type Scores = Record<ArchetypeKey, number>;
 
@@ -49,14 +50,7 @@ export default function QuizClient() {
 
   return (
     <div className="home-page">
-      <nav>
-        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
-        <ul className="nav-links">
-          <li><Link href="/quiz">Home</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <button className="nav-cta" onClick={startQuiz} aria-label="Start archetype quiz">Find my archetype</button>
-      </nav>
+      <SiteNav ctaLabel="Find my archetype" onCtaClick={startQuiz} />
 
       {phase === 'landing' && (
         <div id="landing" className="landing">

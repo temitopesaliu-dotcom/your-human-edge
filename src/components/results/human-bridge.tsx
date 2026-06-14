@@ -1,91 +1,8 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
-import Link from "next/link";
-import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
-
-// ----------------------------------------------------------------------
-// Human Bridge specific data
-// ----------------------------------------------------------------------
-
-const H_CAREERS = [
-  { title: "1:1 Transformation Coach", desc: "Guide individuals through career, life, or business pivots. AI prepares every session and handles all follow-up.", earn: "$3k–$10k/mo" },
-  { title: "Paid Community Founder", desc: "Build a recurring membership space. Two live sessions a month. AI runs everything between them.", earn: "$2k–$8k/mo" },
-  { title: "Corporate Wellbeing Trainer", desc: "Facilitate emotional intelligence and resilience workshops for teams. AI builds all materials.", earn: "$1k–$8k/day" },
-  { title: "Group Programme Facilitator", desc: "Run cohorts of 8 to 12 through a structured transformation. One delivery, multiple fees.", earn: "$3k–$12k/launch" },
-  { title: "Online Course Creator", desc: "Package your methodology into a course. AI structures the curriculum. You deliver the wisdom.", earn: "$97–$1k per sale" },
-  { title: "Counselor or Wellbeing Guide", desc: "Support individuals through grief, transition, or mental health. AI handles all admin between sessions.", earn: "$3k–$12k/mo" },
-];
-
-const H_CORE = [
-  "Deep Listening",
-  "Natural Trust-Builder",
-  "Community Creation",
-  "Emotional Intelligence",
-  "Natural Teaching",
-  "Consistent Presence",
-];
-
-const H_BEFORE_AFTER = [
-  { before: "Session notes: 45 minutes writing up after every call", after: "Session notes: 5 minutes — Claude drafts from your voice memo" },
-  { before: "Follow-up emails: sitting in drafts, often unsent for days", after: "Follow-up: warm, personal email sent within the hour, in your voice" },
-  { before: "Content creation: hours of effort, inconsistent, often skipped", after: "Weekly newsletter and social posts drafted in 20 minutes from a voice memo" },
-  { before: "Scheduling: back-and-forth emails, mental load, missed sessions", after: "Booking link handles everything — clients schedule themselves automatically" },
-  { before: "Session prep: arriving tired, under-prepared, distracted by admin", after: "Session prep: 15 minutes with Claude — arrive with the right questions ready" },
-];
-
-const H_CASE_STUDIES = [
-  {
-    name: "Sade A.",
-    role: "Life Coach",
-    location: "Lagos",
-    result: "$750 in week one from work she was giving away free",
-    quote: "\"I had been coaching informally for three years. Free sessions for friends, underpriced packages for anyone who found me. I wrote my offer, priced it at $250 for four sessions, and messaged six people I had been supporting for free. Three of them said yes that same day. I sat in my car and cried. Not from happiness — from the grief of realising what I had been giving away.\"",
-  },
-  {
-    name: "Funmi O.",
-    role: "Grief Facilitator turned Corporate Trainer",
-    location: "Nigeria",
-    result: "$4,500 first corporate contract",
-    quote: "\"I ran free grief support groups for three years. An HR director pulled me aside after a session and told me her company paid $2,000 a day for the kind of facilitation I did for free. I used Claude to write my first corporate proposal. It landed. First contract: $4,500 for a half-day workshop. The prep took 90 minutes.\"",
-  },
-  {
-    name: "Ngozi M.",
-    role: "Wellbeing Community Founder",
-    location: "UK",
-    result: "$3,332/month recurring from a community she holds twice a month",
-    quote: "\"I launched my paid community with 11 founding members at $49 a month. By month six I had 68 members. I run two live sessions a month. Claude writes the weekly content between sessions. I spend about four hours a month on the community. It earns $3,332 every month and it is the most joyful income I have ever made.\"",
-  },
-];
-
-const H_INCOME_PATHS = [
-  {
-    label: "The 1:1 Coach",
-    title: "Depth Premium",
-    range: "$3k to $10k/month",
-    items: [
-      "4-session packages: $250 to $500 to start",
-      "Monthly retainer coaching: $500 to $2,000 per client",
-      "VIP intensive day: $1,500 to $5,000",
-      "6-month transformation programme: $3,000 to $8,000",
-    ],
-  },
-  {
-    label: "The Community Builder",
-    title: "Recurring Belonging",
-    range: "$2k to $8k/month",
-    items: [
-      "Paid membership: $49 to $149/month per member",
-      "20 members: $1,000 to $3,000/month recurring",
-      "50 members: $2,500 to $7,500/month recurring",
-      "Annual membership: 10 to 20% discount, full year upfront",
-    ],
-  },
-];
-
-// ----------------------------------------------------------------------
-// CSS (Human Bridge theme with nav/footer from CreativeAmplifierPage)
-// ----------------------------------------------------------------------
+import ArchetypeResultLayout, {
+  type ArchetypeConfig,
+} from "@/components/results/archetype-layout";
 
 const CSS = `
 :root {
@@ -270,6 +187,7 @@ const CSS = `
   font-weight:500; color:rgba(255,255,255,.7);
 }
 .human-bridge .footer-brand span { color:var(--gold2); }
+.human-bridge footer .footer-brand + div { font-size:.7rem; opacity:0.25; }
 
 @media(max-width:600px){
   .human-bridge .income-grid{grid-template-columns:1fr}
@@ -296,293 +214,135 @@ const CSS = `
 }
 `;
 
-function getNameFromURL() {
-  if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  return params.get("name");
-}
+const CONFIG: ArchetypeConfig = {
+  archetypeKey: "H",
+  css: CSS,
+  wrapperClass: "human-bridge",
+
+  icon: "🌿",
+  name: "Human Bridge",
+  tagline: "You are the person people call when they need to feel understood. AI is here to make sure you always have enough left to give.",
+  ceilingLabel: "Your human edge · and your current bottleneck",
+  ceilingContent: `You pour your best self into the people you serve. You remember details, show up fully, and hold space in a way most people never learn to do. But right now, <strong>the admin, the emails, the content, the follow-ups</strong> — they are stealing the hours that should go to people. You finish your days <em>empty instead of fulfilled.</em> You do not have a people problem. You have an infrastructure problem.`,
+
+  whoYouAre: "You lead with empathy, not authority. People trust you before they know why. They open up to you faster than to anyone else in the room — and you actually care about what they share. That combination of presence and genuine interest is extraordinarily rare. In a world being automated, the human who makes people feel truly seen is more valuable than ever.",
+  whoEyeColor: "eye-teal",
+  strengths: ["Deep Listening", "Natural Trust-Builder", "Community Creation", "Emotional Intelligence", "Natural Teaching", "Consistent Presence"],
+  strengthsEyeColor: "eye-teal",
+
+  careerSubtitle: "exactly how you connect",
+  careers: [
+    { title: "1:1 Transformation Coach", desc: "Guide individuals through career, life, or business pivots. AI prepares every session and handles all follow-up.", earn: "$3k–$10k/mo" },
+    { title: "Paid Community Founder", desc: "Build a recurring membership space. Two live sessions a month. AI runs everything between them.", earn: "$2k–$8k/mo" },
+    { title: "Corporate Wellbeing Trainer", desc: "Facilitate emotional intelligence and resilience workshops for teams. AI builds all materials.", earn: "$1k–$8k/day" },
+    { title: "Group Programme Facilitator", desc: "Run cohorts of 8 to 12 through a structured transformation. One delivery, multiple fees.", earn: "$3k–$12k/launch" },
+    { title: "Online Course Creator", desc: "Package your methodology into a course. AI structures the curriculum. You deliver the wisdom.", earn: "$97–$1k per sale" },
+    { title: "Counselor or Wellbeing Guide", desc: "Support individuals through grief, transition, or mental health. AI handles all admin between sessions.", earn: "$3k–$12k/mo" },
+  ],
+
+  matrixSectionTitle: "The leverage gap",
+  matrixTitle: `What AI actually frees up<br /><em>for your specific archetype</em>`,
+  matrixSubheading: "This is not a tool list. This is the exact before and after for a Human Bridge who implements the playbook in 90 days.",
+  matrixEyeColor: "eye-teal",
+  beforeAfter: [
+    { before: "Session notes: 45 minutes writing up after every call", after: "Session notes: 5 minutes — Claude drafts from your voice memo" },
+    { before: "Follow-up emails: sitting in drafts, often unsent for days", after: "Follow-up: warm, personal email sent within the hour, in your voice" },
+    { before: "Content creation: hours of effort, inconsistent, often skipped", after: "Weekly newsletter and social posts drafted in 20 minutes from a voice memo" },
+    { before: "Scheduling: back-and-forth emails, mental load, missed sessions", after: "Booking link handles everything — clients schedule themselves automatically" },
+    { before: "Session prep: arriving tired, under-prepared, distracted by admin", after: "Session prep: 15 minutes with Claude — arrive with the right questions ready" },
+  ],
+  matrixFoot: {
+    before: { label: "Current capacity", value: "Empty by 4pm" },
+    after: { label: "AI-protected capacity", value: "Full. Present. Paid." },
+  },
+
+  testimonialsEyebrow: "Real Human Bridges. Real results.",
+  testimonialsEyeColor: "eye-gold",
+  caseStudies: [
+    {
+      name: "Sade A.",
+      role: "Life Coach",
+      location: "Lagos",
+      result: "$750 in week one from work she was giving away free",
+      quote: "I had been coaching informally for three years. Free sessions for friends, underpriced packages for anyone who found me. I wrote my offer, priced it at $250 for four sessions, and messaged six people I had been supporting for free. Three of them said yes that same day. I sat in my car and cried. Not from happiness — from the grief of realising what I had been giving away.",
+    },
+    {
+      name: "Funmi O.",
+      role: "Grief Facilitator turned Corporate Trainer",
+      location: "Nigeria",
+      result: "$4,500 first corporate contract",
+      quote: "I ran free grief support groups for three years. An HR director pulled me aside after a session and told me her company paid $2,000 a day for the kind of facilitation I did for free. I used Claude to write my first corporate proposal. It landed. First contract: $4,500 for a half-day workshop. The prep took 90 minutes.",
+    },
+    {
+      name: "Ngozi M.",
+      role: "Wellbeing Community Founder",
+      location: "UK",
+      result: "$3,332/month recurring from a community she holds twice a month",
+      quote: "I launched my paid community with 11 founding members at $49 a month. By month six I had 68 members. I run two live sessions a month. Claude writes the weekly content between sessions. I spend about four hours a month on the community. It earns $3,332 every month and it is the most joyful income I have ever made.",
+    },
+  ],
+
+  incomeEyeColor: "eye-coral",
+  incomeTitle: `How Human Bridges<br /><em>actually</em> earn with AI`,
+  incomeSubheading: "Four income paths. Each one specific to how your archetype gives. Full breakdown inside the playbook.",
+  incomePaths: [
+    {
+      label: "The 1:1 Coach",
+      title: "Depth Premium",
+      range: "$3k to $10k/month",
+      desc: "Your clients pay for transformation, not time. AI elevates every session — deeper prep, richer follow-up, more consistent between-session support.",
+      className: "coach",
+      items: [
+        "4-session packages: $250 to $500 to start",
+        "Monthly retainer coaching: $500 to $2,000 per client",
+        "VIP intensive day: $1,500 to $5,000",
+        "6-month transformation programme: $3,000 to $8,000",
+      ],
+    },
+    {
+      label: "The Community Builder",
+      title: "Recurring Belonging",
+      range: "$2k to $8k/month",
+      desc: "Your income recurs every month without acquiring new clients. You grow the community and the income grows with it.",
+      className: "comm",
+      items: [
+        "Paid membership: $49 to $149/month per member",
+        "20 members: $1,000 to $3,000/month recurring",
+        "50 members: $2,500 to $7,500/month recurring",
+        "Annual membership: 10 to 20% discount, full year upfront",
+      ],
+    },
+    {
+      label: "The Trainer",
+      title: "Group Impact Premium",
+      range: "$4k to $15k/month",
+      desc: "One delivery serves many. AI builds your materials and handles all communication. You earn more per hour than any 1:1 model.",
+      className: "trainer",
+      blurred: true,
+      items: [
+        "Half-day corporate workshop: $1,500 to $5,000",
+        "Full-day facilitation: $3,000 to $10,000",
+        "Group programme: $500 to $2,000 per participant",
+        "Ongoing training contract: $2,000 to $5,000/month",
+      ],
+    },
+    {
+      label: "The Counselor",
+      title: "Trusted Practice",
+      range: "$3k to $12k/month",
+      desc: "Your work commands premium rates because trust is the barrier to entry. AI handles everything outside the session so you hold more without sacrificing quality.",
+      className: "counselor",
+      blurred: true,
+      items: [
+        "Individual sessions: $120 to $300 per session",
+        "8-session programme: $1,200 to $2,400",
+        "Corporate wellbeing contract: $2,000 to $6,000/month",
+        "Group healing programme: $200 to $500 per participant",
+      ],
+    },
+  ],
+};
 
 export default function HumanBridgePage() {
-  const [buying, setBuying] = useState(false);
-  const [buyError, setBuyError] = useState("");
-  const [showEmailInput, setShowEmailInput] = useState(false);
-  const [fallbackEmail, setFallbackEmail] = useState("");
-
-  useEffect(() => {
-    track("result_view", { archetype: "H" });
-  }, []);
-
-  async function onBuy(email?: string) {
-    setBuyError("");
-    setShowEmailInput(false);
-    setBuying(true);
-    try {
-      const url = await buyPlaybook("H", email);
-      window.location.href = url;
-    } catch (err: unknown) {
-      setBuying(false);
-      if (err instanceof Error && err.message === "EMAIL_REQUIRED") {
-        setShowEmailInput(true);
-      } else {
-        setBuyError(err instanceof Error ? err.message : "Checkout unavailable.");
-      }
-    }
-  }
-
-  const name = useSyncExternalStore(
-    (cb) => {
-      window.addEventListener("popstate", cb);
-      return () => window.removeEventListener("popstate", cb);
-    },
-    getNameFromURL,
-    () => null
-  );
-  const greeting = name ? `${name}, meet your archetype.` : "Your result is in.";
-
-  return (
-    <div className="human-bridge">
-      <style>{CSS}</style>
-
-      {/* Header – matches CreativeAmplifierPage structure */}
-      <nav>
-        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
-        <ul className="nav-links">
-          <li><Link href="/quiz">Home</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <Link href="#paywall" className="nav-cta">Get the Playbook →</Link>
-      </nav>
-
-      {/* Hero */}
-      <div className="hero">
-        <div className="hero-inner">
-          <div className="hero-greeting">{greeting}</div>
-          <span className="hero-icon">🌿</span>
-          <div className="hero-eyebrow">Your AI Archetype</div>
-          <h1 className="hero-name">The Human Bridge</h1>
-          <div className="hero-tagline">"You are the person people call when they need to feel understood. AI is here to make sure you always have enough left to give."</div>
-          <div className="hero-sep"><div className="line"></div><div className="dot">◆</div><div className="line"></div></div>
-          <div className="ceiling-box">
-            <span className="ceiling-label">Your human edge · and your current bottleneck</span>
-            <p>You pour your best self into the people you serve. You remember details, show up fully, and hold space in a way most people never learn to do. But right now, <strong>the admin, the emails, the content, the follow-ups</strong> — they are stealing the hours that should go to people. You finish your days <em>empty instead of fulfilled.</em> You do not have a people problem. You have an infrastructure problem.</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Who you are + strengths */}
-      <section>
-        <div className="wrap">
-          <div className="card-wrap">
-            <div className="sec-eye eye-teal">Who you are</div>
-            <p className="who-text">You lead with empathy, not authority. People trust you before they know why. They open up to you faster than to anyone else in the room — and you actually care about what they share. That combination of presence and genuine interest is extraordinarily rare. In a world being automated, the human who makes people feel truly seen is more valuable than ever.</p>
-            <div className="sec-eye eye-teal" style={{ marginTop: "22px" }}>Natural Strengths</div>
-            <div className="chip-row">
-              {H_CORE.map((s) => (
-                <span key={s} className="chip">{s}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Career paths (with CTA - matching S & G pattern) */}
-      <section>
-        <div className="wrap">
-          <div className="sec-eye eye-gold">AI career paths for your archetype</div>
-          <h2 className="sec-title">Roles built for<br /><em>exactly how you connect</em></h2>
-          <p className="sec-sub">These are real paths Human Bridges are building and earning from today.</p>
-          <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%'}}>
-          <table className="career-table">
-            <thead>
-              <tr><th>Career Path</th><th>What You Do</th><th>Earning Range</th></tr>
-            </thead>
-            <tbody>
-              {H_CAREERS.map((c) => (
-                <tr key={c.title}>
-                  <td>{c.title}</td>
-                  <td style={{ color: "var(--soft)", fontSize: ".88rem" }}>{c.desc}</td>
-                  <td><span className="earn-pill">{c.earn}</span></td>
-                </tr>
-              ))}
-            </tbody>
-           </table>
-          </div>
-          <div style={{textAlign:'center', marginTop:'28px'}}>
-            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Leverage matrix */}
-      <section className="sec-alt">
-        <div className="wrap">
-          <div className="sec-eye eye-teal">The leverage gap</div>
-          <h2 className="sec-title">What AI actually frees up<br />for <em>your specific archetype</em></h2>
-          <p className="sec-sub">This is not a tool list. This is the exact before and after for a Human Bridge who implements the playbook in 90 days.</p>
-          <div className="matrix">
-            <div className="matrix-head">
-              <div className="mh before">Without the playbook</div>
-              <div className="mh after">With the playbook ◆</div>
-            </div>
-            {H_BEFORE_AFTER.map((row, i) => (
-              <div key={i} className="matrix-row">
-                <div className="mc before">{row.before}</div>
-                <div className="mc after">{row.after}</div>
-              </div>
-            ))}
-            <div className="matrix-foot">
-              <div className="mf before">
-                <div className="mf-label">Current capacity</div>
-                <div className="mf-val">Empty by 4pm</div>
-              </div>
-              <div className="mf after">
-                <div className="mf-label">AI-protected capacity</div>
-                <div className="mf-val">Full. Present. Paid.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="sec-alt">
-        <div className="wrap">
-          <div className="sec-eye eye-gold">Real Human Bridges. Real results.</div>
-          <h2 className="sec-title">They were where you are.<br />Here is what <em>changed.</em></h2>
-          <div className="testimonials">
-            {H_CASE_STUDIES.map((cs, idx) => (
-              <div key={idx} className="testi">
-                <div className="testi-quote">{cs.quote}</div>
-                <div className="testi-meta">
-                  <div className="testi-avatar">{cs.name[0]}</div>
-                  <div>
-                    <div className="testi-name">{cs.name}</div>
-                    <div className="testi-role">{cs.role} · {cs.location}</div>
-                  </div>
-                </div>
-                <div className="testi-result">{cs.result}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{textAlign:'center', marginTop:'28px'}}>
-            <Link href="#paywall" className="nav-cta" style={{display:'inline-block', padding:'12px 32px', fontSize:'.95rem'}}>Get the Playbook →</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Income model */}
-      <section>
-        <div className="wrap">
-          <div className="sec-eye eye-coral">Your income model</div>
-          <h2 className="sec-title">How Human Bridges<br /><em>actually</em> earn with AI</h2>
-          <p className="sec-sub">Four income paths. Each one specific to how your archetype gives. Full breakdown inside the playbook.</p>
-          <div className="income-blur-wrap">
-            <div className="income-grid">
-              <div className="income-card coach">
-                <div className="ic-label">The 1:1 Coach</div>
-                <div className="ic-title">Depth Premium</div>
-                <div className="ic-range">$3k to $10k/month</div>
-                <div className="ic-desc">Your clients pay for transformation, not time. AI elevates every session — deeper prep, richer follow-up, more consistent between-session support.</div>
-                <ul className="ic-list">
-                  {H_INCOME_PATHS[0].items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-              <div className="income-card comm">
-                <div className="ic-label">The Community Builder</div>
-                <div className="ic-title">Recurring Belonging</div>
-                <div className="ic-range">$2k to $8k/month</div>
-                <div className="ic-desc">Your income recurs every month without acquiring new clients. You grow the community and the income grows with it.</div>
-                <ul className="ic-list">
-                  {H_INCOME_PATHS[1].items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-              {/* blurred cards */}
-              <div className="income-card trainer" style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none" }}>
-                <div className="ic-label">The Trainer</div>
-                <div className="ic-title">Group Impact Premium</div>
-                <div className="ic-range">$4k to $15k/month</div>
-                <div className="ic-desc">One delivery serves many. AI builds your materials and handles all communication. You earn more per hour than any 1:1 model.</div>
-                <ul className="ic-list">
-                  <li>Half-day corporate workshop: $1,500 to $5,000</li>
-                  <li>Full-day facilitation: $3,000 to $10,000</li>
-                  <li>Group programme: $500 to $2,000 per participant</li>
-                  <li>Ongoing training contract: $2,000 to $5,000/month</li>
-                </ul>
-              </div>
-              <div className="income-card counselor" style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none" }}>
-                <div className="ic-label">The Counselor</div>
-                <div className="ic-title">Trusted Practice</div>
-                <div className="ic-range">$3k to $12k/month</div>
-                <div className="ic-desc">Your work commands premium rates because trust is the barrier to entry. AI handles everything outside the session so you hold more without sacrificing quality.</div>
-                <ul className="ic-list">
-                  <li>Individual sessions: $120 to $300 per session</li>
-                  <li>8-session programme: $1,200 to $2,400</li>
-                  <li>Corporate wellbeing contract: $2,000 to $6,000/month</li>
-                  <li>Group healing programme: $200 to $500 per participant</li>
-                </ul>
-              </div>
-            </div>
-            <div className="blur-overlay"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Paywall */}
-      <div id="paywall">
-        <div className="paywall-inner">
-          <div className="pw-pre">Your Personal Playbook · $9.99</div>
-        <h2 className="pw-title">The Step-by-Step Blueprint to Your First<br /><em>5 Figure Month</em> using AI</h2>
-          <p className="pw-sub">Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The Human Bridge.</p>
-          <div className="pw-price-was">Valued at $57</div>
-          <div className="pw-price">$9.99</div>
-          <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
-          <div>
-            {showEmailInput && (
-              <div style={{ marginBottom: "16px" }}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={fallbackEmail}
-                  onChange={(e) => setFallbackEmail(e.target.value)}
-                  style={{
-                    padding: "10px 16px", borderRadius: "8px", border: "1px solid rgba(255,255,255,.2)",
-                    background: "rgba(255,255,255,.08)", color: "#fff", fontSize: ".9rem",
-                    width: "100%", maxWidth: "320px", outline: "none", fontFamily: "'DM Sans',sans-serif"
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    const email = fallbackEmail.trim();
-                    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                      localStorage.setItem("yhe_email", email);
-                      setFallbackEmail("");
-                      onBuy(email);
-                    }
-                  }}
-                  style={{
-                    display: "block", margin: "8px auto 0", padding: "10px 24px", borderRadius: "8px",
-                    border: "none", background: "var(--teal2)", color: "#fff", fontSize: ".85rem",
-                    fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif"
-                  }}
-                >
-                  Continue to Checkout
-                </button>
-              </div>
-            )}
-            <button onClick={() => onBuy()} disabled={buying} className="btn-buy" style={{ opacity: buying ? 0.6 : 1, cursor: buying ? "not-allowed" : "pointer" }}>
-              {buying ? "Preparing checkout…" : "Buy Playbook →"}
-            </button>
-            {buyError && <div role="alert" style={{ color: "#ffcdd2", fontSize: ".8rem", marginTop: "8px" }}>{buyError}</div>}
-          </div>
-          <div className="pw-trust">More income paths, tool stack, and 90 day plan inside the playbook</div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer>
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>
-      </footer>
-    </div>
-  );
+  return <ArchetypeResultLayout config={CONFIG} />;
 }

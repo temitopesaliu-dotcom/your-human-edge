@@ -200,7 +200,6 @@ export async function addBuyerToMailerLite(
 
     // b. Add to buyers group → fail fast if error
     if (buyersGroup) {
-      if (buyersGroup) {
       const groupResult = await mailerLiteRequest(`/subscribers/${encodeURIComponent(email)}/groups/${buyersGroup}`, {
         method: 'POST',
       });
@@ -209,7 +208,6 @@ export async function addBuyerToMailerLite(
         return;
       }
     }
-  }
 
     // c. Remove from drip group → log error, continue
     const dripGroup = getDripGroupId(archetype);
