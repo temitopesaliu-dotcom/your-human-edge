@@ -31,25 +31,38 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
       : '';
 
   // ── arch_verified short-circuit ───────────────────────────────────────────
-  // If the set-playbook-cookie route handler just redirected us, it includes
-  // the validated archetype in the query string so we can skip the Stripe API
-  // call entirely and go straight to the playbook.
+  // The set-playbook-cookie route handler redirects here with arch_verified +
+  // session_id after validating the Stripe session. We MUST re-validate the
+  // session_id here — arch_verified is a client-controlled query param and on
+  // its own proves nothing. The archetype is taken from the validated access
+  // result, never from the URL.
   const validKeys = ['H', 'C', 'S', 'G'] as const;
   const archVerified = params.arch_verified as string | undefined;
   if (archVerified) {
     if (!validKeys.includes(archVerified as typeof validKeys[number])) {
       redirect('/access-denied');
     }
-    // The cookie should now be set (the route handler set it before redirecting).
-    // If it's somehow missing, that's fine — we don't need it since we already
-    // have the archetype. Render the playbook directly.
-    const arch = getArchetypeByKey(archVerified);
+    // The session_id that the route handler validated moments ago. A missing
+    // or invalid one means this is a direct, unauthenticated hit — deny.
+    const sid = isValidSessionId(sessionIdFromParams) ? sessionIdFromParams : '';
+    if (!sid) {
+      redirect('/access-denied');
+    }
+    const access = await validatePlaybookAccess(sid);
+    if (!access.ok) {
+      redirect('/access-denied');
+    }
+    const arch = getArchetypeByKey(access.archetype);
     if (!arch) {
       redirect('/access-denied');
     }
     return (
       <div style={{ minHeight: '100dvh' }}>
-        <PlaybookPdfViewer archetypeKey={arch.key} />
+        <PlaybookPdfViewer
+          archetypeKey={arch.key}
+          userName={access.name || undefined}
+          userEmail={access.email || undefined}
+        />
       </div>
     );
   }
