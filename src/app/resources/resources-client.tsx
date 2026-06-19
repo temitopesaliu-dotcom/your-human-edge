@@ -33,7 +33,7 @@ const RESOURCES: Resource[] = [
     title: 'AI for Teachers and Coaches',
     description:
       'An interactive 6-gate guide for teachers, coaches, trainers and facilitators — build your AI clone, open the floor, monetise your knowledge, and project your monthly revenue. Includes prompt templates, streak tracker, offer builder, and revenue calculator.',
-    href: '/resources/ai-stadium',
+    href: '/resources/ai-for-coaches',
     cta: 'Open the guide',
     category: 'individual',
   },

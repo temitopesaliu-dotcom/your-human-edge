@@ -23,13 +23,13 @@ const CURRENCIES = [
 
 function storageGet<T>(key: string, fallback: T): T {
   try {
-    const raw = localStorage.getItem('ai-stadium-' + key);
+    const raw = localStorage.getItem('ai-for-coaches-' + key);
     return raw ? JSON.parse(raw) : fallback;
   } catch { return fallback; }
 }
 
 function storageSet(key: string, val: unknown) {
-  try { localStorage.setItem('ai-stadium-' + key, JSON.stringify(val)); } catch {}
+  try { localStorage.setItem('ai-for-coaches-' + key, JSON.stringify(val)); } catch {}
 }
 
 const MON_BASE = {

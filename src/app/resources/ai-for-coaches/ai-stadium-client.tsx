@@ -33,16 +33,16 @@ export default function AiStadiumClient() {
   const {
     gatePhase, gateName, setGateName, gateEmail, setGateEmail,
     gateType, setGateType, gateError, gateSubmitting, handleGateSubmit,
-  } = useEmailGate('ai-stadium');
+  } = useEmailGate('ai-for-coaches');
 
   useEffect(() => {
-    track('ai_stadium_view', { gate: activeGate }, '/resources/ai-stadium');
+    track('ai_stadium_view', { gate: activeGate }, '/resources/ai-for-coaches');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleGateChange = useCallback((id: GateId) => {
     setActiveGate(id);
-    track('ai_stadium_gate_switch', { gate: id }, '/resources/ai-stadium');
+    track('ai_stadium_gate_switch', { gate: id }, '/resources/ai-for-coaches');
   }, []);
 
   const handleCopy = useCallback(async (text: string, id: string) => {
