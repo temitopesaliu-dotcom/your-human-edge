@@ -50,7 +50,29 @@ export function Gate01Clone({ copiedId, onCopy }: Gate01CloneProps) {
 
       <PromptCard
         id="p1"
-        name="01 — Define my AI clone's voice"
+        name="01 — Create Clone On ChatGPT"
+        copiedId={copiedId}
+        onCopy={onCopy}
+        text={`Create an ultra realistic beauty portrait of the image attached. Face forward
+Mid-20s Black woman, long flowing wavy hair with soft loose curls past her shoulders, deep dark brown with honey highlights, perfectly styled and shiny, warm rich brown skin with luminous glow, soft brown eyes with defined lashes, full glossy nude lips, soft cheekbones with subtle highlighter, oversized cream cashmere sweater slightly off-shoulder, layered delicate gold chains stacked at different lengths, small diamond stud earrings, gold cuff bracelet visible, manicured nude nails, seated at a luxury podcast studio with a black professional microphone close to her mouth, warm boke lighting with soft golden glow, blurred neutral cream and beige luxury interior with subtle decer in background. shallow depth of field, 9:16 vertical, ultra realistic, cinematic, expensive aesthetic.`}
+      />
+
+      <PromptCard
+        id="p2"
+        name="02 — Create a Video on Google Flow"
+        copiedId={copiedId}
+        onCopy={onCopy}
+        text={`Upload the image created on ChatGPT after downloading.
+
+A Mid-20s Black woman uploaded.
+She speaks directly to the camera with a calm, intimate, feminine tone. Realistic skin texture, natural lip sync.
+She says, "Your Human Edge in the AI world is much larger than you think. This is your time to become who you've Always Known you could be, finally."
+Performance: Calm. No smile. Pause briefly after each ellipsis. Direct eye contact. Minimal hand movement. Slow camera push-in.`}
+      />
+
+      <PromptCard
+        id="p3"
+        name="03 — Define my AI clone's voice"
         copiedId={copiedId}
         onCopy={onCopy}
         text={`I teach/coach [topic] and want to create an AI avatar version of myself for video content.
@@ -61,8 +83,8 @@ Write me a "persona brief" I can paste into HeyGen, Synthesia, or any AI avatar 
       />
 
       <PromptCard
-        id="p2"
-        name="02 — Turn my expertise into 10 scripts"
+        id="p4"
+        name="04 — Turn my expertise into 10 scripts"
         copiedId={copiedId}
         onCopy={onCopy}
         text={`I'm a [your role, e.g. "yoga teacher with 8 years of experience"] and my audience is [who you help].
@@ -76,8 +98,8 @@ Base the topics on the most common question or misconception my audience has abo
       />
 
       <PromptCard
-        id="p3"
-        name="03 — Repurpose one video into five"
+        id="p5"
+        name="05 — Repurpose one video into five"
         copiedId={copiedId}
         onCopy={onCopy}
         text={`Here's the transcript of one video I recorded: [paste transcript]
