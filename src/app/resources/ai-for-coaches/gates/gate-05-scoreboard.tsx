@@ -143,7 +143,7 @@ export function Gate05Scoreboard() {
         <span className="sv as-display">{fmt(total)}</span>
       </div>
       <p className="as-disclaimer">
-        A projection based on the numbers you enter, not a guarantee. Most people start with one stream, prove it, then stack the next.
+        A projection based on the numbers you enter. Most people start with one stream, prove it, then stack the next.
       </p>
       <div style={{ padding: '0 32px' }}>
         <button type="button" className="as-reset" onClick={reset}>Reset to starter defaults</button>

@@ -45,13 +45,13 @@ export function Gate06Advanced() {
           <div className="as-section-label">What you&apos;ll learn</div>
           <ul className="as-learn-list">
             <li>How to create your own AI Clone</li>
-            <li>Viral Content Concept for your niche</li>
+            <li>Content intelligence system for your niche</li>
             <li>Monetizing your knowledge</li>
             <li>Concept &amp; Curriculum Creation</li>
             <li>Finding your audience &amp; selling to them</li>
             <li>Organic &amp; Paid Marketing</li>
             <li>How to sell to corporate organizations</li>
-            <li>AI tools &amp; agents to make it all seamless as a non-technical person</li>
+            <li>AI tools &amp; automations to make it all seamless as a non-technical person</li>
           </ul>
         </div>
         <div className="as-pricing-wrap">

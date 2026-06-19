@@ -420,17 +420,20 @@ export function StadiumStyles() {
         color: var(--ink);
         cursor: pointer;
       }
-      .as-price-wrap { position: relative; }
-      .as-price-wrap .cur-sym {
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 11px;
-        color: var(--dust);
-        pointer-events: none;
+      .as-price-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
       }
-      .as-price-wrap input { padding-left: 24px; width: 100%; }
+      .as-price-wrap .cur-sym {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1;
+        pointer-events: none;
+        padding-right: 2px;
+      }
+      .as-price-wrap input { width: 100%; }
 
       /* ── CALCULATOR ── */
       .as-calc { padding: 0 32px; }
