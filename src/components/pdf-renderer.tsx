@@ -9,7 +9,7 @@ import PdfPageNav from "@/components/pdf-page-nav";
 import PdfDocumentArea from "@/components/pdf-document-area";
 
 // Configure pdf.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = "/pdfs/pdf.worker.min.mjs";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/build/pdf.worker.min.mjs`;
 
 interface PdfRendererProps {
   archetypeKey: ArchetypeKey;
