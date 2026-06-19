@@ -97,14 +97,14 @@ export function StadiumStyles() {
         font-family: 'Literata', serif;
         font-style: italic;
         color: var(--dust);
-        font-size: 14px;
+        font-size: 16px;
         margin-top: 6px;
         max-width: 520px;
       }
 
       .as-section-label {
         font-family: 'Oswald', sans-serif;
-        font-size: 12px;
+        font-size: 14px;
         letter-spacing: 1.6px;
         text-transform: uppercase;
         color: var(--turf-dim);
@@ -135,14 +135,14 @@ export function StadiumStyles() {
       .as-tool .ttag {
         display: inline-block;
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
+        font-size: 12px;
         background: var(--chalk-2);
         color: var(--dust);
         padding: 2px 7px;
         border-radius: 20px;
         margin: 6px 0 8px;
       }
-      .as-tool p { font-size: 13px; color: var(--ink); line-height: 1.45; }
+      .as-tool p { font-size: 15px; color: var(--ink); line-height: 1.45; }
 
       /* ── PROMPT CARDS ── */
       .as-prompt {
@@ -159,14 +159,14 @@ export function StadiumStyles() {
       }
       .as-prompt-name {
         font-family: 'Oswald', sans-serif;
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 0.8px;
         text-transform: uppercase;
         color: var(--floodlight);
       }
       .as-copybtn {
         font-family: 'Oswald', sans-serif;
-        font-size: 11px;
+        font-size: 13px;
         letter-spacing: 0.6px;
         text-transform: uppercase;
         background: transparent;
@@ -185,7 +185,7 @@ export function StadiumStyles() {
       }
       .as-prompt pre {
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 12.5px;
+        font-size: 14px;
         line-height: 1.65;
         color: rgba(246, 241, 228, 0.92);
         white-space: pre-wrap;
@@ -215,7 +215,7 @@ export function StadiumStyles() {
         accent-color: var(--turf);
         flex: none;
       }
-      .as-check span { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 500; }
+      .as-check span { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 500; }
 
       /* ── COMMITMENT + STREAK ── */
       .as-commit-wrap { padding: 0 32px; }
@@ -232,7 +232,7 @@ export function StadiumStyles() {
         padding: 8px 20px;
         font-family: 'Oswald', sans-serif;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 15px;
         cursor: pointer;
         color: var(--ink);
       }
@@ -245,7 +245,7 @@ export function StadiumStyles() {
       .as-stat .n { font-family: 'Anton', sans-serif; font-size: 26px; color: var(--turf-dim); }
       .as-stat .l {
         font-family: 'Oswald', sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--dust);
@@ -263,7 +263,7 @@ export function StadiumStyles() {
         border-radius: 4px;
         cursor: pointer;
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
+        font-size: 11px;
         color: var(--dust);
         display: flex;
         align-items: center;
@@ -277,7 +277,7 @@ export function StadiumStyles() {
         background: none;
         border: none;
         font-family: 'Oswald', sans-serif;
-        font-size: 11px;
+        font-size: 12px;
         letter-spacing: 0.6px;
         text-transform: uppercase;
         color: var(--dust);
@@ -311,7 +311,7 @@ export function StadiumStyles() {
       }
       .as-field label {
         font-family: 'Oswald', sans-serif;
-        font-size: 11px;
+        font-size: 13px;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--dust);
@@ -337,14 +337,14 @@ export function StadiumStyles() {
       }
       .as-offer-out .ol {
         font-family: 'Oswald', sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         letter-spacing: 1.4px;
         text-transform: uppercase;
         color: var(--turf-dim);
       }
       .as-offer-out .ov {
         font-family: 'Literata', serif;
-        font-size: 20px;
+        font-size: 22px;
         font-style: italic;
         margin-top: 6px;
         line-height: 1.45;
@@ -353,7 +353,7 @@ export function StadiumStyles() {
       /* ── MIND SET TEXT ── */
       .as-text-block { padding: 0 32px; }
       .as-text-block p {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.6;
         max-width: 580px;
       }
@@ -381,14 +381,14 @@ export function StadiumStyles() {
       .as-mon-card .mh h3 { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; }
       .as-mon-card .mrange {
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 12px;
+        font-size: 14px;
         color: var(--floodlight-dim);
         margin: 8px 0;
       }
-      .as-mon-card p { font-size: 13px; line-height: 1.5; color: var(--ink); }
+      .as-mon-card p { font-size: 15px; line-height: 1.5; color: var(--ink); }
       .as-mon-card .mtool {
         font-family: 'Oswald', sans-serif;
-        font-size: 11px;
+        font-size: 13px;
         color: var(--dust);
         margin-top: 10px;
         text-transform: uppercase;
@@ -405,7 +405,7 @@ export function StadiumStyles() {
       }
       .as-currency-wrap .label {
         font-family: 'Oswald', sans-serif;
-        font-size: 11px;
+        font-size: 13px;
         color: var(--dust);
         letter-spacing: 1px;
       }
@@ -447,26 +447,26 @@ export function StadiumStyles() {
       }
       .as-calc-row.head {
         font-family: 'Oswald', sans-serif;
-        font-size: 10px;
+        font-size: 14px;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--dust);
         border-bottom: none;
         padding-bottom: 4px;
       }
-      .as-calc-row .rn { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 14px; }
+      .as-calc-row .rn { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; }
       .as-calc-row input {
         width: 100%;
         border: 1px solid var(--line);
         border-radius: 6px;
         padding: 7px 8px;
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 13px;
+        font-size: 14px;
         background: #fff;
       }
       .as-calc-row .rtotal {
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--turf-dim);
       }
@@ -483,7 +483,7 @@ export function StadiumStyles() {
       }
       .as-scoreboard .sl {
         font-family: 'Oswald', sans-serif;
-        font-size: 12px;
+        font-size: 14px;
         letter-spacing: 1.4px;
         text-transform: uppercase;
         color: rgba(246, 241, 228, 0.6);
@@ -494,7 +494,7 @@ export function StadiumStyles() {
         color: var(--floodlight);
       }
       .as-disclaimer {
-        font-size: 11.5px;
+        font-size: 13px;
         color: var(--dust);
         margin: 10px 32px 0;
         font-style: italic;
@@ -807,7 +807,7 @@ export function StadiumStyles() {
         color: var(--chalk);
         font-family: 'Oswald', sans-serif;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 15px;
         letter-spacing: 0.6px;
         text-transform: uppercase;
         padding: 12px;
