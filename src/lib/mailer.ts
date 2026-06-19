@@ -268,6 +268,47 @@ export async function addPathsGuideBuyerToMailerLite(
 }
 
 
+/** Stadium buyer — adds to a tier-specific MailerLite group. */
+export async function addStadiumBuyerToMailerLite(
+  email: string,
+  name: string,
+  tier: 'live-class' | '6-weeks'
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) return;
+
+  const groupId =
+    tier === 'live-class'
+      ? process.env.MAILERLITE_STADIUM_LIVE_GROUP_ID
+      : process.env.MAILERLITE_STADIUM_6WEEKS_GROUP_ID;
+
+  try {
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    const groupsToAdd: string[] = [];
+    if (allGroup) groupsToAdd.push(allGroup);
+    if (groupId) groupsToAdd.push(groupId);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: {
+          name,
+          is_buyer: 'true',
+          product: tier === 'live-class' ? 'stadium-live' : 'stadium-6weeks',
+        },
+        groups: groupsToAdd,
+      },
+    });
+    if (!result.ok) {
+      console.error(`[mailer] Stadium buyer (${tier}) update failed:`, result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Stadium buyer MailerLite error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
+
 /** Free resource subscriber — optionally adds to the company free resource MailerLite group. */
 export async function addFreeResourceSubscriberToMailerLite(
   email: string,

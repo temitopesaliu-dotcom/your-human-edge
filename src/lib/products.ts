@@ -1,4 +1,4 @@
-export type ProductType = 'playbook' | 'paths-guide';
+export type ProductType = 'playbook' | 'paths-guide' | 'stadium-live' | 'stadium-6weeks';
 
 export const PLAYBOOK_ACCESS_COOKIE = 'yhe_access';
 export const GUIDE_ACCESS_COOKIE = 'yhe_guide_access';
@@ -15,5 +15,9 @@ export function isValidSessionId(sessionId: string): boolean {
 }
 
 export function normalizeProduct(raw: string | undefined): ProductType {
-  return raw === 'paths-guide' ? 'paths-guide' : 'playbook';
+  if (raw === 'paths-guide') return 'paths-guide';
+  if (raw === 'stadium-live') return 'stadium-live';
+  if (raw === 'stadium-6weeks') return 'stadium-6weeks';
+  return 'playbook';
 }
+

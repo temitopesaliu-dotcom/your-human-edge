@@ -24,6 +24,7 @@ body {
   background: var(--warm);
   color: var(--ink);
   overflow-x: hidden;
+
 }
 
 .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }

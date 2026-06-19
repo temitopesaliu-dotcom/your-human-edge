@@ -28,6 +28,16 @@ const RESOURCES: Resource[] = [
     category: 'individual',
   },
   {
+    id: 'ai-stadium',
+    icon: '',
+    title: 'AI for Teachers and Coaches',
+    description:
+      'An interactive 6-gate guide for teachers, coaches, trainers and facilitators — build your AI clone, open the floor, monetise your knowledge, and project your monthly revenue. Includes prompt templates, streak tracker, offer builder, and revenue calculator.',
+    href: '/resources/ai-stadium',
+    cta: 'Open the guide →',
+    category: 'individual',
+  },
+  {
     id: 'b2b-prompt',
     icon: '',
     title: 'B2B Lead Acquisition Prompt',
@@ -69,7 +79,6 @@ const VALUE_BULLETS = [
   'Monetisation strategies and income ranges',
 ];
 
-
 export default function ResourcesClient() {
   const [activeTab, setActiveTab] = useState<'individual' | 'company'>('individual');
 
@@ -79,8 +88,12 @@ export default function ResourcesClient() {
 
   const filtered = RESOURCES.filter((r) => r.category === activeTab);
   const activeCategory = CATEGORIES.find((c) => c.key === activeTab)!;
-  const featured = filtered.length > 0 ? filtered[0] : null;
-  const remaining = filtered.slice(1);
+
+  // For 'individual' category, show all resources as a grid (no featured card)
+  // For 'company' category, feature the first resource
+  const showFeatured = activeTab !== 'individual';
+  const featured = showFeatured && filtered.length > 0 ? filtered[0] : null;
+  const remaining = showFeatured ? filtered.slice(1) : filtered;
 
   const accentVars = {
     '--accent': activeCategory.color,
@@ -138,10 +151,7 @@ export default function ResourcesClient() {
                   )}
                   <div className="rb-cat-card-header">
                     <span className="rb-cat-card-label">{cat.label}</span>
-                    <span
-                      className="rb-cat-card-count"
-                      aria-hidden
-                    >
+                    <span className="rb-cat-card-count" aria-hidden>
                       {RESOURCES.filter((r) => r.category === cat.key).length}
                     </span>
                   </div>
@@ -154,7 +164,6 @@ export default function ResourcesClient() {
           <div className="rb-resource-count">
             <span className="dot dot--sm" style={{ background: activeCategory.color }} aria-hidden />
             {filtered.length} resource{filtered.length !== 1 ? 's' : ''} available
-            {filtered.length > 0 && activeTab === 'individual' && ' — 1 featured below'}
           </div>
         </div>
       </div>
