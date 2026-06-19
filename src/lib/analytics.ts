@@ -83,6 +83,21 @@ if (typeof document !== "undefined") {
  * @param data  - Optional event-specific data
  * @param page  - Optional page override; defaults to current pathname
  */
+/**
+ * Track a Facebook Pixel event safely — no-ops if fbq isn't loaded.
+ */
+export function trackFBEvent(
+	eventName: string,
+	params?: Record<string, string | number>,
+) {
+	if (
+		typeof window !== "undefined" &&
+		typeof (window as any).fbq === "function"
+	) {
+		(window as any).fbq("track", eventName, params);
+	}
+}
+
 export function track(
 	event: string,
 	data?: Record<string, unknown>,

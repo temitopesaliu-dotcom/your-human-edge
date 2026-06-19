@@ -1,16 +1,16 @@
 'use client';
 
 const TIME_ZONES = [
-  { label: 'UK (BST)', time: '12:00 (noon)', gold: true },
-  { label: 'GMT / UTC', time: '11:00', gold: false },
-  { label: 'Lagos (WAT)', time: '12:00', gold: false },
-  { label: 'Johannesburg (CAT)', time: '13:00', gold: false },
-  { label: 'Nairobi (EAT)', time: '14:00', gold: false },
-  { label: 'Mumbai (IST)', time: '16:30', gold: false },
-  { label: 'New York (EDT)', time: '07:00', gold: false },
-  { label: 'Chicago (CDT)', time: '06:00', gold: false },
-  { label: 'Los Angeles (PDT)', time: '04:00', gold: false },
-  { label: 'Sydney (AEST)', time: '21:00', gold: false },
+  { label: 'UK (BST)', time: '16:00 (4 PM)', gold: true },
+  { label: 'GMT / UTC', time: '15:00 (3 PM)', gold: false },
+  { label: 'Lagos (WAT)', time: '16:00 (4 PM)', gold: false },
+  { label: 'Johannesburg (CAT)', time: '17:00 (5 PM)', gold: false },
+  { label: 'Nairobi (EAT)', time: '18:00 (6 PM)', gold: false },
+  { label: 'Mumbai (IST)', time: '20:30 (8:30 PM)', gold: false },
+  { label: 'New York (EDT)', time: '11:00 (11 AM)', gold: false },
+  { label: 'Chicago (CDT)', time: '10:00 (10 AM)', gold: false },
+  { label: 'Los Angeles (PDT)', time: '08:00 (8 AM)', gold: false },
+  { label: 'Sydney (AEST)', time: '01:00 (1 AM) next day', gold: false },
 ];
 
 export default function PaymentSuccessfulClient() {
@@ -95,9 +95,9 @@ export default function PaymentSuccessfulClient() {
           <br />
           Your training will take place on{' '}
           <strong style={{ color: '#F2A93C', fontWeight: 600 }}>July 12, 2026</strong> at{' '}
-          <strong style={{ color: '#F2A93C', fontWeight: 600 }}>12:00 PM (noon) UK time</strong>
+          <strong style={{ color: '#F2A93C', fontWeight: 600 }}>4:00 PM (UK time)</strong>
           <span style={{ display: 'block', fontSize: '14px', color: 'rgba(246,241,228,0.5)', marginTop: '4px' }}>
-            (11:00 GMT / UTC)
+            (15:00 GMT / UTC)
           </span>
         </p>
 

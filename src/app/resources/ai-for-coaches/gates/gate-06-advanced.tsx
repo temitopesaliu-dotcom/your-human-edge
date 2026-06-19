@@ -52,7 +52,7 @@ export function Gate06Advanced() {
           </ul>
         </div>
         <div className="as-pricing-wrap">
-          <div className="as-section-label as-section-headline">Go Further With Me on July 12th, 2026, at 12:00 PM London (BST) &amp; Lagos (WAT) / 7:00 AM Toronto (EDT) / 9:00 PM Sydney (AEST)</div>
+          <div className="as-section-label as-section-headline">Go Further With Me on July 12th, 2026, at 4:00 PM London (BST) & Lagos (WAT) / 11:00 AM Toronto (EDT) / 1:00 AM [July 13th] Sydney (AEST).</div>
           <div className="as-pricing">
             <div className="as-price-card">
               <div className="as-price-tier">Live class</div>

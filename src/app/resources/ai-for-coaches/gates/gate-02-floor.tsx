@@ -74,7 +74,7 @@ export function Gate02Floor({ copiedId, onCopy }: Gate02FloorProps) {
     <div>
       <div className="as-panel-head">
         <div>
-          <h2 className="as-display">Open the floor</h2>
+          <h2 className="as-display">Posting across social media</h2>
           <p className="as-sub">New accounts, daily reps, and the mindset that makes the algorithm trust you.</p>
         </div>
       </div>
