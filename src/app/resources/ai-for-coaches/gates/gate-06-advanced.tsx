@@ -23,7 +23,7 @@ export function Gate06Advanced() {
         />
         <div className="as-coach-info">
           <h3>Temitope Saliu</h3>
-          <div className="role">AI strategist · author · founder</div>
+          <div className="role">Teacher · Solutions Architect · Founder</div>
           <p className="bio">
             Over a decade across marketing, product, and partnerships — including training professionals across Africa alongside Google and Microsoft.<br></br> I write and build at the intersection of AI and human psychology, and this gate-by-gate path is the same system I use to turn expertise into income,<br></br> handed to you.
           </p>
@@ -37,7 +37,7 @@ export function Gate06Advanced() {
         <li>UK Women Economic Forum; Iconic Award for Impact on the distribution of tech skills across UK &amp; Africa.</li>
         <li>Endorsed UK Global Exceptional Tech Talent.</li>
         <li>Awarded top sales agent from the Ministry of Commerce, Lagos, Nigeria.</li>
-        <li>Most Importantly; A fulfilled heart doing what I love &amp; generating over <span className="as-gold">$500,000</span> in revenue.</li>
+        <li className="as-gold">Most Importantly; A fulfilled heart doing what I love &amp; generating over $500,000 in revenue.</li>
       </ul>
 
       <div className="as-cta-section">

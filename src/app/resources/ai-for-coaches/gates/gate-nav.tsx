@@ -5,7 +5,7 @@ const GATES: { id: GateId; num: string; label: string }[] = [
   { id: 'g2', num: 'Gate 02', label: 'The Floor' },
   { id: 'g3', num: 'Gate 03', label: 'Monetize' },
   { id: 'g4', num: 'Gate 04', label: 'The Payout' },
-  { id: 'g5', num: 'Gate 05', label: 'Scoreboard' },
+  { id: 'g5', num: 'Gate 05', label: 'Revenue' },
   { id: 'g6', num: 'Gate 06', label: 'Advanced' },
 ];
 

@@ -83,7 +83,7 @@ export function Gate05Scoreboard() {
     <div>
       <div className="as-panel-head">
         <div>
-          <h2 className="as-display">The scoreboard</h2>
+          <h2 className="as-display">Revenue Projection</h2>
           <p className="as-sub">Stack your three payouts and see the monthly number.</p>
         </div>
       </div>
