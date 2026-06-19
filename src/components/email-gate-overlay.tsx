@@ -9,8 +9,8 @@ type Props = {
   setGateName: (v: string) => void;
   gateEmail: string;
   setGateEmail: (v: string) => void;
-  gateType: 'individual' | 'company';
-  setGateType: (v: 'individual' | 'company') => void;
+  gateType: 'coach' | 'company';
+  setGateType: (v: 'coach' | 'company') => void;
   gateError: string;
   gateSubmitting: boolean;
   onSubmit: (e: React.FormEvent) => void;
@@ -71,10 +71,10 @@ export default function EmailGateOverlay({
                 <div className="egate-type-group">
                   <button
                     type="button"
-                    className={`egate-type-btn${gateType === 'individual' ? ' egate-type-btn--active' : ''}`}
-                    onClick={() => setGateType('individual')}
+                    className={`egate-type-btn${gateType === 'coach' ? ' egate-type-btn--active' : ''}`}
+                    onClick={() => setGateType('coach')}
                   >
-                    Individual
+                    Coach
                   </button>
                   <button
                     type="button"
@@ -102,3 +102,4 @@ export default function EmailGateOverlay({
     </div>
   );
 }
+

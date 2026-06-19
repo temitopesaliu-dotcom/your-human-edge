@@ -75,7 +75,7 @@ export default function PaymentSuccessfulClient() {
           color: 'rgba(246, 241, 228, 0.7)',
           marginBottom: '28px',
         }}>
-          You&apos;re in. See you at the stadium.
+          You&apos;re in. See you at the live class.
         </p>
 
         <div style={{

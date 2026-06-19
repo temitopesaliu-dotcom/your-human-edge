@@ -342,3 +342,32 @@ const result = await mailerLiteRequest('/subscribers', {
   }
 }
 
+
+/** Coach subscriber — adds to the coach-specific MailerLite group when someone signs up as a coach. */
+export async function addCoachToMailerLite(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const coachGroup = process.env.MAILERLITE_COACH_GROUP;
+  if (!apiKey || !coachGroup) {
+    console.warn('[mailer] MAILERLITE_API_KEY or MAILERLITE_COACH_GROUP not set — skipping coach group add');
+    return;
+  }
+
+  const groups: string[] = [];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+  groups.push(coachGroup);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: { email, fields: { name, subscriber_type: 'coach' }, groups },
+  });
+  if (!result.ok) {
+    console.error('[mailer] Coach MailerLite add failed:', result.status, result.errorText);
+  }
+}
+
+
+

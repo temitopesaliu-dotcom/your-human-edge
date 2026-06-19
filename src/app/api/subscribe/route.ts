@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, isMailerLiteBuyer } from '@/lib/mailer';
+import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, addCoachToMailerLite, isMailerLiteBuyer } from '@/lib/mailer';
 import { getSubscriber, setSubscriber } from '@/lib/kv';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
@@ -11,22 +11,33 @@ const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 type SubscriberSource = 'quiz' | 'paths' | 'b2b-prompt' | string;
 
 /** Validate and parse the request body. */
-function parseSubscribeBody(body: unknown): { email: string; name: string; source: SubscriberSource; isCompany: boolean; archetype: ArchetypeKey } | null {
+function parseSubscribeBody(body: unknown): { email: string; name: string; source: SubscriberSource; isCompany: boolean; archetype: ArchetypeKey; signupType: 'coach' | 'company' } | null {
   const data = body as Record<string, unknown>;
   const email = ((data?.email as string) || '').trim().toLowerCase();
   const name = ((data?.name as string) || '').trim();
   const source = ((data?.source as string) || 'quiz').trim() as SubscriberSource;
-  const isCompany = data?.isCompany === true || data?.isCompany === 'true';
+  const rawSignupType = ((data?.signupType as string) || 'company').trim();
+  const isCompany = rawSignupType === 'company' || data?.isCompany === true || data?.isCompany === 'true';
+  const signupType: 'coach' | 'company' = rawSignupType === 'coach' ? 'coach' : 'company';
   let archetype = ((data?.archetype as string) || 'H').trim().toUpperCase() as ArchetypeKey;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
   if (!VALID_ARCHETYPES.includes(archetype)) archetype = 'H';
 
-  return { email, name, source, isCompany, archetype };
+  return { email, name, source, isCompany, archetype, signupType };
 }
 
 /** Handle MailerLite logic for existing subscribers. */
-async function handleExistingSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean): Promise<void> {
+async function handleExistingSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean, signupType: 'coach' | 'company'): Promise<void> {
+  // If signing up as a coach, add them to the coach MailerLite group
+  if (signupType === 'coach') {
+    try {
+      await addCoachToMailerLite(email, name);
+    } catch (err: unknown) {
+      console.error('[subscribe] Coach MailerLite add failed:', err instanceof Error ? err.message : String(err));
+    }
+  }
+
   if ((source === 'paths' || source === 'b2b-prompt') && isCompany) {
     try {
       await addFreeResourceSubscriberToMailerLite(email, name, true);
@@ -37,7 +48,16 @@ async function handleExistingSubscriber(email: string, name: string, source: Sub
 }
 
 /** Handle MailerLite logic for new subscribers. */
-async function handleNewSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean, archetype: ArchetypeKey): Promise<void> {
+async function handleNewSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean, archetype: ArchetypeKey, signupType: 'coach' | 'company'): Promise<void> {
+  // If signing up as a coach, add them to the coach MailerLite group
+  if (signupType === 'coach') {
+    try {
+      await addCoachToMailerLite(email, name);
+    } catch (err: unknown) {
+      console.error('[subscribe] Coach MailerLite add failed:', err instanceof Error ? err.message : String(err));
+    }
+  }
+
   if (source === 'paths' || source === 'b2b-prompt') {
     try {
       await addFreeResourceSubscriberToMailerLite(email, name, isCompany);
@@ -68,13 +88,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
     }
 
-    const { email, name, source, isCompany, archetype } = parsed;
+    const { email, name, source, isCompany, archetype, signupType } = parsed;
     const existing = await getSubscriber(email);
 
     if (existing) {
-      await handleExistingSubscriber(email, name, source, isCompany);
+      await handleExistingSubscriber(email, name, source, isCompany, signupType);
     } else {
-      await handleNewSubscriber(email, name, source, isCompany, archetype);
+      await handleNewSubscriber(email, name, source, isCompany, archetype, signupType);
     }
 
     // Always upsert the KV record so we track the earliest source.

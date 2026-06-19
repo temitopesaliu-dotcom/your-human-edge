@@ -12,7 +12,7 @@ export function useEmailGate(source: string) {
   const [gatePhase, setGatePhase] = useState<GatePhase>(null);
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
-  const [gateType, setGateType] = useState<'individual' | 'company'>('individual');
+  const [gateType, setGateType] = useState<'coach' | 'company'>('coach');
   const [gateError, setGateError] = useState('');
   const [gateSubmitting, setGateSubmitting] = useState(false);
   const mountedRef = useRef(true);
@@ -72,7 +72,7 @@ export function useEmailGate(source: string) {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, archetype: 'H', source, isCompany: gateType === 'company' }),
+        body: JSON.stringify({ email, name, archetype: 'H', source, signupType: gateType }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -93,3 +93,4 @@ export function useEmailGate(source: string) {
     gateType, setGateType, gateError, gateSubmitting, handleGateSubmit,
   };
 }
+
