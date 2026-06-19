@@ -62,7 +62,7 @@ export function Gate06Advanced() {
               </div>
               <div className="as-price-note">Early access price</div>
               <a
-                href="https://buy.stripe.com/00wfZi3xt4FacwjdX53oA0g"
+                href="https://buy.stripe.com/00w9AUc3Z8Vqcwj4mv3oA0j"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -77,7 +77,7 @@ export function Gate06Advanced() {
               </div>
               <div className="as-price-note">Early access price</div>
               <a
-                href="https://buy.stripe.com/4gM6oIgkf9Zu1RFcT13oA0h"
+                href="https://buy.stripe.com/bJe5kE9VRefK3ZN8CL3oA0i"
                 target="_blank"
                 rel="noopener noreferrer"
               >
