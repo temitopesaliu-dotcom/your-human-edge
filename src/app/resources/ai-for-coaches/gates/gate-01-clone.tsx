@@ -7,24 +7,20 @@ interface Gate01CloneProps {
 
 const TOOLS = [
   {
-    name: 'HeyGen',
-    tag: 'avatar + voice clone',
-    desc: 'Paste a script, pick (or clone) your avatar, get a talking video in minutes. No camera, no lighting.',
+    name: 'ChatGPT',
+    desc: 'Create your image',
   },
   {
-    name: 'Synthesia',
-    tag: 'avatar video, multilingual',
-    desc: 'Strong for polished training and course-style videos, with auto-translation into other languages.',
+    name: 'Google Flow',
+    desc: 'Create your 8-second free video with the image created on ChatGPT',
   },
   {
     name: 'ElevenLabs',
-    tag: 'voice cloning',
-    desc: 'Clone your real voice for podcasts, audiobooks, or voiceovers when you don\'t want an on-screen avatar.',
+    desc: 'Clone your voice',
   },
   {
     name: 'Captions',
-    tag: 'record-and-AI-edit',
-    desc: 'Prefer your real face? Record on your phone — it auto-edits, captions, and reframes for each platform.',
+    desc: 'Prefer your real face? Record on your phone - it auto edits, captions, and reframes for each platform',
   },
 ];
 
@@ -43,7 +39,6 @@ export function Gate01Clone({ copiedId, onCopy }: Gate01CloneProps) {
         {TOOLS.map((t) => (
           <div key={t.name} className="as-tool">
             <div className="tname">{t.name}</div>
-            <span className="ttag">{t.tag}</span>
             <p>{t.desc}</p>
           </div>
         ))}
