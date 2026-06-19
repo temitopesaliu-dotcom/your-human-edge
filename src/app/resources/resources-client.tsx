@@ -23,7 +23,7 @@ const RESOURCES: Resource[] = [
     description:
       'The complete directory of 50 AI career paths across creative, human-centered, business, technical and niche roles. Each path includes upskill steps, specific tools, and monetisation strategies.',
     href: '/paths',
-    cta: 'Access the paths →',
+    cta: 'Access the paths',
     badge: 'Most popular',
     category: 'individual',
   },
@@ -34,7 +34,7 @@ const RESOURCES: Resource[] = [
     description:
       'An interactive 6-gate guide for teachers, coaches, trainers and facilitators — build your AI clone, open the floor, monetise your knowledge, and project your monthly revenue. Includes prompt templates, streak tracker, offer builder, and revenue calculator.',
     href: '/resources/ai-stadium',
-    cta: 'Open the guide →',
+    cta: 'Open the guide',
     category: 'individual',
   },
   {
@@ -44,7 +44,7 @@ const RESOURCES: Resource[] = [
     description:
       'A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company. Paste into any AI assistant, fill in 8 fields, and get an operational playbook in under 2 minutes.',
     href: '/resources/b2b-lead-acquisition-prompt',
-    cta: 'Get the prompt →',
+    cta: 'Get the prompt',
     badge: 'New',
     category: 'company',
   },
