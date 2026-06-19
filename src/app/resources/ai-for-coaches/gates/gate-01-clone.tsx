@@ -51,16 +51,6 @@ export function Gate01Clone({ copiedId, onCopy }: Gate01CloneProps) {
 
       <div className="prompt-header-wrap">
         <div className="as-section-label">Prompt templates — copy, fill the brackets, paste into Claude or ChatGPT</div>
-        <a
-          href="https://drive.google.com/drive/folders/1xb1tO68S1TMBMrl9d_cMHElrsSR4zqlr?usp=sharing"
-          className="prompt-cta"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="prompt-cta-icon">⚡</span>
-          <span className="prompt-cta-text">Create your AI Clone in minutes</span>
-          <span className="prompt-cta-arrow">→</span>
-        </a>
       </div>
 
       <PromptCard
