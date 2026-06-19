@@ -24,9 +24,6 @@ export function Gate06Advanced() {
         <div className="as-coach-info">
           <h3>Temitope Saliu</h3>
           <div className="role">Teacher · Solutions Architect · Founder</div>
-          <p className="bio">
-            Over a decade across marketing, product, and partnerships — including training professionals across Africa alongside Google and Microsoft.<br></br> I write and build at the intersection of AI and human psychology, and this gate-by-gate path is the same system I use to turn expertise into income,<br></br> handed to you.
-          </p>
         </div>
       </div>
       <ul className="as-awards">
@@ -55,7 +52,7 @@ export function Gate06Advanced() {
           </ul>
         </div>
         <div className="as-pricing-wrap">
-          <div className="as-section-label">Go further with me</div>
+          <div className="as-section-label as-section-headline">Go Further With Me on July 12th, 2026, at 12:00 PM London (BST) &amp; Lagos (WAT) / 7:00 AM Toronto (EDT) / 9:00 PM Sydney (AEST)</div>
           <div className="as-pricing">
             <div className="as-price-card">
               <div className="as-price-tier">Live class</div>
@@ -73,7 +70,7 @@ export function Gate06Advanced() {
               </a>
             </div>
             <div className="as-price-card featured">
-              <div className="as-price-tier">Live Class + 6 Weeks Hand-Held</div>
+              <div className="as-price-tier">Live Class + 6 Weeks Hand-Held with Private Community</div>
               <div className="as-price-row">
                 <span className="as-price-old as-mono">$397</span>
                 <span className="as-price-new as-display">$197</span>
@@ -84,7 +81,7 @@ export function Gate06Advanced() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button type="button" className="as-price-cta">Start my 6 weeks</button>
+                <button type="button" className="as-price-cta">CLAIM MY SPOT</button>
               </a>
             </div>
           </div>

@@ -634,7 +634,7 @@ export function StadiumStyles() {
       .as-coach {
         display: flex;
         gap: 22px;
-        align-items: flex-start;
+        align-items: center;
         margin: 0 32px 0;
         flex-wrap: wrap;
       }
@@ -661,7 +661,7 @@ export function StadiumStyles() {
       .as-coach-info p.bio { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
       .as-awards { list-style: none; display: grid; gap: 14px; padding: 0 32px; margin: 18px 0 44px; }
       .as-awards li {
-        font-size: 13px;
+        font-size: 16px;
         padding-left: 18px;
         position: relative;
         line-height: 1.6;
@@ -702,7 +702,7 @@ export function StadiumStyles() {
         gap: 12px;
       }
       .as-learn-list li {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.5;
         padding-left: 20px;
         position: relative;
@@ -723,6 +723,17 @@ export function StadiumStyles() {
         padding: 0;
         max-width: none;
         margin: 0;
+      }
+      .as-section-headline {
+        font-size: 22px !important;
+        font-weight: 800 !important;
+        font-family: 'Anton', 'Oswald', sans-serif !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        color: var(--ink) !important;
+        padding-bottom: 16px;
+        margin-bottom: 8px;
       }
       .as-cta-section .as-pricing-wrap .as-section-label {
         text-align: left;

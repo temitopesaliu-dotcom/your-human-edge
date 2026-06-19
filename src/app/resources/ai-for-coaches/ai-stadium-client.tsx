@@ -107,15 +107,7 @@ export default function AiStadiumClient() {
             {activeGate === 'g6' && <Gate06Advanced />}
           </div>
 
-          {/* FOOTER */}
-          <footer className="as-footer">
-            <div className="footer-brand">human<span>+</span>ai</div>
-            <ul className="f-links">
-              <li><Link href="/quiz">Take the quiz</Link></li>
-              <li><Link href="/resources">Resources</Link></li>
-            </ul>
-            <div style={{ fontSize: '.7rem', opacity: 0.25 }}>&copy; 2026</div>
-          </footer>
+          {/* FOOTER — removed per request */}
         </div>
       )}
     </>
