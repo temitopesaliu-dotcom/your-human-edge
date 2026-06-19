@@ -882,6 +882,10 @@ export function StadiumStyles() {
         .prompt-header-wrap,
         .as-scoreboard,
         .as-disclaimer,
+        .as-tagline{
+        margin-left:16px;
+        margin-right: 16px;
+        }
         .as-panel-head { padding-left: 16px; padding-right: 16px; margin-left: 0; margin-right: 0; }
         .as-prompt { margin-left: 16px; margin-right: 16px; }
         .offer-builder-wrap { margin-left: 16px; margin-right: 16px; }

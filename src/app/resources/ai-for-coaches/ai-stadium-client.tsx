@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
+import LiveClassPopup from '@/components/live-class-popup';
 import { StadiumStyles } from './stadium-styles';
 import { GateHero } from './gates/gate-hero';
 import { GateNav } from './gates/gate-nav';
@@ -67,12 +68,7 @@ export default function AiStadiumClient() {
     <>
       <StadiumStyles />
 
-      {gatePhase === null && (
-        <div className="as-loading">
-          <div className="as-loading-spin" />
-          <p>Loading resource…</p>
-        </div>
-      )}
+      <LiveClassPopup />
 
       <EmailGateOverlay
         gatePhase={gatePhase}
@@ -89,27 +85,20 @@ export default function AiStadiumClient() {
         onSubmit={handleGateSubmit}
       />
 
-      {gatePhase === 'content' && (
-        <div className="ai-stadium-root">
-          {/* HERO */}
-          <GateHero />
+      <div className="ai-stadium-root">
+        <GateHero />
 
-          {/* NAV */}
           <GateNav activeGate={activeGate} onGateChange={handleGateChange} />
 
-          {/* PANELS */}
-          <div className="as-panels">
-            {activeGate === 'g1' && <Gate01Clone copiedId={copiedId} onCopy={handleCopy} />}
-            {activeGate === 'g2' && <Gate02Floor copiedId={copiedId} onCopy={handleCopy} />}
-            {activeGate === 'g3' && <Gate03Monetize copiedId={copiedId} onCopy={handleCopy} />}
-            {activeGate === 'g4' && <Gate04Payout copiedId={copiedId} onCopy={handleCopy} />}
-            {activeGate === 'g5' && <Gate05Scoreboard />}
-            {activeGate === 'g6' && <Gate06Advanced />}
-          </div>
-
-          {/* FOOTER — removed per request */}
+        <div className="as-panels">
+          {activeGate === 'g1' && <Gate01Clone copiedId={copiedId} onCopy={handleCopy} />}
+          {activeGate === 'g2' && <Gate02Floor copiedId={copiedId} onCopy={handleCopy} />}
+          {activeGate === 'g3' && <Gate03Monetize copiedId={copiedId} onCopy={handleCopy} />}
+          {activeGate === 'g4' && <Gate04Payout copiedId={copiedId} onCopy={handleCopy} />}
+          {activeGate === 'g5' && <Gate05Scoreboard />}
+          {activeGate === 'g6' && <Gate06Advanced />}
         </div>
-      )}
+      </div>
     </>
   );
 }

@@ -23,7 +23,15 @@ export function useEmailGate(source: string) {
   }, []);
 
   useEffect(() => {
+    // Safety timeout: if still null after 3s, show the gate
+    const safety = setTimeout(() => {
+      if (mountedRef.current && gatePhase === null) {
+        setGatePhase('gate');
+      }
+    }, 3000);
+
     if (isLocallySubscribed()) {
+      clearTimeout(safety);
       setGatePhase('content');
       return;
     }
@@ -31,12 +39,14 @@ export function useEmailGate(source: string) {
       try { return localStorage.getItem('yhe_email'); } catch { return null; }
     })();
     if (!storedEmail) {
+      clearTimeout(safety);
       setGatePhase('gate');
       return;
     }
     setGatePhase('checking');
     checkRemoteSubscriber(storedEmail).then(subscribed => {
       if (!mountedRef.current) return;
+      clearTimeout(safety);
       if (subscribed) {
         const storedName = (() => {
           try { return localStorage.getItem('yhe_name') || ''; } catch { return ''; }
@@ -53,8 +63,11 @@ export function useEmailGate(source: string) {
       }
     }).catch(() => {
       if (!mountedRef.current) return;
+      clearTimeout(safety);
       setGatePhase('gate');
     });
+
+    return () => clearTimeout(safety);
   }, []);
 
   async function handleGateSubmit(e: React.FormEvent) {
