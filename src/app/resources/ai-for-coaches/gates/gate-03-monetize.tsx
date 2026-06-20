@@ -24,9 +24,12 @@ export function Gate03Monetize({ copiedId, onCopy }: Gate03MonetizeProps) {
     storageGet('offer-builder', { a: '', o: '', t: '', p: '' })
   );
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     storageSet('offer-builder', offer);
-  }, [offer]);
+  }, 300);
+  return () => clearTimeout(timer);
+}, [offer]);
 
   const updateField = (field: 'a' | 'o' | 't' | 'p', value: string) => {
     setOffer(prev => ({ ...prev, [field]: value }));

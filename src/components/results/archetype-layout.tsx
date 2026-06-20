@@ -4,6 +4,7 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
 import SiteNav from "@/components/site-nav";
+import './archetype-layout.css';
 
 /* ── Types ──────────────────────────────────────────────────────── */
 
@@ -40,10 +41,14 @@ export interface ArchetypeConfig {
   /** Archetype key for tracking & checkout (e.g. "C", "G", "H", "S") */
   archetypeKey: string;
   /** Full CSS string for this archetype */
-  css: string;
   /** Wrapper className (e.g. "cr-amplifier", "human-bridge") */
   wrapperClass: string;
 
+    primaryColor: string;
+  secondaryColor: string;
+  navRgb: string;
+  heroGrad: string;
+  ctaBg: string;
   /* Hero */
   icon: string;
   name: string;
@@ -135,8 +140,16 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
   const greeting = name ? `${name}, meet your archetype.` : "Your result is in.";
 
   return (
-    <div className={config.wrapperClass}>
-      <style>{config.css}</style>
+      <div
+  className="root"
+  style={{
+    '--primary': config.primaryColor,
+    '--secondary': config.secondaryColor,
+    '--nav-rgb': config.navRgb,
+    '--hero-grad': config.heroGrad,
+    '--cta-bg': config.ctaBg,
+  } as React.CSSProperties}
+>
 
       {/* ── Nav ── */}
       <SiteNav ctaLabel="Get the Playbook →" ctaHref="#paywall" />

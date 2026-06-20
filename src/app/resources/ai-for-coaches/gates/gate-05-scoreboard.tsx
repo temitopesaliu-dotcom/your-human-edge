@@ -43,14 +43,19 @@ export function Gate05Scoreboard() {
     ssQty: BASE_PRICES_USD.ss.qty,
   }));
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     storageSet('gate5-currency', currencyCode);
-  }, [currencyCode]);
+  }, 300);
+  return () => clearTimeout(timer);
+}, [currencyCode]);
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     storageSet('gate5-values', vals);
-  }, [vals]);
-
+  }, 300);
+  return () => clearTimeout(timer);
+}, [vals]);
   const currency = useMemo(
     () => CURRENCIES.find(c => c.code === currencyCode) || CURRENCIES[0],
     [currencyCode]
