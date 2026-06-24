@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
-import LiveClassPopup from '@/components/live-class-popup';
+// import LiveClassPopup from '@/components/live-class-popup'; // temporarily hidden
 import { StadiumStyles } from './stadium-styles';
 import { GateHero } from './gates/gate-hero';
 import { GateNav } from './gates/gate-nav';
@@ -14,7 +14,7 @@ import { Gate02Floor } from './gates/gate-02-floor';
 import { Gate03Monetize } from './gates/gate-03-monetize';
 import { Gate04Payout } from './gates/gate-04-payout';
 import { Gate05Scoreboard } from './gates/gate-05-scoreboard';
-import { Gate06Advanced } from './gates/gate-06-advanced';
+// import { Gate06Advanced } from './gates/gate-06-advanced'; // temporarily hidden
 
 type GateId = 'g1' | 'g2' | 'g3' | 'g4' | 'g5' | 'g6';
 
@@ -68,7 +68,7 @@ export default function AiStadiumClient() {
     <>
       <StadiumStyles />
 
-      <LiveClassPopup />
+      {/* <LiveClassPopup /> */}{/* temporarily hidden */}
 
       <EmailGateOverlay
         gatePhase={gatePhase}
@@ -96,7 +96,7 @@ export default function AiStadiumClient() {
           {activeGate === 'g3' && <Gate03Monetize copiedId={copiedId} onCopy={handleCopy} />}
           {activeGate === 'g4' && <Gate04Payout copiedId={copiedId} onCopy={handleCopy} />}
           {activeGate === 'g5' && <Gate05Scoreboard />}
-          {activeGate === 'g6' && <Gate06Advanced />}
+          {/* {activeGate === 'g6' && <Gate06Advanced />} */}{/* temporarily hidden */}
         </div>
       </div>
     </>
