@@ -313,7 +313,8 @@ export async function addStadiumBuyerToMailerLite(
 export async function addFreeResourceSubscriberToMailerLite(
   email: string,
   name: string,
-  isCompany: boolean
+  isCompany: boolean,
+  signupRole?: string
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) {
@@ -335,7 +336,7 @@ export async function addFreeResourceSubscriberToMailerLite(
 
 const result = await mailerLiteRequest('/subscribers', {
     method: 'POST',
-    body: { email, fields: { name, subscriber_type: isCompany ? 'company' : 'individual' }, groups },
+    body: { email, fields: { name, subscriber_type: signupRole ?? (isCompany ? 'company' : 'individual') }, groups },
   });
   if (!result.ok) {
     console.error('[mailer] Free resource subscriber add failed:', result.status, result.errorText);
@@ -347,6 +348,7 @@ const result = await mailerLiteRequest('/subscribers', {
 export async function addCoachToMailerLite(
   email: string,
   name: string,
+  signupRole?: string,
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const coachGroup = process.env.MAILERLITE_COACH_GROUP;
@@ -362,7 +364,7 @@ export async function addCoachToMailerLite(
 
   const result = await mailerLiteRequest('/subscribers', {
     method: 'POST',
-    body: { email, fields: { name, subscriber_type: 'coach' }, groups },
+    body: { email, fields: { name, subscriber_type: signupRole ?? 'coach' }, groups },
   });
   if (!result.ok) {
     console.error('[mailer] Coach MailerLite add failed:', result.status, result.errorText);

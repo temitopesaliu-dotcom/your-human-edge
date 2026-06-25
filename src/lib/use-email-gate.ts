@@ -7,12 +7,13 @@ import {
 } from '@/lib/subscriber';
 
 export type GatePhase = 'gate' | 'checking' | 'content' | null;
+export type SignupRole = 'professional' | 'creator' | 'coach' | 'consultant' | 'founder' | 'company';
 
 export function useEmailGate(source: string) {
   const [gatePhase, setGatePhase] = useState<GatePhase>(null);
   const [gateName, setGateName] = useState('');
   const [gateEmail, setGateEmail] = useState('');
-  const [gateType, setGateType] = useState<'coach' | 'company'>('coach');
+  const [gateType, setGateType] = useState<SignupRole>('professional');
   const [gateError, setGateError] = useState('');
   const [gateSubmitting, setGateSubmitting] = useState(false);
   const mountedRef = useRef(true);
@@ -103,7 +104,7 @@ export function useEmailGate(source: string) {
 
   return {
     gatePhase, gateName, setGateName, gateEmail, setGateEmail,
-    gateType, setGateType, gateError, gateSubmitting, handleGateSubmit,
+    gateType, setGateType: setGateType as (v: SignupRole) => void, gateError, gateSubmitting, handleGateSubmit,
   };
 }
 

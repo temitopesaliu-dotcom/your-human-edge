@@ -1,5 +1,5 @@
 'use client';
-import type { GatePhase } from '@/lib/use-email-gate';
+import type { GatePhase, SignupRole } from '@/lib/use-email-gate';
 
 type Props = {
   gatePhase: GatePhase;
@@ -9,8 +9,8 @@ type Props = {
   setGateName: (v: string) => void;
   gateEmail: string;
   setGateEmail: (v: string) => void;
-  gateType: 'coach' | 'company';
-  setGateType: (v: 'coach' | 'company') => void;
+  gateType: SignupRole;
+  setGateType: (v: SignupRole) => void;
   gateError: string;
   gateSubmitting: boolean;
   onSubmit: (e: React.FormEvent) => void;
@@ -67,23 +67,20 @@ export default function EmailGateOverlay({
                 />
               </div>
               <div>
-                <label className="form-label">I&apos;m signing up as</label>
-                <div className="egate-type-group">
-                  <button
-                    type="button"
-                    className={`egate-type-btn${gateType === 'coach' ? ' egate-type-btn--active' : ''}`}
-                    onClick={() => setGateType('coach')}
-                  >
-                    Coach
-                  </button>
-                  <button
-                    type="button"
-                    className={`egate-type-btn${gateType === 'company' ? ' egate-type-btn--active' : ''}`}
-                    onClick={() => setGateType('company')}
-                  >
-                    Company / Organisation
-                  </button>
-                </div>
+                <label className="form-label">I&apos;m signing up as a</label>
+                <select
+                  className="form-input"
+                  value={gateType}
+                  onChange={e => setGateType(e.target.value as SignupRole)}
+                  aria-label="Signing up as"
+                >
+                  <option value="professional">Professional</option>
+                  <option value="creator">Creator</option>
+                  <option value="coach">Coach</option>
+                  <option value="consultant">Consultant</option>
+                  <option value="founder">Founder</option>
+                  <option value="company">Company / Organisation</option>
+                </select>
               </div>
               {gateError && <div className="form-error">{gateError}</div>}
               <button
