@@ -43,8 +43,10 @@ export async function POST(request: NextRequest) {
     });
 
     if (!res.ok) {
+      const body = await res.text();
+      console.error("[submit] Google Sheets webhook error:", res.status, body);
       return NextResponse.json(
-        { error: "Failed to submit to Google Sheets" },
+        { error: `Google Sheets webhook returned ${res.status}` },
         { status: 502 }
       );
     }
