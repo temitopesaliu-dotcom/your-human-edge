@@ -692,7 +692,8 @@ export default function AiosLandingPage() {
               From first conversation to running system.
             </h2>
             <p className="body-lg mt-3">
-              A defined path. No ambiguity. No wasted time on either side.
+              A defined path. No ambiguity. No wasted time on either side.<br></br>
+              Most implementations range from $3,500-$10,000+ depending on complexity.
             </p>
           </div>
 
@@ -758,7 +759,7 @@ export default function AiosLandingPage() {
               <p className="timeline-step-desc">
                 We build your AI Operating System to specification. Projects
                 typically run 4–10 weeks depending on scope. You have visibility
-                throughout. Most implementations range from $2,500–$10,000+
+                throughout. Most implementations range from $3,500–$10,000+
                 depending on complexity.
               </p>
             </div>
@@ -1077,7 +1078,7 @@ export default function AiosLandingPage() {
                 },
                 {
                   q: "How much does implementation cost?",
-                  a: "We do not publish fixed pricing because every engagement is scoped to your specific business. Most projects range from $2,500 for focused single-system builds to $10,000+ for comprehensive operating system implementations. The Blueprint includes an exact investment estimate for your project. The $500 Blueprint fee is credited in full if you proceed.",
+                  a: "We do not publish fixed pricing because every engagement is scoped to your specific business. Most projects range from $3,500 for focused single-system builds to $10,000+ for comprehensive operating system implementations. The Blueprint includes an exact investment estimate for your project. The $500 Blueprint fee is credited in full if you proceed.",
                 },
               ].map((faq, i) => (
                 <div className="faq-item" key={i}>
@@ -1105,7 +1106,7 @@ export default function AiosLandingPage() {
                 },
                 {
                   q: "Who is this NOT for?",
-                  a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you are looking for a cheap solution or want to spend less than $2,500 on implementation; you want someone to hand you a tool and disappear; you are not willing to invest time in the Blueprint process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
+                  a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you are looking for a cheap solution or want to spend less than $3,500 on implementation; you want someone to hand you a tool and disappear; you are not willing to invest time in the Blueprint process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
                 },
                 {
                   q: "Do I need technical knowledge?",

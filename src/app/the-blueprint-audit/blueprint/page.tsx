@@ -180,7 +180,7 @@ export default function BlueprintPage() {
                 ))}
                 {[
                   "Pre-revenue businesses with no established process",
-                  "Businesses seeking a sub-$2,500 solution",
+                  "Businesses seeking a sub-$3,500 solution",
                 ].map((item, i) => (
                   <div className="who-item not-fit" key={`nf-${i}`}>
                     <svg viewBox="0 0 16 16" fill="none">

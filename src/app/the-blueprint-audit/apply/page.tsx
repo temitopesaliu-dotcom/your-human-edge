@@ -667,44 +667,6 @@ export default function ApplyPage() {
                   />
                 </div>
 
-                <div className="form-field">
-                  <label className="form-label">
-                    How would you prefer to be contacted with our decision?{" "}
-                    <span className="form-required">*</span>
-                  </label>
-                  <div
-                    className="form-radio-group"
-                    role="radiogroup"
-                    aria-label="Contact preference"
-                  >
-                    {[
-                      { value: "email", title: "Email only" },
-                      {
-                        value: "email-calendar",
-                        title: "Email + calendar invite for an intro call",
-                      },
-                    ].map((opt) => (
-                      <label
-                        className={`form-radio-option${data.contactPref === opt.value ? " selected" : ""}`}
-                        key={opt.value}
-                      >
-                        <input
-                          type="radio"
-                          name="contactPref"
-                          value={opt.value}
-                          checked={data.contactPref === opt.value}
-                          onChange={(e) =>
-                            update("contactPref", e.target.value)
-                          }
-                        />
-                        <div className="form-radio-content">
-                          <div className="form-radio-title">{opt.title}</div>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                  <FieldError field="contactPref" />
-                </div>
 
                 <div className="form-field">
                   <label className="form-checkbox-item form-terms">
