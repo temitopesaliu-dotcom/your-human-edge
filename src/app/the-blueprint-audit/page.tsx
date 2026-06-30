@@ -71,7 +71,7 @@ export default function AiosLandingPage() {
         <div className="container">
           <div className="credibility-inner">
             <div className="credibility-stat fade-up">
-              <div className="credibility-stat-number">47+</div>
+              <div className="credibility-stat-number">12+</div>
               <div className="credibility-stat-label">
                 Businesses Transformed
               </div>
