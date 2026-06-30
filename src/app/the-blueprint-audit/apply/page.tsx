@@ -52,7 +52,7 @@ export default function ApplyPage() {
     timeline: "",
     howHeard: "",
     additionalContext: "",
-    contactPref: "",
+    contactPref: "email",
   });
 
   const update = (field: keyof FormData, value: string | string[]) => {
