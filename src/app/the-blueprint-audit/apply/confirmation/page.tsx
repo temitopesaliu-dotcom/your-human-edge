@@ -1,0 +1,110 @@
+import AiosNav from "../../_components/AiosNav";
+import AiosFooter from "../../_components/AiosFooter";
+import Link from "next/link";
+
+export const metadata = {
+  title: "Application Received — AI Operating System",
+  robots: "noindex, nofollow",
+};
+
+export default function ApplyConfirmationPage() {
+  return (
+    <>
+      <AiosNav variant="confirmation" />
+
+      <div className="confirmation-page">
+        <div className="confirmation-inner">
+          <div className="confirmation-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="23" stroke="#C8A96E" strokeWidth="1.5" />
+              <path d="M15 24l7 7 11-11" stroke="#C8A96E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div className="confirmation-label">Application Received</div>
+
+          <h1 className="heading-1 mt-3 mb-4" style={{ maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
+            Your application is under review.
+          </h1>
+
+          <p className="body-lg mb-4" style={{ maxWidth: 480, margin: "0 auto var(--space-4)" }}>
+            We&apos;ve received everything we need. You&apos;ll hear from us
+            within 48 hours with our decision and, if accepted, your next
+            steps.
+          </p>
+
+          <div className="confirmation-steps">
+            <div className="confirmation-step">
+              <div className="confirmation-step-num">1</div>
+              <div>
+                <div className="confirmation-step-title">
+                  Check your inbox
+                </div>
+                <p className="confirmation-step-desc">
+                  A confirmation email is on its way to the address you
+                  provided. Check your spam folder if it doesn&apos;t arrive
+                  within a few minutes.
+                </p>
+              </div>
+            </div>
+            <div className="confirmation-step">
+              <div className="confirmation-step-num">2</div>
+              <div>
+                <div className="confirmation-step-title">
+                  Decision within 48 hours
+                </div>
+                <p className="confirmation-step-desc">
+                  We review every application personally. You&apos;ll receive a
+                  clear yes or no — and if no, a brief explanation of why and
+                  what we&apos;d suggest instead.
+                </p>
+              </div>
+            </div>
+            <div className="confirmation-step">
+              <div className="confirmation-step-num">3</div>
+              <div>
+                <div className="confirmation-step-title">
+                  If accepted — invoice and booking link
+                </div>
+                <p className="confirmation-step-desc">
+                  You&apos;ll receive an invoice for the $500 Blueprint Session
+                  fee and a booking link to schedule your session at a time
+                  that works for you. Sessions are typically held via Zoom.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="confirmation-box">
+            <div className="confirmation-box-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M12 8v5M12 15v0.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div>
+              <p className="confirmation-box-title">While you wait</p>
+              <p className="confirmation-box-text">
+                You may want to start thinking about the processes in your
+                business that consume the most of your time. The more specific
+                you can be about these when we connect, the more actionable
+                your Blueprint will be.
+              </p>
+            </div>
+          </div>
+
+          <div className="confirmation-actions">
+            <Link href="/the-blueprint-audit" className="btn btn-outline">
+              ← Back to home
+            </Link>
+            <Link href="/the-blueprint-audit/blueprint" className="btn btn-ghost">
+              Review what&apos;s included
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <AiosFooter variant="confirmation" />
+    </>
+  );
+}
