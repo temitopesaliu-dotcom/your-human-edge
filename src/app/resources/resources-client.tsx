@@ -38,6 +38,28 @@ const RESOURCES: Resource[] = [
     category: 'individual',
   },
   {
+    id: 'the-merge-method',
+    icon: '',
+    title: 'The Merge Method',
+    description:
+      'A 5-step lead acquisition framework by Temitope Saliu. No cold pitching — find the exact loophole in a prospect\'s system, reverse engineer a fix, build a custom case study, and personalise the breakdown directly to the decision maker.',
+    href: '/resources/the-merge-method',
+    cta: 'Read the framework',
+    badge: 'New',
+    category: 'individual',
+  },
+  {
+    id: 'the-merge-method-company',
+    icon: '',
+    title: 'The Merge Method',
+    description:
+      'A 5-step lead acquisition framework by Temitope Saliu. No cold pitching — find the exact loophole in a prospect\'s system, reverse engineer a fix, build a custom case study, and personalise the breakdown directly to the decision maker.',
+    href: '/resources/the-merge-method',
+    cta: 'Read the framework',
+    badge: 'New',
+    category: 'company',
+  },
+  {
     id: 'b2b-prompt',
     icon: '',
     title: 'B2B Lead Acquisition Prompt',
@@ -45,7 +67,6 @@ const RESOURCES: Resource[] = [
       'A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company. Paste into any AI assistant, fill in 8 fields, and get an operational playbook in under 2 minutes.',
     href: '/resources/b2b-lead-acquisition-prompt',
     cta: 'Get the prompt',
-    badge: 'New',
     category: 'company',
   },
 ];
