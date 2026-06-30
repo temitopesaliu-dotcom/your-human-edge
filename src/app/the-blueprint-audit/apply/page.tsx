@@ -545,7 +545,7 @@ export default function ApplyPage() {
                     </option>
                     <option value="under-1000">Under $1,000</option>
                     <option value="1000-2500">$1,000–$2,500</option>
-                    <option value="2500-5000">$2,500–$5,000</option>
+                    <option value="2500-5000">$3,500–$5,000</option>
                     <option value="5000-10000">$5,000–$10,000</option>
                     <option value="10000-plus">$10,000+</option>
                     <option value="not-sure">

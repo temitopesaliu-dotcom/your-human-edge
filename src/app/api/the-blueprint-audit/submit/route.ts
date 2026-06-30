@@ -36,11 +36,16 @@ export async function POST(request: NextRequest) {
       contactPref: data.contactPref || "",
     };
 
+    console.log("[submit] Calling webhook:", webhookUrl);
+    console.log("[submit] Payload:", JSON.stringify(payload).substring(0, 200));
+
     const res = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+
+    console.log("[submit] Webhook response status:", res.status);
 
     if (!res.ok) {
       const body = await res.text();

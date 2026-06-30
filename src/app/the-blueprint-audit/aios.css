@@ -1573,7 +1573,10 @@ ul { list-style: none; }
 
   /* Blueprint */
   .blueprint-grid { grid-template-columns: 1fr; gap: var(--space-5); }
-  .blueprint-pricing-card { position: static; }
+  .blueprint-pricing-card { position: static; padding: var(--space-4); }
+  .blueprint-pricing-card .price-amount { font-size: clamp(48px, 12vw, 64px); }
+  .blueprint-pricing-card .price-currency { font-size: clamp(20px, 5vw, 28px); }
+  .blueprint-pricing-card .label { font-size: 10px; }
 
   /* Testimonials */
   .testimonials-grid { grid-template-columns: 1fr; }
@@ -1721,6 +1724,11 @@ ul { list-style: none; }
 }
 @media (max-width: 560px) {
   .session-block { grid-template-columns: 1fr; }
+  .blueprint-pricing-card { padding: var(--space-3); }
+  .blueprint-pricing-card .price-amount { font-size: clamp(40px, 14vw, 56px); }
+  .blueprint-pricing-card .price-currency { font-size: clamp(18px, 6vw, 24px); }
+  .deliverable-item { gap: 6px; }
+  .deliverable-item span { font-size: 12px !important; }
 }
 
 /* Investment points */
