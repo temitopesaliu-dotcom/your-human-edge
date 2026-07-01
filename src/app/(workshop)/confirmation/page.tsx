@@ -165,7 +165,7 @@ export default function WorkshopConfirmationPage() {
           </div>
 
           <h1 className="ws-confirm-title">
-            Well done on betting yourself.
+            Well done betting on yourself.
           </h1>
 
           <p className="ws-confirm-text">

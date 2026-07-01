@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function WorkshopPage() {
   return (
     <>
@@ -329,9 +331,9 @@ export default function WorkshopPage() {
 
       {/* NAV */}
       <nav className="ws-nav">
-        <a href="/" className="ws-nav-logo">
+        <Link href="/" className="ws-nav-logo">
           Temitope<span>.</span>
-        </a>
+        </Link>
         <div className="ws-nav-right">
           <span className="ws-nav-date">July 25th · 2PM London Time</span>
           <a
@@ -418,9 +420,9 @@ export default function WorkshopPage() {
                   Reserve my seat — $97
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </a>
-                <a href="/" className="ws-btn-secondary">
+                <Link href="/" className="ws-btn-secondary">
                   Take the free profile quiz first
-                </a>
+                </Link>
               </div>
               <div className="ws-hero-trust">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
@@ -623,7 +625,7 @@ export default function WorkshopPage() {
                   <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--purple)" }}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
                   <span style={{ color: "var(--purple)", fontWeight: 500 }}>
                     Not sure if this is for you?{" "}
-                    <a
+                    <Link
                       href="/"
                       style={{
                         color: "var(--purple)",
@@ -632,7 +634,7 @@ export default function WorkshopPage() {
                       }}
                     >
                       Take the free profile quiz first.
-                    </a>
+                    </Link>
                   </span>
                 </div>
               </div>
