@@ -38,7 +38,7 @@ export default function WorkshopPage() {
         .ws-nav-cta { background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all var(--transition); font-family: 'Inter', sans-serif; }
         .ws-nav-cta:hover { background: #6D28D9; }
 
-        .ws-countdown { background: var(--purple); color: white; padding: 10px 2rem; text-align: center; font-size: 13px; font-weight: 500; position: sticky; top: 60px; z-index: 90; }
+        .ws-countdown { background: var(--purple); color: white; padding: 10px 2rem; text-align: center; font-size: 13px; font-weight: 500; position: sticky; top: 60px; z-index: 90; margin-top: 60px; }
         .ws-countdown strong { font-weight: 700; }
 
         .ws-container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
@@ -49,7 +49,7 @@ export default function WorkshopPage() {
 
         .ws-hero { padding: 110px 0 80px; background: var(--white); position: relative; overflow: hidden; }
         .ws-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 60%; background: radial-gradient(ellipse 70% 60% at 50% 0%, #EDE9FD 0%, transparent 70%); pointer-events: none; }
-        .ws-hero-inner { display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: start; }
+        .ws-hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 80px; align-items: start; }
         .ws-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-light); border: 1px solid var(--purple-mid); border-radius: 999px; padding: 5px 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 1.25rem; }
         .ws-hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: ws-pulse 2s infinite; }
         @keyframes ws-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
@@ -65,6 +65,7 @@ export default function WorkshopPage() {
         .ws-btn-checkout:hover { background: #6D28D9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
         .ws-btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; transition: all var(--transition); }
         .ws-btn-secondary:hover { border-color: var(--purple-mid); color: var(--purple); background: var(--purple-light); }
+        .ws-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
         .ws-checkout-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; position: sticky; top: 110px; }
         .ws-checkout-card-top { padding: 24px 24px 20px; background: linear-gradient(135deg, #4A3E3D 0%, #2D2120 100%); color: white; }
@@ -151,11 +152,11 @@ export default function WorkshopPage() {
         .ws-final-trust { margin-top: 1.25rem; font-size: 13px; color: rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .ws-final-trust svg { width: 14px; height: 14px; color: var(--green); }
 
-        .ws-site-footer { background: var(--footer-bg); padding: 10px 0 32px; }
+        .ws-site-footer { position: static; display: block; background: var(--footer-bg); padding: 10px 0 32px; box-shadow: none; }
         .ws-footer-copy { font-size: 12px; color: var(--text-light); width: 100%; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 
         @media (max-width: 900px) {
-          .ws-hero-inner { grid-template-columns: 1fr; }
+          .ws-hero-inner { grid-template-columns: minmax(0, 1fr); gap: 40px; }
           .ws-checkout-card { position: static; }
           .ws-hours-grid { grid-template-columns: 1fr; }
           .ws-for-grid { grid-template-columns: 1fr; }
@@ -165,6 +166,164 @@ export default function WorkshopPage() {
           .ws-why-card { grid-template-columns: 1fr; }
 
           .ws-creds-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+          .ws-nav {
+            min-height: 56px;
+            height: auto;
+            padding: 9px 16px;
+            gap: 12px;
+          }
+          .ws-nav-logo {
+            font-size: 15px;
+            flex: 0 1 auto;
+            min-width: 0;
+          }
+          .ws-nav-right {
+            gap: 8px;
+            flex-shrink: 0;
+          }
+          .ws-nav-date {
+            display: none;
+          }
+          .ws-nav-cta {
+            padding: 8px 12px;
+            font-size: 12px;
+            white-space: nowrap;
+          }
+          .ws-countdown {
+            top: 56px;
+            margin-top: 56px;
+            padding: 8px 16px;
+            font-size: 12px;
+            line-height: 1.45;
+          }
+          .ws-container {
+            width: 100%;
+            padding: 0 18px;
+          }
+          .ws-section {
+            padding: 56px 0;
+          }
+          .ws-hook {
+            padding: 64px 0;
+          }
+          .ws-hero {
+            padding: 64px 0 56px;
+          }
+          .ws-section-h2,
+          .ws-hook-inner h2,
+          .ws-hero h1,
+          .ws-why-card h2,
+          .ws-about-content h2,
+          .ws-final-cta-inner h2 {
+            letter-spacing: 0;
+            overflow-wrap: break-word;
+          }
+          .ws-hero h1 {
+            font-size: clamp(32px, 11vw, 42px);
+          }
+          .ws-hero-sub,
+          .ws-hook-inner p {
+            font-size: 15px;
+            line-height: 1.7;
+          }
+          .ws-hero-eyebrow {
+            max-width: 100%;
+            gap: 7px;
+            padding: 5px 12px;
+            font-size: 10px;
+            line-height: 1.35;
+            white-space: normal;
+          }
+          .ws-hero-meta {
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 2rem;
+          }
+          .ws-hero-meta-item {
+            width: 100%;
+          }
+          .ws-hero-actions,
+          .ws-btn-checkout,
+          .ws-btn-secondary,
+          .ws-btn-final {
+            width: 100%;
+          }
+          .ws-btn-checkout,
+          .ws-btn-secondary,
+          .ws-btn-final {
+            justify-content: center;
+            text-align: center;
+          }
+          .ws-hero-trust,
+          .ws-final-trust {
+            align-items: flex-start;
+            text-align: left;
+          }
+          .ws-checkout-card {
+            border-radius: var(--radius-md);
+          }
+          .ws-checkout-card-top,
+          .ws-checkout-body,
+          .ws-hour-card,
+          .ws-faq-item {
+            padding: 20px;
+          }
+          .ws-price-current {
+            font-size: 36px;
+          }
+          .ws-for-grid,
+          .ws-why-card,
+          .ws-about-inner {
+            gap: 28px;
+          }
+          .ws-why-card {
+            padding: 24px;
+            border-radius: var(--radius-md);
+          }
+          .ws-why-stat {
+            padding: 16px;
+          }
+          .ws-why-stat-val {
+            font-size: 32px;
+          }
+          .ws-about-img-wrap {
+            border-radius: var(--radius-md);
+            aspect-ratio: 4 / 5;
+            min-height: 320px;
+          }
+          .ws-for-item,
+          .ws-cred-item {
+            padding: 12px 14px;
+          }
+          .ws-final-price-current {
+            font-size: 44px;
+          }
+          .ws-site-footer {
+            padding-bottom: calc(28px + env(safe-area-inset-bottom));
+          }
+        }
+
+        @media (max-width: 380px) {
+          .ws-container {
+            padding: 0 14px;
+          }
+          .ws-nav {
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+          .ws-nav-cta {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .ws-btn-checkout,
+          .ws-btn-secondary,
+          .ws-btn-final {
+            padding-left: 16px;
+            padding-right: 16px;
+          }
         }
       `}</style>
 
@@ -249,7 +408,7 @@ export default function WorkshopPage() {
                   3 hours · Recording included
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div className="ws-hero-actions">
                 <a
                   href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
                   target="_blank"
