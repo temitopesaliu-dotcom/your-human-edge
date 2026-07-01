@@ -73,6 +73,7 @@ export default function WorkshopPage() {
         .ws-checkout-card-top { padding: 24px 24px 20px; background: linear-gradient(135deg, #4A3E3D 0%, #2D2120 100%); color: white; }
         .ws-checkout-date { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
         .ws-checkout-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+        .checkout-offer-color{color: #6D28D9}
         .ws-checkout-sub { font-size: 13px; color: rgba(255,255,255,0.65); }
         .ws-checkout-body { padding: 24px; }
         .ws-price-original { font-size: 14px; color: var(--text-light); text-decoration: line-through; margin-bottom: 4px; }
@@ -127,8 +128,8 @@ export default function WorkshopPage() {
         .ws-about-inner { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: start; }
         .ws-about-img-wrap { background: linear-gradient(135deg, #4A3E3D 0%, #2D2120 100%); border-radius: var(--radius-lg); aspect-ratio: 4/5; display: flex; align-items: flex-end; padding: 28px; position: relative; overflow: hidden; }
         .ws-about-img-tag { position: relative; z-index: 1; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); padding: 12px 16px; width: 100%; }
-        .ws-about-img-tag-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: white; margin-bottom: 2px; }
-        .ws-about-img-tag-role { font-size: 12px; color: rgba(255,255,255,0.65); }
+        .ws-about-img-tag-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: black; margin-bottom: 2px; }
+        .ws-about-img-tag-role { font-size: 12px; color: #6D28D9; }
         .ws-about-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 1.25rem; line-height: 1.2; }
         .ws-about-content p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.25rem; }
         .ws-about-content p strong { color: var(--text); font-weight: 600; }
@@ -335,7 +336,7 @@ export default function WorkshopPage() {
           Your Intelligence Layer + AI<span>.</span>
         </Link>
         <div className="ws-nav-right">
-          <span className="ws-nav-date">July 25th · 2PM London Time</span>
+          <span className="ws-nav-date">July 25th · 2PM London Time BST.</span>
           <a
             href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
             target="_blank"
@@ -352,24 +353,6 @@ export default function WorkshopPage() {
         <strong>Early access pricing closes soon.</strong> Full price is $147.
         Lock in $97 now.
       </div>
-
-      {/* HOOK */}
-      <section className="ws-hook">
-        <div className="ws-container">
-          <div className="ws-hook-inner">
-            <h2>
-              You have spent years getting good at something. You have not
-              spent a single day getting paid{" "}
-              <em>what it is actually worth.</em>
-            </h2>
-            <p>
-              The market does not reward expertise. It rewards packaged
-              expertise. Right now, yours is not packaged. This workshop
-              changes that — in three hours.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* HERO */}
       <section className="ws-hero">
@@ -399,7 +382,7 @@ export default function WorkshopPage() {
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                  2:00 PM London Time
+                  2:00 PM London Time BST.
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" /></svg>
@@ -435,10 +418,10 @@ export default function WorkshopPage() {
             <div className="ws-checkout-card">
               <div className="ws-checkout-card-top">
                 <div className="ws-checkout-date">
-                  July 25th · 2PM London Time · Live on Zoom
+                  July 25th · 2PM London Time BST · Live on Zoom.
                 </div>
                 <div className="ws-checkout-title">
-                  The Intelligence Layer: Go From Expertise to Offer
+                  The Intelligence Layer: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
                 </div>
                 <div className="ws-checkout-sub">
                   The Intelligence Layer — 3-hour working session
@@ -553,6 +536,75 @@ export default function WorkshopPage() {
               <div className="ws-hour-deliver">You leave with</div>
               <div className="ws-hour-output">
                 90-day GTM plan, ready to execute
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section className="ws-about-section ws-section">
+        <div className="ws-container">
+          <div className="ws-about-inner">
+            <div className="ws-about-img-wrap">
+              <img
+                src="/PHOTO-2026-06-19-12-56-31.jpg"
+                alt="Temitope Saliu"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+              <div className="ws-about-img-tag">
+                <div className="ws-about-img-tag-name">Temitope Saliu</div>
+                <div className="ws-about-img-tag-role">
+                  Solutions Architect, Strategist and Teacher
+                </div>
+              </div>
+            </div>
+            <div className="ws-about-content">
+              <div className="ws-section-eyebrow">Who is running this</div>
+              <h2>
+                The system she wished existed when she started.
+              </h2>
+              <p>
+                Temitope Saliu sits at the intersection of people, marketing &
+                technology — building concepts & solutions architecture, GTM
+                strategy for brands to increase revenue with the right people,
+                structure and systems.
+              </p>
+              <p>
+                In 2017, she sold a gold chain to fund her first digital
+                marketing course.{" "}
+                <strong>
+                  That decision — and everything built from it — is why she
+                  understands exactly what it costs to bet on yourself before
+                  anyone else does.
+                </strong>{" "}
+                The Intelligence Layer is the structured methodology she built
+                from that journey.
+              </p>
+              <p>
+                She does not teach AI basics. She teaches ambitious people how
+                to take what they already know and build something the market
+                will pay a premium for.
+              </p>
+              <div className="ws-creds-grid">
+                {[
+                  "Google Elite Trainer — 1 of 20 women selected for Sub-Saharan Africa. 3,000+ professionals trained.",
+                  "Microsoft Africa Developer Training — 1 of 5 companies selected",
+                  "USAID and Peace Corps facilitation at ambassador level",
+                  "UK Global Talent — Exceptional Talent endorsement",
+                ].map((cred) => (
+                  <div className="ws-cred-item" key={cred}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    {cred}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -697,75 +749,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section className="ws-about-section ws-section">
-        <div className="ws-container">
-          <div className="ws-about-inner">
-            <div className="ws-about-img-wrap">
-              <img
-                src="/PHOTO-2026-06-19-12-56-31.jpg"
-                alt="Temitope Saliu"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-              <div className="ws-about-img-tag">
-                <div className="ws-about-img-tag-name">Temitope Saliu</div>
-                <div className="ws-about-img-tag-role">
-                  Solutions Architect, Strategist and Teacher
-                </div>
-              </div>
-            </div>
-            <div className="ws-about-content">
-              <div className="ws-section-eyebrow">Who is running this</div>
-              <h2>
-                The system she wished existed when she started.
-              </h2>
-              <p>
-                Temitope Saliu sits at the intersection of people, marketing &
-                technology — building concepts & solutions architecture, GTM
-                strategy for brands to increase revenue with the right people,
-                structure and systems.
-              </p>
-              <p>
-                In 2017, she sold a gold chain to fund her first digital
-                marketing course.{" "}
-                <strong>
-                  That decision — and everything built from it — is why she
-                  understands exactly what it costs to bet on yourself before
-                  anyone else does.
-                </strong>{" "}
-                The Intelligence Layer is the structured methodology she built
-                from that journey.
-              </p>
-              <p>
-                She does not teach AI basics. She teaches ambitious people how
-                to take what they already know and build something the market
-                will pay a premium for.
-              </p>
-              <div className="ws-creds-grid">
-                {[
-                  "Google Elite Trainer — 1 of 20 women selected for Sub-Saharan Africa. 3,000+ professionals trained.",
-                  "Microsoft Africa Developer Training — 1 of 5 companies selected",
-                  "USAID and Peace Corps facilitation at ambassador level",
-                  "UK Global Talent — Exceptional Talent endorsement",
-                ].map((cred) => (
-                  <div className="ws-cred-item" key={cred}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                    {cred}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section className="ws-section" style={{ background: "var(--white)" }}>
         <div className="ws-container">
@@ -814,7 +797,7 @@ export default function WorkshopPage() {
             <h2>
               Limited seats. $97. July 25th
               <br />
-              at 2PM <em>London Time.</em>
+              at 2PM <em>London Time BST.</em>
             </h2>
             <p>
               This is the room where your expertise stops being invisible.

@@ -641,6 +641,13 @@ export default function IntelHomePage() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; min-height: 100vh; }
+        .ilp-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 max(2rem, calc((100vw - 1100px)/2)); height: 60px; display: flex; align-items: center; justify-content: flex-start; }
+        .ilp-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }
+        .ilp-nav-logo span { color: var(--purple); }
+        @media (max-width: 640px) {
+          .ilp-nav { padding: 0 16px; height: 56px; }
+          .ilp-nav-logo { font-size: 15px; }
+        }
         .ilp-hero { padding: 120px 2rem 80px; text-align: center; background: var(--white); position: relative; overflow: hidden; }
         .ilp-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 60% 50% at 50% 0%, #EDE9FD 0%, transparent 70%); pointer-events: none; }
         .ilp-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-light); border: 1px solid var(--purple-mid); border-radius: 999px; padding: 6px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 1.5rem; }
@@ -749,6 +756,12 @@ export default function IntelHomePage() {
           .ilp-hero-stat-div { display: none; }
         }
       `}</style>
+
+      <nav className="ilp-nav">
+        <a href="/" className="ilp-nav-logo">
+          Your Intelligence Layer + AI<span>.</span>
+        </a>
+      </nav>
 
       <section className="ilp-hero">
         <div className="ilp-hero-eyebrow">Free Profile Assessment</div>
