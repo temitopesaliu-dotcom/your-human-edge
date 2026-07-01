@@ -336,7 +336,7 @@ export default function WorkshopPage() {
           Your Intelligence Layer + AI<span>.</span>
         </Link>
         <div className="ws-nav-right">
-          <span className="ws-nav-date">July 25th · 2PM London Time BST.</span>
+          <span className="ws-nav-date">July 25th · 2PM London BST.</span>
           <a
             href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
             target="_blank"
@@ -382,7 +382,7 @@ export default function WorkshopPage() {
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                  2:00 PM London Time BST.
+                  2:00 PM London BST.
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" /></svg>
@@ -418,7 +418,7 @@ export default function WorkshopPage() {
             <div className="ws-checkout-card">
               <div className="ws-checkout-card-top">
                 <div className="ws-checkout-date">
-                  July 25th · 2PM London Time BST · Live on Zoom.
+                  July 25th · 2PM London BST.· Live on Zoom.
                 </div>
                 <div className="ws-checkout-title">
                   The Intelligence Layer: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
@@ -487,25 +487,14 @@ export default function WorkshopPage() {
         <div className="ws-container">
           <div className="ws-section-eyebrow">What happens in the room</div>
           <h2 className="ws-section-h2">
-            Three hours. One working session.
-            <br />
-            One offer you can sell next week.
+            Three hours.
           </h2>
-          <p className="ws-section-sub">
-            This is not a lecture. It is a structured build session. You leave
-            with tangible deliverables, not notes you will never open.
-          </p>
+          <p className="ws-section-sub">No fluff. You map what you know, build what delivers it, and leave with a priced offer and a 90-day plan to sell it. Everything you need. Nothing you do not.</p>
           <div className="ws-hours-grid">
             <div className="ws-hour-card">
               <div className="ws-hour-num">Hour 01</div>
               <div className="ws-hour-title">Map</div>
-              <div className="ws-hour-desc">
-                You will identify your Intelligence Layer — the specific
-                expertise, judgment, and pattern recognition that AI cannot
-                replicate and the market will pay a premium for. Most people
-                spend years guessing at this. You will have it documented
-                before the first hour ends.
-              </div>
+              <div className="ws-hour-desc">Find the exact thing inside your head that the market will pay a premium for. Most people never name it. You will.</div>
               <div className="ws-hour-deliver">You leave with</div>
               <div className="ws-hour-output">
                 Documented expertise architecture
@@ -514,15 +503,10 @@ export default function WorkshopPage() {
             <div className="ws-hour-card">
               <div className="ws-hour-num">Hour 02</div>
               <div className="ws-hour-title">Model and Machine</div>
-              <div className="ws-hour-desc">
-                You will structure your Intelligence Layer into an offer. Then
-                you will build the AI infrastructure underneath it — the
-                diagnostic layer, the delivery layer, and the outreach layer.
-                Not theory. Built in the room.
-              </div>
+              <div className="ws-hour-desc">Turn it into an offer. Build the AI system that delivers it.</div>
               <div className="ws-hour-deliver">You leave with</div>
               <div className="ws-hour-output">
-                AI operating stack for your offer
+              Infrastructure, not intentions.
               </div>
             </div>
             <div className="ws-hour-card">
@@ -595,10 +579,11 @@ export default function WorkshopPage() {
               </p>
               <div className="ws-creds-grid">
                 {[
-                  "Google Elite Trainer — 1 of 20 women selected for Sub-Saharan Africa. 3,000+ professionals trained.",
-                  "Microsoft Africa Developer Training — 1 of 5 companies selected",
-                  "USAID and Peace Corps facilitation at ambassador level",
-                  "UK Global Talent — Exceptional Talent endorsement",
+                  "Google & Meta Elite Trainer — Trained 3000 professionals & Business Owners.",
+                  "Microsoft Africa Developer Training — 1 of 5 Microsoft Developer Programme Partner",
+                  "USAID & Peace Corp Education Curriculum Developer & Trainer for Peace Ambassadors",
+                  "Women Economic Forum Iconic Award Winner",
+                  "UK Global Exceptional Talent",
                 ].map((cred) => (
                   <div className="ws-cred-item" key={cred}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
@@ -797,7 +782,7 @@ export default function WorkshopPage() {
             <h2>
               Limited seats. $97. July 25th
               <br />
-              at 2PM <em>London Time BST.</em>
+              at 2PM <em>London BST.</em>
             </h2>
             <p>
               This is the room where your expertise stops being invisible.

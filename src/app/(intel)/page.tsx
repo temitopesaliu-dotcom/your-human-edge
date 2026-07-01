@@ -980,6 +980,22 @@ export default function IntelHomePage() {
                   </div>
                   <div className="ilp-section-body">{result.layer}</div>
                 </div>
+                                <div className="ilp-result-cta">
+                  <h3>Go from expert to new income stream</h3>
+                  <p>
+                    The Intelligence Layer workshop on July 25th takes exactly
+                    this profile and turns it into a working AI-powered offer in
+                    one session. Built for people at your level.
+                  </p>
+                  <a
+                    href="/workshop"
+                    className="ilp-btn-primary"
+                    style={{ display: "inline-flex" }}
+                  >
+                    Reserve my seat — $97 early access
+                    <ArrowRight size={15} />
+                  </a>
+                </div>
 
                 <div className="ilp-result-section">
                   <div className="ilp-section-eyebrow">
@@ -1018,6 +1034,22 @@ export default function IntelHomePage() {
                   <div className="ilp-price-close">
                     {result.pricing.close}
                   </div>
+                </div>
+                                <div className="ilp-result-cta">
+                  <h3>Go from expert to new income stream</h3>
+                  <p>
+                    The Intelligence Layer workshop on July 25th takes exactly
+                    this profile and turns it into a working AI-powered offer in
+                    one session. Built for people at your level.
+                  </p>
+                  <a
+                    href="/workshop"
+                    className="ilp-btn-primary"
+                    style={{ display: "inline-flex" }}
+                  >
+                    Reserve my seat — $97 early access
+                    <ArrowRight size={15} />
+                  </a>
                 </div>
 
                 <div className="ilp-result-section">
