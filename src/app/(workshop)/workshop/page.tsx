@@ -332,7 +332,7 @@ export default function WorkshopPage() {
       {/* NAV */}
       <nav className="ws-nav">
         <Link href="/" className="ws-nav-logo">
-          Temitope<span>.</span>
+          Your Intelligence Layer + AI<span>.</span>
         </Link>
         <div className="ws-nav-right">
           <span className="ws-nav-date">July 25th · 2PM London Time</span>
