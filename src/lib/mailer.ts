@@ -406,4 +406,71 @@ export async function addBlueprintAuditApplicantToMailerLite(
 }
 
 
+/** Intelligence Layer free subscriber — adds to the FREE_INTELLIGENCE_LAYER group. */
+export async function addIntelligenceLayerFreeSubscriber(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const freeGroup = process.env.MAILERLITE_FREE_INTELLIGENCE_LAYER_GROUP;
+  if (!apiKey || !freeGroup) {
+    console.warn('[mailer] MAILERLITE_API_KEY or FREE_INTELLIGENCE_LAYER group not set — skipping');
+    return;
+  }
+
+  try {
+    const groups: string[] = [];
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    if (allGroup) groups.push(allGroup);
+    groups.push(freeGroup);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: { name, subscriber_type: 'intelligence-layer-free' },
+        groups,
+      },
+    });
+    if (!result.ok) {
+      console.error('[mailer] Intelligence Layer free subscriber add failed:', result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Intelligence Layer free subscriber error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
+/** Intelligence Layer paid subscriber — adds to the PAID_INTELLIGENCE_LAYER group. */
+export async function addIntelligenceLayerPaidSubscriber(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const paidGroup = process.env.MAILERLITE_PAID_INTELLIGENCE_LAYER_GROUP;
+  if (!apiKey || !paidGroup) {
+    console.warn('[mailer] MAILERLITE_API_KEY or PAID_INTELLIGENCE_LAYER group not set — skipping');
+    return;
+  }
+
+  try {
+    const groups: string[] = [];
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    if (allGroup) groups.push(allGroup);
+    groups.push(paidGroup);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: { name, is_buyer: 'true', subscriber_type: 'intelligence-layer-paid' },
+        groups,
+      },
+    });
+    if (!result.ok) {
+      console.error('[mailer] Intelligence Layer paid subscriber add failed:', result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Intelligence Layer paid subscriber error:', err instanceof Error ? err.message : String(err));
+  }
+}
 

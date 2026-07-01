@@ -1,4 +1,4 @@
-export type ProductType = 'playbook' | 'paths-guide' | 'stadium-live' | 'stadium-6weeks';
+export type ProductType = 'playbook' | 'paths-guide' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop';
 
 export const PLAYBOOK_ACCESS_COOKIE = 'yhe_access';
 export const GUIDE_ACCESS_COOKIE = 'yhe_guide_access';
@@ -18,6 +18,7 @@ export function normalizeProduct(raw: string | undefined): ProductType {
   if (raw === 'paths-guide') return 'paths-guide';
   if (raw === 'stadium-live') return 'stadium-live';
   if (raw === 'stadium-6weeks') return 'stadium-6weeks';
+  if (raw === 'intelligence-layer-workshop') return 'intelligence-layer-workshop';
   return 'playbook';
 }
 

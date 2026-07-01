@@ -17,7 +17,7 @@ export interface SessionRecord {
   name: string;
   archetype: string;
   /** playbook (quiz), paths-guide ($19.99), or stadium tier. Omitted on legacy records = playbook. */
-  product?: 'playbook' | 'paths-guide' | 'stadium-live' | 'stadium-6weeks';
+  product?: 'playbook' | 'paths-guide' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop';
   paid: boolean;
   webhookSource?: boolean;
 }

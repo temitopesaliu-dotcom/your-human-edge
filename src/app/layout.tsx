@@ -1,16 +1,6 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
-
-export const metadata: Metadata = {
-	title: "Your Human Edge | AI Archetype Quiz",
-	description:
-		"Stop trying to learn all of AI. Discover which corner of AI fits your inherent skills, personality and values.",
-	icons: {
-		icon: "/favicon.png",
-		apple: "/favicon.png",
-	},
-};
 
 export const viewport: Viewport = {
 	width: 'device-width',
@@ -63,7 +53,7 @@ export default function RootLayout({
 							{`
 								!function(f,b,e,v,n,t,s)
 								{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-								n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+									n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 								if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
 								n.queue=[];t=b.createElement(e);t.async=!0;
 								t.src=v;s=b.getElementsByTagName(e)[0];
@@ -84,26 +74,14 @@ export default function RootLayout({
 						</noscript>
 					</>
 				)}
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+					rel="stylesheet"
+				/>
 			</head>
-			<body>
-				{children}
-				{/* <nav className="mobile-dock" aria-label="Mobile navigation">
-					<Link href="/quiz" className="mobile-dock__item">
-						<span>⌂</span>
-						<span>Home</span>
-					</Link>
-					<Link href="/paths" className="mobile-dock__item">
-						<span>▦</span>
-						<span>Paths</span>
-					</Link>
-					<Link
-						href="/quiz"
-						className="mobile-dock__item mobile-dock__item--primary">
-						<span>✦</span>
-						<span>Quiz</span>
-					</Link>
-				</nav> */}
-			</body>
+			<body>{children}</body>
 		</html>
 	);
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession } from '@/lib/kv';
-import { addBuyerToMailerLite, addPathsGuideBuyerToMailerLite, addStadiumBuyerToMailerLite } from '@/lib/mailer';
+import { addBuyerToMailerLite, addPathsGuideBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { normalizeProduct } from '@/lib/products';
 import { stripe } from '@/lib/stripe';
@@ -120,6 +120,14 @@ export async function POST(req: NextRequest) {
           await addStadiumBuyerToMailerLite(buyerEmail, buyerName, '6-weeks');
         } catch (err: unknown) {
           console.error('[webhook] addStadiumBuyerToMailerLite (6-weeks) failed:', err instanceof Error ? err.message : String(err));
+        }
+      }
+
+      if (buyerEmail && product === 'intelligence-layer-workshop') {
+        try {
+          await addIntelligenceLayerPaidSubscriber(buyerEmail, buyerName);
+        } catch (err: unknown) {
+          console.error('[webhook] addIntelligenceLayerPaidSubscriber failed:', err instanceof Error ? err.message : String(err));
         }
       }
     }
