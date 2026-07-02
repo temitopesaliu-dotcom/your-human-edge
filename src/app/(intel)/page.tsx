@@ -642,6 +642,11 @@ export default function IntelHomePage() {
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; min-height: 100vh; }
         .ilp-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 max(2rem, calc((100vw - 1100px)/2)); height: 60px; display: flex; align-items: center; justify-content: flex-start; }
+          .nav-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted);
+      margin-left: auto;
+  }
         .ilp-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }
         .ilp-nav-logo span { color: var(--purple); }
         @media (max-width: 640px) {
@@ -761,6 +766,7 @@ export default function IntelHomePage() {
         <a href="/" className="ilp-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
         </a>
+        <span className="nav-tag">FREE RESOURCE</span>
       </nav>
 
       <section className="ilp-hero">

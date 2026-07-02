@@ -385,7 +385,7 @@ export default function WorkshopPage() {
                 The Intelligence Layer:
                 <br />
                 Go <em>From Expertise</em>
-                <br />to <span className="checkout-offer-color">Offer</span>
+                <br />to <span className="checkout-offer-color">Offer.</span>
               </h1>
               <p className="ws-hero-sub">
                 A 3-hour live working session for ambitious professionals
