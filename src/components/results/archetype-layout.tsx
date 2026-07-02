@@ -4,7 +4,7 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
 import SiteNav from "@/components/site-nav";
-import './archetype-layout.css';
+import { clsx } from "clsx";
 
 /* ── Types ──────────────────────────────────────────────────────── */
 
@@ -140,17 +140,16 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
   const greeting = name ? `${name}, meet your archetype.` : "Your result is in.";
 
   return (
-      <div
-  className="root"
-  style={{
-    '--primary': config.primaryColor,
-    '--secondary': config.secondaryColor,
-    '--nav-rgb': config.navRgb,
-    '--hero-grad': config.heroGrad,
-    '--cta-bg': config.ctaBg,
-  } as React.CSSProperties}
->
-
+    <div
+      className="font-body bg-ivory text-ink overflow-x-hidden"
+      style={{
+        '--primary': config.primaryColor,
+        '--secondary': config.secondaryColor,
+        '--nav-rgb': config.navRgb,
+        '--hero-grad': config.heroGrad,
+        '--cta-bg': config.ctaBg,
+      } as React.CSSProperties}
+    >
       {/* ── Nav ── */}
       <SiteNav ctaLabel="Get the Playbook →" ctaHref="#paywall" />
 
@@ -177,15 +176,13 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
       {/* ── Who you are ── */}
       <section>
         <div className="wrap">
-          <div className="card-wrap">
-            <div className={`sec-eye ${config.whoEyeColor}`}>Who you are</div>
-            <p className="who-text">{config.whoYouAre}</p>
-            <div className={`sec-eye ${config.strengthsEyeColor}`} style={{ marginTop: "22px" }}>Natural Strengths</div>
-            <div className="chip-row">
-              {config.strengths.map((s) => (
-                <span key={s} className="chip">{s}</span>
-              ))}
-            </div>
+          <div className={clsx("sec-eye", config.whoEyeColor)}>Who you are</div>
+          <p className="who-text">{config.whoYouAre}</p>
+          <div className={clsx("sec-eye", config.strengthsEyeColor)} style={{ marginTop: "22px" }}>Natural Strengths</div>
+          <div className="chip-row">
+            {config.strengths.map((s) => (
+              <span key={s} className="chip">{s}</span>
+            ))}
           </div>
         </div>
       </section>
@@ -221,7 +218,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
       {/* ── Leverage matrix ── */}
       <section className="sec-alt">
         <div className="wrap">
-          <div className={`sec-eye ${config.matrixEyeColor}`}>{config.matrixSectionTitle}</div>
+          <div className={clsx("sec-eye", config.matrixEyeColor)}>{config.matrixSectionTitle}</div>
           <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: config.matrixTitle }} />
           <p className="sec-sub">{config.matrixSubheading}</p>
           <div className="matrix">
@@ -252,7 +249,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
       {/* ── Testimonials ── */}
       <section className="sec-alt">
         <div className="wrap">
-          <div className={`sec-eye ${config.testimonialsEyeColor}`}>{config.testimonialsEyebrow}</div>
+          <div className={clsx("sec-eye", config.testimonialsEyeColor)}>{config.testimonialsEyebrow}</div>
           <h2 className="sec-title">They were where you are.<br />Here is what <em>changed.</em></h2>
           <div className="testimonials">
             {config.caseStudies.map((cs, idx) => (
@@ -278,7 +275,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
       {/* ── Income model ── */}
       <section>
         <div className="wrap">
-          <div className={`sec-eye ${config.incomeEyeColor}`}>Your income model</div>
+          <div className={clsx("sec-eye", config.incomeEyeColor)}>Your income model</div>
           <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: config.incomeTitle }} />
           <p className="sec-sub">{config.incomeSubheading}</p>
           <div className="income-blur-wrap">
@@ -286,7 +283,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
               {config.incomePaths.map((path, idx) => (
                 <div
                   key={idx}
-                  className={`income-card ${path.className}`}
+                  className={clsx("income-card", path.className)}
                   style={path.blurred ? { filter: "blur(5px)", userSelect: "none", pointerEvents: "none" } : undefined}
                 >
                   <div className="ic-label">{path.label}</div>
