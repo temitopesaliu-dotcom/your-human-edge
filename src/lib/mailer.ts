@@ -469,6 +469,13 @@ export async function addIntelligenceLayerPaidSubscriber(
     if (!result.ok) {
       console.error('[mailer] Intelligence Layer paid subscriber add failed:', result.status, result.errorText);
     }
+    const freeGroup = process.env.MAILERLITE_FREE_INTELLIGENCE_LAYER_GROUP;
+    if (freeGroup){
+      const inFreeGroup = await isSubscriberInGroup(email, freeGroup)
+      if(inFreeGroup){
+        await removeSubscriberFromGroup(email, freeGroup)
+      }
+    }
   } catch (err: unknown) {
     console.error('[mailer] Intelligence Layer paid subscriber error:', err instanceof Error ? err.message : String(err));
   }
