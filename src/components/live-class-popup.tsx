@@ -3,16 +3,16 @@
 import { useState, useEffect } from 'react';
 
 const TIME_ZONES = [
-  { label: 'UK (BST)', time: '16:00 (4 PM)', gold: true },
-  { label: 'GMT / UTC', time: '15:00 (3 PM)', gold: false },
-  { label: 'Lagos (WAT)', time: '16:00 (4 PM)', gold: false },
-  { label: 'Johannesburg (CAT)', time: '17:00 (5 PM)', gold: false },
-  { label: 'Nairobi (EAT)', time: '18:00 (6 PM)', gold: false },
-  { label: 'Mumbai (IST)', time: '20:30 (8:30 PM)', gold: false },
-  { label: 'New York (EDT)', time: '11:00 (11 AM)', gold: false },
-  { label: 'Chicago (CDT)', time: '10:00 (10 AM)', gold: false },
-  { label: 'Los Angeles (PDT)', time: '08:00 (8 AM)', gold: false },
-  { label: 'Sydney (AEST)', time: '01:00 (1 AM) next day', gold: false },
+  { label: 'UK (BST)', time: '14:00 (2 PM)', gold: true },
+  { label: 'GMT / UTC', time: '13:00 (1 PM)', gold: false },
+  { label: 'Lagos (WAT)', time: '14:00 (2 PM)', gold: false },
+  { label: 'Johannesburg (CAT)', time: '15:00 (3 PM)', gold: false },
+  { label: 'Nairobi (EAT)', time: '16:00 (4 PM)', gold: false },
+  { label: 'Mumbai (IST)', time: '19:30 (7:30 PM)', gold: false },
+  { label: 'New York (EDT)', time: '09:00 (9 AM)', gold: false },
+  { label: 'Chicago (CDT)', time: '08:00 (8 AM)', gold: false },
+  { label: 'Los Angeles (PDT)', time: '06:00 (6 AM)', gold: false },
+  { label: 'Sydney (AEST)', time: '23:00 (11 PM)', gold: false },
 ];
 
 const POPUP_STORAGE_KEY = 'yhe_live_class_popup_dismissed';
@@ -45,7 +45,11 @@ function navigateToPricing() {
   setTimeout(() => clearInterval(poll), 5000);
 }
 
-export default function LiveClassPopup() {
+interface LiveClassPopupProps {
+  onRegister?: () => void;
+}
+
+export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {}) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -65,7 +69,11 @@ export default function LiveClassPopup() {
 
   function handleRegister() {
     setVisible(false);
-    navigateToPricing();
+    if (onRegister) {
+      onRegister();
+    } else {
+      navigateToPricing();
+    }
   }
 
   if (!visible) return null;
@@ -82,9 +90,9 @@ export default function LiveClassPopup() {
         </button>
 
         <p className="lcp-label">Live Online Training</p>
-        <h2 className="lcp-title">AI for Teachers &amp; Coaches</h2>
+        <h2 className="lcp-title">Your Intelligence Layer + AI</h2>
 
-        <p className="lcp-date-line">Saturday, 12 July 2026 · 4:00 PM BST</p>
+        <p className="lcp-date-line">Saturday, 25 July 2026 · 2:00 PM BST</p>
 
         <div className="lcp-tz-grid">
           {TIME_ZONES.map(tz => (

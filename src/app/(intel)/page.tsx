@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import LiveClassPopup from "@/components/live-class-popup";
 
 const Q = [
   {
@@ -613,6 +614,10 @@ export default function IntelHomePage() {
     setScreen("result");
   }, [answers, gateEmail, gateName]);
 
+  const handlePopupRegister = useCallback(() => {
+    window.location.href = "/workshop";
+  }, []);
+
   return (
     <>
       <style>{`
@@ -761,6 +766,8 @@ export default function IntelHomePage() {
           .ilp-hero-stat-div { display: none; }
         }
       `}</style>
+
+      <LiveClassPopup onRegister={handlePopupRegister} />
 
       <nav className="ilp-nav">
         <a href="/" className="ilp-nav-logo">
