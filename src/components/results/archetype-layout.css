@@ -1,8 +1,9 @@
 /* Tailwind-compatible CSS using @apply for shared component styles */
 @reference "../../app/globals.css";
 
-/* Custom properties for dynamic values */
-:root {
+/* Custom properties for dynamic values — scoped to .archetype-scope so
+   these never leak onto (or get overridden by) other pages' :root vars */
+.archetype-scope {
   --primary: #C94F2A;
   --primary2: #E06040;
   --primary-soft: #FEF0EA;

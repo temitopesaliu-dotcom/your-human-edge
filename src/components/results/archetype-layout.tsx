@@ -5,6 +5,7 @@ import Link from "next/link";
 import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
 import SiteNav from "@/components/site-nav";
 import { clsx } from "clsx";
+import "./archetype-layout.css";
 
 /* ── Types ──────────────────────────────────────────────────────── */
 
@@ -141,7 +142,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
 
   return (
     <div
-      className="font-body bg-ivory text-ink overflow-x-hidden"
+      className="archetype-scope font-body bg-ivory text-ink overflow-x-hidden"
       style={{
         '--primary': config.primaryColor,
         '--secondary': config.secondaryColor,

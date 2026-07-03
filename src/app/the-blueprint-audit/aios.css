@@ -6,7 +6,7 @@
 /* ============================================================
    1. DESIGN TOKENS
    ============================================================ */
-:root {
+.aios-root {
   --bg:            #080808;
   --bg-1:          #0D0D0D;
   --bg-2:          #121212;
@@ -53,7 +53,7 @@
 /* ============================================================
    2. RESET & BASE
    ============================================================ */
-*, *::before, *::after {
+.aios-root, .aios-root *, .aios-root *::before, .aios-root *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0; }
@@ -63,7 +63,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-body {
+.aios-root {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -73,22 +73,23 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
 }
 
-img {
+.aios-root img {
   display: block;
   max-width: 100%; }
-a {
+.aios-root a {
   color: inherit;
   text-decoration: none; }
-button {
+.aios-root button {
   cursor: pointer;
   border: none;
   background: none;
   font-family: inherit; }
-input, textarea, select {
+.aios-root input, .aios-root textarea, .aios-root select {
   font-family: inherit; }
-ul {
+.aios-root ul {
   list-style: none; }
 
 /* ============================================================
