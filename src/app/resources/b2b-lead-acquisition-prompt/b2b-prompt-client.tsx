@@ -111,63 +111,15 @@ export default function B2BPromptClient() {
 
   return (
     <>
-      <style>{`
-        @keyframes b2b-spin { to { transform: rotate(360deg); } }
-        .b2b-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:16px}
-        .b2b-loading-spin{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--teal);animation:b2b-spin .8s linear infinite}
-        .b2b-loading p{font-size:.88rem;color:var(--soft)}
-        .b2b-stage-card {
-          display: grid;
-          grid-template-columns: 44px 1fr;
-          gap: 16px;
-          align-items: start;
-          background: #fff;
-          border: 1px solid var(--border);
-          border-radius: 14px;
-          padding: 1.1rem 1.3rem;
-          transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-        }
-        .b2b-stage-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 36px rgba(26,16,64,.09);
-          border-color: var(--teal);
-        }
-        .b2b-step-row { display: flex; gap: 16px; align-items: flex-start; }
-        .b2b-prompt-box {
-          background: var(--paper);
-          border: 1px solid var(--border);
-          border-radius: 18px;
-          padding: 2rem;
-          margin-bottom: 4rem;
-        }
-        @media (max-width: 640px) {
-          .b2b-hero-pad { padding: 96px 20px 48px !important; }
-          .b2b-content-pad { padding: 36px 16px 80px !important; }
-          .b2b-prompt-box { padding: 1.4rem !important; }
-          .b2b-pills { gap: 8px !important; }
-          .b2b-pill { font-size: .72rem !important; }
-        }
-        @media (max-width: 640px) {
-      .b2b-prompt-pre { max-height: 360px !important; font-size: 11px !important; }
-    }
-        @media (hover: hover) {
-          .b2b-copy-btn:hover {
-            background: var(--ink) !important;
-            color: #fff !important;
-            border-color: var(--ink) !important;
-          }
-        }
-      `}</style>
-
-      {/* ── Loading state while gate phase resolves ── */}
+      {/* Loading state while gate phase resolves */}
       {gatePhase === null && (
-        <div className="b2b-loading">
-          <div className="b2b-loading-spin" />
-          <p>Loading resource…</p>
+        <div className="flex flex-col items-center justify-center min-h-dvh gap-4">
+          <div className="w-10 h-10 rounded-full border-[3px] border-[var(--border)] border-t-[var(--teal)] animate-egate-spin" />
+          <p className="text-[0.88rem] text-[var(--soft)]">Loading resource…</p>
         </div>
       )}
 
-        <EmailGateOverlay
+      <EmailGateOverlay
         gatePhase={gatePhase}
         title="B2B Lead Acquisition Prompt"
         description="Enter your details below to unlock this free resource — and get notified when new resources drop."
@@ -181,146 +133,83 @@ export default function B2BPromptClient() {
         gateSubmitting={gateSubmitting}
         onSubmit={handleGateSubmit}
       />
-      {/* ════════════════════════════════════════
-          PAGE SHELL — uses site design system
-          ════════════════════════════════════════ */}
-      <div style={{
-        fontFamily: "'DM Sans', sans-serif",
-        background: 'var(--warm)',
-        color: 'var(--ink)',
-        minHeight: '100dvh',
-      }}>
 
-        {/* ── NAV ── */}
+      {/* Page shell */}
+      <div className="font-body bg-[var(--warm)] text-[var(--ink)] min-h-dvh">
+
+        {/* Nav */}
         <SiteNav />
 
-        {/* ════════════════════════════════════════
-            HERO
-            ════════════════════════════════════════ */}
-        <div
-          className="b2b-hero-pad"
-          style={{
-            background: 'linear-gradient(135deg, #1a1040 0%, #2d1b6e 100%)',
-            padding: '112px 28px 64px',
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {/* teal radial glow — matches resources page purple glow style */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'radial-gradient(ellipse at 50% 30%, rgba(15,110,86,.2), transparent 65%)',
-            pointerEvents: 'none',
-          }} aria-hidden />
+        {/* Hero */}
+        <div className="bg-gradient-to-br from-[#1a1040] to-[#2d1b6e] pt-28 pb-16 px-7 text-center relative overflow-hidden">
+          {/* Teal radial glow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse at 50% 30%, rgba(15,110,86,.2), transparent 65%)' }}
+            aria-hidden
+          />
 
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
-            {/* Eyebrow — same style as resources page */}
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase',
-              color: '#c8940a', fontWeight: 500, marginBottom: 20,
-              border: '1px solid rgba(200,148,10,.25)', padding: '5px 16px', borderRadius: 40,
-            }}>
-              <span style={{
-                width: 6, height: 6, borderRadius: '50%',
-                background: '#c8940a', display: 'inline-block',
-              }} aria-hidden />
+          <div className="relative z-10 max-w-[700px] mx-auto">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 text-[0.68rem] tracking-[.2em] uppercase text-[#c8940a] font-medium mb-5 border border-[rgba(200,148,10,.25)] px-4 py-[5px] rounded-[40px]">
+              <span className="w-[6px] h-[6px] rounded-full bg-[#c8940a] inline-block" aria-hidden />
               Free Framework · For Companies
             </div>
 
-            <h1 style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(2rem, 6vw, 3.8rem)',
-              fontWeight: 400,
-              color: '#fff',
-              lineHeight: 1.1,
-              marginBottom: 18,
-            }}>
+            <h1 className="font-display text-[clamp(2rem,6vw,3.8rem)] font-normal text-white leading-[1.1] mb-[18px]">
               How to acquire B2B leads<br />
-              <em style={{ color: '#c8940a', fontStyle: 'italic' }}>systematically — and close them.</em>
+              <em className="text-[#c8940a] italic">systematically — and close them.</em>
             </h1>
 
-            <p style={{
-              fontSize: '1rem',
-              color: 'rgba(255,255,255,.6)',
-              maxWidth: 520,
-              margin: '0 auto 36px',
-              lineHeight: 1.8,
-            }}>
+            <p className="text-base text-white/60 max-w-[520px] mx-auto mb-9 leading-[1.8]">
               A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company — in under 2 minutes.
             </p>
 
             {/* Feature pills */}
-            <div className="b2b-pills" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+            <div className="flex flex-wrap gap-2.5 justify-center">
               {INTRO_ITEMS.map(item => (
-                <div key={item.title} className="b2b-pill" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 7,
-                  background: 'rgba(255,255,255,.07)',
-                  border: '1px solid rgba(255,255,255,.1)',
-                  borderRadius: 40, padding: '7px 16px',
-                  fontSize: '.78rem', color: 'rgba(255,255,255,.75)',
-                }}>
+                <div
+                  key={item.title}
+                  className="inline-flex items-center gap-[7px] bg-white/[0.07] border border-white/10 rounded-[40px] px-4 py-[7px] text-[0.78rem] text-white/75"
+                >
                   <span aria-hidden>{item.icon}</span>
-                  <span><strong style={{ color: '#fff' }}>{item.title}</strong> — {item.desc}</span>
+                  <span><strong className="text-white">{item.title}</strong> — {item.desc}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ════════════════════════════════════════
-            CONTENT
-            ════════════════════════════════════════ */}
-        <div
-          className="b2b-content-pad"
-          style={{ maxWidth: 860, margin: '0 auto', padding: '56px 28px 100px' }}
-        >
+        {/* Content */}
+        <div className="max-w-[860px] mx-auto px-7 pt-14 pb-24 max-sm:px-4 max-sm:pt-9 max-sm:pb-20">
 
-          {/* ── 7 STAGES ── */}
-          <div style={{ marginBottom: '4rem' }}>
-            <div style={{
-              fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
-              textTransform: 'uppercase', color: 'var(--teal)', marginBottom: '0.5rem',
-            }}>
+          {/* 7 Stages */}
+          <div className="mb-16">
+            <div className="text-[0.68rem] font-semibold tracking-[.18em] uppercase text-[var(--teal)] mb-2">
               What you get
             </div>
-            <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
-              fontWeight: 500, color: 'var(--ink)', marginBottom: '0.6rem', lineHeight: 1.15,
-            }}>
+            <h2 className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-medium text-[var(--ink)] mb-[0.6rem] leading-[1.15]">
               The prompt builds all 7 stages
             </h2>
-            <p style={{
-              fontSize: '.92rem', color: 'var(--soft)', lineHeight: 1.75,
-              marginBottom: '1.8rem', maxWidth: 580,
-            }}>
+            <p className="text-[0.92rem] text-[var(--soft)] leading-[1.75] mb-7 max-w-[580px]">
               Paste the prompt, fill in your product details, and the AI outputs a full operational playbook tailored to your business. Here is what each stage covers.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="flex flex-col gap-2.5">
               {STAGES.map(s => (
-                <div key={s.num} className="b2b-stage-card">
-                  <div style={{
-                    width: 44, height: 44, borderRadius: '50%',
-                    background: 'rgba(15,110,86,.08)',
-                    border: '1.5px solid rgba(15,110,86,.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1.05rem', fontWeight: 600, color: 'var(--teal)',
-                    fontFamily: "'Cormorant Garamond', serif",
-                    flexShrink: 0,
-                  }}>
+                <div
+                  key={s.num}
+                  className="grid gap-4 items-start bg-white border border-[var(--border)] rounded-[14px] px-5 py-[1.1rem] transition-[transform,box-shadow,border-color] duration-[220ms] ease-out hover:-translate-y-[3px] hover:shadow-[0_12px_36px_rgba(26,16,64,.09)] hover:border-[var(--teal)]"
+                  style={{ gridTemplateColumns: '44px 1fr' }}
+                >
+                  <div className="w-11 h-11 rounded-full bg-[rgba(15,110,86,.08)] border-[1.5px] border-[rgba(15,110,86,.2)] flex items-center justify-center text-[1.05rem] font-semibold text-[var(--teal)] font-display flex-shrink-0">
                     {s.num}
                   </div>
                   <div>
-                    <div style={{
-                      fontSize: '.9rem', fontWeight: 600, color: 'var(--ink)',
-                      marginBottom: 4, lineHeight: 1.3,
-                    }}>
+                    <div className="text-[0.9rem] font-semibold text-[var(--ink)] mb-1 leading-[1.3]">
                       {s.name}
                     </div>
-                    <div style={{ fontSize: '.82rem', color: 'var(--soft)', lineHeight: 1.65 }}>
+                    <div className="text-[0.82rem] text-[var(--soft)] leading-[1.65]">
                       {s.desc}
                     </div>
                   </div>
@@ -329,104 +218,57 @@ export default function B2BPromptClient() {
             </div>
           </div>
 
-          {/* ── THE PROMPT BOX ── */}
-          <div className="b2b-prompt-box">
-            <div style={{
-              display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
-              marginBottom: '1.2rem', flexWrap: 'wrap', gap: 12,
-            }}>
+          {/* Prompt box */}
+          <div className="bg-[var(--paper)] border border-[var(--border)] rounded-[18px] p-8 mb-16 max-sm:p-[1.4rem]">
+            <div className="flex items-start justify-between mb-5 flex-wrap gap-3">
               <div>
-                <div style={{
-                  fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
-                  textTransform: 'uppercase', color: 'var(--teal)', marginBottom: 4,
-                }}>
+                <div className="text-[0.68rem] font-semibold tracking-[.18em] uppercase text-[var(--teal)] mb-1">
                   The master prompt
                 </div>
-                <p style={{ fontSize: '.82rem', color: 'var(--soft)', margin: 0, lineHeight: 1.6 }}>
+                <p className="text-[0.82rem] text-[var(--soft)] m-0 leading-[1.6]">
                   Fill in the 8 bracketed fields. Paste into any AI assistant.
                 </p>
               </div>
               <button
                 onClick={handleCopy}
-                className="b2b-copy-btn"
-                style={{
-                  fontSize: '.82rem', fontWeight: 600,
-                  padding: '10px 22px',
-                  border: copied ? '1.5px solid var(--teal)' : '1.5px solid var(--border)',
-                  borderRadius: 40,
-                  background: copied ? 'rgba(15,110,86,.08)' : '#fff',
-                  color: copied ? 'var(--teal)' : 'var(--ink)',
-                  cursor: 'pointer',
-                  fontFamily: "'DM Sans', sans-serif",
-                  transition: 'all 0.2s',
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                }}
+                className={`text-[0.82rem] font-semibold px-[22px] py-[10px] rounded-[40px] cursor-pointer font-body transition-all duration-200 flex-shrink-0 whitespace-nowrap hover:bg-[var(--ink)] hover:text-white hover:border-[var(--ink)] ${
+                  copied
+                    ? 'border-[1.5px] border-[var(--teal)] bg-[rgba(15,110,86,.08)] text-[var(--teal)]'
+                    : 'border-[1.5px] border-[var(--border)] bg-white text-[var(--ink)]'
+                }`}
               >
                 {copied ? '✓ Copied!' : 'Copy prompt'}
               </button>
             </div>
 
-            <pre className='b2b-prompt-pre' style={{
-              background: '#fff',
-              border: '1px solid var(--border)',
-              borderRadius: 12,
-              padding: '1.6rem 1.8rem',
-              fontFamily: "'Courier New', Courier, monospace",
-              fontSize: 12.5,
-              color: 'var(--soft)',
-              lineHeight: 1.9,
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-word',
-              margin: 0,
-              overflow: 'auto',
-              maxHeight: 560,
-            }}>
+            <pre className="bg-white border border-[var(--border)] rounded-xl px-[1.8rem] py-[1.6rem] font-mono text-[12.5px] text-[var(--soft)] leading-[1.9] whitespace-pre-wrap break-words m-0 overflow-auto max-h-[560px] max-sm:max-h-[360px] max-sm:text-[11px]">
               {PROMPT_TEXT}
             </pre>
           </div>
 
-          {/* ── HOW TO USE ── */}
+          {/* How to use */}
           <div>
-            <div style={{
-              fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
-              textTransform: 'uppercase', color: 'var(--teal)', marginBottom: '0.5rem',
-            }}>
+            <div className="text-[0.68rem] font-semibold tracking-[.18em] uppercase text-[var(--teal)] mb-2">
               How to use this
             </div>
-            <h2 style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
-              fontWeight: 500, color: 'var(--ink)', marginBottom: '0.6rem', lineHeight: 1.15,
-            }}>
+            <h2 className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-medium text-[var(--ink)] mb-[0.6rem] leading-[1.15]">
               Four steps from blank page to working system
             </h2>
-            <p style={{
-              fontSize: '.92rem', color: 'var(--soft)', lineHeight: 1.75,
-              marginBottom: '1.8rem', maxWidth: 580,
-            }}>
+            <p className="text-[0.92rem] text-[var(--soft)] leading-[1.75] mb-7 max-w-[580px]">
               From blank page to working lead acquisition system.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div className="flex flex-col gap-5">
               {HOW_STEPS.map(h => (
-                <div key={h.step} className="b2b-step-row">
-                  <div style={{
-                    width: 36, height: 36, borderRadius: '50%',
-                    background: 'rgba(216,90,48,.08)',
-                    border: '1.5px solid rgba(216,90,48,.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1rem', fontWeight: 600, color: 'var(--coral)',
-                    fontFamily: "'Cormorant Garamond', serif",
-                    flexShrink: 0, marginTop: 2,
-                  }}>
+                <div key={h.step} className="flex gap-4 items-start">
+                  <div className="w-9 h-9 rounded-full bg-[rgba(216,90,48,.08)] border-[1.5px] border-[rgba(216,90,48,.2)] flex items-center justify-center text-base font-semibold text-[var(--coral)] font-display flex-shrink-0 mt-[2px]">
                     {h.step}
                   </div>
                   <div>
-                    <div style={{ fontSize: '.9rem', fontWeight: 600, color: 'var(--ink)', marginBottom: 4 }}>
+                    <div className="text-[0.9rem] font-semibold text-[var(--ink)] mb-1">
                       {h.title}
                     </div>
-                    <div style={{ fontSize: '.82rem', color: 'var(--soft)', lineHeight: 1.65 }}>
+                    <div className="text-[0.82rem] text-[var(--soft)] leading-[1.65]">
                       {h.desc}
                     </div>
                   </div>
@@ -436,14 +278,14 @@ export default function B2BPromptClient() {
           </div>
         </div>
 
-        {/* ── FOOTER ── */}
+        {/* Footer */}
         <footer>
           <div className="footer-brand">human<span>+</span>ai</div>
           <ul className="f-links">
             <li><Link href="/quiz">Take the quiz</Link></li>
             <li><Link href="/resources">Resources</Link></li>
           </ul>
-          <div style={{ fontSize: '.7rem', opacity: 0.25 }}>
+          <div className="text-[.7rem] opacity-25">
             &copy; 2026
           </div>
         </footer>

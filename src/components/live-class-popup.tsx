@@ -23,7 +23,6 @@ const POPUP_STORAGE_KEY = 'yhe_live_class_popup_dismissed';
  */
 function navigateToPricing() {
   const tryNav = () => {
-    // Click the Gate 6 nav button
     const gBtns = document.querySelectorAll<HTMLButtonElement>('.gatebtn');
     if (gBtns.length >= 6) gBtns[5]?.click();
 
@@ -35,10 +34,8 @@ function navigateToPricing() {
     return false;
   };
 
-  // Try immediately
   if (tryNav()) return;
 
-  // Keep trying for up to 5s (content may be behind email gate)
   const poll = setInterval(() => {
     if (tryNav()) clearInterval(poll);
   }, 200);
@@ -72,147 +69,81 @@ export default function LiveClassPopup() {
 
   return (
     <>
-      <div className="lcp-backdrop" onClick={handleDismiss} aria-hidden />
-      <div className="lcp-card" role="dialog" aria-modal="true" aria-label="Live class">
-        <button type="button" className="lcp-close" onClick={handleDismiss} aria-label="Close">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-[9998] animate-[lcp-f_0.2s_ease]"
+        onClick={handleDismiss}
+        aria-hidden
+        style={{ animation: 'lcp-f 0.2s ease' }}
+      />
+
+      {/* Card */}
+      <div
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[min(92vw,400px)] bg-white text-[#1C1A17] rounded-[14px] px-6 pt-7 pb-[22px] shadow-[0_16px_48px_rgba(0,0,0,0.15)] font-[DM_Sans,system-ui,sans-serif]"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Live class"
+        style={{ animation: 'lcp-u 0.25s ease' }}
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          className="absolute top-[10px] right-[10px] bg-black/[0.07] hover:bg-black/[0.14] hover:text-[#222] border-none text-[#777] w-[30px] h-[30px] rounded-full cursor-pointer flex items-center justify-center transition-[background,color] duration-200"
+          onClick={handleDismiss}
+          aria-label="Close"
+        >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
 
-        <p className="lcp-label">Live Online Training</p>
-        <h2 className="lcp-title">AI for Teachers &amp; Coaches</h2>
+        <p className="text-[12px] font-bold tracking-[1.6px] uppercase text-black mb-1">
+          Live Online Training
+        </p>
+        <h2 className="text-[clamp(18px,3.6vw,24px)] font-bold mb-2 leading-tight">
+          AI for Teachers &amp; Coaches
+        </h2>
 
-        <p className="lcp-date-line">Saturday, 12 July 2026 · 4:00 PM BST</p>
+        <p className="text-[13px] text-[#666] mb-[14px]">
+          Saturday, 12 July 2026 · 4:00 PM BST
+        </p>
 
-        <div className="lcp-tz-grid">
+        {/* Timezone grid */}
+        <div className="flex flex-col gap-[2px] mb-4">
           {TIME_ZONES.map(tz => (
-            <div key={tz.label} className={'lcp-tz-row' + (tz.gold ? ' hl' : '')}>
-              <span>{tz.label}</span>
-              <span className="lcp-tz-val">{tz.time}</span>
+            <div
+              key={tz.label}
+              className={`flex items-center justify-between px-2 py-1 rounded text-[13px] ${
+                tz.gold
+                  ? 'bg-[#FFF6E6] border-l-[3px] border-[#E8A23B]'
+                  : ''
+              }`}
+            >
+              <span className="text-[#555]">{tz.label}</span>
+              <span className={`font-mono text-[12px] ${tz.gold ? 'text-[#C98A2E] font-semibold' : 'text-[#888]'}`}>
+                {tz.time}
+              </span>
             </div>
           ))}
         </div>
 
-        <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
+        <button
+          type="button"
+          className="block w-full text-center bg-[#1C1A17] hover:bg-[#333] text-white text-[14px] font-semibold tracking-[0.6px] uppercase px-5 py-[11px] border-none rounded-[30px] cursor-pointer transition-[background] duration-200"
+          onClick={handleRegister}
+        >
+          Register now →
+        </button>
       </div>
 
+      {/* Keyframe animations — minimal, can't be expressed in Tailwind */}
       <style>{`
-        .lcp-backdrop {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.3);
-          backdrop-filter: blur(2px);
-          z-index: 9998;
-          animation: lcp-f .2s;
-        }
-        @keyframes lcp-f { from { opacity:0 } to { opacity:1 } }
-
-        .lcp-card {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 9999;
-          width: min(92vw, 400px);
-          background: #fff;
-          color: #1C1A17;
-          border-radius: 14px;
-          padding: 28px 24px 22px;
-          box-shadow: 0 16px 48px rgba(0,0,0,0.15);
-          animation: lcp-u .25s;
-          font-family: 'DM Sans', system-ui, sans-serif;
-        }
+        @keyframes lcp-f { from { opacity: 0 } to { opacity: 1 } }
         @keyframes lcp-u {
-          from { opacity:0; transform:translate(-50%,-50%) translateY(10px) }
-          to { opacity:1; transform:translate(-50%,-50%) translateY(0) }
+          from { opacity: 0; transform: translate(-50%, -50%) translateY(10px) }
+          to   { opacity: 1; transform: translate(-50%, -50%) translateY(0) }
         }
-
-        .lcp-close {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          background: rgba(0,0,0,0.07);
-          border: none;
-          color: #777;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.2s, color 0.2s;
-        }
-        .lcp-close:hover { background: rgba(0,0,0,0.14); color: #222; }
-
-        .lcp-label {
-          font-size: 12px;
-          font-weight:700;
-          letter-spacing: 1.6px;
-          text-transform: uppercase;
-          color: black;
-          margin: 0 0 4px;
-        }
-        .lcp-title {
-          font-size: clamp(18px, 3.6vw, 24px);
-          font-weight: 700;
-          margin: 0 0 8px;
-          line-height: 1.2;
-        }
-        .lcp-date-line {
-          font-size: 13px;
-          color: #666;
-          margin: 0 0 14px;
-        }
-
-        .lcp-tz-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          margin-bottom: 16px;
-        }
-        .lcp-tz-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 4px 8px;
-          border-radius: 4px;
-          font-size: 13px;
-        }
-        .lcp-tz-row span { color: #555; }
-        .lcp-tz-val {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 12px;
-          color: #888;
-        }
-        .lcp-tz-row.hl {
-          background: #FFF6E6;
-          border-left: 3px solid #E8A23B;
-        }
-        .lcp-tz-row.hl .lcp-tz-val {
-          color: #C98A2E;
-          font-weight: 600;
-        }
-
-        .lcp-cta {
-          display: block;
-          width: 100%;
-          text-align: center;
-          background: #1C1A17;
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.6px;
-          text-transform: uppercase;
-          padding: 11px 20px;
-          border: none;
-          border-radius: 30px;
-          cursor: pointer;
-          transition: background .2s;
-        }
-        .lcp-cta:hover { background: #333; }
       `}</style>
     </>
   );

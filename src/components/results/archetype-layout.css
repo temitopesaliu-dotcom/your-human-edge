@@ -1,7 +1,5 @@
 /* Tailwind-compatible CSS using @apply for shared component styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "../../app/globals.css";
 
 /* Custom properties for dynamic values */
 :root {
@@ -388,7 +386,8 @@
     @apply text-secondary;
   }
   .root .income-blur-wrap {
-    @apply relative -webkit-transform-translate-z-0;
+    @apply relative;
+    -webkit-transform: translateZ(0);
   }
   .root .blur-overlay {
     @apply absolute bottom-0 left-0 right-0 h-[58%];

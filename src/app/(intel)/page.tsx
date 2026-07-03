@@ -1,4 +1,5 @@
 "use client";
+import "./intel.css";
 
 import { useState, useCallback, useRef, useEffect } from "react";
 
@@ -614,149 +615,7 @@ export default function IntelHomePage() {
   }, [answers, gateEmail, gateName]);
 
   return (
-    <>
-      <style>{`
-        :root {
-          --white: #FFFFFF;
-          --alabaster: #F8F7FC;
-          --grain: #F5F5F3;
-          --footer-bg: #EFECE6;
-          --border: #E4E2ED;
-          --purple: #7C3AED;
-          --purple-light: #EDE9FD;
-          --purple-mid: #C4B5FD;
-          --green: #00A86B;
-          --green-light: #E6F7F1;
-          --text: #4A3E3D;
-          --text-muted: #7A6E6D;
-          --text-light: #A89E9D;
-          --radius-sm: 8px;
-          --radius-md: 12px;
-          --radius-lg: 20px;
-          --shadow-sm: 0 1px 3px rgba(74,62,61,0.06), 0 1px 2px rgba(74,62,61,0.04);
-          --shadow-md: 0 4px 16px rgba(74,62,61,0.08), 0 1px 4px rgba(74,62,61,0.04);
-          --shadow-lg: 0 12px 40px rgba(74,62,61,0.12), 0 4px 12px rgba(74,62,61,0.06);
-          --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
-        }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; min-height: 100vh; }
-        .ilp-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 max(2rem, calc((100vw - 1100px)/2)); height: 60px; display: flex; align-items: center; justify-content: flex-start; }
-        .ilp-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }
-        .ilp-nav-logo span { color: var(--purple); }
-        @media (max-width: 640px) {
-          .ilp-nav { padding: 0 16px; height: 56px; }
-          .ilp-nav-logo { font-size: 15px; }
-        }
-        .ilp-hero { padding: 120px 2rem 80px; text-align: center; background: var(--white); position: relative; overflow: hidden; }
-        .ilp-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 60% 50% at 50% 0%, #EDE9FD 0%, transparent 70%); pointer-events: none; }
-        .ilp-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-light); border: 1px solid var(--purple-mid); border-radius: 999px; padding: 6px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 1.5rem; }
-        .ilp-hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: ilp-pulse 2s infinite; }
-        @keyframes ilp-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-        .ilp-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 700; line-height: 1.12; color: var(--text); margin-bottom: 1.25rem; letter-spacing: -1px; max-width: 760px; margin-left: auto; margin-right: auto; }
-        .ilp-hero h1 em { font-style: italic; color: var(--purple); }
-        .ilp-hero-sub { font-size: 18px; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 400; }
-        .ilp-hero-stats { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
-        .ilp-hero-stat { text-align: center; }
-        .ilp-hero-stat-num { font-size: 28px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; display: block; }
-        .ilp-hero-stat-label { font-size: 12px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
-        .ilp-hero-stat-div { width: 1px; height: 40px; background: var(--border); }
-        .ilp-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--purple); color: #fff; border: none; border-radius: var(--radius-sm); padding: 14px 28px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all var(--transition); letter-spacing: -0.2px; font-family: 'Inter', sans-serif; }
-        .ilp-btn-primary:hover { background: #6D28D9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .ilp-btn-primary:active { transform: translateY(0); }
-        .ilp-quiz-section { background: var(--alabaster); border-top: 1px solid var(--border); padding: 80px 1.5rem; }
-        .ilp-quiz-card { max-width: 680px; margin: 0 auto; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
-        .ilp-quiz-header { padding: 32px 40px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
-        .ilp-progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-        .ilp-progress-track { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-        .ilp-progress-fill { height: 100%; background: var(--purple); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
-        .ilp-progress-text { font-size: 12px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
-        .ilp-quiz-body { padding: 36px 40px 32px; }
-        .ilp-q-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
-        .ilp-q-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; line-height: 1.35; color: var(--text); margin-bottom: 6px; letter-spacing: -0.3px; }
-        .ilp-q-hint { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
-        .ilp-options-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-        .ilp-opt-btn { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; text-align: left; width: 100%; transition: all var(--transition); color: var(--text); font-size: 14px; font-weight: 400; font-family: 'Inter', sans-serif; }
-        .ilp-opt-btn:hover { border-color: var(--purple-mid); background: var(--purple-light); color: var(--purple); }
-        .ilp-opt-btn.selected { border-color: var(--purple); background: var(--purple-light); color: var(--purple); font-weight: 500; }
-        .ilp-opt-radio { width: 18px; height: 18px; min-width: 18px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all var(--transition); flex-shrink: 0; }
-        .ilp-opt-btn.selected .ilp-opt-radio { border-color: var(--purple); background: var(--purple); }
-        .ilp-opt-btn.selected .ilp-opt-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; }
-        .ilp-textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--grain); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; resize: vertical; min-height: 100px; outline: none; transition: border-color var(--transition); margin-bottom: 32px; }
-        .ilp-textarea:focus { border-color: var(--purple); background: var(--white); }
-        .ilp-textarea::placeholder { color: var(--text-light); }
-        .ilp-quiz-nav { display: flex; align-items: center; justify-content: space-between; }
-        .ilp-btn-back { background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all var(--transition); font-family: 'Inter', sans-serif; }
-        .ilp-btn-back:hover { border-color: var(--text); color: var(--text); }
-        .ilp-btn-next { background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all var(--transition); font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 8px; }
-        .ilp-btn-next:hover:not(:disabled) { background: #6D28D9; transform: translateY(-1px); }
-        .ilp-btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-        .ilp-gate-card { padding: 48px 40px; }
-        .ilp-gate-icon { width: 56px; height: 56px; border-radius: 14px; background: var(--purple-light); border: 1px solid var(--purple-mid); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: var(--purple); }
-        .ilp-gate-icon svg { width: 26px; height: 26px; }
-        .ilp-gate-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: -0.4px; line-height: 1.25; }
-        .ilp-gate-sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; max-width: 460px; }
-        .ilp-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-        .ilp-field-input { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--grain); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; outline: none; transition: border-color var(--transition); }
-        .ilp-field-input:focus { border-color: var(--purple); background: var(--white); }
-        .ilp-field-input::placeholder { color: var(--text-light); }
-        .ilp-btn-gate { width: 100%; background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all var(--transition); font-family: 'Inter', sans-serif; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .ilp-btn-gate:hover { background: #6D28D9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .ilp-trust-line { font-size: 12px; color: var(--text-light); margin-top: 14px; display: flex; align-items: center; gap: 6px; }
-        .ilp-trust-line svg { width: 14px; height: 14px; color: var(--green); flex-shrink: 0; }
-        .ilp-result-header { padding: 36px 40px 28px; background: linear-gradient(135deg, #4A3E3D 0%, #2D2120 100%); color: white; }
-        .ilp-result-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 5px 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 16px; }
-        .ilp-result-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-        .ilp-result-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; line-height: 1.25; color: white; margin-bottom: 8px; letter-spacing: -0.3px; }
-        .ilp-result-sub { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; }
-        .ilp-result-body { padding: 0 40px 40px; }
-        .ilp-result-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
-        .ilp-result-section:last-child { border-bottom: none; }
-        .ilp-section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-        .ilp-section-body { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
-        .ilp-stack-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-        .ilp-stack-item:last-child { border-bottom: none; }
-        .ilp-stack-icon-wrap { width: 36px; height: 36px; min-width: 36px; border-radius: var(--radius-sm); background: var(--purple-light); border: 1px solid var(--purple-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--purple); }
-        .ilp-stack-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-        .ilp-stack-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
-        .ilp-pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
-        .ilp-price-card { background: var(--grain); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; }
-        .ilp-price-label { font-size: 11px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; }
-        .ilp-price-val { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; letter-spacing: -0.3px; }
-        .ilp-price-note { font-size: 11px; color: var(--text-light); line-height: 1.5; }
-        .ilp-price-close { font-size: 13px; color: var(--text-muted); margin-top: 14px; line-height: 1.65; padding: 12px 14px; background: var(--green-light); border-radius: var(--radius-sm); border-left: 3px solid var(--green); }
-        .ilp-steps-list { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
-        .ilp-step-item { display: flex; gap: 12px; align-items: flex-start; }
-        .ilp-step-num { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: var(--purple); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; flex-shrink: 0; }
-        .ilp-step-content { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
-        .ilp-step-content strong { color: var(--text); font-weight: 600; }
-        .ilp-result-cta { margin: 24px 0 0; padding: 28px 32px; background: var(--alabaster); border: 1px solid var(--border); border-radius: var(--radius-md); text-align: center; }
-        .ilp-result-cta h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.3px; }
-        .ilp-result-cta p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-        .ilp-result-cta-footer { margin-top: 14px; font-size: 12px; color: var(--text-light); }
-        .ilp-result-cta-footer a { color: var(--purple); text-decoration: none; }
-        .ilp-entry-card { padding: 48px 40px; text-align: center; }
-        .ilp-entry-icon { width: 72px; height: 72px; border-radius: 20px; background: var(--purple-light); border: 1px solid var(--purple-mid); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--purple); }
-        .ilp-entry-icon svg { width: 34px; height: 34px; }
-        .ilp-entry-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: -0.4px; line-height: 1.2; }
-        .ilp-entry-sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; max-width: 440px; margin-left: auto; margin-right: auto; }
-        .ilp-entry-stats { display: flex; justify-content: center; gap: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 32px; }
-        .ilp-entry-stat { flex: 1; padding: 16px; text-align: center; border-right: 1px solid var(--border); }
-        .ilp-entry-stat:last-child { border-right: none; }
-        .ilp-entry-stat-val { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; display: block; margin-bottom: 2px; }
-        .ilp-entry-stat-lab { font-size: 11px; color: var(--text-muted); }
-        .ilp-site-footer { background: var(--footer-bg); padding: 10px 2rem 32px; text-align: center; }
-        .ilp-footer-bottom { font-size: 12px; color: var(--text-light); }
-        @media (max-width: 600px) {
-          .ilp-quiz-header, .ilp-quiz-body, .ilp-gate-card, .ilp-entry-card, .ilp-result-header, .ilp-result-body { padding-left: 24px; padding-right: 24px; }
-          .ilp-field-row { grid-template-columns: 1fr; }
-          .ilp-pricing-grid { grid-template-columns: 1fr; }
-          .ilp-hero { padding: 100px 1.5rem 60px; }
-          .ilp-hero-stats { gap: 1.25rem; }
-          .ilp-hero-stat-div { display: none; }
-        }
-      `}</style>
-
+    <div className="ilp-root">
       <nav className="ilp-nav">
         <a href="/" className="ilp-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
@@ -1094,6 +953,6 @@ export default function IntelHomePage() {
           methodology. All rights reserved.
         </div>
       </footer>
-    </>
+    </div>
   );
 }

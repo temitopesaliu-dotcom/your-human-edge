@@ -1,25 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+/* globals.css - Tailwind CSS configuration */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
 
-/* Keep only custom utilities and animations that Tailwind can't handle */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes egate-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ws-pulse {
+  0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)}
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Custom animations */
 @layer utilities {
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes egate-spin {
-    to { transform: rotate(360deg); }
-  }
-  @keyframes ws-pulse {
-    0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)}
-  }
-  @keyframes scrollBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
   .animate-fadeSlide { animation: fadeSlide .35s ease; }
   .animate-egate-spin { animation: egate-spin .7s linear infinite; }
   .animate-ws-pulse { animation: ws-pulse 2s ease-in-out infinite; }
@@ -51,7 +51,6 @@
   nav {
     @apply fixed top-0 left-0 right-0 z-[99] bg-[rgba(26,16,64,.94)] backdrop-blur-sm border-b border-[rgba(255,255,255,.07)] px-8 h-[62px] grid grid-cols-[1fr_auto_1fr] items-center;
   }
-}
   .nav-logo {
     @apply font-display text-[.95rem] font-medium text-[rgba(255,255,255,.9)] tracking-wider no-underline whitespace-nowrap;
   }
@@ -75,7 +74,7 @@
   }
 }
 
-@screen sm {
+@media (max-width: 640px) {
   @layer components {
     .nav-links {
       @apply hidden;
@@ -282,7 +281,8 @@
     @apply max-w-[660px];
   }
   .quiz-card {
-    @apply bg-white rounded-2xl border border-[var(--border)] px-8 py-8 shadow-[0_2px_20px_rgba(26,16,64,.07)] animate-fadeSlide min-h-[420px] flex flex-col;
+    @apply bg-white rounded-2xl border border-[var(--border)] px-8 py-8 shadow-[0_2px_20px_rgba(26,16,64,.07)] min-h-[420px] flex flex-col;
+    animation: fadeSlide .35s ease;
   }
   .quiz-hint {
     @apply font-display text-2xl text-[var(--soft)] italic text-center mb-6;
@@ -355,7 +355,8 @@
     @apply text-xs tracking-[.16em] uppercase text-[var(--coral)] font-semibold mb-2.5;
   }
   .egate-spinner {
-    @apply mx-auto my-0 w-8 h-8 border-3 border-[var(--border)] border-t-[var(--coral)] rounded-full animate-egate-spin;
+    @apply mx-auto my-0 w-8 h-8 border-3 border-[var(--border)] border-t-[var(--coral)] rounded-full;
+    animation: egate-spin .7s linear infinite;
   }
   .egate-title {
     @apply font-display text-[clamp(1.4rem,4vw,1.8rem)] font-normal leading-tight text-[var(--ink)] mb-2.5;
@@ -524,12 +525,13 @@
     @apply bg-[var(--paper)] border-dashed border border-[var(--border)] rounded-2xl px-8 py-8 text-center;
   }
   .rb-footer-custom {
-    @apply border-t border-dashed border-transparent border-image-[linear-gradient(90deg,#2d1b6e,transparent)_1];
+    @apply border-t border-dashed border-transparent;
+    border-image: linear-gradient(90deg, #2d1b6e, transparent) 1;
   }
 }
 
 /* Resources responsive */
-@screen md {
+@media (max-width: 768px) {
   @layer components {
     .rb-cat-grid {
       @apply gap-2.5;
@@ -543,7 +545,7 @@
   }
 }
 
-@screen sm {
+@media (max-width: 640px) {
   @layer components {
     .rb-cat-grid {
       @apply grid-cols-1 gap-2;
@@ -567,7 +569,7 @@
 }
 
 /* Responsive Layout */
-@screen lg {
+@media (max-width: 1024px) {
   @layer components {
     .container {
       @apply px-5;
@@ -593,7 +595,7 @@
   }
 }
 
-@screen sm {
+@media (max-width: 640px) {
   @layer components {
     body {
       @apply bg-[radial-gradient(circle_at_top,rgba(83,74,183,0.12),transparent_34%),radial-gradient(circle_at_bottom,rgba(15,110,86,0.1),transparent_28%),var(--warm)];

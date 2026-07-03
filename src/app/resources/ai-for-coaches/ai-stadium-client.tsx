@@ -6,7 +6,7 @@ import { track } from '@/lib/analytics';
 import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 // import LiveClassPopup from '@/components/live-class-popup'; // temporarily hidden
-import { StadiumStyles } from './stadium-styles';
+import './stadium.css';
 import { GateHero } from './gates/gate-hero';
 import { GateNav } from './gates/gate-nav';
 import { Gate01Clone } from './gates/gate-01-clone';
@@ -66,7 +66,6 @@ export default function AiStadiumClient() {
 
   return (
     <>
-      <StadiumStyles />
 
       {/* <LiveClassPopup /> */}{/* temporarily hidden */}
 

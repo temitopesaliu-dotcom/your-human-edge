@@ -15,41 +15,12 @@ const TIME_ZONES = [
 
 export default function PaymentSuccessfulClient() {
   return (
-    <div style={{
-      background: '#F6F1E4',
-      fontFamily: "'Literata', Georgia, serif",
-      minHeight: '100dvh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-    }}>
-      <div
-        style={{
-          maxWidth: '620px',
-          width: '100%',
-          background: '#14171F',
-          color: '#F6F1E4',
-          borderRadius: '20px',
-          padding: '48px 40px 40px',
-          textAlign: 'center',
-          border: '1px solid rgba(242, 169, 60, 0.3)',
-          boxShadow: '0 20px 60px rgba(20, 23, 31, 0.5)',
-        }}
-      >
+    <div className="bg-[#F6F1E4] font-['Literata',Georgia,serif] min-h-dvh flex items-center justify-center p-5">
+      <div className="max-w-[620px] w-full bg-[#14171F] text-[#F6F1E4] rounded-[20px] px-10 py-12 pb-10 text-center border border-[rgba(242,169,60,0.3)] shadow-[0_20px_60px_rgba(20,23,31,0.5)]">
+
         {/* Check icon */}
         <div
-          style={{
-            width: 80,
-            height: 80,
-            borderRadius: '50%',
-            background: '#2E7D5B',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 24px',
-            border: '3px solid #F2A93C',
-          }}
+          className="w-20 h-20 rounded-full bg-[#2E7D5B] flex items-center justify-center mx-auto mb-6 border-[3px] border-[#F2A93C]"
           aria-hidden
         >
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F6F1E4" strokeWidth="3">
@@ -57,93 +28,42 @@ export default function PaymentSuccessfulClient() {
           </svg>
         </div>
 
-        <h1 style={{
-          fontFamily: "'Anton', sans-serif",
-          fontSize: '34px',
-          letterSpacing: '1px',
-          textTransform: 'uppercase',
-          color: '#F2A93C',
-          marginBottom: '8px',
-        }}>
+        <h1 className="font-['Anton',sans-serif] text-[34px] tracking-[1px] uppercase text-[#F2A93C] mb-2">
           Payment Confirmed
         </h1>
 
-        <p style={{
-          fontFamily: "'Literata', serif",
-          fontStyle: 'italic',
-          fontSize: '16px',
-          color: 'rgba(246, 241, 228, 0.7)',
-          marginBottom: '28px',
-        }}>
+        <p className="font-['Literata',serif] italic text-base text-[rgba(246,241,228,0.7)] mb-7">
           You&apos;re in. See you at the live class.
         </p>
 
-        <div style={{
-          width: '60px',
-          height: '2px',
-          background: '#F2A93C',
-          margin: '0 auto 24px',
-          opacity: 0.5,
-        }} aria-hidden />
+        <div className="w-[60px] h-[2px] bg-[#F2A93C] mx-auto mb-6 opacity-50" aria-hidden />
 
-        <p style={{
-          fontSize: '16px',
-          lineHeight: 1.7,
-          color: 'rgba(246, 241, 228, 0.9)',
-        }}>
+        <p className="text-base leading-[1.7] text-[rgba(246,241,228,0.9)]">
           A confirmation email has been sent to your inbox.
           <br />
           Your training will take place on{' '}
-          <strong style={{ color: '#F2A93C', fontWeight: 600 }}>July 12, 2026</strong> at{' '}
-          <strong style={{ color: '#F2A93C', fontWeight: 600 }}>4:00 PM (UK time)</strong>
-          <span style={{ display: 'block', fontSize: '14px', color: 'rgba(246,241,228,0.5)', marginTop: '4px' }}>
+          <strong className="text-[#F2A93C] font-semibold">July 12, 2026</strong> at{' '}
+          <strong className="text-[#F2A93C] font-semibold">4:00 PM (UK time)</strong>
+          <span className="block text-[14px] text-[rgba(246,241,228,0.5)] mt-1">
             (15:00 GMT / UTC)
           </span>
         </p>
 
         {/* Time zone grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '10px 20px',
-          margin: '24px 0 28px',
-          textAlign: 'left',
-          background: 'rgba(255, 255, 255, 0.04)',
-          borderRadius: '12px',
-          padding: '18px 22px',
-          border: '1px solid rgba(246, 241, 228, 0.08)',
-        }}>
+        <div className="grid grid-cols-2 gap-[10px_20px] my-6 mb-7 text-left bg-white/[0.04] rounded-[12px] p-[18px_22px] border border-[rgba(246,241,228,0.08)]">
           {TIME_ZONES.map((tz) => (
             <div key={tz.label}>
-              <span style={{
-                fontFamily: "'Oswald', sans-serif",
-                fontSize: '11px',
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
-                color: 'rgba(246, 241, 228, 0.4)',
-              }}>
+              <span className="font-['Oswald',sans-serif] text-[11px] tracking-[1px] uppercase text-[rgba(246,241,228,0.4)]">
                 {tz.label}
               </span>
-              <div style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '14px',
-                color: tz.gold ? '#F2A93C' : '#F6F1E4',
-                fontWeight: 500,
-              }}>
+              <div className={`font-['IBM_Plex_Mono',monospace] text-[14px] font-medium ${tz.gold ? 'text-[#F2A93C]' : 'text-[#F6F1E4]'}`}>
                 {tz.time}
               </div>
             </div>
           ))}
         </div>
 
-        <p style={{
-          fontSize: '13px',
-          color: 'rgba(246, 241, 228, 0.4)',
-          fontStyle: 'italic',
-          borderTop: '1px solid rgba(246, 241, 228, 0.06)',
-          paddingTop: '20px',
-          marginTop: '6px',
-        }}>
+        <p className="text-[13px] text-[rgba(246,241,228,0.4)] italic border-t border-[rgba(246,241,228,0.06)] pt-5 mt-[6px]">
           A calendar invite with the link will follow shortly.
         </p>
       </div>

@@ -108,68 +108,62 @@ const WORKSHEET = [
 ];
 
 /* ─── Sub-components ──────────────────────────────────────── */
-function StepCard({ step, defaultOpen = false }: { step: typeof STEPS[0] & { toolkit?: string[]; toolkitLabel?: string }; defaultOpen?: boolean }) {
+type StepData = typeof STEPS[0] & { toolkit?: string[]; toolkitLabel?: string };
+
+function StepCard({ step, defaultOpen = false }: { step: StepData; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div style={{
-      border: `1px solid ${open ? '#4A90D9' : 'rgba(10,31,61,0.12)'}`,
-      borderRadius: 4,
-      marginBottom: 20,
-      background: '#fff',
-      overflow: 'hidden',
-      transition: 'border-color 0.2s ease',
-    }}>
+    <div className={`border rounded-[4px] mb-5 bg-white overflow-hidden transition-[border-color] duration-200 ${open ? 'border-[#4A90D9]' : 'border-[rgba(10,31,61,0.12)]'}`}>
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        style={{
-          width: '100%', listStyle: 'none', cursor: 'pointer',
-          padding: '26px 28px', display: 'flex', alignItems: 'center',
-          gap: 22, background: 'none', border: 'none', textAlign: 'left',
-        }}
+        className="w-full cursor-pointer px-7 py-[26px] flex items-center gap-[22px] bg-transparent border-none text-left"
         aria-expanded={open}
       >
-        <div style={{
-          fontFamily: "'Archivo Black', sans-serif", fontSize: 34,
-          WebkitTextStroke: open ? '0' : '1.5px #4A90D9',
-          color: open ? '#4A90D9' : 'transparent',
-          width: 56, flexShrink: 0, lineHeight: 1,
-        }}>{step.num}</div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#4A90D9', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>
+        <div
+          className="font-['Archivo_Black',sans-serif] text-[34px] w-14 flex-shrink-0 leading-none"
+          style={{
+            WebkitTextStroke: open ? '0' : '1.5px #4A90D9',
+            color: open ? '#4A90D9' : 'transparent',
+          }}
+        >
+          {step.num}
+        </div>
+        <div className="flex-1">
+          <div className="font-mono text-[11px] text-[#4A90D9] uppercase tracking-[0.1em] mb-1">
             {step.eyebrow}
           </div>
-          <div style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 20, color: '#0A1F3D', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>
+          <div className="font-['Archivo_Black',sans-serif] text-[20px] text-[#0A1F3D] uppercase tracking-[-0.01em]">
             {step.title}
           </div>
         </div>
-        <div style={{
-          width: 30, height: 30, border: `1px solid ${open ? '#4A90D9' : 'rgba(10,31,61,0.12)'}`,
-          borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center',
-          justifyContent: 'center', transition: 'transform 0.25s ease, background 0.2s ease',
-          transform: open ? 'rotate(45deg)' : 'none',
-          background: open ? '#4A90D9' : 'transparent',
-          color: open ? '#fff' : '#0A1F3D', fontSize: 16,
-        }} aria-hidden>+</div>
+        <div
+          className={`w-[30px] h-[30px] rounded-full flex-shrink-0 flex items-center justify-center transition-[transform,background] duration-[250ms] ease text-base ${
+            open
+              ? 'border border-[#4A90D9] rotate-45 bg-[#4A90D9] text-white'
+              : 'border border-[rgba(10,31,61,0.12)] bg-transparent text-[#0A1F3D]'
+          }`}
+          aria-hidden
+        >
+          +
+        </div>
       </button>
       {open && (
-        <div style={{ padding: '0 28px 32px 106px', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 32 }}
-          className="mm-step-body"
-        >
+        <div className="px-7 pb-8 pl-[106px] mm-step-body grid gap-8" style={{ gridTemplateColumns: '1.1fr 0.9fr' }}>
           <div>
-            <p style={{ fontSize: 16, color: '#0A1F3D', fontWeight: 600, marginBottom: 12 }}>{step.lead}</p>
-            <p style={{ fontSize: 15, color: '#3C4863', lineHeight: 1.7, marginBottom: 12 }}>{step.body}</p>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: '0.03em', color: '#0A1F3D', background: '#DCEAFB', borderLeft: '3px solid #4A90D9', padding: '10px 14px', textTransform: 'uppercase' }}>
+            <p className="text-base text-[#0A1F3D] font-semibold mb-3">{step.lead}</p>
+            <p className="text-[15px] text-[#3C4863] leading-[1.7] mb-3">{step.body}</p>
+            <div className="font-mono text-[12px] tracking-[0.03em] text-[#0A1F3D] bg-[#DCEAFB] border-l-[3px] border-[#4A90D9] px-[14px] py-[10px] uppercase">
               {step.quote}
             </div>
           </div>
           {step.toolkit && (
-            <div style={{ background: '#F7F9FC', border: '1px solid rgba(10,31,61,0.12)', borderRadius: 4, padding: '18px 20px' }}>
-              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4A90D9', marginBottom: 10 }}>{step.toolkitLabel}</div>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
+            <div className="bg-[#F7F9FC] border border-[rgba(10,31,61,0.12)] rounded-[4px] px-5 py-[18px]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#4A90D9] mb-[10px]">{step.toolkitLabel}</div>
+              <ul className="list-none p-0 m-0">
                 {step.toolkit.map((item, i) => (
-                  <li key={i} style={{ fontSize: 13.5, color: '#3C4863', paddingLeft: 18, position: 'relative', marginBottom: 9 }}>
-                    <span style={{ position: 'absolute', left: 0, top: 0, color: '#4A90D9', fontWeight: 700, fontSize: 12 }}>✓</span>
+                  <li key={i} className="text-[13.5px] text-[#3C4863] pl-[18px] relative mb-[9px]">
+                    <span className="absolute left-0 top-0 text-[#4A90D9] font-bold text-[12px]">✓</span>
                     {item}
                   </li>
                 ))}
@@ -186,21 +180,43 @@ function StepCard({ step, defaultOpen = false }: { step: typeof STEPS[0] & { too
 function Step4Card() {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ border: `1px solid ${open ? '#4A90D9' : 'rgba(10,31,61,0.12)'}`, borderRadius: 4, marginBottom: 20, background: '#fff', overflow: 'hidden', transition: 'border-color 0.2s ease' }}>
-      <button type="button" onClick={() => setOpen(o => !o)} style={{ width: '100%', cursor: 'pointer', padding: '26px 28px', display: 'flex', alignItems: 'center', gap: 22, background: 'none', border: 'none', textAlign: 'left' }} aria-expanded={open}>
-        <div style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 34, WebkitTextStroke: open ? '0' : '1.5px #4A90D9', color: open ? '#4A90D9' : 'transparent', width: 56, flexShrink: 0, lineHeight: 1 }}>4</div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#4A90D9', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>{STEP_4.eyebrow}</div>
-          <div style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 20, color: '#0A1F3D', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>{STEP_4.title}</div>
+    <div className={`border rounded-[4px] mb-5 bg-white overflow-hidden transition-[border-color] duration-200 ${open ? 'border-[#4A90D9]' : 'border-[rgba(10,31,61,0.12)]'}`}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="w-full cursor-pointer px-7 py-[26px] flex items-center gap-[22px] bg-transparent border-none text-left"
+        aria-expanded={open}
+      >
+        <div
+          className="font-['Archivo_Black',sans-serif] text-[34px] w-14 flex-shrink-0 leading-none"
+          style={{
+            WebkitTextStroke: open ? '0' : '1.5px #4A90D9',
+            color: open ? '#4A90D9' : 'transparent',
+          }}
+        >
+          4
         </div>
-        <div style={{ width: 30, height: 30, border: `1px solid ${open ? '#4A90D9' : 'rgba(10,31,61,0.12)'}`, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.25s ease, background 0.2s ease', transform: open ? 'rotate(45deg)' : 'none', background: open ? '#4A90D9' : 'transparent', color: open ? '#fff' : '#0A1F3D', fontSize: 16 }} aria-hidden>+</div>
+        <div className="flex-1">
+          <div className="font-mono text-[11px] text-[#4A90D9] uppercase tracking-[0.1em] mb-1">{STEP_4.eyebrow}</div>
+          <div className="font-['Archivo_Black',sans-serif] text-[20px] text-[#0A1F3D] uppercase tracking-[-0.01em]">{STEP_4.title}</div>
+        </div>
+        <div
+          className={`w-[30px] h-[30px] rounded-full flex-shrink-0 flex items-center justify-center transition-[transform,background] duration-[250ms] ease text-base ${
+            open
+              ? 'border border-[#4A90D9] rotate-45 bg-[#4A90D9] text-white'
+              : 'border border-[rgba(10,31,61,0.12)] bg-transparent text-[#0A1F3D]'
+          }`}
+          aria-hidden
+        >
+          +
+        </div>
       </button>
       {open && (
-        <div style={{ padding: '0 28px 32px 106px' }} className="mm-step-body">
-          <p style={{ fontSize: 16, color: '#0A1F3D', fontWeight: 600, marginBottom: 12 }}>{STEP_4.lead}</p>
-          <p style={{ fontSize: 15, color: '#3C4863', lineHeight: 1.7, marginBottom: 12 }}>{STEP_4.body}</p>
-          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: '0.03em', color: '#0A1F3D', background: '#DCEAFB', borderLeft: '3px solid #4A90D9', padding: '10px 14px', textTransform: 'uppercase', marginBottom: 20 }}>{STEP_4.quote}</div>
-          <div style={{ background: '#fff', border: '1px solid rgba(10,31,61,0.12)', borderLeft: '4px solid #4A90D9', padding: 28, fontFamily: "'JetBrains Mono', monospace", fontSize: 13.5, lineHeight: 1.9, color: '#16243C' }}>
+        <div className="px-7 pb-8 pl-[106px] mm-step-body">
+          <p className="text-base text-[#0A1F3D] font-semibold mb-3">{STEP_4.lead}</p>
+          <p className="text-[15px] text-[#3C4863] leading-[1.7] mb-3">{STEP_4.body}</p>
+          <div className="font-mono text-[12px] tracking-[0.03em] text-[#0A1F3D] bg-[#DCEAFB] border-l-[3px] border-[#4A90D9] px-[14px] py-[10px] uppercase mb-5">{STEP_4.quote}</div>
+          <div className="bg-white border border-[rgba(10,31,61,0.12)] border-l-4 border-l-[#4A90D9] p-7 font-mono text-[13.5px] leading-[1.9] text-[#16243C]">
             I noticed{' '}<Blank>[specific loophole, named precisely]</Blank>{' '}is happening in{' '}<Blank>[their system/process]</Blank>.<br /><br />
             It&apos;s likely costing{' '}<Blank>[concrete cost — time/leads/revenue]</Blank>.<br /><br />
             I built{' '}<Blank>[short case study/mockup]</Blank>{' '}showing exactly how to fix it, using{' '}<Blank>[their real numbers/context]</Blank>.<br /><br />
@@ -214,7 +230,7 @@ function Step4Card() {
 
 function Blank({ children }: { children: React.ReactNode }) {
   return (
-    <span style={{ background: '#DCEAFB', padding: '1px 6px', borderRadius: 2, color: '#0A1F3D', fontWeight: 600 }}>{children}</span>
+    <span className="bg-[#DCEAFB] px-[6px] py-[1px] rounded-[2px] text-[#0A1F3D] font-semibold">{children}</span>
   );
 }
 
@@ -227,27 +243,22 @@ export default function MergeMethodClient() {
 
   return (
     <>
+      {/* Minimal styles: font import + responsive grid override */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-        .mm-root { font-family: 'Archivo', sans-serif; background: #F7F9FC; color: #16243C; min-height: 100dvh; -webkit-font-smoothing: antialiased; }
-        .mm-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100dvh; gap: 16px; }
-        .mm-loading-spin { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--border); border-top-color: #4A90D9; animation: mm-spin .8s linear infinite; }
-        @keyframes mm-spin { to { transform: rotate(360deg); } }
-        .mm-loading p { font-size: .88rem; color: var(--soft); }
-        .mm-wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
         @media (max-width: 720px) {
           .mm-step-body { grid-template-columns: 1fr !important; padding: 0 24px 28px 24px !important; }
           .mm-hero-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
-          .mm-why-grid { grid-template-columns: 1fr !important; }
-          .mm-ws-grid { grid-template-columns: 1fr !important; }
+          .mm-why-grid  { grid-template-columns: 1fr !important; }
+          .mm-ws-grid   { grid-template-columns: 1fr !important; }
           .mm-result-inner { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
       {gatePhase === null && (
-        <div className="mm-loading">
-          <div className="mm-loading-spin" />
-          <p>Loading resource…</p>
+        <div className="flex flex-col items-center justify-center min-h-dvh gap-4">
+          <div className="w-10 h-10 rounded-full border-[3px] border-[var(--border)] border-t-[#4A90D9] animate-egate-spin" />
+          <p className="text-[0.88rem] text-[var(--soft)]">Loading resource…</p>
         </div>
       )}
 
@@ -263,61 +274,66 @@ export default function MergeMethodClient() {
         onSubmit={handleGateSubmit}
       />
 
-      <div className="mm-root">
+      <div className="font-['Archivo',sans-serif] bg-[#F7F9FC] text-[#16243C] min-h-dvh [-webkit-font-smoothing:antialiased]">
         <SiteNav />
 
         {/* ── HERO ── */}
-        <header style={{ background: 'linear-gradient(180deg, #061327, #0A1F3D 80%)', backgroundImage: 'radial-gradient(circle at 85% 10%, rgba(74,144,217,0.35), transparent 45%), linear-gradient(180deg, #061327, #0A1F3D 80%)', color: '#fff', padding: '72px 0 64px', position: 'relative', overflow: 'hidden' }}>
-          <div className="mm-wrap">
-            <div className="mm-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 48, alignItems: 'center' }}>
+        <header
+          className="text-white pt-[72px] pb-16 relative overflow-hidden"
+          style={{
+            background: 'radial-gradient(circle at 85% 10%, rgba(74,144,217,0.35), transparent 45%), linear-gradient(180deg, #061327, #0A1F3D 80%)',
+          }}
+        >
+          <div className="max-w-[920px] mx-auto px-6">
+            <div className="mm-hero-grid grid gap-12 items-center" style={{ gridTemplateColumns: '1.15fr 0.85fr' }}>
               <div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#8BB8E8', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ width: 24, height: 1, background: '#8BB8E8', display: 'inline-block' }} aria-hidden />
+                <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#8BB8E8] mb-[18px] flex items-center gap-[10px]">
+                  <span className="w-6 h-px bg-[#8BB8E8] inline-block" aria-hidden />
                   Lead Acquisition Framework
                 </div>
-                <h1 style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 'clamp(40px, 7vw, 76px)', lineHeight: 0.96, letterSpacing: '-0.01em', textTransform: 'uppercase' }}>
-                  THE <span style={{ color: '#8BB8E8' }}>MERGE</span><br />METHOD
+                <h1 className="font-['Archivo_Black',sans-serif] text-[clamp(40px,7vw,76px)] leading-[0.96] tracking-[-0.01em] uppercase">
+                  THE <span className="text-[#8BB8E8]">MERGE</span><br />METHOD
                 </h1>
-                <div style={{ fontSize: 15, color: '#DCEAFB', marginTop: 18, fontWeight: 500, letterSpacing: '0.02em' }}>by Temitope Saliu</div>
-                <p style={{ marginTop: 36, maxWidth: 620, fontSize: 19, color: '#E7EEF8', fontWeight: 400, lineHeight: 1.6 }}>
+                <div className="text-[15px] text-[#DCEAFB] mt-[18px] font-medium tracking-[0.02em]">by Temitope Saliu</div>
+                <p className="mt-9 max-w-[620px] text-[19px] text-[#E7EEF8] leading-[1.6]">
                   I don&apos;t pitch. I merge. I find their exact systematic loophole, reverse engineer a custom case study of how to fix it, and personalize the breakdown completely and directly to the decision maker, relentlessly.
                 </p>
-                <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.15)', display: 'flex', gap: 32, flexWrap: 'wrap', fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8BB8E8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <div className="mt-10 pt-6 border-t border-white/15 flex gap-8 flex-wrap font-mono text-[12px] text-[#8BB8E8] uppercase tracking-[0.06em]">
                   <span>5 Steps</span>
                   <span>No Cold Pitching</span>
                   <span>Built To Use Today</span>
                 </div>
               </div>
               <div>
-                <div style={{ border: '1px solid rgba(139,184,232,0.35)', borderRadius: 6, padding: 10, background: 'rgba(255,255,255,0.03)', boxShadow: '0 30px 70px rgba(0,0,0,0.45)' }}>
+                <div className="border border-[rgba(139,184,232,0.35)] rounded-[6px] p-[10px] bg-white/[0.03] shadow-[0_30px_70px_rgba(0,0,0,0.45)]">
                   <Image
                     src="/PHOTO-2026-06-30-14-06-40.jpg"
                     alt="The Merge Method framework by Temitope Saliu"
                     width={400}
                     height={400}
-                    style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 3 }}
+                    className="block w-full h-auto rounded-[3px]"
                   />
                 </div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8BB8E8', marginTop: 14, textAlign: 'center' }}>The original framework</div>
+                <div className="font-mono text-[11px] tracking-[0.1em] uppercase text-[#8BB8E8] mt-[14px] text-center">The original framework</div>
               </div>
             </div>
           </div>
         </header>
 
         {/* ── WHY THIS WORKS ── */}
-        <section style={{ background: '#fff', borderTop: '1px solid rgba(10,31,61,0.12)', borderBottom: '1px solid rgba(10,31,61,0.12)' }}>
-          <div className="mm-wrap" style={{ padding: '64px 24px 0' }}>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#4A90D9', textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: 10 }}>Why This Works</div>
-            <h2 style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 'clamp(26px, 4vw, 38px)', color: '#0A1F3D', textTransform: 'uppercase', lineHeight: 1.05 }}>Pitches Get Ignored. Proof Gets Read.</h2>
-            <p style={{ marginTop: 14, maxWidth: 640, fontSize: 16, color: '#4A5670', lineHeight: 1.7 }}>Most outreach leads with what you sell. The Merge leads with what&apos;s broken in their world, and proof you already fixed it. That single reversal changes whether the message gets read.</p>
+        <section className="bg-white border-t border-b border-[rgba(10,31,61,0.12)]">
+          <div className="max-w-[920px] mx-auto px-6 pt-16 pb-0">
+            <div className="font-mono text-[12px] text-[#4A90D9] uppercase tracking-[0.14em] mb-[10px]">Why This Works</div>
+            <h2 className="font-['Archivo_Black',sans-serif] text-[clamp(26px,4vw,38px)] text-[#0A1F3D] uppercase leading-[1.05]">Pitches Get Ignored. Proof Gets Read.</h2>
+            <p className="mt-[14px] max-w-[640px] text-base text-[#4A5670] leading-[1.7]">Most outreach leads with what you sell. The Merge leads with what&apos;s broken in their world, and proof you already fixed it. That single reversal changes whether the message gets read.</p>
           </div>
-          <div className="mm-wrap" style={{ paddingTop: 32, paddingBottom: 48 }}>
-            <div className="mm-why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: 'rgba(10,31,61,0.12)', border: '1px solid rgba(10,31,61,0.12)' }}>
+          <div className="max-w-[920px] mx-auto px-6 pt-8 pb-12">
+            <div className="mm-why-grid grid gap-px bg-[rgba(10,31,61,0.12)] border border-[rgba(10,31,61,0.12)]" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
               {WHY_CARDS.map(c => (
-                <div key={c.num} style={{ background: '#fff', padding: '28px 24px' }}>
-                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#4A90D9', marginBottom: 10 }}>{c.num}</div>
-                  <h3 style={{ fontSize: 16, color: '#0A1F3D', marginBottom: 8, fontWeight: 800 }}>{c.title}</h3>
-                  <p style={{ fontSize: 14, color: '#5A6685', lineHeight: 1.6 }}>{c.body}</p>
+                <div key={c.num} className="bg-white px-6 py-7">
+                  <div className="font-mono text-[12px] text-[#4A90D9] mb-[10px]">{c.num}</div>
+                  <h3 className="text-base text-[#0A1F3D] mb-2 font-extrabold">{c.title}</h3>
+                  <p className="text-[14px] text-[#5A6685] leading-[1.6]">{c.body}</p>
                 </div>
               ))}
             </div>
@@ -325,12 +341,12 @@ export default function MergeMethodClient() {
         </section>
 
         {/* ── FIVE STEPS ── */}
-        <section style={{ padding: '64px 0' }}>
-          <div className="mm-wrap">
-            <div style={{ marginBottom: 40 }}>
-              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#4A90D9', textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: 10 }}>The Framework + The Toolkit</div>
-              <h2 style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 'clamp(26px, 4vw, 38px)', color: '#0A1F3D', textTransform: 'uppercase', lineHeight: 1.05 }}>Five Steps. Open Each One.</h2>
-              <p style={{ marginTop: 14, maxWidth: 640, fontSize: 16, color: '#4A5670', lineHeight: 1.7 }}>Every step below has the method on the left and the exact toolkit to execute it on the right: where to look, what to ask, what to build.</p>
+        <section className="py-16">
+          <div className="max-w-[920px] mx-auto px-6">
+            <div className="mb-10">
+              <div className="font-mono text-[12px] text-[#4A90D9] uppercase tracking-[0.14em] mb-[10px]">The Framework + The Toolkit</div>
+              <h2 className="font-['Archivo_Black',sans-serif] text-[clamp(26px,4vw,38px)] text-[#0A1F3D] uppercase leading-[1.05]">Five Steps. Open Each One.</h2>
+              <p className="mt-[14px] max-w-[640px] text-base text-[#4A5670] leading-[1.7]">Every step below has the method on the left and the exact toolkit to execute it on the right: where to look, what to ask, what to build.</p>
             </div>
             {STEPS.map((s, i) => <StepCard key={s.num} step={s} defaultOpen={i === 0} />)}
             <Step4Card />
@@ -339,17 +355,20 @@ export default function MergeMethodClient() {
         </section>
 
         {/* ── WORKSHEET ── */}
-        <section style={{ background: '#061327', color: '#fff', backgroundImage: 'radial-gradient(circle at 10% 90%, rgba(74,144,217,0.25), transparent 50%)', padding: '64px 0 56px' }}>
-          <div className="mm-wrap">
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8BB8E8', textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: 10 }}>Worksheet</div>
-            <h2 style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 'clamp(26px, 4vw, 38px)', color: '#fff', textTransform: 'uppercase', lineHeight: 1.05 }}>Run This Before You Reach Out</h2>
-            <p style={{ marginTop: 14, maxWidth: 640, fontSize: 16, color: '#DCEAFB', lineHeight: 1.7 }}>Four prompts. Answer them before you send anything. If you can&apos;t fill these in yet, you&apos;re not ready to merge. Go back to Step 1.</p>
-            <div className="mm-ws-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16, marginTop: 32 }}>
+        <section
+          className="text-white py-16 pb-14"
+          style={{ background: 'radial-gradient(circle at 10% 90%, rgba(74,144,217,0.25), transparent 50%), #061327' }}
+        >
+          <div className="max-w-[920px] mx-auto px-6">
+            <div className="font-mono text-[12px] text-[#8BB8E8] uppercase tracking-[0.14em] mb-[10px]">Worksheet</div>
+            <h2 className="font-['Archivo_Black',sans-serif] text-[clamp(26px,4vw,38px)] text-white uppercase leading-[1.05]">Run This Before You Reach Out</h2>
+            <p className="mt-[14px] max-w-[640px] text-base text-[#DCEAFB] leading-[1.7]">Four prompts. Answer them before you send anything. If you can&apos;t fill these in yet, you&apos;re not ready to merge. Go back to Step 1.</p>
+            <div className="mm-ws-grid grid gap-4 mt-8" style={{ gridTemplateColumns: 'repeat(2,1fr)' }}>
               {WORKSHEET.map(w => (
-                <div key={w.title} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 4, padding: 22 }}>
-                  <h4 style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8BB8E8', marginBottom: 12 }}>{w.title}</h4>
-                  <div style={{ borderBottom: '1px dashed rgba(255,255,255,0.25)', padding: '10px 0', fontSize: 14, color: '#C8D6EC' }}>
-                    <span style={{ color: '#fff', fontWeight: 600, display: 'block', marginBottom: 6 }}>{w.q}</span>
+                <div key={w.title} className="bg-white/[0.04] border border-white/[0.14] rounded-[4px] p-[22px]">
+                  <h4 className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#8BB8E8] mb-3">{w.title}</h4>
+                  <div className="border-b border-dashed border-white/25 py-[10px] text-[14px] text-[#C8D6EC]">
+                    <span className="text-white font-semibold block mb-[6px]">{w.q}</span>
                     _____________________________
                   </div>
                 </div>
@@ -359,31 +378,29 @@ export default function MergeMethodClient() {
         </section>
 
         {/* ── RESULT ── */}
-        <section style={{ background: '#DCEAFB', borderTop: '1px solid rgba(10,31,61,0.12)' }}>
-          <div className="mm-wrap">
-            <div className="mm-result-inner" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 28, alignItems: 'center', padding: '36px 0' }}>
+        <section className="bg-[#DCEAFB] border-t border-[rgba(10,31,61,0.12)]">
+          <div className="max-w-[920px] mx-auto px-6">
+            <div className="mm-result-inner grid gap-7 items-center py-9" style={{ gridTemplateColumns: 'auto 1fr auto' }}>
               <svg width="56" height="56" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden>
                 <polygon points="10,10 30,10 50,55 70,10 90,10 90,90 70,90 70,40 50,80 30,40 30,90 10,90" fill="#0A1F3D" />
               </svg>
               <div>
-                <h3 style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 18, color: '#0A1F3D', textTransform: 'uppercase', marginBottom: 14 }}>The Result Of The Merge</h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
+                <h3 className="font-['Archivo_Black',sans-serif] text-[18px] text-[#0A1F3D] uppercase mb-[14px]">The Result Of The Merge</h3>
+                <ul className="list-none p-0 m-0">
                   {['They see the flaw they couldn\'t.', 'They understand the fix they didn\'t have.', 'They trust the person who showed them — because it was built for them.'].map((li, i) => (
-                    <li key={i} style={{ fontSize: 14, color: '#0A1F3D', marginBottom: 6, paddingLeft: 20, position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0, color: '#4A90D9' }} aria-hidden>○</span>
+                    <li key={i} className="text-[14px] text-[#0A1F3D] mb-[6px] pl-5 relative">
+                      <span className="absolute left-0 text-[#4A90D9]" aria-hidden>○</span>
                       {li}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: 18, color: '#0A1F3D', textTransform: 'uppercase', lineHeight: 1.2, maxWidth: 220 }}>
+              <div className="font-['Archivo_Black',sans-serif] text-[18px] text-[#0A1F3D] uppercase leading-[1.2] max-w-[220px]">
                 That&apos;s when the merge creates momentum.
               </div>
             </div>
           </div>
         </section>
-
-
       </div>
     </>
   );

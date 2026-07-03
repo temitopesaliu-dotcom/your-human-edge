@@ -25,6 +25,54 @@ const PdfRenderer = lazy(() => import("./pdf-renderer"));
 
 const TOAST_STORAGE_KEY = "yhe_email_toast_shown";
 
+/* ── Spinner keyframe — minimal, can't be expressed purely in Tailwind ── */
+const SPINNER_CSS = `
+  @keyframes pb-spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes toast-in {
+    0%   { opacity: 0; transform: translateX(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes toast-out {
+    0%   { opacity: 1; transform: translateX(0) scale(1); }
+    100% { opacity: 0; transform: translateX(40px) scale(0.95); }
+  }
+  body { padding-bottom: 0 !important; }
+  @media (max-width: 640px) {
+    .pb-toast {
+      top: calc(54px + env(safe-area-inset-top) + 8px) !important;
+      right: 8px !important;
+      left: 8px !important;
+      max-width: none !important;
+      width: auto !important;
+    }
+  }
+`;
+
+function Spinner() {
+  return (
+    <div
+      className="w-10 h-10 rounded-full border-[3px] border-[#e4ddd4] border-t-[#534ab7]"
+      style={{ animation: 'pb-spin 0.8s linear infinite' }}
+    />
+  );
+}
+
+function PdfNav() {
+  return (
+    <nav className="sticky top-0 z-[99] bg-[rgba(26,16,64,0.94)] backdrop-blur-[14px] border-b border-white/[0.07] px-8 flex items-center h-[62px]">
+      <a
+        href="/quiz"
+        className="font-['Cormorant_Garamond',Georgia,serif] text-[0.95rem] font-medium text-white/90 tracking-[0.04em] no-underline whitespace-nowrap"
+      >
+        Your Human Edge in the AI Era
+      </a>
+    </nav>
+  );
+}
+
 export default function PlaybookPdfViewer({
   archetypeKey,
   userName,
@@ -35,7 +83,6 @@ export default function PlaybookPdfViewer({
 
   useEffect(() => {
     setMounted(true);
-    // Only show toast if it hasn't been shown before
     if (userEmail) {
       const alreadyShown = (() => {
         try { return localStorage.getItem(TOAST_STORAGE_KEY) === "true"; } catch { return false; }
@@ -48,7 +95,7 @@ export default function PlaybookPdfViewer({
 
   if (!pdfUrl) {
     return (
-      <div style={errorStyles.container}>
+      <div className="text-center px-6 py-[60px] text-[#4a3f6b] text-base">
         <p>No premium playbook available for this archetype.</p>
       </div>
     );
@@ -56,15 +103,12 @@ export default function PlaybookPdfViewer({
 
   if (!mounted) {
     return (
-      <div style={rootStyles.container}>
-        <nav style={navStyles.root}>
-          <a href="/quiz" style={navStyles.logo}>Your Human Edge in the AI Era</a>
-        </nav>
-        <div style={rootStyles.loadingArea}>
-          <div className="pb-spinner"></div>
-          <p style={{ color: "#4a3f6b", fontSize: "0.95rem" }}>
-            Loading your premium playbook...
-          </p>
+      <div className="min-h-dvh bg-[#f5f3ef] flex flex-col font-['DM_Sans',sans-serif]">
+        <style>{SPINNER_CSS}</style>
+        <PdfNav />
+        <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5 py-10">
+          <Spinner />
+          <p className="text-[#4a3f6b] text-[0.95rem]">Loading your premium playbook...</p>
         </div>
       </div>
     );
@@ -72,50 +116,16 @@ export default function PlaybookPdfViewer({
 
   return (
     <>
-      <style>{`
-        @keyframes pb-spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .pb-spinner {
-          width: 40px; height: 40px; border-radius: 50%;
-          border: 3px solid #e4ddd4; border-top-color: #534ab7;
-          animation: pb-spin 0.8s linear infinite;
-        }
-        @keyframes toast-in {
-          0% { opacity: 0; transform: translateX(40px) scale(0.95); }
-          100% { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        @keyframes toast-out {
-          0% { opacity: 1; transform: translateX(0) scale(1); }
-          100% { opacity: 0; transform: translateX(40px) scale(0.95); }
-        }
-        body { padding-bottom: 0 !important; }
-
-        /* Mobile responsive toast */
-        @media (max-width: 640px) {
-          .pb-toast {
-            top: calc(54px + env(safe-area-inset-top) + 8px) !important;
-            right: 8px !important;
-            left: 8px !important;
-            max-width: none !important;
-            width: auto !important;
-          }
-        }
-      `}</style>
-      <div style={rootStyles.container}>
+      <style>{SPINNER_CSS}</style>
+      <div className="min-h-dvh bg-[#f5f3ef] flex flex-col font-['DM_Sans',sans-serif]">
         {showToast && <EmailToast email={userEmail!} />}
         <Suspense
           fallback={
             <>
-              <nav style={navStyles.root}>
-                <a href="/quiz" style={navStyles.logo}>Your Human Edge in the AI Era</a>
-              </nav>
-              <div style={rootStyles.loadingArea}>
-                <div className="pb-spinner"></div>
-                <p style={{ color: "#4a3f6b", fontSize: "0.95rem" }}>
-                  Loading your premium playbook...
-                </p>
+              <PdfNav />
+              <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5 py-10">
+                <Spinner />
+                <p className="text-[#4a3f6b] text-[0.95rem]">Loading your premium playbook...</p>
               </div>
             </>
           }
@@ -132,12 +142,11 @@ export default function PlaybookPdfViewer({
   );
 }
 
-/** Top-right toast that shows once per session (localStorage). Auto-fades after 4s. */
+/** Top-right toast that shows once per session (localStorage). Auto-fades after 4.5s. */
 function EmailToast({ email }: { email: string }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // Mark as shown so it doesn't reappear on refresh
     try { localStorage.setItem("yhe_email_toast_shown", "true"); } catch (e) { console.warn('[playbook] Failed to set toast flag:', e); }
     const timer = setTimeout(() => setVisible(false), 4500);
     return () => clearTimeout(timer);
@@ -145,88 +154,16 @@ function EmailToast({ email }: { email: string }) {
 
   return (
     <div
-      className="pb-toast"
+      className="pb-toast fixed top-4 right-4 z-[9999] bg-white border border-[#e2dbd0] rounded-[10px] px-[14px] py-[10px] pl-3 shadow-[0_6px_28px_rgba(26,16,64,0.1),0_2px_8px_rgba(26,16,64,0.06)] flex items-center gap-[9px] font-['DM_Sans',sans-serif] text-[0.82rem] text-[#4a3f6b] max-w-[340px]"
       style={{
-        position: "fixed",
-        top: "16px",
-        right: "16px",
-        zIndex: 9999,
-        background: "#fff",
-        border: "1px solid #e2dbd0",
-        borderRadius: "10px",
-        padding: "10px 14px 10px 12px",
-        boxShadow: "0 6px 28px rgba(26,16,64,0.1), 0 2px 8px rgba(26,16,64,0.06)",
-        display: "flex",
-        alignItems: "center",
-        gap: "9px",
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: "0.82rem",
-        color: "#4a3f6b",
-        animation: visible ? "toast-in 0.35s ease-out" : "toast-out 0.3s ease-in forwards",
-        pointerEvents: visible ? "auto" : "none",
-        maxWidth: "340px",
+        animation: visible ? 'toast-in 0.35s ease-out' : 'toast-out 0.3s ease-in forwards',
+        pointerEvents: visible ? 'auto' : 'none',
       }}
     >
-      <span style={{ fontSize: "1rem", flexShrink: 0, opacity: 0.7 }}>📧</span>
+      <span className="text-[1rem] flex-shrink-0 opacity-70">📧</span>
       <span>
-        Sent to <strong style={{ color: "#534ab7", fontWeight: 600 }}>{email}</strong>
+        Sent to <strong className="text-[#534ab7] font-semibold">{email}</strong>
       </span>
     </div>
   );
 }
-
-/* ─── Styles ─── */
-
-const rootStyles: Record<string, React.CSSProperties> = {
-  container: {
-    minHeight: "100dvh",
-    background: "#f5f3ef",
-    display: "flex",
-    flexDirection: "column",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  loadingArea: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "16px",
-    padding: "40px 20px",
-  },
-};
-
-const navStyles: Record<string, React.CSSProperties> = {
-  root: {
-    position: "sticky",
-    top: 0,
-    zIndex: 99,
-    background: "rgba(26,16,64,.94)",
-    backdropFilter: "blur(14px)",
-    WebkitBackdropFilter: "blur(14px)",
-    borderBottom: "1px solid rgba(255,255,255,.07)",
-    padding: "0 32px",
-    display: "flex",
-    alignItems: "center",
-    height: "62px",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  logo: {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: ".95rem",
-    fontWeight: 500,
-    color: "rgba(255,255,255,.9)",
-    letterSpacing: ".04em",
-    textDecoration: "none",
-    whiteSpace: "nowrap",
-  },
-};
-
-const errorStyles: Record<string, React.CSSProperties> = {
-  container: {
-    textAlign: "center",
-    padding: "60px 24px",
-    color: "#4a3f6b",
-    fontSize: "1rem",
-  },
-};
