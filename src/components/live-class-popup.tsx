@@ -17,13 +17,8 @@ const TIME_ZONES = [
 
 const POPUP_STORAGE_KEY = 'yhe_live_class_popup_dismissed';
 
-/**
- * Navigate to Gate 6 pricing section. Handles the case where content
- * isn't rendered yet (behind email gate) by polling for it.
- */
 function navigateToPricing() {
   const tryNav = () => {
-    // Click the Gate 6 nav button
     const gBtns = document.querySelectorAll<HTMLButtonElement>('.gatebtn');
     if (gBtns.length >= 6) gBtns[5]?.click();
 
@@ -35,10 +30,8 @@ function navigateToPricing() {
     return false;
   };
 
-  // Try immediately
   if (tryNav()) return;
 
-  // Keep trying for up to 5s (content may be behind email gate)
   const poll = setInterval(() => {
     if (tryNav()) clearInterval(poll);
   }, 200);
@@ -82,28 +75,42 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
     <>
       <div className="lcp-backdrop" onClick={handleDismiss} aria-hidden />
       <div className="lcp-card" role="dialog" aria-modal="true" aria-label="Live class">
-        <button type="button" className="lcp-close" onClick={handleDismiss} aria-label="Close">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-
-        <p className="lcp-label">Live Online Training</p>
-        <h2 className="lcp-title">Your Intelligence Layer + AI</h2>
-
-        <p className="lcp-date-line">Saturday, 25 July 2026 · 2:00 PM BST</p>
-
-        <div className="lcp-tz-grid">
-          {TIME_ZONES.map(tz => (
-            <div key={tz.label} className={'lcp-tz-row' + (tz.gold ? ' hl' : '')}>
-              <span>{tz.label}</span>
-              <span className="lcp-tz-val">{tz.time}</span>
-            </div>
-          ))}
+        {/* Image side with label stacked above image */}
+        <div className="lcp-img-side">
+          <div className="lcp-img-wrapper">
+            <img
+              src="/PHOTO-2026-06-19-12-56-31.jpg"
+              alt="Live class host"
+              className="lcp-img"
+            />
+          </div>
         </div>
 
-        <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
+        {/* Content side */}
+        <div className="lcp-content">
+          <button type="button" className="lcp-close" onClick={handleDismiss} aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          <p className="lcp-label">Live Online Training</p>
+          <h2 className="lcp-title">Your Intelligence Layer + AI</h2>
+
+          <p className="lcp-date-line">Saturday, 25 July 2026 · 2:00 PM BST</p>
+
+          <div className="lcp-tz-grid">
+            {TIME_ZONES.map(tz => (
+              <div key={tz.label} className={'lcp-tz-row' + (tz.gold ? ' hl' : '')}>
+                <span>{tz.label}</span>
+                <span className="lcp-tz-val">{tz.time}</span>
+              </div>
+            ))}
+          </div>
+
+          <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
+        </div>
       </div>
 
       <style>{`
@@ -123,29 +130,87 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 9999;
-          width: min(92vw, 400px);
+          width: min(94vw, 720px);
+          max-height: 90vh;
+          display: flex;
+          flex-direction: row;
           background: #fff;
           color: #1C1A17;
-          border-radius: 14px;
-          padding: 28px 24px 22px;
-          box-shadow: 0 16px 48px rgba(0,0,0,0.15);
-          animation: lcp-u .25s;
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+          animation: lcp-u .3s;
           font-family: 'DM Sans', system-ui, sans-serif;
         }
         @keyframes lcp-u {
-          from { opacity:0; transform:translate(-50%,-50%) translateY(10px) }
+          from { opacity:0; transform:translate(-50%,-50%) translateY(12px) }
           to { opacity:1; transform:translate(-50%,-50%) translateY(0) }
+        }
+
+        .lcp-img-side {
+          flex-shrink: 0;
+          width: 280px;
+          background: #f9f8f7;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start; /* stack from the top */
+          padding: 12px 16px 16px 16px; /* reduced top padding */
+          min-height: 360px;
+        }
+
+        .lcp-img-label {
+          display: block;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.4px;
+          color: #1C1A17;
+          text-transform: uppercase;
+          margin-bottom: 4px; /* tiny gap – almost hugging the image */
+          text-align: center;
+          background: none;
+          padding: 0;
+          line-height: 1.2;
+        }
+
+        .lcp-img-wrapper {
+          width: 100%;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          min-height: 0;
+        }
+
+        .lcp-img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+          max-height: 340px;
+        }
+
+        .lcp-content {
+          flex: 1;
+          padding: 28px 30px 26px 28px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          justify-content: center;
         }
 
         .lcp-close {
           position: absolute;
-          top: 10px;
-          right: 10px;
-          background: rgba(0,0,0,0.07);
+          top: 12px;
+          right: 12px;
+          background: rgba(0,0,0,0.06);
           border: none;
           color: #777;
-          width: 30px;
-          height: 30px;
+          width: 32px;
+          height: 32px;
           border-radius: 50%;
           cursor: pointer;
           display: flex;
@@ -153,24 +218,24 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           justify-content: center;
           transition: background 0.2s, color 0.2s;
         }
-        .lcp-close:hover { background: rgba(0,0,0,0.14); color: #222; }
+        .lcp-close:hover { background: rgba(0,0,0,0.12); color: #222; }
 
         .lcp-label {
           font-size: 12px;
-          font-weight:700;
-          letter-spacing: 1.6px;
+          font-weight: 700;
+          letter-spacing: 1.8px;
           text-transform: uppercase;
           color: black;
-          margin: 0 0 4px;
+          margin: 0 0 6px;
         }
         .lcp-title {
-          font-size: clamp(18px, 3.6vw, 24px);
+          font-size: clamp(20px, 3.2vw, 28px);
           font-weight: 700;
-          margin: 0 0 8px;
+          margin: 0 0 6px;
           line-height: 1.2;
         }
         .lcp-date-line {
-          font-size: 13px;
+          font-size: 14px;
           color: #666;
           margin: 0 0 14px;
         }
@@ -179,14 +244,14 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           display: flex;
           flex-direction: column;
           gap: 2px;
-          margin-bottom: 16px;
+          margin-bottom: 18px;
         }
         .lcp-tz-row {
           display: flex;
           align-items: center;
           justify-content: space-between;
           padding: 4px 8px;
-          border-radius: 4px;
+          border-radius: 6px;
           font-size: 13px;
         }
         .lcp-tz-row span { color: #555; }
@@ -197,7 +262,7 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
         }
         .lcp-tz-row.hl {
           background: #FFF6E6;
-          border-left: 3px solid #E8A23B;
+          border-left: 4px solid #E8A23B;
         }
         .lcp-tz-row.hl .lcp-tz-val {
           color: #C98A2E;
@@ -210,17 +275,19 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           text-align: center;
           background: #1C1A17;
           color: #fff;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 600;
-          letter-spacing: 0.6px;
+          letter-spacing: 0.8px;
           text-transform: uppercase;
-          padding: 11px 20px;
+          padding: 14px 20px;
           border: none;
-          border-radius: 30px;
+          border-radius: 40px;
           cursor: pointer;
-          transition: background .2s;
+          transition: background .2s, transform .1s;
+          margin-top: auto;
         }
         .lcp-cta:hover { background: #333; }
+        .lcp-cta:active { transform: scale(0.97); }
       `}</style>
     </>
   );
