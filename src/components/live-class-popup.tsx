@@ -154,19 +154,19 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start; /* stack from the top */
-          padding: 12px 16px 16px 16px; /* reduced top padding */
+          justify-content: flex-start;
+          padding: 16px 16px 16px 16px;
           min-height: 360px;
         }
 
         .lcp-img-label {
           display: block;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 600;
-          letter-spacing: 0.4px;
+          letter-spacing: 0.6px;
           color: #1C1A17;
           text-transform: uppercase;
-          margin-bottom: 4px; /* tiny gap – almost hugging the image */
+          margin-bottom: 6px;
           text-align: center;
           background: none;
           padding: 0;
@@ -288,6 +288,193 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
         }
         .lcp-cta:hover { background: #333; }
         .lcp-cta:active { transform: scale(0.97); }
+
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+
+        /* Tablets and smaller laptops */
+        @media (max-width: 768px) {
+          .lcp-card {
+            width: min(94vw, 600px);
+            border-radius: 16px;
+          }
+
+          .lcp-img-side {
+            width: 200px;
+            min-height: 280px;
+            padding: 14px 12px 12px 12px;
+          }
+
+          .lcp-img-label {
+            font-size: 12px;
+            margin-bottom: 4px;
+          }
+
+          .lcp-img {
+            max-height: 260px;
+          }
+
+          .lcp-content {
+            padding: 22px 22px 20px 20px;
+          }
+
+          .lcp-title {
+            font-size: clamp(18px, 2.8vw, 24px);
+          }
+
+          .lcp-date-line {
+            font-size: 13px;
+          }
+
+          .lcp-tz-row {
+            font-size: 12px;
+            padding: 3px 6px;
+          }
+
+          .lcp-tz-val {
+            font-size: 11px;
+          }
+
+          .lcp-cta {
+            font-size: 14px;
+            padding: 12px 16px;
+          }
+        }
+
+        /* Mobile phones — vertical stack */
+        @media (max-width: 640px) {
+          .lcp-card {
+            flex-direction: column;
+            width: min(92vw, 400px);
+            max-height: 92vh;
+            border-radius: 14px;
+            overflow-y: auto;
+          }
+
+          .lcp-img-side {
+            width: 100%;
+            min-height: 220px;
+            padding: 14px 16px 12px 16px;
+            flex-shrink: 0;
+          }
+
+          .lcp-img-label {
+            font-size: 13px;
+            margin-bottom: 6px;
+          }
+
+          .lcp-img-wrapper {
+            flex: 1;
+            min-height: 160px;
+          }
+
+          .lcp-img {
+            max-height: 240px;
+            object-fit: contain;
+          }
+
+          .lcp-content {
+            padding: 18px 18px 20px 18px;
+            flex: 1;
+          }
+
+          .lcp-close {
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+          }
+
+          .lcp-close svg {
+            width: 14px;
+            height: 14px;
+          }
+
+          .lcp-label {
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            margin-bottom: 4px;
+          }
+
+          .lcp-title {
+            font-size: clamp(18px, 5vw, 22px);
+            margin-bottom: 4px;
+          }
+
+          .lcp-date-line {
+            font-size: 12px;
+            margin-bottom: 10px;
+          }
+
+          .lcp-tz-grid {
+            gap: 1px;
+            margin-bottom: 14px;
+          }
+
+          .lcp-tz-row {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+          }
+
+          .lcp-tz-val {
+            font-size: 10px;
+          }
+
+          .lcp-tz-row.hl {
+            border-left-width: 3px;
+          }
+
+          .lcp-cta {
+            font-size: 13px;
+            padding: 12px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.6px;
+          }
+        }
+
+        /* Very small phones */
+        @media (max-width: 400px) {
+          .lcp-card {
+            width: 94vw;
+            border-radius: 12px;
+          }
+
+          .lcp-img-side {
+            min-height: 180px;
+            padding: 10px 12px 8px 12px;
+          }
+
+          .lcp-img-label {
+            font-size: 11px;
+            margin-bottom: 4px;
+          }
+
+          .lcp-img {
+            max-height: 180px;
+          }
+
+          .lcp-content {
+            padding: 14px 14px 16px 14px;
+          }
+
+          .lcp-title {
+            font-size: 17px;
+          }
+
+          .lcp-tz-row {
+            font-size: 10px;
+            padding: 2px 4px;
+          }
+
+          .lcp-tz-val {
+            font-size: 9px;
+          }
+
+          .lcp-cta {
+            font-size: 12px;
+            padding: 10px 14px;
+          }
+        }
       `}</style>
     </>
   );
