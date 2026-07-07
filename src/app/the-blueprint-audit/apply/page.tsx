@@ -178,7 +178,7 @@ export default function ApplyPage() {
           <p className="label mb-2">Application</p>
           <h1 className="heading-2">Blueprint Session Application</h1>
           <p className="body-md mt-2" style={{ color: "var(--text-2)" }}>
-            Takes 5–7 minutes. All applications reviewed within 48 hours.
+            Takes 5–7 minutes. Secure your spot today.
           </p>
         </div>
 

@@ -24,7 +24,7 @@ export default function ApplyConfirmationPage() {
           <div className="confirmation-label">Application Received</div>
 
           <h1 className="heading-1 mt-3 mb-4" style={{ maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
-            Your application is under review.
+          Here are your next steps.
           </h1>
 
           <p className="body-lg mb-4" style={{ maxWidth: 480, margin: "0 auto var(--space-4)" }}>

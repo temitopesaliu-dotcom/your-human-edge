@@ -38,8 +38,7 @@ export default function BlueprintPage() {
             </a>
           </div>
           <p className="hero-note fade-up delay-3">
-            $500 · Credited in full toward implementation · Reviewed within 48
-            hours
+            $500 · Credited in full toward implementation
           </p>
         </div>
       </section>
@@ -346,8 +345,6 @@ export default function BlueprintPage() {
                   marginTop: "var(--space-3)",
                 }}
               >
-                Applications reviewed within 48 hours.
-                <br />
                 Not all applications are accepted.
               </p>
             </div>
