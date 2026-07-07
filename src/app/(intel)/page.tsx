@@ -651,6 +651,7 @@ export default function IntelHomePage() {
     font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--text-muted);
       margin-left: auto;
+        text-decoration: none;
   }
         .ilp-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }
         .ilp-nav-logo span { color: var(--purple); }
@@ -773,7 +774,9 @@ export default function IntelHomePage() {
         <a href="/" className="ilp-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
         </a>
+        <a className="nav-tag" href="/resources">
         <span className="nav-tag">FREE RESOURCE</span>
+        </a>
       </nav>
 
       <section className="ilp-hero">
