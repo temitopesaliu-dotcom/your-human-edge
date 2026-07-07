@@ -3,23 +3,7 @@ import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
 import { normalizeProduct, type ProductType } from '@/lib/products';
 import { stripe } from '@/lib/stripe';
-
-function resolveSiteUrl(req: NextRequest): string {
-  const origin = req.headers.get('origin');
-  if (origin && !/localhost|127\.0\.0\.1/.test(origin)) return origin;
-
-  const forwardedHost = req.headers.get('x-forwarded-host');
-  const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
-  if (forwardedHost && !/localhost|127\.0\.0\.1/.test(forwardedHost)) {
-    return `${forwardedProto}://${forwardedHost}`;
-  }
-
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (envUrl && !/localhost|127\.0\.0\.1/.test(envUrl)) return envUrl;
-
-  if (process.env.NODE_ENV === 'development') return 'http://localhost:3000';
-  return 'https://temitopesaliu.com';
-}
+import { resolveSiteUrl } from '@/lib/resolve-site-url';
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',

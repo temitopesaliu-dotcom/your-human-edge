@@ -133,15 +133,29 @@ export default function ApplyPage() {
     if (!validateStep(current)) return;
     setSubmitting(true);
     try {
-      const res = await fetch("/api/the-blueprint-audit/submit", {
+      // Step 1: Send form data to Google Sheets
+      const submitRes = await fetch("/api/the-blueprint-audit/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-        router.push("/the-blueprint-audit/apply/confirmation");
-      } else {
+      if (!submitRes.ok) {
         setErrors({ submit: "Submission failed. Please try again." });
+        setSubmitting(false);
+        return;
+      }
+
+      // Step 2: Create Stripe Checkout session and redirect
+      const checkoutRes = await fetch("/api/the-blueprint-audit/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: data.email }),
+      });
+      const checkoutData = await checkoutRes.json();
+      if (checkoutRes.ok && checkoutData.url) {
+        window.location.href = checkoutData.url;
+      } else {
+        setErrors({ submit: checkoutData.error || "Could not start checkout. Please try again." });
         setSubmitting(false);
       }
     } catch {

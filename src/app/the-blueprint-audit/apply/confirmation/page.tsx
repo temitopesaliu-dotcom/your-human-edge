@@ -28,9 +28,9 @@ export default function ApplyConfirmationPage() {
           </h1>
 
           <p className="body-lg mb-4" style={{ maxWidth: 480, margin: "0 auto var(--space-4)" }}>
-            We&apos;ve received everything we need. You&apos;ll hear from us
-            within 48 hours with our decision and, if accepted, your next
-            steps.
+            We&apos;ve received your application and payment. An email will
+            be sent to you shortly with everything you need to know about your
+            next steps.
           </p>
 
           <div className="confirmation-steps">
@@ -42,8 +42,9 @@ export default function ApplyConfirmationPage() {
                 </div>
                 <p className="confirmation-step-desc">
                   A confirmation email is on its way to the address you
-                  provided. Check your spam folder if it doesn&apos;t arrive
-                  within a few minutes.
+                  provided. It will include details about your Blueprint Session
+                  and how to schedule it. Check your spam folder if it
+                  doesn&apos;t arrive within a few minutes.
                 </p>
               </div>
             </div>
@@ -51,12 +52,11 @@ export default function ApplyConfirmationPage() {
               <div className="confirmation-step-num">2</div>
               <div>
                 <div className="confirmation-step-title">
-                  Decision within 48 hours
+                  Schedule your session
                 </div>
                 <p className="confirmation-step-desc">
-                  We review every application personally. You&apos;ll receive a
-                  clear yes or no — and if no, a brief explanation of why and
-                  what we&apos;d suggest instead.
+                  Use the booking link in your email to select a time that works
+                  for you. Sessions are held via Zoom.
                 </p>
               </div>
             </div>
@@ -64,12 +64,12 @@ export default function ApplyConfirmationPage() {
               <div className="confirmation-step-num">3</div>
               <div>
                 <div className="confirmation-step-title">
-                  If accepted — invoice and booking link
+                  Prepare for your Blueprint
                 </div>
                 <p className="confirmation-step-desc">
-                  You&apos;ll receive an invoice for the $500 Blueprint Session
-                  fee and a booking link to schedule your session at a time
-                  that works for you. Sessions are typically held via Zoom.
+                  Start thinking about the processes in your business that
+                  consume the most time. The more specific you can be, the more
+                  actionable your Blueprint will be.
                 </p>
               </div>
             </div>
