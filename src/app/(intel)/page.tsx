@@ -563,7 +563,7 @@ export default function IntelHomePage() {
   );
 
   const handleTextarea = useCallback((key: string, value: string) => {
-    setAnswers((prev) => ({ ...prev, [key]: value.trim() }));
+    setAnswers((prev) => ({ ...prev, [key]: value }));
   }, []);
 
   const goNext = useCallback(() => {
