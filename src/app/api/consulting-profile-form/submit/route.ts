@@ -44,43 +44,23 @@ export async function POST(request: NextRequest) {
       anythingElse: data.anything_else || "",
     };
 
-    console.log("[consulting-form] Calling webhook:", webhookUrl);
-    console.log("[consulting-form] Payload keys:", Object.keys(payload).join(", "));
-
     const res = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    console.log("[consulting-form] Webhook response status:", res.status);
-
-    // Always log the response body — Apps Script returns 200 even on errors
-    const responseBody = await res.text();
-    console.log("[consulting-form] Webhook response body:", responseBody);
-
     if (!res.ok) {
-      console.error("[consulting-form] Google Sheets webhook error:", res.status, responseBody);
+      const body = await res.text();
+      console.error("[consulting-form] Google Sheets webhook error:", res.status, body);
       return NextResponse.json(
         { error: `Google Sheets webhook returned ${res.status}` },
         { status: 502 }
       );
     }
 
-    // Check if Apps Script returned an error in its body (it returns 200 even on failure)
-    try {
-      const parsed = JSON.parse(responseBody);
-      if (parsed.ok === false) {
-        console.error("[consulting-form] Apps Script reported error:", parsed.error);
-      }
-    } catch {
-      // Response wasn't JSON — that's fine
-    }
-
     return NextResponse.json({ ok: true });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[consulting-form] Submission error:", message);
+  } catch {
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
