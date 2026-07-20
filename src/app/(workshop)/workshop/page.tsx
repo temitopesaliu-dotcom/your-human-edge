@@ -129,7 +129,7 @@ export default function WorkshopPage() {
         .ws-about-img-wrap { background: linear-gradient(135deg, #4A3E3D 0%, #2D2120 100%); border-radius: var(--radius-lg); aspect-ratio: 4/5; display: flex; align-items: flex-end; padding: 28px; position: relative; overflow: hidden; }
         .ws-about-img-tag { position: relative; z-index: 1; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); padding: 12px 16px; width: 100%; }
         .ws-about-img-tag-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: black; margin-bottom: 2px; }
-        .ws-about-img-tag-role { font-size: 12px; color: #6D28D9; }
+        .ws-about-img-tag-role { font-size: 12px; color: white; }
         .ws-about-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 1.25rem; line-height: 1.2; }
         .ws-about-content p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.25rem; }
         .ws-about-content p strong { color: var(--text); font-weight: 600; }
