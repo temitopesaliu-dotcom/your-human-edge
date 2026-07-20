@@ -55,13 +55,26 @@ export async function POST(request: NextRequest) {
 
     console.log("[consulting-form] Webhook response status:", res.status);
 
+    // Always log the response body — Apps Script returns 200 even on errors
+    const responseBody = await res.text();
+    console.log("[consulting-form] Webhook response body:", responseBody);
+
     if (!res.ok) {
-      const body = await res.text();
-      console.error("[consulting-form] Google Sheets webhook error:", res.status, body);
+      console.error("[consulting-form] Google Sheets webhook error:", res.status, responseBody);
       return NextResponse.json(
         { error: `Google Sheets webhook returned ${res.status}` },
         { status: 502 }
       );
+    }
+
+    // Check if Apps Script returned an error in its body (it returns 200 even on failure)
+    try {
+      const parsed = JSON.parse(responseBody);
+      if (parsed.ok === false) {
+        console.error("[consulting-form] Apps Script reported error:", parsed.error);
+      }
+    } catch {
+      // Response wasn't JSON — that's fine
     }
 
     return NextResponse.json({ ok: true });
