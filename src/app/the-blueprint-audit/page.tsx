@@ -729,7 +729,7 @@ export default function AiosLandingPage() {
                 call.
               </p>
               <span className="timeline-step-badge">
-                $500 — Credited to implementation
+                $1,000 — Credited to implementation
               </span>
             </div>
             <div className="timeline-step">
@@ -843,7 +843,7 @@ export default function AiosLandingPage() {
                   Because this is not a sales call. It is a consulting
                   engagement. In 90 minutes, we produce a strategic document
                   that has real value regardless of whether you proceed. The
-                  $500 ensures you arrive prepared and serious. It protects both
+                  $1,000 ensures you arrive prepared and serious. It protects both
                   sides. And if you move forward within 30 days, it is credited
                   in full toward your project.
                 </p>
@@ -854,7 +854,7 @@ export default function AiosLandingPage() {
               <p className="label mb-4">AI Operating System Blueprint</p>
               <div style={{ marginBottom: "var(--space-3)" }}>
                 <span className="price-currency">$</span>
-                <span className="price-amount">500</span>
+                <span className="price-amount">1,000</span>
               </div>
               <p className="body-sm mb-4">
                 One-time. Credited 100% toward implementation if you proceed
@@ -901,7 +901,7 @@ export default function AiosLandingPage() {
                 </svg>
                 <span>
                   If you proceed with implementation within 30 days, the full
-                  $500 Blueprint fee is credited toward your project. No
+                  $1,000 Blueprint fee is credited toward your project. No
                   questions asked.
                 </span>
               </div>
@@ -952,7 +952,7 @@ export default function AiosLandingPage() {
                 role: "Strategy Consultant",
               },
               {
-                text: "The Blueprint alone was worth the $500. I got clarity on what to build and in what order. We'd been spinning our wheels with tools for 18 months. In 90 minutes we had a clear architecture. That decision alone saved us months.",
+                text: "The Blueprint alone was worth the $1,000. I got clarity on what to build and in what order. We'd been spinning our wheels with tools for 18 months. In 90 minutes we had a clear architecture. That decision alone saved us months.",
                 name: "Priya K.",
                 role: "Founder, 12-person agency",
               },
@@ -1022,7 +1022,7 @@ export default function AiosLandingPage() {
               {[
                 {
                   q: "Why is the Blueprint paid?",
-                  a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value: a workflow map, AI architecture, implementation roadmap and investment estimate. This takes significant preparation and expertise. The $500 also ensures you arrive prepared and serious. Clients who have skin in the game get better outcomes. And if you proceed within 30 days, every dollar is credited toward your project.",
+                  a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value: a workflow map, AI architecture, implementation roadmap and investment estimate. This takes significant preparation and expertise. The $1,000 also ensures you arrive prepared and serious. Clients who have skin in the game get better outcomes. And if you proceed within 30 days, every dollar is credited toward your project.",
                 },
                 {
                   q: "Can I skip the Blueprint and go straight to implementation?",
@@ -1030,11 +1030,11 @@ export default function AiosLandingPage() {
                 },
                 {
                   q: "What if I decide not to proceed after the Blueprint?",
-                  a: "That is completely fine. You keep the Blueprint document, roadmap and all recommendations. Many clients use the Blueprint to guide their own implementation or hire others to execute it. The document is yours. No obligation exists beyond the $500 session.",
+                  a: "That is completely fine. You keep the Blueprint document, roadmap and all recommendations. Many clients use the Blueprint to guide their own implementation or hire others to execute it. The document is yours. No obligation exists beyond the $1,000 session.",
                 },
                 {
-                  q: "Is the $500 credited toward the project?",
-                  a: "Yes. If you move forward with implementation within 30 days of your Blueprint session, the full $500 is credited toward your project investment. The Blueprint effectively costs you nothing if you proceed.",
+                  q: "Is the $1,000 credited toward the project?",
+                  a: "Yes. If you move forward with implementation within 30 days of your Blueprint session, the full $1,000 is credited toward your project investment. The Blueprint effectively costs you nothing if you proceed.",
                 },
                 {
                   q: "Can my team attend the Blueprint Session?",
@@ -1078,7 +1078,7 @@ export default function AiosLandingPage() {
                 },
                 {
                   q: "How much does implementation cost?",
-                  a: "We do not publish fixed pricing because every engagement is scoped to your specific business. Most projects range from $3,500 for focused single-system builds to $10,000+ for comprehensive operating system implementations. The Blueprint includes an exact investment estimate for your project. The $500 Blueprint fee is credited in full if you proceed.",
+                  a: "We do not publish fixed pricing because every engagement is scoped to your specific business. Most projects range from $3,500 for focused single-system builds to $10,000+ for comprehensive operating system implementations. The Blueprint includes an exact investment estimate for your project. The $1,000 Blueprint fee is credited in full if you proceed.",
                 },
               ].map((faq, i) => (
                 <div className="faq-item" key={i}>
@@ -1194,7 +1194,7 @@ export default function AiosLandingPage() {
             Apply for Your Blueprint
           </Link>
           <p className="final-cta-note">
-            $500 · Credited in full if you proceed · Applications reviewed
+            $1,000 · Credited in full if you proceed · Applications reviewed
             within 48 hours
           </p>
         </div>

@@ -44,7 +44,7 @@ export default function NotAFitPage() {
 
           <p className="body-md mb-6" style={{ maxWidth: 520, margin: "0 auto var(--space-6)", color: "var(--text-2)" }}>
             Our implementation projects start at $2,500 and the Blueprint
-            Session is $500 — credited in full if you proceed. If these
+            Session is $1,000 — credited in full if you proceed. If these
             numbers aren&apos;t in the right range today, we&apos;d rather
             tell you now than waste your time.
           </p>
