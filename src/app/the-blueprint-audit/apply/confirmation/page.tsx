@@ -1,6 +1,7 @@
 import AiosNav from "../../_components/AiosNav";
 import AiosFooter from "../../_components/AiosFooter";
 import Link from "next/link";
+import PurchaseTracker from "@/components/purchase-tracker";
 
 export const metadata = {
   title: "Application Received — AI Operating System",
@@ -10,6 +11,12 @@ export const metadata = {
 export default function ApplyConfirmationPage() {
   return (
     <>
+      <PurchaseTracker
+        productId="blueprint-audit"
+        productName="Blueprint Audit"
+        value={1000}
+        transactionId={`blueprint-${Date.now()}`}
+      />
       <AiosNav variant="confirmation" />
 
       <div className="confirmation-page">

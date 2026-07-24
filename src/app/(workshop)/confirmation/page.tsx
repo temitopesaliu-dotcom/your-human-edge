@@ -1,6 +1,13 @@
+import PurchaseTracker from '@/components/purchase-tracker';
+
 export default function WorkshopConfirmationPage() {
   return (
     <>
+      <PurchaseTracker
+        productId="intelligence-layer-workshop"
+        productName="Intelligence Layer Workshop"
+        value={97}
+      />
       <style>{`
         :root {
           --white: #FFFFFF;

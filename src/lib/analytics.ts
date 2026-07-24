@@ -5,7 +5,7 @@
  */
 export function trackEvent(
 	eventName: string,
-	params?: Record<string, string | number | boolean>,
+	params?: Record<string, unknown>,
 ) {
 	if (
 		typeof window !== "undefined" &&

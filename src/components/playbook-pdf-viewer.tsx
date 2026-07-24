@@ -2,6 +2,7 @@
 
 import { useState, useEffect, lazy, Suspense } from "react";
 import { type ArchetypeKey } from "@/lib/archetypes";
+import PurchaseTracker from "@/components/purchase-tracker";
 
 // Import PDF CSS eagerly so it's available before the lazy-loaded renderer mounts
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -72,6 +73,12 @@ export default function PlaybookPdfViewer({
 
   return (
     <>
+      <PurchaseTracker
+        productId="playbook"
+        productName="Archetype Playbook"
+        value={5.99}
+        dedupKey="ga_purchase_playbook"
+      />
       <style>{`
         @keyframes pb-spin {
           0% { transform: rotate(0deg); }
