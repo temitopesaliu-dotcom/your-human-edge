@@ -32,32 +32,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'A valid email is required.' }, { status: 400 });
     }
 
-    if (product === 'paths-guide') {
-      const priceId = process.env.STRIPE_PATHS_GUIDE_PRICE_ID;
-      if (!priceId) {
-        return NextResponse.json(
-          { error: 'STRIPE_PATHS_GUIDE_PRICE_ID is not set.' },
-          { status: 500 }
-        );
-      }
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        mode: 'payment',
-        customer_email: email,
-        metadata: {
-          product: 'paths-guide',
-          source: 'paths-page',
-        },
-        line_items: [{ price: priceId, quantity: 1 }],
-        success_url: `${siteUrl}/guide/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${siteUrl}/guide`,
-        allow_promotion_codes: true,
-      });
-
-      return NextResponse.json({ url: session.url });
-    }
-
     // Default: archetype playbook ($5.99 quiz funnel)
     const archetypeRaw = (body.archetype || 'H').trim();
     const normalized = (NAME_TO_KEY[archetypeRaw] || archetypeRaw.toUpperCase()) as string;

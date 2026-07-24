@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession } from '@/lib/kv';
-import { addBuyerToMailerLite, addPathsGuideBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber } from '@/lib/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { normalizeProduct } from '@/lib/products';
 import { stripe } from '@/lib/stripe';
@@ -96,14 +96,6 @@ export async function POST(req: NextRequest) {
           await addBuyerToMailerLite(buyerEmail, buyerName, archetype, accessLink);
         } catch (err: unknown) {
           console.error('[webhook] addBuyerToMailerLite failed:', err instanceof Error ? err.message : String(err));
-        }
-      }
-
-      if (buyerEmail && product === 'paths-guide') {
-        try {
-          await addPathsGuideBuyerToMailerLite(buyerEmail, buyerName);
-        } catch (err: unknown) {
-          console.error('[webhook] addPathsGuideBuyerToMailerLite failed:', err instanceof Error ? err.message : String(err));
         }
       }
 

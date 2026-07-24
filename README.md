@@ -26,12 +26,6 @@ All drip and post-purchase emails run in **MailerLite automations**. The app onl
 3. **Emails:** Day 1 immediately, Days 2–5 with ~24h delays. Use fields `{$name}`, `{$ai_archetype}`, CTA to quiz/checkout.
 4. **On purchase:** Stripe webhook adds subscriber to **buyers group** and sets `is_buyer`, `access_link`. In MailerLite, add automation rule: *if joins buyers group → exit quiz drip* (or use separate triggers so buyers never enter the sales sequence).
 
-### Paths guide ($19.99) — email delivery
-
-1. **Trigger:** `/api/stripe-webhook` → `addPathsGuideBuyerToMailerLite()` → `MAILERLITE_PATHS_GUIDE_GROUP_ID`.
-2. **Automation:** Fires on *joins paths guide group* — send the full step-by-step guide (PDF or email body) immediately.
-3. **Post-checkout UX:** User lands on `/guide/success` — confirmation only; content is not on the site.
-
 ### Buyers — purchase + ongoing daily emails
 
 1. **Trigger:** `/api/stripe-webhook` → `addBuyerToMailerLite()` → buyers group + fields `access_link`, `pdf_download_link`.
@@ -47,7 +41,6 @@ All drip and post-purchase emails run in **MailerLite automations**. The app onl
 - `MAILERLITE_API_KEY`
 - `MAILERLITE_GROUP_ALL`, `MAILERLITE_GROUP_H`, `C`, `S`, `G`
 - `MAILERLITE_BUYERS_GROUP_ID` (archetype playbook buyers)
-- `MAILERLITE_PATHS_GUIDE_GROUP_ID` ($19.99 guide — automation emails the PDF/guide)
 - `MAILERLITE_WAITLIST_GROUP_ID` (optional)
 - `MAILERLITE_FREE_RESOURCE_DEFAULT_ARCHETYPE` (optional — the `ai_archetype` value assigned to non-quiz free resource subscribers. Defaults to `'Explorer'`. Prevents blank `{$ai_archetype}` in automated emails.)
 
@@ -64,7 +57,6 @@ Same as before — connect Vercel KV to the project.
 Required minimum:
 
 - `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_ID` (archetype playbook)
-- `STRIPE_PATHS_GUIDE_PRICE_ID` ($19.99 step-by-step guide from `/paths`)
 - `MAILERLITE_API_KEY` + group IDs above
 - `NEXT_PUBLIC_SITE_URL` (e.g. `https://temitopesaliu.com`)
 - KV vars (auto from Vercel Storage)
@@ -103,8 +95,6 @@ src/app/
   quiz/, gate/, results/[slug]/   Funnel pages (server metadata + client UI)
   playbook/page.tsx              Server-gated playbook (no client bundle leak)
   paths/page.tsx                 50 AI paths (public)
-  guide/page.tsx                 $19.99 paths guide checkout
-  guide/success/page.tsx         Post-purchase confirmation (guide sent by email)
   api/subscribe/                 MailerLite quiz signup
   api/create-checkout/           Stripe checkout (rate-limited)
   api/stripe-webhook/            KV session + MailerLite buyer
