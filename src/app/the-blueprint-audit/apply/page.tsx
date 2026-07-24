@@ -544,7 +544,7 @@ export default function ApplyPage() {
                   </label>
                   <p className="form-hint">
                     Implementation projects typically range from
-                    $2,500–$10,000+. This is not a commitment.
+                    $3,500–$10,000+. This is not a commitment.
                   </p>
                   <select
                     className="form-select"
