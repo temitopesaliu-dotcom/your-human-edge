@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession } from '@/lib/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber } from '@/lib/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite } from '@/lib/mailer';
 import { type ArchetypeKey } from '@/lib/archetypes';
 import { normalizeProduct } from '@/lib/products';
 import { stripe } from '@/lib/stripe';
@@ -120,6 +120,22 @@ export async function POST(req: NextRequest) {
           await addIntelligenceLayerPaidSubscriber(buyerEmail, buyerName);
         } catch (err: unknown) {
           console.error('[webhook] addIntelligenceLayerPaidSubscriber failed:', err instanceof Error ? err.message : String(err));
+        }
+      }
+
+      if (buyerEmail && product === 'bap-builder') {
+        try {
+          await addBusinessArchitectBuyerToMailerLite(buyerEmail, buyerName, 'builder');
+        } catch (err: unknown) {
+          console.error('[webhook] addBusinessArchitectBuyerToMailerLite (builder) failed:', err instanceof Error ? err.message : String(err));
+        }
+      }
+
+      if (buyerEmail && product === 'bap-accelerator') {
+        try {
+          await addBusinessArchitectBuyerToMailerLite(buyerEmail, buyerName, 'accelerator');
+        } catch (err: unknown) {
+          console.error('[webhook] addBusinessArchitectBuyerToMailerLite (accelerator) failed:', err instanceof Error ? err.message : String(err));
         }
       }
     }

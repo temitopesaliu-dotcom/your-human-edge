@@ -5,6 +5,7 @@
 //   analytics-events    → kv key: "evt:{timestamp}-{random}"
 
 import { kv } from '@vercel/kv';
+import type { ProductType } from './products';
 
 // ── Session records (validated Stripe purchases) ──────────────
 export interface SessionRecord {
@@ -16,8 +17,8 @@ export interface SessionRecord {
   email: string;
   name: string;
   archetype: string;
-  /** playbook (quiz), stadium tier, or workshop. Omitted on legacy records = playbook. */
-  product?: 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop';
+  /** playbook (quiz), stadium tier, workshop, or Business Architect Programme tier. Omitted on legacy records = playbook. */
+  product?: ProductType;
   paid: boolean;
   webhookSource?: boolean;
 }

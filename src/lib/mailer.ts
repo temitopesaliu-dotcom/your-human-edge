@@ -308,6 +308,47 @@ const result = await mailerLiteRequest('/subscribers', {
 }
 
 
+/** Business Architect Programme buyer — adds to a tier-specific MailerLite group. */
+export async function addBusinessArchitectBuyerToMailerLite(
+  email: string,
+  name: string,
+  tier: 'builder' | 'accelerator'
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) return;
+
+  const groupId =
+    tier === 'builder'
+      ? process.env.MAILERLITE_BAP_BUILDER_GROUP_ID
+      : process.env.MAILERLITE_BAP_ACCELERATOR_GROUP_ID;
+
+  try {
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    const groupsToAdd: string[] = [];
+    if (allGroup) groupsToAdd.push(allGroup);
+    if (groupId) groupsToAdd.push(groupId);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: {
+          name,
+          is_buyer: 'true',
+          product: tier === 'builder' ? 'bap-builder' : 'bap-accelerator',
+        },
+        groups: groupsToAdd,
+      },
+    });
+    if (!result.ok) {
+      console.error(`[mailer] Business Architect Programme buyer (${tier}) update failed:`, result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Business Architect Programme buyer MailerLite error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
+
 /** Coach subscriber — adds to the coach-specific MailerLite group when someone signs up as a coach. */
 export async function addCoachToMailerLite(
   email: string,
