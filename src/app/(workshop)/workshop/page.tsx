@@ -336,22 +336,21 @@ export default function WorkshopPage() {
           Your Intelligence Layer + AI<span>.</span>
         </Link>
         <div className="ws-nav-right">
-          <span className="ws-nav-date">July 25th · 2PM London BST.</span>
           <a
-            href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
+            href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
             target="_blank"
             rel="noopener noreferrer"
             className="ws-nav-cta"
           >
-            Reserve seat — $97
+            Reserve seat — $157
           </a>
         </div>
       </nav>
 
       {/* COUNTDOWN */}
       <div className="ws-countdown">
-        <strong>Early access pricing closes soon.</strong> Full price is $147.
-        Lock in $97 now.
+        <strong>Early access pricing closes soon.</strong> Full price is $299.
+        Lock in at $157 now.
       </div>
 
       {/* HOOK */}
@@ -396,11 +395,7 @@ export default function WorkshopPage() {
               <div className="ws-hero-meta">
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-                  July 25th, 2025
-                </div>
-                <div className="ws-hero-meta-item">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                  2:00 PM London BST.
+                  Date announced soon
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" /></svg>
@@ -413,12 +408,12 @@ export default function WorkshopPage() {
               </div>
               <div className="ws-hero-actions">
                 <a
-                  href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
+                  href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ws-btn-checkout"
                 >
-                  Reserve my seat — $97
+                  Reserve my seat — $157
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </a>
                 <Link href="/" className="ws-btn-secondary">
@@ -436,7 +431,7 @@ export default function WorkshopPage() {
             <div className="ws-checkout-card">
               <div className="ws-checkout-card-top">
                 <div className="ws-checkout-date">
-                  July 25th · 2PM London BST · Live on Zoom.
+                  Live on Zoom · Date announced soon.
                 </div>
                 <div className="ws-checkout-title">
                   The Intelligence Layer: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
@@ -447,9 +442,9 @@ export default function WorkshopPage() {
               </div>
               <div className="ws-checkout-body">
                 <div>
-                  <div className="ws-price-original">$147 full price</div>
+                  <div className="ws-price-original">$299 full price</div>
                   <div className="ws-price-current">
-                    <sup>$</sup>97
+                    <sup>$</sup>157
                   </div>
                   <div className="ws-price-badge">
                     Early access — closes soon
@@ -482,12 +477,12 @@ export default function WorkshopPage() {
                   className="ws-btn-checkout-full"
                   onClick={() =>
                     window.open(
-                      "https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k",
+                      "https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r",
                       "_blank"
                     )
                   }
                 >
-                  Reserve my seat — $97
+                  Reserve my seat — $157
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </button>
                 <div className="ws-checkout-trust">
@@ -735,10 +730,10 @@ export default function WorkshopPage() {
                   className="ws-why-stat-val"
                   style={{ color: "var(--green)" }}
                 >
-                  $97
+                  $157
                 </div>
                 <div className="ws-why-stat-label">
-                  Early access price. Goes to $147 when this closes. Next
+                  Early access price. Goes to $299 when this closes. Next
                   session will be higher.
                 </div>
               </div>
@@ -769,8 +764,8 @@ export default function WorkshopPage() {
                 a: "Your expertise and an honest answer to one question: what problem do you solve better than most people you know? Everything else gets built in the room. No prep slides, no pre-work required.",
               },
               {
-                q: "Is $97 the final price?",
-                a: "No. Early access closes when seats fill or when I decide it closes — whichever comes first. The full price is $147. After this session, when testimonials exist, future sessions will be priced higher.",
+                q: "Is $157 the final price?",
+                a: "No. Early access closes when seats fill or when I decide it closes — whichever comes first. The full price is $299. After this session, when testimonials exist, future sessions will be priced higher.",
               },
               {
                 q: "I already use AI in my work. Is this still relevant?",
@@ -799,23 +794,23 @@ export default function WorkshopPage() {
         <div className="ws-container">
           <div className="ws-final-cta-inner">
             <h2>
-              Limited seats. $97. July 25th
+              Limited seats. $157.
               <br />
-              at 2PM <em>London BST.</em>
+              <em>Date announced soon.</em>
             </h2>
             <p>
               This is the room where your expertise stops being invisible.
             </p>
             <div style={{ marginBottom: "2rem" }}>
-              <div className="ws-final-price-original">$147 full price</div>
-              <div className="ws-final-price-current">$97</div>
+              <div className="ws-final-price-original">$299 full price</div>
+              <div className="ws-final-price-current">$157</div>
               <div className="ws-final-price-badge">
                 Early access — closes soon
               </div>
             </div>
             <a
               className="ws-btn-final"
-              href="https://buy.stripe.com/9B614o3xtefK9k7cT13oA0k"
+              href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
               target="_blank"
               rel="noopener noreferrer"
             >

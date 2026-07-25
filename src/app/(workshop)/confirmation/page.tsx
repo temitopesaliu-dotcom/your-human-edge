@@ -168,7 +168,7 @@ export default function WorkshopConfirmationPage() {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            July 25th · 2PM London BST.
+            Date announced soon.
           </div>
 
           <h1 className="ws-confirm-title">
@@ -176,7 +176,7 @@ export default function WorkshopConfirmationPage() {
           </h1>
 
           <p className="ws-confirm-text">
-            See you July 25th.
+            See you in the room soon.
           </p>
 
           <div className="ws-confirm-divider" />

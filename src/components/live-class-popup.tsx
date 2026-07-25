@@ -2,19 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-const TIME_ZONES = [
-  { label: 'UK (BST)', time: '14:00 (2 PM)', gold: true },
-  { label: 'GMT / UTC', time: '13:00 (1 PM)', gold: false },
-  { label: 'Lagos (WAT)', time: '14:00 (2 PM)', gold: false },
-  { label: 'Johannesburg (CAT)', time: '15:00 (3 PM)', gold: false },
-  { label: 'Nairobi (EAT)', time: '16:00 (4 PM)', gold: false },
-  { label: 'Mumbai (IST)', time: '19:30 (7:30 PM)', gold: false },
-  { label: 'New York (EDT)', time: '09:00 (9 AM)', gold: false },
-  { label: 'Chicago (CDT)', time: '08:00 (8 AM)', gold: false },
-  { label: 'Los Angeles (PDT)', time: '06:00 (6 AM)', gold: false },
-  { label: 'Sydney (AEST)', time: '23:00 (11 PM)', gold: false },
-];
-
 const POPUP_STORAGE_KEY = 'yhe_live_class_popup_dismissed';
 
 function navigateToPricing() {
@@ -98,16 +85,7 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           <p className="lcp-label">Live Online Training</p>
           <h2 className="lcp-title">Your Intelligence Layer + AI</h2>
 
-          <p className="lcp-date-line">Saturday, 25 July 2026 · 2:00 PM BST</p>
-
-          <div className="lcp-tz-grid">
-            {TIME_ZONES.map(tz => (
-              <div key={tz.label} className={'lcp-tz-row' + (tz.gold ? ' hl' : '')}>
-                <span>{tz.label}</span>
-                <span className="lcp-tz-val">{tz.time}</span>
-              </div>
-            ))}
-          </div>
+          <p className="lcp-date-line">Next cohort — date announced soon.</p>
 
           <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
         </div>
@@ -240,35 +218,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           margin: 0 0 14px;
         }
 
-        .lcp-tz-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          margin-bottom: 18px;
-        }
-        .lcp-tz-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 4px 8px;
-          border-radius: 6px;
-          font-size: 13px;
-        }
-        .lcp-tz-row span { color: #555; }
-        .lcp-tz-val {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 12px;
-          color: #888;
-        }
-        .lcp-tz-row.hl {
-          background: #FFF6E6;
-          border-left: 4px solid #E8A23B;
-        }
-        .lcp-tz-row.hl .lcp-tz-val {
-          color: #C98A2E;
-          font-weight: 600;
-        }
-
         .lcp-cta {
           display: block;
           width: 100%;
@@ -323,15 +272,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
 
           .lcp-date-line {
             font-size: 13px;
-          }
-
-          .lcp-tz-row {
-            font-size: 12px;
-            padding: 3px 6px;
-          }
-
-          .lcp-tz-val {
-            font-size: 11px;
           }
 
           .lcp-cta {
@@ -405,25 +345,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
             margin-bottom: 10px;
           }
 
-          .lcp-tz-grid {
-            gap: 1px;
-            margin-bottom: 14px;
-          }
-
-          .lcp-tz-row {
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-          }
-
-          .lcp-tz-val {
-            font-size: 10px;
-          }
-
-          .lcp-tz-row.hl {
-            border-left-width: 3px;
-          }
-
           .lcp-cta {
             font-size: 13px;
             padding: 12px 16px;
@@ -459,15 +380,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
 
           .lcp-title {
             font-size: 17px;
-          }
-
-          .lcp-tz-row {
-            font-size: 10px;
-            padding: 2px 4px;
-          }
-
-          .lcp-tz-val {
-            font-size: 9px;
           }
 
           .lcp-cta {
