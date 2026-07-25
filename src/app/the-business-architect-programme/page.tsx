@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
 
 const BUILDER_HREF = "https://buy.stripe.com/dRm8wQgkf8Vqcwj1aj3oA0p";
@@ -478,15 +479,14 @@ export default function BusinessArchitectProgrammePage() {
         <div className="container">
           <div className="founder-inner">
             <div className="founder-photo">
-              <div className="founder-photo-icon">
-                <UserIcon />
-              </div>
-              <div className="founder-photo-label">Your photo goes here</div>
-              <div className="founder-photo-sub">
-                Professional headshot · min 800×1000px
-                <br />
-                Drop file into Netlify or Vercel editor
-              </div>
+              <Image
+                src="/PHOTO-2026-06-19-12-56-31.jpg"
+                alt="Temitope Saliu"
+                fill
+                sizes="(max-width: 960px) 480px, 260px"
+                className="founder-photo-img"
+                priority
+              />
               <div className="founder-name-tag">
                 <div className="founder-name-tag-name">Temitope Saliu</div>
                 <div className="founder-name-tag-role">
@@ -893,7 +893,7 @@ export default function BusinessArchitectProgrammePage() {
           The Business <em>Architect</em> Programme
         </div>
         <div className="footer-copy">
-          2025 temitopesaliu.com · Intelligence Layer Workshop · Founding
+          2026 temitopesaliu.com · Intelligence Layer Workshop · Founding
           Cohort
         </div>
       </footer>

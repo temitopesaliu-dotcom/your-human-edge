@@ -32,7 +32,7 @@
 .bap-page .announce a{color:white;text-decoration:underline;cursor:pointer;font-weight:700;}
 
 /* ── NAV ─── */
-.bap-page .nav{background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bap-border);padding:0 max(1.5rem,calc((100vw - 1140px)/2));height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:36px;z-index:100;}
+.bap-page .nav{background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bap-border);padding:0 max(1.5rem,calc((100vw - 1320px)/2));height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:36px;z-index:100;}
 .bap-page .nav-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--bap-espresso);white-space:nowrap;}
 .bap-page .nav-brand em{font-style:italic;color:var(--bap-purple);}
 .bap-page .nav-timer{font-size:12px;color:var(--bap-muted);display:flex;align-items:center;gap:6px;white-space:nowrap;}
@@ -41,7 +41,7 @@
 .bap-page .nav-cta:hover{background:var(--bap-purple-dk);}
 
 /* ── HERO ─── */
-.bap-page .hero{padding:80px max(1.5rem,calc((100vw - 1140px)/2)) 72px;text-align:center;position:relative;overflow:hidden;background:var(--bap-bg);}
+.bap-page .hero{padding:80px max(1.5rem,calc((100vw - 1320px)/2)) 72px;text-align:center;position:relative;overflow:hidden;background:var(--bap-bg);}
 .bap-page .hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,var(--bap-purple-bg) 0%,transparent 70%);pointer-events:none;}
 .bap-page .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);border-radius:999px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-purple);margin-bottom:24px;}
 .bap-page .hero-dot{width:6px;height:6px;border-radius:50%;background:var(--bap-purple);animation:bap-pulse 2s infinite;}
@@ -65,8 +65,8 @@
 .bap-page .hero-cta svg{width:15px;height:15px;}
 
 /* ── SHARED ─── */
-.bap-page .container{max-width:1140px;margin:0 auto;padding:0 max(1.5rem,calc((100vw - 1140px)/2));}
-.bap-page .section{padding:80px max(1.5rem,calc((100vw - 1140px)/2));}
+.bap-page .container{max-width:1320px;margin:0 auto;padding:0 max(1.5rem,calc((100vw - 1320px)/2));}
+.bap-page .section{padding:80px max(1.5rem,calc((100vw - 1320px)/2));}
 .bap-page .section-alt{background:var(--bap-alabaster);border-top:1px solid var(--bap-border);border-bottom:1px solid var(--bap-border);}
 .bap-page .eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bap-purple);margin-bottom:12px;}
 .bap-page .section-h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.8px;color:var(--bap-espresso);margin-bottom:12px;}
@@ -108,12 +108,9 @@
 
 /* ── FOUNDER ─── */
 .bap-page .founder-inner{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start;}
-.bap-page .founder-photo{background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);border-radius:16px;aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;position:relative;overflow:hidden;}
+.bap-page .founder-photo{background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);border-radius:16px;aspect-ratio:3/4;position:relative;overflow:hidden;}
 .bap-page .founder-photo::before{content:'';position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;background:var(--bap-purple);opacity:.06;border-radius:50%;}
-.bap-page .founder-photo-icon{width:80px;height:80px;border-radius:50%;background:var(--bap-purple);display:flex;align-items:center;justify-content:center;}
-.bap-page .founder-photo-icon svg{width:36px;height:36px;color:white;}
-.bap-page .founder-photo-label{font-size:12px;font-weight:600;color:var(--bap-muted);line-height:1.5;max-width:200px;}
-.bap-page .founder-photo-sub{font-size:11px;color:var(--bap-light);}
+.bap-page .founder-photo-img{object-fit:cover;}
 .bap-page .founder-name-tag{position:absolute;bottom:16px;left:16px;right:16px;background:white;border:1px solid var(--bap-border);border-radius:var(--bap-r);padding:12px 14px;}
 .bap-page .founder-name-tag-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--bap-espresso);}
 .bap-page .founder-name-tag-role{font-size:11px;color:var(--bap-muted);}
@@ -225,7 +222,7 @@
 .bap-page .faq-a.open{display:block;}
 
 /* ── FINAL CTA ─── */
-.bap-page .final{background:var(--bap-purple);padding:88px max(1.5rem,calc((100vw - 1140px)/2));text-align:center;position:relative;overflow:hidden;}
+.bap-page .final{background:var(--bap-purple);padding:88px max(1.5rem,calc((100vw - 1320px)/2));text-align:center;position:relative;overflow:hidden;}
 .bap-page .final::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);pointer-events:none;}
 .bap-page .final-inner{position:relative;z-index:1;}
 .bap-page .final h2{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-1px;color:white;margin-bottom:14px;}
@@ -240,7 +237,7 @@
 .bap-page .final-caption strong{color:rgba(255,255,255,.7);}
 
 /* ── FOOTER ─── */
-.bap-page .footer{background:var(--bap-footer);border-top:1px solid var(--bap-border);padding:28px max(1.5rem,calc((100vw - 1140px)/2));display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.bap-page .footer{background:var(--bap-footer);border-top:1px solid var(--bap-border);padding:28px max(1.5rem,calc((100vw - 1320px)/2));display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 .bap-page .footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--bap-espresso);}
 .bap-page .footer-brand em{font-style:italic;color:var(--bap-purple);}
 .bap-page .footer-copy{font-size:11px;color:var(--bap-light);}
