@@ -395,7 +395,7 @@ export default function WorkshopPage() {
               <div className="ws-hero-meta">
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-                  Date announced soon
+                  August 8, 2026
                 </div>
                 <div className="ws-hero-meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" /></svg>
@@ -422,7 +422,7 @@ export default function WorkshopPage() {
               </div>
               <div className="ws-hero-trust">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                Powered by Stripe. Secure checkout. Recording sent within 24
+                Powered by Stripe. Secure checkout. Recording sent within 72
                 hours if you miss the live session.
               </div>
             </div>
@@ -431,7 +431,7 @@ export default function WorkshopPage() {
             <div className="ws-checkout-card">
               <div className="ws-checkout-card-top">
                 <div className="ws-checkout-date">
-                  Live on Zoom · Date announced soon.
+                  Live on Zoom · August 8, 2026.
                 </div>
                 <div className="ws-checkout-title">
                   The Intelligence Layer: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
@@ -464,7 +464,7 @@ export default function WorkshopPage() {
                     "Your Intelligence Layer mapped live",
                     "AI infrastructure built in the session",
                     "90-day GTM plan you leave with",
-                    "Session recording within 24 hours",
+                    "Session recording within 72 hours",
                     "All working templates and frameworks",
                   ].map((item) => (
                     <div className="ws-include-item" key={item}>
@@ -738,9 +738,9 @@ export default function WorkshopPage() {
                 </div>
               </div>
               <div className="ws-why-stat">
-                <div className="ws-why-stat-val">24 hrs</div>
+                <div className="ws-why-stat-val">72 hrs</div>
                 <div className="ws-why-stat-label">
-                  Recording delivered within 24 hours if you cannot attend live
+                  Recording delivered within 72 hours if you cannot attend live
                 </div>
               </div>
             </div>
@@ -757,7 +757,7 @@ export default function WorkshopPage() {
             {[
               {
                 q: "Is this session recorded?",
-                a: "Yes. If you cannot attend live, the full recording and all working documents will be delivered within 24 hours. The live session is where the real work happens, but you will not lose your investment if your schedule shifts.",
+                a: "Yes. If you cannot attend live, the full recording and all working documents will be delivered within 72 hours. The live session is where the real work happens, but you will not lose your investment if your schedule shifts.",
               },
               {
                 q: "What do I need to come prepared with?",
@@ -796,7 +796,7 @@ export default function WorkshopPage() {
             <h2>
               Limited seats. $157.
               <br />
-              <em>Date announced soon.</em>
+              <em>August 8, 2026.</em>
             </h2>
             <p>
               This is the room where your expertise stops being invisible.
