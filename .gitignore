@@ -39,6 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only Claude Code instructions (not published to the repo)
+CLAUDE.md
 .continue/
 best-practices.md
 new-results-creative-amplifier.html
