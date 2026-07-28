@@ -1,6 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { ConsultingProfileFormRequest, ConsultingProfileFormResponse } from "@/types/consulting-profile-form";
 
+function buildSheetsPayload(data: ConsultingProfileFormRequest) {
+  return {
+    submittedAt: new Date().toISOString(),
+    fullName: data.full_name || "",
+    preferredName: data.preferred_name || "",
+    email: data.email || "",
+    country: data.country || "",
+    timezone: data.timezone || "",
+    linkedin: data.linkedin || "",
+    currentRole: data.current_role || "",
+    yearsExperience: data.years_experience || "",
+    industry: data.industry || "",
+    adviceAreas: data.advice_areas || "",
+    greatestStrength: data.greatest_strength || "",
+    coreProblem: data.core_problem || "",
+    proudestWork: data.proudest_work || "",
+    orgTypes: data.org_types || "",
+    whyJoined: data.why_joined || "",
+    bestWorkshop: data.best_workshop || "",
+    keyQuestion: data.key_question || "",
+    aiConfidence: data.ai_confidence || "",
+    aiTools: data.ai_tools || "",
+    aiTransformative: data.ai_transformative || "",
+    businessName: data.business_name || "",
+    businessIndustry: data.business_industry || "",
+    businessSize: data.business_size || "",
+    businessChallenge: data.business_challenge || "",
+    businessFriction: data.business_friction || "",
+    businessWhy: data.business_why || "",
+    sixMonthsVision: data.six_months_vision || "",
+    anythingElse: data.anything_else || "",
+  };
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse<ConsultingProfileFormResponse>> {
   try {
     const data = (await request.json()) as ConsultingProfileFormRequest;
@@ -13,37 +47,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<Consultin
       );
     }
 
-    const payload = {
-      submittedAt: new Date().toISOString(),
-      fullName: data.full_name || "",
-      preferredName: data.preferred_name || "",
-      email: data.email || "",
-      country: data.country || "",
-      timezone: data.timezone || "",
-      linkedin: data.linkedin || "",
-      currentRole: data.current_role || "",
-      yearsExperience: data.years_experience || "",
-      industry: data.industry || "",
-      adviceAreas: data.advice_areas || "",
-      greatestStrength: data.greatest_strength || "",
-      coreProblem: data.core_problem || "",
-      proudestWork: data.proudest_work || "",
-      orgTypes: data.org_types || "",
-      whyJoined: data.why_joined || "",
-      bestWorkshop: data.best_workshop || "",
-      keyQuestion: data.key_question || "",
-      aiConfidence: data.ai_confidence || "",
-      aiTools: data.ai_tools || "",
-      aiTransformative: data.ai_transformative || "",
-      businessName: data.business_name || "",
-      businessIndustry: data.business_industry || "",
-      businessSize: data.business_size || "",
-      businessChallenge: data.business_challenge || "",
-      businessFriction: data.business_friction || "",
-      businessWhy: data.business_why || "",
-      sixMonthsVision: data.six_months_vision || "",
-      anythingElse: data.anything_else || "",
-    };
+    const payload = buildSheetsPayload(data);
 
     const res = await fetch(webhookUrl, {
       method: "POST",
