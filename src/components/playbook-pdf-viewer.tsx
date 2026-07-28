@@ -17,7 +17,6 @@ const PDF_MAP: Record<ArchetypeKey, string> = {
 
 interface PlaybookPdfViewerProps {
   archetypeKey: ArchetypeKey;
-  userName?: string;
   userEmail?: string;
 }
 
@@ -28,7 +27,6 @@ const TOAST_STORAGE_KEY = "yhe_email_toast_shown";
 
 export default function PlaybookPdfViewer({
   archetypeKey,
-  userName,
   userEmail,
 }: PlaybookPdfViewerProps) {
   const [mounted, setMounted] = useState(false);
@@ -131,12 +129,7 @@ export default function PlaybookPdfViewer({
             </>
           }
         >
-          <PdfRenderer
-            archetypeKey={archetypeKey}
-            userName={userName}
-            userEmail={userEmail}
-            pdfUrl={pdfUrl}
-          />
+          <PdfRenderer pdfUrl={pdfUrl} />
         </Suspense>
       </div>
     </>

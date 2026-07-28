@@ -60,7 +60,6 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
       <div style={{ minHeight: '100dvh' }}>
         <PlaybookPdfViewer
           archetypeKey={arch.key}
-          userName={access.name || undefined}
           userEmail={access.email || undefined}
         />
       </div>
@@ -94,7 +93,6 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     <div style={{ minHeight: '100dvh' }}>
       <PlaybookPdfViewer
         archetypeKey={arch.key}
-        userName={access.name || undefined}
         userEmail={access.email || undefined}
       />
     </div>

@@ -4,7 +4,6 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import AiosNav from "../_components/AiosNav";
 import AiosFooter from "../_components/AiosFooter";
-import Link from "next/link";
 
 interface FormData {
   firstName: string;
@@ -28,6 +27,10 @@ interface FormData {
 }
 
 const TOTAL_STEPS = 5;
+
+function FieldError({ field, errors }: { field: string; errors: Record<string, string> }) {
+  return errors[field] ? <p className="form-error">{errors[field]}</p> : null;
+}
 
 export default function ApplyPage() {
   const router = useRouter();
@@ -166,9 +169,6 @@ export default function ApplyPage() {
 
   const progressWidth = (current / TOTAL_STEPS) * 100;
 
-  const FieldError = ({ field }: { field: string }) =>
-    errors[field] ? <p className="form-error">{errors[field]}</p> : null;
-
   return (
     <>
       <AiosNav variant="apply" />
@@ -220,7 +220,7 @@ export default function ApplyPage() {
                       onChange={(e) => update("firstName", e.target.value)}
                       autoComplete="given-name"
                     />
-                    <FieldError field="firstName" />
+                    <FieldError field="firstName" errors={errors} />
                   </div>
                   <div className="form-field">
                     <label className="form-label" htmlFor="lastName">
@@ -235,7 +235,7 @@ export default function ApplyPage() {
                       onChange={(e) => update("lastName", e.target.value)}
                       autoComplete="family-name"
                     />
-                    <FieldError field="lastName" />
+                    <FieldError field="lastName" errors={errors} />
                   </div>
                 </div>
 
@@ -252,7 +252,7 @@ export default function ApplyPage() {
                     onChange={(e) => update("email", e.target.value)}
                     autoComplete="email"
                   />
-                  <FieldError field="email" />
+                  <FieldError field="email" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -267,7 +267,7 @@ export default function ApplyPage() {
                     value={data.businessName}
                     onChange={(e) => update("businessName", e.target.value)}
                   />
-                  <FieldError field="businessName" />
+                  <FieldError field="businessName" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -336,7 +336,7 @@ export default function ApplyPage() {
                     </option>
                     <option value="other">Other</option>
                   </select>
-                  <FieldError field="businessType" />
+                  <FieldError field="businessType" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -351,7 +351,7 @@ export default function ApplyPage() {
                     value={data.industry}
                     onChange={(e) => update("industry", e.target.value)}
                   />
-                  <FieldError field="industry" />
+                  <FieldError field="industry" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -374,7 +374,7 @@ export default function ApplyPage() {
                     <option value="16-25">16–25</option>
                     <option value="25+">25+</option>
                   </select>
-                  <FieldError field="teamSize" />
+                  <FieldError field="teamSize" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -390,7 +390,7 @@ export default function ApplyPage() {
                     value={data.businessDesc}
                     onChange={(e) => update("businessDesc", e.target.value)}
                   />
-                  <FieldError field="businessDesc" />
+                  <FieldError field="businessDesc" errors={errors} />
                 </div>
               </div>
 
@@ -436,7 +436,7 @@ export default function ApplyPage() {
                     value={data.biggestPain}
                     onChange={(e) => update("biggestPain", e.target.value)}
                   />
-                  <FieldError field="biggestPain" />
+                  <FieldError field="biggestPain" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -452,7 +452,7 @@ export default function ApplyPage() {
                     value={data.bottleneck}
                     onChange={(e) => update("bottleneck", e.target.value)}
                   />
-                  <FieldError field="bottleneck" />
+                  <FieldError field="bottleneck" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -501,7 +501,7 @@ export default function ApplyPage() {
                     value={data.currentTools}
                     onChange={(e) => update("currentTools", e.target.value)}
                   />
-                  <FieldError field="currentTools" />
+                  <FieldError field="currentTools" errors={errors} />
                 </div>
               </div>
 
@@ -566,7 +566,7 @@ export default function ApplyPage() {
                       Not sure yet — the Blueprint will help me decide
                     </option>
                   </select>
-                  <FieldError field="implementationBudget" />
+                  <FieldError field="implementationBudget" errors={errors} />
                 </div>
 
                 <div className="form-field">
@@ -603,7 +603,7 @@ export default function ApplyPage() {
                       </label>
                     ))}
                   </div>
-                  <FieldError field="timeline" />
+                  <FieldError field="timeline" errors={errors} />
                 </div>
               </div>
 
@@ -661,7 +661,7 @@ export default function ApplyPage() {
                     <option value="content">Article or blog post</option>
                     <option value="other">Other</option>
                   </select>
-                  <FieldError field="howHeard" />
+                  <FieldError field="howHeard" errors={errors} />
                 </div>
 
                 <div className="form-field">

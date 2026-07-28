@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import Link from "next/link";
 import LiveClassPopup from "@/components/live-class-popup";
 
 const Q = [
@@ -771,9 +772,9 @@ export default function IntelHomePage() {
       <LiveClassPopup onRegister={handlePopupRegister} />
 
       <nav className="ilp-nav">
-        <a href="/" className="ilp-nav-logo">
+        <Link href="/" className="ilp-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
-        </a>
+        </Link>
         <a className="nav-tag" href="/resources">
         <span className="nav-tag">FREE RESOURCE</span>
         </a>

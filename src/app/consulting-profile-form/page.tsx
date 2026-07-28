@@ -58,6 +58,12 @@ const ERROR_MESSAGES: Record<string, string> = {
   six_months_vision: "Please answer this question.",
 };
 
+function FieldError({ name, errors }: { name: string; errors: Record<string, boolean> }) {
+  return errors[name] ? (
+    <div className="cpf-field-error-msg">{ERROR_MESSAGES[name] || "This field is required."}</div>
+  ) : null;
+}
+
 export default function ConsultingProfileFormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -217,9 +223,6 @@ export default function ConsultingProfileFormPage() {
       </div>
     );
   };
-
-  const FieldError = ({ name }: { name: string }) =>
-    errors[name] ? <div className="cpf-field-error-msg">{ERROR_MESSAGES[name] || "This field is required."}</div> : null;
 
   return (
     <>
@@ -433,12 +436,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("full_name")} id="f-fname">
                       <label className="cpf-field-label">Full name <span className="cpf-req">*</span></label>
                       <input type="text" name="full_name" placeholder="Your full name" value={formData.full_name || ""} onChange={(e) => set("full_name", e.target.value)} />
-                      <FieldError name="full_name" />
+                      <FieldError name="full_name" errors={errors} />
                     </div>
                     <div className={fieldClass("preferred_name")} id="f-pref">
                       <label className="cpf-field-label">Preferred name in session <span className="cpf-req">*</span></label>
                       <input type="text" name="preferred_name" placeholder="What should I call you?" value={formData.preferred_name || ""} onChange={(e) => set("preferred_name", e.target.value)} />
-                      <FieldError name="preferred_name" />
+                      <FieldError name="preferred_name" errors={errors} />
                     </div>
                   </div>
 
@@ -446,12 +449,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("email")} id="f-email">
                       <label className="cpf-field-label">Email address <span className="cpf-req">*</span></label>
                       <input type="email" name="email" placeholder="name@email.com" value={formData.email || ""} onChange={(e) => set("email", e.target.value)} />
-                      <FieldError name="email" />
+                      <FieldError name="email" errors={errors} />
                     </div>
                     <div className={fieldClass("country")} id="f-country">
                       <label className="cpf-field-label">Country you are based in <span className="cpf-req">*</span></label>
                       <input type="text" name="country" placeholder="e.g. Nigeria, UK, USA" value={formData.country || ""} onChange={(e) => set("country", e.target.value)} />
-                      <FieldError name="country" />
+                      <FieldError name="country" errors={errors} />
                     </div>
                   </div>
 
@@ -459,7 +462,7 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("timezone")} id="f-tz">
                       <label className="cpf-field-label">Time zone joining from <span className="cpf-req">*</span></label>
                       <input type="text" name="timezone" placeholder="e.g. WAT, BST, EST" value={formData.timezone || ""} onChange={(e) => set("timezone", e.target.value)} />
-                      <FieldError name="timezone" />
+                      <FieldError name="timezone" errors={errors} />
                     </div>
                     <div className="cpf-field">
                       <label className="cpf-field-label">LinkedIn profile URL <span style={{ fontWeight: 400, color: "var(--light)" }}>(optional)</span></label>
@@ -486,7 +489,7 @@ export default function ConsultingProfileFormPage() {
                       { value: "Multiple of the above", label: "Multiple of the above" },
                       { value: "In transition", label: "In transition between roles" },
                     ], "radio")}
-                    <FieldError name="current_role" />
+                    <FieldError name="current_role" errors={errors} />
                   </div>
 
                   <div className={fieldClass("years_experience")} id="f-years">
@@ -498,26 +501,26 @@ export default function ConsultingProfileFormPage() {
                       { value: "13-20 years", label: "13 to 20 years" },
                       { value: "20+ years", label: "20 years or more" },
                     ], "radio")}
-                    <FieldError name="years_experience" />
+                    <FieldError name="years_experience" errors={errors} />
                   </div>
 
                   <div className={fieldClass("industry")} id="f-industry">
                     <label className="cpf-field-label">Which industry or industries have you spent the most time working in? <span className="cpf-req">*</span></label>
                     <input type="text" name="industry" placeholder="e.g. Finance, HR, Marketing, Healthcare, Education..." value={formData.industry || ""} onChange={(e) => set("industry", e.target.value)} />
-                    <FieldError name="industry" />
+                    <FieldError name="industry" errors={errors} />
                   </div>
 
                   <div className={fieldClass("advice_areas")} id="f-sought">
                     <label className="cpf-field-label">What areas do people naturally seek your advice on — even informally, even without paying you? <span className="cpf-req">*</span></label>
                     <textarea name="advice_areas" placeholder="The things people ask you about in WhatsApp groups, at events, over coffee..." value={formData.advice_areas || ""} onChange={(e) => set("advice_areas", e.target.value)}></textarea>
-                    <FieldError name="advice_areas" />
+                    <FieldError name="advice_areas" errors={errors} />
                   </div>
 
                   <div className={fieldClass("greatest_strength")} id="f-strength">
                     <label className="cpf-field-label">What would you consider your single greatest professional strength? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not a skill. A strength. The thing that is most distinctly yours.</div>
                     <textarea name="greatest_strength" placeholder="The thing you do that feels ordinary to you but extraordinary to others..." value={formData.greatest_strength || ""} onChange={(e) => set("greatest_strength", e.target.value)}></textarea>
-                    <FieldError name="greatest_strength" />
+                    <FieldError name="greatest_strength" errors={errors} />
                   </div>
                 </div>
 
@@ -533,14 +536,14 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">In plain language — not professional language — what problem are you exceptionally good at solving? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not your job title. Not your LinkedIn headline. The actual problem. The thing people bring to you when something is broken or stuck.</div>
                     <textarea name="core_problem" placeholder="When people come to me they are usually struggling with..." style={{ minHeight: 130 }} value={formData.core_problem || ""} onChange={(e) => set("core_problem", e.target.value)}></textarea>
-                    <FieldError name="core_problem" />
+                    <FieldError name="core_problem" errors={errors} />
                   </div>
 
                   <div className={fieldClass("proudest_work")} id="f-proud">
                     <label className="cpf-field-label">Describe a piece of work you are most proud of. <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">What did you do, what changed, and why does it still stay with you?</div>
                     <textarea name="proudest_work" placeholder="Tell me about the work, the outcome, and why it matters to you..." style={{ minHeight: 130 }} value={formData.proudest_work || ""} onChange={(e) => set("proudest_work", e.target.value)}></textarea>
-                    <FieldError name="proudest_work" />
+                    <FieldError name="proudest_work" errors={errors} />
                   </div>
 
                   <div className={fieldClass("org_types")} id="f-orgtypes">
@@ -557,7 +560,7 @@ export default function ConsultingProfileFormPage() {
                       { value: "Technology", label: "Technology" },
                       { value: "Manufacturing", label: "Manufacturing" },
                     ], "checkbox")}
-                    <FieldError name="org_types" />
+                    <FieldError name="org_types" errors={errors} />
                   </div>
                 </div>
 
@@ -573,19 +576,19 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">Why did you decide to join this workshop? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not the professional answer. The real one.</div>
                     <textarea name="why_joined" placeholder="Be honest with me. What made you click that button and pay?" style={{ minHeight: 120 }} value={formData.why_joined || ""} onChange={(e) => set("why_joined", e.target.value)}></textarea>
-                    <FieldError name="why_joined" />
+                    <FieldError name="why_joined" errors={errors} />
                   </div>
 
                   <div className={fieldClass("best_workshop")} id="f-best">
                     <label className="cpf-field-label">What would make this one of the best workshops you have ever attended? <span className="cpf-req">*</span></label>
                     <textarea name="best_workshop" placeholder="Describe it specifically. What would need to happen for you to walk away saying — that changed things?" style={{ minHeight: 120 }} value={formData.best_workshop || ""} onChange={(e) => set("best_workshop", e.target.value)}></textarea>
-                    <FieldError name="best_workshop" />
+                    <FieldError name="best_workshop" errors={errors} />
                   </div>
 
                   <div className={fieldClass("key_question")} id="f-question">
                     <label className="cpf-field-label">What is the one question you are most hoping gets answered? <span className="cpf-req">*</span></label>
                     <textarea name="key_question" placeholder="The question that has been sitting with you unanswered..." value={formData.key_question || ""} onChange={(e) => set("key_question", e.target.value)}></textarea>
-                    <FieldError name="key_question" />
+                    <FieldError name="key_question" errors={errors} />
                   </div>
                 </div>
 
@@ -601,20 +604,20 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">How would you rate your current confidence using AI strategically — not just for tasks but to build something? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">1 = complete beginner &nbsp;·&nbsp; 10 = building with it daily</div>
                     {renderScale("ai_confidence", "Complete beginner", "Building with it daily")}
-                    <FieldError name="ai_confidence" />
+                    <FieldError name="ai_confidence" errors={errors} />
                   </div>
 
                   <div className={fieldClass("ai_tools")} id="f-aitools">
                     <label className="cpf-field-label">Which AI tools do you currently use and what specifically do you use them for? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Be precise. Not just the tool name — the actual use case.</div>
                     <textarea name="ai_tools" placeholder="e.g. Claude for drafting client proposals, ChatGPT for research, Notion AI for meeting notes..." value={formData.ai_tools || ""} onChange={(e) => set("ai_tools", e.target.value)}></textarea>
-                    <FieldError name="ai_tools" />
+                    <FieldError name="ai_tools" errors={errors} />
                   </div>
 
                   <div className={fieldClass("ai_transformative")} id="f-aitransform">
                     <label className="cpf-field-label">What would AI need to do for your specific expertise for you to consider it genuinely transformative rather than just useful? <span className="cpf-req">*</span></label>
                     <textarea name="ai_transformative" placeholder="What is the bar? What would need to happen for AI to feel like it changed everything for you?" style={{ minHeight: 120 }} value={formData.ai_transformative || ""} onChange={(e) => set("ai_transformative", e.target.value)}></textarea>
-                    <FieldError name="ai_transformative" />
+                    <FieldError name="ai_transformative" errors={errors} />
                   </div>
                 </div>
 
@@ -630,12 +633,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("business_name")} id="f-bizname">
                       <label className="cpf-field-label">Business name <span className="cpf-req">*</span></label>
                       <input type="text" name="business_name" placeholder="Name of the business" value={formData.business_name || ""} onChange={(e) => set("business_name", e.target.value)} />
-                      <FieldError name="business_name" />
+                      <FieldError name="business_name" errors={errors} />
                     </div>
                     <div className={fieldClass("business_industry")} id="f-bizindustry">
                       <label className="cpf-field-label">Industry <span className="cpf-req">*</span></label>
                       <input type="text" name="business_industry" placeholder="e.g. Logistics, Healthcare, Retail" value={formData.business_industry || ""} onChange={(e) => set("business_industry", e.target.value)} />
-                      <FieldError name="business_industry" />
+                      <FieldError name="business_industry" errors={errors} />
                     </div>
                   </div>
 
@@ -647,20 +650,20 @@ export default function ConsultingProfileFormPage() {
                   <div className={fieldClass("business_challenge")} id="f-bizchallenge">
                     <label className="cpf-field-label">What do you think is their biggest operational challenge right now? <span className="cpf-req">*</span></label>
                     <textarea name="business_challenge" placeholder="What is breaking, slowing down, or stuck in this business right now?" value={formData.business_challenge || ""} onChange={(e) => set("business_challenge", e.target.value)}></textarea>
-                    <FieldError name="business_challenge" />
+                    <FieldError name="business_challenge" errors={errors} />
                   </div>
 
                   <div className={fieldClass("business_friction")} id="f-bizfriction">
                     <label className="cpf-field-label">Where do you see the most obvious friction in how they operate? <span className="cpf-req">*</span></label>
-                    <div className="cpf-field-hint">The repetition, the delay, the bottleneck, the knowledge trapped inside one person's head.</div>
+                    <div className="cpf-field-hint">The repetition, the delay, the bottleneck, the knowledge trapped inside one person&apos;s head.</div>
                     <textarea name="business_friction" placeholder="Where does this business slow down, repeat itself, or break when the wrong person is unavailable?" value={formData.business_friction || ""} onChange={(e) => set("business_friction", e.target.value)}></textarea>
-                    <FieldError name="business_friction" />
+                    <FieldError name="business_friction" errors={errors} />
                   </div>
 
                   <div className={fieldClass("business_why")} id="f-bizwhy">
                     <label className="cpf-field-label">Why did you choose this business? <span className="cpf-req">*</span></label>
                     <input type="text" name="business_why" placeholder="What made you pick this one specifically?" value={formData.business_why || ""} onChange={(e) => set("business_why", e.target.value)} />
-                    <FieldError name="business_why" />
+                    <FieldError name="business_why" errors={errors} />
                   </div>
                 </div>
 
@@ -676,7 +679,7 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">Imagine it is six months from now. You send me a message and say — I am so glad I attended. What has happened? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Describe the outcome in as much detail as you can. What are you doing? What has changed? What can you do now that you could not do before July 25th?</div>
                     <textarea name="six_months_vision" placeholder="Six months from now, I am..." style={{ minHeight: 160 }} value={formData.six_months_vision || ""} onChange={(e) => set("six_months_vision", e.target.value)}></textarea>
-                    <FieldError name="six_months_vision" />
+                    <FieldError name="six_months_vision" errors={errors} />
                   </div>
 
                   <div className="cpf-field">
@@ -715,7 +718,7 @@ export default function ConsultingProfileFormPage() {
               <div className="cpf-confirm-message">
                 <p>Between now and July 25th, start observing businesses differently.</p>
                 <p>Do not look for AI.</p>
-                <p><strong>Look for friction.</strong> Look for repetition. Look for delays. Look for decisions being made slowly because knowledge is trapped inside one person's head. Look for processes that break every time one specific person is unavailable.</p>
+                <p><strong>Look for friction.</strong> Look for repetition. Look for delays. Look for decisions being made slowly because knowledge is trapped inside one person&apos;s head. Look for processes that break every time one specific person is unavailable.</p>
                 <p>That is where AI consultants create value.</p>
                 <p>We will build on those observations together on July 25th.</p>
                 <div className="cpf-confirm-highlight">See you in the room. — Temitope</div>
