@@ -4,15 +4,16 @@ import { resolveSiteUrl } from "@/lib/utils/resolve-site-url";
 import { rateLimit } from "@/lib/services/rate-limit";
 import { getClientIp } from "@/lib/utils/get-client-ip";
 import { isValidEmail } from "@/lib/utils/validation";
+import type { BlueprintCreateCheckoutRequest, BlueprintCreateCheckoutResponse } from "@/types/blueprint-apply";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<BlueprintCreateCheckoutResponse>> {
   const ip = getClientIp(req.headers);
   if (!(await rateLimit(ip, 10, 60, "blueprint-checkout"))) {
     return NextResponse.json({ error: "Too many requests." }, { status: 429 });
   }
 
   try {
-    const body = await req.json();
+    const body = (await req.json()) as BlueprintCreateCheckoutRequest;
     const email = (body.email || "").trim();
 
     if (!email || !isValidEmail(email)) {
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
       cancel_url: `${siteUrl}/the-blueprint-audit/apply`,
       allow_promotion_codes: true,
     });
+
+    if (!session.url) {
+      return NextResponse.json({ error: "Stripe did not return a checkout URL." }, { status: 502 });
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (err: unknown) {

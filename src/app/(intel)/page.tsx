@@ -3,6 +3,9 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import LiveClassPopup from "@/components/live-class-popup";
+import { useAsyncForm } from "@/hooks/use-async-form";
+import { isValidEmail } from "@/lib/utils/validation";
+import type { IntelSubscribeRequest, IntelSubscribeResponse } from "@/types/intel-subscribe";
 
 const Q = [
   {
@@ -515,7 +518,11 @@ export default function IntelHomePage() {
   } | null>(null);
   const [gateName, setGateName] = useState("");
   const [gateEmail, setGateEmail] = useState("");
-  const [gateSubmitting, setGateSubmitting] = useState(false);
+  const { status: intelSubscribeStatus, submit: submitIntelSubscribe } = useAsyncForm<
+    IntelSubscribeRequest,
+    IntelSubscribeResponse
+  >({ url: "/api/intel-subscribe" });
+  const gateSubmitting = intelSubscribeStatus === "submitting";
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -564,18 +571,11 @@ export default function IntelHomePage() {
 
   const revealResult = useCallback(async () => {
     // Fire-and-forget: add subscriber to FREE_INTELLIGENCE_LAYER group
-    if (gateEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gateEmail)) {
-      setGateSubmitting(true);
-      try {
-        await fetch("/api/intel-subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: gateEmail, name: gateName }),
-        });
-      } catch (err) {
-        console.error("[intel] subscribe failed:", err);
+    if (gateEmail && isValidEmail(gateEmail)) {
+      const result = await submitIntelSubscribe({ email: gateEmail, name: gateName });
+      if (!result.ok) {
+        console.error("[intel] subscribe failed:", result.error);
       }
-      setGateSubmitting(false);
     }
 
     const tier = TIERS[answers.years] || "Established Expert";
@@ -596,7 +596,7 @@ export default function IntelHomePage() {
       steps,
     });
     setScreen("result");
-  }, [answers, gateEmail, gateName]);
+  }, [answers, gateEmail, gateName, submitIntelSubscribe]);
 
   const handlePopupRegister = useCallback(() => {
     window.location.href = "/workshop";

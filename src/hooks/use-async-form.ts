@@ -9,11 +9,20 @@ interface UseAsyncFormOptions {
   url: string;
 }
 
-interface UseAsyncFormResult<Req> {
+export type AsyncFormSubmitResult<Res> =
+  | { ok: true; data: Res }
+  | { ok: false; error: string };
+
+interface UseAsyncFormResult<Req, Res> {
   status: AsyncFormStatus;
   error: string | null;
-  /** Submit the request. Cancels any in-flight request from a previous call first. */
-  submit: (body: Req) => Promise<void>;
+  /**
+   * Submit the request. Cancels any in-flight request from a previous call
+   * first. Also returns the result directly — use this (not `status`) to
+   * branch on the outcome right after awaiting, since `status` is a stale
+   * closure value until the component re-renders.
+   */
+  submit: (body: Req) => Promise<AsyncFormSubmitResult<Res>>;
 }
 
 /**
@@ -26,7 +35,7 @@ interface UseAsyncFormResult<Req> {
  */
 export function useAsyncForm<Req, Res = unknown>(
   { url }: UseAsyncFormOptions
-): UseAsyncFormResult<Req> {
+): UseAsyncFormResult<Req, Res> {
   const [status, setStatus] = useState<AsyncFormStatus>("idle");
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -36,7 +45,7 @@ export function useAsyncForm<Req, Res = unknown>(
   }, []);
 
   const submit = useCallback(
-    async (body: Req) => {
+    async (body: Req): Promise<AsyncFormSubmitResult<Res>> => {
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
@@ -54,19 +63,23 @@ export function useAsyncForm<Req, Res = unknown>(
         const data = (await res.json()) as Res;
         const errorMessage = (data as { error?: unknown })?.error;
 
-        if (controller.signal.aborted) return;
+        if (controller.signal.aborted) return { ok: false, error: "aborted" };
 
         if (!res.ok || typeof errorMessage === "string") {
-          setError(typeof errorMessage === "string" ? errorMessage : "Something went wrong.");
+          const message = typeof errorMessage === "string" ? errorMessage : "Something went wrong.";
+          setError(message);
           setStatus("error");
-          return;
+          return { ok: false, error: message };
         }
 
         setStatus("done");
+        return { ok: true, data };
       } catch (err: unknown) {
-        if (controller.signal.aborted) return;
-        setError(err instanceof Error ? err.message : "Network error. Please try again.");
+        if (controller.signal.aborted) return { ok: false, error: "aborted" };
+        const message = err instanceof Error ? err.message : "Network error. Please try again.";
+        setError(message);
         setStatus("error");
+        return { ok: false, error: message };
       }
     },
     [url]

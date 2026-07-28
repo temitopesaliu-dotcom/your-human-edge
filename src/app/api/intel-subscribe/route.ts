@@ -4,8 +4,9 @@ import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 import { handleCors } from '@/lib/utils/cors';
 import { isValidEmail } from '@/lib/utils/validation';
+import type { IntelSubscribeRequest, IntelSubscribeResponse } from '@/types/intel-subscribe';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<IntelSubscribeResponse>> {
   const ip = getClientIp(req.headers);
   const allowed = await rateLimit(ip, 10, 60, 'intel-subscribe');
   if (!allowed) {
@@ -13,9 +14,9 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
-    const email = ((body?.email as string) || '').trim().toLowerCase();
-    const name = ((body?.name as string) || '').trim();
+    const body = (await req.json()) as IntelSubscribeRequest;
+    const email = (body.email || '').trim().toLowerCase();
+    const name = (body.name || '').trim();
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });

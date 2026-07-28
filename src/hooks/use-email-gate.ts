@@ -6,6 +6,8 @@ import {
   checkRemoteSubscriber,
 } from '@/lib/services/subscriber';
 import { isValidEmail } from '@/lib/utils/validation';
+import { useAsyncForm } from '@/hooks/use-async-form';
+import type { SubscribeRequest, SubscribeResponse } from '@/types/subscribe';
 
 export type GatePhase = 'gate' | 'checking' | 'content' | null;
 export type SignupRole = 'professional' | 'creator' | 'coach' | 'consultant' | 'founder' | 'company';
@@ -16,7 +18,10 @@ export function useEmailGate(source: string) {
   const [gateEmail, setGateEmail] = useState('');
   const [gateType, setGateType] = useState<SignupRole>('professional');
   const [gateError, setGateError] = useState('');
-  const [gateSubmitting, setGateSubmitting] = useState(false);
+  const { status: subscribeStatus, submit: submitSubscribe } = useAsyncForm<SubscribeRequest, SubscribeResponse>({
+    url: '/api/subscribe',
+  });
+  const gateSubmitting = subscribeStatus === 'submitting';
   const mountedRef = useRef(true);
 
   useEffect(() => {
@@ -86,25 +91,17 @@ export function useEmailGate(source: string) {
       setGateError('Please enter a valid email address.');
       return;
     }
-    setGateSubmitting(true);
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, archetype: 'H', source, signupType: gateType }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Something went wrong.');
-      }
-      if (!mountedRef.current) return;
-      markLocallySubscribed(name, email);
-      setGatePhase('content');
-    } catch (err: unknown) {
-      if (!mountedRef.current) return;
-      setGateError(err instanceof Error ? err.message : 'Something went wrong.');
-      setGateSubmitting(false);
+
+    const result = await submitSubscribe({ email, name, archetype: 'H', source, signupType: gateType });
+    if (!mountedRef.current) return;
+
+    if (!result.ok) {
+      setGateError(result.error || 'Something went wrong.');
+      return;
     }
+
+    markLocallySubscribed(name, email);
+    setGatePhase('content');
   }
 
   return {

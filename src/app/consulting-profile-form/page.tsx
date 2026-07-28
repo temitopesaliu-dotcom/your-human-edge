@@ -2,6 +2,8 @@
 
 import { useState, useCallback, type FormEvent } from "react";
 import { isValidEmail } from "@/lib/utils/validation";
+import { useAsyncForm } from "@/hooks/use-async-form";
+import type { ConsultingProfileFormRequest, ConsultingProfileFormResponse } from "@/types/consulting-profile-form";
 
 const REQUIRED_FIELDS = [
   "full_name", "preferred_name", "email", "country", "timezone",
@@ -65,8 +67,10 @@ function FieldError({ name, errors }: { name: string; errors: Record<string, boo
 export default function ConsultingProfileFormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const { status, submit } = useAsyncForm<ConsultingProfileFormRequest, ConsultingProfileFormResponse>({
+    url: "/api/consulting-profile-form/submit",
+  });
 
   const set = useCallback((name: FieldName, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -117,9 +121,7 @@ export default function ConsultingProfileFormPage() {
     e.preventDefault();
     if (!validate()) return;
 
-    setSubmitting(true);
-
-    const payload: Record<string, string> = {};
+    const payload: ConsultingProfileFormRequest = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
       "linkedin", "business_size", "anything_else",
@@ -129,19 +131,9 @@ export default function ConsultingProfileFormPage() {
       if (v) payload[name] = v;
     });
 
-    try {
-      const res = await fetch("/api/consulting-profile-form/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        console.error("Submission failed, showing confirmation anyway");
-      }
-    } catch {
-      console.error("Network error, showing confirmation anyway");
-    }
+    // Always proceed to the confirmation screen even if the submit fails —
+    // the applicant shouldn't be blocked by a webhook outage.
+    await submit(payload);
 
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -665,8 +657,8 @@ export default function ConsultingProfileFormPage() {
                 <div className="cpf-submit-section">
                   <h3>You are almost there.</h3>
                   <p>Your responses go directly to me. I will read every answer before we go into the room together on July 25th. What you share here shapes everything that happens in those three hours.</p>
-                  <button type="submit" className="cpf-btn-submit" disabled={submitting}>
-                    {submitting ? "Submitting..." : "Submit my consulting profile"}
+                  <button type="submit" className="cpf-btn-submit" disabled={status === "submitting"}>
+                    {status === "submitting" ? "Submitting..." : "Submit my consulting profile"}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </button>
                   <div className="cpf-submit-trust">

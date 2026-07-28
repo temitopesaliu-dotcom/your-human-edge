@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addBlueprintAuditApplicantToMailerLite } from "@/lib/services/mailer";
+import type { BlueprintApplyRequest, BlueprintApplyResponse } from "@/types/blueprint-apply";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse<BlueprintApplyResponse>> {
   try {
-    const data = await request.json();
+    const data = (await request.json()) as BlueprintApplyRequest;
 
     const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
     if (!webhookUrl) {

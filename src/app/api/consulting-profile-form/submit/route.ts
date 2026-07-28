@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { ConsultingProfileFormRequest, ConsultingProfileFormResponse } from "@/types/consulting-profile-form";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse<ConsultingProfileFormResponse>> {
   try {
-    const data = await request.json();
+    const data = (await request.json()) as ConsultingProfileFormRequest;
 
     const webhookUrl = process.env.GOOGLE_SHEETS_CONSULTING_FORM_WEBHOOK_URL;
     if (!webhookUrl) {

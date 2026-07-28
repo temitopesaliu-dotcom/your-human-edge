@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { ARCHETYPES, type ArchetypeKey } from '@/lib/utils/archetypes';
 import { markLocallySubscribed } from '@/lib/services/subscriber';
 import { track } from '@/lib/services/analytics';
+import { useAsyncForm } from '@/hooks/use-async-form';
+import type { SubscribeRequest, SubscribeResponse } from '@/types/subscribe';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
   H: [
@@ -42,8 +44,9 @@ function GateContent() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { status, submit } = useAsyncForm<SubscribeRequest, SubscribeResponse>({ url: '/api/subscribe' });
+  const loading = status === 'submitting';
 
   useEffect(() => {
     track('gate_view', { archetype: archKey });
@@ -53,28 +56,23 @@ function GateContent() {
     e.preventDefault();
     setError('');
     if (!name.trim() || !email.trim()) { setError('Please fill in both fields.'); return; }
-    setLoading(true);
 
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), name: name.trim(), archetype: archKey, source: 'quiz' }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim().toLowerCase();
+    const result = await submit({ email: trimmedEmail, name: trimmedName, archetype: archKey, source: 'quiz' });
 
-      markLocallySubscribed(name.trim(), email.trim().toLowerCase());
-
-      localStorage.setItem('yhe_arch', archKey);
-      localStorage.setItem('yhe_arch_name', arch.name);
-
-      track('email_captured', { archetype: archKey });
-      router.push(`/results/${arch.slug}`);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-      setLoading(false);
+    if (!result.ok) {
+      setError(result.error || 'Something went wrong. Please try again.');
+      return;
     }
+
+    markLocallySubscribed(trimmedName, trimmedEmail);
+
+    localStorage.setItem('yhe_arch', archKey);
+    localStorage.setItem('yhe_arch_name', arch.name);
+
+    track('email_captured', { archetype: archKey });
+    router.push(`/results/${arch.slug}`);
   }
 
   return (

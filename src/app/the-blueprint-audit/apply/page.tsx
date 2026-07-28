@@ -4,27 +4,15 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import AiosNav from "../_components/AiosNav";
 import AiosFooter from "../_components/AiosFooter";
+import { useAsyncForm } from "@/hooks/use-async-form";
+import type {
+  BlueprintApplyRequest,
+  BlueprintApplyResponse,
+  BlueprintCreateCheckoutRequest,
+  BlueprintCreateCheckoutResponse,
+} from "@/types/blueprint-apply";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  businessName: string;
-  website: string;
-  businessType: string;
-  industry: string;
-  teamSize: string;
-  businessDesc: string;
-  biggestPain: string;
-  bottleneck: string;
-  systematize: string[];
-  currentTools: string;
-  implementationBudget: string;
-  timeline: string;
-  howHeard: string;
-  additionalContext: string;
-  contactPref: string;
-}
+type FormData = BlueprintApplyRequest;
 
 const TOTAL_STEPS = 5;
 
@@ -35,8 +23,14 @@ function FieldError({ field, errors }: { field: string; errors: Record<string, s
 export default function ApplyPage() {
   const router = useRouter();
   const [current, setCurrent] = useState(1);
-  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const submitForm = useAsyncForm<BlueprintApplyRequest, BlueprintApplyResponse>({
+    url: "/api/the-blueprint-audit/submit",
+  });
+  const createCheckout = useAsyncForm<BlueprintCreateCheckoutRequest, BlueprintCreateCheckoutResponse>({
+    url: "/api/the-blueprint-audit/create-checkout",
+  });
+  const submitting = submitForm.status === "submitting" || createCheckout.status === "submitting";
   const [data, setData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -134,36 +128,18 @@ export default function ApplyPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateStep(current)) return;
-    setSubmitting(true);
-    try {
-      // Step 1: Send form data to Google Sheets
-      const submitRes = await fetch("/api/the-blueprint-audit/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!submitRes.ok) {
-        setErrors({ submit: "Submission failed. Please try again." });
-        setSubmitting(false);
-        return;
-      }
 
-      // Step 2: Create Stripe Checkout session and redirect
-      const checkoutRes = await fetch("/api/the-blueprint-audit/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: data.email }),
-      });
-      const checkoutData = await checkoutRes.json();
-      if (checkoutRes.ok && checkoutData.url) {
-        window.location.href = checkoutData.url;
-      } else {
-        setErrors({ submit: checkoutData.error || "Could not start checkout. Please try again." });
-        setSubmitting(false);
-      }
-    } catch {
-      setErrors({ submit: "Network error. Please try again." });
-      setSubmitting(false);
+    const submitResult = await submitForm.submit(data);
+    if (!submitResult.ok) {
+      setErrors({ submit: "Submission failed. Please try again." });
+      return;
+    }
+
+    const checkoutResult = await createCheckout.submit({ email: data.email });
+    if (checkoutResult.ok && "url" in checkoutResult.data) {
+      window.location.href = checkoutResult.data.url;
+    } else {
+      setErrors({ submit: !checkoutResult.ok ? checkoutResult.error : "Could not start checkout. Please try again." });
     }
   };
 

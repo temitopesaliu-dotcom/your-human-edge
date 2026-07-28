@@ -6,13 +6,14 @@ import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 import { handleCors } from '@/lib/utils/cors';
 import { isValidEmail } from '@/lib/utils/validation';
+import type { SubscribeRequest, SubscribeResponse } from '@/types/subscribe';
 
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 
 type SubscriberSource = 'quiz' | 'paths' | 'b2b-prompt' | string;
 
 function parseSubscribeBody(body: unknown): { email: string; name: string; source: SubscriberSource; isCompany: boolean; archetype: ArchetypeKey; signupType: 'coach' | 'company'; signupRole: string } | null {
-  const data = body as Record<string, unknown>;
+  const data = body as SubscribeRequest & Record<string, unknown>;
   const email = ((data?.email as string) || '').trim().toLowerCase();
   const name = ((data?.name as string) || '').trim();
   const source = ((data?.source as string) || 'quiz').trim() as SubscriberSource;
@@ -78,7 +79,7 @@ async function handleNewSubscriber(email: string, name: string, source: Subscrib
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<SubscribeResponse>> {
   const ip = getClientIp(req.headers);
   const allowed = await rateLimit(ip, 10, 60, 'subscribe');
   if (!allowed) {
@@ -86,7 +87,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
+    const body = (await req.json()) as SubscribeRequest;
     const parsed = parseSubscribeBody(body);
     if (!parsed) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
