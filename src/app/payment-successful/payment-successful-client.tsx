@@ -22,6 +22,7 @@ export default function PaymentSuccessfulClient() {
         productId="stadium-live"
         productName="AI Stadium Live Class"
         value={97}
+        dedupKey="purchase-tracked-stadium-live"
       />
       <div
         style={{

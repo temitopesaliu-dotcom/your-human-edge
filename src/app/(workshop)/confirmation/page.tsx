@@ -7,6 +7,7 @@ export default function WorkshopConfirmationPage() {
         productId="intelligence-layer-workshop"
         productName="Intelligence Layer Workshop"
         value={97}
+        dedupKey="purchase-tracked-intelligence-layer-workshop"
       />
       <style>{`
         :root {

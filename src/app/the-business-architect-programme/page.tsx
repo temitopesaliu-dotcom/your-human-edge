@@ -280,22 +280,24 @@ function useCountdown() {
   const [display, setDisplay] = useState("72:00:00");
 
   useEffect(() => {
-    let deadline: number;
-    const stored = localStorage.getItem(COUNTDOWN_KEY);
-    if (stored) {
-      deadline = parseInt(stored, 10);
-    } else {
-      deadline = Date.now() + COUNTDOWN_DURATION_MS;
-      try {
+    let deadline: number | null = null;
+    try {
+      const stored = localStorage.getItem(COUNTDOWN_KEY);
+      deadline = stored ? parseInt(stored, 10) : null;
+      if (!deadline) {
+        deadline = Date.now() + COUNTDOWN_DURATION_MS;
         localStorage.setItem(COUNTDOWN_KEY, String(deadline));
-      } catch {
-        // ignore storage errors
       }
+    } catch {
+      // localStorage unavailable (e.g. private browsing, sandboxed iframe):
+      // fall back to an in-memory deadline so the countdown still runs this session
+      deadline = Date.now() + COUNTDOWN_DURATION_MS;
     }
 
+    const resolvedDeadline = deadline;
     let timeoutId: ReturnType<typeof setTimeout>;
     const tick = () => {
-      const diff = Math.max(0, deadline - Date.now());
+      const diff = Math.max(0, resolvedDeadline - Date.now());
       const h = Math.floor(diff / 3600000);
       const m = Math.floor((diff % 3600000) / 60000);
       const s = Math.floor((diff % 60000) / 1000);
