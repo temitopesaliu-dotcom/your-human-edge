@@ -148,7 +148,6 @@ export default function WorkshopConfirmationPage() {
         }
       `}</style>
 
-      {/* NAV */}
       <nav className="ws-nav">
         <Link href="/" className="ws-nav-logo">
           Your Intelligence Layer + AI<span>.</span>

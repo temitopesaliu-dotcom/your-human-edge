@@ -30,7 +30,6 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
       ? params.session_id
       : '';
 
-  // ── arch_verified short-circuit ───────────────────────────────────────────
   // The set-playbook-cookie route handler redirects here with arch_verified +
   // session_id after validating the Stripe session. We MUST re-validate the
   // session_id here — arch_verified is a client-controlled query param and on
@@ -66,7 +65,6 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     );
   }
 
-  // ── Normal flow (no arch_verified) ────────────────────────────────────────
   // If we have a session_id in the URL but no cookie yet, redirect through
   // the route handler to set the cookie (can't do it from a Server Component).
   if (sessionIdFromParams && !existingCookie) {

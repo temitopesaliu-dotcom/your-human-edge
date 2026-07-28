@@ -9,9 +9,6 @@ export default function AiosLandingPage() {
       <AiosScripts />
       <AiosNav />
 
-      {/* ============================================================
-           HERO SECTION
-           ============================================================ */}
       <section className="hero" id="hero" aria-label="Hero">
         <div className="hero-bg" aria-hidden="true"></div>
         <div className="hero-grid-lines" aria-hidden="true"></div>
@@ -64,9 +61,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           CREDIBILITY BAR
-           ============================================================ */}
       <div className="credibility" aria-label="Key metrics">
         <div className="container">
           <div className="credibility-inner">
@@ -99,9 +93,6 @@ export default function AiosLandingPage() {
         </div>
       </div>
 
-      {/* ============================================================
-           PROBLEM SECTION
-           ============================================================ */}
       <section
         className="problems section"
         id="problems"
@@ -210,9 +201,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           REFRAME SECTION
-           ============================================================ */}
       <section
         className="reframe section-sm"
         id="reframe"
@@ -302,9 +290,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           SOLUTION — AI OS DIAGRAM
-           ============================================================ */}
       <section
         className="solution section"
         id="solution"
@@ -465,9 +450,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           OUTCOMES / DEMO SECTION
-           ============================================================ */}
       <section
         className="outcomes section"
         id="outcomes"
@@ -502,7 +484,6 @@ export default function AiosLandingPage() {
             <button className="outcomes-tab" data-tab="ops" role="tab" aria-selected="false" aria-controls="panel-ops">Operations</button>
           </div>
 
-          {/* Lead Capture Panel */}
           <div className="outcome-panel active fade-up delay-2" id="panel-leads" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Lead Capture & Qualification</p>
@@ -521,7 +502,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Client Onboarding Panel */}
           <div className="outcome-panel" id="panel-onboarding" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Client Onboarding</p>
@@ -539,7 +519,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Knowledge Base Panel */}
           <div className="outcome-panel" id="panel-knowledge" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Internal Knowledge Assistant</p>
@@ -556,7 +535,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Sales Intelligence Panel */}
           <div className="outcome-panel" id="panel-sales" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Sales Intelligence</p>
@@ -573,7 +551,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Meeting Intelligence Panel */}
           <div className="outcome-panel" id="panel-meetings" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Meeting Intelligence</p>
@@ -590,7 +567,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Content Engine Panel */}
           <div className="outcome-panel" id="panel-content" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Content Engine</p>
@@ -607,7 +583,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Proposals Panel */}
           <div className="outcome-panel" id="panel-proposals" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Proposal Generator</p>
@@ -624,7 +599,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Email Automation Panel */}
           <div className="outcome-panel" id="panel-email" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Email Automation</p>
@@ -641,7 +615,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Customer Support Panel */}
           <div className="outcome-panel" id="panel-support" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Customer Support AI</p>
@@ -658,7 +631,6 @@ export default function AiosLandingPage() {
             </div>
           </div>
 
-          {/* Operations Panel */}
           <div className="outcome-panel" id="panel-ops" role="tabpanel">
             <div className="outcome-info">
               <p className="label outcome-tag">Operations Dashboard</p>
@@ -677,9 +649,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           PROCESS TIMELINE
-           ============================================================ */}
       <section
         className="process section"
         id="how-it-works"
@@ -779,9 +748,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           BLUEPRINT SECTION
-           ============================================================ */}
       <section
         className="blueprint-section section"
         id="blueprint"
@@ -923,9 +889,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           SOCIAL PROOF
-           ============================================================ */}
       <section
         className="social-proof section"
         id="proof"
@@ -998,9 +961,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           FAQ SECTION
-           ============================================================ */}
       <section
         className="faq section"
         id="faq"
@@ -1015,7 +975,6 @@ export default function AiosLandingPage() {
           </div>
 
           <div className="faq-groups fade-up delay-1">
-            {/* Group 1: About the Blueprint */}
             <div className="faq-group">
               <p className="faq-group-label">About the Blueprint</p>
 
@@ -1055,7 +1014,6 @@ export default function AiosLandingPage() {
               ))}
             </div>
 
-            {/* Group 2: About the Engagement */}
             <div className="faq-group">
               <p className="faq-group-label">About the Engagement</p>
 
@@ -1095,7 +1053,6 @@ export default function AiosLandingPage() {
               ))}
             </div>
 
-            {/* Group 3: About Fit */}
             <div className="faq-group">
               <p className="faq-group-label">About Fit</p>
 
@@ -1131,7 +1088,6 @@ export default function AiosLandingPage() {
               ))}
             </div>
 
-            {/* Group 4: About Outcomes */}
             <div className="faq-group">
               <p className="faq-group-label">About Outcomes</p>
 
@@ -1170,9 +1126,6 @@ export default function AiosLandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-           FINAL CTA SECTION
-           ============================================================ */}
       <section className="final-cta" id="apply" aria-labelledby="final-cta-heading">
         <div className="final-cta-bg" aria-hidden="true"></div>
         <div className="final-cta-inner fade-up">

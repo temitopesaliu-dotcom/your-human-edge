@@ -6,8 +6,6 @@ import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
 import SiteNav from "@/components/site-nav";
 import './archetype-layout.css';
 
-/* ── Types ──────────────────────────────────────────────────────── */
-
 export interface CareerPath {
   title: string;
   desc: string;
@@ -40,7 +38,6 @@ export interface IncomeCard {
 export interface ArchetypeConfig {
   /** Archetype key for tracking & checkout (e.g. "C", "G", "H", "S") */
   archetypeKey: string;
-  /** Full CSS string for this archetype */
   /** Wrapper className (e.g. "cr-amplifier", "human-bridge") */
   wrapperClass: string;
 
@@ -92,15 +89,11 @@ export interface ArchetypeConfig {
   incomePaths: IncomeCard[];
 }
 
-/* ── Helper ─────────────────────────────────────────────────────── */
-
 function getNameFromURL() {
   if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
   return params.get("name");
 }
-
-/* ── Component ──────────────────────────────────────────────────── */
 
 export default function ArchetypeResultLayout({ config }: { config: ArchetypeConfig }) {
   const [buying, setBuying] = useState(false);
@@ -151,10 +144,8 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
   } as React.CSSProperties}
 >
 
-      {/* ── Nav ── */}
       <SiteNav ctaLabel="Get the Playbook →" ctaHref="#paywall" />
 
-      {/* ── Hero ── */}
       <div className="hero">
         <div className="hero-inner">
           <div className="hero-greeting">{greeting}</div>
@@ -174,7 +165,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </div>
 
-      {/* ── Who you are ── */}
       <section>
         <div className="wrap">
           <div className="card-wrap">
@@ -190,7 +180,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </section>
 
-      {/* ── Career paths ── */}
       <section>
         <div className="wrap">
           <div className="sec-eye eye-gold">AI career paths for your archetype</div>
@@ -218,7 +207,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </section>
 
-      {/* ── Leverage matrix ── */}
       <section className="sec-alt">
         <div className="wrap">
           <div className={`sec-eye ${config.matrixEyeColor}`}>{config.matrixSectionTitle}</div>
@@ -249,7 +237,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
       <section className="sec-alt">
         <div className="wrap">
           <div className={`sec-eye ${config.testimonialsEyeColor}`}>{config.testimonialsEyebrow}</div>
@@ -275,7 +262,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </section>
 
-      {/* ── Income model ── */}
       <section>
         <div className="wrap">
           <div className={`sec-eye ${config.incomeEyeColor}`}>Your income model</div>
@@ -304,7 +290,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </section>
 
-      {/* ── Paywall ── */}
       <div id="paywall">
         <div className="paywall-inner">
           <div className="pw-pre">Your Personal Playbook · $19.99</div>
@@ -362,7 +347,6 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         </div>
       </div>
 
-      {/* ── Footer ── */}
       <footer>
         <div className="footer-brand">human<span>+</span>ai</div>
         <div style={{ fontSize: ".7rem", opacity: 0.25 }}>© 2026</div>

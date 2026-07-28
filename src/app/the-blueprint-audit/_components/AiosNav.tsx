@@ -31,14 +31,12 @@ export default function AiosNav({
             <span className="nav-logo-text">AI Operating System</span>
           </Link>
 
-          {/* Landing page nav */}
           {variant === "landing" && (
             <div className="nav-links">
               <Link href="/the-blueprint-audit#blueprint" className="nav-link">Blueprint</Link>
             </div>
           )}
 
-          {/* Blueprint page nav */}
           {variant === "blueprint" && (
             <div className="nav-links">
               <Link href="/the-blueprint-audit#how-it-works" className="nav-link">How It Works</Link>
@@ -46,7 +44,6 @@ export default function AiosNav({
             </div>
           )}
 
-          {/* Landing + Blueprint: Apply button + hamburger */}
           {(variant === "landing" || variant === "blueprint") && (
             <div className="nav-right">
               <Link href="/the-blueprint-audit/apply" className="btn btn-primary btn-sm btn-arrow">
@@ -58,7 +55,6 @@ export default function AiosNav({
             </div>
           )}
 
-          {/* Apply page: About Blueprint link */}
           {variant === "apply" && (
             <div className="nav-right">
               <Link href="/the-blueprint-audit/blueprint" className="nav-link">About Blueprint</Link>
@@ -69,7 +65,6 @@ export default function AiosNav({
         </div>
       </nav>
 
-      {/* Mobile menu — landing page */}
       {variant === "landing" && (
         <div className="nav-mobile-menu" role="navigation" aria-label="Mobile menu">
           <Link href="/the-blueprint-audit#how-it-works" className="nav-mobile-link">How It Works</Link>
@@ -79,7 +74,6 @@ export default function AiosNav({
         </div>
       )}
 
-      {/* Mobile menu — blueprint page */}
       {variant === "blueprint" && (
         <div className="nav-mobile-menu" role="navigation" aria-label="Mobile menu">
           <Link href="/the-blueprint-audit#how-it-works" className="nav-mobile-link">How It Works</Link>
@@ -88,7 +82,6 @@ export default function AiosNav({
         </div>
       )}
 
-      {/* Sticky CTA — landing page */}
       {variant === "landing" && (
         <div className="sticky-cta-bar" role="complementary">
           <span className="sticky-cta-text">Ready to stop babysitting your business?</span>
@@ -96,7 +89,6 @@ export default function AiosNav({
         </div>
       )}
 
-      {/* Sticky CTA — blueprint page */}
       {variant === "blueprint" && (
         <div className="sticky-cta-bar" role="complementary">
           <span className="sticky-cta-text">AI Operating System Blueprint — $1,000</span>

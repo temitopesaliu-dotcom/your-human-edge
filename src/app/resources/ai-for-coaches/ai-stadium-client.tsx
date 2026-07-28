@@ -40,7 +40,6 @@ export default function AiStadiumClient() {
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      // fallback
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.position = 'fixed';

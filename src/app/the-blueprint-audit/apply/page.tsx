@@ -195,7 +195,6 @@ export default function ApplyPage() {
         </div>
 
         <form onSubmit={handleSubmit} noValidate aria-label="Blueprint application form">
-          {/* STEP 1 */}
           {current === 1 && (
             <div className="form-step active" role="group">
               <p className="form-step-label">Step 1 of 5</p>
@@ -298,7 +297,6 @@ export default function ApplyPage() {
             </div>
           )}
 
-          {/* STEP 2 */}
           {current === 2 && (
             <div className="form-step active" role="group">
               <p className="form-step-label">Step 2 of 5</p>
@@ -413,7 +411,6 @@ export default function ApplyPage() {
             </div>
           )}
 
-          {/* STEP 3 */}
           {current === 3 && (
             <div className="form-step active" role="group">
               <p className="form-step-label">Step 3 of 5</p>
@@ -524,7 +521,6 @@ export default function ApplyPage() {
             </div>
           )}
 
-          {/* STEP 4 */}
           {current === 4 && (
             <div className="form-step active" role="group">
               <p className="form-step-label">Step 4 of 5</p>
@@ -626,7 +622,6 @@ export default function ApplyPage() {
             </div>
           )}
 
-          {/* STEP 5 */}
           {current === 5 && (
             <div className="form-step active" role="group">
               <p className="form-step-label">Step 5 of 5</p>

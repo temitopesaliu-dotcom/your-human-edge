@@ -62,7 +62,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
     <>
       <div className="lcp-backdrop" onClick={handleDismiss} aria-hidden />
       <div className="lcp-card" role="dialog" aria-modal="true" aria-label="Live class">
-        {/* Image side with label stacked above image */}
         <div className="lcp-img-side">
           <div className="lcp-img-wrapper">
             <img
@@ -73,7 +72,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           </div>
         </div>
 
-        {/* Content side */}
         <div className="lcp-content">
           <button type="button" className="lcp-close" onClick={handleDismiss} aria-label="Close">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -238,9 +236,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
         .lcp-cta:hover { background: #333; }
         .lcp-cta:active { transform: scale(0.97); }
 
-        /* ========== RESPONSIVE BREAKPOINTS ========== */
-
-        /* Tablets and smaller laptops */
         @media (max-width: 768px) {
           .lcp-card {
             width: min(94vw, 600px);
@@ -280,7 +275,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           }
         }
 
-        /* Mobile phones — vertical stack */
         @media (max-width: 640px) {
           .lcp-card {
             flex-direction: column;
@@ -353,7 +347,6 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           }
         }
 
-        /* Very small phones */
         @media (max-width: 400px) {
           .lcp-card {
             width: 94vw;

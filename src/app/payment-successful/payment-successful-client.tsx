@@ -48,7 +48,6 @@ export default function PaymentSuccessfulClient() {
             boxShadow: '0 20px 60px rgba(20, 23, 31, 0.5)',
           }}
         >
-          {/* Check icon */}
           <div
             style={{
               width: 80,
@@ -139,8 +138,6 @@ export default function PaymentSuccessfulClient() {
               (15:00 GMT / UTC)
             </span>
           </p>
-
-          {/* Time zone grid */}
           <div
             style={{
               display: 'grid',

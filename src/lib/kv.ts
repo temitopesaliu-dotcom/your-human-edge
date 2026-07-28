@@ -1,13 +1,6 @@
-// Vercel KV (Redis) data layer
-// Replaces Netlify Blobs — same three logical stores:
-//   validated-sessions  → kv key: "session:{stripeSessionId}"
-//   email-sequences     → kv key: "seq:{base64Email}"
-//   analytics-events    → kv key: "evt:{timestamp}-{random}"
-
 import { kv } from '@vercel/kv';
 import type { ProductType } from './products';
 
-// ── Session records (validated Stripe purchases) ──────────────
 export interface SessionRecord {
   createdAt: number;
   visitCount: number;
@@ -33,7 +26,6 @@ export async function setSession(sessionId: string, data: SessionRecord): Promis
   await kv.set(`session:${sessionId}`, data);
 }
 
-// ── Analytics events ──────────────────────────────────────────
 export async function writeAnalyticsEvent(payload: Record<string, unknown>): Promise<void> {
   const key = `evt:${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   await kv.set(key, payload, { ex: 60 * 60 * 24 * 90 }); // 90-day TTL
@@ -56,7 +48,6 @@ export async function writeAnalyticsEventsBatch(
   await pipeline.exec();
 }
 
-// ── Subscriber records (free content email gates) ──────────────
 export interface SubscriberRecord {
   email: string;
   name: string;

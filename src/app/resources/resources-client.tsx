@@ -110,8 +110,7 @@ export default function ResourcesClient() {
   const filtered = RESOURCES.filter((r) => r.category === activeTab);
   const activeCategory = CATEGORIES.find((c) => c.key === activeTab)!;
 
-  // For 'individual' category, show all resources as a grid (no featured card)
-  // For 'company' category, feature the first resource
+  // Individual category shows a plain grid; company features its first resource.
   const showFeatured = activeTab !== 'individual';
   const featured = showFeatured && filtered.length > 0 ? filtered[0] : null;
   const remaining = showFeatured ? filtered.slice(1) : filtered;
@@ -126,10 +125,8 @@ export default function ResourcesClient() {
 
   return (
     <div className="rb-page" style={accentVars}>
-      {/* ── NAV ── */}
       <SiteNav />
 
-      {/* ═══ HERO ═══ */}
       <div className="rb-hero">
         <div className="rb-hero-glow" aria-hidden />
         <div className="rb-hero-inner">
@@ -142,7 +139,6 @@ export default function ResourcesClient() {
             Free resources curated for individuals and organisations navigating the AI era — built around how you actually think and work.
           </p>
 
-          {/* ── Category selector cards ── */}
           <div className="rb-cat-grid">
             {CATEGORIES.map((cat) => {
               const isActive = activeTab === cat.key;
@@ -189,10 +185,8 @@ export default function ResourcesClient() {
         </div>
       </div>
 
-      {/* ═══ CONTENT AREA ═══ */}
       <div className="rb-content-bg">
         <div className="rb-content-pad">
-          {/* ── FEATURED RESOURCE ── */}
           {featured && (
             <div className="rb-fade" style={{ animationDelay: '0.1s' }}>
               <div className="rb-featured-card">
@@ -232,7 +226,6 @@ export default function ResourcesClient() {
             </div>
           )}
 
-          {/* ── RESOURCE COLLECTION ── */}
           <div className="rb-fade" style={{ animationDelay: '0.2s' }}>
             <div className="rb-section-header" style={{ marginTop: featured ? 52 : 0 }}>
               <div className="rb-section-eyebrow" style={{ color: activeCategory.color }}>Resource collection</div>
@@ -283,7 +276,6 @@ export default function ResourcesClient() {
         </div>
       </div>
 
-      {/* ── FOOTER ── */}
       <footer className="rb-footer-custom">
         <div className="footer-brand">human<span>+</span>ai</div>
         <ul className="f-links">

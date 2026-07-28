@@ -7,7 +7,6 @@ import PdfZoomControls from "@/components/pdf-zoom-controls";
 import PdfPageNav from "@/components/pdf-page-nav";
 import PdfDocumentArea from "@/components/pdf-document-area";
 
-// Configure pdf.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/build/pdf.worker.min.mjs`;
 
 interface PdfRendererProps {
@@ -83,7 +82,6 @@ export default function PdfRenderer({ pdfUrl }: PdfRendererProps) {
 
   return (
     <>
-      {/* Responsive + animation styles */}
       <style>{`
         .react-pdf__Page {
           margin: 0 auto;

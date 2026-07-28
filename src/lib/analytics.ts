@@ -39,7 +39,7 @@ const buffer: PendingEvent[] = [];
 let flushTimer: ReturnType<typeof setTimeout> | null = null;
 
 function scheduleFlush() {
-	if (flushTimer) return; // already scheduled
+	if (flushTimer) return;
 	flushTimer = setTimeout(() => {
 		flushTimer = null;
 		flushBuffer();
@@ -78,16 +78,6 @@ if (typeof document !== "undefined") {
 }
 
 /**
- * Track an analytics event.
- *
- * Events are buffered client-side and flushed to /api/track in
- * batches.  GA4 events are sent immediately via gtag.
- *
- * @param event - The event name (e.g. "quiz_start")
- * @param data  - Optional event-specific data
- * @param page  - Optional page override; defaults to current pathname
- */
-/**
  * Track a Facebook Pixel event safely — no-ops if fbq isn't loaded.
  */
 export function trackFBEvent(
@@ -99,6 +89,16 @@ export function trackFBEvent(
 	}
 }
 
+/**
+ * Track an analytics event.
+ *
+ * Events are buffered client-side and flushed to /api/track in
+ * batches.  GA4 events are sent immediately via gtag.
+ *
+ * @param event - The event name (e.g. "quiz_start")
+ * @param data  - Optional event-specific data
+ * @param page  - Optional page override; defaults to current pathname
+ */
 export function track(
 	event: string,
 	data?: Record<string, unknown>,

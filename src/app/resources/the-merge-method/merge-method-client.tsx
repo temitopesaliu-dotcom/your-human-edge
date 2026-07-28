@@ -5,7 +5,6 @@ import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 import SiteNav from '@/components/site-nav';
 
-/* ─── Step data ─────────────────────────────────────────── */
 const STEPS = [
   {
     num: 1,
@@ -107,7 +106,6 @@ const WORKSHEET = [
   { title: 'The Decision Maker', q: 'Who specifically receives this, and what do they care about?' },
 ];
 
-/* ─── Sub-components ──────────────────────────────────────── */
 function StepCard({ step, defaultOpen = false }: { step: typeof STEPS[0] & { toolkit?: string[]; toolkitLabel?: string }; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
@@ -218,7 +216,6 @@ function Blank({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── Main export ─────────────────────────────────────────── */
 export default function MergeMethodClient() {
   const {
     gatePhase, gateName, setGateName, gateEmail, setGateEmail,
@@ -266,7 +263,6 @@ export default function MergeMethodClient() {
       <div className="mm-root">
         <SiteNav />
 
-        {/* ── HERO ── */}
         <header style={{ background: 'linear-gradient(180deg, #061327, #0A1F3D 80%)', backgroundImage: 'radial-gradient(circle at 85% 10%, rgba(74,144,217,0.35), transparent 45%), linear-gradient(180deg, #061327, #0A1F3D 80%)', color: '#fff', padding: '72px 0 64px', position: 'relative', overflow: 'hidden' }}>
           <div className="mm-wrap">
             <div className="mm-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 48, alignItems: 'center' }}>
@@ -304,7 +300,6 @@ export default function MergeMethodClient() {
           </div>
         </header>
 
-        {/* ── WHY THIS WORKS ── */}
         <section style={{ background: '#fff', borderTop: '1px solid rgba(10,31,61,0.12)', borderBottom: '1px solid rgba(10,31,61,0.12)' }}>
           <div className="mm-wrap" style={{ padding: '64px 24px 0' }}>
             <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#4A90D9', textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: 10 }}>Why This Works</div>
@@ -324,7 +319,6 @@ export default function MergeMethodClient() {
           </div>
         </section>
 
-        {/* ── FIVE STEPS ── */}
         <section style={{ padding: '64px 0' }}>
           <div className="mm-wrap">
             <div style={{ marginBottom: 40 }}>
@@ -338,7 +332,6 @@ export default function MergeMethodClient() {
           </div>
         </section>
 
-        {/* ── WORKSHEET ── */}
         <section style={{ background: '#061327', color: '#fff', backgroundImage: 'radial-gradient(circle at 10% 90%, rgba(74,144,217,0.25), transparent 50%)', padding: '64px 0 56px' }}>
           <div className="mm-wrap">
             <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8BB8E8', textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: 10 }}>Worksheet</div>
@@ -358,7 +351,6 @@ export default function MergeMethodClient() {
           </div>
         </section>
 
-        {/* ── RESULT ── */}
         <section style={{ background: '#DCEAFB', borderTop: '1px solid rgba(10,31,61,0.12)' }}>
           <div className="mm-wrap">
             <div className="mm-result-inner" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 28, alignItems: 'center', padding: '36px 0' }}>

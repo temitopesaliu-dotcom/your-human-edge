@@ -220,7 +220,6 @@ export default function PathsClient() {
         onSubmit={handleGateSubmit}
       />
 
-      {/* ── Main content (visible only after gate) ── */}
       {gatePhase === 'content' && (
       <div className="paths-root">
         <div className="paths-cover">

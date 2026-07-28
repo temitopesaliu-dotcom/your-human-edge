@@ -2,7 +2,6 @@
 
 import { useState, useCallback, type FormEvent } from "react";
 
-// ── Required fields for progress & validation ──────────────────────────────
 const REQUIRED_FIELDS = [
   "full_name", "preferred_name", "email", "country", "timezone",
   "current_role", "years_experience", "industry", "advice_areas", "greatest_strength",
@@ -15,7 +14,6 @@ const REQUIRED_FIELDS = [
 
 type FieldName = (typeof REQUIRED_FIELDS)[number] | "linkedin" | "business_size" | "anything_else";
 
-// ── Field ID map for validation ────────────────────────────────────────────
 const FIELD_MAP: Record<string, string> = {
   full_name: "f-fname", preferred_name: "f-pref",
   email: "f-email", country: "f-country", timezone: "f-tz",
@@ -29,7 +27,6 @@ const FIELD_MAP: Record<string, string> = {
   business_why: "f-bizwhy", six_months_vision: "f-sixmonths",
 };
 
-// ── Field-specific error messages ──────────────────────────────────────────
 const ERROR_MESSAGES: Record<string, string> = {
   full_name: "Please enter your full name.",
   preferred_name: "Please enter your preferred name.",
@@ -70,7 +67,6 @@ export default function ConsultingProfileFormPage() {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
-  // ── Generic updater ──────────────────────────────────────────────────────
   const set = useCallback((name: FieldName, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => {
@@ -81,13 +77,11 @@ export default function ConsultingProfileFormPage() {
     });
   }, []);
 
-  // ── Progress ─────────────────────────────────────────────────────────────
   const filledCount = REQUIRED_FIELDS.filter(
     (name) => (formData[name] || "").trim() !== ""
   ).length;
   const progressPct = Math.round((filledCount / REQUIRED_FIELDS.length) * 100);
 
-  // ── Validation ───────────────────────────────────────────────────────────
   const validate = useCallback((): boolean => {
     const newErrors: Record<string, boolean> = {};
 
@@ -97,7 +91,6 @@ export default function ConsultingProfileFormPage() {
       }
     });
 
-    // Email format check
     const email = (formData.email || "").trim();
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = true;
@@ -107,7 +100,6 @@ export default function ConsultingProfileFormPage() {
     const hasErrors = Object.keys(newErrors).length > 0;
 
     if (hasErrors) {
-      // Scroll to first error
       const firstErrorField = Object.keys(newErrors)[0];
       const fieldId = FIELD_MAP[firstErrorField];
       if (fieldId) {
@@ -120,14 +112,12 @@ export default function ConsultingProfileFormPage() {
     return !hasErrors;
   }, [formData]);
 
-  // ── Submit ───────────────────────────────────────────────────────────────
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
 
-    // Build payload: only send defined fields
     const payload: Record<string, string> = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
@@ -156,7 +146,6 @@ export default function ConsultingProfileFormPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ── Render helpers ──────────────────────────────────────────────────────
   const fieldClass = (name: string) => `cpf-field${errors[name] ? " error" : ""}`;
 
   const renderOptionButtons = (
@@ -251,13 +240,11 @@ export default function ConsultingProfileFormPage() {
         .cpf-page *, .cpf-page *::before, .cpf-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
         .cpf-page { font-family: 'Inter', sans-serif; background: var(--white); color: var(--espresso); line-height: 1.6; min-height: 100vh; }
 
-        /* NAV */
         .cpf-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
         .cpf-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--espresso); text-decoration: none; }
         .cpf-nav-logo span { color: var(--purple); }
         .cpf-nav-tag { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
-        /* HERO */
         .cpf-hero { padding: 100px 2rem 60px; background: var(--white); position: relative; overflow: hidden; }
         .cpf-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%; background: radial-gradient(ellipse 60% 50% at 50% 0%,#EDE9FD 0%,transparent 70%); pointer-events: none; }
         .cpf-hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
@@ -270,7 +257,6 @@ export default function ConsultingProfileFormPage() {
         .cpf-hero-note { background: var(--grain); border: 1px solid var(--border); border-radius: var(--r-md); padding: 20px 24px; font-size: 14px; color: var(--muted); line-height: 1.7; border-left: 3px solid var(--purple); }
         .cpf-hero-note strong { color: var(--espresso); font-weight: 600; }
 
-        /* PROGRESS */
         .cpf-progress-wrap { background: var(--alabaster); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 2rem; position: sticky; top: 60px; z-index: 90; }
         .cpf-progress-inner { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 16px; }
         .cpf-progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
@@ -278,17 +264,14 @@ export default function ConsultingProfileFormPage() {
         .cpf-progress-label { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
         .cpf-progress-pct { font-size: 12px; font-weight: 700; color: var(--purple); white-space: nowrap; }
 
-        /* FORM WRAPPER */
         .cpf-form-wrap { max-width: 720px; margin: 0 auto; padding: 48px 2rem 80px; }
 
-        /* SECTION */
         .cpf-form-section { margin-bottom: 48px; }
         .cpf-section-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
         .cpf-section-num { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
         .cpf-section-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--espresso); letter-spacing: -.3px; margin-bottom: 6px; }
         .cpf-section-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-        /* FIELD */
         .cpf-field { margin-bottom: 24px; }
         .cpf-field-label { display: block; font-size: 13px; font-weight: 600; color: var(--espresso); margin-bottom: 6px; line-height: 1.4; }
         .cpf-field-label .cpf-req { color: var(--purple); margin-left: 2px; }
@@ -384,7 +367,6 @@ export default function ConsultingProfileFormPage() {
       `}</style>
 
       <div className="cpf-page">
-        {/* NAV */}
         <nav className="cpf-nav">
           <a href="https://temitopesaliu.com" className="cpf-nav-logo">Temitope<span>.</span></a>
           <span className="cpf-nav-tag">Workshop Onboarding</span>
@@ -392,7 +374,6 @@ export default function ConsultingProfileFormPage() {
 
         {!submitted ? (
           <>
-            {/* HERO */}
             <section className="cpf-hero">
               <div className="cpf-hero-inner">
                 <div className="cpf-hero-eyebrow">
@@ -409,7 +390,6 @@ export default function ConsultingProfileFormPage() {
               </div>
             </section>
 
-            {/* PROGRESS */}
             <div className="cpf-progress-wrap">
               <div className="cpf-progress-inner">
                 <div className="cpf-progress-track">
@@ -420,11 +400,9 @@ export default function ConsultingProfileFormPage() {
               </div>
             </div>
 
-            {/* FORM */}
             <div className="cpf-form-wrap">
               <form onSubmit={handleSubmit} noValidate>
 
-                {/* SECTION 1 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 01</div>
@@ -471,7 +449,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 2 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 02</div>
@@ -524,7 +501,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 3 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 03</div>
@@ -564,7 +540,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 4 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 04</div>
@@ -592,7 +567,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 5 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 05</div>
@@ -621,7 +595,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 6 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 06</div>
@@ -667,7 +640,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 7 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 07</div>
@@ -689,7 +661,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SUBMIT */}
                 <div className="cpf-submit-section">
                   <h3>You are almost there.</h3>
                   <p>Your responses go directly to me. I will read every answer before we go into the room together on July 25th. What you share here shapes everything that happens in those three hours.</p>
@@ -707,7 +678,6 @@ export default function ConsultingProfileFormPage() {
             </div>
           </>
         ) : (
-          /* CONFIRMATION */
           <div className="cpf-confirm-screen">
             <div className="cpf-confirm-inner">
               <div className="cpf-confirm-icon">
@@ -727,7 +697,6 @@ export default function ConsultingProfileFormPage() {
           </div>
         )}
 
-        {/* FOOTER */}
         <footer className="cpf-footer">
           <div className="cpf-footer-logo">Temitope<span>.</span></div>
           <div className="cpf-footer-sub">Intelligence Layer Workshop — July 25th 2025 · 2PM WAT</div>

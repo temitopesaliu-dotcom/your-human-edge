@@ -808,7 +808,6 @@ export default function IntelHomePage() {
 
       <section className="ilp-quiz-section" id="quiz">
         <div className="ilp-quiz-card">
-          {/* ENTRY */}
           {screen === "entry" && (
             <div className="ilp-entry-card">
               <div className="ilp-entry-icon">
@@ -847,7 +846,6 @@ export default function IntelHomePage() {
             </div>
           )}
 
-          {/* QUIZ */}
           {screen === "quiz" && (
             <>
               <div className="ilp-quiz-header">
@@ -916,7 +914,6 @@ export default function IntelHomePage() {
             </>
           )}
 
-          {/* EMAIL GATE */}
           {screen === "gate" && (
             <div className="ilp-gate-card">
               <div className="ilp-gate-icon">
@@ -962,7 +959,6 @@ export default function IntelHomePage() {
             </div>
           )}
 
-          {/* RESULT */}
           {screen === "result" && result && (
             <>
               <div className="ilp-result-header">

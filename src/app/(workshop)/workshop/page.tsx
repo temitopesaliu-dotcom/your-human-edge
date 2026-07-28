@@ -330,7 +330,6 @@ export default function WorkshopPage() {
         }
       `}</style>
 
-      {/* NAV */}
       <nav className="ws-nav">
         <Link href="/" className="ws-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
@@ -347,13 +346,11 @@ export default function WorkshopPage() {
         </div>
       </nav>
 
-      {/* COUNTDOWN */}
       <div className="ws-countdown">
         <strong>Early access pricing closes soon.</strong> Full price is $299.
         Lock in at $157 now.
       </div>
 
-      {/* HOOK */}
       <section className="ws-hook">
         <div className="ws-container">
           <div className="ws-hook-inner">
@@ -371,7 +368,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* HERO */}
       <section className="ws-hero">
         <div className="ws-container">
           <div className="ws-hero-inner">
@@ -427,7 +423,6 @@ export default function WorkshopPage() {
               </div>
             </div>
 
-            {/* CHECKOUT CARD */}
             <div className="ws-checkout-card">
               <div className="ws-checkout-card-top">
                 <div className="ws-checkout-date">
@@ -495,7 +490,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* ABOUT */}
       <section className="ws-about-section ws-section">
         <div className="ws-container">
           <div className="ws-about-inner">
@@ -566,7 +560,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* WHAT HAPPENS */}
       <section className="ws-section" style={{ background: "var(--white)" }}>
         <div className="ws-container">
           <div className="ws-section-eyebrow">What happens in the room</div>
@@ -610,7 +603,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* WHO IT'S FOR */}
       <section className="ws-for-section ws-section">
         <div className="ws-container">
           <div className="ws-for-grid">
@@ -694,7 +686,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* WHY WORKING SESSION */}
       <section className="ws-section" style={{ background: "var(--white)" }}>
         <div className="ws-container">
           <div className="ws-why-card">
@@ -748,7 +739,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="ws-section" style={{ background: "var(--white)" }}>
         <div className="ws-container">
           <div className="ws-section-eyebrow">Common questions</div>
@@ -789,7 +779,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
       <section className="ws-final-cta ws-section">
         <div className="ws-container">
           <div className="ws-final-cta-inner">
@@ -825,7 +814,6 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="ws-site-footer">
         <div className="ws-container">
 

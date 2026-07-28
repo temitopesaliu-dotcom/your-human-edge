@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   // Always return 200 — analytics never breaks UX
   const ip = getClientIp(req.headers);
   const allowed = await rateLimit(ip, 60, 60, 'track'); // 60 req/min per IP
-  if (!allowed) return NextResponse.json({ ok: false }); // silent drop
+  if (!allowed) return NextResponse.json({ ok: false });
   try {
     const payload = await req.json();
 
