@@ -5,6 +5,7 @@ export const PURCHASE_COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
 
 export const STRIPE_SESSION_PATTERN = /^cs_(live|test)_[A-Za-z0-9]{40,}$/;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for future per-product cookies
 export function accessCookieForProduct(_product: ProductType): string {
   return PLAYBOOK_ACCESS_COOKIE;
 }

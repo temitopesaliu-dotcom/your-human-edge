@@ -19,7 +19,7 @@ const ARCHETYPE_DRIP_GROUP_ENV: Record<ArchetypeKey, string> = {
 async function mailerLiteRequest(
   path: string,
   options: { method?: string; body?: unknown } = {}
-): Promise<{ ok: boolean; status: number; data?: any; errorText?: string }> {
+): Promise<{ ok: boolean; status: number; data?: unknown; errorText?: string }> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return { ok: false, status: 0, errorText: 'MAILERLITE_API_KEY not set' };
 
@@ -82,7 +82,8 @@ export async function isMailerLiteBuyer(email: string): Promise<boolean> {
     }
     return false;
   }
-  return result.data?.data?.fields?.is_buyer === 'true';
+  const payload = result.data as { data?: { fields?: { is_buyer?: string } } } | undefined;
+  return payload?.data?.fields?.is_buyer === 'true';
 
 }
 
@@ -147,7 +148,8 @@ async function isSubscriberInGroup(
     }
     return false;
   }
-  const groupsList: Array<{ id: string }> = result.data?.data ?? [];
+  const payload = result.data as { data?: Array<{ id: string }> } | undefined;
+  const groupsList: Array<{ id: string }> = payload?.data ?? [];
   return groupsList.some((g) => g.id === groupId);
 }
 

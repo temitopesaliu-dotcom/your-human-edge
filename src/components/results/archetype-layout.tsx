@@ -161,7 +161,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
           <span className="hero-icon">{config.icon}</span>
           <div className="hero-eyebrow">Your AI Archetype</div>
           <h1 className="hero-name">The {config.name}</h1>
-          <div className="hero-tagline">"{config.tagline}"</div>
+          <div className="hero-tagline">&ldquo;{config.tagline}&rdquo;</div>
           <div className="hero-sep">
             <div className="line"></div>
             <div className="dot">◆</div>

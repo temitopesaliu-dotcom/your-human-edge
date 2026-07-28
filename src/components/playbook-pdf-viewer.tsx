@@ -35,6 +35,10 @@ export default function PlaybookPdfViewer({
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
+    // Deliberately synchronous: this is the standard hydration-safe mount
+    // flag. Computing it during render instead would read browser-only
+    // state and reintroduce the exact server/client mismatch this avoids.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // Only show toast if it hasn't been shown before
     if (userEmail) {
