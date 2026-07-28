@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { getSession, setSession } from '@/lib/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite } from '@/lib/mailer';
-import { type ArchetypeKey } from '@/lib/archetypes';
-import { normalizeProduct } from '@/lib/products';
-import { stripe } from '@/lib/stripe';
+import { getSession, setSession } from '@/lib/services/kv';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite } from '@/lib/services/mailer';
+import { type ArchetypeKey } from '@/lib/utils/archetypes';
+import { normalizeProduct } from '@/lib/utils/products';
+import { stripe } from '@/lib/services/stripe';
 
 /** Extract archetype from metadata, or fall back to parsing the success_url.
  *  Covers API-created sessions (metadata.archetype) and

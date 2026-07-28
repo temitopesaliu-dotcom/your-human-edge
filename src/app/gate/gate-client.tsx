@@ -2,9 +2,9 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { ARCHETYPES, type ArchetypeKey } from '@/lib/archetypes';
-import { markLocallySubscribed } from '@/lib/subscriber';
-import { track } from '@/lib/analytics';
+import { ARCHETYPES, type ArchetypeKey } from '@/lib/utils/archetypes';
+import { markLocallySubscribed } from '@/lib/services/subscriber';
+import { track } from '@/lib/services/analytics';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
   H: [

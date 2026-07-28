@@ -1,5 +1,5 @@
 import { kv } from '@vercel/kv';
-import type { ProductType } from './products';
+import type { ProductType } from '../utils/products';
 
 export interface SessionRecord {
   createdAt: number;

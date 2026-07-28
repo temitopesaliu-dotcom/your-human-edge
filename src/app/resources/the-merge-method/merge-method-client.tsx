@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import { useEmailGate } from '@/lib/use-email-gate';
+import { useEmailGate } from '@/hooks/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 import SiteNav from '@/components/site-nav';
 

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
-import { stripe } from '@/lib/stripe';
-import { resolveSiteUrl } from '@/lib/resolve-site-url';
+import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/utils/archetypes';
+import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { stripe } from '@/lib/services/stripe';
+import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',

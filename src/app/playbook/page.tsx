@@ -1,12 +1,12 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getArchetypeByKey } from '@/lib/archetypes';
-import { validatePlaybookAccess } from '@/lib/playbook-access';
+import { getArchetypeByKey } from '@/lib/utils/archetypes';
+import { validatePlaybookAccess } from '@/lib/services/playbook-access';
 import {
   accessCookieForProduct,
   isValidSessionId,
-} from '@/lib/products';
+} from '@/lib/utils/products';
 import PlaybookPdfViewer from '@/components/playbook-pdf-viewer';
 
 export const metadata: Metadata = {

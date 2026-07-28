@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { SITE_DISPLAY } from '@/lib/site';
-import { useEmailGate } from '@/lib/use-email-gate';
+import { SITE_DISPLAY } from '@/lib/utils/site';
+import { useEmailGate } from '@/hooks/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 type CategoryKey = 'creative' | 'human' | 'business' | 'technical' | 'niche';
 

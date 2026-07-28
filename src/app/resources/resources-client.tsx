@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { track } from '@/lib/analytics';
+import { track } from '@/lib/services/analytics';
 import SiteNav from '@/components/site-nav';
 
 type Resource = {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSubscriber } from '@/lib/kv';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { getSubscriber } from '@/lib/services/kv';
+import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);

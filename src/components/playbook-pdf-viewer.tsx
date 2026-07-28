@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, lazy, Suspense } from "react";
-import { type ArchetypeKey } from "@/lib/archetypes";
+import { type ArchetypeKey } from "@/lib/utils/archetypes";
 import PurchaseTracker from "@/components/purchase-tracker";
 
 // Import PDF CSS eagerly so it's available before the lazy-loaded renderer mounts

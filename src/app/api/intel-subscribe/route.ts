@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addIntelligenceLayerFreeSubscriber } from '@/lib/mailer';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
-import { handleCors } from '@/lib/cors';
+import { addIntelligenceLayerFreeSubscriber } from '@/lib/services/mailer';
+import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { handleCors } from '@/lib/utils/cors';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);

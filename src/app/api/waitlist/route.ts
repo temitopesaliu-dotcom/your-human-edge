@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
-import { handleCors } from '@/lib/cors';
+import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { handleCors } from '@/lib/utils/cors';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);

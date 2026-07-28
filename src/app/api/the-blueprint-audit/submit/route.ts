@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addBlueprintAuditApplicantToMailerLite } from "@/lib/mailer";
+import { addBlueprintAuditApplicantToMailerLite } from "@/lib/services/mailer";
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,5 +1,5 @@
-import { type ArchetypeKey } from '@/lib/archetypes';
-import { validatePurchaseAccess } from '@/lib/purchase-access';
+import { type ArchetypeKey } from '@/lib/utils/archetypes';
+import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 
 export type PlaybookAccessResult =
   | { ok: true; sessionId: string; archetype: ArchetypeKey; name: string; email: string }

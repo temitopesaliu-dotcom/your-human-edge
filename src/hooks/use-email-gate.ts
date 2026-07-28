@@ -4,7 +4,7 @@ import {
   isLocallySubscribed,
   markLocallySubscribed,
   checkRemoteSubscriber,
-} from '@/lib/subscriber';
+} from '@/lib/services/subscriber';
 
 export type GatePhase = 'gate' | 'checking' | 'content' | null;
 export type SignupRole = 'professional' | 'creator' | 'coach' | 'consultant' | 'founder' | 'company';

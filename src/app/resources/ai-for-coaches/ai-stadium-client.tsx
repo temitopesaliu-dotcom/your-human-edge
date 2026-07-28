@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { track } from '@/lib/analytics';
-import { useEmailGate } from '@/lib/use-email-gate';
+import { track } from '@/lib/services/analytics';
+import { useEmailGate } from '@/hooks/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 // import LiveClassPopup from '@/components/live-class-popup'; // temporarily hidden
 import './ai-stadium.css';

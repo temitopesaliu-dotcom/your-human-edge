@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getArchetypeBySlug } from '@/lib/archetypes';
+import { getArchetypeBySlug } from '@/lib/utils/archetypes';
 import ResultsClient from './results-client';
 import type { Metadata } from 'next';
 

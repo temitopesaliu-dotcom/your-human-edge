@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validatePlaybookAccess } from '@/lib/playbook-access';
+import { validatePlaybookAccess } from '@/lib/services/playbook-access';
 import {
   accessCookieForProduct,
   isValidSessionId,
   PURCHASE_COOKIE_MAX_AGE,
-} from '@/lib/products';
+} from '@/lib/utils/products';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

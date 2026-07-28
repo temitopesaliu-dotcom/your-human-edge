@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { track, handleBuy as buyPlaybook } from "@/lib/funnel";
+import { track, handleBuy as buyPlaybook } from "@/hooks/use-buy-playbook";
 import SiteNav from "@/components/site-nav";
 import './archetype-layout.css';
 

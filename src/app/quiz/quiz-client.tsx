@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/archetypes';
-import { track } from '@/lib/analytics';
+import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/utils/archetypes';
+import { track } from '@/lib/services/analytics';
 import Link from 'next/link';
 import SiteNav from '@/components/site-nav';
 

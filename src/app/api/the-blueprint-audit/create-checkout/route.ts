@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
-import { resolveSiteUrl } from "@/lib/resolve-site-url";
-import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { stripe } from "@/lib/services/stripe";
+import { resolveSiteUrl } from "@/lib/utils/resolve-site-url";
+import { rateLimit, getClientIp } from "@/lib/services/rate-limit";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);

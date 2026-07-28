@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { trackEvent } from '@/lib/analytics';
+import { trackEvent } from '@/lib/services/analytics';
 
 interface PurchaseItem {
   item_id: string;

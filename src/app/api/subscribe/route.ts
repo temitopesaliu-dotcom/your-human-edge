@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, addCoachToMailerLite, isMailerLiteBuyer } from '@/lib/mailer';
-import { getSubscriber, setSubscriber } from '@/lib/kv';
-import { type ArchetypeKey } from '@/lib/archetypes';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
-import { handleCors } from '@/lib/cors';
+import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, addCoachToMailerLite, isMailerLiteBuyer } from '@/lib/services/mailer';
+import { getSubscriber, setSubscriber } from '@/lib/services/kv';
+import { type ArchetypeKey } from '@/lib/utils/archetypes';
+import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { handleCors } from '@/lib/utils/cors';
 
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { getArchetypeBySlug } from "@/lib/archetypes";
+import { getArchetypeBySlug } from "@/lib/utils/archetypes";
 import CreativeAmplifierPage from "@/components/results/creative-amplifier";
 import GrowthCatalystPage from "@/components/results/growth-catalyst";
 import SystemsArchitectPage from "@/components/results/systems-architect";

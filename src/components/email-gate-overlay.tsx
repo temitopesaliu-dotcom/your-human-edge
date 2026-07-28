@@ -1,5 +1,5 @@
 'use client';
-import type { GatePhase, SignupRole } from '@/lib/use-email-gate';
+import type { GatePhase, SignupRole } from '@/hooks/use-email-gate';
 
 type Props = {
   gatePhase: GatePhase;

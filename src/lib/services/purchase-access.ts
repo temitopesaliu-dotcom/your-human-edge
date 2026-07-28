@@ -1,10 +1,10 @@
-import { getSession, setSession, type SessionRecord } from '@/lib/kv';
-import { type ArchetypeKey } from '@/lib/archetypes';
+import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
+import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import {
   type ProductType,
   isValidSessionId,
   normalizeProduct as normalizeProductType,
-} from '@/lib/products';
+} from '@/lib/utils/products';
 
 export type PurchaseAccessResult =
   | { ok: true; sessionId: string; product: ProductType; archetype: ArchetypeKey; name: string; email: string }

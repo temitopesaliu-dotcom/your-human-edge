@@ -1,4 +1,4 @@
-import { type ArchetypeKey, ARCHETYPES } from './archetypes';
+import { type ArchetypeKey, ARCHETYPES } from '../utils/archetypes';
 
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',

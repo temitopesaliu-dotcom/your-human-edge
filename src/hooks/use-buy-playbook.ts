@@ -3,9 +3,9 @@
  */
 "use client";
 
-import { track } from "@/lib/analytics";
+import { track } from "@/lib/services/analytics";
 
-// Re-export track so existing importers (`import { track } from "@/lib/funnel"`) continue to work.
+// Re-export track so existing importers (`import { track } from "@/hooks/use-buy-playbook"`) continue to work.
 export { track };
 
 /**
