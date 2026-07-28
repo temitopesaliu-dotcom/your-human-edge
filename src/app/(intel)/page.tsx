@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import Link from "next/link";
 import LiveClassPopup from "@/components/live-class-popup";
 
 const Q = [
@@ -434,23 +435,6 @@ function ArrowRight({ size = 16 }: { size?: number }) {
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
 function ShieldIcon() {
   return (
     <svg
@@ -771,9 +755,9 @@ export default function IntelHomePage() {
       <LiveClassPopup onRegister={handlePopupRegister} />
 
       <nav className="ilp-nav">
-        <a href="/" className="ilp-nav-logo">
+        <Link href="/" className="ilp-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
-        </a>
+        </Link>
         <a className="nav-tag" href="/resources">
         <span className="nav-tag">FREE RESOURCE</span>
         </a>
@@ -824,7 +808,6 @@ export default function IntelHomePage() {
 
       <section className="ilp-quiz-section" id="quiz">
         <div className="ilp-quiz-card">
-          {/* ENTRY */}
           {screen === "entry" && (
             <div className="ilp-entry-card">
               <div className="ilp-entry-icon">
@@ -863,7 +846,6 @@ export default function IntelHomePage() {
             </div>
           )}
 
-          {/* QUIZ */}
           {screen === "quiz" && (
             <>
               <div className="ilp-quiz-header">
@@ -932,7 +914,6 @@ export default function IntelHomePage() {
             </>
           )}
 
-          {/* EMAIL GATE */}
           {screen === "gate" && (
             <div className="ilp-gate-card">
               <div className="ilp-gate-icon">
@@ -978,7 +959,6 @@ export default function IntelHomePage() {
             </div>
           )}
 
-          {/* RESULT */}
           {screen === "result" && result && (
             <>
               <div className="ilp-result-header">

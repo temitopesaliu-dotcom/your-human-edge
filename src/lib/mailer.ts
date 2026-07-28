@@ -1,6 +1,5 @@
 import { type ArchetypeKey, ARCHETYPES } from './archetypes';
 
-// Per-archetype MailerLite group IDs
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
   C: 'MAILERLITE_GROUP_C',
@@ -8,7 +7,6 @@ const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   G: 'MAILERLITE_GROUP_G',
 };
 
-// Per-archetype funnel drip group IDs
 const ARCHETYPE_DRIP_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_FUNNEL_DRIP_GROUP_H',
   C: 'MAILERLITE_FUNNEL_DRIP_GROUP_C',
@@ -19,7 +17,7 @@ const ARCHETYPE_DRIP_GROUP_ENV: Record<ArchetypeKey, string> = {
 async function mailerLiteRequest(
   path: string,
   options: { method?: string; body?: unknown } = {}
-): Promise<{ ok: boolean; status: number; data?: any; errorText?: string }> {
+): Promise<{ ok: boolean; status: number; data?: unknown; errorText?: string }> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   if (!apiKey) return { ok: false, status: 0, errorText: 'MAILERLITE_API_KEY not set' };
 
@@ -82,7 +80,8 @@ export async function isMailerLiteBuyer(email: string): Promise<boolean> {
     }
     return false;
   }
-  return result.data?.data?.fields?.is_buyer === 'true';
+  const payload = result.data as { data?: { fields?: { is_buyer?: string } } } | undefined;
+  return payload?.data?.fields?.is_buyer === 'true';
 
 }
 
@@ -109,9 +108,6 @@ export async function addSubscriberToMailerLite(
   }
 }
 
-/**
- * Remove a subscriber from a specific MailerLite group.
- */
 export async function removeSubscriberFromGroup(
   email: string,
   groupId: string
@@ -147,7 +143,8 @@ async function isSubscriberInGroup(
     }
     return false;
   }
-  const groupsList: Array<{ id: string }> = result.data?.data ?? [];
+  const payload = result.data as { data?: Array<{ id: string }> } | undefined;
+  const groupsList: Array<{ id: string }> = payload?.data ?? [];
   return groupsList.some((g) => g.id === groupId);
 }
 
@@ -232,7 +229,6 @@ export async function addBuyerToMailerLite(
 }
 
 
-/** Stadium buyer — adds to a tier-specific MailerLite group. */
 export async function addStadiumBuyerToMailerLite(
   email: string,
   name: string,
@@ -273,7 +269,6 @@ export async function addStadiumBuyerToMailerLite(
 }
 
 
-/** Free resource subscriber — optionally adds to the company free resource MailerLite group. */
 export async function addFreeResourceSubscriberToMailerLite(
   email: string,
   name: string,
@@ -308,7 +303,6 @@ const result = await mailerLiteRequest('/subscribers', {
 }
 
 
-/** Business Architect Programme buyer — adds to a tier-specific MailerLite group. */
 export async function addBusinessArchitectBuyerToMailerLite(
   email: string,
   name: string,
@@ -349,7 +343,6 @@ export async function addBusinessArchitectBuyerToMailerLite(
 }
 
 
-/** Coach subscriber — adds to the coach-specific MailerLite group when someone signs up as a coach. */
 export async function addCoachToMailerLite(
   email: string,
   name: string,
@@ -377,7 +370,6 @@ export async function addCoachToMailerLite(
 }
 
 
-/** Blueprint Audit applicant — adds to the blueprint audit MailerLite group. */
 export async function addBlueprintAuditApplicantToMailerLite(
   email: string,
   name: string,
@@ -411,7 +403,6 @@ export async function addBlueprintAuditApplicantToMailerLite(
 }
 
 
-/** Intelligence Layer free subscriber — adds to the FREE_INTELLIGENCE_LAYER group. */
 export async function addIntelligenceLayerFreeSubscriber(
   email: string,
   name: string,
@@ -445,7 +436,6 @@ export async function addIntelligenceLayerFreeSubscriber(
   }
 }
 
-/** Intelligence Layer paid subscriber — adds to the PAID_INTELLIGENCE_LAYER group. */
 export async function addIntelligenceLayerPaidSubscriber(
   email: string,
   name: string,

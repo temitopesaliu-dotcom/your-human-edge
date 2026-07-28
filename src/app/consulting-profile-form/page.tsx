@@ -2,7 +2,6 @@
 
 import { useState, useCallback, type FormEvent } from "react";
 
-// ── Required fields for progress & validation ──────────────────────────────
 const REQUIRED_FIELDS = [
   "full_name", "preferred_name", "email", "country", "timezone",
   "current_role", "years_experience", "industry", "advice_areas", "greatest_strength",
@@ -15,7 +14,6 @@ const REQUIRED_FIELDS = [
 
 type FieldName = (typeof REQUIRED_FIELDS)[number] | "linkedin" | "business_size" | "anything_else";
 
-// ── Field ID map for validation ────────────────────────────────────────────
 const FIELD_MAP: Record<string, string> = {
   full_name: "f-fname", preferred_name: "f-pref",
   email: "f-email", country: "f-country", timezone: "f-tz",
@@ -29,7 +27,6 @@ const FIELD_MAP: Record<string, string> = {
   business_why: "f-bizwhy", six_months_vision: "f-sixmonths",
 };
 
-// ── Field-specific error messages ──────────────────────────────────────────
 const ERROR_MESSAGES: Record<string, string> = {
   full_name: "Please enter your full name.",
   preferred_name: "Please enter your preferred name.",
@@ -58,13 +55,18 @@ const ERROR_MESSAGES: Record<string, string> = {
   six_months_vision: "Please answer this question.",
 };
 
+function FieldError({ name, errors }: { name: string; errors: Record<string, boolean> }) {
+  return errors[name] ? (
+    <div className="cpf-field-error-msg">{ERROR_MESSAGES[name] || "This field is required."}</div>
+  ) : null;
+}
+
 export default function ConsultingProfileFormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
-  // ── Generic updater ──────────────────────────────────────────────────────
   const set = useCallback((name: FieldName, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => {
@@ -75,13 +77,11 @@ export default function ConsultingProfileFormPage() {
     });
   }, []);
 
-  // ── Progress ─────────────────────────────────────────────────────────────
   const filledCount = REQUIRED_FIELDS.filter(
     (name) => (formData[name] || "").trim() !== ""
   ).length;
   const progressPct = Math.round((filledCount / REQUIRED_FIELDS.length) * 100);
 
-  // ── Validation ───────────────────────────────────────────────────────────
   const validate = useCallback((): boolean => {
     const newErrors: Record<string, boolean> = {};
 
@@ -91,7 +91,6 @@ export default function ConsultingProfileFormPage() {
       }
     });
 
-    // Email format check
     const email = (formData.email || "").trim();
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = true;
@@ -101,7 +100,6 @@ export default function ConsultingProfileFormPage() {
     const hasErrors = Object.keys(newErrors).length > 0;
 
     if (hasErrors) {
-      // Scroll to first error
       const firstErrorField = Object.keys(newErrors)[0];
       const fieldId = FIELD_MAP[firstErrorField];
       if (fieldId) {
@@ -114,14 +112,12 @@ export default function ConsultingProfileFormPage() {
     return !hasErrors;
   }, [formData]);
 
-  // ── Submit ───────────────────────────────────────────────────────────────
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
 
-    // Build payload: only send defined fields
     const payload: Record<string, string> = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
@@ -150,7 +146,6 @@ export default function ConsultingProfileFormPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ── Render helpers ──────────────────────────────────────────────────────
   const fieldClass = (name: string) => `cpf-field${errors[name] ? " error" : ""}`;
 
   const renderOptionButtons = (
@@ -218,9 +213,6 @@ export default function ConsultingProfileFormPage() {
     );
   };
 
-  const FieldError = ({ name }: { name: string }) =>
-    errors[name] ? <div className="cpf-field-error-msg">{ERROR_MESSAGES[name] || "This field is required."}</div> : null;
-
   return (
     <>
       <style>{`
@@ -248,13 +240,11 @@ export default function ConsultingProfileFormPage() {
         .cpf-page *, .cpf-page *::before, .cpf-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
         .cpf-page { font-family: 'Inter', sans-serif; background: var(--white); color: var(--espresso); line-height: 1.6; min-height: 100vh; }
 
-        /* NAV */
         .cpf-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
         .cpf-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--espresso); text-decoration: none; }
         .cpf-nav-logo span { color: var(--purple); }
         .cpf-nav-tag { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
-        /* HERO */
         .cpf-hero { padding: 100px 2rem 60px; background: var(--white); position: relative; overflow: hidden; }
         .cpf-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%; background: radial-gradient(ellipse 60% 50% at 50% 0%,#EDE9FD 0%,transparent 70%); pointer-events: none; }
         .cpf-hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
@@ -267,7 +257,6 @@ export default function ConsultingProfileFormPage() {
         .cpf-hero-note { background: var(--grain); border: 1px solid var(--border); border-radius: var(--r-md); padding: 20px 24px; font-size: 14px; color: var(--muted); line-height: 1.7; border-left: 3px solid var(--purple); }
         .cpf-hero-note strong { color: var(--espresso); font-weight: 600; }
 
-        /* PROGRESS */
         .cpf-progress-wrap { background: var(--alabaster); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 2rem; position: sticky; top: 60px; z-index: 90; }
         .cpf-progress-inner { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 16px; }
         .cpf-progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
@@ -275,17 +264,14 @@ export default function ConsultingProfileFormPage() {
         .cpf-progress-label { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
         .cpf-progress-pct { font-size: 12px; font-weight: 700; color: var(--purple); white-space: nowrap; }
 
-        /* FORM WRAPPER */
         .cpf-form-wrap { max-width: 720px; margin: 0 auto; padding: 48px 2rem 80px; }
 
-        /* SECTION */
         .cpf-form-section { margin-bottom: 48px; }
         .cpf-section-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
         .cpf-section-num { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
         .cpf-section-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--espresso); letter-spacing: -.3px; margin-bottom: 6px; }
         .cpf-section-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-        /* FIELD */
         .cpf-field { margin-bottom: 24px; }
         .cpf-field-label { display: block; font-size: 13px; font-weight: 600; color: var(--espresso); margin-bottom: 6px; line-height: 1.4; }
         .cpf-field-label .cpf-req { color: var(--purple); margin-left: 2px; }
@@ -381,7 +367,6 @@ export default function ConsultingProfileFormPage() {
       `}</style>
 
       <div className="cpf-page">
-        {/* NAV */}
         <nav className="cpf-nav">
           <a href="https://temitopesaliu.com" className="cpf-nav-logo">Temitope<span>.</span></a>
           <span className="cpf-nav-tag">Workshop Onboarding</span>
@@ -389,7 +374,6 @@ export default function ConsultingProfileFormPage() {
 
         {!submitted ? (
           <>
-            {/* HERO */}
             <section className="cpf-hero">
               <div className="cpf-hero-inner">
                 <div className="cpf-hero-eyebrow">
@@ -406,7 +390,6 @@ export default function ConsultingProfileFormPage() {
               </div>
             </section>
 
-            {/* PROGRESS */}
             <div className="cpf-progress-wrap">
               <div className="cpf-progress-inner">
                 <div className="cpf-progress-track">
@@ -417,11 +400,9 @@ export default function ConsultingProfileFormPage() {
               </div>
             </div>
 
-            {/* FORM */}
             <div className="cpf-form-wrap">
               <form onSubmit={handleSubmit} noValidate>
 
-                {/* SECTION 1 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 01</div>
@@ -433,12 +414,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("full_name")} id="f-fname">
                       <label className="cpf-field-label">Full name <span className="cpf-req">*</span></label>
                       <input type="text" name="full_name" placeholder="Your full name" value={formData.full_name || ""} onChange={(e) => set("full_name", e.target.value)} />
-                      <FieldError name="full_name" />
+                      <FieldError name="full_name" errors={errors} />
                     </div>
                     <div className={fieldClass("preferred_name")} id="f-pref">
                       <label className="cpf-field-label">Preferred name in session <span className="cpf-req">*</span></label>
                       <input type="text" name="preferred_name" placeholder="What should I call you?" value={formData.preferred_name || ""} onChange={(e) => set("preferred_name", e.target.value)} />
-                      <FieldError name="preferred_name" />
+                      <FieldError name="preferred_name" errors={errors} />
                     </div>
                   </div>
 
@@ -446,12 +427,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("email")} id="f-email">
                       <label className="cpf-field-label">Email address <span className="cpf-req">*</span></label>
                       <input type="email" name="email" placeholder="name@email.com" value={formData.email || ""} onChange={(e) => set("email", e.target.value)} />
-                      <FieldError name="email" />
+                      <FieldError name="email" errors={errors} />
                     </div>
                     <div className={fieldClass("country")} id="f-country">
                       <label className="cpf-field-label">Country you are based in <span className="cpf-req">*</span></label>
                       <input type="text" name="country" placeholder="e.g. Nigeria, UK, USA" value={formData.country || ""} onChange={(e) => set("country", e.target.value)} />
-                      <FieldError name="country" />
+                      <FieldError name="country" errors={errors} />
                     </div>
                   </div>
 
@@ -459,7 +440,7 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("timezone")} id="f-tz">
                       <label className="cpf-field-label">Time zone joining from <span className="cpf-req">*</span></label>
                       <input type="text" name="timezone" placeholder="e.g. WAT, BST, EST" value={formData.timezone || ""} onChange={(e) => set("timezone", e.target.value)} />
-                      <FieldError name="timezone" />
+                      <FieldError name="timezone" errors={errors} />
                     </div>
                     <div className="cpf-field">
                       <label className="cpf-field-label">LinkedIn profile URL <span style={{ fontWeight: 400, color: "var(--light)" }}>(optional)</span></label>
@@ -468,7 +449,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SECTION 2 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 02</div>
@@ -486,7 +466,7 @@ export default function ConsultingProfileFormPage() {
                       { value: "Multiple of the above", label: "Multiple of the above" },
                       { value: "In transition", label: "In transition between roles" },
                     ], "radio")}
-                    <FieldError name="current_role" />
+                    <FieldError name="current_role" errors={errors} />
                   </div>
 
                   <div className={fieldClass("years_experience")} id="f-years">
@@ -498,30 +478,29 @@ export default function ConsultingProfileFormPage() {
                       { value: "13-20 years", label: "13 to 20 years" },
                       { value: "20+ years", label: "20 years or more" },
                     ], "radio")}
-                    <FieldError name="years_experience" />
+                    <FieldError name="years_experience" errors={errors} />
                   </div>
 
                   <div className={fieldClass("industry")} id="f-industry">
                     <label className="cpf-field-label">Which industry or industries have you spent the most time working in? <span className="cpf-req">*</span></label>
                     <input type="text" name="industry" placeholder="e.g. Finance, HR, Marketing, Healthcare, Education..." value={formData.industry || ""} onChange={(e) => set("industry", e.target.value)} />
-                    <FieldError name="industry" />
+                    <FieldError name="industry" errors={errors} />
                   </div>
 
                   <div className={fieldClass("advice_areas")} id="f-sought">
                     <label className="cpf-field-label">What areas do people naturally seek your advice on — even informally, even without paying you? <span className="cpf-req">*</span></label>
                     <textarea name="advice_areas" placeholder="The things people ask you about in WhatsApp groups, at events, over coffee..." value={formData.advice_areas || ""} onChange={(e) => set("advice_areas", e.target.value)}></textarea>
-                    <FieldError name="advice_areas" />
+                    <FieldError name="advice_areas" errors={errors} />
                   </div>
 
                   <div className={fieldClass("greatest_strength")} id="f-strength">
                     <label className="cpf-field-label">What would you consider your single greatest professional strength? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not a skill. A strength. The thing that is most distinctly yours.</div>
                     <textarea name="greatest_strength" placeholder="The thing you do that feels ordinary to you but extraordinary to others..." value={formData.greatest_strength || ""} onChange={(e) => set("greatest_strength", e.target.value)}></textarea>
-                    <FieldError name="greatest_strength" />
+                    <FieldError name="greatest_strength" errors={errors} />
                   </div>
                 </div>
 
-                {/* SECTION 3 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 03</div>
@@ -533,14 +512,14 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">In plain language — not professional language — what problem are you exceptionally good at solving? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not your job title. Not your LinkedIn headline. The actual problem. The thing people bring to you when something is broken or stuck.</div>
                     <textarea name="core_problem" placeholder="When people come to me they are usually struggling with..." style={{ minHeight: 130 }} value={formData.core_problem || ""} onChange={(e) => set("core_problem", e.target.value)}></textarea>
-                    <FieldError name="core_problem" />
+                    <FieldError name="core_problem" errors={errors} />
                   </div>
 
                   <div className={fieldClass("proudest_work")} id="f-proud">
                     <label className="cpf-field-label">Describe a piece of work you are most proud of. <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">What did you do, what changed, and why does it still stay with you?</div>
                     <textarea name="proudest_work" placeholder="Tell me about the work, the outcome, and why it matters to you..." style={{ minHeight: 130 }} value={formData.proudest_work || ""} onChange={(e) => set("proudest_work", e.target.value)}></textarea>
-                    <FieldError name="proudest_work" />
+                    <FieldError name="proudest_work" errors={errors} />
                   </div>
 
                   <div className={fieldClass("org_types")} id="f-orgtypes">
@@ -557,11 +536,10 @@ export default function ConsultingProfileFormPage() {
                       { value: "Technology", label: "Technology" },
                       { value: "Manufacturing", label: "Manufacturing" },
                     ], "checkbox")}
-                    <FieldError name="org_types" />
+                    <FieldError name="org_types" errors={errors} />
                   </div>
                 </div>
 
-                {/* SECTION 4 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 04</div>
@@ -573,23 +551,22 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">Why did you decide to join this workshop? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Not the professional answer. The real one.</div>
                     <textarea name="why_joined" placeholder="Be honest with me. What made you click that button and pay?" style={{ minHeight: 120 }} value={formData.why_joined || ""} onChange={(e) => set("why_joined", e.target.value)}></textarea>
-                    <FieldError name="why_joined" />
+                    <FieldError name="why_joined" errors={errors} />
                   </div>
 
                   <div className={fieldClass("best_workshop")} id="f-best">
                     <label className="cpf-field-label">What would make this one of the best workshops you have ever attended? <span className="cpf-req">*</span></label>
                     <textarea name="best_workshop" placeholder="Describe it specifically. What would need to happen for you to walk away saying — that changed things?" style={{ minHeight: 120 }} value={formData.best_workshop || ""} onChange={(e) => set("best_workshop", e.target.value)}></textarea>
-                    <FieldError name="best_workshop" />
+                    <FieldError name="best_workshop" errors={errors} />
                   </div>
 
                   <div className={fieldClass("key_question")} id="f-question">
                     <label className="cpf-field-label">What is the one question you are most hoping gets answered? <span className="cpf-req">*</span></label>
                     <textarea name="key_question" placeholder="The question that has been sitting with you unanswered..." value={formData.key_question || ""} onChange={(e) => set("key_question", e.target.value)}></textarea>
-                    <FieldError name="key_question" />
+                    <FieldError name="key_question" errors={errors} />
                   </div>
                 </div>
 
-                {/* SECTION 5 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 05</div>
@@ -601,24 +578,23 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">How would you rate your current confidence using AI strategically — not just for tasks but to build something? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">1 = complete beginner &nbsp;·&nbsp; 10 = building with it daily</div>
                     {renderScale("ai_confidence", "Complete beginner", "Building with it daily")}
-                    <FieldError name="ai_confidence" />
+                    <FieldError name="ai_confidence" errors={errors} />
                   </div>
 
                   <div className={fieldClass("ai_tools")} id="f-aitools">
                     <label className="cpf-field-label">Which AI tools do you currently use and what specifically do you use them for? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Be precise. Not just the tool name — the actual use case.</div>
                     <textarea name="ai_tools" placeholder="e.g. Claude for drafting client proposals, ChatGPT for research, Notion AI for meeting notes..." value={formData.ai_tools || ""} onChange={(e) => set("ai_tools", e.target.value)}></textarea>
-                    <FieldError name="ai_tools" />
+                    <FieldError name="ai_tools" errors={errors} />
                   </div>
 
                   <div className={fieldClass("ai_transformative")} id="f-aitransform">
                     <label className="cpf-field-label">What would AI need to do for your specific expertise for you to consider it genuinely transformative rather than just useful? <span className="cpf-req">*</span></label>
                     <textarea name="ai_transformative" placeholder="What is the bar? What would need to happen for AI to feel like it changed everything for you?" style={{ minHeight: 120 }} value={formData.ai_transformative || ""} onChange={(e) => set("ai_transformative", e.target.value)}></textarea>
-                    <FieldError name="ai_transformative" />
+                    <FieldError name="ai_transformative" errors={errors} />
                   </div>
                 </div>
 
-                {/* SECTION 6 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 06</div>
@@ -630,12 +606,12 @@ export default function ConsultingProfileFormPage() {
                     <div className={fieldClass("business_name")} id="f-bizname">
                       <label className="cpf-field-label">Business name <span className="cpf-req">*</span></label>
                       <input type="text" name="business_name" placeholder="Name of the business" value={formData.business_name || ""} onChange={(e) => set("business_name", e.target.value)} />
-                      <FieldError name="business_name" />
+                      <FieldError name="business_name" errors={errors} />
                     </div>
                     <div className={fieldClass("business_industry")} id="f-bizindustry">
                       <label className="cpf-field-label">Industry <span className="cpf-req">*</span></label>
                       <input type="text" name="business_industry" placeholder="e.g. Logistics, Healthcare, Retail" value={formData.business_industry || ""} onChange={(e) => set("business_industry", e.target.value)} />
-                      <FieldError name="business_industry" />
+                      <FieldError name="business_industry" errors={errors} />
                     </div>
                   </div>
 
@@ -647,24 +623,23 @@ export default function ConsultingProfileFormPage() {
                   <div className={fieldClass("business_challenge")} id="f-bizchallenge">
                     <label className="cpf-field-label">What do you think is their biggest operational challenge right now? <span className="cpf-req">*</span></label>
                     <textarea name="business_challenge" placeholder="What is breaking, slowing down, or stuck in this business right now?" value={formData.business_challenge || ""} onChange={(e) => set("business_challenge", e.target.value)}></textarea>
-                    <FieldError name="business_challenge" />
+                    <FieldError name="business_challenge" errors={errors} />
                   </div>
 
                   <div className={fieldClass("business_friction")} id="f-bizfriction">
                     <label className="cpf-field-label">Where do you see the most obvious friction in how they operate? <span className="cpf-req">*</span></label>
-                    <div className="cpf-field-hint">The repetition, the delay, the bottleneck, the knowledge trapped inside one person's head.</div>
+                    <div className="cpf-field-hint">The repetition, the delay, the bottleneck, the knowledge trapped inside one person&apos;s head.</div>
                     <textarea name="business_friction" placeholder="Where does this business slow down, repeat itself, or break when the wrong person is unavailable?" value={formData.business_friction || ""} onChange={(e) => set("business_friction", e.target.value)}></textarea>
-                    <FieldError name="business_friction" />
+                    <FieldError name="business_friction" errors={errors} />
                   </div>
 
                   <div className={fieldClass("business_why")} id="f-bizwhy">
                     <label className="cpf-field-label">Why did you choose this business? <span className="cpf-req">*</span></label>
                     <input type="text" name="business_why" placeholder="What made you pick this one specifically?" value={formData.business_why || ""} onChange={(e) => set("business_why", e.target.value)} />
-                    <FieldError name="business_why" />
+                    <FieldError name="business_why" errors={errors} />
                   </div>
                 </div>
 
-                {/* SECTION 7 */}
                 <div className="cpf-form-section">
                   <div className="cpf-section-header">
                     <div className="cpf-section-num">Section 07</div>
@@ -676,7 +651,7 @@ export default function ConsultingProfileFormPage() {
                     <label className="cpf-field-label">Imagine it is six months from now. You send me a message and say — I am so glad I attended. What has happened? <span className="cpf-req">*</span></label>
                     <div className="cpf-field-hint">Describe the outcome in as much detail as you can. What are you doing? What has changed? What can you do now that you could not do before July 25th?</div>
                     <textarea name="six_months_vision" placeholder="Six months from now, I am..." style={{ minHeight: 160 }} value={formData.six_months_vision || ""} onChange={(e) => set("six_months_vision", e.target.value)}></textarea>
-                    <FieldError name="six_months_vision" />
+                    <FieldError name="six_months_vision" errors={errors} />
                   </div>
 
                   <div className="cpf-field">
@@ -686,7 +661,6 @@ export default function ConsultingProfileFormPage() {
                   </div>
                 </div>
 
-                {/* SUBMIT */}
                 <div className="cpf-submit-section">
                   <h3>You are almost there.</h3>
                   <p>Your responses go directly to me. I will read every answer before we go into the room together on July 25th. What you share here shapes everything that happens in those three hours.</p>
@@ -704,7 +678,6 @@ export default function ConsultingProfileFormPage() {
             </div>
           </>
         ) : (
-          /* CONFIRMATION */
           <div className="cpf-confirm-screen">
             <div className="cpf-confirm-inner">
               <div className="cpf-confirm-icon">
@@ -715,7 +688,7 @@ export default function ConsultingProfileFormPage() {
               <div className="cpf-confirm-message">
                 <p>Between now and July 25th, start observing businesses differently.</p>
                 <p>Do not look for AI.</p>
-                <p><strong>Look for friction.</strong> Look for repetition. Look for delays. Look for decisions being made slowly because knowledge is trapped inside one person's head. Look for processes that break every time one specific person is unavailable.</p>
+                <p><strong>Look for friction.</strong> Look for repetition. Look for delays. Look for decisions being made slowly because knowledge is trapped inside one person&apos;s head. Look for processes that break every time one specific person is unavailable.</p>
                 <p>That is where AI consultants create value.</p>
                 <p>We will build on those observations together on July 25th.</p>
                 <div className="cpf-confirm-highlight">See you in the room. — Temitope</div>
@@ -724,7 +697,6 @@ export default function ConsultingProfileFormPage() {
           </div>
         )}
 
-        {/* FOOTER */}
         <footer className="cpf-footer">
           <div className="cpf-footer-logo">Temitope<span>.</span></div>
           <div className="cpf-footer-sub">Intelligence Layer Workshop — July 25th 2025 · 2PM WAT</div>

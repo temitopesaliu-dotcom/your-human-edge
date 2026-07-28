@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { SITE_DISPLAY } from '@/lib/site';
 import { useEmailGate } from '@/lib/use-email-gate';
@@ -220,7 +220,6 @@ export default function PathsClient() {
         onSubmit={handleGateSubmit}
       />
 
-      {/* ── Main content (visible only after gate) ── */}
       {gatePhase === 'content' && (
       <div className="paths-root">
         <div className="paths-cover">

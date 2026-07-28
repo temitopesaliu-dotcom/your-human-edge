@@ -7,10 +7,8 @@ import { handleCors } from '@/lib/cors';
 
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 
-/** Sources that can trigger a subscription. */
 type SubscriberSource = 'quiz' | 'paths' | 'b2b-prompt' | string;
 
-/** Validate and parse the request body. */
 function parseSubscribeBody(body: unknown): { email: string; name: string; source: SubscriberSource; isCompany: boolean; archetype: ArchetypeKey; signupType: 'coach' | 'company'; signupRole: string } | null {
   const data = body as Record<string, unknown>;
   const email = ((data?.email as string) || '').trim().toLowerCase();
@@ -35,9 +33,7 @@ function parseSubscribeBody(body: unknown): { email: string; name: string; sourc
   return { email, name, source, isCompany, archetype, signupType, signupRole };
 }
 
-/** Handle MailerLite logic for existing subscribers. */
 async function handleExistingSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean, signupType: 'coach' | 'company', signupRole: string): Promise<void> {
-  // If signing up as a coach, add them to the coach MailerLite group
   if (signupType === 'coach') {
     try {
       await addCoachToMailerLite(email, name, signupRole);
@@ -55,9 +51,7 @@ async function handleExistingSubscriber(email: string, name: string, source: Sub
   }
 }
 
-/** Handle MailerLite logic for new subscribers. */
 async function handleNewSubscriber(email: string, name: string, source: SubscriberSource, isCompany: boolean, archetype: ArchetypeKey, signupType: 'coach' | 'company', signupRole: string): Promise<void> {
-  // If signing up as a coach, add them to the coach MailerLite group
   if (signupType === 'coach') {
     try {
       await addCoachToMailerLite(email, name, signupRole);

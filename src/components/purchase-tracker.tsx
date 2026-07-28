@@ -13,9 +13,7 @@ interface PurchaseItem {
 interface PurchaseTrackerProps {
   /** Product SKU / item ID (e.g. 'stadium-live', 'playbook', 'blueprint-audit') */
   productId: string;
-  /** Human-readable product name */
   productName: string;
-  /** Total purchase value */
   value: number;
   /** ISO currency code — defaults to USD */
   currency?: string;
@@ -42,7 +40,6 @@ export default function PurchaseTracker({
   dedupKey,
 }: PurchaseTrackerProps) {
   useEffect(() => {
-    // Deduplicate if this is a revisitable page
     if (dedupKey) {
       try {
         if (localStorage.getItem(dedupKey) === 'true') return;

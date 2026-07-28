@@ -9,7 +9,6 @@ export default function BlueprintPage() {
       <AiosScripts />
       <AiosNav variant="blueprint" />
 
-      {/* HERO */}
       <section className="hero hero-inner-page" id="hero" aria-label="Blueprint hero">
         <div className="hero-bg" aria-hidden="true"></div>
         <div className="hero-grid-lines" aria-hidden="true"></div>
@@ -43,7 +42,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* WHAT IS THIS SECTION */}
       <section className="section" id="what-is-this" aria-labelledby="what-is-this-heading">
         <div className="container">
           <div className="two-col-layout">
@@ -77,7 +75,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* WHAT YOU RECEIVE */}
       <section className="section" id="what-you-receive" aria-labelledby="receive-heading">
         <div className="container">
           <div className="section-header centered fade-up">
@@ -144,7 +141,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* WHO THIS IS FOR */}
       <section className="section-sm" id="who" aria-labelledby="who-heading">
         <div className="container">
           <div className="two-col-layout">
@@ -195,7 +191,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* THE SESSION ITSELF */}
       <section className="section" id="the-session" aria-labelledby="session-heading">
         <div className="container">
           <div className="section-header centered fade-up">
@@ -352,7 +347,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
       <section className="section-sm" aria-label="Client result">
         <div className="container">
           <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
@@ -389,7 +383,6 @@ export default function BlueprintPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
       <section className="final-cta" aria-labelledby="blueprint-cta-heading">
         <div className="final-cta-bg" aria-hidden="true"></div>
         <div className="final-cta-inner fade-up">

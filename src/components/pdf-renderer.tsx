@@ -2,30 +2,20 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { pdfjs } from "react-pdf";
-import { type ArchetypeKey } from "@/lib/archetypes";
 import PdfNav from "@/components/pdf-nav";
 import PdfZoomControls from "@/components/pdf-zoom-controls";
 import PdfPageNav from "@/components/pdf-page-nav";
 import PdfDocumentArea from "@/components/pdf-document-area";
 
-// Configure pdf.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/build/pdf.worker.min.mjs`;
 
 interface PdfRendererProps {
-  archetypeKey: ArchetypeKey;
-  userName?: string;
-  userEmail?: string;
   pdfUrl: string;
 }
 
 const MOBILE_BREAKPOINT = 768;
 
-export default function PdfRenderer({
-  archetypeKey: _archetypeKey,
-  userName,
-  userEmail,
-  pdfUrl,
-}: PdfRendererProps) {
+export default function PdfRenderer({ pdfUrl }: PdfRendererProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -33,11 +23,15 @@ export default function PdfRenderer({
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showZoomControls, setShowZoomControls] = useState(false);
+  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(undefined);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    const check = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+      setWrapperWidth(wrapperRef.current?.clientWidth);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -47,7 +41,9 @@ export default function PdfRenderer({
   // to reduce canvas bitmap size and memory usage on mobile devices.
   useEffect(() => {
     if (isMobile && wrapperRef.current && !loading) {
-      const w = wrapperRef.current.clientWidth - 16;
+      const width = wrapperRef.current.clientWidth;
+      setWrapperWidth(width);
+      const w = width - 16;
       const fitScale = Math.max(0.5, Math.min(w / 600, 1.0));
       setScale((prev) => Math.min(prev, fitScale));
     }
@@ -60,7 +56,9 @@ export default function PdfRenderer({
       setError(null);
       // Auto-scale once we know the doc is loaded on mobile
       if (isMobile && wrapperRef.current) {
-        const w = wrapperRef.current.clientWidth - 16;
+        const width = wrapperRef.current.clientWidth;
+        setWrapperWidth(width);
+        const w = width - 16;
         const fitScale = Math.max(0.5, Math.min(w / 600, 1.0));
         setScale(fitScale);
       }
@@ -84,7 +82,6 @@ export default function PdfRenderer({
 
   return (
     <>
-      {/* Responsive + animation styles */}
       <style>{`
         .react-pdf__Page {
           margin: 0 auto;
@@ -151,7 +148,7 @@ export default function PdfRenderer({
         isMobile={isMobile}
         loading={loading}
         error={error}
-        wrapperWidth={wrapperRef.current?.clientWidth}
+        wrapperWidth={wrapperWidth}
         onDocumentLoadSuccess={onDocumentLoadSuccess}
         onDocumentLoadError={onDocumentLoadError}
       />

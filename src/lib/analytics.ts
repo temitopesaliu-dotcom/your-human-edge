@@ -1,5 +1,12 @@
 "use client";
 
+declare global {
+	interface Window {
+		gtag?: (...args: unknown[]) => void;
+		fbq?: (...args: unknown[]) => void;
+	}
+}
+
 /**
  * Track a GA4 event safely — no-ops if gtag isn't loaded.
  */
@@ -7,11 +14,8 @@ export function trackEvent(
 	eventName: string,
 	params?: Record<string, unknown>,
 ) {
-	if (
-		typeof window !== "undefined" &&
-		typeof (window as any).gtag === "function"
-	) {
-		(window as any).gtag("event", eventName, params);
+	if (typeof window !== "undefined" && typeof window.gtag === "function") {
+		window.gtag("event", eventName, params);
 	}
 }
 
@@ -31,11 +35,11 @@ interface PendingEvent {
 const MAX_BATCH_SIZE = 10;
 const FLUSH_INTERVAL_MS = 30_000; // 30 s
 
-let buffer: PendingEvent[] = [];
+const buffer: PendingEvent[] = [];
 let flushTimer: ReturnType<typeof setTimeout> | null = null;
 
 function scheduleFlush() {
-	if (flushTimer) return; // already scheduled
+	if (flushTimer) return;
 	flushTimer = setTimeout(() => {
 		flushTimer = null;
 		flushBuffer();
@@ -74,6 +78,18 @@ if (typeof document !== "undefined") {
 }
 
 /**
+ * Track a Facebook Pixel event safely — no-ops if fbq isn't loaded.
+ */
+export function trackFBEvent(
+	eventName: string,
+	params?: Record<string, string | number>,
+) {
+	if (typeof window !== "undefined" && typeof window.fbq === "function") {
+		window.fbq("track", eventName, params);
+	}
+}
+
+/**
  * Track an analytics event.
  *
  * Events are buffered client-side and flushed to /api/track in
@@ -83,21 +99,6 @@ if (typeof document !== "undefined") {
  * @param data  - Optional event-specific data
  * @param page  - Optional page override; defaults to current pathname
  */
-/**
- * Track a Facebook Pixel event safely — no-ops if fbq isn't loaded.
- */
-export function trackFBEvent(
-	eventName: string,
-	params?: Record<string, string | number>,
-) {
-	if (
-		typeof window !== "undefined" &&
-		typeof (window as any).fbq === "function"
-	) {
-		(window as any).fbq("track", eventName, params);
-	}
-}
-
 export function track(
 	event: string,
 	data?: Record<string, unknown>,

@@ -159,7 +159,6 @@ export default function B2BPromptClient() {
         }
       `}</style>
 
-      {/* ── Loading state while gate phase resolves ── */}
       {gatePhase === null && (
         <div className="b2b-loading">
           <div className="b2b-loading-spin" />
@@ -181,9 +180,6 @@ export default function B2BPromptClient() {
         gateSubmitting={gateSubmitting}
         onSubmit={handleGateSubmit}
       />
-      {/* ════════════════════════════════════════
-          PAGE SHELL — uses site design system
-          ════════════════════════════════════════ */}
       <div style={{
         fontFamily: "'DM Sans', sans-serif",
         background: 'var(--warm)',
@@ -191,12 +187,8 @@ export default function B2BPromptClient() {
         minHeight: '100dvh',
       }}>
 
-        {/* ── NAV ── */}
         <SiteNav />
 
-        {/* ════════════════════════════════════════
-            HERO
-            ════════════════════════════════════════ */}
         <div
           className="b2b-hero-pad"
           style={{
@@ -207,7 +199,6 @@ export default function B2BPromptClient() {
             overflow: 'hidden',
           }}
         >
-          {/* teal radial glow — matches resources page purple glow style */}
           <div style={{
             position: 'absolute', inset: 0,
             background: 'radial-gradient(ellipse at 50% 30%, rgba(15,110,86,.2), transparent 65%)',
@@ -215,7 +206,6 @@ export default function B2BPromptClient() {
           }} aria-hidden />
 
           <div style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
-            {/* Eyebrow — same style as resources page */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               fontSize: '.68rem', letterSpacing: '.2em', textTransform: 'uppercase',
@@ -269,15 +259,11 @@ export default function B2BPromptClient() {
           </div>
         </div>
 
-        {/* ════════════════════════════════════════
-            CONTENT
-            ════════════════════════════════════════ */}
         <div
           className="b2b-content-pad"
           style={{ maxWidth: 860, margin: '0 auto', padding: '56px 28px 100px' }}
         >
 
-          {/* ── 7 STAGES ── */}
           <div style={{ marginBottom: '4rem' }}>
             <div style={{
               fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
@@ -329,7 +315,6 @@ export default function B2BPromptClient() {
             </div>
           </div>
 
-          {/* ── THE PROMPT BOX ── */}
           <div className="b2b-prompt-box">
             <div style={{
               display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
@@ -386,7 +371,6 @@ export default function B2BPromptClient() {
             </pre>
           </div>
 
-          {/* ── HOW TO USE ── */}
           <div>
             <div style={{
               fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
@@ -436,7 +420,6 @@ export default function B2BPromptClient() {
           </div>
         </div>
 
-        {/* ── FOOTER ── */}
         <footer>
           <div className="footer-brand">human<span>+</span>ai</div>
           <ul className="f-links">

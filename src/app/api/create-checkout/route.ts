@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/archetypes';
 import { rateLimit, getClientIp } from '@/lib/rate-limit';
-import { normalizeProduct, type ProductType } from '@/lib/products';
 import { stripe } from '@/lib/stripe';
 import { resolveSiteUrl } from '@/lib/resolve-site-url';
 
@@ -25,7 +24,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const email = (body.email || '').trim();
-    const product = normalizeProduct(body.product);
     const siteUrl = resolveSiteUrl(req);
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

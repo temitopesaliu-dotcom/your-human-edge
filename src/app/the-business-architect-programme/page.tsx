@@ -6,8 +6,8 @@ import { Fragment, useEffect, useState } from "react";
 const BUILDER_HREF = "https://buy.stripe.com/dRm8wQgkf8Vqcwj1aj3oA0p";
 const ACCELERATOR_HREF = "https://buy.stripe.com/8x228s0lhdbG8g3dX53oA0q";
 
-const COUNTDOWN_KEY = "bap_dl";
-const COUNTDOWN_DURATION_MS = 72 * 60 * 60 * 1000;
+// Fixed campaign deadline: Wednesday morning (local time), 9:00 AM.
+const COUNTDOWN_TARGET = new Date(2026, 6, 29, 9, 0, 0);
 
 function pad(n: number) {
   return n < 10 ? `0${n}` : `${n}`;
@@ -280,19 +280,7 @@ function useCountdown() {
   const [display, setDisplay] = useState("72:00:00");
 
   useEffect(() => {
-    let deadline: number;
-    const stored = localStorage.getItem(COUNTDOWN_KEY);
-    if (stored) {
-      deadline = parseInt(stored, 10);
-    } else {
-      deadline = Date.now() + COUNTDOWN_DURATION_MS;
-      try {
-        localStorage.setItem(COUNTDOWN_KEY, String(deadline));
-      } catch {
-        // ignore storage errors
-      }
-    }
-
+    const deadline = COUNTDOWN_TARGET.getTime();
     let timeoutId: ReturnType<typeof setTimeout>;
     const tick = () => {
       const diff = Math.max(0, deadline - Date.now());

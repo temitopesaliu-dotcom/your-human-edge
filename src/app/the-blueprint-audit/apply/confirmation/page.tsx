@@ -15,7 +15,7 @@ export default function ApplyConfirmationPage() {
         productId="blueprint-audit"
         productName="Blueprint Audit"
         value={1000}
-        transactionId={`blueprint-${Date.now()}`}
+        dedupKey="purchase-tracked-blueprint-audit"
       />
       <AiosNav variant="confirmation" />
 

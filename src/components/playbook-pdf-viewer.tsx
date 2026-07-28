@@ -17,26 +17,26 @@ const PDF_MAP: Record<ArchetypeKey, string> = {
 
 interface PlaybookPdfViewerProps {
   archetypeKey: ArchetypeKey;
-  userName?: string;
   userEmail?: string;
 }
 
-// Lazy-load the actual PDF renderer that imports react-pdf
 const PdfRenderer = lazy(() => import("./pdf-renderer"));
 
 const TOAST_STORAGE_KEY = "yhe_email_toast_shown";
 
 export default function PlaybookPdfViewer({
   archetypeKey,
-  userName,
   userEmail,
 }: PlaybookPdfViewerProps) {
   const [mounted, setMounted] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
+    // Deliberately synchronous: this is the standard hydration-safe mount
+    // flag. Computing it during render instead would read browser-only
+    // state and reintroduce the exact server/client mismatch this avoids.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    // Only show toast if it hasn't been shown before
     if (userEmail) {
       const alreadyShown = (() => {
         try { return localStorage.getItem(TOAST_STORAGE_KEY) === "true"; } catch { return false; }
@@ -99,7 +99,6 @@ export default function PlaybookPdfViewer({
         }
         body { padding-bottom: 0 !important; }
 
-        /* Mobile responsive toast */
         @media (max-width: 640px) {
           .pb-toast {
             top: calc(54px + env(safe-area-inset-top) + 8px) !important;
@@ -127,12 +126,7 @@ export default function PlaybookPdfViewer({
             </>
           }
         >
-          <PdfRenderer
-            archetypeKey={archetypeKey}
-            userName={userName}
-            userEmail={userEmail}
-            pdfUrl={pdfUrl}
-          />
+          <PdfRenderer pdfUrl={pdfUrl} />
         </Suspense>
       </div>
     </>
@@ -144,7 +138,6 @@ function EmailToast({ email }: { email: string }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // Mark as shown so it doesn't reappear on refresh
     try { localStorage.setItem("yhe_email_toast_shown", "true"); } catch (e) { console.warn('[playbook] Failed to set toast flag:', e); }
     const timer = setTimeout(() => setVisible(false), 4500);
     return () => clearTimeout(timer);
@@ -181,8 +174,6 @@ function EmailToast({ email }: { email: string }) {
     </div>
   );
 }
-
-/* ─── Styles ─── */
 
 const rootStyles: Record<string, React.CSSProperties> = {
   container: {

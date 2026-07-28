@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PurchaseTracker from '@/components/purchase-tracker';
 
 export default function WorkshopConfirmationPage() {
@@ -7,6 +8,7 @@ export default function WorkshopConfirmationPage() {
         productId="intelligence-layer-workshop"
         productName="Intelligence Layer Workshop"
         value={97}
+        dedupKey="purchase-tracked-intelligence-layer-workshop"
       />
       <style>{`
         :root {
@@ -146,11 +148,10 @@ export default function WorkshopConfirmationPage() {
         }
       `}</style>
 
-      {/* NAV */}
       <nav className="ws-nav">
-        <a href="/" className="ws-nav-logo">
+        <Link href="/" className="ws-nav-logo">
           Your Intelligence Layer + AI<span>.</span>
-        </a>
+        </Link>
       </nav>
 
       <section className="ws-confirm-section">

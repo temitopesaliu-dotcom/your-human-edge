@@ -33,6 +33,10 @@ export function useEmailGate(source: string) {
 
     if (isLocallySubscribed()) {
       clearTimeout(safety);
+      // Deliberately synchronous: isLocallySubscribed() reads localStorage,
+      // which isn't available during SSR. Computing gatePhase during render
+      // instead would read browser-only state and cause a hydration mismatch.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setGatePhase('content');
       return;
     }
