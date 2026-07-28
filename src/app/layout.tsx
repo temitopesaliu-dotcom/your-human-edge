@@ -64,6 +64,8 @@ export default function RootLayout({
 							`}
 						</Script>
 						<noscript>
+							{/* eslint-disable-next-line @next/next/no-img-element -- FB Pixel noscript
+							    fallback must work without JS; next/image can't render here. */}
 							<img
 								height="1"
 								width="1"

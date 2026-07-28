@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 import { track } from '@/lib/analytics';
 import { useEmailGate } from '@/lib/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
@@ -17,15 +16,6 @@ import { Gate05Scoreboard } from './gates/gate-05-scoreboard';
 // import { Gate06Advanced } from './gates/gate-06-advanced'; // temporarily hidden
 
 type GateId = 'g1' | 'g2' | 'g3' | 'g4' | 'g5' | 'g6';
-
-const GATE_LABELS: Record<GateId, { num: string; label: string }> = {
-  g1: { num: 'Gate 01', label: 'The Clone' },
-  g2: { num: 'Gate 02', label: 'The Floor' },
-  g3: { num: 'Gate 03', label: 'Monetize' },
-  g4: { num: 'Gate 04', label: 'The Payout' },
-  g5: { num: 'Gate 05', label: 'Scoreboard' },
-  g6: { num: 'Gate 06', label: 'Advanced' },
-};
 
 export default function AiStadiumClient() {
   const [activeGate, setActiveGate] = useState<GateId>('g1');

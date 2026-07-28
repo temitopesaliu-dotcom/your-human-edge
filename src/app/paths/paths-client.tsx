@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { SITE_DISPLAY } from '@/lib/site';
 import { useEmailGate } from '@/lib/use-email-gate';
