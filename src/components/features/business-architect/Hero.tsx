@@ -41,7 +41,7 @@ export default function Hero({ countdown }: { countdown: string }) {
           </div>
         </div>
         <div className="timer-caption">
-          Founding Cohort price expires <strong>Tuesday morning</strong> —
+          Founding Cohort price expires <strong>Wednesday morning</strong> —
           reverts to full price
         </div>
       </div>
