@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, type FormEvent } from "react";
+import { isValidEmail } from "@/lib/utils/validation";
 
 const REQUIRED_FIELDS = [
   "full_name", "preferred_name", "email", "country", "timezone",
@@ -92,7 +93,7 @@ export default function ConsultingProfileFormPage() {
     });
 
     const email = (formData.email || "").trim();
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (email && !isValidEmail(email)) {
       newErrors.email = true;
     }
 

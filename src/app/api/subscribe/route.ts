@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { addSubscriberToMailerLite, addFreeResourceSubscriberToMailerLite, addCoachToMailerLite, isMailerLiteBuyer } from '@/lib/services/mailer';
 import { getSubscriber, setSubscriber } from '@/lib/services/kv';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
-import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
 import { handleCors } from '@/lib/utils/cors';
+import { isValidEmail } from '@/lib/utils/validation';
 
 const VALID_ARCHETYPES: ArchetypeKey[] = ['H', 'C', 'S', 'G'];
 
@@ -27,7 +29,7 @@ function parseSubscribeBody(body: unknown): { email: string; name: string; sourc
 
   let archetype = ((data?.archetype as string) || 'H').trim().toUpperCase() as ArchetypeKey;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+  if (!email || !isValidEmail(email)) return null;
   if (!VALID_ARCHETYPES.includes(archetype)) archetype = 'H';
 
   return { email, name, source, isCompany, archetype, signupType, signupRole };

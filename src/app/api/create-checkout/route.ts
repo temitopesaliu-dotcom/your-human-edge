@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ARCHETYPE_SLUGS, type ArchetypeKey } from '@/lib/utils/archetypes';
-import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
 import { stripe } from '@/lib/services/stripe';
 import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
+import { isValidEmail } from '@/lib/utils/validation';
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',
@@ -26,7 +28,7 @@ export async function POST(req: NextRequest) {
     const email = (body.email || '').trim();
     const siteUrl = resolveSiteUrl(req);
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: 'A valid email is required.' }, { status: 400 });
     }
 

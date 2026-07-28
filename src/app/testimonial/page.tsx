@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useAsyncForm } from "@/hooks/use-async-form";
+import type { TestimonialSubmitRequest, TestimonialSubmitResponse } from "@/types/testimonial";
 
 export default function TestimonialPage() {
   const [name, setName] = useState("");
@@ -11,24 +13,13 @@ export default function TestimonialPage() {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+  const { status, submit } = useAsyncForm<TestimonialSubmitRequest, TestimonialSubmitResponse>({
+    url: "/api/testimonial/submit",
+  });
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("submitting");
-
-    try {
-      const res = await fetch("/api/testimonial/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, country, industry, experience, message, rating, consent }),
-      });
-
-      if (!res.ok) throw new Error("submit failed");
-      setStatus("done");
-    } catch {
-      setStatus("error");
-    }
+    submit({ name, country, industry, experience, message, rating, consent });
   }
 
   if (status === "done") {

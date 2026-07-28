@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeAnalyticsEventsBatch } from '@/lib/services/kv';
-import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
 
 export async function POST(req: NextRequest) {
   // Always return 200 — analytics never breaks UX

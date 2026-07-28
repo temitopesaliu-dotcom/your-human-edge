@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSubscriber } from '@/lib/services/kv';
-import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
+import { isValidEmail } from '@/lib/utils/validation';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -13,7 +15,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const email = (body.email || '').trim().toLowerCase();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !isValidEmail(email)) {
       return NextResponse.json({ subscribed: false });
     }
 

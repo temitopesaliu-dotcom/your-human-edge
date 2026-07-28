@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addIntelligenceLayerFreeSubscriber } from '@/lib/services/mailer';
-import { rateLimit, getClientIp } from '@/lib/services/rate-limit';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
 import { handleCors } from '@/lib/utils/cors';
+import { isValidEmail } from '@/lib/utils/validation';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -15,7 +17,7 @@ export async function POST(req: NextRequest) {
     const email = ((body?.email as string) || '').trim().toLowerCase();
     const name = ((body?.name as string) || '').trim();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
     }
 

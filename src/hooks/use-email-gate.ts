@@ -5,6 +5,7 @@ import {
   markLocallySubscribed,
   checkRemoteSubscriber,
 } from '@/lib/services/subscriber';
+import { isValidEmail } from '@/lib/utils/validation';
 
 export type GatePhase = 'gate' | 'checking' | 'content' | null;
 export type SignupRole = 'professional' | 'creator' | 'coach' | 'consultant' | 'founder' | 'company';
@@ -81,7 +82,7 @@ export function useEmailGate(source: string) {
     const name = gateName.trim();
     const email = gateEmail.trim().toLowerCase();
     if (!name || !email) { setGateError('Please fill in both fields.'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!isValidEmail(email)) {
       setGateError('Please enter a valid email address.');
       return;
     }

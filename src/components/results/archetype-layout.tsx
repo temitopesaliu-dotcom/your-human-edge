@@ -5,6 +5,7 @@ import Link from "next/link";
 import { track, handleBuy as buyPlaybook } from "@/hooks/use-buy-playbook";
 import SiteNav from "@/components/site-nav";
 import './archetype-layout.css';
+import { isValidEmail } from '@/lib/utils/validation';
 
 export interface CareerPath {
   title: string;
@@ -317,7 +318,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
                 <button
                   onClick={() => {
                     const email = fallbackEmail.trim();
-                    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    if (email && isValidEmail(email)) {
                       localStorage.setItem("yhe_email", email);
                       setFallbackEmail("");
                       onBuy(email);
