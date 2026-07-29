@@ -144,11 +144,8 @@
 .bap-page .tier-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--bap-espresso);letter-spacing:-.5px;margin-bottom:10px;}
 .bap-page .tier-name em{font-style:italic;color:var(--bap-purple);}
 .bap-page .tier-for{font-size:13px;color:var(--bap-muted);line-height:1.65;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bap-border);}
-.bap-page .tier-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bap-page .tier-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;}
 .bap-page .tier-price{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--bap-espresso);letter-spacing:-2px;line-height:1;}
-.bap-page .tier-price-cross{font-size:22px;color:var(--bap-light);text-decoration:line-through;font-weight:400;}
-.bap-page .tier-note{font-size:12px;color:var(--bap-muted);margin-bottom:18px;}
-.bap-page .tier-note strong{color:var(--bap-purple);font-weight:600;}
 .bap-page .tier-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:var(--bap-r);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all var(--bap-t);border:none;}
 .bap-page .tier-btn.b{background:var(--bap-grain);color:var(--bap-espresso);border:1px solid var(--bap-border);}
 .bap-page .tier-btn.b:hover{border-color:var(--bap-purple);color:var(--bap-purple);}

@@ -17,12 +17,7 @@ export default function BuilderTier() {
           the best cohort, content, and community to do it alongside.
         </div>
         <div className="tier-price-row">
-          <div className="tier-price">$597</div>
-          <div className="tier-price-cross">$997</div>
-        </div>
-        <div className="tier-note">
-          <strong>Founding Cohort pricing ends Tuesday.</strong>{" "}
-          Reverts to $997 after 72 hours.
+          <div className="tier-price">$997</div>
         </div>
         <a href={BUILDER_HREF} className="tier-btn b">
           Join as The Builder <ArrowIcon />

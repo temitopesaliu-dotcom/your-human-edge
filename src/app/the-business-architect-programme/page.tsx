@@ -1,7 +1,5 @@
 "use client";
 
-import { useCountdown } from "@/components/features/business-architect/useCountdown";
-import AnnounceBar from "@/components/features/business-architect/AnnounceBar";
 import Nav from "@/components/features/business-architect/Nav";
 import Hero from "@/components/features/business-architect/Hero";
 import TransformSection from "@/components/features/business-architect/TransformSection";
@@ -14,13 +12,10 @@ import FinalCta from "@/components/features/business-architect/FinalCta";
 import Footer from "@/components/features/business-architect/Footer";
 
 export default function BusinessArchitectProgrammePage() {
-  const countdown = useCountdown();
-
   return (
     <>
-      <AnnounceBar countdown={countdown} />
-      <Nav countdown={countdown} />
-      <Hero countdown={countdown} />
+      <Nav />
+      <Hero />
       <TransformSection />
       <CurriculumSection />
       <FounderSection />

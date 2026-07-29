@@ -19,16 +19,12 @@ export default function FinalCta() {
         </p>
         <div className="final-btns">
           <a href={ACCELERATOR_HREF} className="fbtn-p">
-            Join The Accelerator — $997{" "}
+            Join The Accelerator — $1,497{" "}
             <ArrowIcon />
           </a>
           <a href={BUILDER_HREF} className="fbtn-g">
-            Join The Builder — $597
+            Join The Builder — $997
           </a>
-        </div>
-        <div className="final-caption">
-          Founding Cohort price expires <strong>Tuesday morning</strong> ·
-          72 hours from end of workshop
         </div>
       </div>
     </section>

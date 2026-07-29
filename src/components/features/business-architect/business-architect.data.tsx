@@ -1,11 +1,8 @@
 import type { ReactNode } from "react";
 import { StarIcon, UsersIcon, ShieldIcon, GlobeIcon, FileIcon, WorldIcon, AwardIcon } from "./Icons";
 
-export const BUILDER_HREF = "https://buy.stripe.com/dRm8wQgkf8Vqcwj1aj3oA0p";
-export const ACCELERATOR_HREF = "https://buy.stripe.com/8x228s0lhdbG8g3dX53oA0q";
-
-// Fixed campaign deadline: Wednesday morning (local time), 9:00 AM.
-export const COUNTDOWN_TARGET = new Date(2026, 6, 29, 9, 0, 0);
+export const BUILDER_HREF = "https://buy.stripe.com/4gMeVe0lh9ZueEraKT3oA0s";
+export const ACCELERATOR_HREF = "https://buy.stripe.com/eVq6oIec7c7Caob1aj3oA0t";
 
 export const shifts: [string, string][] = [
   ["Invisible expert", "Recognised authority in your niche"],
@@ -111,16 +108,12 @@ export const compareRows: {
 
 export const faqs: { q: string; a: string }[] = [
   {
-    q: "Why does the price go up after 72 hours?",
-    a: "Because you were in the room. The Founding Cohort price exists for people who experienced the workshop and felt the momentum of what is possible. That energy is real and time-limited. After 72 hours the programme opens publicly at its full price. Founding Cohort members get the best price because they got here first.",
-  },
-  {
     q: "Who do I bring as my Builder Seat in the Accelerator?",
     a: "Someone who wants to learn the technical implementation side — a business partner, a co-founder, a VA you trust, a family member who is technically inclined. They do not need to be a developer. They need to be willing to learn the build process alongside you. You lead the clients and the strategy. They learn to build the systems. Together you are a complete consulting unit.",
   },
   {
     q: "I was not at the workshop. Can I still join?",
-    a: "The Founding Cohort is specifically for workshop participants. The programme opens publicly after the 72-hour window closes at the full price. If you are reading this and were not at the workshop, reach out directly and we will discuss whether there is a fit.",
+    a: "The Founding Cohort is specifically for workshop participants. If you are reading this and were not at the workshop, reach out directly and we will discuss whether there is a fit.",
   },
   {
     q: "What do I walk away with after six weeks?",
@@ -132,6 +125,3 @@ export const faqs: { q: string; a: string }[] = [
   },
 ];
 
-export function pad(n: number) {
-  return n < 10 ? `0${n}` : `${n}`;
-}

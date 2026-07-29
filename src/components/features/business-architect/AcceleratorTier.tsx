@@ -22,12 +22,7 @@ export default function AcceleratorTier() {
           support behind every critical step.
         </div>
         <div className="tier-price-row">
-          <div className="tier-price">$997</div>
-          <div className="tier-price-cross">$1,497</div>
-        </div>
-        <div className="tier-note">
-          <strong>Founding Cohort pricing ends Tuesday.</strong>{" "}
-          Reverts to $1,497 after 72 hours.
+          <div className="tier-price">$1,497</div>
         </div>
         <a href={ACCELERATOR_HREF} className="tier-btn p">
           Join as The Accelerator <ArrowIcon />
@@ -55,8 +50,8 @@ export default function AcceleratorTier() {
           </div>
           <div className="bs-math">
             Two people. One programme. One investment of{" "}
-            <strong>$997</strong> — rather than two separate seats at
-            $597 each plus the Accelerator extras. The Builder Seat
+            <strong>$1,497</strong> — rather than two separate seats at
+            $997 each plus the Accelerator extras. The Builder Seat
             is included because the best Business Architects do not
             build alone.
           </div>
