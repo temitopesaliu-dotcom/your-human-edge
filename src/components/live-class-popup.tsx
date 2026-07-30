@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import './live-class-popup.css';
 
-const POPUP_STORAGE_KEY = 'yhe_live_class_popup_dismissed';
+const POPUP_STORAGE_KEY = 'yhe_live_class_popup_last_shown_at';
+const REAPPEAR_AFTER_MS = 24 * 60 * 60 * 1000; // once dismissed/shown, wait a day before showing again
 
 function navigateToPricing() {
   const tryNav = () => {
@@ -34,18 +35,21 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const dismissed = (() => {
-      try { return localStorage.getItem(POPUP_STORAGE_KEY) === 'true'; } catch { return false; }
+    const lastShownAt = (() => {
+      try { return Number(localStorage.getItem(POPUP_STORAGE_KEY)) || 0; } catch { return 0; }
     })();
+    const dueToReappear = Date.now() - lastShownAt > REAPPEAR_AFTER_MS;
     const timer = setTimeout(() => {
-      if (!dismissed) setVisible(true);
+      if (dueToReappear) {
+        setVisible(true);
+        try { localStorage.setItem(POPUP_STORAGE_KEY, String(Date.now())); } catch { /* ignore */ }
+      }
     }, 800);
     return () => clearTimeout(timer);
   }, []);
 
   function handleDismiss() {
     setVisible(false);
-    try { localStorage.setItem(POPUP_STORAGE_KEY, 'true'); } catch { /* ignore */ }
   }
 
   function handleRegister() {

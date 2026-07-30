@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import "@/components/features/intel/intel.css";
-import LiveClassPopup from "@/components/live-class-popup";
 import { useAsyncForm } from "@/hooks/use-async-form";
 import { isValidEmail } from "@/lib/utils/validation";
 import type { IntelSubscribeRequest, IntelSubscribeResponse } from "@/types/intel-subscribe";
@@ -104,14 +103,8 @@ export default function IntelHomePage() {
     setScreen("result");
   }, [answers, gateEmail, gateName, submitIntelSubscribe]);
 
-  const handlePopupRegister = useCallback(() => {
-    window.location.href = "/workshop";
-  }, []);
-
   return (
     <>
-      <LiveClassPopup onRegister={handlePopupRegister} />
-
       <Nav />
 
       <Hero onScrollToQuiz={handleScrollToQuiz} />
