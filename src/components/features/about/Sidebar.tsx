@@ -6,7 +6,7 @@ export default function Sidebar() {
     <aside className="abt-sidebar">
       <div className="abt-photo">
         <Image
-          src="/PHOTO-2026-06-19-12-56-31.jpg"
+          src="/70b1d12e-9faf-4534-87e5-c719dde5f0b9.jpg"
           alt="Temitope Saliu"
           fill
           sizes="(max-width: 820px) 100vw, 300px"
