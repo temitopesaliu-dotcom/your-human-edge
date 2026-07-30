@@ -6,7 +6,7 @@ export default function FinalCta() {
           <h2>
             Limited seats. $157.
             <br />
-            <em>August 8, 2026.</em>
+            <em>August 15, 2026 · 2pm BST.</em>
           </h2>
           <p>
             This is the room where your expertise stops being invisible.

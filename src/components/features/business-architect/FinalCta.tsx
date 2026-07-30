@@ -26,6 +26,7 @@ export default function FinalCta() {
             Join The Builder — $997
           </a>
         </div>
+        <div className="final-caption">Founding Cohort starts <strong>August 22, 2026 · 2pm BST</strong>.</div>
       </div>
     </section>
   );

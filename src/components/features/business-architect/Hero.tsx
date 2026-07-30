@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-eyebrow">
-        <span className="hero-dot"></span>Founding Cohort
+        <span className="hero-dot"></span>Founding Cohort · Starts August 22, 2026 · 2pm BST
       </div>
       <h1>
         You are the expert.

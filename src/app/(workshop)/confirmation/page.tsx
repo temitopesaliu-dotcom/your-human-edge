@@ -169,7 +169,7 @@ export default function WorkshopConfirmationPage() {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            August 8, 2026.
+            August 15, 2026 · 2pm BST.
           </div>
 
           <h1 className="ws-confirm-title">
