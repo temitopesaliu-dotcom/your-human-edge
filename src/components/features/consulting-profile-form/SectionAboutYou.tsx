@@ -1,4 +1,5 @@
 import FieldError from "./FieldError";
+import PhotoUploadField from "./PhotoUploadField";
 import type { FieldName } from "./consulting-profile-form.data";
 
 interface SectionProps {
@@ -55,6 +56,8 @@ export default function SectionAboutYou({ formData, errors, set }: SectionProps)
           <input type="url" name="linkedin" placeholder="linkedin.com/in/yourname" value={formData.linkedin || ""} onChange={(e) => set("linkedin", e.target.value)} />
         </div>
       </div>
+
+      <PhotoUploadField value={formData.photo_base64 || ""} error={!!errors.photo_base64} onChange={set} />
     </div>
   );
 }

@@ -4,6 +4,8 @@ export interface ConsultingProfileFormRequest {
   email?: string;
   country?: string;
   timezone?: string;
+  /** Data URL (e.g. "data:image/jpeg;base64,...") of the applicant's photo. */
+  photo_base64?: string;
   linkedin?: string;
   current_role?: string;
   years_experience?: string;
@@ -27,6 +29,8 @@ export interface ConsultingProfileFormRequest {
   business_why?: string;
   six_months_vision?: string;
   anything_else?: string;
+  /** "true" if they checked the marketing consent box, otherwise omitted. */
+  marketing_consent?: string;
 }
 
 export type ConsultingProfileFormResponse = { ok: true } | { error: string };

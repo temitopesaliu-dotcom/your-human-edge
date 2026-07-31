@@ -12,7 +12,7 @@ const EXCLUDED_PATH_PREFIXES = [
   "/resources/ai-for-coaches",
   "/the-blueprint-audit/apply",
   "/payment-successful",
-  "/consulting-profile-form",
+  "/expert-profile",
 ];
 
 export default function SiteLiveClassPopup() {

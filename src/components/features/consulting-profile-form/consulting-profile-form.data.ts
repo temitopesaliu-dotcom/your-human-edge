@@ -1,5 +1,5 @@
 export const REQUIRED_FIELDS = [
-  "full_name", "preferred_name", "email", "country", "timezone",
+  "full_name", "preferred_name", "email", "country", "timezone", "photo_base64",
   "current_role", "years_experience", "industry", "advice_areas", "greatest_strength",
   "core_problem", "proudest_work", "org_types",
   "why_joined", "best_workshop", "key_question",
@@ -8,11 +8,16 @@ export const REQUIRED_FIELDS = [
   "six_months_vision",
 ] as const;
 
-export type FieldName = (typeof REQUIRED_FIELDS)[number] | "linkedin" | "business_size" | "anything_else";
+export type FieldName =
+  | (typeof REQUIRED_FIELDS)[number]
+  | "linkedin"
+  | "business_size"
+  | "anything_else"
+  | "marketing_consent";
 
 export const FIELD_MAP: Record<string, string> = {
   full_name: "f-fname", preferred_name: "f-pref",
-  email: "f-email", country: "f-country", timezone: "f-tz",
+  email: "f-email", country: "f-country", timezone: "f-tz", photo_base64: "f-photo",
   current_role: "f-role", years_experience: "f-years",
   industry: "f-industry", advice_areas: "f-sought", greatest_strength: "f-strength",
   core_problem: "f-problem", proudest_work: "f-proud", org_types: "f-orgtypes",
@@ -29,6 +34,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   email: "Please enter a valid email address.",
   country: "Please enter your country.",
   timezone: "Please enter your time zone.",
+  photo_base64: "Please upload a photo of yourself.",
   current_role: "Please select your current role.",
   years_experience: "Please select your experience level.",
   industry: "Please enter your industry or industries.",
@@ -50,6 +56,13 @@ export const ERROR_MESSAGES: Record<string, string> = {
   business_why: "Please answer this question.",
   six_months_vision: "Please answer this question.",
 };
+
+// Vercel serverless functions cap request bodies at 4.5MB; base64 inflates
+// file size by ~1.37x, so this leaves headroom for the rest of the JSON payload.
+export const MAX_PHOTO_BYTES = 3 * 1024 * 1024;
+// JPEG/PNG only - the Apps Script side embeds this photo directly into a
+// Google Doc via appendInlineImage, which does not support WEBP.
+export const ACCEPTED_PHOTO_TYPES = ["image/jpeg", "image/png"];
 
 export const CURRENT_ROLE_OPTIONS = [
   { value: "Employed full-time", label: "Employed full-time in a corporate or organisation" },

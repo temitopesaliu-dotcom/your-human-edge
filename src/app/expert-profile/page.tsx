@@ -80,7 +80,7 @@ export default function ConsultingProfileFormPage() {
     const payload: ConsultingProfileFormRequest = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
-      "linkedin", "business_size", "anything_else",
+      "linkedin", "business_size", "anything_else", "marketing_consent",
     ];
     allFields.forEach((name) => {
       const v = (formData[name] || "").trim();
@@ -113,7 +113,11 @@ export default function ConsultingProfileFormPage() {
               <SectionAiRelationship formData={formData} errors={errors} set={set} />
               <SectionBusiness formData={formData} errors={errors} set={set} />
               <SectionReflection formData={formData} errors={errors} set={set} />
-              <SubmitSection submitting={status === "submitting"} />
+              <SubmitSection
+                submitting={status === "submitting"}
+                consent={formData.marketing_consent === "true"}
+                onConsentChange={(checked) => set("marketing_consent", checked ? "true" : "")}
+              />
             </form>
           </div>
         </>

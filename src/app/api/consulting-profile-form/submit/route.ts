@@ -9,6 +9,7 @@ function buildSheetsPayload(data: ConsultingProfileFormRequest) {
     email: data.email || "",
     country: data.country || "",
     timezone: data.timezone || "",
+    photoBase64: data.photo_base64 || "",
     linkedin: data.linkedin || "",
     currentRole: data.current_role || "",
     yearsExperience: data.years_experience || "",
@@ -32,6 +33,7 @@ function buildSheetsPayload(data: ConsultingProfileFormRequest) {
     businessWhy: data.business_why || "",
     sixMonthsVision: data.six_months_vision || "",
     anythingElse: data.anything_else || "",
+    marketingConsent: data.marketing_consent === "true" ? "Yes" : "No",
   };
 }
 

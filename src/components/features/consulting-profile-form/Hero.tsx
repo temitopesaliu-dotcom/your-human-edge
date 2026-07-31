@@ -6,7 +6,7 @@ export default function Hero() {
           <span className="cpf-hero-eyebrow-dot"></span>
           Intelligence Layer Workshop — July 25th
         </div>
-        <h1>Your Consulting<br /><em>Profile.</em></h1>
+        <h1>Your Expert<br /><em>Profile.</em></h1>
         <p className="cpf-hero-sub">
           This is not a test. There are no right answers. The thinking you do answering these questions is already part of your preparation for July 25th.
         </p>
