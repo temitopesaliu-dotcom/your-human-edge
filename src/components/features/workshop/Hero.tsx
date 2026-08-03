@@ -46,7 +46,7 @@ export default function Hero() {
                 Reserve my seat — $157
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </a>
-              <Link href="/" className="ws-btn-secondary">
+              <Link href="/intelligence-layer" className="ws-btn-secondary">
                 Take the free profile quiz first
               </Link>
             </div>
