@@ -80,7 +80,7 @@ export default function ConsultingProfileFormPage() {
     const payload: ConsultingProfileFormRequest = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
-      "linkedin", "business_size", "anything_else", "marketing_consent",
+      "linkedin", "business_size", "best_workshop", "marketing_consent",
     ];
     allFields.forEach((name) => {
       const v = (formData[name] || "").trim();

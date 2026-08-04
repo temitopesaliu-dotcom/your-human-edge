@@ -4,7 +4,7 @@ export default function FinalCta() {
       <div className="ws-container">
         <div className="ws-final-cta-inner">
           <h2>
-            Limited seats. $157.
+            <span className="ws-urgent-text--on-dark">Only 50 seats.</span> $157.
             <br />
             <em>August 15, 2026 · 2pm BST.</em>
           </h2>

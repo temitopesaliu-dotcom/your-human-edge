@@ -76,7 +76,7 @@ export default function PlaybookPdfViewer({
       <PurchaseTracker
         productId="playbook"
         productName="Archetype Playbook"
-        value={5.99}
+        value={9.99}
         dedupKey="ga_purchase_playbook"
       />
       <style>{`

@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'A valid email is required.' }, { status: 400 });
     }
 
-    // Default: archetype playbook ($5.99 quiz funnel)
+    // Default: archetype playbook ($9.99 quiz funnel)
     const archetypeRaw = (body.archetype || 'H').trim();
     const normalized = (NAME_TO_KEY[archetypeRaw] || archetypeRaw.toUpperCase()) as string;
     const archetypeKey: ArchetypeKey = ['H', 'C', 'S', 'G'].includes(normalized)

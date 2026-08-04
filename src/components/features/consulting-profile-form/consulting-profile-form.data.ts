@@ -2,17 +2,17 @@ export const REQUIRED_FIELDS = [
   "full_name", "preferred_name", "email", "country", "timezone", "photo_base64",
   "current_role", "years_experience", "industry", "advice_areas", "greatest_strength",
   "core_problem", "proudest_work", "org_types",
-  "why_joined", "best_workshop", "key_question",
+  "why_joined", "key_question",
   "ai_confidence", "ai_tools", "ai_transformative",
   "business_name", "business_industry", "business_challenge", "business_friction", "business_why",
-  "six_months_vision",
+  "six_months_vision", "anything_else",
 ] as const;
 
 export type FieldName =
   | (typeof REQUIRED_FIELDS)[number]
   | "linkedin"
   | "business_size"
-  | "anything_else"
+  | "best_workshop"
   | "marketing_consent";
 
 export const FIELD_MAP: Record<string, string> = {
@@ -26,6 +26,7 @@ export const FIELD_MAP: Record<string, string> = {
   business_name: "f-bizname", business_industry: "f-bizindustry",
   business_challenge: "f-bizchallenge", business_friction: "f-bizfriction",
   business_why: "f-bizwhy", six_months_vision: "f-sixmonths",
+  anything_else: "f-anythingelse",
 };
 
 export const ERROR_MESSAGES: Record<string, string> = {
@@ -44,7 +45,6 @@ export const ERROR_MESSAGES: Record<string, string> = {
   proudest_work: "Please answer this question.",
   org_types: "Please select at least one organisation type.",
   why_joined: "Please answer this question.",
-  best_workshop: "Please answer this question.",
   key_question: "Please answer this question.",
   ai_confidence: "Please select a confidence rating.",
   ai_tools: "Please answer this question.",
@@ -55,6 +55,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   business_friction: "Please answer this question.",
   business_why: "Please answer this question.",
   six_months_vision: "Please answer this question.",
+  anything_else: "Please answer this question.",
 };
 
 // Vercel serverless functions cap request bodies at 4.5MB; base64 inflates

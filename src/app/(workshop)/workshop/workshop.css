@@ -9,6 +9,10 @@
   --purple-mid: #C4B5FD;
   --green: #00A86B;
   --green-light: #E6F7F1;
+  --urgent: #EA580C;
+  --urgent-dark: #9A3412;
+  --urgent-light: #FFF7ED;
+  --urgent-border: #FDBA74;
   --text: #4A3E3D;
   --text-muted: #7A6E6D;
   --text-light: #A89E9D;
@@ -37,16 +41,23 @@ body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--
 
 .ws-spots-banner {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: #FFF7ED; border-bottom: 1px solid #FDBA74;
-  color: #9A3412; padding: 10px 2rem; text-align: center;
+  background: var(--urgent-light); border-bottom: 1px solid var(--urgent-border);
+  color: var(--urgent-dark); padding: 10px 2rem; text-align: center;
   font-size: 13px; font-weight: 500; line-height: 1.4;
 }
 .ws-spots-banner strong { font-weight: 700; }
 .ws-spots-dot {
   flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%;
-  background: #EA580C; animation: ws-blink 1.4s infinite;
+  background: var(--urgent); animation: ws-blink 1.4s infinite;
 }
 @keyframes ws-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+/* Reusable "stand out" scarcity emphasis, reused wherever the seat count is
+   mentioned on the page so it reads as one consistent signal, not one-off
+   colors per section. */
+.ws-urgent-text { color: var(--urgent-dark); font-weight: 700; }
+.ws-urgent-text--on-dark { color: var(--urgent); }
+
 @media (prefers-reduced-motion: reduce) {
   .ws-spots-dot { animation: none; }
 }

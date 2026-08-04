@@ -18,8 +18,11 @@ export default function WhyWorkingSession() {
             <p style={{ marginTop: "1rem" }}>
               The level of specificity required to actually build your
               Intelligence Layer, price it correctly, and map the
-              go-to-market requires a room that stays small. Seats are
-              limited and will not reopen at this price once they close.
+              go-to-market requires a room that stays small.{" "}
+              <strong className="ws-urgent-text">
+                Only 50 seats are available
+              </strong>{" "}
+              and will not reopen at this price once they close.
             </p>
           </div>
           <div className="ws-why-stats">

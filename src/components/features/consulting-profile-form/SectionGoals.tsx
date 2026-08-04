@@ -14,7 +14,7 @@ export default function SectionGoals({ formData, errors, set }: SectionProps) {
     <div className="cpf-form-section">
       <div className="cpf-section-header">
         <div className="cpf-section-num">Section 04</div>
-        <div className="cpf-section-title">What You Want From July 25th</div>
+        <div className="cpf-section-title">What You Want From August 15th</div>
         <div className="cpf-section-desc">Be honest here. Not the polished version. The real reason you showed up.</div>
       </div>
 
@@ -25,10 +25,9 @@ export default function SectionGoals({ formData, errors, set }: SectionProps) {
         <FieldError name="why_joined" errors={errors} />
       </div>
 
-      <div className={fieldClass("best_workshop")} id="f-best">
-        <label className="cpf-field-label">What would make this one of the best workshops you have ever attended? <span className="cpf-req">*</span></label>
+      <div className="cpf-field" id="f-best">
+        <label className="cpf-field-label">What would make this one of the best workshops you have ever attended? <span style={{ fontWeight: 400, color: "var(--light)" }}>(optional)</span></label>
         <textarea name="best_workshop" placeholder="Describe it specifically. What would need to happen for you to walk away saying — that changed things?" style={{ minHeight: 120 }} value={formData.best_workshop || ""} onChange={(e) => set("best_workshop", e.target.value)}></textarea>
-        <FieldError name="best_workshop" errors={errors} />
       </div>
 
       <div className={fieldClass("key_question")} id="f-question">

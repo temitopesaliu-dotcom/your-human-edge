@@ -23,13 +23,13 @@ export default function Paywall({
   return (
     <div id="paywall">
       <div className="paywall-inner">
-        <div className="pw-pre">Your Personal Playbook · $19.99</div>
+        <div className="pw-pre">Your Personal Playbook · $9.99</div>
         <h2 className="pw-title">The Step-by-Step Blueprint to Your First<br /><em>5 Figure Month</em> using AI</h2>
         <p className="pw-sub">
           Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The {config.name}.
         </p>
         <div className="pw-price-was">Valued at $57</div>
-        <div className="pw-price">$19.99</div>
+        <div className="pw-price">$9.99</div>
         <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
         <div>
           {showEmailInput && (
