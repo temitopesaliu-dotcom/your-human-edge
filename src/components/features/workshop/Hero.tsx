@@ -43,7 +43,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="ws-btn-checkout"
               >
-                Reserve my seat — $157
+                Reserve my seat — $99
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </a>
               <Link href="/intelligence-layer" className="ws-btn-secondary">
@@ -71,9 +71,9 @@ export default function Hero() {
             </div>
             <div className="ws-checkout-body">
               <div>
-                <div className="ws-price-original">$299 full price</div>
+                <div className="ws-price-original">$157 full price</div>
                 <div className="ws-price-current">
-                  <sup>$</sup>157
+                  <sup>$</sup>99
                 </div>
                 <div className="ws-price-badge">
                   Early access — closes soon
@@ -110,7 +110,7 @@ export default function Hero() {
                   )
                 }
               >
-                Reserve my seat — $157
+                Reserve my seat — $99
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
               <div className="ws-checkout-trust">

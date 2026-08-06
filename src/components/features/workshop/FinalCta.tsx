@@ -4,7 +4,7 @@ export default function FinalCta() {
       <div className="ws-container">
         <div className="ws-final-cta-inner">
           <h2>
-            <span className="ws-urgent-text--on-dark">Only 50 seats.</span> $157.
+            <span className="ws-urgent-text--on-dark">Only 50 seats.</span> $99.
             <br />
             <em>August 15, 2026 · 2pm BST.</em>
           </h2>
@@ -12,8 +12,8 @@ export default function FinalCta() {
             This is the room where your expertise stops being invisible.
           </p>
           <div style={{ marginBottom: "2rem" }}>
-            <div className="ws-final-price-original">$299 full price</div>
-            <div className="ws-final-price-current">$157</div>
+            <div className="ws-final-price-original">$157 full price</div>
+            <div className="ws-final-price-current">$99</div>
             <div className="ws-final-price-badge">
               Early access — closes soon
             </div>
