@@ -38,10 +38,10 @@ export default function WhyWorkingSession() {
                 className="ws-why-stat-val"
                 style={{ color: "var(--green)" }}
               >
-                $157
+                $99
               </div>
               <div className="ws-why-stat-label">
-                Early access price. Goes to $299 when this closes. Next
+                Early access price. Goes to $157 when this closes. Next
                 session will be higher.
               </div>
             </div>
