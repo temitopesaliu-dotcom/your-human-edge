@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WORKSHOP_CHECKOUT_HREF } from "./workshop.data";
 
 export default function Nav() {
   return (
@@ -8,7 +9,7 @@ export default function Nav() {
       </Link>
       <div className="ws-nav-right">
         <a
-          href="https://buy.stripe.com/7sY9AU7NJ6NifIvg5d3oA0u"
+          href={WORKSHOP_CHECKOUT_HREF}
           target="_blank"
           rel="noopener noreferrer"
           className="ws-nav-cta"

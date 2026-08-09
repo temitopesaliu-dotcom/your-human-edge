@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WORKSHOP_CHECKOUT_HREF } from "./workshop.data";
 
 export default function Hero() {
   return (
@@ -38,7 +39,7 @@ export default function Hero() {
             </div>
             <div className="ws-hero-actions">
               <a
-                href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
+                href={WORKSHOP_CHECKOUT_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ws-btn-checkout"
@@ -105,7 +106,7 @@ export default function Hero() {
                 className="ws-btn-checkout-full"
                 onClick={() =>
                   window.open(
-                    "https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r",
+                    WORKSHOP_CHECKOUT_HREF,
                     "_blank"
                   )
                 }

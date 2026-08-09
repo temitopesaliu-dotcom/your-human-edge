@@ -1,3 +1,5 @@
+import { WORKSHOP_CHECKOUT_HREF } from "./workshop.data";
+
 export default function FinalCta() {
   return (
     <section className="ws-final-cta ws-section">
@@ -20,7 +22,7 @@ export default function FinalCta() {
           </div>
           <a
             className="ws-btn-final"
-            href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
+            href={WORKSHOP_CHECKOUT_HREF}
             target="_blank"
             rel="noopener noreferrer"
           >
