@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Platform OS — Live Demo</title>
+<style>
+/* ── THEMES ── */
+:root {
+  --primary: #6D2E46;
+  --primary-light: #A26769;
+  --cream: #FCF8F3;
+  --accent: #C9836A;
+  --secondary: #2D7D7D;
+  --gold: #D4A853;
+  --dark: #1a1a2e;
+  --text: #2d2d2d;
+  --muted: #888;
+  --border: rgba(0,0,0,0.1);
+  --card-bg: #ffffff;
+  --bg: #FCF8F3;
+  --radius: 12px;
+}
+[data-theme="teal"] {
+  --primary: #1B6B6B;
+  --primary-light: #3D9B9B;
+  --cream: #F0F9F9;
+  --accent: #E07A5F;
+  --secondary: #6B4F4F;
+  --gold: #F2CC8F;
+  --bg: #F0F9F9;
+}
+[data-theme="navy"] {
+  --primary: #1B2A4A;
+  --primary-light: #2D4A8A;
+  --cream: #F5F7FC;
+  --accent: #E8A030;
+  --secondary: #3A7CA5;
+  --gold: #E8A030;
+  --bg: #F5F7FC;
+}
+[data-theme="purple"] {
+  --primary: #4A2060;
+  --primary-light: #7B3FA0;
+  --cream: #F8F5FC;
+  --accent: #E07090;
+  --secondary: #2D8A6A;
+  --gold: #C9A050;
+  --bg: #F8F5FC;
+}
+[data-theme="emerald"] {
+  --primary: #1B5E3B;
+  --primary-light: #2E8A5A;
+  --cream: #F2F9F5;
+  --accent: #E07A30;
+  --secondary: #5B4FA0;
+  --gold: #D4A030;
+  --bg: #F2F9F5;
+}
+[data-theme="rose"] {
+  --primary: #C0395A;
+  --primary-light: #E06A80;
+  --cream: #FDF5F7;
+  --accent: #F0A060;
+  --secondary: #4A7A8A;
+  --gold: #D4A050;
+  --bg: #FDF5F7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── CONFIG PANEL ── */
+#config-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 300px;
+  background: var(--dark);
+  color: white;
+  z-index: 1000;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 32px rgba(0,0,0,0.3);
+}
+#config-panel.collapsed { transform: translateX(280px); }
+#config-toggle {
+  position: absolute;
+  left: -44px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  padding: 12px 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  writing-mode: vertical-rl;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.config-header {
+  padding: 20px;
+  background: var(--primary);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.config-header h3 { font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.config-header p { font-size: 0.75rem; opacity: 0.7; margin-top: 4px; }
+.config-body { padding: 20px; overflow-y: auto; flex: 1; }
+.config-group { margin-bottom: 20px; }
+.config-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.config-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.config-input::placeholder { color: rgba(255,255,255,0.3); }
+.config-input:focus { border-color: var(--accent); }
+.config-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+.config-select option { background: #1a1a2e; color: white; }
+
+.theme-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.theme-dot {
+  padding: 10px 6px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  transition: all 0.15s;
+}
+.theme-dot.active { border-color: white; }
+.theme-dot span { display: block; width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 4px; }
+
+.config-apply {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 8px;
+}
+.config-apply:hover { opacity: 0.85; }
+
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,200,0,0.15);
+  color: #D4A853;
+  border: 1px solid rgba(212,168,83,0.3);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+/* ── MAIN LAYOUT ── */
+#app {
+  margin-right: 300px;
+  min-height: 100vh;
+  transition: margin-right 0.3s;
+}
+#app.expanded { margin-right: 20px; }
+
+/* ── NAV ── */
+nav {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 60px;
+}
+.nav-brand {
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-right: auto;
+  cursor: pointer;
+}
+.nav-link {
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+}
+.nav-link:hover { background: var(--cream); color: var(--primary); }
+.nav-link.active { color: var(--primary); background: rgba(109,46,70,0.08); }
+.nav-cta {
+  margin-left: 8px;
+  padding: 9px 18px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── LANDING ── */
+#view-landing {
+  min-height: calc(100vh - 60px);
+}
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  padding: 80px 48px 96px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -10%;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+}
+.hero-inner { max-width: 720px; position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero p { font-size: 1.1rem; opacity: 0.9; line-height: 1.6; max-width: 560px; margin-bottom: 40px; }
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 16px 32px;
+  background: white;
+  color: var(--primary);
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn-outline {
+  padding: 16px 32px;
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.1); }
+.social-proof {
+  margin-top: 48px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.sp-item { font-size: 0.85rem; opacity: 0.8; }
+.sp-item strong { display: block; font-size: 1.5rem; font-weight: 900; color: var(--gold); }
+
+.features-section {
+  padding: 80px 48px;
+  background: white;
+}
+.section-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 12px; }
+.section-title { font-size: 2rem; font-weight: 900; color: var(--dark); margin-bottom: 16px; }
+.section-sub { color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 560px; margin-bottom: 56px; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+.feature-card {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.feature-icon { font-size: 2rem; margin-bottom: 16px; }
+.feature-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+.feature-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+/* ── QUIZ ── */
+#view-quiz { padding: 60px 48px; }
+.quiz-container { max-width: 640px; margin: 0 auto; }
+.quiz-progress-bar { height: 4px; background: #eee; border-radius: 2px; margin-bottom: 40px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(to right, var(--primary), var(--accent)); border-radius: 2px; transition: width 0.4s; }
+.quiz-step { display: none; }
+.quiz-step.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.quiz-q { font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+.quiz-sub { color: var(--muted); margin-bottom: 32px; font-size: 0.95rem; }
+.quiz-options { display: grid; gap: 12px; }
+.quiz-opt {
+  padding: 16px 20px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.15s;
+  text-align: left;
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.quiz-opt .opt-icon { font-size: 1.3rem; flex-shrink: 0; }
+.quiz-opt:hover { border-color: var(--primary); color: var(--primary); background: var(--cream); }
+.quiz-opt.selected { border-color: var(--primary); background: var(--primary); color: white; }
+.quiz-nav { display: flex; gap: 12px; margin-top: 32px; }
+.btn-next {
+  padding: 12px 28px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: opacity 0.15s;
+}
+.btn-next:hover { opacity: 0.85; }
+.btn-back {
+  padding: 12px 20px;
+  background: none;
+  color: var(--muted);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.quiz-result {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--primary);
+}
+.result-icon { font-size: 3rem; margin-bottom: 16px; }
+.result-tier { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
+.result-tier.foundation { background: rgba(45,125,125,0.1); color: var(--secondary); }
+.result-tier.accelerator { background: rgba(212,168,83,0.15); color: #a07020; }
+.result-tier.transformation { background: rgba(109,46,70,0.1); color: var(--primary); }
+.quiz-result h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 12px; }
+.quiz-result p { color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+
+/* ── PROGRAMS ── */
+#view-programs { padding: 60px 48px; }
+.programs-header { max-width: 680px; margin-bottom: 40px; }
+.tab-bar { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--muted);
+}
+.tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.tab-content { display: none; }
+.tab-content.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; animation: fadeIn 0.25s; }
+.program-card {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.program-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.prog-top {
+  padding: 24px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+}
+.prog-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; }
+.prog-name { font-size: 1.2rem; font-weight: 900; margin-bottom: 8px; }
+.prog-tagline { font-size: 0.82rem; opacity: 0.85; line-height: 1.5; }
+.prog-price { font-size: 1.8rem; font-weight: 900; margin-top: 16px; }
+.prog-price span { font-size: 0.9rem; opacity: 0.7; }
+.prog-body { padding: 20px 24px; }
+.prog-features { list-style: none; }
+.prog-features li { padding: 7px 0; font-size: 0.85rem; color: var(--text); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.prog-features li:last-child { border-bottom: none; }
+.prog-features li::before { content: '✓'; color: var(--secondary); font-weight: 800; flex-shrink: 0; }
+.prog-cta { width: 100%; margin-top: 16px; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; transition: opacity 0.15s; }
+.prog-cta:hover { opacity: 0.85; }
+.prog-card-featured { border: 2px solid var(--gold); }
+.prog-card-featured .prog-top { background: linear-gradient(135deg, var(--dark), #2d2d4e); }
+.featured-label { background: var(--gold); color: var(--dark); font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+
+/* ── COMMUNITY ── */
+#view-community { padding: 60px 48px; }
+.community-hero {
+  background: linear-gradient(135deg, var(--dark), #2d2d4e);
+  color: white;
+  border-radius: 16px;
+  padding: 56px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.community-hero-text { flex: 1; min-width: 260px; }
+.community-hero-text h2 { font-size: 2rem; font-weight: 900; margin-bottom: 12px; }
+.community-hero-text p { opacity: 0.8; line-height: 1.7; margin-bottom: 24px; }
+.community-stats { flex: 1; min-width: 200px; display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+.comm-stat { background: rgba(255,255,255,0.07); border-radius: 12px; padding: 20px; text-align: center; }
+.comm-stat .num { font-size: 1.8rem; font-weight: 900; color: var(--gold); }
+.comm-stat .label { font-size: 0.75rem; opacity: 0.7; margin-top: 4px; }
+.community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.community-card {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 24px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.community-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.comm-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.community-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+.community-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+/* ── CALCULATOR ── */
+#view-calculator { padding: 60px 48px; }
+.calc-container { max-width: 760px; margin: 0 auto; }
+.calc-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.calc-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  padding: 32px 40px;
+}
+.calc-header h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 8px; }
+.calc-header p { opacity: 0.85; font-size: 0.9rem; }
+.calc-body { padding: 40px; }
+.slider-group { margin-bottom: 32px; }
+.slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.slider-label { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.slider-value {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--primary);
+  background: var(--cream);
+  padding: 4px 12px;
+  border-radius: 6px;
+  min-width: 50px;
+  text-align: center;
+}
+.slider-price { font-size: 0.75rem; color: var(--muted); }
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #eee;
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+.results-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 24px; }
+.result-box {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.result-box .r-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 8px; }
+.result-box .r-value { font-size: 1.6rem; font-weight: 900; color: var(--primary); }
+.result-box .r-sub { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+.result-highlight {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+.result-highlight .r-label { font-size: 0.78rem; opacity: 0.8; margin-bottom: 8px; }
+.result-highlight .r-value { font-size: 2.4rem; font-weight: 900; }
+.result-highlight .r-sub { font-size: 0.82rem; opacity: 0.8; margin-top: 6px; }
+
+/* ── DASHBOARD ── */
+#view-dashboard { padding: 60px 48px; }
+.dashboard-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+.dashboard-header h2 { font-size: 1.6rem; font-weight: 900; }
+.dashboard-header p { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+.status-badge { padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; background: rgba(45,125,125,0.1); color: var(--secondary); }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.kpi-card {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+.kpi-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 8px; }
+.kpi-value { font-size: 1.7rem; font-weight: 900; color: var(--dark); }
+.kpi-change { font-size: 0.75rem; margin-top: 4px; }
+.kpi-change.up { color: #20BF6B; }
+.kpi-change.down { color: #FF4444; }
+.dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; flex-wrap: wrap; }
+.dash-panel {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.dash-panel h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 20px; }
+.client-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.client-row:last-child { border-bottom: none; }
+.client-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.client-info { flex: 1; }
+.client-name { font-size: 0.88rem; font-weight: 700; }
+.client-tier { font-size: 0.75rem; color: var(--muted); }
+.client-progress { width: 80px; }
+.prog-bar-wrap { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.prog-bar-fill { height: 100%; background: var(--primary); border-radius: 3px; }
+.prog-pct { font-size: 0.72rem; color: var(--muted); text-align: right; margin-top: 3px; }
+.upcoming-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.upcoming-item:last-child { border-bottom: none; }
+.upcoming-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 5px; }
+.upcoming-text .title { font-size: 0.85rem; font-weight: 700; }
+.upcoming-text .time { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--dark);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: transform 0.3s;
+  z-index: 999;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 900px) {
+  #config-panel { width: 100%; height: auto; bottom: auto; top: auto; right: 0; }
+  #app { margin-right: 0; }
+  nav { padding: 0 16px; }
+  .hero { padding: 48px 24px 64px; }
+  .hero h1 { font-size: 2rem; }
+  #view-quiz, #view-programs, #view-community, #view-calculator, #view-dashboard { padding: 40px 24px; }
+  .dash-grid { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── GET THIS BUILT — Your Human Edge with AI ── */
+.ghb-band{background:#211c34;border-radius:20px;margin:60px auto 10px;max-width:1120px;padding:36px 42px;
+  box-shadow:0 18px 50px rgba(33,28,52,.18);position:relative;overflow:hidden}
+.ghb-band::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(900px 200px at 88% 0%,rgba(138,127,216,.30),transparent 70%)}
+.ghb-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.ghb-eyebrow{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:#a89bec;margin-bottom:9px}
+.ghb-head{font-size:1.4rem;font-weight:800;color:#fff;line-height:1.34;max-width:590px;letter-spacing:-.01em}
+.ghb-sub{font-size:.9rem;color:rgba(255,255,255,.62);margin-top:9px;max-width:520px;line-height:1.55}
+.ghb-btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#6a5acd,#4b3f96);
+  color:#fff;font-weight:700;font-size:1rem;padding:18px 36px;border-radius:100px;text-decoration:none;
+  white-space:nowrap;box-shadow:0 10px 32px rgba(107,91,208,.42);transition:transform .2s ease,box-shadow .2s ease;
+  border:none;cursor:pointer;font-family:inherit}
+.ghb-btn:hover{transform:translateY(-2px);box-shadow:0 16px 46px rgba(107,91,208,.6)}
+@media(max-width:820px){
+  .ghb-band{padding:30px 26px;margin:44px 18px 10px;border-radius:18px}
+  .ghb-inner{flex-direction:column;align-items:flex-start;gap:22px}
+  .ghb-head{font-size:1.16rem}
+  .ghb-btn{width:100%;justify-content:center;font-size:.95rem;padding:17px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── CONFIG PANEL ── -->
+<div id="config-panel">
+  <button id="config-toggle" onclick="toggleConfig()">⚙ CONFIG</button>
+  <div class="config-header">
+    <h3>🎯 Brand Config</h3>
+    <p>Personalize this demo for your prospect</p>
+  </div>
+  <div class="config-body">
+    <div class="demo-badge">✦ LIVE DEMO MODE</div>
+
+    <div class="config-group">
+      <div class="config-label">Creator / Brand Name</div>
+      <input type="text" class="config-input" id="cfg-name" placeholder="e.g. Sarah Johnson" value="Your Brand">
+    </div>
+
+    <div class="config-group">
+      <div class="config-label">Tagline (optional)</div>
+      <input type="text" class="config-input" id="cfg-tagline" placeholder="e.g. Marriage & Family Coach">
+    </div>
+
+    <div class="config-group">
+      <div class="config-label">Niche Focus</div>
+      <select class="config-select" id="cfg-niche">
+        <option value="both">Marriage + Parenting</option>
+        <option value="marriage">Marriage & Relationships</option>
+        <option value="parenting">Parenting & Family</option>
+        <option value="coparenting">Co-Parenting & Divorce</option>
+      </select>
+    </div>
+
+    <div class="config-group">
+      <div class="config-label">Color Theme</div>
+      <div class="theme-grid">
+        <div class="theme-dot active" data-theme="default" onclick="setTheme('default',this)">
+          <span style="background: linear-gradient(135deg,#6D2E46,#A26769)"></span>Berry
+        </div>
+        <div class="theme-dot" data-theme="teal" onclick="setTheme('teal',this)">
+          <span style="background: linear-gradient(135deg,#1B6B6B,#3D9B9B)"></span>Teal
+        </div>
+        <div class="theme-dot" data-theme="navy" onclick="setTheme('navy',this)">
+          <span style="background: linear-gradient(135deg,#1B2A4A,#2D4A8A)"></span>Navy
+        </div>
+        <div class="theme-dot" data-theme="purple" onclick="setTheme('purple',this)">
+          <span style="background: linear-gradient(135deg,#4A2060,#7B3FA0)"></span>Plum
+        </div>
+        <div class="theme-dot" data-theme="emerald" onclick="setTheme('emerald',this)">
+          <span style="background: linear-gradient(135deg,#1B5E3B,#2E8A5A)"></span>Forest
+        </div>
+        <div class="theme-dot" data-theme="rose" onclick="setTheme('rose',this)">
+          <span style="background: linear-gradient(135deg,#C0395A,#E06A80)"></span>Rose
+        </div>
+      </div>
+    </div>
+
+    <div class="config-group">
+      <div class="config-label">Follower Range (for social proof)</div>
+      <select class="config-select" id="cfg-followers">
+        <option value="10K">10K – 25K followers</option>
+        <option value="25K">25K – 50K followers</option>
+        <option value="50K" selected>50K – 100K followers</option>
+        <option value="100K">100K – 250K followers</option>
+        <option value="250K">250K+ followers</option>
+      </select>
+    </div>
+
+    <button class="config-apply" onclick="applyConfig()">▶ Apply & Preview</button>
+
+    <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1); font-size:0.75rem; color:rgba(255,255,255,0.4); line-height:1.6;">
+      <strong style="color:rgba(255,255,255,0.6)">Pro tip:</strong> Apply config, then walk your prospect through each tab showing THEIR brand name throughout. Close with the Revenue Calculator showing THEIR potential income.
+    </div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <nav>
+    <div class="nav-brand" onclick="showView('view-landing')" id="nav-brand">Your Brand</div>
+    <button class="nav-link active" onclick="showView('view-landing',this)">Home</button>
+    <button class="nav-link" onclick="showView('view-quiz',this)">Assessment</button>
+    <button class="nav-link" onclick="showView('view-programs',this)">Programs</button>
+    <button class="nav-link" onclick="showView('view-community',this)">Community</button>
+    <button class="nav-link" onclick="showView('view-calculator',this)">Revenue</button>
+    <button class="nav-link" onclick="showView('view-dashboard',this)">Dashboard</button>
+    <button class="nav-cta" onclick="showView('view-quiz'); toast('Assessment started! 🎉')">Take the Assessment →</button>
+  </nav>
+
+  <!-- LANDING -->
+  <div class="view active" id="view-landing">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow" id="hero-eyebrow">AI-Powered Client Journey Platform</div>
+        <h1 id="hero-h1">Your clients deserve a <em>personalized path</em> to transformation</h1>
+        <p id="hero-p">Stop answering the same questions 1:1. Your new platform qualifies, educates, and converts your audience 24/7 — while you focus on doing what you love.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showView('view-quiz')">Take the Free Assessment</button>
+          <button class="btn-outline" onclick="showView('view-programs')">See Programs</button>
+        </div>
+        <div class="social-proof">
+          <div class="sp-item"><strong id="sp-clients">847</strong>Families served</div>
+          <div class="sp-item"><strong id="sp-rating">4.9★</strong>Average rating</div>
+          <div class="sp-item"><strong id="sp-outcome">94%</strong>Report real results</div>
+        </div>
+      </div>
+    </div>
+    <div class="features-section">
+      <div class="section-label">Why This Works</div>
+      <h2 class="section-title" id="features-title">One platform. Every stage of the journey.</h2>
+      <p class="section-sub" id="features-sub">From first-time visitor to your highest-paying client — your new platform guides every person to exactly where they need to be.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>AI-Powered Assessment</h3>
+          <p>A 5-question quiz segments your audience and routes each person to the program that's right for them — automatically.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3>Tiered Programs</h3>
+          <p id="prog-feature-text">From $47 digital guides to $497 VIP coaching — every price point served without your time multiplying.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Private Community</h3>
+          <p>Clients support each other, share wins, and stay engaged long after their program ends — building your retention and referrals.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Revenue Dashboard</h3>
+          <p>See your active clients, program completion rates, and monthly revenue in one clean view. Know exactly what's working.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Zero Tech Headache</h3>
+          <p>We build and maintain everything. You get a link to share. No Kajabi, no Teachable, no franken-stack required.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Revenue Calculator</h3>
+          <p>See in real-time exactly how much your platform can generate based on your audience size and program mix.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head">This is a demo. Yours gets built around how your business actually runs.</div>
+          <div class="ghb-sub">Not a template. A system mapped to your workflow, your offers, your clients.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUIZ -->
+  <div class="view" id="view-quiz">
+    <div class="quiz-container">
+      <div class="section-label" id="quiz-eyebrow">Free Assessment</div>
+      <h2 class="section-title" id="quiz-title">Find Your Perfect Program</h2>
+      <p class="section-sub" id="quiz-sub">5 questions. 2 minutes. A personalized recommendation for where to start.</p>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qprogress" style="width:20%"></div></div>
+
+      <div class="quiz-step active" id="qs-1">
+        <div class="quiz-q" id="q1-text">What best describes where you are right now?</div>
+        <div class="quiz-sub" id="q1-sub">Choose the option that feels most true today.</div>
+        <div class="quiz-options" id="q1-opts"></div>
+      </div>
+
+      <div class="quiz-step" id="qs-2">
+        <div class="quiz-q" id="q2-text">What's your biggest challenge right now?</div>
+        <div class="quiz-sub">Be honest — this helps us get you the right resources.</div>
+        <div class="quiz-options" id="q2-opts"></div>
+      </div>
+
+      <div class="quiz-step" id="qs-3">
+        <div class="quiz-q">How long have you been dealing with this?</div>
+        <div class="quiz-sub">There's no wrong answer — it helps us calibrate the support level.</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this,'q3')"><span class="opt-icon">🌱</span> Just starting (less than 6 months)</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q3')"><span class="opt-icon">📅</span> A while now (6 months – 2 years)</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q3')"><span class="opt-icon">⏳</span> Long time (2+ years)</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q3')"><span class="opt-icon">🔄</span> Off and on — it comes in cycles</div>
+        </div>
+        <div class="quiz-nav"><button class="btn-back" onclick="qBack(3)">← Back</button><button class="btn-next" onclick="qNext(3)">Continue →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs-4">
+        <div class="quiz-q">What would success look like for you in 90 days?</div>
+        <div class="quiz-sub">Paint the picture — we'll work backwards from here.</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this,'q4')"><span class="opt-icon">😌</span> I feel calm and in control (not reactive)</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q4')"><span class="opt-icon">❤️</span> My relationship feels close and connected again</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q4')"><span class="opt-icon">💪</span> I'm showing up confidently for my kids every day</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q4')"><span class="opt-icon">🤝</span> Co-parenting is peaceful — conflict has dropped significantly</div>
+        </div>
+        <div class="quiz-nav"><button class="btn-back" onclick="qBack(4)">← Back</button><button class="btn-next" onclick="qNext(4)">Continue →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs-5">
+        <div class="quiz-q">How do you learn best?</div>
+        <div class="quiz-sub">We'll match you to the right format.</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this,'q5')"><span class="opt-icon">📱</span> Self-paced digital — I'll go at my own speed</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q5')"><span class="opt-icon">👥</span> Group setting — I like community and accountability</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q5')"><span class="opt-icon">🎯</span> 1:1 coaching — I want personalized, direct support</div>
+          <div class="quiz-opt" onclick="selectOpt(this,'q5')"><span class="opt-icon">🔀</span> Mix of everything — depends on the topic</div>
+        </div>
+        <div class="quiz-nav"><button class="btn-back" onclick="qBack(5)">← Back</button><button class="btn-next" onclick="showResult()">See My Results →</button></div>
+      </div>
+
+      <div class="quiz-step" id="qs-result">
+        <div class="quiz-result">
+          <div class="result-icon">✨</div>
+          <div class="result-tier transformation" id="result-tier-badge">TRANSFORMATION PATH</div>
+          <h2 id="result-title">You're ready for deep work — and real change.</h2>
+          <p id="result-desc">Based on your answers, you're dealing with patterns that go deeper than information alone. You need a structured, supported journey — not just tips. Here's what we recommend:</p>
+          <div style="background:var(--bg);border-radius:12px;padding:20px;margin-bottom:28px;text-align:left">
+            <div style="font-weight:800;font-size:0.9rem;margin-bottom:8px;color:var(--primary)" id="result-product-name">🏆 Marriage Clarity Deep Dive — $197</div>
+            <div style="font-size:0.83rem;color:var(--muted);line-height:1.7" id="result-product-desc">A 6-week structured program with video modules, weekly live Q&As, a private community, and direct access to coaching resources personalized to your specific situation.</div>
+          </div>
+          <button class="btn-primary" style="width:100%;background:var(--primary);color:white" onclick="showView('view-programs'); toast('Here are all the programs →')">See Full Program Details →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head">Your assessment could be qualifying leads while you sleep.</div>
+          <div class="ghb-sub">Every answer scored, every lead routed, every follow-up sent — without you touching it.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROGRAMS -->
+  <div class="view" id="view-programs">
+    <div class="programs-header">
+      <div class="section-label">Programs</div>
+      <h2 class="section-title" id="progs-title">Every stage. Every budget.</h2>
+      <p class="section-sub" id="progs-sub">Three tiers of support — from self-paced digital to personalized VIP coaching. Find the one that fits where you are right now.</p>
+    </div>
+    <div class="tab-bar" id="prog-tabs"></div>
+    <div id="prog-contents"></div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head">Your programs, packaged and selling on their own.</div>
+          <div class="ghb-sub">Tiers, checkout, delivery and access — built once, running continuously.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="view" id="view-community">
+    <div class="community-hero">
+      <div class="community-hero-text">
+        <div class="hero-eyebrow" style="background:rgba(255,255,255,0.12);display:inline-block;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;margin-bottom:16px;color:rgba(255,255,255,0.85)">Private Community</div>
+        <h2 id="comm-title">You're not doing this alone.</h2>
+        <p id="comm-desc">Inside the private community, you'll find people walking the exact same path — sharing wins, asking real questions, and holding each other accountable. Moderated by the coaching team and available 24/7.</p>
+        <button class="btn-primary" onclick="toast('Community access included with any program!')">Join the Community →</button>
+      </div>
+      <div class="community-stats">
+        <div class="comm-stat"><div class="num" id="cs1">1,247</div><div class="label">Active Members</div></div>
+        <div class="comm-stat"><div class="num" id="cs2">340+</div><div class="label">Wins Shared</div></div>
+        <div class="comm-stat"><div class="num" id="cs3">4.8★</div><div class="label">Community Rating</div></div>
+        <div class="comm-stat"><div class="num" id="cs4">Daily</div><div class="label">Live Check-ins</div></div>
+      </div>
+    </div>
+    <div class="community-grid" id="comm-grid"></div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head">A community that runs without you moderating it at midnight.</div>
+          <div class="ghb-sub">Onboarding, check-ins and member management handled by the system.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="view" id="view-calculator">
+    <div class="calc-container">
+      <div class="section-label">Revenue Calculator</div>
+      <h2 class="section-title" id="calc-title">See what your platform can generate</h2>
+      <p class="section-sub" id="calc-sub">Adjust the sliders to model your revenue — see how many hours you'd need to work for every dollar you earn.</p>
+
+      <div class="calc-card">
+        <div class="calc-header">
+          <h2 id="calc-card-title">Your Potential Monthly Revenue</h2>
+          <p id="calc-card-sub">Based on a typical month with your current audience size and program mix</p>
+        </div>
+        <div class="calc-body">
+          <div class="slider-group">
+            <div class="slider-header">
+              <div><div class="slider-label" id="sl1-label">Insight Sessions ($47)</div><div class="slider-price">Digital self-paced guide</div></div>
+              <div class="slider-value" id="sv1">10</div>
+            </div>
+            <input type="range" min="0" max="100" value="10" id="s1" oninput="document.getElementById('sv1').textContent=this.value;updateCalc()">
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <div><div class="slider-label" id="sl2-label">Deep Dive Programs ($97)</div><div class="slider-price">4-week structured course</div></div>
+              <div class="slider-value" id="sv2">8</div>
+            </div>
+            <input type="range" min="0" max="60" value="8" id="s2" oninput="document.getElementById('sv2').textContent=this.value;updateCalc()">
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <div><div class="slider-label" id="sl3-label">Transformation Programs ($197)</div><div class="slider-price">6-week deep work course</div></div>
+              <div class="slider-value" id="sv3">5</div>
+            </div>
+            <input type="range" min="0" max="30" value="5" id="s3" oninput="document.getElementById('sv3').textContent=this.value;updateCalc()">
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <div><div class="slider-label">VIP Coaching Sessions ($497)</div><div class="slider-price">Live 90-min 1:1 or group intensive</div></div>
+              <div class="slider-value" id="sv4">3</div>
+            </div>
+            <input type="range" min="0" max="20" value="3" id="s4" oninput="document.getElementById('sv4').textContent=this.value;updateCalc()">
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <div><div class="slider-label">Avg mins per async client/week</div><div class="slider-price">Review, feedback, email time</div></div>
+              <div class="slider-value" id="sv5">20</div>
+            </div>
+            <input type="range" min="5" max="60" value="20" id="s5" oninput="document.getElementById('sv5').textContent=this.value;updateCalc()">
+          </div>
+
+          <div class="divider"></div>
+          <div class="results-grid">
+            <div class="result-box">
+              <div class="r-label">Monthly Revenue</div>
+              <div class="r-value" id="r-monthly">$2,922</div>
+              <div class="r-sub">across all tiers</div>
+            </div>
+            <div class="result-box">
+              <div class="r-label">Annual Revenue</div>
+              <div class="r-value" id="r-annual">$35,064</div>
+              <div class="r-sub">if consistent</div>
+            </div>
+            <div class="result-box">
+              <div class="r-label">Hours/Month</div>
+              <div class="r-value" id="r-hours">21.5</div>
+              <div class="r-sub">total service time</div>
+            </div>
+            <div class="result-box">
+              <div class="r-label">Revenue per Hour</div>
+              <div class="r-value" id="r-perhr">$136</div>
+              <div class="r-sub">effective rate</div>
+            </div>
+          </div>
+          <div class="result-highlight">
+            <div class="r-label">Async Revenue (no live time) — <span id="r-async-pct">72%</span> of total</div>
+            <div class="r-value" id="r-async">$2,131/mo</div>
+            <div class="r-sub" id="r-summary">10 guides + 8 deep dives + 5 programs = $2,131 earned while you sleep</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head" data-ghb-personal="1">Those numbers aren't a mock-up. That's what a built system reports back.</div>
+          <div class="ghb-sub">We map your real revenue model, then build the engine that runs it.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="view" id="view-dashboard">
+    <div class="dashboard-header">
+      <div>
+        <h2 id="dash-title">Creator Dashboard</h2>
+        <p id="dash-sub">Your platform at a glance — updated in real time</p>
+      </div>
+      <span class="status-badge">● Platform Active</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-label">Active Clients</div><div class="kpi-value" id="kpi1">47</div><div class="kpi-change up">↑ 12 this month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Monthly Revenue</div><div class="kpi-value" id="kpi2">$4,831</div><div class="kpi-change up">↑ 23% vs last mo</div></div>
+      <div class="kpi-card"><div class="kpi-label">Assessments Taken</div><div class="kpi-value" id="kpi3">284</div><div class="kpi-change up">↑ 41 this week</div></div>
+      <div class="kpi-card"><div class="kpi-label">Completion Rate</div><div class="kpi-value">78%</div><div class="kpi-change up">↑ 5% vs avg</div></div>
+      <div class="kpi-card"><div class="kpi-label">Community Members</div><div class="kpi-value">312</div><div class="kpi-change up">↑ 28 this month</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg Rating</div><div class="kpi-value">4.9★</div><div class="kpi-change up">Based on 86 reviews</div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-panel">
+        <h3>Active Clients</h3>
+        <div id="client-list"></div>
+      </div>
+      <div class="dash-panel">
+        <h3>Upcoming</h3>
+        <div id="upcoming-list"></div>
+      </div>
+    </div>
+
+    <!-- GET THIS BUILT CTA -->
+    <div class="ghb-band">
+      <div class="ghb-inner">
+        <div class="ghb-copy">
+          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-head" data-ghb-personal="1">You just watched a business run itself. Yours can too.</div>
+          <div class="ghb-sub">One audit maps exactly where AI fits. You leave with a written plan either way.</div>
+        </div>
+        <a href="/get-this-built.html" class="ghb-btn">Get This Built For Your Business &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /app -->
+
+<div class="toast" id="toast-el"></div>
+
+<script>
+// ── CONFIG STATE ──
+const CFG = {
+  name: 'Your Brand',
+  tagline: '',
+  niche: 'both',
+  theme: 'default',
+  followers: '50K'
+};
+
+// ── NICHE CONTENT ──
+const NICHE = {
+  both: {
+    heroTitle: 'Your clients deserve a <em>personalized path</em> to transformation',
+    heroP: 'Stop answering the same questions 1:1. Your new AI-powered platform qualifies, educates, and converts your audience 24/7 — while you focus on the work that only you can do.',
+    q1opts: [
+      {icon:'💍',text:'My marriage/relationship needs real help'},
+      {icon:'👶',text:'I\'m struggling with parenting challenges'},
+      {icon:'⚖️',text:'I\'m navigating co-parenting or divorce'},
+      {icon:'🌱',text:'I want to level up before problems start'}
+    ],
+    tabs: ['Marriage', 'Parenting', 'Co-Parenting', 'Community'],
+    progsTitle: 'Every stage. Every budget.',
+    progsSub: 'Four program paths designed for exactly where you are — from marriage, to parenting, co-parenting, and community membership.',
+    commTitle: "You're not doing this alone.",
+    commDesc: 'Marriage challenges. Parenting struggles. Co-parenting conflict. Whatever brought you here, this community has walked that path too. Join 1,200+ members building stronger families together.'
+  },
+  marriage: {
+    heroTitle: 'Your marriage deserves more than <em>surviving</em> — it deserves to thrive',
+    heroP: 'A personalized coaching platform that meets couples exactly where they are and guides them toward the relationship they actually want — without the waitlist.',
+    q1opts: [
+      {icon:'💬',text:'We\'re struggling to communicate'},
+      {icon:'❄️',text:'We\'ve grown distant and disconnected'},
+      {icon:'🔥',text:'There\'s conflict and tension constantly'},
+      {icon:'🌱',text:'Things are okay — we want to go deeper'}
+    ],
+    tabs: ['Foundation', 'Deep Work', 'Intensive', 'VIP'],
+    progsTitle: 'Four pathways to a stronger marriage.',
+    progsSub: 'From a $47 self-paced guide to a $497 couples intensive — every investment level covered.',
+    commTitle: "Stronger marriages are built together.",
+    commDesc: 'A private community of couples doing the real work — sharing wins, asking questions, and holding each other accountable. You\'re not the only one working on your marriage.'
+  },
+  parenting: {
+    heroTitle: 'Confident parents raise <em>emotionally thriving</em> kids',
+    heroP: 'An AI-personalized parenting platform that identifies exactly what you need — and gives you the tools, support, and community to show up as your best parent self.',
+    q1opts: [
+      {icon:'😤',text:'I lose my patience more than I want to'},
+      {icon:'😢',text:'My child\'s behavior has me overwhelmed'},
+      {icon:'🤔',text:'I don\'t know if what I\'m doing is right'},
+      {icon:'💪',text:'I want to be more intentional about parenting'}
+    ],
+    tabs: ['Foundations', 'Parenting Method', 'Intensive', 'Community'],
+    progsTitle: 'Programs built for where you actually are.',
+    progsSub: 'From toddler tantrums to teen dynamics — every parenting stage covered with real support.',
+    commTitle: "It takes a village — and we built one.",
+    commDesc: 'A supportive community of parents navigating the same challenges, celebrating the same wins, and building stronger family foundations together. No judgment. Just growth.'
+  },
+  coparenting: {
+    heroTitle: 'Co-parenting doesn\'t have to be <em>this hard</em>',
+    heroP: 'A structured, AI-personalized support platform that helps separated and divorced parents build a co-parenting relationship that works — for them, and most importantly, for their kids.',
+    q1opts: [
+      {icon:'💥',text:'Co-parenting conflict is constant'},
+      {icon:'😶',text:'Communication has completely broken down'},
+      {icon:'😰',text:'I\'m doing this alone and overwhelmed'},
+      {icon:'🌱',text:'Things are okay but could be much better'}
+    ],
+    tabs: ['Crisis Support', 'Co-Parent Method', 'Healing', 'Community'],
+    progsTitle: 'Support for every stage of the co-parenting journey.',
+    progsSub: 'From high-conflict crisis to collaborative co-parenting — structured support at every level.',
+    commTitle: "Co-parenting is a long road — walk it with others.",
+    commDesc: 'A private, moderated community of co-parents who get it. No unsolicited advice, no judgment. Just real people navigating the same challenges and building a better future for their kids.'
+  }
+};
+
+const PROGRAMS = {
+  both: {
+    'Marriage': [
+      {name:'Communication Starter Kit',tag:'Foundation · Self-Paced',price:47,features:['3 core modules','Couples communication guide','Weekly reflection prompts','Downloadable workbook'],cta:'Get Instant Access'},
+      {name:'Deep Connection Program',tag:'Accelerator · 4 Weeks',price:97,features:['6-week video curriculum','Live weekly Q&A','Private couples workbook','Community access'],cta:'Enroll Now',featured:true},
+      {name:'Marriage Clarity Intensive',tag:'Transformation · 6 Weeks',price:197,features:['Full 8-module curriculum','Bi-weekly coaching calls','1:1 message support','Priority community access'],cta:'Start Your Journey'},
+      {name:'VIP Couples Coaching',tag:'Premium · 90-Min Session',price:497,features:['90-minute live session','Pre-session questionnaire','Session recording','30-day follow-up support'],cta:'Book Your Session'}
+    ],
+    'Parenting': [
+      {name:'Calm Parent Starter',tag:'Foundation · Self-Paced',price:47,features:['Trigger identification guide','3-module calm framework','Printable quick-reference cards','Community access'],cta:'Get Instant Access'},
+      {name:'Intentional Parenting',tag:'Accelerator · 4 Weeks',price:97,features:['6-week parenting curriculum','Live Q&As','Community access','Reflection workbook'],cta:'Enroll Now',featured:true},
+      {name:'Parenting Deep Dive',tag:'Transformation · 6 Weeks',price:197,features:['Full curriculum + live calls','Age-specific strategy tracks','1:1 messaging support','Family action plans'],cta:'Start Your Journey'},
+      {name:'VIP Parent Coaching',tag:'Premium · 90-Min Session',price:497,features:['90-min 1:1 intensive','Pre-session deep-dive assessment','Session recording','30-day follow-up'],cta:'Book Your Session'}
+    ],
+    'Co-Parenting': [
+      {name:'Co-Parent Communication Guide',tag:'Foundation · Self-Paced',price:47,features:['Grey rock & BIFF frameworks','Communication scripts','Co-parenting journal','Emergency de-escalation guide'],cta:'Get Instant Access'},
+      {name:'Peaceful Co-Parenting Method',tag:'Accelerator · 4 Weeks',price:97,features:['4-week structured curriculum','Live expert Q&As','Communication templates','Community access'],cta:'Enroll Now',featured:true},
+      {name:'Co-Parenting Reset',tag:'Transformation · 6 Weeks',price:197,features:['6-week intensive curriculum','Bi-weekly live coaching','Legal navigation resources','Priority 1:1 messaging'],cta:'Start Your Journey'},
+      {name:'VIP Co-Parent Coaching',tag:'Premium · 90-Min Session',price:497,features:['90-min crisis/strategy session','Conflict de-escalation plan','Co-parenting agreement review','30-day support access'],cta:'Book Your Session'}
+    ],
+    'Community': [
+      {name:'Monthly Membership',tag:'Community · Monthly',price:47,features:['Access to full community','Monthly live group call','Resource library access','Peer accountability groups'],cta:'Join Now',featured:true},
+      {name:'Annual Membership',tag:'Community · 12 Months',price:297,features:['Full community access','12 monthly live calls','Bonus workshop library','Annual family planning session'],cta:'Best Value — Join Now'}
+    ]
+  }
+};
+
+// Clone programs for other niches with adjusted names
+['marriage','parenting','coparenting'].forEach(n => {
+  PROGRAMS[n] = {};
+  const nicheData = NICHE[n];
+  nicheData.tabs.forEach((tab, i) => {
+    const prices = [47,97,197,497];
+    PROGRAMS[n][tab] = [
+      {name:`${nicheData.tabs[0]} Starter Guide`,tag:'Foundation · Self-Paced',price:47,features:['Core framework modules','Practical worksheets','Community access','Lifetime digital access'],cta:'Get Instant Access'},
+      {name:`${nicheData.tabs[1]} Program`,tag:'Accelerator · 4 Weeks',price:97,features:['4-week structured curriculum','Live weekly Q&A','Community access','Workbook & resources'],cta:'Enroll Now',featured:true},
+      {name:`Intensive Transformation`,tag:'Transformation · 6 Weeks',price:197,features:['6-week deep curriculum','Bi-weekly live coaching','1:1 message support','Priority community access'],cta:'Start Your Journey'},
+      {name:`VIP Coaching Session`,tag:'Premium · 90-Min',price:497,features:['90-min 1:1 live session','Pre-session assessment','Session recording','30-day follow-up'],cta:'Book Your Session'}
+    ];
+  });
+});
+
+const COMMUNITY_CARDS = [
+  {icon:'💬',title:'Daily Support Forum',desc:'Ask questions, share wins, get real-time support from coaches and community members who\'ve been exactly where you are.'},
+  {icon:'🎥',title:'Weekly Live Sessions',desc:'Every week — live group coaching, Q&As, and hot seats. Recordings available within 24 hours if you can\'t make it live.'},
+  {icon:'📚',title:'Resource Library',desc:'Scripts, workbooks, templates, and guides — organized by stage and challenge. Always growing, always relevant.'},
+  {icon:'🏆',title:'Win Celebrations',desc:'We celebrate every win, big or small. First calm response to a trigger. A productive co-parenting call. A date night that actually worked.'},
+  {icon:'👥',title:'Accountability Groups',desc:'Matched with 4-6 others at the same stage for weekly check-ins, shared goals, and mutual accountability.'},
+  {icon:'🔔',title:'Expert Guest Sessions',desc:'Monthly deep-dives with therapists, attorneys, educators, and other experts bringing specialized knowledge to your specific journey.'}
+];
+
+const CLIENTS = [
+  {init:'JL',name:'Jennifer L.',tier:'Deep Dive Program',prog:72},
+  {init:'MS',name:'Marcus & Sarah',tier:'Marriage Intensive',prog:45},
+  {init:'TC',name:'Tanya C.',tier:'Co-Parent Method',prog:88},
+  {init:'RP',name:'Rachel P.',tier:'Starter Guide',prog:100},
+  {init:'DB',name:'David B.',tier:'VIP Coaching',prog:30},
+  {init:'AM',name:'Amara M.',tier:'Parenting Deep Dive',prog:61}
+];
+
+const UPCOMING = [
+  {title:'Group Coaching Call — Marriage cohort',time:'Today, 2:00 PM'},
+  {title:'New assessment results — 3 new leads',time:'Review before noon'},
+  {title:'Community Q&A — Co-Parenting',time:'Tomorrow, 7:00 PM'},
+  {title:'VIP session — Tanya C.',time:'Thursday, 10:00 AM'},
+  {title:'Monthly community stats report',time:'Friday auto-sends'}
+];
+
+// ── APPLY CONFIG ──
+function applyConfig() {
+  CFG.name = document.getElementById('cfg-name').value.trim() || 'Your Brand';
+  CFG.tagline = document.getElementById('cfg-tagline').value.trim();
+  CFG.niche = document.getElementById('cfg-niche').value;
+  CFG.followers = document.getElementById('cfg-followers').value;
+  renderAll();
+  toast(`✅ Platform updated for ${CFG.name}!`);
+}
+
+function renderAll() {
+  const n = NICHE[CFG.niche];
+  const displayName = CFG.name;
+  const tagline = CFG.tagline || (CFG.niche === 'marriage' ? 'Marriage & Relationship Coach' : CFG.niche === 'parenting' ? 'Parenting Coach' : CFG.niche === 'coparenting' ? 'Co-Parenting Coach' : 'Family & Relationship Coach');
+
+  // Nav
+  document.getElementById('nav-brand').textContent = displayName;
+
+  // Get-This-Built CTA — personalised to the configured brand
+  document.querySelectorAll('[data-ghb-personal]').forEach(function(el){
+    if(!el.dataset.ghbTpl) el.dataset.ghbTpl = el.textContent;
+    el.textContent = (displayName && displayName !== 'Your Brand')
+      ? 'Everything you just saw \u2014 built for ' + displayName + '.'
+      : el.dataset.ghbTpl;
+  });
+
+  // Hero
+  document.getElementById('hero-eyebrow').textContent = `${displayName}'s AI-Powered Platform`;
+  document.getElementById('hero-h1').innerHTML = n.heroTitle;
+  document.getElementById('hero-p').textContent = n.heroP;
+
+  // Social proof
+  const follMap = {'10K':[127,40],'25K':[284,70],'50K':[847,86],'100K':[1247,124],'250K':[2800,312]};
+  const [clients, reviews] = follMap[CFG.followers] || [847,86];
+  document.getElementById('sp-clients').textContent = clients.toLocaleString();
+  document.getElementById('sp-rating').textContent = '4.9★';
+  document.getElementById('sp-outcome').textContent = '94%';
+
+  // Features
+  document.getElementById('features-title').textContent = `One platform. Every stage of ${displayName}'s program.`;
+
+  // Quiz
+  document.getElementById('quiz-eyebrow').textContent = `${displayName}'s Free Assessment`;
+  document.getElementById('quiz-title').innerHTML = n.heroTitle.replace(/<em>/g,'').replace(/<\/em>/g,'').split('—')[0].trim() + '?';
+  document.getElementById('quiz-title').textContent = 'Find Your Perfect Program';
+  renderQ1(n.q1opts);
+
+  // Programs
+  document.getElementById('progs-title').textContent = n.progsTitle;
+  document.getElementById('progs-sub').textContent = n.progsSub;
+  renderPrograms(CFG.niche, n.tabs);
+
+  // Community
+  document.getElementById('comm-title').textContent = n.commTitle;
+  document.getElementById('comm-desc').textContent = n.commDesc;
+  renderCommunity();
+
+  // Calculator
+  document.getElementById('calc-title').textContent = `See what ${displayName}'s platform can generate`;
+  document.getElementById('calc-card-title').textContent = `${displayName}'s Potential Monthly Revenue`;
+
+  // Dashboard
+  document.getElementById('dash-title').textContent = `${displayName} — Creator Dashboard`;
+  renderDashboard();
+  updateCalc();
+}
+
+function renderQ1(opts) {
+  const el = document.getElementById('q1-opts');
+  el.innerHTML = opts.map(o => `<div class="quiz-opt" onclick="selectOpt(this,'q1');populateQ2()"><span class="opt-icon">${o.icon}</span>${o.text}</div>`).join('');
+}
+
+function renderPrograms(niche, tabs) {
+  const tabBar = document.getElementById('prog-tabs');
+  const contents = document.getElementById('prog-contents');
+  const src = PROGRAMS[niche] || PROGRAMS['both'];
+
+  tabBar.innerHTML = tabs.map((t,i) => `<button class="tab-btn${i===0?' active':''}" onclick="progTab('${t}',this)">${t}</button>`).join('');
+  contents.innerHTML = tabs.map((t,i) => {
+    const progs = src[t] || src[Object.keys(src)[0]];
+    const cards = (progs||[]).map(p => `
+      <div class="program-card${p.featured?' prog-card-featured':''}">
+        <div class="prog-top">
+          ${p.featured?'<div class="featured-label">⭐ Most Popular</div>':''}
+          <div class="prog-tag">${p.tag}</div>
+          <div class="prog-name">${p.name}</div>
+          <div class="prog-price">$${p.price}<span>/program</span></div>
+        </div>
+        <div class="prog-body">
+          <ul class="prog-features">${(p.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul>
+          <button class="prog-cta" onclick="toast('Enrollment coming soon! 🎉')">${p.cta}</button>
+        </div>
+      </div>`).join('');
+    return `<div class="tab-content${i===0?' active':''}" id="tc-${t.replace(/\s/g,'')}">${cards}</div>`;
+  }).join('');
+}
+
+function progTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById('tc-'+tab.replace(/\s/g,''));
+  if(el) el.classList.add('active');
+}
+
+function renderCommunity() {
+  document.getElementById('comm-grid').innerHTML = COMMUNITY_CARDS.map(c => `
+    <div class="community-card">
+      <div class="comm-icon">${c.icon}</div>
+      <h3>${c.title}</h3>
+      <p>${c.desc}</p>
+    </div>`).join('');
+}
+
+function renderDashboard() {
+  document.getElementById('client-list').innerHTML = CLIENTS.map(c => `
+    <div class="client-row">
+      <div class="client-avatar">${c.init}</div>
+      <div class="client-info">
+        <div class="client-name">${c.name}</div>
+        <div class="client-tier">${c.tier}</div>
+      </div>
+      <div class="client-progress">
+        <div class="prog-bar-wrap"><div class="prog-bar-fill" style="width:${c.prog}%"></div></div>
+        <div class="prog-pct">${c.prog}%</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('upcoming-list').innerHTML = UPCOMING.map(u => `
+    <div class="upcoming-item">
+      <div class="upcoming-dot"></div>
+      <div class="upcoming-text">
+        <div class="title">${u.title}</div>
+        <div class="time">${u.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── QUIZ LOGIC ──
+let quizStep = 1;
+let q1Answer = '';
+
+function populateQ2() {
+  const opts = NICHE[CFG.niche].q1opts;
+  const q2Map = {
+    0: ['We don\'t know how to talk without arguing','We\'ve lost emotional and physical connection','Trust has been broken and I don\'t know how to rebuild','We\'re just roommates at this point'],
+    1: ['I react before I can think','I don\'t know how to connect with my child','Every day feels like a battle','I want to parent intentionally but don\'t know how'],
+    2: ['My ex refuses to communicate','Kids are caught in the middle','I feel completely alone in this','Conflict is affecting the kids'],
+    3: ['Building stronger communication before problems start','Deepening our connection and intimacy','Developing better parenting patterns','Preparing for a major life change']
+  };
+  const selected = document.querySelector('#q1-opts .selected');
+  const idx = selected ? [...document.querySelectorAll('#q1-opts .quiz-opt')].indexOf(selected) : 0;
+  const answers = q2Map[idx] || q2Map[0];
+  document.getElementById('q2-opts').innerHTML = answers.map(a => `<div class="quiz-opt" onclick="selectOpt(this,'q2')"><span class="opt-icon">→</span>${a}</div>`).join('');
+  document.getElementById('q2-opts').innerHTML += `<div class="quiz-nav"><button class="btn-back" onclick="qBack(2)">← Back</button><button class="btn-next" onclick="qNext(2)">Continue →</button></div>`;
+}
+
+function selectOpt(el, group) {
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+let quizStep_current = 1;
+function qNext(step) {
+  const nextStep = step + 1;
+  const maxStep = 5;
+  if (nextStep > maxStep) { showResult(); return; }
+  document.getElementById('qs-'+step).classList.remove('active');
+  document.getElementById('qs-'+nextStep).classList.add('active');
+  document.getElementById('qprogress').style.width = (nextStep/6*100)+'%';
+  quizStep_current = nextStep;
+}
+
+function qBack(step) {
+  const prevStep = step - 1;
+  if (prevStep < 1) return;
+  document.getElementById('qs-'+step).classList.remove('active');
+  document.getElementById('qs-'+prevStep).classList.add('active');
+  document.getElementById('qprogress').style.width = (prevStep/6*100)+'%';
+  quizStep_current = prevStep;
+}
+
+function showResult() {
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('qs-result').classList.add('active');
+  document.getElementById('qprogress').style.width = '100%';
+}
+
+// ── CALCULATOR ──
+function updateCalc() {
+  const s1 = +document.getElementById('s1').value;
+  const s2 = +document.getElementById('s2').value;
+  const s3 = +document.getElementById('s3').value;
+  const s4 = +document.getElementById('s4').value;
+  const mins = +document.getElementById('s5').value;
+
+  const asyncRev = s1*47 + s2*97 + s3*197;
+  const liveRev = s4*497;
+  const total = asyncRev + liveRev;
+  const asyncH = ((s1+s2+s3)*mins)/60;
+  const liveH = s4*1.5;
+  const totalH = asyncH + liveH;
+  const perH = totalH > 0 ? Math.round(total/totalH) : 0;
+  const asyncPct = total > 0 ? Math.round((asyncRev/total)*100) : 0;
+
+  document.getElementById('r-monthly').textContent = '$'+total.toLocaleString();
+  document.getElementById('r-annual').textContent = '$'+(total*12).toLocaleString();
+  document.getElementById('r-hours').textContent = totalH.toFixed(1);
+  document.getElementById('r-perhr').textContent = '$'+perH.toLocaleString();
+  document.getElementById('r-async').textContent = '$'+asyncRev.toLocaleString()+'/mo';
+  document.getElementById('r-async-pct').textContent = asyncPct+'%';
+  document.getElementById('r-summary').textContent = `${s1} guides + ${s2} deep dives + ${s3} programs = $${asyncRev.toLocaleString()} earned while you sleep`;
+}
+
+// ── THEME ──
+function setTheme(theme, el) {
+  document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  CFG.theme = theme;
+  if (theme === 'default') {
+    document.body.removeAttribute('data-theme');
+  } else {
+    document.body.setAttribute('data-theme', theme);
+  }
+  // Fix nav-cta color to use current primary
+  document.querySelectorAll('.nav-cta, .btn-primary, .prog-cta, .config-apply').forEach(b => {
+    b.style.background = '';
+  });
+}
+
+// ── CONFIG TOGGLE ──
+function toggleConfig() {
+  const panel = document.getElementById('config-panel');
+  const app = document.getElementById('app');
+  panel.classList.toggle('collapsed');
+  app.classList.toggle('expanded');
+}
+
+// ── VIEW ROUTING ──
+function showView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── TOAST ──
+function toast(msg) {
+  const el = document.getElementById('toast-el');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ── INIT ──
+renderAll();
+updateCalc();
+</script>
+</body>
+</html>
