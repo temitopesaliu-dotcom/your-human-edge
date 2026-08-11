@@ -92,6 +92,19 @@
   }
   .tier-name{font-size:.79rem;color:var(--muted);letter-spacing:.02em;line-height:1.5}
 
+  /* ── featured tier ── */
+  .feature{
+    display:flex;align-items:center;justify-content:space-between;gap:22px;
+    margin-top:14px;text-decoration:none;color:inherit;
+    background:linear-gradient(120deg,rgba(240,196,203,.16),rgba(201,127,141,.07) 60%,rgba(255,255,255,.02));
+    border:1px solid rgba(240,196,203,.4);border-radius:18px;padding:26px 30px;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;
+  }
+  .feature:hover{transform:translateY(-3px);border-color:rgba(240,196,203,.7);box-shadow:0 20px 52px rgba(201,127,141,.24)}
+  .feature-amt{font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;line-height:1;margin-bottom:6px}
+  .feature-name{font-size:.82rem;color:var(--muted);letter-spacing:.02em}
+  .feature-arrow{color:var(--blush);font-size:1.3rem;flex:0 0 auto}
+
   /* ── custom ── */
   .custom{
     display:flex;align-items:center;justify-content:space-between;gap:22px;
@@ -191,6 +204,14 @@
       <div class="tier-name">I Really Mean It</div>
     </a>
   </div>
+
+  <a class="feature fade d4" href="https://buy.stripe.com/bJe14mcpcgfJ6Zn2Ox6J20f">
+    <div>
+      <div class="feature-amt">&pound;1,000</div>
+      <div class="feature-name">Beyond Words</div>
+    </div>
+    <div class="feature-arrow">&rarr;</div>
+  </a>
 
   <a class="custom fade d4" href="https://buy.stripe.com/aFa6oGbl8fbFcjH4WF6J20e">
     <div>
