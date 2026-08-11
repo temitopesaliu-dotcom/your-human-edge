@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       { source: '/for-lifecoaches', destination: '/for-lifecoaches.html' },
       { source: '/get-this-built', destination: '/get-this-built.html' },
       { source: '/appreciate', destination: '/appreciate.html' },
+      { source: '/appreciated', destination: '/appreciated.html' },
     ];
   },
 };
