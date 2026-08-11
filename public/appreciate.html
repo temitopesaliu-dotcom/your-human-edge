@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Appreciate Temitope</title>
+<meta name="description" content="A quiet way to say thank you.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#08070A;
+    --ink-2:#0F0D13;
+    --blush:#F0C4CB;
+    --blush-soft:#E8A6B2;
+    --blush-deep:#C97F8D;
+    --white:#FFFFFF;
+    --muted:rgba(255,255,255,.58);
+    --line:rgba(255,255,255,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--white);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100dvh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(720px 480px at 50% -8%, rgba(240,196,203,.16), transparent 62%),
+      radial-gradient(560px 420px at 8% 44%, rgba(201,127,141,.10), transparent 60%),
+      radial-gradient(620px 460px at 96% 78%, rgba(232,166,178,.09), transparent 62%);
+  }
+  .wrap{position:relative;z-index:1;max-width:840px;margin:0 auto;padding:84px 26px 96px}
+
+  /* ── hero ── */
+  .mark{
+    width:40px;height:40px;margin:0 auto 30px;display:grid;place-items:center;
+    border:1px solid var(--line);border-radius:50%;
+    color:var(--blush);font-size:15px;
+    animation:pulse 4.5s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+  .eyebrow{
+    text-align:center;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--blush-soft);font-weight:500;margin-bottom:20px;
+  }
+  h1{
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:400;font-size:clamp(2.6rem,7vw,4.1rem);
+    line-height:1.06;letter-spacing:-.015em;text-align:center;margin-bottom:26px;
+  }
+  h1 em{font-style:italic;color:var(--blush)}
+  .lede{
+    text-align:center;max-width:520px;margin:0 auto;
+    font-size:1.02rem;line-height:1.85;color:var(--muted);font-weight:300;
+  }
+  .lede strong{color:rgba(255,255,255,.9);font-weight:400}
+
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:64px 0 54px}
+
+  /* ── tiers ── */
+  .tier-label{
+    text-align:center;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(255,255,255,.4);margin-bottom:30px;font-weight:500;
+  }
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tier{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line);border-radius:18px;
+    padding:28px 20px;text-align:center;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,background .35s,box-shadow .35s;
+  }
+  .tier:hover{
+    transform:translateY(-4px);
+    border-color:rgba(240,196,203,.42);
+    background:linear-gradient(160deg,rgba(240,196,203,.10),rgba(255,255,255,.02));
+    box-shadow:0 18px 46px rgba(201,127,141,.16);
+  }
+  .tier-amt{
+    font-family:'Playfair Display',Georgia,serif;
+    font-size:2rem;font-weight:500;letter-spacing:-.01em;margin-bottom:7px;
+  }
+  .tier-name{font-size:.79rem;color:var(--muted);letter-spacing:.02em;line-height:1.5}
+
+  /* ── custom ── */
+  .custom{
+    display:flex;align-items:center;justify-content:space-between;gap:22px;
+    margin-top:14px;text-decoration:none;color:inherit;
+    background:linear-gradient(120deg,rgba(240,196,203,.09),rgba(255,255,255,.02));
+    border:1px solid rgba(240,196,203,.26);border-radius:18px;padding:26px 30px;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;
+  }
+  .custom:hover{transform:translateY(-3px);border-color:rgba(240,196,203,.55);box-shadow:0 18px 46px rgba(201,127,141,.18)}
+  .custom-t{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;margin-bottom:5px}
+  .custom-s{font-size:.82rem;color:var(--muted);line-height:1.55}
+  .custom-arrow{color:var(--blush);font-size:1.3rem;flex:0 0 auto}
+
+  /* ── closing ── */
+  .closing{
+    margin-top:70px;text-align:center;
+    font-family:'Playfair Display',Georgia,serif;font-style:italic;
+    font-size:1.22rem;line-height:1.8;color:rgba(255,255,255,.82);
+    max-width:560px;margin-left:auto;margin-right:auto;
+  }
+  .sign{
+    text-align:center;margin-top:26px;font-size:.72rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--blush-soft);
+  }
+  .fineprint{
+    margin-top:64px;padding-top:26px;border-top:1px solid rgba(255,255,255,.06);
+    text-align:center;font-size:.74rem;line-height:1.75;color:rgba(255,255,255,.34);
+    max-width:560px;margin-left:auto;margin-right:auto;font-weight:300;
+  }
+  .fineprint a{color:rgba(255,255,255,.5)}
+  .foot{text-align:center;margin-top:34px;font-size:.7rem;color:rgba(255,255,255,.26)}
+  .foot a{color:rgba(255,255,255,.42);text-decoration:none}
+  .foot a:hover{color:var(--blush)}
+
+  .fade{opacity:0;transform:translateY(14px);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.16s}.d3{animation-delay:.28s}
+  .d4{animation-delay:.4s}.d5{animation-delay:.52s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media (max-width:720px){
+    .wrap{padding:60px 20px 74px}
+    .tiers{grid-template-columns:repeat(2,1fr);gap:12px}
+    .tier{padding:24px 14px}
+    .tier-amt{font-size:1.7rem}
+    .custom{flex-direction:column;text-align:center;gap:14px;padding:24px}
+    .rule{margin:48px 0 42px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .fade{animation:none;opacity:1;transform:none}
+    .mark{animation:none}
+    .tier,.custom{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="mark fade d1">&#9825;</div>
+  <div class="eyebrow fade d1">Appreciation</div>
+
+  <h1 class="fade d1">Appreciate <em>Temitope</em></h1>
+
+  <p class="lede fade d2">
+    You don't have to buy anything. You don't have to book anything.
+    <strong>If you've ever enjoyed my content, learned something from me, or simply appreciate the woman I am</strong> &mdash;
+    you can leave a little appreciation here.
+  </p>
+
+  <div class="rule fade d2"></div>
+
+  <div class="tier-label fade d3">Choose an amount</div>
+
+  <div class="tiers fade d3">
+    <a class="tier" href="https://buy.stripe.com/eVq5kC9d03sX0AZ1Kt6J208">
+      <div class="tier-amt">&pound;10</div>
+      <div class="tier-name">A Little Love</div>
+    </a>
+    <a class="tier" href="https://buy.stripe.com/00w7sK0Gu9Rl97v4WF6J209">
+      <div class="tier-amt">&pound;25</div>
+      <div class="tier-name">I Appreciate You</div>
+    </a>
+    <a class="tier" href="https://buy.stripe.com/aFa7sKfBo7JdcjHcp76J20a">
+      <div class="tier-amt">&pound;50</div>
+      <div class="tier-name">You Deserve This</div>
+    </a>
+    <a class="tier" href="https://buy.stripe.com/cNi14mcpcaVp0AZgFn6J20b">
+      <div class="tier-amt">&pound;100</div>
+      <div class="tier-name">Serious Appreciation</div>
+    </a>
+    <a class="tier" href="https://buy.stripe.com/14A5kC1Kye7BgzX1Kt6J20c">
+      <div class="tier-amt">&pound;250</div>
+      <div class="tier-name">Big Appreciation</div>
+    </a>
+    <a class="tier" href="https://buy.stripe.com/8x214m60O9Rl1F3dtb6J20d">
+      <div class="tier-amt">&pound;500</div>
+      <div class="tier-name">I Really Mean It</div>
+    </a>
+  </div>
+
+  <a class="custom fade d4" href="https://buy.stripe.com/aFa6oGbl8fbFcjH4WF6J20e">
+    <div>
+      <div class="custom-t">Choose your own amount</div>
+      <div class="custom-s">Whatever feels right to you.</div>
+    </div>
+    <div class="custom-arrow">&rarr;</div>
+  </a>
+
+  <p class="closing fade d5">
+    &ldquo;If you've ever smiled at something I said, learned something from me,
+    or felt a little more possible about your own life &mdash; this is where you can say so.&rdquo;
+  </p>
+  <div class="sign fade d5">Thank you &mdash; Temitope</div>
+
+  <p class="fineprint fade d5">
+    An appreciation is a voluntary gift. It isn't a purchase, and it doesn't come with goods,
+    services, access or personal correspondence &mdash; only my genuine thanks.
+    Payments are processed securely by Stripe.
+  </p>
+
+  <div class="foot fade d5">
+    <a href="https://temitopesaliu.com">temitopesaliu.com</a>
+  </div>
+
+</div>
+
+</body>
+</html>
