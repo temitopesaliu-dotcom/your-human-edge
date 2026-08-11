@@ -21,6 +21,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<head>
+				<Script src="/_vercel/insights/script.js" strategy="afterInteractive" />
 				{clarityId && (
 					<Script id="ms-clarity" strategy="afterInteractive">
 						{`(function(c,l,a,r,i,t,y){
