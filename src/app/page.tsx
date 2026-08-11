@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/components/features/about/about.css";
 import Sidebar from "@/components/features/about/Sidebar";
 import CredentialsCard from "@/components/features/about/CredentialsCard";
+import HighlightsCard from "@/components/features/about/HighlightsCard";
 import WorkshopsCard from "@/components/features/about/WorkshopsCard";
 import AwardsCard from "@/components/features/about/AwardsCard";
 
@@ -23,7 +24,9 @@ export default function HomePage() {
           <div className="abt-card">
             <div className="abt-eyebrow">About</div>
             <h1>Temitope Saliu</h1>
-            <div style={{ height: 12 }} />
+            <div className="abt-subtitle">
+              Business Solutions Architect. AI Consultant. Strategist.
+            </div>
             <p>
               Temitope Saliu is a business architect and AI consultant with
               over a decade of experience building the operational and
@@ -33,12 +36,12 @@ export default function HomePage() {
             </p>
             <p>
               Her work spans digital transformation, growth strategy,
-              partnerships, expansion, and AI system design — across Africa
-              and the United Kingdom.
+              partnerships, expansion, and AI system design.
             </p>
           </div>
 
           <CredentialsCard />
+          <HighlightsCard />
           <WorkshopsCard />
           <AwardsCard />
 
