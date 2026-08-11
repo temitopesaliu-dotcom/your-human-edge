@@ -669,6 +669,7 @@ input[type="range"] {
   <div class="config-header">
     <h3>🎯 Brand Config</h3>
     <p>Personalize this demo for your business</p>
+    <p style="margin-top:10px;font-size:.72rem"><a href="https://temitopesaliu.com" style="color:#a89bec;text-decoration:none;font-weight:700">&larr; Back to Your Human Edge with AI</a></p>
   </div>
   <div class="config-body">
     <div class="demo-badge">✦ LIVE DEMO MODE</div>
@@ -806,9 +807,9 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head">This is a demo. Yours gets built around how your business actually runs.</div>
-          <div class="ghb-sub">Not a template. A system mapped to your workflow, your offers, your clients.</div>
+          <div class="ghb-sub">Not a template. A system mapped to your workflow, your offers, your clients — and the revenue streams you are not running yet.</div>
         </div>
         <a href="/get-this-built" class="ghb-btn">Get This Built For Your Business &rarr;</a>
       </div>
@@ -891,7 +892,7 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head">Your assessment could be qualifying leads while you sleep.</div>
           <div class="ghb-sub">Every answer scored, every lead routed, every follow-up sent — without you touching it.</div>
         </div>
@@ -915,7 +916,7 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head">Your programs, packaged and selling on their own.</div>
           <div class="ghb-sub">Tiers, checkout, delivery and access — built once, running continuously.</div>
         </div>
@@ -947,7 +948,7 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head">A community that runs without you moderating it at midnight.</div>
           <div class="ghb-sub">Onboarding, check-ins and member management handled by the system.</div>
         </div>
@@ -1042,7 +1043,7 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head" data-ghb-personal="1">Those numbers aren't a mock-up. That's what a built system reports back.</div>
           <div class="ghb-sub">We map your real revenue model, then build the engine that runs it.</div>
         </div>
@@ -1084,7 +1085,7 @@ input[type="range"] {
     <div class="ghb-band">
       <div class="ghb-inner">
         <div class="ghb-copy">
-          <div class="ghb-eyebrow">Your Human Edge with AI</div>
+          <div class="ghb-eyebrow"><a href="https://temitopesaliu.com" style="color:inherit;text-decoration:none">Your Human Edge with AI</a></div>
           <div class="ghb-head" data-ghb-personal="1">You just watched a business run itself. Yours can too.</div>
           <div class="ghb-sub">One audit maps exactly where AI fits. You leave with a written plan either way.</div>
         </div>
@@ -1310,6 +1311,8 @@ function renderAll() {
 function renderQ1(opts) {
   const el = document.getElementById('q1-opts');
   el.innerHTML = opts.map(o => `<div class="quiz-opt" onclick="selectOpt(this,'q1');populateQ2()"><span class="opt-icon">${o.icon}</span>${o.text}</div>`).join('');
+  el.innerHTML += `<div class="quiz-nav"><button class="btn-next" onclick="qNext(1)">Continue &rarr;</button></div>`;
+  populateQ2();
 }
 
 function renderPrograms(niche, tabs) {
