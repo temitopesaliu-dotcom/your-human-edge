@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Ready — Temitope Saliu</title>
+<meta name="description" content="Your business details are in. Here's exactly what happens next.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaff;
+    --bg-alt: #f3f0fb;
+    --white: #ffffff;
+    --lavender: #8b7fd8;
+    --lavender-dark: #6a5acd;
+    --lavender-deep: #4b3f96;
+    --lavender-tint: #f0edfc;
+    --ink: #211c34;
+    --ink-soft: #524b6b;
+    --border: #e4dff5;
+    --shadow: 0 10px 40px rgba(107, 91, 208, 0.12);
+    --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251, 250, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .navrow { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; color: var(--ink); text-decoration: none; }
+  .navlinks { display: flex; gap: 20px; font-size: 14px; }
+  .navlinks a { color: var(--ink-soft); text-decoration: none; }
+  .navlinks a:hover { color: var(--lavender-deep); }
+
+  main { padding: 56px 0 100px; }
+
+  .tick {
+    width: 62px; height: 62px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    display: grid; place-items: center; margin-bottom: 26px;
+    box-shadow: var(--shadow);
+    animation: pop .5s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .tick svg { width: 28px; height: 28px; }
+  @keyframes pop { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--lavender-deep); font-weight: 600; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(30px, 5.2vw, 44px); line-height: 1.12; margin-bottom: 18px; }
+  .lede { font-size: 17px; color: var(--ink-soft); margin-bottom: 12px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .confirmbar {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--lavender-tint); border: 1px solid var(--border);
+    border-radius: 13px; padding: 14px 17px; margin: 26px 0 40px;
+    font-size: 14.5px; color: var(--lavender-deep); font-weight: 600;
+  }
+  .confirmbar span.d { font-weight: 400; color: var(--ink-soft); }
+
+  h2 { font-size: clamp(21px, 3.4vw, 26px); margin: 0 0 20px; }
+
+  .timeline { position: relative; padding-left: 34px; margin-bottom: 46px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--border);
+  }
+  .tl { position: relative; margin-bottom: 26px; }
+  .tl:last-child { margin-bottom: 0; }
+  .tl::before {
+    content: ''; position: absolute; left: -28px; top: 5px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--white); border: 2.5px solid var(--lavender);
+  }
+  .tl.first::before { background: var(--lavender-deep); border-color: var(--lavender-deep); }
+  .tl-k { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--lavender-deep); font-weight: 600; }
+  .tl-t { font-size: 16.5px; font-weight: 600; margin: 3px 0 4px; }
+  .tl-d { font-size: 15px; color: var(--ink-soft); }
+
+  .card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 26px 24px; margin-bottom: 34px;
+  }
+  .card h3 { font-size: 19px; margin-bottom: 10px; }
+  .card p { font-size: 15px; color: var(--ink-soft); margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 0 0 0 18px; }
+  .card li { font-size: 15px; color: var(--ink-soft); margin-bottom: 8px; }
+  .card li strong { color: var(--ink); font-weight: 600; }
+
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    color: var(--white); font-weight: 600; font-size: 16px;
+    padding: 16px 32px; border-radius: 100px; text-decoration: none;
+    box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 46px rgba(107,91,208,.22); }
+  .ghost-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: none; border: 1px solid var(--border); color: var(--ink-soft);
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    padding: 15px 26px; border-radius: 100px; cursor: pointer; text-decoration: none;
+    transition: border-color .18s, color .18s;
+  }
+  .ghost-btn:hover { border-color: var(--lavender); color: var(--lavender-deep); }
+  .btnrow { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+
+  .smallprint { font-size: 13.5px; color: var(--ink-soft); margin-top: 30px; }
+  .smallprint a { color: var(--lavender-deep); }
+
+  footer { border-top: 1px solid var(--border); padding: 26px 0; font-size: 13px; color: var(--ink-soft); }
+  footer a { color: var(--lavender-deep); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    main { padding: 40px 0 80px; }
+    .btnrow { flex-direction: column; align-items: stretch; }
+    .btnrow .cta-btn, .btnrow .ghost-btn { justify-content: center; }
+    .navlinks { gap: 14px; font-size: 13px; }
+  }
+</style>
+<!-- Analytics: GA4 + Meta Pixel + Clarity + sitewide click tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28CRPR339W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-28CRPR339W', { page_path: window.location.pathname });
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','866191863979024');fbq('track','PageView');
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x0r48qni9r");
+</script>
+<script src="/click-tracking.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap navrow">
+    <a class="brand" href="https://temitopesaliu.com">Temitope Saliu</a>
+    <nav class="navlinks">
+      <a href="/for-lifecoaches">See a Demo</a>
+      <a href="https://temitopesaliu.com">Home</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div class="tick">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <div class="eyebrow">Complete</div>
+    <h1 id="headline">You're ready.</h1>
+    <p class="lede">
+      Your business details are in and have been received. Nothing else is needed from you right now.
+    </p>
+
+    <div class="confirmbar" id="confirmbar">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><polyline points="4 6 12 13 20 6"></polyline></svg>
+      <span id="confirmtext">Your booking link will be sent to you. Check your email &mdash; and your spam or promotions folder if it isn't in your inbox.</span>
+    </div>
+
+    <div class="card">
+      <h3>Two things worth doing today</h3>
+      <ul>
+        <li><strong>Whitelist my address.</strong> Add <a href="mailto:ts@temitopesaliu.com">ts@temitopesaliu.com</a> to your contacts so nothing from me lands in spam.</li>
+        <li><strong>Look at the demo again.</strong> Seeing a finished build tends to sharpen what you want from yours &mdash; and the sharper you are, the more we get through.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
+      <a class="cta-btn" href="https://calendly.com/temitope-saliu/blueprint-bfy-audit" data-track="book-audit">Book your meeting &rarr;</a>
+      <a class="ghost-btn" href="/for-lifecoaches">See a finished build</a>
+    </div>
+
+    <p class="smallprint">
+      Something wrong in what you sent, or you forgot something? Write to
+      <a href="mailto:ts@temitopesaliu.com">ts@temitopesaliu.com</a> and I'll update it before the call.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; Temitope Saliu &middot; <a href="https://temitopesaliu.com">temitopesaliu.com</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var payload = null;
+  try { payload = JSON.parse(sessionStorage.getItem('yhe_yb_done') || 'null'); } catch (e) {}
+
+  if (payload && payload.name) {
+    var first = String(payload.name).trim().split(/\s+/)[0];
+    if (first) document.getElementById('headline').textContent = "You're ready, " + first + '.';
+  }
+  if (payload && payload.email) {
+    document.getElementById('confirmtext').textContent =
+      'Your booking link will be sent to ' + payload.email +
+      '. Check your spam or promotions folder if it is not in your inbox.';
+  }
+
+  // Fire once per session so a refresh does not double-count the conversion.
+  var FIRED = 'yhe_yb_complete_fired';
+  var already = false;
+  try { already = sessionStorage.getItem(FIRED) === '1'; } catch (e2) {}
+  if (!already && window.gtag) {
+    gtag('event', 'application_complete', {
+      form_id: 'your-business',
+      page_path: window.location.pathname
+    });
+    try { sessionStorage.setItem(FIRED, '1'); } catch (e3) {}
+  }
+})();
+</script>
+
+</body>
+</html>

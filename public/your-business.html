@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Business — Tell Me What I'm Building</title>
+<meta name="description" content="You're in. Now tell me about your business so I can prepare your build architecture before we speak.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaff;
+    --bg-alt: #f3f0fb;
+    --white: #ffffff;
+    --lavender: #8b7fd8;
+    --lavender-dark: #6a5acd;
+    --lavender-deep: #4b3f96;
+    --lavender-tint: #f0edfc;
+    --ink: #211c34;
+    --ink-soft: #524b6b;
+    --border: #e4dff5;
+    --shadow: 0 10px 40px rgba(107, 91, 208, 0.12);
+    --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251, 250, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .navrow { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; color: var(--ink); text-decoration: none; }
+  .savenote { font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ---------- progress ---------- */
+  .progress-shell { border-bottom: 1px solid var(--border); background: var(--white); }
+  .progress-inner { padding: 16px 24px 18px; max-width: 720px; margin: 0 auto; }
+  .progress-top {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 9px; gap: 12px;
+  }
+  .stepcount {
+    font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--lavender-deep); font-weight: 600;
+  }
+  .steplabel { font-size: 13px; color: var(--ink-soft); text-align: right; }
+  .bar { height: 6px; border-radius: 100px; background: var(--bg-alt); overflow: hidden; }
+  .bar-fill {
+    height: 100%; width: 0%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--lavender), var(--lavender-deep));
+    transition: width .45s cubic-bezier(.4,0,.2,1);
+  }
+  .dots { display: flex; gap: 6px; margin-top: 12px; }
+  .dot {
+    flex: 1; height: 3px; border-radius: 100px; background: var(--bg-alt);
+    transition: background .3s;
+  }
+  .dot.done { background: var(--lavender); }
+  .dot.now { background: var(--lavender-deep); }
+
+  /* ---------- steps ---------- */
+  main { padding: 40px 0 120px; }
+  .step { display: none; animation: fade .35s ease both; }
+  .step.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--lavender-deep); font-weight: 600; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(27px, 4.6vw, 38px); line-height: 1.16; margin-bottom: 14px; }
+  h2 { font-size: clamp(24px, 4vw, 31px); line-height: 1.18; margin-bottom: 12px; }
+  .lede { font-size: 16.5px; color: var(--ink-soft); margin-bottom: 30px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0 34px; }
+  .fact { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 15px 17px; }
+  .fact-k { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--lavender-deep); font-weight: 600; }
+  .fact-v { font-size: 14.5px; font-weight: 600; margin-top: 4px; line-height: 1.35; }
+
+  .f { margin-bottom: 24px; }
+  .f > label, .qlabel { display: block; font-weight: 600; font-size: 15.5px; margin-bottom: 8px; }
+  .hint { display: block; font-weight: 400; color: var(--ink-soft); font-size: 13.5px; margin-top: 3px; line-height: 1.5; }
+  .req { color: var(--lavender-deep); }
+  input[type=text], input[type=email], input[type=tel], select, textarea {
+    width: 100%; padding: 14px 16px; font: inherit; font-size: 15.5px;
+    color: var(--ink); background: var(--white);
+    border: 1px solid var(--border); border-radius: 12px; outline: none;
+    transition: border-color .18s, box-shadow .18s;
+  }
+  textarea { min-height: 118px; resize: vertical; line-height: 1.55; }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--lavender); box-shadow: 0 0 0 3px rgba(139,127,216,.18);
+  }
+  .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+
+  /* ---------- choice cards (radio + checkbox share styling) ---------- */
+  .choices { display: grid; gap: 10px; }
+  .choices.two { grid-template-columns: repeat(2, 1fr); }
+  .choice {
+    position: relative; display: flex; align-items: flex-start; gap: 12px;
+    background: var(--white); border: 1px solid var(--border); border-radius: 13px;
+    padding: 14px 16px; cursor: pointer;
+    transition: border-color .16s, background .16s, box-shadow .16s;
+  }
+  .choice:hover { border-color: var(--lavender); }
+  .choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .box {
+    flex-shrink: 0; width: 21px; height: 21px; margin-top: 1px;
+    border: 1.8px solid #cfc7ea; background: var(--white);
+    display: grid; place-items: center;
+    transition: border-color .16s, background .16s;
+  }
+  .choice.check .box { border-radius: 6px; }
+  .choice.radio .box { border-radius: 50%; }
+  .box::after {
+    content: ''; opacity: 0; transition: opacity .14s, transform .14s;
+    transform: scale(.6);
+  }
+  .choice.check .box::after {
+    width: 10px; height: 6px; border-left: 2.2px solid #fff; border-bottom: 2.2px solid #fff;
+    transform: rotate(-45deg) scale(.6); margin-top: -2px;
+  }
+  .choice.radio .box::after { width: 9px; height: 9px; border-radius: 50%; background: #fff; }
+  .choice input:checked ~ .box { background: var(--lavender-deep); border-color: var(--lavender-deep); }
+  .choice input:checked ~ .box::after { opacity: 1; transform: scale(1); }
+  .choice.check input:checked ~ .box::after { transform: rotate(-45deg) scale(1); }
+  .choice:has(input:checked) { border-color: var(--lavender-deep); background: var(--lavender-tint); }
+  .choice input:focus-visible ~ .box { box-shadow: 0 0 0 3px rgba(139,127,216,.35); }
+  .ctext { font-size: 15px; font-weight: 500; line-height: 1.4; }
+  .csub { display: block; font-size: 13px; color: var(--ink-soft); font-weight: 400; margin-top: 2px; }
+  .multi-note {
+    font-size: 13px; color: var(--lavender-deep); font-weight: 600;
+    margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+  }
+  .otherwrap { margin-top: 10px; display: none; }
+  .otherwrap.show { display: block; }
+
+  /* ---------- review step ---------- */
+  .review { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .rgroup + .rgroup { border-top: 1px solid var(--border); }
+  .rgroup-h {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; background: var(--bg-alt);
+    font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600;
+  }
+  .editlink {
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--lavender-deep); background: none; border: none; cursor: pointer; padding: 4px 2px;
+  }
+  .editlink:hover { text-decoration: underline; }
+  .ritem { padding: 12px 18px; border-top: 1px solid #f2effb; }
+  .rk { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+  .rv { font-size: 15px; margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .rv.empty { color: #a49dbb; font-style: italic; }
+
+  /* ---------- nav buttons ---------- */
+  .navbtns { display: flex; align-items: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    color: var(--white); font-weight: 600; font-size: 16px;
+    padding: 16px 32px; border-radius: 100px; text-decoration: none;
+    box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 46px rgba(107,91,208,.22); }
+  .cta-btn[disabled] { opacity: .6; cursor: not-allowed; transform: none; }
+  .ghost-btn {
+    background: none; border: 1px solid var(--border); color: var(--ink-soft);
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    padding: 15px 24px; border-radius: 100px; cursor: pointer;
+    transition: border-color .18s, color .18s;
+  }
+  .ghost-btn:hover { border-color: var(--lavender); color: var(--lavender-deep); }
+  .note { font-size: 13px; color: var(--ink-soft); margin-top: 16px; }
+  .err {
+    display: none; margin-top: 16px; padding: 12px 15px; border-radius: 12px;
+    background: #fdecec; border: 1px solid #f5c2c2; color: #8b2020; font-size: 14px;
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 26px 0; font-size: 13px; color: var(--ink-soft); }
+  footer a { color: var(--lavender-deep); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .facts { grid-template-columns: 1fr; }
+    .choices.two { grid-template-columns: 1fr; }
+    .navbtns { flex-direction: column-reverse; align-items: stretch; }
+    .navbtns .cta-btn, .navbtns .ghost-btn { justify-content: center; width: 100%; }
+    .savenote { display: none; }
+    main { padding: 30px 0 90px; }
+  }
+</style>
+<!-- Analytics: GA4 + Meta Pixel + Clarity + sitewide click tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28CRPR339W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-28CRPR339W', { page_path: window.location.pathname });
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','866191863979024');fbq('track','PageView');
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x0r48qni9r");
+</script>
+<script src="/click-tracking.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap navrow">
+    <a class="brand" href="https://temitopesaliu.com">Temitope Saliu</a>
+    <span class="savenote" id="savenote">Your answers save as you go</span>
+  </div>
+</header>
+
+<div class="progress-shell">
+  <div class="progress-inner">
+    <div class="progress-top">
+      <span class="stepcount" id="stepcount">Step 1 of 6</span>
+      <span class="steplabel" id="steplabel">Who you are</span>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barfill"></div></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<main>
+<form class="wrap" id="bizform" novalidate>
+  <input class="hp" type="text" name="website_hp" id="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+  <!-- ============ STEP 1 ============ -->
+  <section class="step active" data-step="0" data-label="Who you are">
+    <div class="eyebrow">You're in</div>
+    <h1>Now tell me what I'm building.</h1>
+    <p class="lede">
+      Your audit is paid for. Before we speak, I need the real picture of your business —
+      not the polished version. <strong>Everything below shapes the architecture I bring to your call.</strong>
+      Six short steps. Two minutes if you're honest, twenty if you're thorough. Both work.
+    </p>
+
+    <div class="f">
+      <label for="fullName">Full name <span class="req">*</span></label>
+      <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+    </div>
+
+    <div class="f">
+      <label for="email">Email <span class="req">*</span>
+        <span class="hint">Where your prep pack and call link go. Use the address you paid with.</span>
+      </label>
+      <input type="email" id="email" name="email" autocomplete="email" required>
+    </div>
+
+    <div class="f">
+      <label for="phone">WhatsApp or phone
+        <span class="hint">Optional. Include your country code.</span>
+      </label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel">
+    </div>
+
+    <div class="f">
+      <label for="country">Where are you based?</label>
+      <input type="text" id="country" name="country" autocomplete="country-name">
+    </div>
+
+    <div class="navbtns">
+      <button type="button" class="cta-btn" data-next>Start &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ STEP 2 ============ -->
+  <section class="step" data-step="1" data-label="Your business">
+    <div class="eyebrow">Step 2</div>
+    <h2>Select your business type</h2>
+    <p class="lede">Tick everything that applies. Most people are more than one thing — that's usually where the opportunity is.</p>
+
+    <div class="f">
+      <span class="qlabel">What kind of business is this? <span class="req">*</span></span>
+      <div class="multi-note">&#10003; Choose as many as apply</div>
+      <div class="choices two" id="biztypes">
+        <label class="choice check"><input type="checkbox" name="businessType" value="Coaching / consulting"><span class="box"></span><span class="ctext">Coaching or consulting</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Course / digital products"><span class="box"></span><span class="ctext">Courses or digital products</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Service business / agency"><span class="box"></span><span class="ctext">Service business or agency</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Content creator / personal brand"><span class="box"></span><span class="ctext">Creator or personal brand</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Therapist / practitioner"><span class="box"></span><span class="ctext">Therapist or practitioner</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Ecommerce / physical products"><span class="box"></span><span class="ctext">Ecommerce or physical products</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="SaaS / app / tech product"><span class="box"></span><span class="ctext">SaaS, app or tech product</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Community / membership"><span class="box"></span><span class="ctext">Community or membership</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Corporate / employed, building on the side"><span class="box"></span><span class="ctext">Employed, building on the side</span></label>
+        <label class="choice check"><input type="checkbox" name="businessType" value="Nothing built yet"><span class="box"></span><span class="ctext">Nothing built yet</span></label>
+        <label class="choice check" id="othertoggle"><input type="checkbox" name="businessType" value="Other"><span class="box"></span><span class="ctext">Something else</span></label>
+      </div>
+      <div class="otherwrap" id="otherwrap">
+        <input type="text" id="businessTypeOther" name="businessTypeOther" placeholder="Tell me what it is">
+      </div>
+    </div>
+
+    <div class="f">
+      <label for="businessName">Business or brand name
+        <span class="hint">If it doesn't have one yet, leave it blank.</span>
+      </label>
+      <input type="text" id="businessName" name="businessName">
+    </div>
+
+    <div class="f">
+      <label for="website">Website, Instagram or LinkedIn
+        <span class="hint">Anywhere I can see what you already do.</span>
+      </label>
+      <input type="text" id="website" name="website" placeholder="yoursite.com or @yourhandle">
+    </div>
+
+    <div class="f">
+      <label for="whatYouDo">What do you actually do, in your own words? <span class="req">*</span>
+        <span class="hint">Skip the elevator pitch. Three examples of the level of detail I want:
+          &ldquo;I help newly qualified therapists fill their first ten client slots.&rdquo; &middot;
+          &ldquo;I run a bookkeeping service for Nigerian ecommerce brands.&rdquo; &middot;
+          &ldquo;I teach midlife women how to change career without starting from zero.&rdquo;
+        </span>
+      </label>
+      <textarea id="whatYouDo" name="whatYouDo" required
+        placeholder="e.g. I coach corporate women through a career pivot. They pay me £1,800 for a 12-week programme and most leave with a new role or their first paying clients."></textarea>
+    </div>
+
+    <div class="navbtns">
+      <button type="button" class="ghost-btn" data-back>&larr; Back</button>
+      <button type="button" class="cta-btn" data-next>Continue &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 ============ -->
+  <section class="step" data-step="2" data-label="The money">
+    <div class="eyebrow">Step 3</div>
+    <h2>The money, honestly</h2>
+    <p class="lede">I can't architect a revenue system without knowing the numbers. Nothing here is judged, and nothing here is shared.</p>
+
+    <div class="f">
+      <label for="currentOffer">What are you selling right now, and at what price?
+        <span class="hint">If the answer is "nothing yet", say that. It's a valid answer and a common one.</span>
+      </label>
+      <textarea id="currentOffer" name="currentOffer"></textarea>
+    </div>
+
+    <div class="f">
+      <span class="qlabel">Roughly what is the business making per month right now?</span>
+      <div class="choices" data-radio="monthlyRevenue">
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="Pre-revenue"><span class="box"></span><span class="ctext">Pre-revenue</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="Under $1,000"><span class="box"></span><span class="ctext">Under $1,000</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="$1,000 – $5,000"><span class="box"></span><span class="ctext">$1,000 &ndash; $5,000</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="$5,000 – $15,000"><span class="box"></span><span class="ctext">$5,000 &ndash; $15,000</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="$15,000 – $50,000"><span class="box"></span><span class="ctext">$15,000 &ndash; $50,000</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="$50,000+"><span class="box"></span><span class="ctext">$50,000+</span></label>
+        <label class="choice radio"><input type="radio" name="monthlyRevenue" value="Prefer not to say"><span class="box"></span><span class="ctext">Prefer not to say</span></label>
+      </div>
+    </div>
+
+    <div class="f">
+      <span class="qlabel">What do you want it making in 12 months? <span class="req">*</span></span>
+      <div class="choices" data-radio="revenueTarget">
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="Under $5,000/month"><span class="box"></span><span class="ctext">Under $5,000/month</span></label>
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="$5,000 – $15,000/month"><span class="box"></span><span class="ctext">$5,000 &ndash; $15,000/month</span></label>
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="$15,000 – $50,000/month"><span class="box"></span><span class="ctext">$15,000 &ndash; $50,000/month</span></label>
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="$50,000 – $100,000/month"><span class="box"></span><span class="ctext">$50,000 &ndash; $100,000/month</span></label>
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="$100,000+/month"><span class="box"></span><span class="ctext">$100,000+/month</span></label>
+        <label class="choice radio"><input type="radio" name="revenueTarget" value="Not sure yet — that's part of what I need help with"><span class="box"></span><span class="ctext">Not sure yet<span class="csub">That's part of what I need help with</span></span></label>
+      </div>
+    </div>
+
+    <div class="navbtns">
+      <button type="button" class="ghost-btn" data-back>&larr; Back</button>
+      <button type="button" class="cta-btn" data-next>Continue &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ STEP 4 ============ -->
+  <section class="step" data-step="3" data-label="What's in the way">
+    <div class="eyebrow">Step 4</div>
+    <h2>What's actually in the way</h2>
+    <p class="lede">This is the most important answer on the page. Everything I design starts here.</p>
+
+    <div class="f">
+      <label for="blocker">What is stopping this business from being where you want it? <span class="req">*</span>
+        <span class="hint">Be specific. "Marketing" is not specific. "I get DMs but they never convert and I have no system to follow up" is.</span>
+      </label>
+      <textarea id="blocker" name="blocker" required></textarea>
+    </div>
+
+    <div class="f">
+      <label for="whatToBuild">What do you imagine getting built?
+        <span class="hint">A guess is fine. Part of the audit is telling you whether that's the right thing to build at all.</span>
+      </label>
+      <textarea id="whatToBuild" name="whatToBuild"></textarea>
+    </div>
+
+    <div class="f">
+      <span class="qlabel">Where are you with AI today?</span>
+      <div class="choices" data-radio="aiExperience">
+        <label class="choice radio"><input type="radio" name="aiExperience" value="Never really used it"><span class="box"></span><span class="ctext">Never really used it</span></label>
+        <label class="choice radio"><input type="radio" name="aiExperience" value="I use ChatGPT occasionally, nothing structured"><span class="box"></span><span class="ctext">Occasional use, nothing structured</span></label>
+        <label class="choice radio"><input type="radio" name="aiExperience" value="I use it daily but only for writing"><span class="box"></span><span class="ctext">Daily, but only for writing</span></label>
+        <label class="choice radio"><input type="radio" name="aiExperience" value="I've built a few things — automations, prompts, workflows"><span class="box"></span><span class="ctext">I've built a few things<span class="csub">Automations, prompts, workflows</span></span></label>
+        <label class="choice radio"><input type="radio" name="aiExperience" value="I'm technical and build with it properly"><span class="box"></span><span class="ctext">I'm technical and build with it properly</span></label>
+      </div>
+    </div>
+
+    <div class="f">
+      <span class="qlabel">What are you actually running the business on today? <span class="req">*</span>
+        <span class="hint">Every tool you touch — AI, software, spreadsheets, all of it. This tells me what I can build on top of instead of replacing.</span>
+      </span>
+      <div class="multi-note">&#10003; Choose as many as apply</div>
+      <div class="choices two">
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="ChatGPT"><span class="box"></span><span class="ctext">ChatGPT</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Claude"><span class="box"></span><span class="ctext">Claude</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Gemini"><span class="box"></span><span class="ctext">Gemini</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Perplexity or another AI search tool"><span class="box"></span><span class="ctext">Perplexity or similar</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Notion"><span class="box"></span><span class="ctext">Notion</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Zapier, Make or another automation tool"><span class="box"></span><span class="ctext">Zapier, Make or similar</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Canva"><span class="box"></span><span class="ctext">Canva</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="A CRM (HubSpot, GoHighLevel, Kajabi…)"><span class="box"></span><span class="ctext">A CRM<span class="csub">HubSpot, GoHighLevel, Kajabi…</span></span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="An email tool (MailerLite, ConvertKit, Mailchimp…)"><span class="box"></span><span class="ctext">An email tool<span class="csub">MailerLite, ConvertKit, Mailchimp…</span></span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="A course or membership platform"><span class="box"></span><span class="ctext">A course or membership platform</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Calendly or another booking tool"><span class="box"></span><span class="ctext">Calendly or another booking tool</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="A website builder (Squarespace, Wix, WordPress…)"><span class="box"></span><span class="ctext">A website builder<span class="csub">Squarespace, Wix, WordPress…</span></span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="Spreadsheets, and not much else"><span class="box"></span><span class="ctext">Spreadsheets, and not much else</span></label>
+        <label class="choice check"><input type="checkbox" name="toolsUsed" value="WhatsApp and DMs, honestly"><span class="box"></span><span class="ctext">WhatsApp and DMs, honestly</span></label>
+      </div>
+      <div style="margin-top:12px">
+        <label for="toolsOther" style="font-weight:600;font-size:14.5px;display:block;margin-bottom:7px">
+          Anything else you pay for every month?
+          <span class="hint">Names are enough. If you're not sure what it costs, say so.</span>
+        </label>
+        <input type="text" id="toolsOther" name="toolsOther" placeholder="e.g. Descript, Airtable, a VA, Meta ads">
+      </div>
+    </div>
+
+    <div class="navbtns">
+      <button type="button" class="ghost-btn" data-back>&larr; Back</button>
+      <button type="button" class="cta-btn" data-next>Continue &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ STEP 5 ============ -->
+  <section class="step" data-step="4" data-label="Timing">
+    <div class="eyebrow">Step 5</div>
+    <h2>Timing and anything else</h2>
+    <p class="lede">Last few. Then you get to see everything before it comes to me.</p>
+
+    <div class="f">
+      <span class="qlabel">When do you want to start building? <span class="req">*</span></span>
+      <div class="choices" data-radio="timeline">
+        <label class="choice radio"><input type="radio" name="timeline" value="This week"><span class="box"></span><span class="ctext">This week</span></label>
+        <label class="choice radio"><input type="radio" name="timeline" value="This month"><span class="box"></span><span class="ctext">This month</span></label>
+        <label class="choice radio"><input type="radio" name="timeline" value="Next 1–3 months"><span class="box"></span><span class="ctext">Next 1&ndash;3 months</span></label>
+        <label class="choice radio"><input type="radio" name="timeline" value="I want the plan first, then I'll decide"><span class="box"></span><span class="ctext">I want the plan first, then I'll decide</span></label>
+      </div>
+    </div>
+
+    <div class="f">
+      <label for="anythingElse">Anything else I should know before we speak?
+        <span class="hint">Context, constraints, a deadline, something you're nervous about. All useful.</span>
+      </label>
+      <textarea id="anythingElse" name="anythingElse"></textarea>
+    </div>
+
+    <div class="navbtns">
+      <button type="button" class="ghost-btn" data-back>&larr; Back</button>
+      <button type="button" class="cta-btn" data-next>See my details &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ STEP 6 — REVIEW ============ -->
+  <section class="step" data-step="5" data-label="See your details">
+    <div class="eyebrow">Step 6</div>
+    <h2>See your details</h2>
+    <p class="lede">This is exactly what lands on my desk. Read it back. Change anything that isn't true — the audit is only as good as what's here.</p>
+
+    <div class="review" id="review"></div>
+
+    <div class="navbtns">
+      <button type="button" class="ghost-btn" data-back>&larr; Back</button>
+      <button type="submit" class="cta-btn" id="submitbtn">Submit &rarr;</button>
+    </div>
+    <div class="err" id="err" role="alert"></div>
+    <p class="note">
+      Your answers go to me directly. They aren't sold, shared, or added to any sales list.
+    </p>
+  </section>
+</form>
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; Temitope Saliu &middot; <a href="https://temitopesaliu.com">temitopesaliu.com</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('bizform');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var barfill = document.getElementById('barfill');
+  var stepcount = document.getElementById('stepcount');
+  var steplabel = document.getElementById('steplabel');
+  var dotsWrap = document.getElementById('dots');
+  var review = document.getElementById('review');
+  var btn = document.getElementById('submitbtn');
+  var err = document.getElementById('err');
+  var STORE = 'yhe_your_business_v1';
+  var current = 0;
+
+  /* ---------- progress dots ---------- */
+  steps.forEach(function () {
+    var d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function paintProgress() {
+    var pct = ((current + 1) / steps.length) * 100;
+    barfill.style.width = pct + '%';
+    stepcount.textContent = 'Step ' + (current + 1) + ' of ' + steps.length;
+    steplabel.textContent = steps[current].getAttribute('data-label');
+    dots.forEach(function (d, i) {
+      d.className = 'dot' + (i < current ? ' done' : i === current ? ' now' : '');
+    });
+  }
+
+  function show(i, opts) {
+    current = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach(function (s, n) { s.classList.toggle('active', n === current); });
+    paintProgress();
+    if (current === steps.length - 1) renderReview();
+    if (!opts || !opts.silent) window.scrollTo({ top: 0, behavior: 'smooth' });
+    save();
+    if (window.gtag) {
+      gtag('event', 'form_step_view', {
+        form_id: 'your-business',
+        step_number: current + 1,
+        step_name: steps[current].getAttribute('data-label')
+      });
+    }
+  }
+
+  /* ---------- "Something else" reveal ---------- */
+  var otherToggle = document.querySelector('#othertoggle input');
+  var otherWrap = document.getElementById('otherwrap');
+  function syncOther() { otherWrap.classList.toggle('show', otherToggle.checked); }
+  otherToggle.addEventListener('change', syncOther);
+
+  /* ---------- persistence ---------- */
+  function collect() {
+    var data = {};
+    var fd = new FormData(form);
+    fd.forEach(function (v, k) {
+      if (typeof v !== 'string') return;
+      if (k === 'businessType' || k === 'toolsUsed') { (data[k] = data[k] || []).push(v); }
+      else { data[k] = v; }
+    });
+    return data;
+  }
+
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify({ step: current, data: collect() })); } catch (e) {}
+  }
+
+  function restore() {
+    var raw;
+    try { raw = localStorage.getItem(STORE); } catch (e) { return; }
+    if (!raw) return;
+    var parsed;
+    try { parsed = JSON.parse(raw); } catch (e) { return; }
+    var d = parsed && parsed.data;
+    if (!d) return;
+    Object.keys(d).forEach(function (k) {
+      var v = d[k];
+      if (Array.isArray(v)) {
+        v.forEach(function (one) {
+          var el = form.querySelector('[name="' + k + '"][value="' + CSS.escape(one) + '"]');
+          if (el) el.checked = true;
+        });
+      } else {
+        var els = form.querySelectorAll('[name="' + k + '"]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el.type === 'radio') { if (el.value === v) el.checked = true; }
+          else { el.value = v; }
+        }
+      }
+    });
+    syncOther();
+    if (typeof parsed.step === 'number') show(parsed.step, { silent: true });
+  }
+
+  form.addEventListener('input', save);
+  form.addEventListener('change', save);
+
+  /* ---------- validation ---------- */
+  var RULES = {
+    0: [
+      ['fullName', 'Please add your name.'],
+      ['email', 'Please add the email you paid with.']
+    ],
+    1: [
+      ['businessType', 'Please tick at least one business type.'],
+      ['whatYouDo', 'Please tell me what you actually do.']
+    ],
+    2: [
+      ['revenueTarget', 'Please pick a 12-month target — even a rough one.']
+    ],
+    3: [
+      ['blocker', 'Please tell me what is in the way. This is the one that matters most.'],
+      ['toolsUsed', 'Please tick the tools you actually use. If it is only spreadsheets, tick that.']
+    ],
+    4: [
+      ['timeline', 'Please tell me when you want to start.']
+    ]
+  };
+
+  function valueOf(name) {
+    var els = form.querySelectorAll('[name="' + name + '"]');
+    if (!els.length) return '';
+    if (els[0].type === 'checkbox') {
+      return Array.prototype.filter.call(els, function (e) { return e.checked; })
+        .map(function (e) { return e.value; });
+    }
+    if (els[0].type === 'radio') {
+      var picked = Array.prototype.filter.call(els, function (e) { return e.checked; })[0];
+      return picked ? picked.value : '';
+    }
+    return String(els[0].value || '').trim();
+  }
+
+  function fail(msg, name) {
+    err.textContent = msg;
+    err.style.display = 'block';
+    if (name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      if (el) {
+        var target = el.type === 'checkbox' || el.type === 'radio' ? el.closest('.f') : el;
+        target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        if (el.focus && el.type !== 'checkbox' && el.type !== 'radio') el.focus();
+      }
+    }
+    setTimeout(function () { err.style.display = 'none'; }, 6000);
+  }
+
+  function stepValid(i) {
+    var rules = RULES[i];
+    if (!rules) return true;
+    for (var n = 0; n < rules.length; n++) {
+      var v = valueOf(rules[n][0]);
+      var empty = Array.isArray(v) ? v.length === 0 : !v;
+      if (empty) {
+        // Put the error inside the step the user is currently on.
+        steps[i].appendChild(err);
+        fail(rules[n][1], rules[n][0]);
+        return false;
+      }
+    }
+    if (i === 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valueOf('email'))) {
+      steps[i].appendChild(err);
+      fail('That email address does not look right.', 'email');
+      return false;
+    }
+    return true;
+  }
+
+  /* ---------- review ---------- */
+  var GROUPS = [
+    { step: 0, title: 'You', fields: [
+      ['fullName', 'Full name'], ['email', 'Email'], ['phone', 'Phone / WhatsApp'], ['country', 'Based in']
+    ]},
+    { step: 1, title: 'Your business', fields: [
+      ['businessType', 'Business type'], ['businessTypeOther', 'Also'], ['businessName', 'Business name'],
+      ['website', 'Where I can see you'], ['whatYouDo', 'What you do']
+    ]},
+    { step: 2, title: 'The money', fields: [
+      ['currentOffer', 'Selling right now'], ['monthlyRevenue', 'Monthly revenue'], ['revenueTarget', '12-month target']
+    ]},
+    { step: 3, title: "What's in the way", fields: [
+      ['blocker', 'The blocker'], ['whatToBuild', 'What you imagine building'],
+      ['aiExperience', 'Where you are with AI'], ['toolsUsed', 'Tools you use'], ['toolsOther', 'Also paying for']
+    ]},
+    { step: 4, title: 'Timing', fields: [
+      ['timeline', 'Starting'], ['anythingElse', 'Anything else']
+    ]}
+  ];
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderReview() {
+    var html = '';
+    GROUPS.forEach(function (g) {
+      html += '<div class="rgroup">';
+      html += '<div class="rgroup-h">' + esc(g.title) +
+              '<button type="button" class="editlink" data-goto="' + g.step + '">Edit</button></div>';
+      g.fields.forEach(function (f) {
+        var v = valueOf(f[0]);
+        if (f[0] === 'businessTypeOther' && !valueOf('businessType').includes('Other')) return;
+        var display = Array.isArray(v) ? v.join(' · ') : v;
+        var empty = !display;
+        html += '<div class="ritem"><div class="rk">' + esc(f[1]) + '</div>' +
+                '<div class="rv' + (empty ? ' empty' : '') + '">' +
+                (empty ? 'Not answered' : esc(display)) + '</div></div>';
+      });
+      html += '</div>';
+    });
+    review.innerHTML = html;
+  }
+
+  review.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-goto]');
+    if (b) show(parseInt(b.getAttribute('data-goto'), 10));
+  });
+
+  /* ---------- nav ---------- */
+  form.addEventListener('click', function (e) {
+    if (e.target.closest('[data-next]')) {
+      if (stepValid(current)) show(current + 1);
+    } else if (e.target.closest('[data-back]')) {
+      show(current - 1);
+    }
+  });
+
+  /* Enter key advances rather than submitting early. */
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && current < steps.length - 1) {
+      e.preventDefault();
+      if (stepValid(current)) show(current + 1);
+    }
+  });
+
+  /* ---------- submit ---------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    steps[current].appendChild(err);
+    err.style.display = 'none';
+
+    for (var i = 0; i < steps.length - 1; i++) {
+      if (!stepValid(i)) { show(i); return; }
+    }
+
+    var data = collect();
+    data.businessType = valueOf('businessType').join(', ');
+    data.toolsUsed = valueOf('toolsUsed').join(', ');
+    if (!valueOf('businessType').includes('Other')) delete data.businessTypeOther;
+    data.source = 'your-business';
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    fetch('/api/audit-application/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.ok) {
+          btn.disabled = false;
+          btn.textContent = 'Submit →';
+          return fail(res.j.error || 'Something went wrong. Email ts@temitopesaliu.com and I will pick it up.');
+        }
+        if (window.gtag) {
+          gtag('event', 'generate_lead', {
+            form_id: 'your-business',
+            page_path: window.location.pathname,
+            value: 1000,
+            currency: 'USD'
+          });
+        }
+        if (window.fbq) fbq('track', 'Lead');
+        try { localStorage.removeItem(STORE); } catch (e2) {}
+        try { sessionStorage.setItem('yhe_yb_done', JSON.stringify({ name: data.fullName || '', email: data.email || '' })); } catch (e3) {}
+        window.location.href = '/youre-ready';
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Send this to Temitope →';
+        fail('Network problem. Email ts@temitopesaliu.com and I will pick it up.');
+      });
+  });
+
+  restore();
+  paintProgress();
+})();
+</script>
+
+</body>
+</html>
