@@ -165,9 +165,11 @@
   </section>
 
   <section class="wrap" id="cal-shell">
-    <!-- The calendly-inline-widget class is what widget.js auto-initialises on.
-         Without it the script loads but never renders anything. -->
-    <div id="calendly-inline" class="calendly-inline-widget"
+    <!-- Deliberately WITHOUT the calendly-inline-widget class. That class makes
+         widget.js auto-initialise, which races the explicit initInlineWidget call
+         below — both target the same element and the loser leaves a blank iframe.
+         One mechanism only: the explicit call. -->
+    <div id="calendly-inline"
          data-url="https://calendly.com/temitope-saliu/blueprint-bfy-audit?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
     <div class="afterbar">
       <div>
@@ -253,15 +255,18 @@
   // widget.js is loaded async, so it can arrive after DOMContentLoaded and miss
   // its own auto-init pass. Initialise explicitly once it is available.
   var tries = 0;
+  var initialised = false;
   (function ensureWidget() {
+    if (initialised) return;
     var box = document.getElementById('calendly-inline');
     if (!box) return;
-    if (box.querySelector('iframe')) return;
+    if (box.querySelector('iframe')) { initialised = true; return; }
     if (window.Calendly && typeof window.Calendly.initInlineWidget === 'function') {
+      initialised = true;
       window.Calendly.initInlineWidget({ url: box.getAttribute('data-url'), parentElement: box });
       return;
     }
-    if (++tries < 40) setTimeout(ensureWidget, 150);
+    if (++tries < 60) setTimeout(ensureWidget, 150);
   })();
 
   // Safety net: if the widget script is blocked, the fallback link is already
@@ -277,7 +282,7 @@
         '<a class="cta-btn" style="text-decoration:none" target="_blank" rel="noopener" ' +
         'href="https://calendly.com/temitope-saliu/blueprint-bfy-audit">Open the booking page &rarr;</a>';
     }
-  }, 6000);
+  }, 12000);
 })();
 </script>
 
