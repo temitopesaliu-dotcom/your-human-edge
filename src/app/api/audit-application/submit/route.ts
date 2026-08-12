@@ -72,7 +72,11 @@ export async function POST(request: NextRequest) {
       clean[key] = String(data[key] ?? "").trim().slice(0, 2000);
     }
 
-    const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+    // Dedicated Apps Script (scripts/apps-script/build-audit-application.gs):
+    // writes a sheet row and emails ts@temitopesaliu.com with reply-to set to
+    // the applicant. Do NOT fall back to GOOGLE_SHEETS_WEBHOOK_URL — that
+    // script belongs to a different form and expects a different payload.
+    const webhookUrl = process.env.AUDIT_APPLICATION_WEBHOOK_URL;
     let webhookOk = false;
 
     if (webhookUrl) {
@@ -97,7 +101,7 @@ export async function POST(request: NextRequest) {
         );
       }
     } else {
-      console.error("[audit-application] GOOGLE_SHEETS_WEBHOOK_URL not set");
+      console.error("[audit-application] AUDIT_APPLICATION_WEBHOOK_URL not set");
     }
 
     // Durable backup: even if the webhook is down, the lead is captured.
