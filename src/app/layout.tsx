@@ -45,9 +45,9 @@ export default function RootLayout({
 								gtag('config', '${gaId}', {
 									page_path: window.location.pathname,
 								});
-								document.addEventListener('click', function(e){ var a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null; if (!a) return; gtag('event', 'begin_checkout', { checkout_url: a.href, page_path: window.location.pathname }); if (window.fbq) fbq('track', 'InitiateCheckout'); }, true);
 							`}
 						</Script>
+						<Script src="/click-tracking.js" strategy="afterInteractive" />
 					</>
 				)}
 				{fbPixelId && (
