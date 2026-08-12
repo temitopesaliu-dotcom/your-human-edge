@@ -7,9 +7,15 @@ import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 import { isValidEmail } from '@/lib/utils/validation';
 import { isLaunchWindowOpen } from '@/lib/utils/playbook-pricing';
 
-/** Live Stripe objects on the Glide account (the account this app's key belongs to). */
-const PLAYBOOK_FALLBACK_PRICE_ID = 'price_1U3Q45BeGMcTHLJHO1wVeF0J';
-const PLAYBOOK_FALLBACK_COUPON_ID = '6uimP4fG';
+/**
+ * Live Stripe objects on the Glide Academy account (acct_1OrPJrKaNmUNiD4v) -
+ * the account STRIPE_SECRET_KEY belongs to. Prices from the other Glide
+ * account will NOT resolve here.
+ *   price_1U3QXgKaNmUNiD4vDyhOYwDN  GBP 39.00, tax inclusive
+ *   playbook-launch                 -GBP 29.01, once, redeem_by 2026-08-26
+ */
+const PLAYBOOK_FALLBACK_PRICE_ID = 'price_1U3QXgKaNmUNiD4vDyhOYwDN';
+const PLAYBOOK_FALLBACK_COUPON_ID = 'playbook-launch';
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',
