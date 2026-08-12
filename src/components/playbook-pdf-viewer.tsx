@@ -3,6 +3,7 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { type ArchetypeKey } from "@/lib/utils/archetypes";
 import PurchaseTracker from "@/components/purchase-tracker";
+import { isLaunchWindowOpen } from "@/lib/utils/playbook-pricing";
 
 // Import PDF CSS eagerly so it's available before the lazy-loaded renderer mounts
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -76,7 +77,8 @@ export default function PlaybookPdfViewer({
       <PurchaseTracker
         productId="playbook"
         productName="Archetype Playbook"
-        value={9.99}
+        value={isLaunchWindowOpen() ? 9.99 : 39}
+        currency="GBP"
         dedupKey="ga_purchase_playbook"
       />
       <style>{`
