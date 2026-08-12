@@ -73,11 +73,29 @@
   .pill.next { opacity: .62; }
 
   #cal-shell { padding: 8px 0 60px; }
-  #calendly-inline {
-    min-width: 320px; height: 1000px;
+  #cal-wrap {
+    position: relative; min-height: 1000px;
     background: var(--white); border: 1px solid var(--border);
     border-radius: var(--radius); overflow: hidden;
   }
+  #calendly-inline { min-width: 320px; height: 1000px; }
+  /* Calendly's own page can take 15-20s to paint. Without this the buyer stares
+     at a white rectangle straight after paying and assumes it broke. */
+  #cal-loading {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    text-align: center; padding: 24px; z-index: 1; background: var(--white);
+    transition: opacity .35s ease;
+  }
+  #cal-loading.hide { opacity: 0; pointer-events: none; }
+  #cal-loading p { font-size: 15.5px; color: var(--ink-soft); margin: 0; }
+  #cal-loading .cal-sub { font-size: 13.5px; color: #8d86a8; }
+  .cal-spinner {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 3px solid var(--bg-alt); border-top-color: var(--lavender-deep);
+    animation: cal-spin .8s linear infinite;
+  }
+  @keyframes cal-spin { to { transform: rotate(360deg); } }
   .fallback {
     margin-top: 14px; font-size: 13.5px; color: var(--ink-soft);
   }
@@ -169,8 +187,15 @@
          widget.js auto-initialise, which races the explicit initInlineWidget call
          below — both target the same element and the loser leaves a blank iframe.
          One mechanism only: the explicit call. -->
-    <div id="calendly-inline"
-         data-url="https://calendly.com/temitope-saliu/blueprint-bfy-audit?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
+    <div id="cal-wrap">
+      <div id="cal-loading">
+        <div class="cal-spinner"></div>
+        <p>Loading your calendar…</p>
+        <p class="cal-sub">Calendly can take a few seconds. Nothing is broken.</p>
+      </div>
+      <div id="calendly-inline"
+           data-url="https://calendly.com/temitope-saliu/blueprint-bfy-audit?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
+    </div>
     <div class="afterbar">
       <div>
         <div class="ab-t">Already picked your time?</div>
@@ -269,11 +294,24 @@
     if (++tries < 60) setTimeout(ensureWidget, 150);
   })();
 
+  // Calendly posts a page_height message once its booking page has actually
+  // rendered. That, not the iframe appearing, is when it is safe to lift the
+  // loading state.
+  window.addEventListener('message', function (e) {
+    if (e.origin.indexOf('calendly.com') === -1) return;
+    if (!e.data || typeof e.data.event !== 'string') return;
+    if (e.data.event.indexOf('calendly.') !== 0) return;
+    var load = document.getElementById('cal-loading');
+    if (load) load.classList.add('hide');
+  });
+
   // Safety net: if the widget script is blocked, the fallback link is already
   // on the page, but make the section obvious rather than an empty box.
   setTimeout(function () {
     var box = document.getElementById('calendly-inline');
     if (box && !box.querySelector('iframe')) {
+      var l = document.getElementById('cal-loading');
+      if (l) l.classList.add('hide');
       box.style.height = 'auto';
       box.style.padding = '38px 26px';
       box.innerHTML =
