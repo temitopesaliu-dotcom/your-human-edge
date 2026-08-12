@@ -35,7 +35,14 @@ var COLUMNS = [
   ['budgetReady', '$1,000 readiness'],
   ['timeline', 'Timeline'],
   ['howHeard', 'How they found me'],
-  ['anythingElse', 'Anything else']
+  ['anythingElse', 'Anything else'],
+  // Appended only at the end. Inserting in the middle would shift every
+  // existing row's data out of line with its header.
+  ['businessType', 'Business type(s)'],
+  ['businessTypeOther', 'Business type - other'],
+  ['toolsUsed', 'Tools they use'],
+  ['toolsOther', 'Other tools they pay for'],
+  ['source', 'Form']
 ];
 
 function doPost(e) {
@@ -79,6 +86,19 @@ function appendRow_(data) {
     sheet.appendRow(COLUMNS.map(function (c) { return c[1]; }));
     sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+  } else {
+    // Columns added after the sheet was created would otherwise write values
+    // under blank headers. Rewrite the header row to match COLUMNS.
+    var headerRange = sheet.getRange(1, 1, 1, COLUMNS.length);
+    var header = headerRange.getValues()[0];
+    var stale = false;
+    for (var h = 0; h < COLUMNS.length; h++) {
+      if (String(header[h] || '') !== COLUMNS[h][1]) { stale = true; break; }
+    }
+    if (stale) {
+      headerRange.setValues([COLUMNS.map(function (c) { return c[1]; })]);
+      headerRange.setFontWeight('bold');
+    }
   }
 
   var values = COLUMNS.map(function (c) {
