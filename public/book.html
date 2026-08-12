@@ -108,10 +108,8 @@
   }
   #booked h2 { font-size: clamp(26px, 4.2vw, 36px); margin-bottom: 14px; }
   #booked p { font-size: 16.5px; color: var(--ink-soft); max-width: 620px; margin-bottom: 12px; }
-  .bar { height: 6px; border-radius: 100px; background: var(--bg-alt); overflow: hidden; max-width: 420px; margin: 26px 0 12px; }
-  .bar span { display: block; height: 100%; width: 0; border-radius: 100px;
-    background: linear-gradient(90deg, var(--lavender), var(--lavender-deep)); animation: fill 2.4s ease forwards; }
-  @keyframes fill { to { width: 100%; } }
+  .autonote { font-size: 13.5px; color: var(--ink-soft); margin-top: 16px; }
+  #booked .cta-btn { margin-top: 18px; }
   .cta-btn {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
     background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
@@ -195,9 +193,8 @@
     <h2>Your call is in the diary.</h2>
     <p>The calendar invite and Zoom link are on their way to your inbox.</p>
     <p><strong>One last thing</strong> — the questions about your business. It's what I build the session around.</p>
-    <div class="bar"><span></span></div>
-    <p style="font-size:14px">Taking you there now…</p>
-    <a class="cta-btn" href="/your-business">Continue &rarr;</a>
+    <a class="cta-btn" href="/your-business">Continue to your business details &rarr;</a>
+    <p class="autonote">Or wait &mdash; this page moves on by itself in <span id="countdown">20</span> seconds.</p>
   </section>
 </main>
 
@@ -232,9 +229,16 @@
     document.getElementById('booked').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Give them a beat to register that the booking worked, then move on.
-    // The Continue button is there for anyone who does not want to wait.
-    setTimeout(function () { window.location.href = NEXT; }, 2600);
+    // Long enough to actually read the confirmation. The Continue button is
+    // right there for anyone who does not want to wait, and the countdown makes
+    // it obvious the page is going to move rather than feeling like a glitch.
+    var left = 20;
+    var el = document.getElementById('countdown');
+    var tick = setInterval(function () {
+      left -= 1;
+      if (el) el.textContent = left;
+      if (left <= 0) { clearInterval(tick); window.location.href = NEXT; }
+    }, 1000);
   }
 
   // Calendly posts messages up from the embedded iframe. event_scheduled is
