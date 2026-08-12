@@ -3,6 +3,17 @@ import { type ArchetypeKey, ARCHETYPES } from '../utils/archetypes';
 /** Live MailerLite group: "Build Audit Applications". */
 const BUILD_AUDIT_GROUP_ID = '195554021352670299';
 
+/**
+ * Live MailerLite group: "Platform OS Audit — Paid ($1,000)".
+ *
+ * Joining this group triggers the "Platform OS Audit — Payment Received &
+ * Booking" automation: the booking-link email goes out immediately, and a
+ * "still unbooked" nudge follows two days later. Adding the applicant here on
+ * submit is what makes /youre-ready's promise ("your booking link will be sent
+ * to you") true — nothing else in the codebase adds anyone to this group.
+ */
+const AUDIT_PAID_GROUP_ID = '195383699307496638';
+
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
   C: 'MAILERLITE_GROUP_C',
@@ -482,9 +493,10 @@ export async function addIntelligenceLayerPaidSubscriber(
 
 
 /**
- * Build-audit application (the /apply form for the $1,000 build audit).
- * Stored as a MailerLite subscriber so no lead is lost even if the
- * spreadsheet webhook is unavailable.
+ * Business details for the $1,000 build audit (the /your-business form,
+ * completed after payment). Stored as a MailerLite subscriber so no lead is
+ * lost even if the spreadsheet webhook is unavailable, and so the booking
+ * automation fires.
  */
 export async function addBuildAuditApplicantToMailerLite(
   email: string,
@@ -501,6 +513,7 @@ export async function addBuildAuditApplicantToMailerLite(
   const allGroup = process.env.MAILERLITE_GROUP_ALL;
   if (allGroup) groups.push(allGroup);
   groups.push(process.env.MAILERLITE_BUILD_AUDIT_GROUP || BUILD_AUDIT_GROUP_ID);
+  groups.push(process.env.MAILERLITE_AUDIT_PAID_GROUP || AUDIT_PAID_GROUP_ID);
 
   const result = await mailerLiteRequest('/subscribers', {
     method: 'POST',
