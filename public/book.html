@@ -300,7 +300,10 @@
   window.addEventListener('message', function (e) {
     if (e.origin.indexOf('calendly.com') === -1) return;
     if (!e.data || typeof e.data.event !== 'string') return;
-    if (e.data.event.indexOf('calendly.') !== 0) return;
+    // Only these two mean the booking page has actually painted. Hiding on any
+    // calendly.* message lifts the spinner too early and leaves a white gap.
+    if (e.data.event !== 'calendly.event_type_viewed' &&
+        e.data.event !== 'calendly.page_height') return;
     var load = document.getElementById('cal-loading');
     if (load) load.classList.add('hide');
   });
