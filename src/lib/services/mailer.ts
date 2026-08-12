@@ -4,15 +4,16 @@ import { type ArchetypeKey, ARCHETYPES } from '../utils/archetypes';
 const BUILD_AUDIT_GROUP_ID = '195554021352670299';
 
 /**
- * Live MailerLite group: "Platform OS Audit — Paid ($1,000)".
+ * Deliberately NOT wired up: MailerLite group "Platform OS Audit — Paid
+ * ($1,000)" (195383699307496638) triggers the "here's your booking link"
+ * automation. Buyers now book on Calendly straight after Stripe, BEFORE they
+ * ever reach /your-business, so sending them a booking link at submit time
+ * would tell them to do something they have already done.
  *
- * Joining this group triggers the "Platform OS Audit — Payment Received &
- * Booking" automation: the booking-link email goes out immediately, and a
- * "still unbooked" nudge follows two days later. Adding the applicant here on
- * submit is what makes /youre-ready's promise ("your booking link will be sent
- * to you") true — nothing else in the codebase adds anyone to this group.
+ * The open gap: someone who pays and closes the tab without booking is only
+ * recorded in Stripe. Closing it properly needs a Stripe webhook that adds the
+ * customer to that group on checkout.session.completed — not a change here.
  */
-const AUDIT_PAID_GROUP_ID = '195383699307496638';
 
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
@@ -513,7 +514,6 @@ export async function addBuildAuditApplicantToMailerLite(
   const allGroup = process.env.MAILERLITE_GROUP_ALL;
   if (allGroup) groups.push(allGroup);
   groups.push(process.env.MAILERLITE_BUILD_AUDIT_GROUP || BUILD_AUDIT_GROUP_ID);
-  groups.push(process.env.MAILERLITE_AUDIT_PAID_GROUP || AUDIT_PAID_GROUP_ID);
 
   const result = await mailerLiteRequest('/subscribers', {
     method: 'POST',
