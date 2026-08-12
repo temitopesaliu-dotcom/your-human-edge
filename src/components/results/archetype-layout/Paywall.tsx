@@ -1,4 +1,11 @@
 import { isValidEmail } from "@/lib/utils/validation";
+import {
+  PLAYBOOK_LIST_PRICE_LABEL,
+  PLAYBOOK_LAUNCH_PRICE_LABEL,
+  isLaunchWindowOpen,
+  launchDaysLeft,
+  launchEndsLabel,
+} from "@/lib/utils/playbook-pricing";
 import type { ArchetypeConfig } from "./types";
 
 interface PaywallProps {
@@ -20,17 +27,29 @@ export default function Paywall({
   onFallbackEmailChange,
   onBuy,
 }: PaywallProps) {
+  const launchOpen = isLaunchWindowOpen();
+  const payNow = launchOpen ? PLAYBOOK_LAUNCH_PRICE_LABEL : PLAYBOOK_LIST_PRICE_LABEL;
+  const daysLeft = launchDaysLeft();
+
   return (
     <div id="paywall">
       <div className="paywall-inner">
-        <div className="pw-pre">Your Personal Playbook · $9.99</div>
+        <div className="pw-pre">Your Personal Playbook · {payNow}</div>
         <h2 className="pw-title">The Step-by-Step Blueprint to Your First<br /><em>5 Figure Month</em> using AI</h2>
         <p className="pw-sub">
           Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The {config.name}.
         </p>
-        <div className="pw-price-was">Valued at $57</div>
-        <div className="pw-price">$9.99</div>
-        <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
+        {launchOpen && <div className="pw-price-was">{PLAYBOOK_LIST_PRICE_LABEL}</div>}
+        <div className="pw-price">{payNow}</div>
+        {launchOpen ? (
+          <div className="pw-badge">
+            Launch price — applied automatically, no code needed. Goes back to{" "}
+            {PLAYBOOK_LIST_PRICE_LABEL} on {launchEndsLabel()}
+            {daysLeft > 0 ? ` (${daysLeft} day${daysLeft === 1 ? "" : "s"} left)` : ""}.
+          </div>
+        ) : (
+          <div className="pw-badge">One payment. Yours to keep.</div>
+        )}
         <div>
           {showEmailInput && (
             <div style={{ marginBottom: "16px" }}>
