@@ -5,12 +5,14 @@ import { getClientIp } from "@/lib/utils/get-client-ip";
 import { isValidEmail } from "@/lib/utils/validation";
 
 /**
- * Application form for the $1,000 build audit (the /get-this-built audience).
+ * Business-details form for the $1,000 build audit (the /get-this-built
+ * audience). Served at /your-business, completed AFTER payment, and finished
+ * on /youre-ready.
  *
- * Deliberately separate from /the-blueprint-audit/apply: that funnel takes
- * payment first. This one is application-first — the applicant is reviewed,
- * then sent a payment link if it is a fit. At $1,000 non-refundable, screening
- * before the money changes hands avoids refund disputes and wasted calls.
+ * `businessType` arrives as a comma-joined string because the form asks for it
+ * as a multi-select checklist. `budgetReady` is retained only so older rows in
+ * the sheet keep their column position — the new form does not ask it, because
+ * the money has already changed hands by the time anyone sees this page.
  *
  * Submissions go to the Apps Script webhook (spreadsheet row + email to
  * ts@temitopesaliu.com) and to MailerLite as a durable backup record.
@@ -22,6 +24,8 @@ const FIELDS = [
   "phone",
   "country",
   "businessName",
+  "businessType",
+  "businessTypeOther",
   "website",
   "whatYouDo",
   "currentOffer",
@@ -30,10 +34,13 @@ const FIELDS = [
   "blocker",
   "whatToBuild",
   "aiExperience",
+  "toolsUsed",
+  "toolsOther",
   "budgetReady",
   "timeline",
   "howHeard",
   "anythingElse",
+  "source",
 ] as const;
 
 type FieldKey = (typeof FIELDS)[number];
