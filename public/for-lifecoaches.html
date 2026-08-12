@@ -84,6 +84,25 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); co
   box-shadow: -4px 0 32px rgba(0,0,0,0.3);
 }
 #config-panel.collapsed { transform: translateX(280px); }
+#config-fab {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 1002;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 14px 22px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.3);
+}
 #config-toggle {
   position: absolute;
   left: -44px;
@@ -629,14 +648,65 @@ input[type="range"] {
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 900px) {
-  #config-panel { width: 100%; height: auto; bottom: auto; top: auto; right: 0; }
+  /* The config panel becomes a bottom sheet, closed by default, so the
+     demo page itself is what people see first. */
   #app { margin-right: 0; }
+  #app.expanded { margin-right: 0; }
+
+  #config-panel {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-height: 82vh;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.35);
+    transform: translateY(0);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  #config-panel.collapsed { transform: translateY(102%); }
+
+  /* The in-panel tab is useless on a bottom sheet: a fixed child of a
+     transformed parent moves with the parent, so it would slide off screen. */
+  #config-toggle { display: none; }
+  #config-fab { display: inline-flex; }
+  /* When the sheet is open the button sits top-right, so it never sits on
+     top of the Apply & Preview button at the bottom of the sheet. */
+  #config-fab.is-open {
+    top: calc(12px + env(safe-area-inset-top));
+    bottom: auto;
+  }
+  /* Breathing room under the last control so nothing hides behind the sheet edge. */
+  .config-body { padding-bottom: 32px; }
+
+  /* Nav: keep the brand on one line, let the links scroll. */
+  .nav-brand { font-size: 0.95rem; white-space: nowrap; margin-right: 12px; }
+  .nav-link { padding: 8px 12px; font-size: 0.78rem; white-space: nowrap; }
+
+  .config-header { padding: 16px 20px; }
+  .config-body { padding: 16px 20px 32px; -webkit-overflow-scrolling: touch; }
+  .config-group { margin-bottom: 16px; }
+  .config-apply { position: sticky; bottom: 0; }
+
   nav { padding: 0 16px; }
-  .hero { padding: 48px 24px 64px; }
-  .hero h1 { font-size: 2rem; }
-  #view-quiz, #view-programs, #view-community, #view-calculator, #view-dashboard { padding: 40px 24px; }
+  .hero { padding: 48px 20px 56px; }
+  .hero h1 { font-size: 1.9rem; }
+  #view-quiz, #view-programs, #view-community, #view-calculator, #view-dashboard,
+  #view-about { padding: 36px 20px; }
   .dash-grid { grid-template-columns: 1fr; }
-  .results-grid { grid-template-columns: 1fr 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
+  .quiz-nav { flex-direction: column; }
+  .quiz-nav button { width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .hero h1 { font-size: 1.6rem; }
+  nav { padding: 0 12px; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  nav::-webkit-scrollbar { display: none; }
+  #view-quiz, #view-programs, #view-community, #view-calculator, #view-dashboard,
+  #view-about { padding: 28px 16px; }
 }
 
 /* ── GET THIS BUILT — Your Human Edge with AI ── */
@@ -689,6 +759,7 @@ input[type="range"] {
 <body>
 
 <!-- ── CONFIG PANEL ── -->
+<button id="config-fab" type="button" onclick="toggleConfig()">⚙ Customise</button>
 <div id="config-panel">
   <button id="config-toggle" onclick="toggleConfig()">⚙ CONFIG</button>
   <div class="config-header">
@@ -1351,6 +1422,18 @@ function applyConfig() {
   CFG.niche = document.getElementById('cfg-niche').value;
   CFG.followers = document.getElementById('cfg-followers').value;
   renderAll();
+
+  // On phones, close the sheet so the person actually SEES the preview
+  // they just asked for instead of staring at the form again.
+  const panel = document.getElementById('config-panel');
+  if (panel && window.matchMedia('(max-width: 900px)').matches) {
+    panel.classList.add('collapsed');
+    const app = document.getElementById('app');
+    if (app) app.classList.add('expanded');
+    syncConfigFab();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   toast(`✅ Platform updated for ${CFG.name}!`);
 }
 
@@ -1588,6 +1671,34 @@ function toggleConfig() {
   const app = document.getElementById('app');
   panel.classList.toggle('collapsed');
   app.classList.toggle('expanded');
+  syncConfigFab();
+}
+
+function syncConfigFab() {
+  const panel = document.getElementById('config-panel');
+  const fab = document.getElementById('config-fab');
+  if (!panel || !fab) return;
+  const closed = panel.classList.contains('collapsed');
+  fab.textContent = closed ? '⚙ Customise' : '✕ Close';
+  fab.classList.toggle('is-open', !closed);
+}
+
+/* On phones the panel starts closed so the demo itself is what loads. */
+function initConfigForViewport() {
+  const panel = document.getElementById('config-panel');
+  const app = document.getElementById('app');
+  if (!panel) return;
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    panel.classList.add('collapsed');
+    if (app) app.classList.add('expanded');
+  }
+  syncConfigFab();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initConfigForViewport);
+} else {
+  initConfigForViewport();
 }
 
 // ── VIEW ROUTING ──
