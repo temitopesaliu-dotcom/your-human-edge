@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       { source: '/get-this-built', destination: '/get-this-built.html' },
       { source: '/appreciate', destination: '/appreciate.html' },
       { source: '/appreciated', destination: '/appreciated.html' },
+      { source: '/apply', destination: '/apply.html' },
     ];
   },
 };
