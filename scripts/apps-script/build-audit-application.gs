@@ -81,11 +81,16 @@ function appendRow_(data) {
     sheet.setFrozenRows(1);
   }
 
-  sheet.appendRow(
-    COLUMNS.map(function (c) {
-      return data[c[0]] == null ? '' : String(data[c[0]]);
-    })
-  );
+  var values = COLUMNS.map(function (c) {
+    return data[c[0]] == null ? '' : String(data[c[0]]);
+  });
+
+  // Write as plain text. appendRow would let Sheets parse a value like
+  // "+44 7000 000000" or "=x" as a formula and store #ERROR! instead.
+  var row = sheet.getLastRow() + 1;
+  var range = sheet.getRange(row, 1, 1, COLUMNS.length);
+  range.setNumberFormat('@');
+  range.setValues([values]);
 }
 
 function sendNotification_(data) {
