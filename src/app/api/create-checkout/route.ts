@@ -5,17 +5,16 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
 import { stripe } from '@/lib/services/stripe';
 import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 import { isValidEmail } from '@/lib/utils/validation';
-import { isLaunchWindowOpen } from '@/lib/utils/playbook-pricing';
 
 /**
  * Live Stripe objects on the Glide Academy account (acct_1OrPJrKaNmUNiD4v) -
  * the account STRIPE_SECRET_KEY belongs to. Prices from the other Glide
  * account will NOT resolve here.
  *   price_1U3QXgKaNmUNiD4vDyhOYwDN  GBP 39.00, tax inclusive
- *   playbook-launch                 -GBP 29.01, once, redeem_by 2026-08-26
+ *   playbook-999                    -GBP 29.01, once, no expiry
  */
 const PLAYBOOK_FALLBACK_PRICE_ID = 'price_1U3QXgKaNmUNiD4vDyhOYwDN';
-const PLAYBOOK_FALLBACK_COUPON_ID = 'playbook-launch';
+const PLAYBOOK_FALLBACK_COUPON_ID = 'playbook-999';
 
 const NAME_TO_KEY: Record<string, ArchetypeKey> = {
   'The Human Bridge': 'H',
@@ -66,10 +65,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Launch window: apply the discount automatically so the buyer never has to
-    // find or type a code. Outside the window the price is a genuine £39 and we
-    // re-open the promo-code box instead (the two are mutually exclusive).
-    const launchOpen = isLaunchWindowOpen();
+    // The discount is always applied so the buyer never has to find or type a
+    // code, and the page price always matches what Stripe charges.
     const couponId = process.env.STRIPE_PLAYBOOK_COUPON_ID || PLAYBOOK_FALLBACK_COUPON_ID;
 
     const session = await stripe.checkout.sessions.create({
@@ -80,14 +77,12 @@ export async function POST(req: NextRequest) {
         product: 'playbook',
         archetype: archetypeKey,
         source: 'quiz-funnel',
-        pricing: launchOpen ? 'launch' : 'list',
+        pricing: 'standard',
       },
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${siteUrl}/playbook?session_id={CHECKOUT_SESSION_ID}&arch=${archetypeKey}`,
       cancel_url: `${siteUrl}/results/${ARCHETYPE_SLUGS[archetypeKey] || 'human-bridge'}#upgrade`,
-      ...(launchOpen
-        ? { discounts: [{ coupon: couponId }] }
-        : { allow_promotion_codes: true }),
+      discounts: [{ coupon: couponId }],
     });
 
     return NextResponse.json({ url: session.url });
