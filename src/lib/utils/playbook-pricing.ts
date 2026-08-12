@@ -9,9 +9,9 @@
  * reject it anyway, because it has a redeem_by date), so the price reverts
  * to a genuine £39.
  *
- * Stripe (Glide, live mode):
- *   price  price_1U3Q45BeGMcTHLJHO1wVeF0J   £39.00 GBP, tax_behavior=inclusive
- *   coupon 6uimP4fG                         -£29.01 GBP, once, redeem_by 2026-08-26
+ * Stripe (Glide Academy, acct_1OrPJrKaNmUNiD4v, live mode):
+ *   price  price_1U3QXgKaNmUNiD4vDyhOYwDN   £39.00 GBP, tax_behavior=inclusive
+ *   coupon playbook-launch                  -£29.01 GBP, once, redeem_by 2026-08-26
  */
 
 export const PLAYBOOK_LIST_PRICE_LABEL = "£39";
