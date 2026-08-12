@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Your Audit Call — Temitope Saliu</title>
+<meta name="description" content="Pick your time for the Blueprint Audit. Two focused hours on your business.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaff;
+    --bg-alt: #f3f0fb;
+    --white: #ffffff;
+    --lavender: #8b7fd8;
+    --lavender-dark: #6a5acd;
+    --lavender-deep: #4b3f96;
+    --lavender-tint: #f0edfc;
+    --ink: #211c34;
+    --ink-soft: #524b6b;
+    --border: #e4dff5;
+    --shadow: 0 10px 40px rgba(107, 91, 208, 0.12);
+    --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    background: rgba(251, 250, 255, 0.92);
+    border-bottom: 1px solid var(--border);
+  }
+  .navrow { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; color: var(--ink); text-decoration: none; }
+  .paid {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #e8f5ee; color: #2e7d5b; border-radius: 100px;
+    padding: 5px 13px; font-size: 12.5px; font-weight: 600;
+  }
+  .paid .dot { width: 7px; height: 7px; border-radius: 50%; background: #2e7d5b; }
+
+  .hero { padding: 40px 0 26px; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--lavender-deep); font-weight: 600; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(27px, 4.4vw, 38px); line-height: 1.14; margin-bottom: 14px; }
+  .lede { font-size: 16.5px; color: var(--ink-soft); max-width: 640px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .steps {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin: 24px 0 4px; font-size: 13px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    border-radius: 100px; padding: 6px 14px; font-weight: 600;
+    background: var(--white); border: 1px solid var(--border); color: var(--ink-soft);
+  }
+  .pill.done { background: var(--bg-alt); color: var(--ink-soft); }
+  .pill.done::before { content: '✓'; color: #2e7d5b; font-weight: 700; }
+  .pill.now { background: var(--lavender-deep); border-color: var(--lavender-deep); color: #fff; }
+  .pill.next { opacity: .62; }
+
+  #cal-shell { padding: 8px 0 60px; }
+  #calendly-inline {
+    min-width: 320px; height: 1000px;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .fallback {
+    margin-top: 14px; font-size: 13.5px; color: var(--ink-soft);
+  }
+  .fallback a { color: var(--lavender-deep); }
+  .afterbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap; margin-top: 18px;
+    background: var(--lavender-tint); border: 1px solid #d9d1f5;
+    border-radius: 14px; padding: 16px 18px;
+  }
+  .ab-t { font-size: 15px; font-weight: 600; }
+  .ab-d { font-size: 13.5px; color: var(--ink-soft); }
+  .ghost-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--white); border: 1px solid var(--lavender); color: var(--lavender-deep);
+    font-family: inherit; font-weight: 600; font-size: 14.5px;
+    padding: 12px 22px; border-radius: 100px; cursor: pointer; text-decoration: none;
+    white-space: nowrap;
+  }
+  .ghost-btn:hover { background: var(--white); border-color: var(--lavender-deep); }
+
+  /* Booked state */
+  #booked { display: none; padding: 70px 0 110px; text-align: left; }
+  .tick {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    display: grid; place-items: center; margin-bottom: 24px; box-shadow: var(--shadow);
+  }
+  #booked h2 { font-size: clamp(26px, 4.2vw, 36px); margin-bottom: 14px; }
+  #booked p { font-size: 16.5px; color: var(--ink-soft); max-width: 620px; margin-bottom: 12px; }
+  .bar { height: 6px; border-radius: 100px; background: var(--bg-alt); overflow: hidden; max-width: 420px; margin: 26px 0 12px; }
+  .bar span { display: block; height: 100%; width: 0; border-radius: 100px;
+    background: linear-gradient(90deg, var(--lavender), var(--lavender-deep)); animation: fill 2.4s ease forwards; }
+  @keyframes fill { to { width: 100%; } }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    color: var(--white); font-weight: 600; font-size: 16px;
+    padding: 16px 32px; border-radius: 100px; text-decoration: none;
+    box-shadow: var(--shadow); border: none; cursor: pointer; font-family: inherit;
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 26px 0; font-size: 13px; color: var(--ink-soft); }
+  footer a { color: var(--lavender-deep); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 28px 0 18px; }
+    #calendly-inline { height: 1150px; }
+    .paid { display: none; }
+  }
+</style>
+<!-- Analytics: GA4 + Meta Pixel + Clarity + sitewide click tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28CRPR339W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-28CRPR339W', { page_path: window.location.pathname });
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','866191863979024');fbq('track','PageView');
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x0r48qni9r");
+</script>
+<script src="/click-tracking.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap navrow">
+    <a class="brand" href="https://temitopesaliu.com">Temitope Saliu</a>
+    <span class="paid"><span class="dot"></span> Payment received</span>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero" id="hero">
+    <div class="eyebrow">Step 1 of 2</div>
+    <h1>Pick your time.</h1>
+    <p class="lede">
+      Two focused hours on your business. <strong>Claim your slot first</strong> &mdash; then I'll ask you
+      a few questions about the business so I can build the architecture before we speak.
+    </p>
+    <div class="steps">
+      <span class="pill done">Paid</span>
+      <span class="pill now">Book your call</span>
+      <span class="pill next">Your business details</span>
+    </div>
+  </section>
+
+  <section class="wrap" id="cal-shell">
+    <div id="calendly-inline" data-url="https://calendly.com/temitope-saliu/blueprint-bfy-audit?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
+    <div class="afterbar">
+      <div>
+        <div class="ab-t">Already picked your time?</div>
+        <div class="ab-d">If this page doesn't move on by itself, carry on here.</div>
+      </div>
+      <a class="ghost-btn" href="/your-business">Your business details &rarr;</a>
+    </div>
+    <p class="fallback">
+      Calendar not loading? Book directly at
+      <a href="https://calendly.com/temitope-saliu/blueprint-bfy-audit" target="_blank" rel="noopener">calendly.com/temitope-saliu/blueprint-bfy-audit</a>,
+      then come back to <a href="/your-business">temitopesaliu.com/your-business</a>.
+    </p>
+  </section>
+
+  <section class="wrap" id="booked">
+    <div class="tick">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <div class="eyebrow">Booked</div>
+    <h2>Your call is in the diary.</h2>
+    <p>The calendar invite and Zoom link are on their way to your inbox.</p>
+    <p><strong>One last thing</strong> — the questions about your business. It's what I build the session around.</p>
+    <div class="bar"><span></span></div>
+    <p style="font-size:14px">Taking you there now…</p>
+    <a class="cta-btn" href="/your-business">Continue &rarr;</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; Temitope Saliu &middot; <a href="https://temitopesaliu.com">temitopesaliu.com</a>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+(function () {
+  var NEXT = '/your-business';
+  var redirected = false;
+
+  function goNext() {
+    if (redirected) return;
+    redirected = true;
+    if (window.gtag) {
+      gtag('event', 'audit_call_booked', {
+        page_path: window.location.pathname,
+        value: 1000,
+        currency: 'USD'
+      });
+    }
+    if (window.fbq) fbq('track', 'Schedule');
+    try { sessionStorage.setItem('yhe_call_booked', '1'); } catch (e) {}
+
+    document.getElementById('hero').style.display = 'none';
+    document.getElementById('cal-shell').style.display = 'none';
+    document.getElementById('booked').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Give them a beat to register that the booking worked, then move on.
+    // The Continue button is there for anyone who does not want to wait.
+    setTimeout(function () { window.location.href = NEXT; }, 2600);
+  }
+
+  // Calendly posts messages up from the embedded iframe. event_scheduled is
+  // the only one that means a booking actually completed.
+  window.addEventListener('message', function (e) {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (typeof e.data.event !== 'string') return;
+    if (e.origin.indexOf('calendly.com') === -1) return;
+    if (e.data.event === 'calendly.event_scheduled') goNext();
+  });
+
+  // Safety net: if the widget script is blocked, the fallback link is already
+  // on the page, but make the section obvious rather than an empty box.
+  setTimeout(function () {
+    var box = document.getElementById('calendly-inline');
+    if (box && !box.querySelector('iframe')) {
+      box.style.height = 'auto';
+      box.style.padding = '38px 26px';
+      box.innerHTML =
+        '<p style="font-family:Inter,sans-serif;font-size:15.5px;color:#524b6b;margin-bottom:14px">' +
+        'The calendar could not load in this browser.</p>' +
+        '<a class="cta-btn" style="text-decoration:none" target="_blank" rel="noopener" ' +
+        'href="https://calendly.com/temitope-saliu/blueprint-bfy-audit">Open the booking page &rarr;</a>';
+    }
+  }, 6000);
+})();
+</script>
+
+</body>
+</html>
