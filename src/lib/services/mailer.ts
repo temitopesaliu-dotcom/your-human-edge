@@ -1,5 +1,8 @@
 import { type ArchetypeKey, ARCHETYPES } from '../utils/archetypes';
 
+/** Live MailerLite group: "Build Audit Applications". */
+const BUILD_AUDIT_GROUP_ID = '195554021352670299';
+
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
   C: 'MAILERLITE_GROUP_C',
@@ -476,3 +479,46 @@ export async function addIntelligenceLayerPaidSubscriber(
   }
 }
 
+
+
+/**
+ * Build-audit application (the /apply form for the $1,000 build audit).
+ * Stored as a MailerLite subscriber so no lead is lost even if the
+ * spreadsheet webhook is unavailable.
+ */
+export async function addBuildAuditApplicantToMailerLite(
+  email: string,
+  name: string,
+  answers: Record<string, string> = {},
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) {
+    console.warn('[mailer] MAILERLITE_API_KEY not set — skipping build audit applicant add');
+    return;
+  }
+
+  const groups: string[] = [];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+  groups.push(process.env.MAILERLITE_BUILD_AUDIT_GROUP || BUILD_AUDIT_GROUP_ID);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: {
+      email,
+      fields: {
+        name,
+        subscriber_type: 'build-audit-applicant',
+        company: answers.businessName || '',
+        country: answers.country || '',
+        phone: answers.phone || '',
+      },
+      groups,
+    },
+  });
+
+  if (!result.ok) {
+    console.error('[mailer] Build Audit MailerLite add failed:', result.status, result.errorText);
+    throw new Error(`MailerLite ${result.status}: ${result.errorText}`);
+  }
+}
