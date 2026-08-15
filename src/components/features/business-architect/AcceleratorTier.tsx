@@ -1,5 +1,12 @@
-import { ArrowIcon, CheckIcon, StarIcon, UsersIcon, UserIcon, ShieldIcon } from "./Icons";
-import { ACCELERATOR_HREF } from "./business-architect.data";
+import { CheckIcon, StarIcon, UsersIcon, UserIcon, ShieldIcon } from "./Icons";
+import CheckoutButton from "./CheckoutButton";
+import {
+  ACCELERATOR_PRICE,
+  acceleratorStack,
+  builderStack,
+  sum,
+} from "./business-architect.data";
+import ValueStack from "./ValueStack";
 
 export default function AcceleratorTier() {
   return (
@@ -22,13 +29,28 @@ export default function AcceleratorTier() {
           support behind every critical step.
         </div>
         <div className="tier-price-row">
-          <div className="tier-price">$1,497</div>
+          <div className="tier-price">$997</div>
         </div>
-        <a href={ACCELERATOR_HREF} className="tier-btn p">
-          Join as The Accelerator <ArrowIcon />
-        </a>
+        <CheckoutButton tier="accelerator" className="tier-btn p">
+          Join as The Accelerator
+        </CheckoutButton>
+        <div className="tier-guarantee">
+          Covered by the Six-Track Guarantee
+        </div>
       </div>
       <div className="tier-body">
+        <ValueStack
+          rows={[
+            {
+              label: "Everything in The Builder (full stack above)",
+              value: sum(builderStack),
+            },
+            ...acceleratorStack,
+          ]}
+          price={ACCELERATOR_PRICE}
+          accent="p"
+        />
+
         <div className="tier-section-lbl">
           Everything in The Builder, plus
         </div>
@@ -50,8 +72,8 @@ export default function AcceleratorTier() {
           </div>
           <div className="bs-math">
             Two people. One programme. One investment of{" "}
-            <strong>$1,497</strong> — rather than two separate seats at
-            $997 each plus the Accelerator extras. The Builder Seat
+            <strong>$997</strong> — rather than two separate seats at
+            $597 each plus the Accelerator extras. The Builder Seat
             is included because the best Business Architects do not
             build alone.
           </div>
@@ -106,13 +128,6 @@ export default function AcceleratorTier() {
           <CheckIcon />
           <span>
             Priority feedback — questions answered within 24 hours
-          </span>
-        </div>
-        <div className="tf pu">
-          <CheckIcon />
-          <span>
-            <strong>The Invisible Operator track</strong> — AI clone,
-            voice, and faceless content presence
           </span>
         </div>
 

@@ -1,5 +1,7 @@
-import { ArrowIcon, CheckIcon } from "./Icons";
-import { BUILDER_HREF } from "./business-architect.data";
+import { CheckIcon } from "./Icons";
+import { BUILDER_PRICE, builderStack } from "./business-architect.data";
+import ValueStack from "./ValueStack";
+import CheckoutButton from "./CheckoutButton";
 
 export default function BuilderTier() {
   return (
@@ -17,13 +19,18 @@ export default function BuilderTier() {
           the best cohort, content, and community to do it alongside.
         </div>
         <div className="tier-price-row">
-          <div className="tier-price">$997</div>
+          <div className="tier-price">$597</div>
         </div>
-        <a href={BUILDER_HREF} className="tier-btn b">
-          Join as The Builder <ArrowIcon />
-        </a>
+        <CheckoutButton tier="builder" className="tier-btn b">
+          Join as The Builder
+        </CheckoutButton>
+        <div className="tier-guarantee">
+          Covered by the Six-Track Guarantee
+        </div>
       </div>
       <div className="tier-body">
+        <ValueStack rows={builderStack} price={BUILDER_PRICE} accent="b" />
+
         <div className="tier-section-lbl">What is included</div>
         <div className="tf g">
           <CheckIcon />
