@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { WORKSHOP_CHECKOUT_HREF } from "./workshop.data";
+import { WORKSHOP_PRICE } from "./workshop.data";
+import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
 export default function Nav() {
   return (
@@ -8,14 +9,9 @@ export default function Nav() {
         Your Intelligence Layer + AI<span>.</span>
       </Link>
       <div className="ws-nav-right">
-        <a
-          href={WORKSHOP_CHECKOUT_HREF}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ws-nav-cta"
-        >
-          Reserve seat — $99
-        </a>
+        <WorkshopCheckoutButton className="ws-nav-cta" showArrow={false}>
+          Reserve seat — {WORKSHOP_PRICE}
+        </WorkshopCheckoutButton>
       </div>
     </nav>
   );

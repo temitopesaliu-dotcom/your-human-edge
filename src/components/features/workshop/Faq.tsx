@@ -15,8 +15,8 @@ export default function Faq() {
               a: "Your expertise and an honest answer to one question: what problem do you solve better than most people you know? Everything else gets built in the room. No prep slides, no pre-work required.",
             },
             {
-              q: "Is $99 the final price?",
-              a: "No. Early access closes when seats fill or when I decide it closes — whichever comes first. The full price is $157. After this session, when testimonials exist, future sessions will be priced higher.",
+              q: "Is $157 the final price?",
+              a: "For this session, yes — $157 is what you pay and there is nothing cheaper. The full price is $299, and early access closes when seats fill or when I decide it closes, whichever comes first. After this session, when more testimonials exist, future sessions will be priced higher.",
             },
             {
               q: "I already use AI in my work. Is this still relevant?",
