@@ -371,3 +371,10 @@ body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--
     padding-right: 16px;
   }
 }
+
+/* ── CHECKOUT BUTTON STATES (server-side checkout) ─── */
+.ws-nav-cta:disabled,.ws-btn-checkout:disabled,.ws-btn-checkout-full:disabled,.ws-btn-final:disabled { opacity: .72; cursor: wait; }
+.ws-checkout-error { margin-top: 10px; font-size: 12px; line-height: 1.6; color: #DC2626; background: #FEF2F2; border: 1px solid rgba(220,38,38,.22); border-radius: 10px; padding: 10px 12px; }
+.ws-checkout-error a { color: #DC2626; font-weight: 600; }
+.ws-final-cta .ws-checkout-error { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); color: #fff; max-width: 420px; margin: 10px auto 0; }
+.ws-final-cta .ws-checkout-error a { color: #fff; }
