@@ -24,7 +24,11 @@ export default function Faq() {
             },
             {
               q: "What platform is the session on?",
-              a: "Zoom. Your link will be sent immediately after purchase with a confirmation email. You will receive a reminder 24 hours before the session and 1 hour before it starts.",
+              a: "Zoom. Your payment confirmation arrives immediately, and the joining link is sent closer to the day. You will also get a reminder 24 hours before the session and one an hour before it starts.",
+            },
+            {
+              q: "What if I pay and then cannot attend?",
+              a: "Seats are non-refundable, but they are transferable. Email us before the session and we will move you to the next cohort at no extra cost, even though the price will be higher by then — you keep the price you paid. One transfer per seat. Either way you are not left empty-handed: the full recording and all working documents reach you within 72 hours and are yours to keep.",
             },
             {
               q: "Do I need any technical background?",
