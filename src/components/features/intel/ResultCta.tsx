@@ -14,7 +14,7 @@ export default function ResultCta() {
         className="ilp-btn-primary"
         style={{ display: "inline-flex" }}
       >
-        Reserve my seat — $99 early access
+        Reserve my seat — $157 early access
         <ArrowRight size={15} />
       </a>
     </div>
