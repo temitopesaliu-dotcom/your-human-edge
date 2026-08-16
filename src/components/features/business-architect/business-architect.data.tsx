@@ -7,8 +7,8 @@ import { StarIcon, UsersIcon, ShieldIcon, GlobeIcon, FileIcon, WorldIcon, AwardI
    built for the previous $997 / $1,497 pricing and have been removed. */
 
 /* ── CONFIRMED FACTS ─── */
-export const COHORT_START = "August 25, 2026 · 2pm BST";
-export const COHORT_START_SHORT = "August 25, 2026";
+export const COHORT_START = "August 22, 2026 · 2pm BST";
+export const COHORT_START_SHORT = "August 22, 2026";
 
 /* ── NEEDS TEMITOPE'S SIGN-OFF ───
    ENGAGEMENT_RANGE: the price band a graduate can realistically charge.
@@ -77,17 +77,6 @@ export const guarantee = {
   title: "Do the work in Track 01 and Track 04, or you do not pay.",
   body: "Show up to all six live weeks and complete the work in Track 01 and Track 04 — your Intelligence Layer refined into a priced offer, and one real discovery call run using the client acquisition process. If you have done that and cannot point to a priced offer and a repeatable way to sell it, email us within 7 days of the final session and we refund your tuition in full.",
   fine: "Two conditions. Both are things we teach and you can evidence. No forms, no retention call — one email.",
-};
-
-/* ── PRICE INTEGRITY (replaces the 72-hour bonus-expiry block) ───
-   Temitope had no preference on the time notice, so the 72-hour clock is out:
-   the pre-cohort session window was never confirmed as operationally real,
-   and shipping a deadline we cannot enforce is the exact pattern that costs
-   trust later. What remains is the honest half — the price does not move. */
-export const priceIntegrity = {
-  label: "No countdown, no discount",
-  title: "The price does not drop if you wait.",
-  body: "There is no launch discount, no expiring tier, and no timer on this page. Every seat in the Founding Cohort is the same price on the last day as it is on the first. We teach premium pricing in Track 06 — discounting our own programme to rush your decision would make that lesson worthless. Decide because the work is right for you, not because a clock told you to.",
 };
 
 /* ── VALUE STACK ───
@@ -230,10 +219,6 @@ export const faqs: { q: string; a: string }[] = [
   {
     q: "What do I walk away with after six weeks?",
     a: "A refined Intelligence Layer the market pays for. A personal brand with a content system behind it. A complete client acquisition process from first contact to signed contract. A delivered or ready-to-deliver AI Operating System. A business identity that commands premium rates. Accelerator members also walk away with a reviewed proposal that has already been in front of a real client.",
-  },
-  {
-    q: "Is there a discount if I wait, or a launch price that expires?",
-    a: "No, and there is no countdown on this page. The price is the same on the last day of enrolment as it is today, and nothing in either tier is time-boxed. We teach premium pricing in Track 06 — discounting our own programme to rush your decision would make that lesson worthless.",
   },
   {
     q: "Who teaches the specialist tracks?",

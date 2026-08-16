@@ -1,6 +1,5 @@
 import BuilderTier from "./BuilderTier";
 import AcceleratorTier from "./AcceleratorTier";
-import UrgencySection from "./UrgencySection";
 
 export default function PricingSection() {
   return (
@@ -26,7 +25,6 @@ export default function PricingSection() {
           <BuilderTier />
           <AcceleratorTier />
         </div>
-        <UrgencySection />
       </div>
     </section>
   );
