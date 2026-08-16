@@ -88,7 +88,7 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           <p className="lcp-label">Live Online Training</p>
           <h2 className="lcp-title">Your Intelligence Layer + AI</h2>
 
-          <p className="lcp-date-line">Next cohort — September 26, 2026 · 2pm BST.</p>
+          <p className="lcp-date-line">Next cohort — September 12, 2026 · 2pm London BST.</p>
 
           <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
         </div>
