@@ -36,6 +36,11 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
+      // Adaptive Pricing off: Stripe would otherwise offer a converted local
+      // amount carrying its own ~3.75% conversion fee, so a UK buyer sees a
+      // different headline number to the one on the page. Everyone now pays
+      // the USD price as shown; their bank handles conversion at its own rate.
+      adaptive_pricing: { enabled: false },
       // Stripe Checkout collects the email; the webhook reads
       // customer_details.email. No second email field on our side.
       metadata: {
