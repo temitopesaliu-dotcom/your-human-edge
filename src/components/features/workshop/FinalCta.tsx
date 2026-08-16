@@ -1,4 +1,4 @@
-import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_FULL } from "./workshop.data";
+import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT } from "./workshop.data";
 import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
 export default function FinalCta() {
@@ -16,12 +16,9 @@ export default function FinalCta() {
             This is the room where your expertise stops being invisible.
           </p>
           <div style={{ marginBottom: "2rem" }}>
-            <div className="ws-final-price-original">
-              {WORKSHOP_PRICE_FULL} full price
-            </div>
             <div className="ws-final-price-current">{WORKSHOP_PRICE}</div>
             <div className="ws-final-price-badge">
-              Early access — closes soon
+              This cohort. Next cohort is {WORKSHOP_PRICE_NEXT}.
             </div>
           </div>
           <WorkshopCheckoutButton className="ws-btn-final">

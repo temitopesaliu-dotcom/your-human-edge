@@ -16,7 +16,7 @@ export default function Faq() {
             },
             {
               q: "Is $157 the final price?",
-              a: "For this session, yes — $157 is what you pay and there is nothing cheaper. The full price is $299, and early access closes when seats fill or when I decide it closes, whichever comes first. After this session, when more testimonials exist, future sessions will be priced higher.",
+              a: "For this cohort, yes. $157 is what you pay and there is nothing cheaper — no code, no bundle, no countdown. The next cohort is $299. This one is priced lower because it is earlier, not because there is a sale running.",
             },
             {
               q: "I already use AI in my work. Is this still relevant?",

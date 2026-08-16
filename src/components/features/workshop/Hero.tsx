@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_FULL } from "./workshop.data";
+import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT } from "./workshop.data";
 import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
 export default function Hero() {
@@ -67,14 +67,11 @@ export default function Hero() {
             </div>
             <div className="ws-checkout-body">
               <div>
-                <div className="ws-price-original">
-                  {WORKSHOP_PRICE_FULL} full price
-                </div>
                 <div className="ws-price-current">
                   <sup>$</sup>157
                 </div>
                 <div className="ws-price-badge">
-                  Early access — closes soon
+                  This cohort. Next cohort is {WORKSHOP_PRICE_NEXT}.
                 </div>
               </div>
               <div className="ws-seats-notice">
