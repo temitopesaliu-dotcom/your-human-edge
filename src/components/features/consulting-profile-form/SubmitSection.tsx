@@ -8,7 +8,7 @@ export default function SubmitSection({ submitting, consent, onConsentChange }: 
   return (
     <div className="cpf-submit-section">
       <h3>You are almost there.</h3>
-      <p>Your responses go directly to me. I will read every answer before we go into the room together on September 26th. What you share here shapes everything that happens in those three hours.</p>
+      <p>Your responses go directly to me. I will read every answer before we go into the room together on September 12th. What you share here shapes everything that happens in those three hours.</p>
       <label className="cpf-consent">
         <input
           type="checkbox"
