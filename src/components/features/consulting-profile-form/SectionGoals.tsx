@@ -14,7 +14,7 @@ export default function SectionGoals({ formData, errors, set }: SectionProps) {
     <div className="cpf-form-section">
       <div className="cpf-section-header">
         <div className="cpf-section-num">Section 04</div>
-        <div className="cpf-section-title">What You Want From August 15th</div>
+        <div className="cpf-section-title">What You Want From September 26th</div>
         <div className="cpf-section-desc">Be honest here. Not the polished version. The real reason you showed up.</div>
       </div>
 
