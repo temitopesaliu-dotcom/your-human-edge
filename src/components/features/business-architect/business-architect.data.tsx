@@ -68,17 +68,6 @@ export const tracks: {
   },
 ];
 
-/* ── GUARANTEE ───
-   Conditional on two things the programme controls: attendance, and the work
-   in Tracks 01 and 04. Deliberately does NOT promise a client says yes —
-   that is a stranger's decision, not a deliverable. */
-export const guarantee = {
-  label: "The Six-Track Guarantee",
-  title: "Do the work in Track 01 and Track 04, or you do not pay.",
-  body: "Show up to all six live weeks and complete the work in Track 01 and Track 04 — your Intelligence Layer refined into a priced offer, and one real discovery call run using the client acquisition process. If you have done that and cannot point to a priced offer and a repeatable way to sell it, email us within 7 days of the final session and we refund your tuition in full.",
-  fine: "Two conditions. Both are things we teach and you can evidence. No forms, no retention call — one email.",
-};
-
 /* ── VALUE STACK ───
    NEEDS TEMITOPE'S SIGN-OFF. Every figure below is a category comparable,
    not a rate Temitope has quoted. Replace with real standalone prices, or
@@ -191,7 +180,6 @@ export const compareRows: {
   { label: "Template and prompt library", builder: true, accelerator: true },
   { label: "Community access", builder: true, accelerator: true },
   { label: "Session recordings", builder: true, accelerator: true },
-  { label: "The Six-Track Guarantee", builder: true, accelerator: true },
   { section: "Accelerator exclusives", label: "The Builder Seat — bring one co-builder", builder: false, accelerator: true },
   { label: "Opening private strategy session", builder: false, accelerator: true },
   { label: "Track expert private session", builder: false, accelerator: true },
@@ -203,10 +191,6 @@ export const faqs: { q: string; a: string }[] = [
   {
     q: "I already built my offer at the workshop. What is actually left to do?",
     a: "You built the foundation — the Intelligence Layer, the ICP, the site. What you do not have yet is a price the market has tested, a repeatable way to get in front of the people who pay it, a delivery system you can hand over, and a brand that holds the rate. That is the six weeks. You are not starting again; you are building the business around what you already made.",
-  },
-  {
-    q: "What happens if I do the work and it does not land?",
-    a: "The Six-Track Guarantee covers it. Attend all six live weeks, complete the Track 01 and Track 04 work — a priced offer and one real discovery call run using the acquisition process — and if you cannot point to a priced offer and a repeatable way to sell it, email us within 7 days of the final session for a full refund. Two conditions, both things we teach.",
   },
   {
     q: "Who do I bring as my Builder Seat in the Accelerator?",

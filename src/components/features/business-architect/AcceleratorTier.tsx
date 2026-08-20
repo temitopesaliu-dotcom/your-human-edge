@@ -34,9 +34,6 @@ export default function AcceleratorTier() {
         <CheckoutButton tier="accelerator" className="tier-btn p">
           Join as The Accelerator
         </CheckoutButton>
-        <div className="tier-guarantee">
-          Covered by the Six-Track Guarantee
-        </div>
       </div>
       <div className="tier-body">
         <ValueStack

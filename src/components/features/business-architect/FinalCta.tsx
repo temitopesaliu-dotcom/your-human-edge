@@ -13,7 +13,7 @@ export default function FinalCta() {
         <p>
           Six weeks from the offer you made at the workshop to a priced
           engagement, a discovery process that converts, and a system you
-          have actually delivered. Backed by the Six-Track Guarantee.
+          have actually delivered.
         </p>
         <div className="final-quote">
           &ldquo;{proofItems[2].quote}&rdquo;

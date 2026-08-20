@@ -24,9 +24,6 @@ export default function BuilderTier() {
         <CheckoutButton tier="builder" className="tier-btn b">
           Join as The Builder
         </CheckoutButton>
-        <div className="tier-guarantee">
-          Covered by the Six-Track Guarantee
-        </div>
       </div>
       <div className="tier-body">
         <ValueStack rows={builderStack} price={BUILDER_PRICE} accent="b" />
