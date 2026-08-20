@@ -263,14 +263,6 @@
 .bap-page .track-benefit{font-size:13px;font-weight:600;color:var(--bap-purple);line-height:1.5;margin-bottom:10px;}
 .bap-page .track-bonus .track-benefit{color:var(--bap-purple-mid);}
 
-/* ── GUARANTEE ─── */
-.bap-page .guarantee-card{background:var(--bap-bg);border:1px solid rgba(0,168,107,.3);border-top:3px solid var(--bap-green);border-radius:16px;padding:36px 40px;max-width:820px;margin:0 auto;box-shadow:0 8px 32px rgba(0,168,107,.06);}
-.bap-page .guarantee-lbl{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-green);margin-bottom:14px;}
-.bap-page .guarantee-lbl svg{width:14px;height:14px;}
-.bap-page .guarantee-title{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);font-weight:700;line-height:1.2;letter-spacing:-.5px;color:var(--bap-espresso);margin-bottom:14px;}
-.bap-page .guarantee-body{font-size:16px;color:var(--bap-muted);line-height:1.8;margin-bottom:14px;}
-.bap-page .guarantee-fine{font-size:13px;color:var(--bap-light);line-height:1.6;padding-top:14px;border-top:1px solid var(--bap-border);}
-
 /* ── VALUE STACK ─── */
 .bap-page .vstack{background:var(--bap-grain);border:1px solid var(--bap-border);border-radius:12px;padding:16px 18px;margin-top:4px;}
 .bap-page .vstack.p{background:var(--bap-purple-lt);border-color:var(--bap-border-purple);}
@@ -287,9 +279,6 @@
 .bap-page .vstack-gap{margin-top:10px;padding-top:10px;border-top:1px dashed var(--bap-border);font-size:13px;color:var(--bap-espresso);text-align:center;}
 .bap-page .vstack-gap strong{color:var(--bap-green);font-weight:700;}
 
-/* ── TIER GUARANTEE NOTE ─── */
-.bap-page .tier-guarantee{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;font-weight:600;color:var(--bap-green);}
-
 /* ── NEW RESPONSIVE ─── */
 @media(max-width:960px){
   .bap-page .proof-grid{grid-template-columns:1fr 1fr;}
@@ -299,7 +288,6 @@
 }
 @media(max-width:620px){
   .bap-page .proof-grid{grid-template-columns:1fr;}
-  .bap-page .guarantee-card{padding:26px 20px;}
   .bap-page .vrow{font-size:12px;}
 }
 
