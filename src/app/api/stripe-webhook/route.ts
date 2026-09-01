@@ -5,6 +5,7 @@ import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayer
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
+import { sendMetaPurchaseEvent } from '@/lib/services/meta-capi';
 
 /** Extract archetype from metadata, or fall back to parsing the success_url.
  *  Covers API-created sessions (metadata.archetype) and
@@ -136,6 +137,16 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
   });
 
   await notifyMailerLite(product, buyerEmail, buyerName, archetype, accessLink);
+
+  // Report the sale to Meta server-side, for every product, so ad attribution
+  // does not depend on per-page pixel wiring. sendMetaPurchaseEvent never
+  // throws — tracking must not be able to break a buyer's checkout.
+  await sendMetaPurchaseEvent({
+    email: buyerEmail,
+    amountTotal: session.amount_total,
+    currency: session.currency,
+    eventId: session.id,
+  });
 }
 
 export async function POST(req: NextRequest) {
