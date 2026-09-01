@@ -22,7 +22,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * reach the webhook with payment_status !== 'paid', which skips fulfilment.
  */
 
-const WORKSHOP_AMOUNT = 15700; // $157.00 USD
+export const WORKSHOP_AMOUNT = 15700; // $157.00 USD
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);

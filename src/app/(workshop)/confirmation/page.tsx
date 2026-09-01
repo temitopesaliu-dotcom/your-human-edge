@@ -1,13 +1,56 @@
 import Link from 'next/link';
 import PurchaseTracker from '@/components/purchase-tracker';
+import { stripe } from '@/lib/services/stripe';
+import { isValidSessionId } from '@/lib/utils/products';
+import { toMajorUnits } from '@/lib/services/meta-capi';
+import { WORKSHOP_AMOUNT } from '@/app/api/workshop/create-checkout/route';
 
-export default function WorkshopConfirmationPage() {
+/**
+ * Resolves the amount actually charged for the GA4 purchase event.
+ * Reads the Checkout Session Stripe appends to success_url so the tracked
+ * value always matches what the buyer paid, instead of a hard-coded price
+ * that silently goes stale whenever WORKSHOP_AMOUNT changes.
+ * Falls back to the current live price only if the session can't be read.
+ */
+async function resolvePurchaseValue(
+  sessionId: string | undefined
+): Promise<{ value: number; currency: string }> {
+  const fallback = { value: toMajorUnits(WORKSHOP_AMOUNT, 'usd'), currency: 'USD' };
+  if (!sessionId || !isValidSessionId(sessionId)) return fallback;
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session.payment_status !== 'paid' || session.amount_total == null || !session.currency) {
+      return fallback;
+    }
+    return {
+      value: toMajorUnits(session.amount_total, session.currency),
+      currency: session.currency.toUpperCase(),
+    };
+  } catch (err: unknown) {
+    console.error(
+      '[workshop/confirmation] Failed to retrieve Stripe session for GA4 value:',
+      err instanceof Error ? err.message : String(err)
+    );
+    return fallback;
+  }
+}
+
+export default async function WorkshopConfirmationPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const { session_id } = await searchParams;
+  const { value, currency } = await resolvePurchaseValue(session_id);
+
   return (
     <>
       <PurchaseTracker
         productId="intelligence-layer-workshop"
         productName="Intelligence Layer Workshop"
-        value={97}
+        value={value}
+        currency={currency}
         dedupKey="purchase-tracked-intelligence-layer-workshop"
       />
       <style>{`

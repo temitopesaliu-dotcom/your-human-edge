@@ -14,7 +14,7 @@ function hashEmail(email: string): string {
   return createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
 }
 
-function toMajorUnits(amountTotal: number, currency: string): number {
+export function toMajorUnits(amountTotal: number, currency: string): number {
   if (ZERO_DECIMAL_CURRENCIES.has(currency.toLowerCase())) return amountTotal;
   return amountTotal / 100;
 }
