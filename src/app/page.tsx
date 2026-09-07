@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/components/features/about/about.css";
+import SiteNav from "@/components/site-nav";
 import Sidebar from "@/components/features/about/Sidebar";
 import CredentialsCard from "@/components/features/about/CredentialsCard";
 import WorkshopsCard from "@/components/features/about/WorkshopsCard";
@@ -13,9 +14,24 @@ export const metadata: Metadata = {
   },
 };
 
+const NAV_LINKS = [
+  { label: "AI Archetype Quiz", href: "/quiz" },
+  { label: "Free Resources", href: "/resources" },
+  { label: "Intelligence Layer", href: "/intelligence-layer" },
+  { label: "Blueprint Audit", href: "/the-blueprint-audit" },
+  { label: "Business Architect Programme", href: "/the-business-architect-programme" },
+];
+
 export default function HomePage() {
   return (
     <div className="abt-page">
+      <SiteNav
+        logoHref="/"
+        logoText="Temitope Saliu"
+        logoVariant="name"
+        links={NAV_LINKS}
+        ctaLabel={null}
+      />
       <div className="abt-wrap">
         <Sidebar />
 

@@ -1,0 +1,162 @@
+/* SiteNav component styles.
+   Scoped under .sn-root (the <nav>) so class selectors reliably override
+   the element-level nav rules in globals.css regardless of import order.
+   Plain CSS (project convention) — no styled-jsx. */
+
+/* Hamburger hidden on desktop.
+   NOTE: no position:relative here — the global nav is position:fixed,
+   which is already the containing block for the mobile dropdown. */
+.sn-root .sn-hamburger {
+  display: none;
+}
+
+/* Desktop: the right-side wrapper dissolves so the CTA becomes a direct
+   grid item of the nav (global grid: 1fr auto 1fr) — justify-self:end then
+   pins it to the FAR RIGHT of the bar instead of next to the centered links. */
+.sn-root .sn-right {
+  display: contents;
+}
+.sn-root .sn-desktop-cta {
+  display: contents;
+}
+
+/* ── Personal name logo (root page) ─────────────────────────────── */
+.sn-root .sn-logo-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.sn-root .sn-logo-name em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--coral);
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .sn-root .sn-logo-name {
+    font-size: 1.1rem;
+  }
+
+  /* Bar stays clean: logo + hamburger. CTA lives in the menu. */
+  .sn-root .sn-desktop-cta {
+    display: none;
+  }
+
+  /* Right side becomes: hamburger.
+     Global CSS makes nav display:flex at this width, so use
+     margin-left:auto (justify-self only works in grid). */
+  .sn-root .sn-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  .sn-root .sn-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0 9px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .sn-root .sn-hamburger:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .sn-root .sn-hamburger:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
+  }
+
+  .sn-root .sn-burger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  /* Animate to an X when open */
+  .sn-root .sn-burger-line--open:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .sn-root .sn-burger-line--open:nth-child(2) {
+    opacity: 0;
+  }
+  .sn-root .sn-burger-line--open:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Dropdown panel — hangs below the fixed bar */
+  .sn-root .sn-mobile-menu {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 14px 16px;
+    background: rgba(26, 16, 64, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 48px rgba(26, 16, 64, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: sn-menu-in 0.2s ease;
+  }
+
+  .sn-root .sn-mobile-link {
+    display: block;
+    padding: 14px 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    transition: color 0.15s, background 0.15s;
+  }
+  .sn-root .sn-mobile-link:hover,
+  .sn-root .sn-mobile-link:focus-visible {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    text-decoration: none;
+  }
+  .sn-root .sn-mobile-link--active {
+    color: var(--coral);
+    background: rgba(216, 90, 48, 0.1);
+  }
+  .sn-root .sn-mobile-link:last-of-type {
+    border-bottom: none;
+  }
+
+  .sn-root .sn-mobile-cta {
+    padding-top: 12px;
+  }
+  .sn-root .sn-mobile-cta .nav-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@keyframes sn-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

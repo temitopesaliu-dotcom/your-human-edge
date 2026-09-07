@@ -17,13 +17,13 @@
 .abt-wrap {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 56px 24px 80px;
+  padding: 118px 24px 80px;
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 32px;
 }
 @media (max-width: 820px) {
-  .abt-wrap { grid-template-columns: 1fr; }
+  .abt-wrap { grid-template-columns: 1fr; padding-top: 96px; }
 }
 
 /* Sidebar */
@@ -120,8 +120,14 @@
 .abt-award-sub { font-size: 13.5px; color: var(--abt-muted); }
 
 .abt-footer {
-  text-align: center;
+  position: static;
+  background: transparent;
+  box-shadow: none;
   color: var(--abt-muted);
   font-size: 13px;
+  text-align: center;
   margin-top: 12px;
+  padding: 0;
+  display: block;
+  grid-template-columns: none;
 }
