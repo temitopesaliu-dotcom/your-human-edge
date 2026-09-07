@@ -16,11 +16,17 @@ export const metadata: Metadata = {
 };
 
 const NAV_LINKS = [
-  { label: "AI Archetype Quiz", href: "/quiz" },
+  {
+    label: "Quizzes",
+    href: "/quiz",
+    children: [
+      { label: "AI Fit Quiz", href: "/quiz" },
+      { label: "AI For Expert Quiz", href: "/intelligence-layer" },
+    ],
+  },
   { label: "Free Resources", href: "/resources" },
-  { label: "Intelligence Layer", href: "/intelligence-layer" },
+  { label: "Intelligence Layer", href: "/workshop" },
   { label: "Blueprint Audit", href: "/the-blueprint-audit" },
-  { label: "Business Architect Programme", href: "/the-business-architect-programme" },
 ];
 
 export default function HomePage() {

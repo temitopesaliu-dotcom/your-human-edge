@@ -8,6 +8,8 @@ import "./site-nav.css";
 interface SiteNavLink {
   label: string;
   href: string;
+  /** Optional sub-links: hover dropdown on desktop, indented group in the mobile menu. */
+  children?: { label: string; href: string }[];
 }
 
 interface SiteNavProps {
@@ -22,6 +24,7 @@ interface SiteNavProps {
 }
 
 const DEFAULT_LINKS: SiteNavLink[] = [
+  { label: "Home", href: "/" },
   { label: "Archetype Quiz", href: "/quiz" },
   { label: "Resources", href: "/resources" },
 ];
@@ -105,11 +108,33 @@ export default function SiteNav({
 
       {/* Desktop links (hidden on mobile by global responsive rules) */}
       <ul className="nav-links">
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href}>{link.label}</Link>
-          </li>
-        ))}
+        {links.map((link) =>
+          link.children?.length ? (
+            <li key={link.href} className="sn-dd">
+              <Link href={link.href} className="sn-dd-trigger" aria-haspopup="true">
+                {link.label}
+              </Link>
+              <div className="sn-dd-panel" role="menu">
+                <div className="sn-dd-card">
+                  {link.children.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      role="menuitem"
+                      className="sn-dd-link"
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ) : (
+            <li key={link.href}>
+              <Link href={link.href}>{link.label}</Link>
+            </li>
+          )
+        )}
       </ul>
 
       {/* Right side: CTA on desktop, hamburger on mobile */}
@@ -132,17 +157,34 @@ export default function SiteNav({
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div className="sn-mobile-menu" id="sn-mobile-menu" role="menu">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              role="menuitem"
-              className={`sn-mobile-link${pathname === link.href ? " sn-mobile-link--active" : ""}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.children?.length ? (
+              <div key={link.href} className="sn-mobile-group">
+                <span className="sn-mobile-group-label">{link.label}</span>
+                {link.children.map((child) => (
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    role="menuitem"
+                    className={`sn-mobile-link sn-mobile-sublink${pathname === child.href ? " sn-mobile-link--active" : ""}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {child.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                role="menuitem"
+                className={`sn-mobile-link${pathname === link.href ? " sn-mobile-link--active" : ""}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           {showCta && <div className="sn-mobile-cta">{renderCta("sn-mobile-cta-btn")}</div>}
         </div>
       )}

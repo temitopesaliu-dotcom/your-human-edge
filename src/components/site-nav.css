@@ -20,6 +20,74 @@
   display: contents;
 }
 
+/* ── Desktop hover dropdown (top-level links with children) ─────── */
+.sn-root .sn-dd {
+  position: relative;
+}
+.sn-root .sn-dd-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* little chevron after the trigger label */
+.sn-root .sn-dd-trigger::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -3px;
+  opacity: 0.8;
+}
+/* Panel: absolute below the trigger. The transparent padding-top is an
+   invisible "hover bridge" across the gap between the link and the bar
+   edge, so the dropdown doesn't flicker shut while moving the mouse down. */
+.sn-root .sn-dd-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 30px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0.18s;
+  z-index: 60;
+}
+.sn-root .sn-dd:hover .sn-dd-panel,
+.sn-root .sn-dd:focus-within .sn-dd-panel {
+  opacity: 1;
+  visibility: visible;
+}
+.sn-root .sn-dd-card {
+  min-width: 216px;
+  padding: 8px;
+  background: rgba(26, 16, 64, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 22px 48px rgba(26, 16, 64, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.sn-root .sn-dd-link {
+  display: block;
+  padding: 11px 14px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.sn-root .sn-dd-link:hover,
+.sn-root .sn-dd-link:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+}
+
 /* ── Personal name logo (root page) ─────────────────────────────── */
 .sn-root .sn-logo-name {
   font-size: 1.3rem;
@@ -113,6 +181,28 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     animation: sn-menu-in 0.2s ease;
+  }
+
+  /* Touch has no hover — the hamburger menu renders child links as an
+     indented group instead; the hover dropdown panel is disabled. */
+  .sn-root .sn-dd-panel {
+    display: none;
+  }
+  .sn-root .sn-mobile-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .sn-root .sn-mobile-group-label {
+    padding: 12px 12px 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .sn-root .sn-mobile-sublink {
+    padding-left: 26px;
+    font-size: 0.9rem;
   }
 
   .sn-root .sn-mobile-link {
