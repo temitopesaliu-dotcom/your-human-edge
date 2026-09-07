@@ -25,8 +25,7 @@ const NAV_LINKS = [
     ],
   },
   { label: "Free Resources", href: "/resources" },
-  { label: "Intelligence Layer", href: "/workshop" },
-  { label: "Blueprint Audit", href: "/the-blueprint-audit" },
+  { label: "Business Audit", href: "/the-blueprint-audit" },
 ];
 
 export default function HomePage() {
