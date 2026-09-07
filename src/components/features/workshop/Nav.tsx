@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { WORKSHOP_PRICE } from "./workshop.data";
+import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
 export default function Nav() {
   return (
@@ -7,14 +9,9 @@ export default function Nav() {
         Your Intelligence Layer + AI<span>.</span>
       </Link>
       <div className="ws-nav-right">
-        <a
-          href="https://buy.stripe.com/00waEYfgbdbGaob2en3oA0r"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ws-nav-cta"
-        >
-          Reserve seat — $157
-        </a>
+        <WorkshopCheckoutButton className="ws-nav-cta" showArrow={false}>
+          Reserve seat — {WORKSHOP_PRICE}
+        </WorkshopCheckoutButton>
       </div>
     </nav>
   );

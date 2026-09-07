@@ -78,6 +78,7 @@
 }
 .abt-card h1 { font-size: 34px; margin: 0 0 4px; }
 .abt-tagline { font-size: 16px; color: var(--abt-muted); margin: 0; }
+.abt-subtitle { color: var(--abt-muted); font-size: 15px; margin: 0 0 16px; }
 .abt-card p { margin: 0 0 14px; color: #3a352c; font-size: 15.5px; }
 .abt-card p:last-child { margin-bottom: 0; }
 

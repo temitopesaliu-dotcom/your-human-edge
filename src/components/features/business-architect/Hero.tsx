@@ -1,24 +1,27 @@
 import { ArrowIcon } from "./Icons";
 import { scrollToPricing } from "./scroll-to-pricing";
+import { COHORT_START, ENGAGEMENT_RANGE } from "./business-architect.data";
 
 export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-eyebrow">
-        <span className="hero-dot"></span>Founding Cohort · Starts August 22, 2026 · 2pm BST
+        <span className="hero-dot"></span>For Intelligence Layer Workshop
+        Graduates · Starts {COHORT_START}
       </div>
       <h1>
-        You are the expert.
+        You built the offer.
         <br />
-        Now become
+        Now build the
         <br />
-        <em>the architect.</em>
+        <em>business that sells it.</em>
       </h1>
       <p className="hero-sub">
-        Six weeks. From <strong>invisible expert</strong> to{" "}
-        <strong>Business Architect</strong> — with a premium consulting
-        offer, a complete client system, and the personal brand that
-        commands the room.
+        You left the workshop with an Intelligence Layer, an ICP, and a live
+        site. In the next <strong>six weeks</strong> you turn that into a
+        consulting practice priced at{" "}
+        <strong>{ENGAGEMENT_RANGE} per engagement</strong> — with the discovery
+        process to sell it and the AI Operating System to deliver it.
       </p>
 
       <a href="#pricing" className="hero-cta" onClick={scrollToPricing}>

@@ -4,6 +4,7 @@ import Nav from "@/components/features/business-architect/Nav";
 import Hero from "@/components/features/business-architect/Hero";
 import TransformSection from "@/components/features/business-architect/TransformSection";
 import CurriculumSection from "@/components/features/business-architect/CurriculumSection";
+import ProofSection from "@/components/features/business-architect/ProofSection";
 import FounderSection from "@/components/features/business-architect/FounderSection";
 import PricingSection from "@/components/features/business-architect/PricingSection";
 import CompareTable from "@/components/features/business-architect/CompareTable";
@@ -18,6 +19,7 @@ export default function BusinessArchitectProgrammePage() {
       <Hero />
       <TransformSection />
       <CurriculumSection />
+      <ProofSection />
       <FounderSection />
       <PricingSection />
       <CompareTable />

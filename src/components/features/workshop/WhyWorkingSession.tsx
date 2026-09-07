@@ -1,3 +1,4 @@
+import { WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT } from "./workshop.data";
 export default function WhyWorkingSession() {
   return (
     <section className="ws-section" style={{ background: "var(--white)" }}>
@@ -38,11 +39,11 @@ export default function WhyWorkingSession() {
                 className="ws-why-stat-val"
                 style={{ color: "var(--green)" }}
               >
-                $157
+                {WORKSHOP_PRICE}
               </div>
               <div className="ws-why-stat-label">
-                Early access price. Goes to $299 when this closes. Next
-                session will be higher.
+                What this cohort pays. The next cohort is{" "}
+                {WORKSHOP_PRICE_NEXT}.
               </div>
             </div>
             <div className="ws-why-stat">

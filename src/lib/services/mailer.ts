@@ -1,5 +1,20 @@
 import { type ArchetypeKey, ARCHETYPES } from '../utils/archetypes';
 
+/** Live MailerLite group: "Build Audit Applications". */
+const BUILD_AUDIT_GROUP_ID = '195554021352670299';
+
+/**
+ * Deliberately NOT wired up: MailerLite group "Platform OS Audit — Paid
+ * ($1,000)" (195383699307496638) triggers the "here's your booking link"
+ * automation. Buyers now book on Calendly straight after Stripe, BEFORE they
+ * ever reach /your-business, so sending them a booking link at submit time
+ * would tell them to do something they have already done.
+ *
+ * The open gap: someone who pays and closes the tab without booking is only
+ * recorded in Stripe. Closing it properly needs a Stripe webhook that adds the
+ * customer to that group on checkout.session.completed — not a change here.
+ */
+
 const ARCHETYPE_GROUP_ENV: Record<ArchetypeKey, string> = {
   H: 'MAILERLITE_GROUP_H',
   C: 'MAILERLITE_GROUP_C',
@@ -476,3 +491,47 @@ export async function addIntelligenceLayerPaidSubscriber(
   }
 }
 
+
+
+/**
+ * Business details for the $1,000 build audit (the /your-business form,
+ * completed after payment). Stored as a MailerLite subscriber so no lead is
+ * lost even if the spreadsheet webhook is unavailable, and so the booking
+ * automation fires.
+ */
+export async function addBuildAuditApplicantToMailerLite(
+  email: string,
+  name: string,
+  answers: Record<string, string> = {},
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey) {
+    console.warn('[mailer] MAILERLITE_API_KEY not set — skipping build audit applicant add');
+    return;
+  }
+
+  const groups: string[] = [];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+  groups.push(process.env.MAILERLITE_BUILD_AUDIT_GROUP || BUILD_AUDIT_GROUP_ID);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: {
+      email,
+      fields: {
+        name,
+        subscriber_type: 'build-audit-applicant',
+        company: answers.businessName || '',
+        country: answers.country || '',
+        phone: answers.phone || '',
+      },
+      groups,
+    },
+  });
+
+  if (!result.ok) {
+    console.error('[mailer] Build Audit MailerLite add failed:', result.status, result.errorText);
+    throw new Error(`MailerLite ${result.status}: ${result.errorText}`);
+  }
+}

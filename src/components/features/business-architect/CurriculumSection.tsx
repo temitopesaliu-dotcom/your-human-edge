@@ -1,4 +1,3 @@
-import { StarIcon } from "./Icons";
 import { tracks } from "./business-architect.data";
 
 export default function CurriculumSection() {
@@ -23,28 +22,10 @@ export default function CurriculumSection() {
             <div className="track" key={track.num}>
               <div className="track-num">{track.num}</div>
               <div className="track-title">{track.title}</div>
+              <div className="track-benefit">{track.benefit}</div>
               <div className="track-desc">{track.desc}</div>
             </div>
           ))}
-          <div className="track track-bonus">
-            <div className="bonus-badge">
-              <StarIcon />
-              Accelerator Exclusive — The Unfair Advantage
-            </div>
-            <div className="track-title">
-              The <em>Invisible</em> Operator
-            </div>
-            <div className="track-desc">
-              Your AI clone. Your voice. A faceless content presence built
-              in parallel to your personal brand — posting, teaching,
-              attracting — without requiring your face or your hours every
-              single time. While others are manually creating content
-              piece by piece, you have a system that runs on its own. This
-              track is not part of the core six. It is the layer that
-              separates the architects who scale from those who stay at
-              capacity.
-            </div>
-          </div>
         </div>
       </div>
     </section>

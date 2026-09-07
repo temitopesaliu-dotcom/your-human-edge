@@ -1,8 +1,19 @@
 import type { ReactNode } from "react";
 import { StarIcon, UsersIcon, ShieldIcon, GlobeIcon, FileIcon, WorldIcon, AwardIcon } from "./Icons";
 
-export const BUILDER_HREF = "https://buy.stripe.com/4gMeVe0lh9ZueEraKT3oA0s";
-export const ACCELERATOR_HREF = "https://buy.stripe.com/eVq6oIec7c7Caob1aj3oA0t";
+/* Checkout is created server-side in
+   src/app/api/business-architect/create-checkout/route.ts so the page price
+   and the charged price cannot drift. The old hard-coded Payment Links were
+   built for the previous $997 / $1,497 pricing and have been removed. */
+
+/* ── CONFIRMED FACTS ─── */
+export const COHORT_START = "August 22, 2026 · 2pm BST";
+export const COHORT_START_SHORT = "August 22, 2026";
+
+/* ── NEEDS TEMITOPE'S SIGN-OFF ───
+   ENGAGEMENT_RANGE: the price band a graduate can realistically charge.
+   Replace with a band grounded in real consulting rates before shipping. */
+export const ENGAGEMENT_RANGE = "$3,000–$8,000";
 
 export const shifts: [string, string][] = [
   ["Invisible expert", "Recognised authority in your niche"],
@@ -13,36 +24,107 @@ export const shifts: [string, string][] = [
   ["Solo operator", "Premium Business Architect"],
 ];
 
-export const tracks: { num: string; title: ReactNode; desc: string }[] = [
+export const tracks: {
+  num: string;
+  title: ReactNode;
+  benefit: string;
+  desc: string;
+}[] = [
   {
     num: "Track 01",
     title: <><em>Intelligence Layer</em> Mastery</>,
+    benefit: "Turn your Intelligence Layer into language that closes deals.",
     desc: "The workshop named it. This is where you own it. You pressure-test your Intelligence Layer against real market signals, refine the language until it converts, and confirm the foundation before everything else is built on top of it. Most experts pivot two or three times before it lands. This track collapses that into one deliberate process.",
   },
   {
     num: "Track 02",
     title: <>From Unknown to <em>Authority</em></>,
+    benefit: "Become the name your ICP already trusts before the first call.",
     desc: "Personal branding built around your specific expertise and niche. You become the person your ICP finds, follows, and trusts before they ever speak to you. Your positioning, your visual identity, your market presence — architected with intention, not assembled by accident.",
   },
   {
     num: "Track 03",
     title: <>From <em>Content</em> to Clients</>,
+    benefit: "A content system that brings in clients without daily posting.",
     desc: "A content system that works while you are not. Short-form video, yap sessions, written content — all derived from your Intelligence Layer so it sounds like you and attracts exactly who you serve. Not content for the sake of content. Content that converts.",
   },
   {
     num: "Track 04",
     title: <>From Conversations to <em>Contracts</em></>,
+    benefit: "Turn discovery calls into signed, scoped engagements.",
     desc: "How to run discovery calls, diagnose a client's business, present your findings, and close an engagement. The full client acquisition process from first contact to signed scope — so you never walk in unprepared or leave a call uncertain about next steps.",
   },
   {
     num: "Track 05",
     title: <>From Consultant to <em>Builder</em></>,
+    benefit: "Design and deliver a real AI Operating System for a paying client.",
     desc: "You learn to design and deliver an AI Operating System for a real client — the infrastructure, the automation, the handover. You stop giving advice and start building things clients depend on. This is where you become the person worth the premium rate.",
   },
   {
     num: "Track 06",
     title: <>The <em>Operator&rsquo;s</em> Brand</>,
+    benefit: "Price and present yourself as premium — not as a freelancer.",
     desc: "How to carry, price, and present yourself as a premium Business Architect — not a contractor, not a freelancer. The business identity, the positioning language, the market presence that commands the rates and the rooms you want to be in.",
+  },
+];
+
+/* ── VALUE STACK ───
+   NEEDS TEMITOPE'S SIGN-OFF. Every figure below is a category comparable,
+   not a rate Temitope has quoted. Replace with real standalone prices, or
+   delete any line you would not actually sell separately. The Builder Seat
+   line is the one already defensible from existing page copy. */
+export const builderStack: { label: string; value: number }[] = [
+  { label: "Six-track curriculum, taught live over six weeks", value: 547 },
+  { label: "Weekly group Q&A — your work reviewed, not just questions answered", value: 197 },
+  { label: "Domain expert guest sessions across every track", value: 197 },
+  { label: "Full template and prompt library", value: 127 },
+  { label: "Community access and peer accountability", value: 77 },
+  { label: "All session recordings, yours to keep", value: 47 },
+];
+
+export const acceleratorStack: { label: string; value: number }[] = [
+  { label: "The Builder Seat — a second full seat in the programme", value: 597 },
+  { label: "Opening private strategy session (1:1, before day one)", value: 175 },
+  { label: "Track expert private session (1:1, targeted)", value: 175 },
+  { label: "Personal review of your first proposal and AI OS architecture", value: 125 },
+  { label: "Priority feedback — 24hr response", value: 75 },
+];
+
+export const BUILDER_PRICE = 597;
+export const ACCELERATOR_PRICE = 997;
+
+export const sum = (rows: { value: number }[]) =>
+  rows.reduce((total, row) => total + row.value, 0);
+
+export const money = (n: number) => `$${n.toLocaleString("en-US")}`;
+
+/* ── SOCIAL PROOF ───
+   Real quotes supplied by Temitope 2026-08-15 from Intelligence Layer Workshop
+   participants. Adi's is condensed — every word is his, with cuts marked by an
+   ellipsis. Nothing added, nothing paraphrased. No photos or artifact
+   screenshots: he asked for those to be left out for now. */
+export const proofItems: {
+  quote: string;
+  name: string;
+  meta: string;
+}[] = [
+  {
+    quote:
+      "The biggest thing people do not share is how you exchange your knowledge for value, and that is the biggest issue you have in consulting, or any space… I see them struggle, and they are talented, but this is the block. I don't know how many people do what you're doing, Temitope; it's quite laudable.",
+    name: "Adi",
+    meta: "30 years in consulting",
+  },
+  {
+    quote:
+      "The client acquisition system is what I've been looking for all of my time in business. This works.",
+    name: "Nat",
+    meta: "20 years in business",
+  },
+  {
+    quote:
+      "What you do isn't copy-and-paste, Temitope; it is the real deal.",
+    name: "Ola",
+    meta: "12 years in engineering consulting",
   },
 ];
 
@@ -103,10 +185,13 @@ export const compareRows: {
   { label: "Track expert private session", builder: false, accelerator: true },
   { label: "Personal proposal and architecture review", builder: false, accelerator: true },
   { label: "Priority feedback — 24hr response", builder: false, accelerator: true },
-  { label: "The Invisible Operator track", builder: false, accelerator: true },
 ];
 
 export const faqs: { q: string; a: string }[] = [
+  {
+    q: "I already built my offer at the workshop. What is actually left to do?",
+    a: "You built the foundation — the Intelligence Layer, the ICP, the site. What you do not have yet is a price the market has tested, a repeatable way to get in front of the people who pay it, a delivery system you can hand over, and a brand that holds the rate. That is the six weeks. You are not starting again; you are building the business around what you already made.",
+  },
   {
     q: "Who do I bring as my Builder Seat in the Accelerator?",
     a: "Someone who wants to learn the technical implementation side — a business partner, a co-founder, a VA you trust, a family member who is technically inclined. They do not need to be a developer. They need to be willing to learn the build process alongside you. You lead the clients and the strategy. They learn to build the systems. Together you are a complete consulting unit.",
@@ -124,4 +209,3 @@ export const faqs: { q: string; a: string }[] = [
     a: "Domain experts who have actually built in their specific area — lead acquisition, AI-backed content, personal brand, automated systems, and more. This is not one person covering everything. Each specialist track is led by the person most qualified to teach it. The programme is built this way deliberately so every layer of your business is taught at the highest level.",
   },
 ];
-

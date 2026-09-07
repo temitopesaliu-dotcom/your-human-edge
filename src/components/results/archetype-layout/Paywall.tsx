@@ -1,4 +1,8 @@
 import { isValidEmail } from "@/lib/utils/validation";
+import {
+  PLAYBOOK_LIST_PRICE_LABEL,
+  PLAYBOOK_PRICE_LABEL,
+} from "@/lib/utils/playbook-pricing";
 import type { ArchetypeConfig } from "./types";
 
 interface PaywallProps {
@@ -23,14 +27,14 @@ export default function Paywall({
   return (
     <div id="paywall">
       <div className="paywall-inner">
-        <div className="pw-pre">Your Personal Playbook · $9.99</div>
+        <div className="pw-pre">Your Personal Playbook · {PLAYBOOK_PRICE_LABEL}</div>
         <h2 className="pw-title">The Step-by-Step Blueprint to Your First<br /><em>5 Figure Month</em> using AI</h2>
         <p className="pw-sub">
           Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The {config.name}.
         </p>
-        <div className="pw-price-was">Valued at $57</div>
-        <div className="pw-price">$9.99</div>
-        <div className="pw-badge">🔥 Launch Price — Valid for the first 10 Buyers</div>
+        <div className="pw-price-was">{PLAYBOOK_LIST_PRICE_LABEL}</div>
+        <div className="pw-price">{PLAYBOOK_PRICE_LABEL}</div>
+        <div className="pw-badge">Discount applied automatically. No code needed.</div>
         <div>
           {showEmailInput && (
             <div style={{ marginBottom: "16px" }}>

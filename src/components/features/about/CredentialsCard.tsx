@@ -8,7 +8,9 @@ export default function CredentialsCard() {
       <div className="abt-grid">
         {CREDENTIALS.map((credential, i) => (
           <div
-            className={`abt-tick-card${i === CREDENTIALS.length - 1 ? " abt-tick-card--wide" : ""}`}
+            className={`abt-tick-card${i === CREDENTIALS.length - 1 && CREDENTIALS.length % 2 === 1
+              ? " abt-tick-card--wide"
+              : ""}`}
             key={credential}
           >
             <CheckIcon />

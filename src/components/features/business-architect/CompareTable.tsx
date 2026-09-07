@@ -16,8 +16,8 @@ export default function CompareTable() {
           <thead>
             <tr>
               <th></th>
-              <th className="bc">The Builder · $997</th>
-              <th className="ac">The Accelerator · $1,497</th>
+              <th className="bc">The Builder · $597</th>
+              <th className="ac">The Accelerator · $997</th>
             </tr>
           </thead>
           <tbody>

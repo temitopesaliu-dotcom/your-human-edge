@@ -77,6 +77,7 @@ export default function PlaybookPdfViewer({
         productId="playbook"
         productName="Archetype Playbook"
         value={9.99}
+        currency="GBP"
         dedupKey="ga_purchase_playbook"
       />
       <style>{`

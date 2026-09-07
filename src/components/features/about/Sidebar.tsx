@@ -15,7 +15,7 @@ export default function Sidebar() {
         />
       </div>
       <div className="abt-side-name">Temitope Saliu</div>
-      <div className="abt-side-title">Business Architect. AI Consultant. Teacher.</div>
+      <div className="abt-side-title">Business Solutions Architect. AI Consultant. Strategist.</div>
 
       <div className="abt-cta-row">
         <Link className="abt-btn-solid" href="/the-blueprint-audit">
