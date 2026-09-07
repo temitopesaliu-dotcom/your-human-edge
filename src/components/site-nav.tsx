@@ -39,18 +39,23 @@ export default function SiteNav({
   logoVariant = "brand",
 }: SiteNavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   // Close the menu whenever the route changes.
   useEffect(() => {
     setMenuOpen(false);
+    setOpenDropdown(null);
   }, [pathname]);
 
   // Close on Escape for keyboard/AT users.
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setOpenDropdown(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -110,11 +115,28 @@ export default function SiteNav({
       <ul className="nav-links">
         {links.map((link) =>
           link.children?.length ? (
-            <li key={link.href} className="sn-dd">
-              <Link href={link.href} className="sn-dd-trigger" aria-haspopup="true">
+            <li
+              key={link.href}
+              className={`sn-dd${openDropdown === link.href ? " sn-dd-open" : ""}`}
+            >
+              {/* Trigger is a toggle, not a link — it opens/closes the dropdown
+                  on click (touch/tablet, keyboards) while CSS :hover covers
+                  pointer devices. */}
+              <button
+                type="button"
+                className="sn-dd-trigger"
+                aria-haspopup="true"
+                aria-expanded={openDropdown === link.href}
+                onClick={() =>
+                  setOpenDropdown((o) => (o === link.href ? null : link.href))
+                }
+              >
                 {link.label}
-              </Link>
-              <div className="sn-dd-panel" role="menu">
+              </button>
+              <div
+                className={`sn-dd-panel${openDropdown === link.href ? " sn-dd-panel--open" : ""}`}
+                role="menu"
+              >
                 <div className="sn-dd-card">
                   {link.children.map((child) => (
                     <Link
