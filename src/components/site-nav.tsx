@@ -18,10 +18,10 @@ interface SiteNavProps {
   onCtaClick?: () => void;
   links?: SiteNavLink[];
   logoHref?: string;
-  /** Pass null (default) to render no logo at all. */
+  /** Pass null to render no logo at all. */
   logoText?: string | null;
-  /** "brand" renders logoText as-is; "name" renders it as a styled personal name (first word + italic surname in coral). */
-  logoVariant?: "brand" | "name";
+  /** "mark" renders logoText as a wordmark with an accented + (default home link); "brand" renders logoText as-is; "name" renders it as a styled personal name. */
+  logoVariant?: "brand" | "name" | "mark";
 }
 
 const DEFAULT_LINKS: SiteNavLink[] = [
@@ -44,7 +44,7 @@ export default function SiteNav({
   links = DEFAULT_LINKS,
   logoHref = "/",
   logoText = null,
-  logoVariant = "name",
+  logoVariant = "mark",
 }: SiteNavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -101,6 +101,17 @@ export default function SiteNav({
 
   const renderLogo = () => {
     if (!logoText) return null;
+    // "mark": wordmark with the + accented — doubles as the site home link.
+    if (logoVariant === "mark" && logoText.includes("+")) {
+      const idx = logoText.indexOf("+");
+      return (
+        <Link href={logoHref} className="nav-logo sn-logo-mark" aria-label="Home">
+          {logoText.slice(0, idx)}
+          <span>{logoText[idx]}</span>
+          {logoText.slice(idx + 1)}
+        </Link>
+      );
+    }
     if (logoVariant === "name" && logoText.includes(" ")) {
       const [first, ...rest] = logoText.split(" ");
       return (
@@ -118,7 +129,13 @@ export default function SiteNav({
 
   return (
     <nav className="sn-root">
+      {/* Left slot: explicit Home link (or a logo if one is passed in). */}
       {renderLogo()}
+      {!logoText && (
+        <Link href="/" className="sn-home">
+          Home
+        </Link>
+      )}
 
       {/* Desktop links (hidden on mobile by global responsive rules) */}
       <ul className="nav-links">
@@ -188,6 +205,16 @@ export default function SiteNav({
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div className="sn-mobile-menu" id="sn-mobile-menu" role="menu">
+          {/* Home first in the mobile menu (no Home link is shown in the
+              collapsed mobile bar). */}
+          <Link
+            href="/"
+            role="menuitem"
+            className={`sn-mobile-link${pathname === "/" ? " sn-mobile-link--active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Home
+          </Link>
           {links.map((link) =>
             link.children?.length ? (
               <div key={link.href} className="sn-mobile-group">

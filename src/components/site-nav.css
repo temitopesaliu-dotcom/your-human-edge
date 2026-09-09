@@ -165,6 +165,23 @@
   color: var(--ds-accent);
 }
 
+/* ── Home link (top-left) ────────────────────────────────────────
+   Styled like the desktop nav links so it reads as part of the
+   link set; hidden on mobile where the hamburger menu takes over. */
+.sn-root .sn-home {
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--ds-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.sn-root .sn-home:hover,
+.sn-root .sn-home:focus-visible {
+  color: var(--ds-ink);
+  text-decoration: none;
+}
+
 /* ── Mobile ─────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .sn-root .sn-logo-name {
@@ -173,6 +190,12 @@
 
   /* Bar stays clean: logo + hamburger. CTA lives in the menu. */
   .sn-root .sn-desktop-cta {
+    display: none;
+  }
+
+  /* Home is covered by the hamburger menu on mobile; the links are
+     hidden too, so the left slot stays empty for the logo. */
+  .sn-root .sn-home {
     display: none;
   }
 
