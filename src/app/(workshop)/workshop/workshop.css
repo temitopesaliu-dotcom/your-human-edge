@@ -1,4 +1,6 @@
-:root {
+/* Tokens scoped to the page wrapper as well as :root so they survive
+   other bundles re-declaring the same custom properties later. */
+:root, .ws-page {
   --white: #FFFFFF;
   --alabaster: #F8F7FC;
   --grain: #F5F5F3;
@@ -26,7 +28,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+body, .ws-page { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
 
 .ws-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 max(2rem, calc((100vw - 1100px)/2)); height: 60px; display: flex; align-items: center; justify-content: space-between; }
 .ws-nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }

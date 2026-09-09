@@ -8,7 +8,10 @@
 /* ============================================================
    1. DESIGN TOKENS
    ============================================================ */
-:root {
+/* Tokens declared on :root AND .aios-root: the page wrapper keeps them
+   available inside this bundle even when another page's CSS loads after
+   this one and re-declares the same custom properties. */
+:root, .aios-root {
   --bg:            #080808;
   --bg-1:          #0D0D0D;
   --bg-2:          #121212;
@@ -62,7 +65,8 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-body {
+body,
+.aios-root {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -2049,7 +2053,7 @@ ul { list-style: none; }
 /* ============================================================
    26. SELECTION / SCROLLBAR
    ============================================================ */
-::selection { background: var(--accent-dim); color: var(--accent-light); }
+.aios-root ::selection { background: var(--accent-dim); color: var(--accent-light); }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }

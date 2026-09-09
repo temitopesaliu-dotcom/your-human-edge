@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/components/features/about/about.css";
 import SiteNav from "@/components/site-nav";
+import SiteFooter from "@/components/site-footer";
 import Sidebar from "@/components/features/about/Sidebar";
 import CredentialsCard from "@/components/features/about/CredentialsCard";
 import HighlightsCard from "@/components/features/about/HighlightsCard";
@@ -15,29 +16,10 @@ export const metadata: Metadata = {
   },
 };
 
-const NAV_LINKS = [
-  {
-    label: "Quizzes",
-    href: "/quiz",
-    children: [
-      { label: "AI Fit Quiz", href: "/quiz" },
-      { label: "AI For Expert Quiz", href: "/intelligence-layer" },
-    ],
-  },
-  { label: "Free Resources", href: "/resources" },
-  { label: "Business Audit", href: "/the-blueprint-audit" },
-];
-
 export default function HomePage() {
   return (
     <div className="abt-page">
-      <SiteNav
-        logoHref="/"
-        logoText="Temitope Saliu"
-        logoVariant="name"
-        links={NAV_LINKS}
-        ctaLabel={null}
-      />
+      <SiteNav />
       <div className="abt-wrap">
         <Sidebar />
 
@@ -65,13 +47,10 @@ export default function HomePage() {
           <HighlightsCard />
           <WorkshopsCard />
           <AwardsCard />
-
-          <footer className="abt-footer">
-            © 2026 Temitope Saliu · Your Human Edge with AI. All Rights
-            Reserved.
-          </footer>
         </main>
       </div>
+
+      <SiteFooter />
     </div>
   );
 }

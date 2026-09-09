@@ -15,11 +15,11 @@ export default function PromptBox({ copied, onCopy }: PromptBoxProps) {
         <div>
           <div style={{
             fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em',
-            textTransform: 'uppercase', color: 'var(--teal)', marginBottom: 4,
+            textTransform: 'uppercase', color: 'var(--ds-accent, #6c4fd6)', marginBottom: 4,
           }}>
             The master prompt
           </div>
-          <p style={{ fontSize: '.82rem', color: 'var(--soft)', margin: 0, lineHeight: 1.6 }}>
+          <p style={{ fontSize: '.82rem', color: 'var(--ds-muted, #655f74)', margin: 0, lineHeight: 1.6 }}>
             Fill in the 8 bracketed fields. Paste into any AI assistant.
           </p>
         </div>
@@ -29,12 +29,12 @@ export default function PromptBox({ copied, onCopy }: PromptBoxProps) {
           style={{
             fontSize: '.82rem', fontWeight: 600,
             padding: '10px 22px',
-            border: copied ? '1.5px solid var(--teal)' : '1.5px solid var(--border)',
+            border: copied ? '1.5px solid var(--ds-accent, #6c4fd6)' : '1.5px solid var(--ds-border, #e7e1f5)',
             borderRadius: 40,
-            background: copied ? 'rgba(15,110,86,.08)' : '#fff',
-            color: copied ? 'var(--teal)' : 'var(--ink)',
+            background: copied ? 'var(--ds-accent-soft, #f1edfd)' : 'var(--ds-surface, #fff)',
+            color: copied ? 'var(--ds-accent, #6c4fd6)' : 'var(--ds-ink, #221f1a)',
             cursor: 'pointer',
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
             transition: 'all 0.2s',
             flexShrink: 0,
             whiteSpace: 'nowrap',
@@ -45,13 +45,13 @@ export default function PromptBox({ copied, onCopy }: PromptBoxProps) {
       </div>
 
       <pre className='b2b-prompt-pre' style={{
-        background: '#fff',
-        border: '1px solid var(--border)',
+        background: 'var(--ds-surface, #fff)',
+        border: '1px solid var(--ds-border, #e7e1f5)',
         borderRadius: 12,
         padding: '1.6rem 1.8rem',
         fontFamily: "'Courier New', Courier, monospace",
         fontSize: 12.5,
-        color: 'var(--soft)',
+        color: 'var(--ds-muted, #655f74)',
         lineHeight: 1.9,
         whiteSpace: 'pre-wrap',
         wordBreak: 'break-word',

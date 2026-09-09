@@ -3,13 +3,13 @@ import { useState, useCallback } from 'react';
 import { useEmailGate } from '@/hooks/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 import SiteNav from '@/components/site-nav';
+import SiteFooter from '@/components/site-footer';
 import '@/components/features/b2b-lead-acquisition-prompt/b2b-prompt.css';
 import { PROMPT_TEXT } from '@/components/features/b2b-lead-acquisition-prompt/b2b-prompt.data';
 import Hero from '@/components/features/b2b-lead-acquisition-prompt/Hero';
 import StagesSection from '@/components/features/b2b-lead-acquisition-prompt/StagesSection';
 import PromptBox from '@/components/features/b2b-lead-acquisition-prompt/PromptBox';
 import HowToUse from '@/components/features/b2b-lead-acquisition-prompt/HowToUse';
-import Footer from '@/components/features/b2b-lead-acquisition-prompt/Footer';
 
 export default function B2BPromptClient() {
   const [copied, setCopied] = useState(false);
@@ -50,9 +50,9 @@ export default function B2BPromptClient() {
         onSubmit={handleGateSubmit}
       />
       <div style={{
-        fontFamily: "'DM Sans', sans-serif",
-        background: 'var(--warm)',
-        color: 'var(--ink)',
+        fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
+        background: 'var(--ds-bg, #ffffff)',
+        color: 'var(--ds-ink, #221f1a)',
         minHeight: '100dvh',
       }}>
 
@@ -69,7 +69,7 @@ export default function B2BPromptClient() {
           <HowToUse />
         </div>
 
-        <Footer />
+        <SiteFooter />
       </div>
     </>
   );

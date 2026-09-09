@@ -11,7 +11,6 @@ const CONFIG: ArchetypeConfig = {
   secondaryColor: '#0C6B51',
   navRgb: '201,79,42',
   heroGrad: 'linear-gradient(145deg,#5C1A0A 0%,#C94F2A 55%,#D4824A 100%)',
-  ctaBg: 'var(--coral)',
   wrapperClass: "cr-amplifier",
 
   icon: "🎨",

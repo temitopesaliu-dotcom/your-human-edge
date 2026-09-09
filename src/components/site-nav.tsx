@@ -18,25 +18,33 @@ interface SiteNavProps {
   onCtaClick?: () => void;
   links?: SiteNavLink[];
   logoHref?: string;
-  logoText?: string;
+  /** Pass null (default) to render no logo at all. */
+  logoText?: string | null;
   /** "brand" renders logoText as-is; "name" renders it as a styled personal name (first word + italic surname in coral). */
   logoVariant?: "brand" | "name";
 }
 
 const DEFAULT_LINKS: SiteNavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Archetype Quiz", href: "/quiz" },
-  { label: "Resources", href: "/resources" },
+  {
+    label: "Quizzes",
+    href: "/quiz",
+    children: [
+      { label: "AI Fit Quiz", href: "/quiz" },
+      { label: "AI For Expert Quiz", href: "/intelligence-layer" },
+    ],
+  },
+  { label: "Free Resources", href: "/resources" },
+  { label: "Business Audit", href: "/the-blueprint-audit" },
 ];
 
 export default function SiteNav({
-  ctaLabel = "Find my archetype",
+  ctaLabel = null,
   ctaHref = "/quiz",
   onCtaClick,
   links = DEFAULT_LINKS,
-  logoHref = "/quiz",
-  logoText = "Your Human Edge in the AI Era",
-  logoVariant = "brand",
+  logoHref = "/",
+  logoText = null,
+  logoVariant = "name",
 }: SiteNavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -92,6 +100,7 @@ export default function SiteNav({
   };
 
   const renderLogo = () => {
+    if (!logoText) return null;
     if (logoVariant === "name" && logoText.includes(" ")) {
       const [first, ...rest] = logoText.split(" ");
       return (

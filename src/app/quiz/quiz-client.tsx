@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { QUIZ_QUESTIONS, type ArchetypeKey } from '@/lib/utils/archetypes';
 import { track } from '@/lib/services/analytics';
-import Link from 'next/link';
 import SiteNav from '@/components/site-nav';
+import SiteFooter from '@/components/site-footer';
 
 type Scores = Record<ArchetypeKey, number>;
 
@@ -49,8 +49,8 @@ export default function QuizClient() {
   const isLast = currentQ === QUIZ_QUESTIONS.length - 1;
 
   return (
-    <div className="home-page">
-      <SiteNav ctaLabel="Find my archetype" onCtaClick={startQuiz} />
+    <div className="ds-light">
+      <SiteNav />
 
       {phase === 'landing' && (
         <div id="landing" className="landing">
@@ -58,7 +58,7 @@ export default function QuizClient() {
             <div className="landing-content">
               <div className="eyebrow eyebrow--teal">Free Archetype Quiz</div>
               <h1 className="hero-title">
-                Which part of AI was<br />made for <em style={{ color: 'var(--coral)' }}>you?</em>
+                Which part of AI was<br />made for <em style={{ color: 'var(--ds-accent)' }}>you?</em>
               </h1>
               <div className="hero-subtitle">Based on DISC, Myers-Briggs & Personality Science.</div>
               <div className="social-proof">
@@ -129,14 +129,7 @@ export default function QuizClient() {
         </div>
       )}
 
-      <footer>
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <ul className="f-links">
-          <li><Link href="/quiz">Take the quiz</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <div style={{ fontSize: '.7rem', opacity: .25 }}>© 2026</div>
-      </footer>
+      <SiteFooter />
       <TrackingScript />
     </div>
   );

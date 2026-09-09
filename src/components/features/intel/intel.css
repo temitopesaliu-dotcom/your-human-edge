@@ -1,4 +1,6 @@
-:root {
+/* Scoped to the page wrapper so these page tokens can't clash with other
+   bundles' :root declarations (e.g. the Blueprint Audit's dark theme). */
+:root, .ilp-page {
   --white: #FFFFFF;
   --alabaster: #F8F7FC;
   --grain: #F5F5F3;
@@ -22,7 +24,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; min-height: 100vh; }
+body, .ilp-page { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; min-height: 100vh; }
 .ilp-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 max(2rem, calc((100vw - 1100px)/2)); height: 60px; display: flex; align-items: center; justify-content: flex-start; }
   .nav-tag {
     font-size: 11px; font-weight: 500; letter-spacing: 0.08em;

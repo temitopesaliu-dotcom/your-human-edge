@@ -13,7 +13,6 @@ const CONFIG: ArchetypeConfig = {
 secondaryColor: '#0C6B51',
 navRgb: '83,74,183',
 heroGrad: 'linear-gradient(145deg,#2A2470 0%,#534AB7 55%,#8B7FD4 100%)',
-ctaBg: 'var(--gold2)',
 
   icon: "⚙️",
   name: "Systems Architect",

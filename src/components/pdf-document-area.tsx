@@ -53,10 +53,10 @@ const errStyles: Record<string, React.CSSProperties> = {
   container: {
     textAlign: "center",
     padding: "60px 24px",
-    color: "#4a3f6b",
+    color: "var(--ds-muted, #655f74)",
     fontSize: "1rem",
   },
-  detail: { color: "#c94f2a", fontSize: "0.82rem", marginTop: "8px" },
+  detail: { color: "var(--ds-accent, #6c4fd6)", fontSize: "0.82rem", marginTop: "8px" },
 };
 
 const PdfDocumentArea = forwardRef<HTMLDivElement, PdfDocumentAreaProps>(
@@ -92,7 +92,7 @@ const PdfDocumentArea = forwardRef<HTMLDivElement, PdfDocumentAreaProps>(
             <div className="pb-spinner"></div>
             <p
               style={{
-                color: "#4a3f6b",
+                color: "var(--ds-muted, #655f74)",
                 fontSize: isMobile ? "0.85rem" : "0.95rem",
               }}
             >

@@ -17,22 +17,22 @@
       @keyframes as-spin { to { transform: rotate(360deg); } }
 
       .ai-stadium-root {
-        --chalk: #F6F1E4;
-        --chalk-2: #ECE4D0;
-        --ink: #1C1A17;
-        --stadium: #14171F;
-        --stadium-2: #1D2230;
-        --floodlight: #F2A93C;
-        --floodlight-dim: #C98A2E;
-        --turf: #2E7D5B;
-        --turf-dim: #225C44;
-        --dust: #756C5A;
-        --line: rgba(28, 26, 23, 0.14);
-        --line-dark: rgba(246, 241, 228, 0.16);
+        --chalk: #ffffff;
+        --chalk-2: #f7f5fc;
+        --ink: #221f1a;
+        --stadium: #221f1a;
+        --stadium-2: #3a352c;
+        --floodlight: #6c4fd6;
+        --floodlight-dim: #553da9;
+        --turf: #6c4fd6;
+        --turf-dim: #553da9;
+        --dust: #655f74;
+        --line: #e7e1f5;
+        --line-dark: rgba(255, 255, 255, 0.16);
 
-        font-family: 'Literata', Georgia, serif;
+        font-family: var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
         color: var(--ink);
-        background: var(--chalk);
+        background: var(--ds-bg, #ffffff);
         width: 100%;
         max-width: none;
         margin: 0;
@@ -43,18 +43,17 @@
       .ai-stadium-root * { box-sizing: border-box; margin: 0; padding: 0; }
 
       .as-display {
-        font-family: 'Anton', 'Oswald', sans-serif;
-        font-weight: 400;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
+        font-family: inherit;
+        font-weight: 700;
+        letter-spacing: -0.01em;
       }
       .as-label {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1.4px;
       }
-      .as-mono { font-family: 'IBM Plex Mono', monospace; }
+      .as-mono { font-family: ui-monospace, Menlo, monospace; }
 
       /* ── PANELS ── */
       .as-panels { animation: as-fade 0.25s ease; }
@@ -91,7 +90,7 @@
         line-height: 1.05;
       }
       .as-panel-head .as-sub {
-        font-family: 'Literata', serif;
+        font-family: var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
         font-style: italic;
         color: var(--dust);
         font-size: 16px;
@@ -100,7 +99,7 @@
       }
 
       .as-section-label {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 14px;
         letter-spacing: 1.6px;
         text-transform: uppercase;
@@ -126,12 +125,12 @@
       }
       .as-tool:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(28, 26, 23, 0.08);
+        box-shadow: 0 10px 22px rgba(20, 10, 50, 0.08);
       }
-      .as-tool .tname { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; }
+      .as-tool .tname { font-family: inherit; font-weight: 600; font-size: 15px; }
       .as-tool .ttag {
         display: inline-block;
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 12px;
         background: var(--chalk-2);
         color: var(--dust);
@@ -155,14 +154,14 @@
         margin-bottom: 10px;
       }
       .as-prompt-name {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         letter-spacing: 0.8px;
         text-transform: uppercase;
         color: var(--floodlight);
       }
       .as-copybtn {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         letter-spacing: 0.6px;
         text-transform: uppercase;
@@ -174,17 +173,17 @@
         cursor: pointer;
         transition: background 0.15s;
       }
-      .as-copybtn:hover { background: rgba(246, 241, 228, 0.1); }
+      .as-copybtn:hover { background: rgba(255, 255, 255, 0.1); }
       .as-copybtn.copied {
         background: var(--turf);
         border-color: var(--turf);
         color: #fff;
       }
       .as-prompt pre {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 14px;
         line-height: 1.65;
-        color: rgba(246, 241, 228, 0.92);
+        color: rgba(255, 255, 255, 0.92);
         white-space: pre-wrap;
         word-break: break-word;
       }
@@ -212,7 +211,7 @@
         accent-color: var(--turf);
         flex: none;
       }
-      .as-check span { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 500; }
+      .as-check span { font-family: inherit; font-size: 15px; font-weight: 500; }
 
       /* ── COMMITMENT + STREAK ── */
       .as-commit-wrap { padding: 0 32px; }
@@ -227,7 +226,7 @@
         background: var(--chalk);
         border: none;
         padding: 8px 20px;
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-weight: 600;
         font-size: 15px;
         cursor: pointer;
@@ -239,9 +238,9 @@
         gap: 26px;
         margin-bottom: 16px;
       }
-      .as-stat .n { font-family: 'Anton', sans-serif; font-size: 26px; color: var(--turf-dim); }
+      .as-stat .n { font-family: inherit; font-size: 26px; color: var(--turf-dim); }
       .as-stat .l {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 12px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -259,7 +258,7 @@
         border: 1px solid var(--line);
         border-radius: 4px;
         cursor: pointer;
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 11px;
         color: var(--dust);
         display: flex;
@@ -273,7 +272,7 @@
       .as-reset {
         background: none;
         border: none;
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 12px;
         letter-spacing: 0.6px;
         text-transform: uppercase;
@@ -285,12 +284,12 @@
 
       /* ── OFFER BUILDER ── */
       .offer-builder-wrap {
-        background: #F0EBE0;
+        background: var(--ds-tint, #f7f5fc);
         padding: 28px 24px;
         border-radius: 16px;
         border: 2px solid var(--floodlight);
         margin: 24px 32px 16px;
-        box-shadow: 0 8px 20px rgba(28, 26, 23, 0.08);
+        box-shadow: 0 8px 20px rgba(20, 10, 50, 0.08);
       }
       .offer-builder-wrap .as-section-label {
         font-size: 20px;
@@ -307,7 +306,7 @@
         margin-bottom: 18px;
       }
       .as-field label {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -326,21 +325,21 @@
       }
       .as-field input:focus { border-color: var(--turf); outline: none; }
       .as-offer-out {
-        background: #FFF8EC;
+        background: var(--ds-accent-soft, #f1edfd);
         border: 2px solid var(--floodlight);
         border-radius: 10px;
         padding: 20px 24px;
         margin-bottom: 16px;
       }
       .as-offer-out .ol {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 12px;
         letter-spacing: 1.4px;
         text-transform: uppercase;
         color: var(--turf-dim);
       }
       .as-offer-out .ov {
-        font-family: 'Literata', serif;
+        font-family: var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
         font-size: 22px;
         font-style: italic;
         margin-top: 6px;
@@ -371,27 +370,27 @@
       }
       .as-mon-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(28, 26, 23, 0.08);
+        box-shadow: 0 10px 22px rgba(20, 10, 50, 0.08);
       }
       .as-mon-card .mh { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
       .as-mon-card .mh svg { width: 20px; height: 20px; stroke: var(--turf-dim); flex: none; }
-      .as-mon-card .mh h3 { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; }
+      .as-mon-card .mh h3 { font-family: inherit; font-size: 15px; font-weight: 600; }
       .as-mon-card .mrange {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 14px;
         color: var(--floodlight-dim);
         margin: 8px 0;
       }
       .as-mon-card p { font-size: 15px; line-height: 1.5; color: var(--ink); }
       .as-mon-card .mtool {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         color: var(--dust);
         margin-top: 10px;
         text-transform: uppercase;
         letter-spacing: 0.6px;
       }
-      .mtool-highlight { color: black; font-weight: 700; }
+      .mtool-highlight { color: var(--ink); font-weight: 700; }
 
       /* ── CURRENCY ── */
       .as-currency-wrap {
@@ -401,13 +400,13 @@
         margin: 0 32px 20px;
       }
       .as-currency-wrap .label {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         color: var(--dust);
         letter-spacing: 1px;
       }
       .currency-select {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         font-weight: 600;
         border: 1px solid var(--ink);
@@ -443,7 +442,7 @@
         border-bottom: 1px solid var(--line);
       }
       .as-calc-row.head {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 14px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -451,18 +450,18 @@
         border-bottom: none;
         padding-bottom: 4px;
       }
-      .as-calc-row .rn { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; }
+      .as-calc-row .rn { font-family: inherit; font-weight: 600; font-size: 15px; }
       .as-calc-row input {
         width: 100%;
         border: 1px solid var(--line);
         border-radius: 6px;
         padding: 7px 8px;
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 14px;
         background: #fff;
       }
       .as-calc-row .rtotal {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 15px;
         font-weight: 600;
         color: var(--turf-dim);
@@ -479,14 +478,14 @@
         gap: 10px;
       }
       .as-scoreboard .sl {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 14px;
         letter-spacing: 1.4px;
         text-transform: uppercase;
-        color: rgba(246, 241, 228, 0.6);
+        color: rgba(255, 255, 255, 0.6);
       }
       .as-scoreboard .sv {
-        font-family: 'Anton', sans-serif;
+        font-family: inherit;
         font-size: clamp(30px, 5vw, 46px);
         color: var(--floodlight);
       }
@@ -526,7 +525,7 @@
         color: var(--ink);
         border-radius: 50px;
         text-decoration: none;
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-weight: 700;
         font-size: 13px;
         letter-spacing: 0.6px;
@@ -564,7 +563,7 @@
         flex: 1 1 0;
         min-width: 0;
         background: var(--ink);
-        color: rgba(246, 241, 228, 0.55);
+        color: rgba(255, 255, 255, 0.55);
         border: none;
         padding: 12px 8px 10px;
         cursor: pointer;
@@ -578,10 +577,10 @@
         border-bottom-color: var(--floodlight);
       }
       .as-gate-btn:hover:not(.active) {
-        background: rgba(246, 241, 228, 0.06);
+        background: rgba(255, 255, 255, 0.06);
       }
       .as-gate-num {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 10px;
         letter-spacing: 1.5px;
         color: var(--floodlight);
@@ -591,7 +590,7 @@
         color: var(--floodlight-dim);
       }
       .as-gate-label {
-        font-family: 'Anton', sans-serif;
+        font-family: inherit;
         font-size: 13px;
         letter-spacing: 0.3px;
         display: block;
@@ -622,7 +621,7 @@
         margin: 0 32px 32px;
       }
       .as-tagline p {
-        font-family: 'Literata', serif;
+        font-family: var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
         font-style: italic;
         font-size: clamp(15px, 2.6vw, 19px);
         line-height: 1.6;
@@ -646,9 +645,9 @@
         display: block;
       }
       .as-coach-info { flex: 1; min-width: 240px; }
-      .as-coach-info h3 { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; }
+      .as-coach-info h3 { font-family: inherit; font-size: 18px; font-weight: 600; }
       .as-coach-info .role {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 11px;
         color: var(--dust);
         margin: 4px 0 10px;
@@ -674,7 +673,7 @@
         border-radius: 50%;
       }
       .as-gold {
-        color: black;
+        color: var(--ink);
         font-weight: 700;
       }
 
@@ -751,11 +750,11 @@
       }
       .as-price-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 26px rgba(28, 26, 23, 0.1);
+        box-shadow: 0 12px 26px rgba(20, 10, 50, 0.1);
       }
       .as-price-card.featured { border: 2px solid var(--floodlight); }
       .as-price-tier {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-weight: 600;
         font-size: 13px;
         text-transform: uppercase;
@@ -764,14 +763,14 @@
       }
       .as-price-row { display: flex; align-items: baseline; gap: 10px; margin: 10px 0 4px; }
       .as-price-old {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: ui-monospace, Menlo, monospace;
         font-size: 16px;
         color: var(--dust);
         text-decoration: line-through;
       }
       .as-price-new { font-size: 38px; color: var(--ink); }
       .as-price-note {
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-size: 10px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -802,7 +801,7 @@
         text-align: center;
         background: var(--stadium);
         color: var(--chalk);
-        font-family: 'Oswald', sans-serif;
+        font-family: inherit;
         font-weight: 600;
         font-size: 15px;
         letter-spacing: 0.6px;
@@ -813,42 +812,10 @@
         cursor: pointer;
         transition: background 0.15s;
       }
-      .as-price-cta:hover { background: #28241f; }
+      .as-price-cta:hover { background: var(--stadium-2); }
       .as-price-cta:focus-visible { outline: none; }
 
-      /* ── STADIUM NAV OVERRIDES ── */
-      .ai-stadium-root nav {
-        background: var(--stadium) !important;
-        border-bottom: 1px solid var(--line-dark) !important;
-      }
-      .ai-stadium-root .nav-logo {
-        color: var(--chalk) !important;
-      }
-      .ai-stadium-root .nav-logo span { color: var(--floodlight) !important; }
-      .ai-stadium-root .nav-links a {
-        color: rgba(246, 241, 228, 0.55) !important;
-      }
-      .ai-stadium-root .nav-links a:hover {
-        color: var(--chalk) !important;
-      }
-      .ai-stadium-root .nav-cta {
-        background: var(--floodlight) !important;
-        color: var(--ink) !important;
-      }
-      .ai-stadium-root .nav-cta:hover {
-        background: var(--chalk) !important;
-        color: var(--ink) !important;
-      }
-
-      /* ── STADIUM FOOTER ── */
-      .as-footer {
-        position: static !important;
-        background: var(--stadium) !important;
-        color: var(--chalk) !important;
-        margin-top: 40px;
-        display: flex !important;
-      }
-      .as-footer .f-links a { color: rgba(246, 241, 228, 0.7) !important; }
+      /* Nav and footer come from the shared SiteNav / SiteFooter components. */
 
       /* ── RESPONSIVE ── */
       @media (max-width: 640px) {

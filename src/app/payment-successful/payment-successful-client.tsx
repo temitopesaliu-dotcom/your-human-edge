@@ -1,6 +1,7 @@
 'use client';
 
 import PurchaseTracker from '@/components/purchase-tracker';
+import SiteFooter from '@/components/site-footer';
 
 const TIME_ZONES = [
   { label: 'UK (BST)', time: '16:00 (4 PM)', gold: true },
@@ -26,10 +27,12 @@ export default function PaymentSuccessfulClient() {
       />
       <div
         style={{
-          background: '#F6F1E4',
-          fontFamily: "'Literata', Georgia, serif",
+          background: 'var(--ds-bg, #ffffff)',
+          fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
+          color: 'var(--ds-ink, #221f1a)',
           minHeight: '100dvh',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '20px',
@@ -39,13 +42,14 @@ export default function PaymentSuccessfulClient() {
           style={{
             maxWidth: '620px',
             width: '100%',
-            background: '#14171F',
-            color: '#F6F1E4',
-            borderRadius: '20px',
+            marginBottom: '40px',
+            background: 'var(--ds-surface, #ffffff)',
+            color: 'var(--ds-ink, #221f1a)',
+            borderRadius: '14px',
             padding: '48px 40px 40px',
             textAlign: 'center',
-            border: '1px solid rgba(242, 169, 60, 0.3)',
-            boxShadow: '0 20px 60px rgba(20, 23, 31, 0.5)',
+            border: '1px solid var(--ds-border, #e7e1f5)',
+            boxShadow: 'var(--ds-shadow-pop, 0 18px 50px rgba(20, 10, 50, 0.08))',
           }}
         >
           <div
@@ -53,12 +57,12 @@ export default function PaymentSuccessfulClient() {
               width: 80,
               height: 80,
               borderRadius: '50%',
-              background: '#2E7D5B',
+              background: 'var(--ds-accent-soft, #f1edfd)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 24px',
-              border: '3px solid #F2A93C',
+              border: '3px solid var(--ds-accent, #6c4fd6)',
             }}
             aria-hidden
           >
@@ -67,7 +71,7 @@ export default function PaymentSuccessfulClient() {
               height="44"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#F6F1E4"
+              stroke="var(--ds-accent, #6c4fd6)"
               strokeWidth="3"
             >
               <polyline points="4 13 9 18 20 7" />
@@ -76,11 +80,11 @@ export default function PaymentSuccessfulClient() {
 
           <h1
             style={{
-              fontFamily: "'Anton', sans-serif",
-              fontSize: '34px',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              color: '#F2A93C',
+              fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
+              fontSize: '32px',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              color: 'var(--ds-ink, #221f1a)',
               marginBottom: '8px',
             }}
           >
@@ -89,10 +93,9 @@ export default function PaymentSuccessfulClient() {
 
           <p
             style={{
-              fontFamily: "'Literata', serif",
               fontStyle: 'italic',
               fontSize: '16px',
-              color: 'rgba(246, 241, 228, 0.7)',
+              color: 'var(--ds-muted, #655f74)',
               marginBottom: '28px',
             }}
           >
@@ -103,7 +106,7 @@ export default function PaymentSuccessfulClient() {
             style={{
               width: '60px',
               height: '2px',
-              background: '#F2A93C',
+              background: 'var(--ds-accent, #6c4fd6)',
               margin: '0 auto 24px',
               opacity: 0.5,
             }}
@@ -114,24 +117,24 @@ export default function PaymentSuccessfulClient() {
             style={{
               fontSize: '16px',
               lineHeight: 1.7,
-              color: 'rgba(246, 241, 228, 0.9)',
+              color: 'var(--ds-body, #3a352c)',
             }}
           >
             A confirmation email has been sent to your inbox.
             <br />
             Your training will take place on{' '}
-            <strong style={{ color: '#F2A93C', fontWeight: 600 }}>
+            <strong style={{ color: 'var(--ds-accent, #6c4fd6)', fontWeight: 600 }}>
               July 12, 2026
             </strong>{' '}
             at{' '}
-            <strong style={{ color: '#F2A93C', fontWeight: 600 }}>
+            <strong style={{ color: 'var(--ds-accent, #6c4fd6)', fontWeight: 600 }}>
               4:00 PM (UK time)
             </strong>
             <span
               style={{
                 display: 'block',
                 fontSize: '14px',
-                color: 'rgba(246,241,228,0.5)',
+                color: 'var(--ds-muted, #655f74)',
                 marginTop: '4px',
               }}
             >
@@ -145,30 +148,29 @@ export default function PaymentSuccessfulClient() {
               gap: '10px 20px',
               margin: '24px 0 28px',
               textAlign: 'left',
-              background: 'rgba(255, 255, 255, 0.04)',
+              background: 'var(--ds-tint, #f7f5fc)',
               borderRadius: '12px',
               padding: '18px 22px',
-              border: '1px solid rgba(246, 241, 228, 0.08)',
+              border: '1px solid var(--ds-border, #e7e1f5)',
             }}
           >
             {TIME_ZONES.map((tz) => (
               <div key={tz.label}>
                 <span
                   style={{
-                    fontFamily: "'Oswald', sans-serif",
                     fontSize: '11px',
+                    fontWeight: 600,
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
-                    color: 'rgba(246, 241, 228, 0.4)',
+                    color: 'var(--ds-muted, #655f74)',
                   }}
                 >
                   {tz.label}
                 </span>
                 <div
                   style={{
-                    fontFamily: "'IBM Plex Mono', monospace",
                     fontSize: '14px',
-                    color: tz.gold ? '#F2A93C' : '#F6F1E4',
+                    color: tz.gold ? 'var(--ds-accent, #6c4fd6)' : 'var(--ds-ink, #221f1a)',
                     fontWeight: 500,
                   }}
                 >
@@ -181,9 +183,9 @@ export default function PaymentSuccessfulClient() {
           <p
             style={{
               fontSize: '13px',
-              color: 'rgba(246, 241, 228, 0.4)',
+              color: 'var(--ds-muted, #655f74)',
               fontStyle: 'italic',
-              borderTop: '1px solid rgba(246, 241, 228, 0.06)',
+              borderTop: '1px solid var(--ds-border, #e7e1f5)',
               paddingTop: '20px',
               marginTop: '6px',
             }}
@@ -192,6 +194,7 @@ export default function PaymentSuccessfulClient() {
           </p>
         </div>
       </div>
+      <SiteFooter />
     </>
   );
 }

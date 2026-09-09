@@ -19,7 +19,8 @@ export function GateNav({ activeGate, onGateChange }: GateNavProps) {
     <div className="as-nav" style={{
       display: 'flex',
       gap: 2,
-      background: 'var(--ink)',
+      background: 'var(--ds-tint, #f7f5fc)',
+      borderBottom: '1px solid var(--ds-border, #e7e1f5)',
       overflowX: 'auto',
     }}>
       {GATES.map((gate) => (
@@ -31,28 +32,31 @@ export function GateNav({ activeGate, onGateChange }: GateNavProps) {
           style={{
             flex: '1 1 0',
             minWidth: 100,
-            background: activeGate === gate.id ? 'var(--chalk)' : 'var(--ink)',
-            color: activeGate === gate.id ? 'var(--ink)' : 'rgba(246, 241, 228, 0.55)',
+            background: activeGate === gate.id ? 'var(--ds-surface, #fff)' : 'transparent',
+            color: activeGate === gate.id ? 'var(--ds-ink, #221f1a)' : 'var(--ds-muted, #655f74)',
             border: 'none',
             padding: '12px 8px 10px',
             cursor: 'pointer',
             textAlign: 'left',
             transition: 'background 0.15s, color 0.15s',
-            borderBottom: activeGate === gate.id ? '3px solid var(--floodlight)' : '3px solid transparent',
+            borderBottom: activeGate === gate.id ? '3px solid var(--ds-accent, #6c4fd6)' : '3px solid transparent',
           }}
         >
           <span style={{
-            fontFamily: "'Oswald', sans-serif",
+            fontFamily: 'inherit',
             fontSize: 10,
+            fontWeight: 600,
             letterSpacing: 1.5,
-            color: activeGate === gate.id ? 'var(--floodlight-dim)' : 'var(--floodlight)',
+            textTransform: 'uppercase' as const,
+            color: activeGate === gate.id ? 'var(--ds-accent, #6c4fd6)' : 'var(--ds-muted, #655f74)',
             display: 'block',
           }}>
             {gate.num}
           </span>
           <span style={{
-            fontFamily: "'Anton', sans-serif",
+            fontFamily: 'inherit',
             fontSize: 13,
+            fontWeight: 700,
             letterSpacing: 0.3,
             display: 'block',
             marginTop: 3,
@@ -64,4 +68,3 @@ export function GateNav({ activeGate, onGateChange }: GateNavProps) {
     </div>
   );
 }
-

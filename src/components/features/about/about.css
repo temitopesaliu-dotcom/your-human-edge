@@ -119,16 +119,3 @@
 .abt-award:last-child { margin-bottom: 0; }
 .abt-award-title { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
 .abt-award-sub { font-size: 13.5px; color: var(--abt-muted); }
-
-.abt-footer {
-  position: static;
-  background: transparent;
-  box-shadow: none;
-  color: var(--abt-muted);
-  font-size: 13px;
-  text-align: center;
-  margin-top: 12px;
-  padding: 0;
-  display: block;
-  grid-template-columns: none;
-}

@@ -46,7 +46,7 @@ export default function Paywall({
                 style={{
                   padding: "10px 16px", borderRadius: "8px", border: "1px solid rgba(255,255,255,.2)",
                   background: "rgba(255,255,255,.08)", color: "#fff", fontSize: ".9rem",
-                  width: "100%", maxWidth: "320px", outline: "none", fontFamily: "'DM Sans',sans-serif"
+                  width: "100%", maxWidth: "320px", outline: "none", fontFamily: "var(--ds-font, sans-serif)"
                 }}
               />
               <button
@@ -60,8 +60,8 @@ export default function Paywall({
                 }}
                 style={{
                   display: "block", margin: "8px auto 0", padding: "10px 24px", borderRadius: "8px",
-                  border: "none", background: "var(--coral)", color: "#fff", fontSize: ".85rem",
-                  fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif"
+                  border: "none", background: "var(--ds-accent, #6c4fd6)", color: "#fff", fontSize: ".85rem",
+                  fontWeight: 600, cursor: "pointer", fontFamily: "var(--ds-font, sans-serif)"
                 }}
               >
                 Continue to Checkout

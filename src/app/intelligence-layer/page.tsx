@@ -104,7 +104,7 @@ export default function IntelHomePage() {
   }, [answers, gateEmail, gateName, submitIntelSubscribe]);
 
   return (
-    <>
+    <div className="ilp-page">
       <Nav />
 
       <Hero onScrollToQuiz={handleScrollToQuiz} />
@@ -143,6 +143,6 @@ export default function IntelHomePage() {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -45,7 +45,7 @@ export default async function WorkshopConfirmationPage({
   const { value, currency } = await resolvePurchaseValue(session_id);
 
   return (
-    <>
+    <div className="ws-page">
       <PurchaseTracker
         productId="intelligence-layer-workshop"
         productName="Intelligence Layer Workshop"
@@ -54,7 +54,7 @@ export default async function WorkshopConfirmationPage({
         dedupKey="purchase-tracked-intelligence-layer-workshop"
       />
       <style>{`
-        :root {
+        :root, .ws-page {
           --white: #FFFFFF;
           --alabaster: #F8F7FC;
           --grain: #F5F5F3;
@@ -243,6 +243,6 @@ export default async function WorkshopConfirmationPage({
         </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

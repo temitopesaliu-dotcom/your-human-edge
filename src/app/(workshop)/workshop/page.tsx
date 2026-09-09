@@ -17,7 +17,7 @@ import Footer from "@/components/features/workshop/Footer";
 
 export default function WorkshopPage() {
   return (
-    <>
+    <div className="ws-page">
       <Nav />
       <Countdown />
       <SpotsRemaining />
@@ -31,6 +31,6 @@ export default function WorkshopPage() {
       <Faq />
       <FinalCta />
       <Footer />
-    </>
+    </div>
   );
 }

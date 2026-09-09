@@ -61,9 +61,8 @@ export default function PlaybookPdfViewer({
         <nav style={navStyles.root}>
           <a href="/quiz" style={navStyles.logo}>Your Human Edge in the AI Era</a>
         </nav>
-        <div style={rootStyles.loadingArea}>
-          <div className="pb-spinner"></div>
-          <p style={{ color: "#4a3f6b", fontSize: "0.95rem" }}>
+        <div style={rootStyles.loadingArea}>          <div className="pb-spinner"></div>
+              <p style={{ color: "var(--ds-muted, #655f74)", fontSize: "0.95rem" }}>
             Loading your premium playbook...
           </p>
         </div>
@@ -87,7 +86,7 @@ export default function PlaybookPdfViewer({
         }
         .pb-spinner {
           width: 40px; height: 40px; border-radius: 50%;
-          border: 3px solid #e4ddd4; border-top-color: #534ab7;
+          border: 3px solid var(--ds-border, #e7e1f5); border-top-color: var(--ds-accent, #6c4fd6);
           animation: pb-spin 0.8s linear infinite;
         }
         @keyframes toast-in {
@@ -120,7 +119,7 @@ export default function PlaybookPdfViewer({
               </nav>
               <div style={rootStyles.loadingArea}>
                 <div className="pb-spinner"></div>
-                <p style={{ color: "#4a3f6b", fontSize: "0.95rem" }}>
+                <p style={{ color: "var(--ds-muted, #655f74)", fontSize: "0.95rem" }}>
                   Loading your premium playbook...
                 </p>
               </div>
@@ -170,7 +169,7 @@ function EmailToast({ email }: { email: string }) {
     >
       <span style={{ fontSize: "1rem", flexShrink: 0, opacity: 0.7 }}>📧</span>
       <span>
-        Sent to <strong style={{ color: "#534ab7", fontWeight: 600 }}>{email}</strong>
+        Sent to <strong style={{ color: "var(--ds-accent, #6c4fd6)", fontWeight: 600 }}>{email}</strong>
       </span>
     </div>
   );
@@ -179,10 +178,10 @@ function EmailToast({ email }: { email: string }) {
 const rootStyles: Record<string, React.CSSProperties> = {
   container: {
     minHeight: "100dvh",
-    background: "#f5f3ef",
+    background: "var(--ds-bg, #ffffff)",
     display: "flex",
     flexDirection: "column",
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
   },
   loadingArea: {
     flex: 1,
@@ -200,22 +199,22 @@ const navStyles: Record<string, React.CSSProperties> = {
     position: "sticky",
     top: 0,
     zIndex: 99,
-    background: "rgba(26,16,64,.94)",
+    background: "rgba(255,255,255,.9)",
     backdropFilter: "blur(14px)",
     WebkitBackdropFilter: "blur(14px)",
-    borderBottom: "1px solid rgba(255,255,255,.07)",
+    borderBottom: "1px solid var(--ds-border, #e7e1f5)",
     padding: "0 32px",
     display: "flex",
     alignItems: "center",
     height: "62px",
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
   },
   logo: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
     fontSize: ".95rem",
-    fontWeight: 500,
-    color: "rgba(255,255,255,.9)",
-    letterSpacing: ".04em",
+    fontWeight: 600,
+    color: "var(--ds-ink, #221f1a)",
+    letterSpacing: ".02em",
     textDecoration: "none",
     whiteSpace: "nowrap",
   },
@@ -225,7 +224,7 @@ const errorStyles: Record<string, React.CSSProperties> = {
   container: {
     textAlign: "center",
     padding: "60px 24px",
-    color: "#4a3f6b",
+    color: "var(--ds-muted, #655f74)",
     fontSize: "1rem",
   },
 };

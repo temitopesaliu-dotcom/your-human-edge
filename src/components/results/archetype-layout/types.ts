@@ -37,7 +37,6 @@ export interface ArchetypeConfig {
   secondaryColor: string;
   navRgb: string;
   heroGrad: string;
-  ctaBg: string;
   /* Hero */
   icon: string;
   name: string;

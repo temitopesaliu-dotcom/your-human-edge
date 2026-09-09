@@ -1,27 +1,27 @@
 @keyframes b2b-spin { to { transform: rotate(360deg); } }
 .b2b-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:16px}
-.b2b-loading-spin{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--teal);animation:b2b-spin .8s linear infinite}
-.b2b-loading p{font-size:.88rem;color:var(--soft)}
+.b2b-loading-spin{width:40px;height:40px;border-radius:50%;border:3px solid var(--ds-border,#e7e1f5);border-top-color:var(--ds-accent,#6c4fd6);animation:b2b-spin .8s linear infinite}
+.b2b-loading p{font-size:.88rem;color:var(--ds-muted,#655f74)}
 .b2b-stage-card {
   display: grid;
   grid-template-columns: 44px 1fr;
   gap: 16px;
   align-items: start;
-  background: #fff;
-  border: 1px solid var(--border);
+  background: var(--ds-surface, #fff);
+  border: 1px solid var(--ds-border, #e7e1f5);
   border-radius: 14px;
   padding: 1.1rem 1.3rem;
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
 }
 .b2b-stage-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 36px rgba(26,16,64,.09);
-  border-color: var(--teal);
+  box-shadow: 0 12px 36px rgba(20,10,50,.08);
+  border-color: var(--ds-accent, #6c4fd6);
 }
 .b2b-step-row { display: flex; gap: 16px; align-items: flex-start; }
 .b2b-prompt-box {
-  background: var(--paper);
-  border: 1px solid var(--border);
+  background: var(--ds-tint, #f7f5fc);
+  border: 1px solid var(--ds-border, #e7e1f5);
   border-radius: 18px;
   padding: 2rem;
   margin-bottom: 4rem;
@@ -38,8 +38,8 @@
 }
 @media (hover: hover) {
   .b2b-copy-btn:hover {
-    background: var(--ink) !important;
+    background: var(--ds-accent, #6c4fd6) !important;
     color: #fff !important;
-    border-color: var(--ink) !important;
+    border-color: var(--ds-accent, #6c4fd6) !important;
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAsyncForm } from "@/hooks/use-async-form";
 import type { TestimonialSubmitRequest, TestimonialSubmitResponse } from "@/types/testimonial";
+import SiteFooter from "@/components/site-footer";
 
 export default function TestimonialPage() {
   const [name, setName] = useState("");
@@ -24,23 +25,27 @@ export default function TestimonialPage() {
 
   if (status === "done") {
     return (
+      <>
       <div className="tf-body">
         <div className="tf-wrap">
           <div className="tf-card" style={{ textAlign: "center" }}>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, marginBottom: 8 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
               Thank you!
             </h2>
-            <p style={{ color: "var(--muted)", fontSize: 14 }}>
+            <p style={{ color: "var(--ds-muted, #655f74)", fontSize: 14 }}>
               Your testimonial has been received.
             </p>
           </div>
         </div>
         <style>{styles}</style>
       </div>
+      <SiteFooter />
+      </>
     );
   }
 
   return (
+    <>
     <div className="tf-body">
       <div className="tf-wrap">
         <div className="tf-header">
@@ -161,36 +166,38 @@ export default function TestimonialPage() {
       </div>
       <style>{styles}</style>
     </div>
+    <SiteFooter />
+    </>
   );
 }
 
 const styles = `
 .tf-body{
-  --bg:#FAF9FC; --card:#FFFFFF; --border:#E4E2ED;
-  --purple:#7C3AED; --purple-dk:#6524D9; --purple-lt:#F5F3FE;
-  --espresso:#3B2F35; --muted:#8B8494; --gold:#E8B93C;
-  font-family:'Inter',sans-serif;background:var(--bg);color:var(--espresso);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;
+  --bg:#ffffff; --card:#ffffff; --border:#e7e1f5;
+  --purple:#6c4fd6; --purple-dk:#553da9; --purple-lt:#f1edfd;
+  --espresso:#221f1a; --muted:#655f74; --gold:#c8940a;
+  font-family:var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);background:var(--bg);color:var(--espresso);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;
 }
 .tf-wrap{width:100%;max-width:560px;}
-.tf-header{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-dk) 100%);border-radius:18px;padding:30px 32px;margin-bottom:28px;position:relative;overflow:hidden;}
-.tf-header::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08);}
-.tf-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:10px;}
-.tf-header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:-.4px;margin-bottom:8px;}
-.tf-header p{font-size:13.5px;color:rgba(255,255,255,.65);}
-.tf-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;}
+.tf-header{background:var(--ds-tint,#f7f5fc);border:1px solid var(--border);border-radius:18px;padding:30px 32px;margin-bottom:28px;position:relative;overflow:hidden;}
+.tf-header::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(108,79,214,.06);}
+.tf-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;}
+.tf-header h1{font-family:inherit;font-size:28px;font-weight:700;letter-spacing:-.4px;margin-bottom:8px;color:var(--espresso);}
+.tf-header p{font-size:13.5px;color:var(--muted);}
+.tf-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:var(--ds-shadow-card,0 1px 3px rgba(20,10,50,.04));}
 .tf-field{margin-bottom:20px;}
 .tf-field label{display:block;font-size:12.5px;font-weight:600;color:var(--espresso);margin-bottom:6px;}
-.tf-field input,.tf-field textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--espresso);background:#fff;transition:border-color .15s;}
+.tf-field input,.tf-field textarea{width:100%;border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit;color:var(--espresso);background:#fff;transition:border-color .15s;}
 .tf-field input:focus,.tf-field textarea:focus{outline:none;border-color:var(--purple);}
 .tf-field textarea{resize:vertical;min-height:120px;}
 .tf-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .tf-stars{display:flex;gap:6px;}
-.tf-star{width:30px;height:30px;cursor:pointer;color:#D9D5E3;transition:color .15s;}
-.tf-star.filled{color:var(--gold);}
+.tf-star{width:30px;height:30px;cursor:pointer;color:#DDD8EA;transition:color .15s;}
+.tf-star.filled{color:var(--purple);}
 .tf-consent{display:flex;align-items:flex-start;gap:10px;background:var(--purple-lt);border-radius:10px;padding:14px 16px;margin-bottom:22px;}
-.tf-consent input{margin-top:2px;flex-shrink:0;}
+.tf-consent input{margin-top:2px;flex-shrink:0;accent-color:var(--purple);}
 .tf-consent label{font-size:12.5px;color:var(--muted);line-height:1.55;}
-.tf-submit{width:100%;background:var(--purple);color:#fff;border:none;border-radius:10px;padding:14px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;}
+.tf-submit{width:100%;background:var(--purple);color:#fff;border:none;border-radius:40px;padding:14px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;}
 .tf-submit:hover{background:var(--purple-dk);}
 .tf-submit:disabled{opacity:0.6;cursor:not-allowed;}
 .tf-note{text-align:center;font-size:11.5px;color:var(--muted);margin-top:16px;}

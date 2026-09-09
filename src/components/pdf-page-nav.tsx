@@ -10,8 +10,8 @@ interface PdfPageNavProps {
 }
 
 const baseBar: React.CSSProperties = {
-  background: "#fff",
-  borderBottom: "1px solid #e4ddd4",
+  background: "var(--ds-surface, #fff)",
+  borderBottom: "1px solid var(--ds-border, #e7e1f5)",
   padding: "8px 24px",
   display: "flex",
   justifyContent: "space-between",
@@ -29,15 +29,15 @@ const mobileBar: React.CSSProperties = {
 };
 
 const baseBtn: React.CSSProperties = {
-  background: "#f5f3ef",
-  border: "1px solid #e4ddd4",
+  background: "var(--ds-tint, #f7f5fc)",
+  border: "1px solid var(--ds-border, #e7e1f5)",
   borderRadius: "8px",
   padding: "6px 16px",
   fontSize: "0.85rem",
   fontWeight: 500,
-  color: "#1a1040",
+  color: "var(--ds-ink, #221f1a)",
   cursor: "pointer",
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
   minHeight: "36px",
 };
 
@@ -57,7 +57,7 @@ const baseJump: React.CSSProperties = {
   alignItems: "center",
   gap: "6px",
   fontSize: "0.85rem",
-  color: "#4a3f6b",
+  color: "var(--ds-muted, #655f74)",
 };
 
 const mobileJump: React.CSSProperties = {
@@ -71,10 +71,10 @@ const baseInput: React.CSSProperties = {
   width: "60px",
   padding: "4px 8px",
   borderRadius: "6px",
-  border: "1px solid #e4ddd4",
+  border: "1px solid var(--ds-border, #e7e1f5)",
   fontSize: "0.85rem",
   textAlign: "center",
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "var(--ds-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)",
 };
 
 const mobileInput: React.CSSProperties = {

@@ -13,8 +13,8 @@ export default function LoadingFallback() {
           width: 40,
           height: 40,
           borderRadius: "50%",
-          border: "3px solid var(--border, #e2dbd0)",
-          borderTopColor: "var(--coral, #d85a30)",
+          border: "3px solid var(--ds-border, #e7e1f5)",
+          borderTopColor: "var(--ds-accent, #6c4fd6)",
           animation: "loading-fallback-spin 0.8s linear infinite",
         }}
       />

@@ -12,7 +12,6 @@ const CONFIG: ArchetypeConfig = {
 secondaryColor: '#0C6B51',
 navRgb: '21,101,192',
 heroGrad: 'linear-gradient(145deg,#0D2B6B 0%,#1565C0 55%,#534AB7 100%)',
-ctaBg: 'var(--coral)',
 
   icon: "🚀",
   name: "Growth Catalyst",

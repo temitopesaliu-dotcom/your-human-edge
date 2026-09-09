@@ -18,7 +18,7 @@ import SectionBusiness from "@/components/features/consulting-profile-form/Secti
 import SectionReflection from "@/components/features/consulting-profile-form/SectionReflection";
 import SubmitSection from "@/components/features/consulting-profile-form/SubmitSection";
 import ConfirmationScreen from "@/components/features/consulting-profile-form/ConfirmationScreen";
-import Footer from "@/components/features/consulting-profile-form/Footer";
+import SiteFooter from "@/components/site-footer";
 
 export default function ConsultingProfileFormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -125,7 +125,7 @@ export default function ConsultingProfileFormPage() {
         <ConfirmationScreen />
       )}
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

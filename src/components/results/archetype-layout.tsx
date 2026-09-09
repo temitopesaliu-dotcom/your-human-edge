@@ -12,7 +12,7 @@ import LeverageMatrix from "./archetype-layout/LeverageMatrix";
 import Testimonials from "./archetype-layout/Testimonials";
 import IncomeModel from "./archetype-layout/IncomeModel";
 import Paywall from "./archetype-layout/Paywall";
-import Footer from "./archetype-layout/Footer";
+import SiteFooter from "@/components/site-footer";
 
 export type {
   CareerPath,
@@ -67,17 +67,16 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
 
   return (
       <div
-  className="root"
+  className="root ds-light"
   style={{
     '--primary': config.primaryColor,
     '--secondary': config.secondaryColor,
     '--nav-rgb': config.navRgb,
     '--hero-grad': config.heroGrad,
-    '--cta-bg': config.ctaBg,
   } as React.CSSProperties}
 >
 
-      <SiteNav ctaLabel="Get the Playbook →" ctaHref="#paywall" />
+      <SiteNav />
 
       <ResultHero config={config} greeting={greeting} />
       <WhoYouAre config={config} />
@@ -94,7 +93,7 @@ export default function ArchetypeResultLayout({ config }: { config: ArchetypeCon
         onFallbackEmailChange={setFallbackEmail}
         onBuy={onBuy}
       />
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

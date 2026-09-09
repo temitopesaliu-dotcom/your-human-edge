@@ -13,7 +13,6 @@ const CONFIG: ArchetypeConfig = {
 secondaryColor: '#0C6B51',  // same as primary for human bridge
 navRgb: '12,107,81',
 heroGrad: 'linear-gradient(145deg,#064332 0%,#0C6B51 55%,#1B6B8A 100%)',
-ctaBg: '#0F8A68',
   icon: "🌿",
   name: "Human Bridge",
   tagline: "You are the person people call when they need to feel understood. AI is here to make sure you always have enough left to give.",

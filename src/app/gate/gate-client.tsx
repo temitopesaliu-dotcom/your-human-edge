@@ -1,11 +1,12 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { ARCHETYPES, type ArchetypeKey } from '@/lib/utils/archetypes';
 import { markLocallySubscribed } from '@/lib/services/subscriber';
 import { track } from '@/lib/services/analytics';
 import { useAsyncForm } from '@/hooks/use-async-form';
+import SiteNav from '@/components/site-nav';
+import SiteFooter from '@/components/site-footer';
 import type { SubscribeRequest, SubscribeResponse } from '@/types/subscribe';
 
 const TEASERS: Record<ArchetypeKey, string[]> = {
@@ -76,15 +77,13 @@ function GateContent() {
   }
 
   return (
-    <div className="gate-page">
-      <nav className="nav--sticky">
-        <Link href="/quiz" className="nav-logo">Your Human Edge in the AI Era</Link>
-      </nav>
+    <div className="ds-light gate-page">
+      <SiteNav />
 
       <div className="dark-hero">
         <div className="eyebrow eyebrow--gold">Almost there</div>
         <h1>
-          Your archetype<br />is <em style={{ color: 'var(--gold)' }}>ready.</em>
+          Your archetype<br />is <em style={{ color: 'var(--ds-accent)' }}>ready.</em>
         </h1>
         <p>
           You are about to discover exactly which corner of AI was built for the way you think, create, and move through the world.
@@ -135,10 +134,7 @@ function GateContent() {
         </div>
       </div>
 
-      <footer>
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <span style={{ opacity: .25, fontSize: '.7rem' }}>© 2026</span>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

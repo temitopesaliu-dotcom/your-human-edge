@@ -1,8 +1,8 @@
 export function GateHero() {
   return (
     <div className="as-hero" style={{
-      background: 'var(--stadium)',
-      color: 'var(--chalk)',
+      background: 'radial-gradient(ellipse at 50% 0%, rgba(108,79,214,.08), transparent 60%), var(--ds-bg, #ffffff)',
+      color: 'var(--ds-ink, #221f1a)',
       padding: '56px 32px 40px',
       position: 'relative',
       textAlign: 'center',
@@ -11,21 +11,19 @@ export function GateHero() {
         color: 'var(--floodlight)',
         fontSize: 'clamp(90px, 22vw, 180px)',
         lineHeight: 0.8,
-        textShadow: '0 0 60px rgba(242, 169, 60, 0.45)',
       }}>
         AI
       </div>
       <div style={{
-        fontFamily: "'Literata', serif",
         fontStyle: 'italic',
-        color: 'rgba(246, 241, 228, 0.65)',
+        color: 'var(--ds-muted, #655f74)',
         fontSize: 'clamp(16px, 3vw, 22px)',
         margin: '2px 0 6px',
       }}>
         for
       </div>
       <div className="as-display" style={{
-        color: 'var(--chalk)',
+        color: 'var(--ds-ink, #221f1a)',
         fontSize: 'clamp(24px, 4.6vw, 42px)',
         lineHeight: 1.15,
         maxWidth: 640,
@@ -40,12 +38,11 @@ export function GateHero() {
         gap: 12,
         margin: '36px auto 0',
         maxWidth: 560,
-        borderTop: '1px solid var(--line-dark)',
+        borderTop: '1px solid var(--line)',
         paddingTop: 24,
       }}>
         <div className="as-cap-item" style={{ borderLeft: 'none', paddingLeft: 0 }}>
           <div className="as-display" style={{
-            fontFamily: "'Anton', sans-serif",
             fontSize: 'clamp(22px, 4vw, 34px)',
             color: 'var(--floodlight)',
             lineHeight: 1,
@@ -56,15 +53,14 @@ export function GateHero() {
             fontSize: 11,
             textTransform: 'uppercase',
             letterSpacing: 1,
-            color: 'rgba(246, 241, 228, 0.6)',
+            color: 'var(--ds-muted, #655f74)',
             marginTop: 6,
           }}>
             A classroom
           </div>
         </div>
-        <div className="as-cap-item" style={{ borderLeft: '1px solid var(--line-dark)', paddingLeft: 14 }}>
+        <div className="as-cap-item" style={{ borderLeft: '1px solid var(--line)', paddingLeft: 14 }}>
           <div className="as-display" style={{
-            fontFamily: "'Anton', sans-serif",
             fontSize: 'clamp(22px, 4vw, 34px)',
             color: 'var(--floodlight)',
             lineHeight: 1,
@@ -75,15 +71,14 @@ export function GateHero() {
             fontSize: 11,
             textTransform: 'uppercase',
             letterSpacing: 1,
-            color: 'rgba(246, 241, 228, 0.6)',
+            color: 'var(--ds-muted, #655f74)',
             marginTop: 6,
           }}>
             A lecture hall
           </div>
         </div>
-        <div className="as-cap-item" style={{ borderLeft: '1px solid var(--line-dark)', paddingLeft: 14 }}>
+        <div className="as-cap-item" style={{ borderLeft: '1px solid var(--line)', paddingLeft: 14 }}>
           <div className="as-display" style={{
-            fontFamily: "'Anton', sans-serif",
             fontSize: 'clamp(22px, 4vw, 34px)',
             color: 'var(--floodlight)',
             lineHeight: 1,
@@ -94,7 +89,7 @@ export function GateHero() {
             fontSize: 11,
             textTransform: 'uppercase',
             letterSpacing: 1,
-            color: 'rgba(246, 241, 228, 0.6)',
+            color: 'var(--ds-muted, #655f74)',
             marginTop: 6,
           }}>
             A stadium — what AI opens up

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/services/analytics';
 import SiteNav from '@/components/site-nav';
+import SiteFooter from '@/components/site-footer';
 
 type Resource = {
   id: string;
@@ -76,21 +77,21 @@ const CATEGORIES = [
     key: 'individual' as const,
     label: 'For Individuals',
     description: 'Career paths, frameworks and practical tools for finding your edge in the AI economy.',
-    color: 'var(--purple)',
-    colorSolid: '#534ab7',
-    bgColor: 'rgba(83, 74, 183, 0.08)',
-    borderColor: 'rgba(83, 74, 183, 0.15)',
-    ghost: 'rgba(83,74,183,.15)',
+    color: 'var(--ds-accent)',
+    colorSolid: '#6c4fd6',
+    bgColor: 'var(--ds-accent-soft)',
+    borderColor: 'rgba(108, 79, 214, 0.25)',
+    ghost: 'rgba(108,79,214,.15)',
   },
   {
     key: 'company' as const,
     label: 'For Companies',
     description: 'Team frameworks, workshops and organisational resources for building AI-ready teams.',
-    color: 'var(--teal)',
-    colorSolid: '#0f6e56',
-    bgColor: 'rgba(15, 110, 86, 0.08)',
-    borderColor: 'rgba(15, 110, 86, 0.15)',
-    ghost: 'rgba(15,110,86,.15)',
+    color: 'var(--ds-accent-dark)',
+    colorSolid: '#553da9',
+    bgColor: 'var(--ds-accent-soft)',
+    borderColor: 'rgba(85, 61, 169, 0.25)',
+    ghost: 'rgba(85,61,169,.15)',
   },
 ];
 
@@ -130,10 +131,10 @@ export default function ResourcesClient() {
       <div className="rb-hero">
         <div className="rb-hero-glow" aria-hidden />
         <div className="rb-hero-inner">
-          <div className="eyebrow eyebrow--gold" style={{ marginBottom: 20, borderColor: 'rgba(200,148,10,.25)' }}>Free resource library</div>
+          <div className="eyebrow eyebrow--gold" style={{ marginBottom: 20 }}>Free resource library</div>
           <h1 className="rb-hero-title">
             Explore guides, frameworks and tools for thriving{' '}
-            <em style={{ color: '#c8940a', fontStyle: 'italic' }}>with AI.</em>
+            <em style={{ color: 'var(--ds-accent)', fontStyle: 'italic' }}>with AI.</em>
           </h1>
           <p className="rb-hero-desc">
             Free resources curated for individuals and organisations navigating the AI era — built around how you actually think and work.
@@ -159,8 +160,8 @@ export default function ResourcesClient() {
                       style={{
                         position: 'absolute', inset: 0,
                         background: cat.key === 'individual'
-                          ? 'radial-gradient(ellipse at 20% 50%, rgba(83,74,183,.12), transparent 70%)'
-                          : 'radial-gradient(ellipse at 20% 50%, rgba(15,110,86,.12), transparent 70%)',
+                          ? 'radial-gradient(ellipse at 20% 50%, rgba(108,79,214,.1), transparent 70%)'
+                          : 'radial-gradient(ellipse at 20% 50%, rgba(85,61,169,.1), transparent 70%)',
                         pointerEvents: 'none',
                       }}
                       aria-hidden
@@ -193,14 +194,13 @@ export default function ResourcesClient() {
                 <div
                   style={{
                     position: 'absolute', top: 0, left: 0, right: 0, height: 4,
-                    background: `linear-gradient(90deg, ${activeCategory.colorSolid}, rgba(200,148,10,.3))`,
+                    background: `linear-gradient(90deg, ${activeCategory.colorSolid}, rgba(108,79,214,.35))`,
                   }}
                   aria-hidden
                 />
 
                 {featured.badge && (
-                  <span className="rb-badge">
-                    <span className="dot dot--sm" style={{ background: 'var(--coral)' }} aria-hidden />
+                  <span className="rb-badge">                        <span className="dot dot--sm" style={{ background: 'var(--ds-accent)' }} aria-hidden />
                     {featured.badge}
                   </span>
                 )}
@@ -276,14 +276,7 @@ export default function ResourcesClient() {
         </div>
       </div>
 
-      <footer className="rb-footer-custom">
-        <div className="footer-brand">human<span>+</span>ai</div>
-        <ul className="f-links">
-          <li><Link href="/quiz">Take the quiz</Link></li>
-          <li><Link href="/resources">Resources</Link></li>
-        </ul>
-        <div style={{ fontSize: '.7rem', opacity: 0.25 }}>&copy; 2026</div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

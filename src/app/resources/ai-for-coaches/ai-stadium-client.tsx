@@ -5,6 +5,7 @@ import { track } from '@/lib/services/analytics';
 import { useEmailGate } from '@/hooks/use-email-gate';
 import EmailGateOverlay from '@/components/email-gate-overlay';
 // import LiveClassPopup from '@/components/live-class-popup'; // temporarily hidden
+import SiteFooter from '@/components/site-footer';
 import './ai-stadium.css';
 import { GateHero } from './gates/gate-hero';
 import { GateNav } from './gates/gate-nav';
@@ -85,6 +86,8 @@ export default function AiStadiumClient() {
           {activeGate === 'g5' && <Gate05Scoreboard />}
           {/* {activeGate === 'g6' && <Gate06Advanced />} */}{/* temporarily hidden */}
         </div>
+
+        <SiteFooter />
       </div>
     </>
   );
