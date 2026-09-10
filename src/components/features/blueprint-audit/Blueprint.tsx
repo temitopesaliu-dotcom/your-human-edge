@@ -75,10 +75,7 @@ export default function Blueprint() {
                 <span className="price-amount">1,000</span>
               </div>
             </div>
-            <p className="body-sm mb-4">
-              One-time. Credited 100% toward implementation if you proceed
-              within 30 days.
-            </p>
+            <p className="body-sm mb-4">Scoped to your business. $1,000 to $5,000+ depending on how much of your operation the architecture has to cover.</p>
 
             <div
               style={{
