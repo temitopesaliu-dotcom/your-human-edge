@@ -14,8 +14,8 @@ export default function Blueprint() {
             AI Operating System Blueprint.
           </h2>
           <p className="body-lg mt-3">
-            Not an audit. Not a consultation. A consulting engagement with one
-            purpose: clarity on exactly what your AI OS should look like and
+            A consulting engagement with one
+            purpose: clarity on exactly what your business operating system should look like and
             how to build it.
           </p>
         </div>
@@ -57,24 +57,23 @@ export default function Blueprint() {
 
             <div className="blueprint-why mt-5">
               <p className="blueprint-why-title">
-                Why is the Blueprint paid?
+              Why does the price vary
               </p>
-              <p className="blueprint-why-text">
-                Because this is not a sales call. It is a consulting
-                engagement. In 90 minutes, we produce a strategic document
-                that has real value regardless of whether you proceed. The
-                $1,000 ensures you arrive prepared and serious. It protects both
-                sides. And if you move forward within 30 days, it is credited
-                in full toward your project.
-              </p>
+              <p className="blueprint-why-text">Because every business arrives with a different problem.
+                We read your application, work out the architecture your operation actually needs, and price the engagement to that.
+                Mapping two workflows for a solo consultant is not the same job as mapping a twenty-person service business.
+                Blueprints run from $1,000 to $5,000+, and you get your exact figure in writing before you are asked to pay anything.</p>
             </div>
           </div>
 
           <div className="blueprint-pricing-card fade-up delay-2">
             <p className="label mb-4">AI Operating System Blueprint</p>
-            <div style={{ marginBottom: "var(--space-3)" }}>
-              <span className="price-currency">$</span>
-              <span className="price-amount">1,000</span>
+            <div className="price-row" style={{ marginBottom: "var(--space-3)" }}>
+              <p className="price-prefix">From</p>
+              <div>
+                <span className="price-currency">$</span>
+                <span className="price-amount">1,000</span>
+              </div>
             </div>
             <p className="body-sm mb-4">
               One-time. Credited 100% toward implementation if you proceed
@@ -92,7 +91,7 @@ export default function Blueprint() {
                 "90-minute consulting session",
                 "Written Blueprint document",
                 "Full implementation roadmap",
-                "Delivered within 5 business days",
+                "Delivered within 7 business days",
               ].map((item, i) => (
                 <div className="deliverable-item mb-2" key={i}>
                   <svg viewBox="0 0 16 16" fill="none">
@@ -120,9 +119,9 @@ export default function Blueprint() {
                 <path d="M8 5v4M8 11v0.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
               </svg>
               <span>
-                If you proceed with implementation within 30 days, the full
-                $1,000 Blueprint fee is credited toward your project. No
-                questions asked.
+                We design the system. We do not build it. Take the architecture
+                to your own team, your own developer, or to implementation
+                partners we can point you to.
               </span>
             </div>
 

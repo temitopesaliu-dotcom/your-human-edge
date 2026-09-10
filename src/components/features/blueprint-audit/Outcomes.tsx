@@ -34,6 +34,9 @@ export default function Outcomes() {
           <button className="outcomes-tab" data-tab="email" role="tab" aria-selected="false" aria-controls="panel-email">Email Automation</button>
           <button className="outcomes-tab" data-tab="support" role="tab" aria-selected="false" aria-controls="panel-support">Customer Support</button>
           <button className="outcomes-tab" data-tab="ops" role="tab" aria-selected="false" aria-controls="panel-ops">Operations</button>
+          <button className="outcomes-tab" data-tab="records" role="tab" aria-selected="false" aria-controls="panel-records">Records & Compliance</button>
+          <button className="outcomes-tab" data-tab="training" role="tab" aria-selected="false" aria-controls="panel-training">Training & Enablement</button>
+          <button className="outcomes-tab" data-tab="custom" role="tab" aria-selected="false" aria-controls="panel-custom">Others</button>
         </div>
 
         <div className="outcome-panel active fade-up delay-2" id="panel-leads" role="tabpanel">
@@ -42,7 +45,7 @@ export default function Outcomes() {
             <h3 className="heading-2 mt-3">New leads, qualified and routed before you wake up.</h3>
             <p className="body-md mt-3">Your AI OS captures inquiries from any channel, scores them against your ideal client profile, sends a personalised first response, and routes qualified leads to your pipeline—all before you open your laptop.</p>
             <p className="body-md mt-3">Result: You speak only with leads who already understand your offer and are ready to move forward.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Lead capture preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> New inquiry received from website form</div>
@@ -59,7 +62,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Client Onboarding</p>
             <h3 className="heading-2 mt-3">New clients onboarded completely. Without your involvement.</h3>
             <p className="body-md mt-3">Contract signed → welcome email sent → portal access granted → intake form triggered → kickoff call scheduled. Every step, without you lifting a finger.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Client onboarding preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Contract signed — trigger: onboarding sequence</div>
@@ -76,7 +79,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Internal Knowledge Assistant</p>
             <h3 className="heading-2 mt-3">Your business knowledge, instantly accessible to anyone who needs it.</h3>
             <p className="body-md mt-3">SOPs, client history, processes, decisions, templates — all indexed and accessible through a single AI interface.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Knowledge base preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> &quot;How do we handle refund requests?&quot;</div>
@@ -92,7 +95,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Sales Intelligence</p>
             <h3 className="heading-2 mt-3">Every sales conversation, better prepared and better followed up.</h3>
             <p className="body-md mt-3">Before every call, your AI prepares a brief on the prospect. After every call, it writes the follow-up, updates the CRM, and schedules next steps.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Sales intelligence preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Call in 30 min — AI brief generated</div>
@@ -108,7 +111,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Meeting Intelligence</p>
             <h3 className="heading-2 mt-3">Every meeting summarised, actioned and filed — automatically.</h3>
             <p className="body-md mt-3">Every meeting is transcribed, summarised, and distilled into action items assigned to the right people.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Meeting intelligence preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Meeting ends — transcript captured</div>
@@ -124,7 +127,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Content Engine</p>
             <h3 className="heading-2 mt-3">Your ideas turned into content. At scale. In your voice.</h3>
             <p className="body-md mt-3">One idea becomes a newsletter, three social posts, a LinkedIn article and a script — in your exact voice and tone.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Content engine preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Voice note: &quot;3 minute idea about founder burnout&quot;</div>
@@ -140,7 +143,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Proposal Generator</p>
             <h3 className="heading-2 mt-3">Proposals written in minutes, not hours.</h3>
             <p className="body-md mt-3">Using context from your discovery call, your AI OS generates a personalised, professional proposal in your brand voice.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Proposal generator preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Discovery call ends</div>
@@ -156,7 +159,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Email Automation</p>
             <h3 className="heading-2 mt-3">Your inbox, handled. The right emails sent, every time.</h3>
             <p className="body-md mt-3">Routine emails — follow-ups, check-ins, reminders, confirmations — sent automatically.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Email automation preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Proposal sent 3 days ago — no response</div>
@@ -172,7 +175,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Customer Support AI</p>
             <h3 className="heading-2 mt-3">First-line support handled. Complex issues escalated intelligently.</h3>
             <p className="body-md mt-3">Your AI handles 80% of support queries using your knowledge base and SOPs.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Customer support preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> &quot;How do I access my deliverables?&quot;</div>
@@ -188,7 +191,7 @@ export default function Outcomes() {
             <p className="label outcome-tag">Operations Dashboard</p>
             <h3 className="heading-2 mt-3">The full picture of your business. Always current.</h3>
             <p className="body-md mt-3">Revenue, pipeline, project status, team capacity, outstanding tasks — aggregated into one operational view.</p>
-            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this built for your business</Link>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Operations dashboard preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Revenue this month: on track ↑ 14%</div>
@@ -196,6 +199,56 @@ export default function Outcomes() {
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Projects: 4/5 on schedule</div>
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot"></span> 1 item needs your attention today</div>
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Everything else — running.</div>
+          </div>
+        </div>
+
+        <div className="outcome-panel" id="panel-records" role="tabpanel">
+          <div className="outcome-info">
+            <p className="label outcome-tag">Records & Compliance</p>
+            <h3 className="heading-2 mt-3">The paperwork trail builds itself.</h3>
+            <p className="body-md mt-3">For practices, institutions, clinics and regulated firms, every interaction is logged, filed against the right record, checked for gaps, and ready when someone asks for it.</p>
+            <p className="body-md mt-3">Result: You stop reconstructing the record after the fact, because it was never allowed to fall behind.</p>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
+          </div>
+          <div className="outcome-visual" aria-label="Records and compliance preview">
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Session notes captured and filed to the right record</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Required fields checked — 2 gaps flagged</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot"></span> Consent and document expiry tracked automatically</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Audit pack assembled on request in minutes</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Nothing reconstructed from memory.</div>
+          </div>
+        </div>
+
+        <div className="outcome-panel" id="panel-training" role="tabpanel">
+          <div className="outcome-info">
+            <p className="label outcome-tag">Training & Enablement</p>
+            <h3 className="heading-2 mt-3">Your expertise, available without you in the room.</h3>
+            <p className="body-md mt-3">What you know gets structured, made searchable, and turned into something a new person can absorb without occupying a senior calendar.</p>
+            <p className="body-md mt-3">Result: Onboarding a person stops costing you a week of your own time.</p>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
+          </div>
+          <div className="outcome-visual" aria-label="Training and enablement preview">
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Existing material ingested and structured</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> New starter asks — answered from your own material</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> Gaps surfaced by what people actually ask</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot"></span> Progress tracked per person, per module</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Senior time spent on judgment, not repetition.</div>
+          </div>
+        </div>
+
+        <div className="outcome-panel" id="panel-custom" role="tabpanel">
+          <div className="outcome-info">
+            <p className="label outcome-tag">Something Else Entirely</p>
+            <h3 className="heading-2 mt-3">Your bottleneck may look nothing like these.</h3>
+            <p className="body-md mt-3">Some businesses run on cases, cohorts, inventory, shifts, submissions, applications, tenancies, claims, bookings or field visits. The panels here are the patterns we see most often — not the boundary of the work.</p>
+            <p className="body-md mt-3">Result: The Blueprint starts from how your business actually operates — if the thing eating your week is not on this list, that is the thing we map.</p>
+            <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
+          </div>
+          <div className="outcome-visual" aria-label="Custom workflow preview">
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> We map your workflows, not a generic template</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Whatever system you already run on stays in the design</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> The real bottleneck identified — even an unusual one</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Architecture built around your operation as it is</div>
           </div>
         </div>
       </div>

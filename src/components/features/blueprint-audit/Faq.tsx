@@ -20,19 +20,19 @@ export default function Faq() {
             {[
               {
                 q: "Why is the Blueprint paid?",
-                a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value: a workflow map, AI architecture, implementation roadmap and investment estimate. This takes significant preparation and expertise. The $1,000 also ensures you arrive prepared and serious. Clients who have skin in the game get better outcomes. And if you proceed within 30 days, every dollar is credited toward your project.",
+                a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value on its own: a workflow map, an AI architecture, a build sequence and a costed estimate. That takes real preparation and expertise. Paying for it also means you arrive prepared and serious, and clients with skin in the game get better outcomes.",
               },
               {
-                q: "Can I skip the Blueprint and go straight to implementation?",
-                a: "No. All engagements begin with the Blueprint. This is not a formality—it is the foundation. Building without a Blueprint is like building a house without plans. The Blueprint is how we ensure the right system is built for your specific business, in the right order, with the right tools. It protects you from expensive mistakes.",
+                q: "How is my price decided?",
+                a: "By what your business actually needs. We read your application, work out the architecture your operation requires, and price the engagement to that scope. Mapping two workflows for a solo consultant is a different job to mapping a twenty-person service business. Blueprints run from $1,000 to $5,000+, and you receive your exact figure in writing with your acceptance—before you are asked to pay anything.",
               },
               {
-                q: "What if I decide not to proceed after the Blueprint?",
-                a: "That is completely fine. You keep the Blueprint document, roadmap and all recommendations. Many clients use the Blueprint to guide their own implementation or hire others to execute it. The document is yours. No obligation exists beyond the $1,000 session.",
+                q: "What happens after I get the Blueprint?",
+                a: "It is yours to act on however you want. Most clients take the architecture to their own developer or team. If you would rather it be built by someone who already knows this kind of specification, we can point you to implementation partners and make the introduction. The document is yours either way, with no obligation.",
               },
               {
-                q: "Is the $1,000 credited toward the project?",
-                a: "Yes. If you move forward with implementation within 30 days of your Blueprint session, the full $1,000 is credited toward your project investment. The Blueprint effectively costs you nothing if you proceed.",
+                q: "Do you build the system for me?",
+                a: "No. We design the architecture; we do not implement it. That keeps the work focused on getting the specification right rather than on winning a build contract. You take it to your own team, your own developer, or to implementation partners we can point you to.",
               },
               {
                 q: "Can my team attend the Blueprint Session?",
@@ -58,12 +58,12 @@ export default function Faq() {
 
             {[
               {
-                q: "How long does implementation take?",
-                a: "Typically 4–10 weeks depending on scope and complexity. A focused engagement covering 3–4 core systems usually runs 4–6 weeks. A full operating system covering every business function can take 8–12 weeks. The Blueprint gives you the exact timeline for your specific project.",
+                q: "How long does the build usually take?",
+                a: "Typically 4–10 weeks depending on scope, though that is the builder's timeline rather than ours. A focused build covering 3–4 core systems usually runs 4–6 weeks; a full operating system covering every business function can take 8–12. Your Blueprint sets out the sequence and the dependencies, so whoever builds it works to a defined plan rather than discovering the scope as they go.",
               },
               {
                 q: "What tools and software do you work with?",
-                a: "We work across the major platforms: CRM tools (HubSpot, GoHighLevel, Notion), automation platforms (Make, Zapier, n8n), AI models (GPT-4, Claude, Gemini), knowledge management (Notion, Obsidian, Coda), communication (Gmail, Outlook, Slack), document management, scheduling (Calendly, Cal.com) and more. We select the right tools for your business, not our preferences.",
+                a: "We work across the major platforms. AI models and assistants: Claude, ChatGPT, Gemini, Perplexity, and Claude Code or Cursor where a build is involved. Automation: Make, Zapier, n8n, Power Automate, Airtable. CRM and pipeline: HubSpot, GoHighLevel, Pipedrive, Salesforce, Notion, Airtable. Knowledge and documents: Notion, Obsidian, Coda, Google Workspace, SharePoint. Communication: Gmail, Outlook, Slack, Teams, WhatsApp Business. Scheduling and forms: Calendly, Cal.com, Tally, Typeform. Data and reporting: Looker Studio, Metabase, Google Sheets. Plus whatever industry-specific system you already run on — a practice management tool, an LMS, a case system, a booking platform. We select the right tools for your business, not our preferences.",
               },
               {
                 q: "Can you integrate with my existing tech stack?",
@@ -74,8 +74,8 @@ export default function Faq() {
                 a: "Yes. All engagements are conducted remotely via video. We work with clients across North America, Europe, Africa, the Middle East and Asia-Pacific. Sessions are scheduled to accommodate your timezone.",
               },
               {
-                q: "How much does implementation cost?",
-                a: "We do not publish fixed pricing because every engagement is scoped to your specific business. Most projects range from $3,500 for focused single-system builds to $10,000+ for comprehensive operating system implementations. The Blueprint includes an exact investment estimate for your project. The $1,000 Blueprint fee is credited in full if you proceed.",
+                q: "How much will the build cost me?",
+                a: "That depends on scope and on who you choose to build it, and it is not money that comes to us. What the Blueprint gives you is a costed estimate for your specific architecture — so you walk into that conversation with a defined scope and a realistic number, instead of asking a builder to price something nobody has specified yet. That estimate is one of the more valuable pages in the document.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>
@@ -102,15 +102,15 @@ export default function Faq() {
               },
               {
                 q: "Who is this NOT for?",
-                a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you are looking for a cheap solution or want to spend less than $3,500 on implementation; you want someone to hand you a tool and disappear; you are not willing to invest time in the Blueprint process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
+                a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you want a done-for-you build rather than an architecture to build from; you want someone to hand you a tool and disappear; you are not willing to invest time in the Blueprint process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
               },
               {
                 q: "Do I need technical knowledge?",
-                a: "No. You need to understand your business — the flows, the bottlenecks, the decisions you make every day. We handle all technical design and implementation. Most of our clients describe themselves as \"not technical.\" What matters is operational clarity, not coding skills.",
+                a: "No. You need to understand your business — the flows, the bottlenecks, the decisions you make every day. We handle the technical design and write the specification in language a builder can act on. Most of our clients describe themselves as \"not technical.\" What matters is operational clarity, not coding skills.",
               },
               {
                 q: "What size business is ideal?",
-                a: "Solo operators to teams of 25. The sweet spot is a founder-led business with 1–10 team members where the founder is still the primary operational bottleneck. Large enterprises have their own internal teams for this work. The businesses that transform most from an AI OS are those generating real revenue but still too dependent on the founder's personal involvement.",
+                a: "Solo operators to teams of 25, and founders with teams starting from 5 people upward — that group tends to get the most out of it, because there are already enough hands for a system to coordinate. The sweet spot is a founder-led business where the founder is still the primary operational bottleneck. Large enterprises have their own internal teams for this work. The businesses that transform most from an AI OS are those generating real revenue but still too dependent on the founder's personal involvement.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>
@@ -132,20 +132,12 @@ export default function Faq() {
 
             {[
               {
-                q: "What does success look like 90 days after implementation?",
-                a: "Typically: 6–12 hours per week recovered from operational tasks. Client-facing processes running without your personal involvement. A knowledge base your team can access without asking you. Fewer dropped balls. Less reactive decision-making. The specific outcomes depend on your business and what we build — the Blueprint will define the exact success metrics for your situation.",
-              },
-              {
-                q: "What is the AI Optimization Partnership?",
-                a: "A monthly ongoing relationship for clients who want their AI OS to evolve with their business. It includes: monthly system improvements and new automations, prompt optimization as AI models update, performance monitoring, quarterly strategy sessions, team training as needed, and priority access for new requests. It is not maintenance. It is active optimization.",
-              },
-              {
-                q: "What if I need changes or additions after implementation?",
-                a: "Small adjustments within scope are handled during implementation at no additional cost. Significant new additions or new systems are scoped as separate projects. The AI Optimization Partnership includes ongoing small improvements as standard. Your operating system should evolve — we build for that from the start.",
+                q: "What does success look like 90 days after the system is live?",
+                a: "Typically: 6–12 hours per week recovered from operational tasks. Client-facing processes running without your personal involvement. A knowledge base your team can access without asking you. Fewer dropped balls. Less reactive decision-making. And often new revenue streams — capacity you did not have before turns into offers you could not previously deliver, whether that is a productised service, a second delivery line, or serving a client size you had to turn away. The specific outcomes depend on your business and what gets built — the Blueprint defines the exact success metrics for your situation, so you can hold the build to them.",
               },
               {
                 q: "How do you measure ROI?",
-                a: "We define success metrics during the Blueprint and track them through implementation. Primary metrics include: hours recovered per week (and the dollar value of that time), reduction in operational errors, client response time improvement, team hours saved, and revenue per founder hour. The ROI opportunity map delivered with your Blueprint quantifies the expected return before you commit to implementation.",
+                a: "The Blueprint defines the metrics before anything is built. Primary ones: hours recovered per week and the dollar value of that time, reduction in operational errors, client response time, team hours saved, and revenue per founder hour. The ROI opportunity map quantifies the expected return for your specific architecture — which is what lets you judge whether a build is worth commissioning at all.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>

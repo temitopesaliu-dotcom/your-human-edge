@@ -2,7 +2,6 @@ import AiosNav from "./_components/AiosNav";
 import AiosFooter from "./_components/AiosFooter";
 import AiosScripts from "./_components/AiosScripts";
 import Hero from "@/components/features/blueprint-audit/Hero";
-import Credibility from "@/components/features/blueprint-audit/Credibility";
 import Problems from "@/components/features/blueprint-audit/Problems";
 import Reframe from "@/components/features/blueprint-audit/Reframe";
 import Solution from "@/components/features/blueprint-audit/Solution";
@@ -19,14 +18,13 @@ export default function AiosLandingPage() {
       <AiosScripts />
       <AiosNav />
       <Hero />
-      <Credibility />
+      <SocialProof />
       <Problems />
       <Reframe />
       <Solution />
       <Outcomes />
       <Process />
       <Blueprint />
-      <SocialProof />
       <Faq />
       <FinalCta />
       <AiosFooter variant="landing" />

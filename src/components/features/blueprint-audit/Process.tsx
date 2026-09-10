@@ -18,7 +18,7 @@ export default function Process() {
         </div>
 
         <div className="timeline fade-up delay-1">
-          <div className="timeline-step" data-default>
+          <div className="timeline-step">
             <div className="timeline-number">1</div>
             <p className="timeline-step-label">First Step</p>
             <h3 className="timeline-step-title">Application</h3>
@@ -32,10 +32,11 @@ export default function Process() {
             <p className="timeline-step-label">Within 48 hours</p>
             <h3 className="timeline-step-title">Review & Decision</h3>
             <p className="timeline-step-desc">
-              We review your application and determine whether this
-              engagement makes sense. If it does, you receive an acceptance
-              email with next steps. If not, we tell you clearly why and
-              point you toward better options.
+              We read your application properly and work out the architecture
+              your situation needs. If it is a fit, you receive an acceptance
+              email with your exact price and how to book. If it is not, we
+              tell you clearly why and point you toward better options. Nothing
+              is charged before you have that decision in writing.
             </p>
           </div>
           <div className="timeline-step highlight" data-default>
@@ -49,50 +50,28 @@ export default function Process() {
               call.
             </p>
             <span className="timeline-step-badge">
-              $1,000 — Credited to implementation
+              From $1,000 — priced to your scope
             </span>
           </div>
           <div className="timeline-step">
             <div className="timeline-number">4</div>
             <p className="timeline-step-label">Within 5 Business Days</p>
-            <h3 className="timeline-step-title">Roadmap Delivery</h3>
+            <h3 className="timeline-step-title">Architecture Delivery</h3>
             <p className="timeline-step-desc">
               You receive a written Blueprint document with your workflow map,
-              AI architecture, technology recommendations, priority matrix and
-              implementation roadmap.
+              AI architecture, technology recommendations, priority matrix, the
+              build sequence, and a costed estimate for the build itself.
             </p>
           </div>
           <div className="timeline-step">
             <div className="timeline-number">5</div>
-            <p className="timeline-step-label">Your Decision</p>
-            <h3 className="timeline-step-title">Proposal</h3>
+            <p className="timeline-step-label">Your Build, Your Way</p>
+            <h3 className="timeline-step-title">Handover</h3>
             <p className="timeline-step-desc">
-              If you choose to proceed with implementation, you receive a
-              scoped proposal with timeline and investment. No pressure. The
-              Blueprint has value whether or not you continue.
-            </p>
-          </div>
-          <div className="timeline-step">
-            <div className="timeline-number">6</div>
-            <p className="timeline-step-label">The Build</p>
-            <h3 className="timeline-step-title">Implementation</h3>
-            <p className="timeline-step-desc">
-              We build your AI Operating System to specification. Projects
-              typically run 4–10 weeks depending on scope. You have visibility
-              throughout. Most implementations range from $3,500–$10,000+
-              depending on complexity.
-            </p>
-          </div>
-          <div className="timeline-step">
-            <div className="timeline-number">7</div>
-            <p className="timeline-step-label">Ongoing</p>
-            <h3 className="timeline-step-title">
-              AI Optimization Partnership
-            </h3>
-            <p className="timeline-step-desc">
-              Monthly improvements, new automations, performance reviews and
-              quarterly strategy. Your operating system evolves as your
-              business does.
+              You own the architecture. Take it to your own team, your own
+              developer, or ask us to point you to implementation partners who
+              build to this kind of specification. Either way you leave with a
+              plan you can hand to anyone — not a dependency on us.
             </p>
           </div>
         </div>

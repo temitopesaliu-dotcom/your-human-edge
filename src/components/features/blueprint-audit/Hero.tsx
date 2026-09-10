@@ -19,8 +19,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-subtitle fade-up delay-2">
-          Build an AI Operating System that runs your business with you—not
-          because of you. For founders, coaches, consultants and growing teams
+          Build an AI Operating System that runs your business with you.
+          For founders, coaches, consultants and growing teams
           who are done being the bottleneck.
         </p>
 

@@ -23,8 +23,7 @@ export default function FinalCta() {
           Apply for Your Blueprint
         </Link>
         <p className="final-cta-note">
-          $1,000 · Credited in full if you proceed · Applications reviewed
-          within 48 hours
+        From $1,000 · No payment until you have your price · Applications reviewed within 48 hours
         </p>
       </div>
     </section>
