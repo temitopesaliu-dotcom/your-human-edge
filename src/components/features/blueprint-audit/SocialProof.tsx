@@ -16,17 +16,17 @@ export default function SocialProof() {
         <div className="testimonials-grid">
           {[
             {
-              text: "Before this, I was answering the same 12 client questions every week. Now the AI handles all of them. I get notified only when something genuinely needs me. I got back 8 hours a week from day one.",
+              text: "For the first time i have a full visual representation of a full operating system for my business in one place.",
               name: "Sarah M.",
               role: "Executive Coach, 1:1 Practice",
             },
             {
-              text: "My onboarding used to take me 3 hours per new client. Scheduling, contracts, emails, intake, kickoff. Now it's fully automated. I join the kickoff call and everything is already done. Game-changing for a solo consultant.",
+              text: "You get so used to carrying a burden, you almost forget you're carrying one until Temi built my operating system and the weight fell right off. We now have so much time to do so many other things we've always wanted to do.",
               name: "James O.",
               role: "Strategy Consultant",
             },
             {
-              text: "The Blueprint alone was worth the $1,000. I got clarity on what to build and in what order. We'd been spinning our wheels with tools for 18 months. In 90 minutes we had a clear architecture. That decision alone saved us months.",
+              text: "The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale.",
               name: "Priya K.",
               role: "Founder, 12-person agency",
             },
