@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Operator Suite, Self Paced</title>
+<meta name="description" content="Six self-paced builds for Intelligence Layer Workshop attendees. Launch pricing ends Monday 14 September, 12:00 noon UK time. Access opens 6 October 2026.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+.bap-page{
+  --bap-bg:#FFFFFF;
+  --bap-alabaster:#F8F7FC;
+  --bap-grain:#F5F5F3;
+  --bap-footer:#EFECE6;
+  --bap-border:#E4E2ED;
+  --bap-border-purple:rgba(124,58,237,.2);
+  --bap-purple:#7C3AED;
+  --bap-purple-dk:#5B21B6;
+  --bap-purple-lt:#EDE9FD;
+  --bap-purple-mid:#C4B5FD;
+  --bap-purple-bg:rgba(124,58,237,.06);
+  --bap-green:#00A86B;
+  --bap-green-lt:#E6F7F1;
+  --bap-green-bg:rgba(0,168,107,.08);
+  --bap-espresso:#4A3E3D;
+  --bap-dark:#2D2120;
+  --bap-muted:#7A6E6D;
+  --bap-light:#A89E9D;
+  --bap-red:#DC2626;
+  --bap-r:10px;--bap-t:.2s ease;
+}
+body{margin:0;}
+.bap-page,.bap-page *,.bap-page *::before,.bap-page *::after{box-sizing:border-box;margin:0;padding:0;}
+.bap-page{font-family:'Inter',sans-serif;background:var(--bap-bg);color:var(--bap-espresso);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* ANNOUNCE */
+.bap-page .announce{background:var(--bap-purple);padding:10px 1.5rem;text-align:center;position:sticky;top:0;z-index:200;}
+.bap-page .announce p{font-size:12px;font-weight:600;color:white;letter-spacing:.02em;}
+.bap-page .announce strong{font-weight:800;color:var(--bap-purple-mid);}
+
+/* NAV */
+.bap-page .nav{background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bap-border);padding:0 max(1.5rem,calc((100vw - 1320px)/2));height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:36px;z-index:100;}
+.bap-page .nav-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--bap-espresso);white-space:nowrap;}
+.bap-page .nav-brand em{font-style:italic;color:var(--bap-purple);}
+.bap-page .nav-timer{font-size:12px;color:var(--bap-muted);display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.bap-page .nav-timer strong{color:var(--bap-purple);font-variant-numeric:tabular-nums;font-weight:700;}
+.bap-page .nav-cta{background:var(--bap-purple);color:white;border:none;border-radius:var(--bap-r);padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:all var(--bap-t);font-family:'Inter',sans-serif;white-space:nowrap;flex-shrink:0;}
+.bap-page .nav-cta:hover{background:var(--bap-purple-dk);}
+
+/* HERO */
+.bap-page .hero{padding:80px max(1.5rem,calc((100vw - 1320px)/2)) 72px;text-align:center;position:relative;overflow:hidden;background:var(--bap-bg);}
+.bap-page .hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,var(--bap-purple-bg) 0%,transparent 70%);pointer-events:none;}
+.bap-page .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);border-radius:999px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-purple);margin-bottom:24px;}
+.bap-page .hero-dot{width:6px;height:6px;border-radius:50%;background:var(--bap-purple);animation:bap-pulse 2s infinite;}
+@keyframes bap-pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.bap-page .hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:700;line-height:1.05;letter-spacing:-1.5px;color:var(--bap-espresso);margin-bottom:16px;position:relative;}
+.bap-page .hero h1 em{font-style:italic;color:var(--bap-purple);}
+.bap-page .hero-sub{font-size:clamp(16px,2vw,19px);color:var(--bap-muted);line-height:1.75;max-width:620px;margin:0 auto 28px;position:relative;}
+.bap-page .hero-sub strong{color:var(--bap-espresso);font-weight:600;}
+.bap-page .access-chip{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--bap-green-bg);border:1px solid rgba(0,168,107,.2);border-radius:999px;padding:7px 18px;font-size:12.5px;font-weight:600;color:var(--bap-espresso);margin-bottom:32px;}
+.bap-page .access-chip strong{color:var(--bap-green);font-weight:700;}
+.bap-page .access-chip svg{width:13px;height:13px;color:var(--bap-green);}
+
+/* TIMER */
+.bap-page .timer-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:32px;position:relative;}
+.bap-page .timer-block{display:inline-flex;align-items:center;gap:8px;background:var(--bap-purple);border-radius:14px;padding:18px 32px;}
+.bap-page .timer-unit{text-align:center;min-width:52px;}
+.bap-page .timer-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:white;letter-spacing:-1px;display:block;line-height:1;font-variant-numeric:tabular-nums;}
+.bap-page .timer-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:4px;display:block;}
+.bap-page .timer-sep{font-family:'Playfair Display',serif;font-size:32px;color:rgba(255,255,255,.3);line-height:1;margin-bottom:12px;}
+.bap-page .timer-caption{font-size:12px;color:var(--bap-muted);max-width:440px;line-height:1.6;}
+.bap-page .timer-caption strong{color:var(--bap-red);font-weight:700;}
+.bap-page .timer-expired{background:var(--bap-espresso);border-radius:14px;padding:20px 28px;color:white;font-size:14px;font-weight:600;max-width:520px;}
+.bap-page .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--bap-purple);color:white;border:none;border-radius:var(--bap-r);padding:15px 34px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:all var(--bap-t);font-family:'Inter',sans-serif;position:relative;}
+.bap-page .hero-cta:hover{background:var(--bap-purple-dk);transform:translateY(-2px);}
+.bap-page .hero-cta svg{width:15px;height:15px;}
+
+/* SHARED */
+.bap-page .section{padding:80px max(1.5rem,calc((100vw - 1320px)/2));}
+.bap-page .section-alt{background:var(--bap-alabaster);border-top:1px solid var(--bap-border);border-bottom:1px solid var(--bap-border);}
+.bap-page .eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bap-purple);margin-bottom:12px;}
+.bap-page .section-h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.8px;color:var(--bap-espresso);margin-bottom:12px;}
+.bap-page .section-h2 em{font-style:italic;color:var(--bap-purple);}
+.bap-page .section-sub{font-size:15px;color:var(--bap-muted);line-height:1.7;max-width:620px;}
+.bap-page .section-sub strong{color:var(--bap-espresso);font-weight:600;}
+
+/* TRANSFORM */
+.bap-page .transform-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.bap-page .transform-body{font-size:16px;color:var(--bap-muted);line-height:1.85;}
+.bap-page .transform-body strong{color:var(--bap-espresso);font-weight:600;}
+.bap-page .transform-body p+p{margin-top:1rem;}
+.bap-page .shifts{display:flex;flex-direction:column;gap:8px;}
+.bap-page .shift{display:flex;align-items:center;gap:12px;background:var(--bap-bg);border:1px solid var(--bap-border);border-radius:var(--bap-r);padding:13px 16px;transition:all var(--bap-t);}
+.bap-page .shift:hover{border-color:var(--bap-border-purple);background:var(--bap-purple-bg);}
+.bap-page .shift-from{font-size:13px;color:var(--bap-muted);min-width:170px;flex-shrink:0;}
+.bap-page .shift-arr{color:var(--bap-purple);flex-shrink:0;display:flex;}
+.bap-page .shift-arr svg{width:15px;height:15px;}
+.bap-page .shift-to{font-size:13px;font-weight:600;color:var(--bap-espresso);}
+
+/* MODULES */
+.bap-page .tracks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:2.5rem;}
+.bap-page .track{background:var(--bap-bg);border:1px solid var(--bap-border);border-radius:14px;padding:24px;transition:all var(--bap-t);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.bap-page .track::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--bap-purple);transform:scaleX(0);transform-origin:left;transition:transform var(--bap-t);}
+.bap-page .track:hover{border-color:var(--bap-border-purple);box-shadow:0 4px 20px rgba(124,58,237,.06);}
+.bap-page .track:hover::after{transform:scaleX(1);}
+.bap-page .track-num{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-purple-mid);margin-bottom:10px;}
+.bap-page .track-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--bap-espresso);margin-bottom:8px;letter-spacing:-.2px;line-height:1.2;}
+.bap-page .track-title em{font-style:italic;color:var(--bap-purple);}
+.bap-page .track-benefit{font-size:13px;font-weight:600;color:var(--bap-purple);line-height:1.5;margin-bottom:12px;}
+.bap-page .track-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.bap-page .track-list li{font-size:12.5px;color:var(--bap-muted);line-height:1.6;padding-left:18px;position:relative;}
+.bap-page .track-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--bap-purple-mid);}
+.bap-page .track-price{margin-top:auto;padding-top:12px;border-top:1px solid var(--bap-border);font-size:13px;font-weight:700;color:var(--bap-espresso);}
+.bap-page .track-price .was{font-weight:500;color:var(--bap-light);text-decoration:line-through;margin-left:6px;}
+.bap-page .track-price .lbl{font-weight:500;color:var(--bap-light);font-size:11px;display:block;margin-top:2px;}
+.bap-page .track-buy{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:12px;padding:11px;border-radius:var(--bap-r);background:var(--bap-grain);border:1px solid var(--bap-border);color:var(--bap-espresso);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all var(--bap-t);}
+.bap-page .track-buy:hover{background:var(--bap-purple);border-color:var(--bap-purple);color:#fff;}
+.bap-page .track-buy svg{width:12px;height:12px;}
+.bap-page .adv-buy{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px 20px;border-radius:var(--bap-r);background:#fff;color:var(--bap-purple-dk);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all var(--bap-t);}
+.bap-page .adv-buy:hover{background:var(--bap-purple-lt);}
+.bap-page .adv-buy svg{width:13px;height:13px;}
+.bap-page .single-buy{display:inline-flex;align-items:center;gap:7px;background:var(--bap-purple);color:#fff;border-radius:var(--bap-r);padding:11px 20px;font-size:13px;font-weight:700;text-decoration:none;transition:all var(--bap-t);white-space:nowrap;}
+.bap-page .single-buy:hover{background:var(--bap-purple-dk);}
+.bap-page .single-buy svg{width:12px;height:12px;}
+.bap-page .single-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+
+/* ADVANCED MODULE */
+.bap-page .track-advanced{grid-column:1/-1;background:linear-gradient(135deg,var(--bap-purple) 0%,var(--bap-purple-dk) 100%);border:none;color:white;}
+.bap-page .track-advanced:hover{box-shadow:0 8px 32px rgba(124,58,237,.25);}
+.bap-page .track-advanced::after{display:none;}
+.bap-page .adv-inner{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:center;}
+.bap-page .adv-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 13px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:white;margin-bottom:12px;}
+.bap-page .adv-badge svg{width:11px;height:11px;}
+.bap-page .track-advanced .track-title{color:white;font-size:22px;}
+.bap-page .track-advanced .track-benefit{color:var(--bap-purple-mid);}
+.bap-page .track-advanced .track-list li{color:rgba(255,255,255,.78);}
+.bap-page .track-advanced .track-list li::before{background:var(--bap-purple-mid);}
+.bap-page .adv-proof{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:18px 20px;}
+.bap-page .adv-proof-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bap-purple-mid);margin-bottom:8px;}
+.bap-page .adv-proof-txt{font-size:14px;color:white;line-height:1.65;font-weight:500;}
+.bap-page .adv-price{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:white;}
+.bap-page .adv-price .was{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:line-through;margin-left:8px;}
+
+/* BONUS */
+.bap-page .bonus-card{background:var(--bap-bg);border:1px solid var(--bap-border-purple);border-left:3px solid var(--bap-purple);border-radius:14px;padding:28px 30px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;margin-top:2.5rem;}
+.bap-page .bonus-icon{width:48px;height:48px;border-radius:12px;background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);display:flex;align-items:center;justify-content:center;}
+.bap-page .bonus-icon svg{width:20px;height:20px;color:var(--bap-purple);}
+.bap-page .bonus-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bap-green-lt);border:1px solid rgba(0,168,107,.2);border-radius:999px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bap-green);margin-bottom:10px;}
+.bap-page .bonus-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--bap-espresso);margin-bottom:8px;letter-spacing:-.3px;}
+.bap-page .bonus-body{font-size:14px;color:var(--bap-muted);line-height:1.75;}
+.bap-page .bonus-body strong{color:var(--bap-espresso);font-weight:600;}
+
+/* COMPARE */
+.bap-page .compare-table{width:100%;border-collapse:collapse;border:1px solid var(--bap-border);border-radius:14px;overflow:hidden;margin-top:2rem;}
+.bap-page .compare-table th{padding:13px 18px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;background:var(--bap-grain);border-bottom:1px solid var(--bap-border);}
+.bap-page .compare-table th:first-child{color:var(--bap-muted);width:46%;}
+.bap-page .compare-table th.bc{color:var(--bap-muted);}
+.bap-page .compare-table th.ac{color:var(--bap-purple);}
+.bap-page .compare-table td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--bap-border);color:var(--bap-muted);font-variant-numeric:tabular-nums;}
+.bap-page .compare-table td:first-child{font-weight:500;color:var(--bap-espresso);font-variant-numeric:normal;}
+.bap-page .compare-table tr:last-child td{border-bottom:none;}
+.bap-page .compare-table tr:hover td{background:rgba(124,58,237,.02);}
+.bap-page .row-bundle td{background:var(--bap-purple-lt);font-weight:700;color:var(--bap-espresso);}
+.bap-page .row-bundle td:first-child{color:var(--bap-purple);}
+.bap-page .row-save td{background:var(--bap-green-bg);font-weight:700;color:var(--bap-green);}
+.bap-page .row-save td:first-child{color:var(--bap-green);}
+.bap-page .strike{text-decoration:line-through;color:var(--bap-light);}
+
+/* PRICING */
+.bap-page .single-rows{display:flex;flex-direction:column;gap:10px;margin-top:2.5rem;}
+.bap-page .single-row{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--bap-bg);border:1px solid var(--bap-border);border-radius:14px;padding:18px 22px;flex-wrap:wrap;transition:all var(--bap-t);}
+.bap-page .single-row:hover{border-color:var(--bap-border-purple);}
+.bap-page .single-row.adv{border-color:var(--bap-border-purple);background:var(--bap-purple-bg);}
+.bap-page .single-name{font-size:14.5px;font-weight:700;color:var(--bap-espresso);margin-bottom:3px;}
+.bap-page .single-name em{font-style:normal;color:var(--bap-purple);}
+.bap-page .single-sub{font-size:12.5px;color:var(--bap-muted);line-height:1.55;max-width:620px;}
+.bap-page .single-price{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--bap-espresso);white-space:nowrap;}
+.bap-page .single-price .was{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--bap-light);text-decoration:line-through;margin-left:8px;}
+
+.bap-page .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;align-items:stretch;}
+.bap-page .tier{background:var(--bap-bg);border:1px solid var(--bap-border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;}
+.bap-page .tier.featured{border-color:var(--bap-purple);box-shadow:0 0 0 1px var(--bap-purple),0 16px 48px rgba(124,58,237,.1);}
+.bap-page .tier-top{padding:28px 28px 22px;}
+.bap-page .tier-badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
+.bap-page .tier-badge.b{background:var(--bap-grain);border:1px solid var(--bap-border);color:var(--bap-muted);}
+.bap-page .tier-badge.p{background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);color:var(--bap-purple);}
+.bap-page .tier-badge svg{width:10px;height:10px;}
+.bap-page .tier-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--bap-espresso);letter-spacing:-.5px;margin-bottom:10px;}
+.bap-page .tier-name em{font-style:italic;color:var(--bap-purple);}
+.bap-page .tier-for{font-size:13px;color:var(--bap-muted);line-height:1.65;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bap-border);}
+.bap-page .tier-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+.bap-page .tier-price{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--bap-espresso);letter-spacing:-2px;line-height:1;}
+.bap-page .tier-was{font-size:19px;color:var(--bap-light);text-decoration:line-through;font-weight:500;}
+.bap-page .tier-revert{font-size:11.5px;font-weight:700;color:var(--bap-red);letter-spacing:.02em;margin-bottom:20px;}
+.bap-page .tier-access{display:flex;align-items:center;gap:7px;background:var(--bap-green-bg);border:1px solid rgba(0,168,107,.18);border-radius:var(--bap-r);padding:9px 12px;font-size:12px;font-weight:600;color:var(--bap-espresso);margin-bottom:16px;}
+.bap-page .tier-access svg{width:13px;height:13px;color:var(--bap-green);flex-shrink:0;}
+.bap-page .tier-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:var(--bap-r);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all var(--bap-t);border:none;}
+.bap-page .tier-btn.b{background:var(--bap-grain);color:var(--bap-espresso);border:1px solid var(--bap-border);}
+.bap-page .tier-btn.b:hover{border-color:var(--bap-purple);color:var(--bap-purple);}
+.bap-page .tier-btn.p{background:var(--bap-purple);color:white;}
+.bap-page .tier-btn.p:hover{background:var(--bap-purple-dk);}
+.bap-page .tier-btn svg{width:13px;height:13px;}
+.bap-page .tier-body{padding:0 28px 28px;flex:1;}
+.bap-page .tier-section-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-light);margin:18px 0 10px;}
+.bap-page .tf{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--bap-border);font-size:13px;color:var(--bap-muted);line-height:1.55;}
+.bap-page .tf:last-child{border-bottom:none;}
+.bap-page .tf svg{width:13px;height:13px;flex-shrink:0;margin-top:3px;}
+.bap-page .tf.g svg{color:var(--bap-green);}
+.bap-page .tf.pu svg{color:var(--bap-purple);}
+.bap-page .tf.pu{color:var(--bap-espresso);}
+.bap-page .tf strong{color:var(--bap-espresso);font-weight:600;}
+.bap-page .sessions{background:var(--bap-purple-lt);border:1px solid var(--bap-border-purple);border-radius:12px;padding:16px 18px;margin:16px 0 4px;}
+.bap-page .bs-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bap-purple);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.bap-page .bs-lbl svg{width:11px;height:11px;}
+.bap-page .bs-title{font-size:15px;font-weight:700;color:var(--bap-espresso);margin-bottom:5px;font-family:'Playfair Display',serif;}
+.bap-page .bs-body{font-size:12.5px;color:var(--bap-muted);line-height:1.65;}
+
+/* INTEGRITY / NONREFUNDABLE */
+.bap-page .integrity-card{background:var(--bap-grain);border:1px solid var(--bap-border);border-radius:14px;padding:24px 28px;margin-top:2rem;max-width:860px;}
+.bap-page .urg-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bap-light);margin-bottom:8px;}
+.bap-page .urg-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--bap-espresso);margin-bottom:8px;line-height:1.3;}
+.bap-page .urg-body{font-size:14px;color:var(--bap-muted);line-height:1.8;}
+.bap-page .urg-body strong{color:var(--bap-espresso);font-weight:600;}
+
+/* FAQ */
+.bap-page .faq-list{max-width:720px;margin:2rem auto 0;}
+.bap-page .faq-item{border-bottom:1px solid var(--bap-border);}
+.bap-page .faq-item:first-child{border-top:1px solid var(--bap-border);}
+.bap-page .faq-q{width:100%;background:none;border:none;padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--bap-espresso);text-align:left;transition:color var(--bap-t);}
+.bap-page .faq-q:hover{color:var(--bap-purple);}
+.bap-page .faq-q svg{width:16px;height:16px;color:var(--bap-purple);flex-shrink:0;transition:transform var(--bap-t);}
+.bap-page .faq-q.open svg{transform:rotate(45deg);}
+.bap-page .faq-a{display:none;padding:0 0 18px;font-size:14px;color:var(--bap-muted);line-height:1.75;}
+.bap-page .faq-a.open{display:block;}
+.bap-page .faq-a strong{color:var(--bap-espresso);font-weight:600;}
+
+/* FINAL */
+.bap-page .final{background:var(--bap-purple);padding:88px max(1.5rem,calc((100vw - 1320px)/2));text-align:center;position:relative;overflow:hidden;}
+.bap-page .final::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);pointer-events:none;}
+.bap-page .final-inner{position:relative;z-index:1;}
+.bap-page .final h2{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-1px;color:white;margin-bottom:14px;}
+.bap-page .final h2 em{font-style:italic;color:var(--bap-purple-mid);}
+.bap-page .final p{font-size:17px;color:rgba(255,255,255,.7);line-height:1.7;max-width:540px;margin:0 auto 28px;}
+.bap-page .final-access{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;color:white;margin-bottom:26px;}
+.bap-page .final-access svg{width:14px;height:14px;}
+.bap-page .final-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+.bap-page .fbtn-p{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--bap-purple);border:none;border-radius:var(--bap-r);padding:15px 30px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;transition:all var(--bap-t);font-family:'Inter',sans-serif;}
+.bap-page .fbtn-p:hover{background:var(--bap-purple-lt);transform:translateY(-2px);}
+.bap-page .fbtn-g{display:inline-flex;align-items:center;gap:8px;background:transparent;color:white;border:1px solid rgba(255,255,255,.3);border-radius:var(--bap-r);padding:14px 26px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:all var(--bap-t);font-family:'Inter',sans-serif;}
+.bap-page .fbtn-g:hover{border-color:white;}
+.bap-page .final-caption{font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;}
+.bap-page .final-caption strong{color:rgba(255,255,255,.75);}
+
+/* FOOTER */
+.bap-page .footer{background:var(--bap-footer);border-top:1px solid var(--bap-border);padding:28px max(1.5rem,calc((100vw - 1320px)/2));display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.bap-page .footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--bap-espresso);}
+.bap-page .footer-brand em{font-style:italic;color:var(--bap-purple);}
+.bap-page .footer-copy{font-size:11px;color:var(--bap-light);}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .bap-page .transform-inner{grid-template-columns:1fr;}
+  .bap-page .tracks-grid{grid-template-columns:1fr 1fr;}
+  .bap-page .adv-inner{grid-template-columns:1fr;gap:20px;}
+}
+@media(max-width:768px){
+  .bap-page .pricing-grid{grid-template-columns:1fr;}
+}
+@media(max-width:620px){
+  .bap-page .tracks-grid{grid-template-columns:1fr;}
+  .bap-page .hero{padding:48px 1.25rem 56px;}
+  .bap-page .section,.bap-page .final{padding-left:1.25rem;padding-right:1.25rem;}
+  .bap-page .timer-block{padding:14px 18px;}
+  .bap-page .timer-num{font-size:30px;}
+  .bap-page .nav-timer{display:none;}
+  .bap-page .tier-top,.bap-page .tier-body{padding-left:18px;padding-right:18px;}
+  .bap-page .bonus-card{grid-template-columns:1fr;padding:22px;}
+  .bap-page .compare-table{display:block;overflow-x:auto;}
+  .bap-page .single-row{flex-direction:column;align-items:flex-start;}
+}
+</style>
+<!-- Analytics: GA4 + Meta Pixel + Clarity + sitewide click tracking.
+     This page is served as a static file from /public, so it sits outside the
+     Next.js root layout that injects these on every other route. Without this
+     block the launch would run completely dark. IDs match book.html. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28CRPR339W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-28CRPR339W', { page_path: window.location.pathname });
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','866191869379024');fbq('track','PageView');
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x0r48qni9r");
+</script>
+<script src="/click-tracking.js" defer></script>
+</head>
+<body>
+<div class="bap-page">
+
+  <div class="announce">
+    <p>Launch pricing ends <strong>Monday 14 September, 12:00 noon UK time</strong>. Every price rises after that.</p>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-brand">The AI Operator <em>Suite</em></div>
+    <div class="nav-timer">Launch pricing ends in <strong id="nav-timer-val">--</strong></div>
+    <a href="#pricing" class="nav-cta">See pricing</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="hero-dot"></span>For today's Intelligence Layer Workshop room</div>
+    <h1>You saw what the system does.<br><em>Now build yours.</em></h1>
+    <p class="hero-sub">
+      The workshop gave you the map. These six builds are the terrain: your personality
+      as a selling asset, a lead engine that runs, AI staff doing the work you keep
+      absorbing, content that returns clients, a clone that speaks when you cannot,
+      and the audit process I sell to businesses. <strong>Self paced, so nobody has to
+      wait for a cohort.</strong>
+    </p>
+
+    <div class="access-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Content access opens <strong>6 October 2026</strong>. This is a presale.
+    </div>
+
+    <div class="timer-wrap">
+      <div class="timer-block" id="timer-block">
+        <div class="timer-unit"><span class="timer-num" id="t-d">--</span><span class="timer-label">Days</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-num" id="t-h">--</span><span class="timer-label">Hours</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-num" id="t-m">--</span><span class="timer-label">Mins</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-num" id="t-s">--</span><span class="timer-label">Secs</span></div>
+      </div>
+      <div class="timer-expired" id="timer-expired" style="display:none">
+        Launch pricing has closed. Prices shown below are now the regular rate.
+      </div>
+      <p class="timer-caption">
+        Launch pricing closes <strong>Monday 14 September 2026, 12:00 noon UK time (BST)</strong>.
+        No extensions, no quiet reopening.
+      </p>
+    </div>
+
+    <a href="#pricing" class="hero-cta">
+      See the six builds
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </section>
+
+  <!-- TRANSFORM -->
+  <section class="section section-alt">
+    <div class="transform-inner">
+      <div>
+        <div class="eyebrow">Why this exists</div>
+        <h2 class="section-h2">The gap was never <em>information</em>.</h2>
+        <div class="transform-body" style="margin-top:18px">
+          <p>
+            You did not leave today's room short of ideas. You left short of the
+            thing that turns an idea into revenue by Friday: a built system, sitting
+            in your business, running without you holding it up.
+          </p>
+          <p>
+            My six week programme is closed and stays closed. Its cohort material is
+            not being resold here. <strong>Every module below is being filmed from
+            scratch for this suite</strong>, so you get the builds without waiting for
+            a cohort door to open.
+          </p>
+        </div>
+      </div>
+      <div class="shifts">
+        <div class="shift"><span class="shift-from">Watching AI demos</span><span class="shift-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><span class="shift-to">Shipping your own build</span></div>
+        <div class="shift"><span class="shift-from">Guessing at your buyer</span><span class="shift-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><span class="shift-to">Knowing how they decide</span></div>
+        <div class="shift"><span class="shift-from">Posting and hoping</span><span class="shift-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><span class="shift-to">Content that returns clients</span></div>
+        <div class="shift"><span class="shift-from">Doing every task yourself</span><span class="shift-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><span class="shift-to">AI staff running the repeat work</span></div>
+        <div class="shift"><span class="shift-from">Selling your time</span><span class="shift-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><span class="shift-to">Selling architecture to businesses</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="section" id="modules">
+    <div class="eyebrow">The builds</div>
+    <h2 class="section-h2">Six modules. <em>All filmed new.</em></h2>
+    <p class="section-sub">
+      Buy one, buy several, or take the bundle. Every purchase includes the free bonus below,
+      and every module opens on <strong>6 October 2026</strong>.
+    </p>
+
+    <div class="tracks-grid">
+
+      <div class="track">
+        <div class="track-num">Module 01</div>
+        <div class="track-title">Personality <em>Intelligence</em></div>
+        <div class="track-benefit">Understand how you work, so you understand how people buy.</div>
+        <ul class="track-list">
+          <li>Map your own operating pattern: how you think, decide, sell and stall</li>
+          <li>Read the personality behind a buyer, and what actually moves them to yes</li>
+          <li>Match your natural style to a sales approach you can sustain</li>
+          <li>Apply it on LinkedIn: profile, posts and DMs written for how your buyer decides</li>
+          <li>Stop copying someone else's script that was never built for you</li>
+        </ul>
+        <div class="track-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span><span class="lbl" data-lbl data-launch="Launch price, then $247" data-regular="Regular price">Launch price, then $247</span></div><a class="track-buy" data-buy data-launch-url="https://buy.stripe.com/8x200k9VRefKcwj5qz3oA0v" data-regular-url="https://buy.stripe.com/9B6cN65FB6Ni9k7cT13oA0D" href="https://buy.stripe.com/8x200k9VRefKcwj5qz3oA0v">Buy this module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <div class="track">
+        <div class="track-num">Module 02</div>
+        <div class="track-title">Leads &amp; Sales <em>Engine</em></div>
+        <div class="track-benefit">Get in front of the right people, directly, without waiting to be found.</div>
+        <ul class="track-list">
+          <li>Build the list: who you are targeting and how to source them properly</li>
+          <li>Email campaigns that land in the door and get replies, not filters</li>
+          <li>Cold email sequences written to be answered by a human</li>
+          <li>Cold DMs that open conversations instead of closing them</li>
+          <li>The follow up rhythm that turns a reply into a booked call</li>
+        </ul>
+        <div class="track-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span><span class="lbl" data-lbl data-launch="Launch price, then $247" data-regular="Regular price">Launch price, then $247</span></div><a class="track-buy" data-buy data-launch-url="https://buy.stripe.com/9B6cN6ec70oU67V7yH3oA0w" data-regular-url="https://buy.stripe.com/14A00kfgb6Ni3ZN6uD3oA0E" href="https://buy.stripe.com/9B6cN6ec70oU67V7yH3oA0w">Buy this module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <div class="track">
+        <div class="track-num">Module 03</div>
+        <div class="track-title">AI Staff &amp; Agentic <em>Automations</em></div>
+        <div class="track-benefit">Hire the work out to systems that do not sleep, quit or forget.</div>
+        <ul class="track-list">
+          <li>Decide which roles in your business should be AI staff, and which stay human</li>
+          <li>Build your first agent and give it a job description it can actually hold</li>
+          <li>Chain agents into automations that run end to end without you</li>
+          <li>Handover points: where the agent stops and you step in</li>
+          <li>Keep quality high so automation does not cost you your reputation</li>
+        </ul>
+        <div class="track-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span><span class="lbl" data-lbl data-launch="Launch price, then $247" data-regular="Regular price">Launch price, then $247</span></div><a class="track-buy" data-buy data-launch-url="https://buy.stripe.com/eVqfZi4Bx0oUbsf6uD3oA0x" data-regular-url="https://buy.stripe.com/00weVefgbgnS3ZNcT13oA0F" href="https://buy.stripe.com/eVqfZi4Bx0oUbsf6uD3oA0x">Buy this module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <div class="track">
+        <div class="track-num">Module 04</div>
+        <div class="track-title">Content to <em>Client</em></div>
+        <div class="track-benefit">The exact operation that filled today's room.</div>
+        <ul class="track-list">
+          <li>How the content you consumed brought you into this workshop, broken down step by step</li>
+          <li>Build the content operation: what to post, in what order, to what end</li>
+          <li>The path from a stranger reading a post to a stranger paying you</li>
+          <li>Write from your own thinking rather than recycled AI output</li>
+          <li>Run it weekly without it eating your week</li>
+        </ul>
+        <div class="track-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span><span class="lbl" data-lbl data-launch="Launch price, then $247" data-regular="Regular price">Launch price, then $247</span></div><a class="track-buy" data-buy data-launch-url="https://buy.stripe.com/fZu4gAc3ZefKgMzdX53oA0y" data-regular-url="https://buy.stripe.com/4gM6oId830oUbsf1aj3oA0G" href="https://buy.stripe.com/fZu4gAc3ZefKgMzdX53oA0y">Buy this module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <div class="track">
+        <div class="track-num">Module 05</div>
+        <div class="track-title">AI Clone <em>Operator</em></div>
+        <div class="track-benefit">Show up and speak on your work on the days you cannot record.</div>
+        <ul class="track-list">
+          <li>Build your clone: voice, face and manner that read as you, not as a robot</li>
+          <li>Train it on how you actually talk about your work</li>
+          <li>Automate the production line so content ships without you on camera</li>
+          <li>Where a clone is right and where you must show up yourself</li>
+          <li>Keep it honest, so your audience trusts what they are watching</li>
+        </ul>
+        <div class="track-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span><span class="lbl" data-lbl data-launch="Launch price, then $247" data-regular="Regular price">Launch price, then $247</span></div><a class="track-buy" data-buy data-launch-url="https://buy.stripe.com/dRm9AU0lhdbG8g306f3oA0z" data-regular-url="https://buy.stripe.com/28E9AU5FB9Zu3ZN2en3oA0H" href="https://buy.stripe.com/dRm9AU0lhdbG8g306f3oA0z">Buy this module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="track track-advanced">
+        <div class="adv-inner">
+          <div>
+            <div class="adv-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+              Advanced Build, Module 06
+            </div>
+            <div class="track-title">AI Business Audits &amp; Architecture Build <em>for Clients</em></div>
+            <div class="track-benefit">Stop being the person who uses AI. Become the person businesses pay to design it.</div>
+            <ul class="track-list">
+              <li>Run a full AI audit on a business and find where the money is leaking</li>
+              <li>Turn findings into an architecture a developer or team can actually build</li>
+              <li>Scope, price and present the engagement so the number holds</li>
+              <li>The deliverable itself: what a client receives and why they pay for it</li>
+              <li>Where to hand off the build, and how to stay the architect rather than the builder</li>
+            </ul>
+          </div>
+          <div>
+            <div class="adv-proof">
+              <div class="adv-proof-lbl">Why this one is priced higher</div>
+              <div class="adv-proof-txt">
+                Same caliber of work I deliver inside my $2,500 private Blueprint
+                engagements, taught as a process you can run for your own clients.
+              </div>
+              <div class="adv-price"><span data-price data-launch="$297" data-regular="$397">$297</span> <span class="was" data-was>$397</span></div><a class="adv-buy" data-buy data-launch-url="https://buy.stripe.com/4gM28s4Bxb3ycwjdX53oA0A" data-regular-url="https://buy.stripe.com/fZueVe3xt1sY3ZN3ir3oA0I" href="https://buy.stripe.com/4gM28s4Bxb3ycwjdX53oA0A">Buy the Advanced Build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BONUS -->
+    <div class="bonus-card">
+      <div class="bonus-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      </div>
+      <div>
+        <div class="bonus-badge">Free with any purchase</div>
+        <div class="bonus-title">The AI Consultant Framework</div>
+        <div class="bonus-body">
+          Not sold separately, not a lead magnet, not a PDF you will never open.
+          It is the frame I use to walk into a business conversation and think like
+          the consultant in the room rather than the person who knows the tools.
+          <strong>Buy any single module or the full bundle and it is added
+          automatically.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section section-alt">
+    <div class="eyebrow">The maths</div>
+    <h2 class="section-h2">One module at a time, or <em>all six for less</em>.</h2>
+    <p class="section-sub">Both columns are real prices. The left is what you pay before Monday noon. The right is what everyone pays after.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>What you are buying</th>
+          <th class="ac">Launch price, until Mon 12 noon UK</th>
+          <th class="bc">Regular price, from Mon 12:01</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>One standard module</td><td>$197</td><td>$247</td></tr>
+        <tr><td>Advanced Build module, on its own</td><td>$297</td><td>$397</td></tr>
+        <tr><td>All five standard modules, bought one by one</td><td>$985</td><td>$1,235</td></tr>
+        <tr><td>All six modules, bought one by one</td><td>$1,282</td><td>$1,632</td></tr>
+        <tr class="row-bundle"><td>Full bundle, all six plus the free bonus</td><td>$897</td><td>$1,197</td></tr>
+        <tr class="row-save"><td>You keep, versus buying the six separately</td><td>$385</td><td>$435</td></tr>
+        <tr><td>Bundle plus two 1:1 sessions with me</td><td>$1,697</td><td>$2,197</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="eyebrow">Choose your way in</div>
+    <h2 class="section-h2">Lock launch pricing <em>before Monday noon</em>.</h2>
+    <p class="section-sub">
+      Everything below opens on <strong>6 October 2026</strong>. You are buying a place in
+      the presale today, not instant access. All sales are final and non refundable.
+    </p>
+
+    <div class="single-rows">
+      <div class="single-row">
+        <div>
+          <div class="single-name">Any single standard module</div>
+          <div class="single-sub">Personality Intelligence, Leads &amp; Sales Engine, AI Staff &amp; Agentic Automations, Content to Client, or AI Clone Operator. Free bonus included.</div>
+        </div>
+        <div class="single-right">
+          <div class="single-price"><span data-price data-launch="$197" data-regular="$247">$197</span> <span class="was" data-was>$247</span></div>
+          <a class="single-buy" href="#modules">Pick your module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="single-row adv">
+        <div>
+          <div class="single-name">Advanced Build module <em>(higher tier)</em></div>
+          <div class="single-sub">AI Business Audits &amp; Architecture Build for Clients. Free bonus included.</div>
+        </div>
+        <div class="single-right">
+          <div class="single-price"><span data-price data-launch="$297" data-regular="$397">$297</span> <span class="was" data-was>$397</span></div>
+          <a class="single-buy" data-buy data-launch-url="https://buy.stripe.com/4gM28s4Bxb3ycwjdX53oA0A" data-regular-url="https://buy.stripe.com/fZueVe3xt1sY3ZN3ir3oA0I" href="https://buy.stripe.com/4gM28s4Bxb3ycwjdX53oA0A">Buy now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="tier">
+        <div class="tier-top">
+          <div class="tier-badge b">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            The Full Suite
+          </div>
+          <div class="tier-name">All six, <em>self paced</em></div>
+          <div class="tier-for">
+            Every module including the Advanced Build, plus the free bonus. You work
+            through it at your own speed, on your own schedule, with no live sessions
+            in this tier.
+          </div>
+          <div class="tier-price-row">
+            <div class="tier-price" data-price data-launch="$897" data-regular="$1,197">$897</div>
+            <div class="tier-was" data-was>$1,197</div>
+          </div>
+          <div class="tier-revert" data-revert data-launch="Rises to $1,197 on Monday at 12:00 noon UK time" data-regular="Regular price. Launch pricing has closed.">Rises to $1,197 on Monday at 12:00 noon UK time</div>
+          <div class="tier-access">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Content access opens 6 October 2026
+          </div>
+          <a data-buy data-launch-url="https://buy.stripe.com/cNi14o5FB9ZufIv3ir3oA0B" data-regular-url="https://buy.stripe.com/14AdRaaZVb3y7bZdX53oA0J" href="https://buy.stripe.com/cNi14o5FB9ZufIv3ir3oA0B" class="tier-btn p">
+            <span data-btn-label data-launch="Get the full suite at $897" data-regular="Get the full suite at $1,197">Get the full suite at $897</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="tier-body">
+          <div class="tier-section-lbl">What is included</div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Personality Intelligence</span></div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Leads &amp; Sales Engine</span></div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>AI Staff &amp; Agentic Automations</span></div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Content to Client</span></div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>AI Clone Operator</span></div>
+          <div class="tf pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>AI Business Audits &amp; Architecture Build</strong>, the Advanced Build module</span></div>
+          <div class="tf pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Free bonus:</strong> The AI Consultant Framework</span></div>
+          <div class="tf g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>You keep $385 versus buying the six separately</span></div>
+        </div>
+      </div>
+
+      <div class="tier featured">
+        <div class="tier-top">
+          <div class="tier-badge p">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+            Suite plus 1:1
+          </div>
+          <div class="tier-name">All six, <em>with me on your build</em></div>
+          <div class="tier-for">
+            Everything in the full suite, plus two live sessions with me looking at
+            what you have actually built. This is the same level of access my current
+            live cohort members are getting value from right now.
+          </div>
+          <div class="tier-price-row">
+            <div class="tier-price" data-price data-launch="$1,697" data-regular="$2,197">$1,697</div>
+            <div class="tier-was" data-was>$2,197</div>
+          </div>
+          <div class="tier-revert" data-revert data-launch="Rises to $2,197 on Monday at 12:00 noon UK time" data-regular="Regular price. Launch pricing has closed.">Rises to $2,197 on Monday at 12:00 noon UK time</div>
+          <div class="tier-access">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Content access opens 6 October 2026
+          </div>
+          <a data-buy data-launch-url="https://buy.stripe.com/aFa8wQ5FB8Vq3ZN2en3oA0C" data-regular-url="https://buy.stripe.com/cNibJ27NJ2x20NB1aj3oA0K" href="https://buy.stripe.com/aFa8wQ5FB8Vq3ZN2en3oA0C" class="tier-btn p">
+            <span data-btn-label data-launch="Get the suite plus 1:1 at $1,697" data-regular="Get the suite plus 1:1 at $2,197">Get the suite plus 1:1 at $1,697</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="tier-body">
+          <div class="tier-section-lbl">Everything in the full suite, plus</div>
+          <div class="sessions">
+            <div class="bs-lbl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Two live sessions with Temitope
+            </div>
+            <div class="bs-title">Your build, reviewed by me</div>
+            <div class="bs-body">
+              Not a group call, not a general Q&amp;A. You bring what you have built
+              from the modules and I tell you what is working, what is broken and what
+              to do next. Sessions are scheduled after content opens on 6 October.
+            </div>
+          </div>
+          <div class="tf pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>All six modules, including the Advanced Build</span></div>
+          <div class="tf pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Free bonus:</strong> The AI Consultant Framework</span></div>
+          <div class="tf pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Direct feedback on your own architecture before you take it to a client</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="integrity-card">
+      <div class="urg-lbl">Before you buy</div>
+      <div class="urg-title">Two things stated plainly.</div>
+      <div class="urg-body">
+        <strong>All sales are final.</strong> This is a presale for content being
+        filmed now, so every purchase is non refundable. Buy only if you are certain.
+        <br><br>
+        <strong>The price genuinely moves.</strong> At 12:00 noon UK time on Monday 14
+        September the launch prices come down and the regular prices go up in their
+        place. There is no quiet extension and no discount code afterwards.
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="eyebrow">Questions</div>
+    <h2 class="section-h2">The things you are <em>actually</em> asking.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">When do I get access?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Content opens on <strong>6 October 2026</strong> for every tier. Buying today locks your price and your place. It does not give you instant access, and the page says so in every place you can buy.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I get a refund?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">No. <strong>All sales are final and non refundable.</strong> The material is being filmed against these presale numbers, and once you are in you have a claim on work already commissioned. Every module description on this page is written so you know exactly what you are buying before you pay.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is this the same material as your six week programme?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">No. Every module here is being filmed from scratch for this suite. The live cohort material stays exclusive to that closed group, and nothing from it is being resold to you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I have to buy all six?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">No. Buy a single module if only one is relevant to where you are. The free bonus comes with any purchase. The bundle exists because six bought separately costs $1,282 at launch prices and the bundle is $897.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why is the Advanced Build module more expensive?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Because it is the work I sell. It is the same caliber of audit and architecture I deliver inside $2,500 private Blueprint engagements, taught as a process you can run for your own clients. The other five build your business. This one builds your offer.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What happens at Monday noon?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Launch pricing ends at <strong>12:00 noon UK time on Monday 14 September 2026</strong>. Single modules move from $197 to $247, the Advanced Build from $297 to $397, the bundle from $897 to $1,197, and the bundle with 1:1 from $1,697 to $2,197.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What do the two 1:1 sessions actually cover?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Your specific build, not general coaching. You bring what you have made from the modules and I review it directly. Sessions are scheduled once content opens on 6 October 2026.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final">
+    <div class="final-inner">
+      <h2>The room ends today.<br><em>The build does not have to.</em></h2>
+      <p>
+        Six modules, filmed new, self paced, yours from 6 October. The free bonus comes
+        with any one of them. Launch pricing holds until Monday noon and then it is gone.
+      </p>
+      <div class="final-access">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Content access opens 6 October 2026
+      </div>
+      <div class="final-btns" id="checkout">
+        <a data-buy data-launch-url="https://buy.stripe.com/cNi14o5FB9ZufIv3ir3oA0B" data-regular-url="https://buy.stripe.com/14AdRaaZVb3y7bZdX53oA0J" href="https://buy.stripe.com/cNi14o5FB9ZufIv3ir3oA0B" class="fbtn-p">
+          <span data-btn-label data-launch="Take the full suite, $897" data-regular="Take the full suite, $1,197">Take the full suite, $897</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a data-buy data-launch-url="https://buy.stripe.com/aFa8wQ5FB8Vq3ZN2en3oA0C" data-regular-url="https://buy.stripe.com/cNibJ27NJ2x20NB1aj3oA0K" href="https://buy.stripe.com/aFa8wQ5FB8Vq3ZN2en3oA0C" class="fbtn-g"><span data-btn-label data-launch="Suite plus 1:1, $1,697" data-regular="Suite plus 1:1, $2,197">Suite plus 1:1, $1,697</span></a>
+      </div>
+      <div class="final-caption">
+        Launch pricing ends <strong>Monday 14 September 2026, 12:00 noon UK time</strong>.
+        All sales final and non refundable.
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">Temitope <em>Saliu</em></div>
+    <div class="footer-copy">2026 Temitope Saliu. All rights reserved.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // Monday 14 September 2026, 12:00 noon UK time. September is BST, so UTC+1.
+  var deadline = new Date('2026-09-14T12:00:00+01:00').getTime();
+  var pad = function(n){ return String(n).padStart(2,'0'); };
+
+  function tick(){
+    var diff = deadline - Date.now();
+    if (diff <= 0){
+      document.getElementById('timer-block').style.display = 'none';
+      document.getElementById('timer-expired').style.display = 'block';
+      var nav = document.getElementById('nav-timer-val');
+      if (nav) nav.textContent = 'closed';
+      applyRegularPricing();
+      clearInterval(timer);
+      return;
+    }
+    var d = Math.floor(diff/86400000),
+        h = Math.floor(diff/3600000)%24,
+        m = Math.floor(diff/60000)%60,
+        s = Math.floor(diff/1000)%60;
+    document.getElementById('t-d').textContent = pad(d);
+    document.getElementById('t-h').textContent = pad(h);
+    document.getElementById('t-m').textContent = pad(m);
+    document.getElementById('t-s').textContent = pad(s);
+    var nav2 = document.getElementById('nav-timer-val');
+    if (nav2) nav2.textContent = d + 'd ' + pad(h) + 'h ' + pad(m) + 'm';
+  }
+  // Launch pricing and regular pricing are two separate sets of live Stripe
+  // payment links. When the deadline passes, every buy button repoints at the
+  // regular link and every displayed price updates with it, so the page can
+  // never show one price and charge another.
+  var swapped = false;
+  function applyRegularPricing(){
+    if (swapped) return;
+    swapped = true;
+    document.querySelectorAll('[data-buy]').forEach(function(a){
+      var url = a.getAttribute('data-regular-url');
+      if (url) a.setAttribute('href', url);
+    });
+    document.querySelectorAll('[data-price],[data-lbl],[data-revert],[data-btn-label]').forEach(function(el){
+      var v = el.getAttribute('data-regular');
+      if (v) el.textContent = v;
+    });
+    document.querySelectorAll('[data-was]').forEach(function(el){ el.style.display = 'none'; });
+    var ann = document.querySelector('.announce p');
+    if (ann) ann.innerHTML = 'Launch pricing has closed. Prices shown are the regular rate. Content access opens <strong>6 October 2026</strong>.';
+  }
+
+  if (Date.now() >= deadline) applyRegularPricing();
+
+  tick();
+  var timer = setInterval(tick, 1000);
+
+  // Every buy button is a Stripe payment link, so the sitewide click tracker
+  // catches the outbound hit. begin_checkout is fired explicitly here as well
+  // so the funnel has a clean step between page view and purchase.
+  document.querySelectorAll('[data-buy]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var card = a.closest('.track, .tier, .single-row');
+      var priceEl = card ? card.querySelector('[data-price]') : null;
+      var label = card ? (card.querySelector('.track-title, .tier-name, .single-name') || {}).textContent : 'AI Operator Suite';
+      var value = priceEl ? Number(priceEl.textContent.replace(/[^0-9.]/g,'')) : 0;
+      if (window.gtag) gtag('event','begin_checkout',{currency:'USD',value:value,items:[{item_id:'ai-operator-suite',item_name:(label||'').trim(),price:value,quantity:1}]});
+      if (window.fbq) fbq('track','InitiateCheckout',{currency:'USD',value:value});
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var a = btn.nextElementSibling;
+      var isOpen = btn.classList.contains('open');
+      btn.classList.toggle('open', !isOpen);
+      a.classList.toggle('open', !isOpen);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
