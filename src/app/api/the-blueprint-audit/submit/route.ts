@@ -48,8 +48,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<Blueprint
 
     console.log("[submit] Webhook response status:", res.status);
 
+    // Apps Script web apps return 200 even when the script errors — the body
+    // is the only place a failure shows up ({ok:false,...} or an HTML error
+    // page). Log it so sheet/email problems are visible in the logs.
+    const body = await res.text();
+    console.log("[submit] Webhook body:", body.substring(0, 500));
+
     if (!res.ok) {
-      const body = await res.text();
       console.error("[submit] Google Sheets webhook error:", res.status, body);
       return NextResponse.json(
         { error: `Google Sheets webhook returned ${res.status}` },
