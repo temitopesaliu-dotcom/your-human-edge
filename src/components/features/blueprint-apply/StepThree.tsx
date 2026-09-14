@@ -1,5 +1,11 @@
 import FieldError from "./FieldError";
-import { SYSTEMATIZE_OPTIONS } from "./blueprint-apply.data";
+import {
+  SYSTEMATIZE_OPTIONS,
+  OTHER_SYSTEMATIZE_PREFIX,
+  stripOtherSystematize,
+  withOtherSystematize,
+} from "./blueprint-apply.data";
+import { useState } from "react";
 import type { BlueprintApplyRequest } from "@/types/blueprint-apply";
 
 interface StepThreeProps {
@@ -12,6 +18,15 @@ interface StepThreeProps {
 }
 
 export default function StepThree({ data, errors, update, toggleSystematize, goNext, goBack }: StepThreeProps) {
+  const otherEntry = data.systematize.find(
+    (v) => v === "other" || v.startsWith(OTHER_SYSTEMATIZE_PREFIX)
+  );
+  const otherChecked = Boolean(otherEntry);
+  const [otherText, setOtherText] = useState(
+    otherEntry && otherEntry.startsWith(OTHER_SYSTEMATIZE_PREFIX)
+      ? otherEntry.slice(OTHER_SYSTEMATIZE_PREFIX.length).trim()
+      : ""
+  );
   return (
     <div className="form-step active" role="group">
       <p className="form-step-label">Step 3 of 5</p>
@@ -58,13 +73,42 @@ export default function StepThree({ data, errors, update, toggleSystematize, goN
               <label className="form-checkbox-item" key={opt.value}>
                 <input
                   type="checkbox"
-                  checked={data.systematize.includes(opt.value)}
-                  onChange={() => toggleSystematize(opt.value)}
+                  checked={opt.value === "other" ? otherChecked : data.systematize.includes(opt.value)}
+                  onChange={() => {
+                    if (opt.value === "other") {
+                      if (otherChecked) {
+                        // Unchecking: drop the whole "Other" selection and keep
+                        // the text in state so re-checking restores it.
+                        update("systematize", stripOtherSystematize(data.systematize));
+                      } else {
+                        // Checking: add the selection (bare "other" when the
+                        // field is still empty, "Other: text" once typed).
+                        update("systematize", withOtherSystematize(data.systematize, otherText));
+                      }
+                    } else {
+                      toggleSystematize(opt.value);
+                    }
+                  }}
                 />
                 {opt.label}
               </label>
             ))}
           </div>
+          {Boolean(otherEntry) && (
+            <input
+              type="text"
+              className="form-input mt-3"
+              id="systematizeOther"
+              aria-label="Other area you want to systematize"
+              placeholder="Tell us what you'd like to systematize..."
+              value={otherText}
+              onChange={(e) => {
+                const next = e.target.value;
+                setOtherText(next);
+                update("systematize", withOtherSystematize(data.systematize, next));
+              }}
+            />
+          )}
         </div>
 
         <div className="form-field">

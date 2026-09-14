@@ -28,7 +28,30 @@ export const SYSTEMATIZE_OPTIONS = [
   { value: "ops", label: "General operations and team coordination" },
   { value: "support", label: "Customer support" },
   { value: "reporting", label: "Reporting and visibility" },
+  { value: "records-compliance", label: "Records and compliance" },
+  { value: "training-enablement", label: "Training and enablement" },
+  { value: "other", label: "Something else (not listed above)" },
 ];
+
+export const OTHER_SYSTEMATIZE_PREFIX = "Other:";
+
+/** Removes every trace of the "Other" selection (bare value or free-text entry). */
+export function stripOtherSystematize(values: string[]): string[] {
+  return values.filter((v) => v !== "other" && !v.startsWith(OTHER_SYSTEMATIZE_PREFIX));
+}
+
+/**
+ * Merges the free-text "Other" answer into the systematize selections.
+ * With text, the answer is submitted as its own entry (e.g.
+ * "Other: weekly reporting") so it flows through the normal form submission
+ * alongside the other options. Checked with no text yet, it submits the bare
+ * "other" value so the selection is still recorded.
+ */
+export function withOtherSystematize(values: string[], text: string): string[] {
+  const trimmed = text.trim();
+  const base = stripOtherSystematize(values);
+  return trimmed ? [...base, `${OTHER_SYSTEMATIZE_PREFIX} ${trimmed}`] : [...base, "other"];
+}
 
 export const BUDGET_OPTIONS = [
   { value: "under-1000", label: "Under $1,000" },

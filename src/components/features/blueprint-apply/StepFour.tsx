@@ -16,8 +16,8 @@ export default function StepFour({ data, errors, update, goNext, goBack }: StepF
       <p className="form-step-label">Step 4 of 5</p>
       <h2 className="form-step-title">Investment readiness.</h2>
       <p className="form-step-subtitle">
-        We ask directly because we want to protect your time. If the investment range isn&apos;t right for your
-        situation, we&apos;ll point you toward better options.
+        We ask directly because we want to protect both of our time. If the investment range isn&apos;t right for
+        your situation, we&apos;ll point you toward better options.
       </p>
 
       <div className="form-fields">

@@ -1,6 +1,5 @@
 import type { Viewport } from "next";
 import Script from "next/script";
-import SiteLiveClassPopup from "@/components/site-live-class-popup";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -88,7 +87,6 @@ export default function RootLayout({
 			</head>
 			<body>
 				{children}
-				<SiteLiveClassPopup />
 			</body>
 		</html>
 	);

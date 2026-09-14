@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite } from '@/lib/services/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite } from '@/lib/services/mailer';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
@@ -82,6 +82,10 @@ const MAILER_DISPATCH: Partial<Record<ProductType, {
     send: (email, name) => addBusinessArchitectBuyerToMailerLite(email, name, 'accelerator'),
     errorLabel: 'addBusinessArchitectBuyerToMailerLite (accelerator)',
   },
+  'blueprint-audit': {
+    send: (email, name) => addBlueprintAuditPriorityBuyerToMailerLite(email, name),
+    errorLabel: 'addBlueprintAuditPriorityBuyerToMailerLite',
+  },
 };
 
 async function notifyMailerLite(
@@ -120,7 +124,11 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
     : 'https://temitopesaliu.com'
     ).replace(/\/$/, '');
 
-  const accessLink = `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
+  // The archetype/access-link flow only applies to the playbook quiz funnel;
+  // blueprint-audit buyers get their booking link via the MailerLite paid group.
+  const accessLink = product === 'blueprint-audit'
+    ? `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id=${session.id}`
+    : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
   await persistSessionRecord(session.id, {
     createdAt: Date.now(),

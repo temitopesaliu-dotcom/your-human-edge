@@ -15,8 +15,6 @@ import { LOW_BUDGET_VALUES } from "@/components/features/blueprint-apply/bluepri
 import type {
   BlueprintApplyRequest,
   BlueprintApplyResponse,
-  BlueprintCreateCheckoutRequest,
-  BlueprintCreateCheckoutResponse,
 } from "@/types/blueprint-apply";
 
 type FormData = BlueprintApplyRequest;
@@ -30,10 +28,7 @@ export default function ApplyPage() {
   const submitForm = useAsyncForm<BlueprintApplyRequest, BlueprintApplyResponse>({
     url: "/api/the-blueprint-audit/submit",
   });
-  const createCheckout = useAsyncForm<BlueprintCreateCheckoutRequest, BlueprintCreateCheckoutResponse>({
-    url: "/api/the-blueprint-audit/create-checkout",
-  });
-  const submitting = submitForm.status === "submitting" || createCheckout.status === "submitting";
+  const submitting = submitForm.status === "submitting";
   const [data, setData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -134,12 +129,9 @@ export default function ApplyPage() {
       return;
     }
 
-    const checkoutResult = await createCheckout.submit({ email: data.email });
-    if (checkoutResult.ok && "url" in checkoutResult.data) {
-      window.location.href = checkoutResult.data.url;
-    } else {
-      setErrors({ submit: !checkoutResult.ok ? checkoutResult.error : "Could not start checkout. Please try again." });
-    }
+    router.push(
+      `/the-blueprint-audit/apply/confirmation?email=${encodeURIComponent(data.email)}`
+    );
   };
 
   return (

@@ -1,4 +1,4 @@
-export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'bap-builder' | 'bap-accelerator';
+export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'bap-builder' | 'bap-accelerator' | 'blueprint-audit';
 
 export const PLAYBOOK_ACCESS_COOKIE = 'yhe_access';
 export const PURCHASE_COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
@@ -20,6 +20,7 @@ export function normalizeProduct(raw: string | undefined): ProductType {
   if (raw === 'intelligence-layer-workshop') return 'intelligence-layer-workshop';
   if (raw === 'bap-builder') return 'bap-builder';
   if (raw === 'bap-accelerator') return 'bap-accelerator';
+  if (raw === 'blueprint-audit') return 'blueprint-audit';
   return 'playbook';
 }
 

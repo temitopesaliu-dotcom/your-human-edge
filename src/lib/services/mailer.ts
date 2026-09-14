@@ -451,6 +451,45 @@ export async function addIntelligenceLayerFreeSubscriber(
   }
 }
 
+/**
+ * Mark a Blueprint Audit applicant as having paid the $1,000 Priority Access
+ * fee. Called from the Stripe webhook on checkout.session.completed for
+ * product 'blueprint-audit'. Joins on email — the same address the applicant
+ * used on the apply form, which the checkout session was created with.
+ */
+export async function addBlueprintAuditPriorityBuyerToMailerLite(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  // "Platform OS Audit — Paid ($1,000)" group: triggers the booking-link
+  // automation. Override via env if the group changes.
+  const paidGroup =
+    process.env.MAILERLITE_BLUEPRINT_AUDIT_PRIORITY_GROUP || '195383699307496638';
+  if (!apiKey) return;
+
+  const groups: string[] = [];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+  groups.push(paidGroup);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: {
+      email,
+      fields: {
+        name,
+        is_buyer: 'true',
+        subscriber_type: 'blueprint-audit-priority',
+      },
+      groups,
+    },
+  });
+  if (!result.ok) {
+    console.error('[mailer] Blueprint Audit priority buyer add failed:', result.status, result.errorText);
+  }
+}
+
 export async function addIntelligenceLayerPaidSubscriber(
   email: string,
   name: string,

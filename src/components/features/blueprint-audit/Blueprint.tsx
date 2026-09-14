@@ -110,18 +110,6 @@ export default function Blueprint() {
               Apply to Book Your Blueprint
             </Link>
 
-            <div className="blueprint-credit-note">
-              <svg viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.2" />
-                <path d="M8 5v4M8 11v0.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
-              <span>
-                We design the system. We do not build it. Take the architecture
-                to your own team, your own developer, or to implementation
-                partners we can point you to.
-              </span>
-            </div>
-
             <p
               style={{
                 textAlign: "center",

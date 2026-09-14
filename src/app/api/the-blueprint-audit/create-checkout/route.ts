@@ -43,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<BlueprintCrea
       },
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/the-blueprint-audit/apply`,
+      cancel_url: `${siteUrl}/the-blueprint-audit/apply/confirmation`,
       allow_promotion_codes: true,
     });
 
