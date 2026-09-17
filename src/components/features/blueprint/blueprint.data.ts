@@ -82,15 +82,15 @@ export const SESSION_BLOCKS = [
 export const INVESTMENT_POINTS = [
   {
     title: "The full $1,000 is credited toward implementation",
-    desc: "If you proceed with implementation within 30 days, the Blueprint fee is credited in full. No partial credit. No conditions. 100% applied.",
+    desc: "If you proceed with implementation within 30 days, the Audit fee is credited in full. No partial credit. No conditions. 100% applied.",
   },
   {
-    title: "The Blueprint is yours regardless",
-    desc: "The written Blueprint document, roadmap, and all recommendations belong to you. Implement with us, implement independently, or file it for later. No obligation.",
+    title: "The Audit is yours regardless",
+    desc: "The written Audit document, roadmap, and all recommendations belong to you. Implement with us, implement independently, or file it for later. No obligation.",
   },
   {
     title: "Not everyone is accepted",
-    desc: "Applications are reviewed first. If the Blueprint is not the right fit for where your business is, we tell you clearly and point you toward better options. This protects your $1,000 and your time.",
+    desc: "Applications are reviewed first. If the Audit is not the right fit for where your business is, we tell you clearly and point you toward better options. This protects your $1,000 and your time.",
   },
 ];
 
@@ -102,5 +102,5 @@ export const PRICING_INCLUDES = [
   "Technology recommendations",
   "Phased implementation roadmap",
   "ROI opportunity map",
-  "Written Blueprint document (delivered in 5 days)",
+  "Written Audit document (delivered in 5 days)",
 ];

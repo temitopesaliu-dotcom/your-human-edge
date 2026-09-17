@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="hero hero-inner-page" id="hero" aria-label="Blueprint hero">
+    <section className="hero hero-inner-page" id="hero" aria-label="Audit hero">
       <div className="hero-bg" aria-hidden="true"></div>
       <div className="hero-grid-lines" aria-hidden="true"></div>
 
@@ -14,7 +14,7 @@ export default function Hero() {
         <h1 className="hero-title fade-up delay-1">
           AI Operating System
           <br />
-          <em>Blueprint Session</em>
+          <em>Audit Session</em>
         </h1>
         <p className="hero-subtitle fade-up delay-2">
           A 90-minute consulting engagement where we map your business,

@@ -124,7 +124,7 @@ export default async function ApplyConfirmationPage({
                 <div>
                   <p className="confirmation-box-title">What You Receive</p>
                   <p className="confirmation-box-text">
-                    A comprehensive blueprint design architecture covering the systems,
+                    A comprehensive audit design architecture covering the systems,
                     workflows, AI opportunities, technology requirements, and implementation
                     roadmap for your business, delivered within 7 business days of payment of
                     the remaining balance.

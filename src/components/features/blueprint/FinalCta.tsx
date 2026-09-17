@@ -14,13 +14,13 @@ export default function FinalCta() {
             margin: "0 auto var(--space-5)",
           }}
         >
-          The Blueprint is where operational clarity begins.
+          The Audit is where operational clarity begins.
         </h2>
         <Link
           href="/the-blueprint-audit/apply"
           className="btn btn-primary btn-lg btn-arrow"
         >
-          Apply for Your Blueprint
+          Apply for Your Audit
         </Link>
         <p className="final-cta-note">
           $1,000 · Credited in full if you proceed · Not all applications

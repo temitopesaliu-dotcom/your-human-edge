@@ -7,7 +7,7 @@ export default function Deliverables() {
         <div className="section-header centered fade-up">
           <p className="label mb-3">The Deliverables</p>
           <h2 className="heading-1" id="receive-heading">
-            What you receive from the Blueprint.
+            What you receive from the Audit.
           </h2>
           <p className="body-lg mt-3">
             Delivered within 5 business days of your session. Written.

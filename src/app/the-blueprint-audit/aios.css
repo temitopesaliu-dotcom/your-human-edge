@@ -2271,3 +2271,111 @@ ul { list-style: none; }
    ============================================================ */
 .hero-title .line-2 { display: block; padding-left: 60px; }
 @media (max-width: 560px) { .hero-title .line-2 { padding-left: 0; } }
+
+/* ============================================================
+   29. PAGE-SPECIFIC: About section (landing page)
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+.about-photo-frame {
+  position: relative;
+  padding: 10px;
+}
+
+.about-photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border);
+}
+
+.about-photo-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 60%;
+  height: 60%;
+  border-bottom: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+}
+
+.about-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.about-photo-img {
+  object-fit: cover;
+  filter: grayscale(12%);
+}
+
+.about-role {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-top: var(--space-2);
+}
+
+.about-creds {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about-cred {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.about-cred svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.about-link {
+  display: inline-block;
+  margin-top: var(--space-5);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 169, 110, 0.35);
+  padding-bottom: 4px;
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+
+.about-link:hover {
+  color: var(--accent-light);
+  border-color: var(--accent-light);
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .about-photo {
+    max-width: 320px;
+  }
+}
+
+/* Anchor offset so sections don't hide under the fixed nav when jumped to */
+.aios-root [id] {
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}

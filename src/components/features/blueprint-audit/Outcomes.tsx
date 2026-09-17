@@ -241,14 +241,14 @@ export default function Outcomes() {
             <p className="label outcome-tag">Something Else Entirely</p>
             <h3 className="heading-2 mt-3">Your bottleneck may look nothing like these.</h3>
             <p className="body-md mt-3">Some businesses run on cases, cohorts, inventory, shifts, submissions, applications, tenancies, claims, bookings or field visits. The panels here are the patterns we see most often — not the boundary of the work.</p>
-            <p className="body-md mt-3">Result: The Blueprint starts from how your business actually operates — if the thing eating your week is not on this list, that is the thing we map.</p>
+            <p className="body-md mt-3">Result: The Audit starts from how your business actually operates — if the thing eating your week is not on this list, that is the thing we map.</p>
             <Link href="/the-blueprint-audit/apply" className="btn btn-outline mt-4 btn-arrow">Get this designed for your business</Link>
           </div>
           <div className="outcome-visual" aria-label="Custom workflow preview">
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> We map your workflows, not a generic template</div>
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Whatever system you already run on stays in the design</div>
             <div className="outcome-visual-row"><span className="outcome-visual-row-dot blue"></span> The real bottleneck identified — even an unusual one</div>
-            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Architecture built around your operation as it is</div>
+            <div className="outcome-visual-row"><span className="outcome-visual-row-dot green"></span> Architecture designed around your operation as it is</div>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function Solution() {
         <div className="section-header centered fade-up">
           <p className="label mb-3">The Architecture</p>
           <h2 className="heading-1" id="solution-heading">
-            What an AI Operating System looks like.
+            What a Business Operating System with AI looks like.
           </h2>
           <p className="body-lg mt-3">
             Not a collection of tools. A connected intelligence layer that

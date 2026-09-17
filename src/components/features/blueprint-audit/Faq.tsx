@@ -15,28 +15,28 @@ export default function Faq() {
 
         <div className="faq-groups fade-up delay-1">
           <div className="faq-group">
-            <p className="faq-group-label">About the Blueprint</p>
+            <p className="faq-group-label">About the Audit</p>
 
             {[
               {
-                q: "Why is the Blueprint paid?",
-                a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value on its own: a workflow map, an AI architecture, a build sequence and a costed estimate. That takes real preparation and expertise. Paying for it also means you arrive prepared and serious, and clients with skin in the game get better outcomes.",
+                q: "Why is the Audit paid?",
+                a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value on its own: a workflow map, an AI architecture, a priority sequence and a costed estimate. That takes real preparation and expertise. Paying for it also means you arrive prepared and serious, and clients with skin in the game get better outcomes.",
               },
               {
                 q: "How is my price decided?",
-                a: "By what your business actually needs. We read your application, work out the architecture your operation requires, and price the engagement to that scope. Mapping two workflows for a solo consultant is a different job to mapping a twenty-person service business. Blueprints run from $1,000 to $5,000+, and you receive your exact figure in writing with your acceptance—before you are asked to pay anything.",
+                a: "By what your business actually needs. We read your application, work out the architecture your operation requires, and price the engagement to that scope. Mapping two workflows for a solo consultant is a different job to mapping a twenty-person service business. Audits run from $1,000 to $5,000+, and you receive your exact figure in writing with your acceptance—before you are asked to pay anything.",
               },
               {
-                q: "What happens after I get the Blueprint?",
-                a: "It is yours to act on however you want. Most clients take the architecture to their own developer or team. If you would rather it be built by someone who already knows this kind of specification, we can point you to implementation partners and make the introduction. The document is yours either way, with no obligation.",
+                q: "What happens after I get the Audit?",
+                a: "It is yours to act on however you want. You leave with a complete architecture and a defined plan you can take forward with your own team, or with us — we know the specification best because we wrote it. The document is yours either way, with no obligation.",
               },
               {
-                q: "Do you build the system for me?",
-                a: "No. We design the architecture; we do not implement it. That keeps the work focused on getting the specification right rather than on winning a build contract. You take it to your own team, your own developer, or to implementation partners we can point you to.",
+                q: "What exactly do I walk away with?",
+                a: "A written Audit document: your workflow map, the AI architecture, technology recommendations, a priority sequence and a costed estimate. It is a complete design for your operating system, specified clearly enough to hand to anyone. What we do from there is something we talk through together on the call.",
               },
               {
-                q: "Can my team attend the Blueprint Session?",
-                a: "Yes, and for larger businesses we recommend bringing the team member most responsible for operations. Having the right people in the room produces a more accurate and actionable Blueprint. We recommend a maximum of 3 people from your side to keep the session focused.",
+                q: "Can my team attend the Audit Session?",
+                a: "Yes, and for larger businesses we recommend bringing the team member most responsible for operations. Having the right people in the room produces a more accurate and actionable Audit. We recommend a maximum of 3 people from your side to keep the session focused.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>
@@ -58,24 +58,24 @@ export default function Faq() {
 
             {[
               {
-                q: "How long does the build usually take?",
-                a: "Typically 4–10 weeks depending on scope, though that is the builder's timeline rather than ours. A focused build covering 3–4 core systems usually runs 4–6 weeks; a full operating system covering every business function can take 8–12. Your Blueprint sets out the sequence and the dependencies, so whoever builds it works to a defined plan rather than discovering the scope as they go.",
+                q: "How long does the Audit take?",
+                a: "The Audit Session runs 90 minutes. Your written Audit document is delivered within 5 business days. From there, the timeline for taking your architecture forward depends on scope and how you choose to action it — your Audit sets out the sequence and the dependencies so everything is defined in advance.",
               },
               {
                 q: "What tools and software do you work with?",
-                a: "We work across the major platforms. AI models and assistants: Claude, ChatGPT, Gemini, Perplexity, and Claude Code or Cursor where a build is involved. Automation: Make, Zapier, n8n, Power Automate, Airtable. CRM and pipeline: HubSpot, GoHighLevel, Pipedrive, Salesforce, Notion, Airtable. Knowledge and documents: Notion, Obsidian, Coda, Google Workspace, SharePoint. Communication: Gmail, Outlook, Slack, Teams, WhatsApp Business. Scheduling and forms: Calendly, Cal.com, Tally, Typeform. Data and reporting: Looker Studio, Metabase, Google Sheets. Plus whatever industry-specific system you already run on — a practice management tool, an LMS, a case system, a booking platform. We select the right tools for your business, not our preferences.",
+                a: "We work across the major platforms. AI models and assistants: Claude, ChatGPT, Gemini, Perplexity, and Claude Code or Cursor. Automation: Make, Zapier, n8n, Power Automate, Airtable. CRM and pipeline: HubSpot, GoHighLevel, Pipedrive, Salesforce, Notion, Airtable. Knowledge and documents: Notion, Obsidian, Coda, Google Workspace, SharePoint. Communication: Gmail, Outlook, Slack, Teams, WhatsApp Business. Scheduling and forms: Calendly, Cal.com, Tally, Typeform. Data and reporting: Looker Studio, Metabase, Google Sheets. Plus whatever industry-specific system you already run on — a practice management tool, an LMS, a case system, a booking platform. We select the right tools for your business, not our preferences.",
               },
               {
                 q: "Can you integrate with my existing tech stack?",
-                a: "Almost always, yes. We assess your current tools during the Blueprint and design around them wherever possible. We only recommend replacements when a tool is genuinely creating more friction than value. We do not push specific platforms.",
+                a: "Almost always, yes. We assess your current tools during the Audit and design around them wherever possible. We only recommend replacements when a tool is genuinely creating more friction than value. We do not push specific platforms.",
               },
               {
                 q: "Do you work with international clients?",
                 a: "Yes. All engagements are conducted remotely via video. We work with clients across North America, Europe, Africa, the Middle East and Asia-Pacific. Sessions are scheduled to accommodate your timezone.",
               },
               {
-                q: "How much will the build cost me?",
-                a: "That depends on scope and on who you choose to build it, and it is not money that comes to us. What the Blueprint gives you is a costed estimate for your specific architecture — so you walk into that conversation with a defined scope and a realistic number, instead of asking a builder to price something nobody has specified yet. That estimate is one of the more valuable pages in the document.",
+                q: "How much does the Audit cost?",
+                a: "Audits run from $1,000 to $5,000+ depending on how much of your operation the architecture has to cover. What the Audit gives you is a costed estimate for your specific architecture — so you walk into any next conversation with a defined scope and a realistic number, instead of asking someone to price something nobody has specified yet. That estimate is one of the more valuable pages in the document.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>
@@ -98,15 +98,15 @@ export default function Faq() {
             {[
               {
                 q: "What if I'm already using some AI tools?",
-                a: "Good — that gives us a foundation to build on. Having individual AI tools is very different from having an AI Operating System. Most clients we work with have already tried ChatGPT, Zapier or various AI writing tools. The problem is those tools aren't connected into a coherent system. That is precisely what we design and build.",
+                a: "Good — that gives us a foundation to work from. Having individual AI tools is very different from having an AI Operating System. Most clients we work with have already tried ChatGPT, Zapier or various AI writing tools. The problem is those tools aren't connected into a coherent system. That is precisely what we design.",
               },
               {
                 q: "Who is this NOT for?",
-                a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you want a done-for-you build rather than an architecture to build from; you want someone to hand you a tool and disappear; you are not willing to invest time in the Blueprint process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
+                a: "This is not for you if: you are in the very early stages of business with no established processes yet (you need processes before you can systematize them); you want someone to hand you a tool and disappear; you are not willing to invest time in the Audit process and preparation; or you do not believe AI has a role in your business model. There is no judgment in any of these — this specific service just will not deliver the right outcome for you.",
               },
               {
                 q: "Do I need technical knowledge?",
-                a: "No. You need to understand your business — the flows, the bottlenecks, the decisions you make every day. We handle the technical design and write the specification in language a builder can act on. Most of our clients describe themselves as \"not technical.\" What matters is operational clarity, not coding skills.",
+                a: "No. You need to understand your business — the flows, the bottlenecks, the decisions you make every day. We handle the technical design and write the specification in plain language anyone can act on. Most of our clients describe themselves as \"not technical.\" What matters is operational clarity, not coding skills.",
               },
               {
                 q: "What size business is ideal?",
@@ -133,11 +133,11 @@ export default function Faq() {
             {[
               {
                 q: "What does success look like 90 days after the system is live?",
-                a: "Typically: 6–12 hours per week recovered from operational tasks. Client-facing processes running without your personal involvement. A knowledge base your team can access without asking you. Fewer dropped balls. Less reactive decision-making. And often new revenue streams — capacity you did not have before turns into offers you could not previously deliver, whether that is a productised service, a second delivery line, or serving a client size you had to turn away. The specific outcomes depend on your business and what gets built — the Blueprint defines the exact success metrics for your situation, so you can hold the build to them.",
+                a: "Typically: 6–12 hours per week recovered from operational tasks. Client-facing processes running without your personal involvement. A knowledge base your team can access without asking you. Fewer dropped balls. Less reactive decision-making. And often new revenue streams — capacity you did not have before turns into offers you could not previously deliver, whether that is a productised service, a second delivery line, or serving a client size you had to turn away. The specific outcomes depend on your business — the Audit defines the exact success metrics for your situation, so you can measure everything against them.",
               },
               {
                 q: "How do you measure ROI?",
-                a: "The Blueprint defines the metrics before anything is built. Primary ones: hours recovered per week and the dollar value of that time, reduction in operational errors, client response time, team hours saved, and revenue per founder hour. The ROI opportunity map quantifies the expected return for your specific architecture — which is what lets you judge whether a build is worth commissioning at all.",
+                a: "The Audit defines the metrics up front. Primary ones: hours recovered per week and the dollar value of that time, reduction in operational errors, client response time, team hours saved, and revenue per founder hour. The ROI opportunity map quantifies the expected return for your specific architecture — which is what lets you judge the opportunity for your business with a clear head.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>

@@ -11,19 +11,19 @@ export default function Blueprint() {
         <div className="section-header fade-up">
           <p className="label mb-3">The First Step</p>
           <h2 className="heading-1" id="blueprint-heading">
-            AI Operating System Blueprint.
+            Business Operating System Audit.
           </h2>
           <p className="body-lg mt-3">
             A consulting engagement with one
-            purpose: clarity on exactly what your business operating system should look like and
-            how to build it.
+            purpose: clarity on exactly what your business operating system
+            should look like and a plan for it.
           </p>
         </div>
 
         <div className="blueprint-grid">
           <div className="blueprint-info fade-up delay-1">
             <h3 className="heading-3 mb-3">
-              What the Blueprint covers.
+              What the Audit covers.
             </h3>
             <p className="body-md mb-4">
               In 90 minutes, we map your entire business operation, identify
@@ -39,11 +39,11 @@ export default function Blueprint() {
                 "AI opportunity assessment",
                 "Technology recommendations",
                 "Automation architecture design",
-                "Implementation roadmap",
+                "Priority sequence",
                 "Priority matrix",
                 "Investment estimate",
                 "ROI opportunity map",
-                "Written Blueprint document",
+                "Written Audit document",
               ].map((item, i) => (
                 <div className="deliverable-item" key={i}>
                   <svg viewBox="0 0 16 16" fill="none">
@@ -62,12 +62,12 @@ export default function Blueprint() {
               <p className="blueprint-why-text">Because every business arrives with a different problem.
                 We read your application, work out the architecture your operation actually needs, and price the engagement to that.
                 Mapping two workflows for a solo consultant is not the same job as mapping a twenty-person service business.
-                Blueprints run from $1,000 to $5,000+, and you get your exact figure in writing before you are asked to pay anything.</p>
+                Audits run from $1,000 to $5,000+, and you get your exact figure in writing before you are asked to pay anything.</p>
             </div>
           </div>
 
           <div className="blueprint-pricing-card fade-up delay-2">
-            <p className="label mb-4">AI Operating System Blueprint</p>
+            <p className="label mb-4">Business Operating System Audit</p>
             <div className="price-row" style={{ marginBottom: "var(--space-3)" }}>
               <p className="price-prefix">From</p>
               <div>
@@ -86,8 +86,8 @@ export default function Blueprint() {
             >
               {[
                 "90-minute consulting session",
-                "Written Blueprint document",
-                "Full implementation roadmap",
+                "Written Audit document",
+                "Full priority sequence",
                 "Delivered within 7 business days",
               ].map((item, i) => (
                 <div className="deliverable-item mb-2" key={i}>
@@ -107,7 +107,7 @@ export default function Blueprint() {
               className="btn btn-primary btn-lg btn-arrow"
               style={{ width: "100%", justifyContent: "center" }}
             >
-              Apply to Book Your Blueprint
+              Apply to Book Your Audit
             </Link>
 
             <p

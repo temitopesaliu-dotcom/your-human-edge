@@ -23,7 +23,7 @@ export default function StepFour({ data, errors, update, goNext, goBack }: StepF
       <div className="form-fields">
         <div className="form-field">
           <label className="form-label" htmlFor="implementationBudget">
-            If the Blueprint session reveals the right opportunity, what is your likely implementation budget?{" "}
+            If the Audit session reveals the right opportunity, what is your likely implementation budget?{" "}
             <span className="form-required">*</span>
           </label>
           <p className="form-hint">

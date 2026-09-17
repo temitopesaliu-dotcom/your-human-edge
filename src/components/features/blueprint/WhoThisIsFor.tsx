@@ -8,7 +8,7 @@ export default function WhoThisIsFor() {
           <div className="fade-up">
             <p className="label mb-3">Who This Is For</p>
             <h2 className="heading-2" id="who-heading">
-              The Blueprint is designed for one kind of business.
+              The Audit is designed for one kind of business.
             </h2>
           </div>
           <div className="fade-up delay-1">

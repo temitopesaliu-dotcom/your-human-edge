@@ -141,7 +141,7 @@ export default function ApplyPage() {
       <div className="form-page">
         <div className="form-page-header">
           <p className="label mb-2">Application</p>
-          <h1 className="heading-2">Blueprint Session Application</h1>
+          <h1 className="heading-2">Audit Session Application</h1>
           <p className="body-md mt-2" style={{ color: "var(--text-2)" }}>
             Takes 5–7 minutes. Secure your spot today.
           </p>
@@ -149,7 +149,7 @@ export default function ApplyPage() {
 
         <ProgressBar current={current} total={TOTAL_STEPS} />
 
-        <form onSubmit={handleSubmit} noValidate aria-label="Blueprint application form">
+        <form onSubmit={handleSubmit} noValidate aria-label="Audit application form">
           {current === 1 && <StepOne data={data} errors={errors} update={update} goNext={goNext} />}
           {current === 2 && <StepTwo data={data} errors={errors} update={update} goNext={goNext} goBack={goBack} />}
           {current === 3 && (

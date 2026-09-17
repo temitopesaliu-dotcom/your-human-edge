@@ -26,13 +26,13 @@ export default function Hero() {
 
         <div className="hero-ctas fade-up delay-3">
           <Link
-            href="/the-blueprint-audit/apply"
+            href="#blueprint"
             className="btn btn-primary btn-lg btn-arrow"
           >
-            Apply for Blueprint
+            Apply for Audit
           </Link>
-          <a href="#how-it-works" className="btn btn-ghost btn-arrow">
-            See how it works
+          <a href="/demos" className="btn btn-ghost btn-arrow">
+            See sample solutions
           </a>
         </div>
       </div>

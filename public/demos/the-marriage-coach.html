@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Marriage Coach Method — Marriage · Parenting · Coaching</title>
+<style>
+:root {
+  --berry: #6D2E46; --rose: #A26769; --cream: #FCF8F3; --sand: #ECE2D0;
+  --dark: #2A1A20; --mid: #5C3D4A; --accent: #C9836A; --white: #FFFFFF;
+  --success: #4A7C59; --gold: #D4A853; --teal: #2D7D7D; --navy: #1E3A5F;
+  --slate: #4A5568; --light-bg: #F7F3EF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:var(--cream);color:var(--dark);overflow-x:hidden;padding-bottom:70px}
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;background:rgba(42,26,32,0.96);backdrop-filter:blur(12px);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--berry),var(--accent));display:flex;align-items:center;justify-content:center;font-size:14px;color:white;font-family:Arial,sans-serif;font-weight:bold}
+.nav-name{color:white;font-size:15px;font-family:Arial,sans-serif;font-weight:600;letter-spacing:.5px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:6px 14px;border-radius:20px;font-size:12px;font-family:Arial,sans-serif;color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;letter-spacing:.5px;border:1px solid transparent}
+.nav-link:hover{color:white;background:rgba(255,255,255,.08)}
+.nav-link.active{color:white;background:var(--berry);border-color:var(--berry)}
+.creator-toggle{padding:7px 16px;border-radius:20px;font-size:12px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--gold),var(--accent));color:white;border:none;letter-spacing:.5px;transition:opacity .2s}
+.creator-toggle:hover{opacity:.85}
+/* ── VIEWS ── */
+.view{display:none;padding-top:96px}
+.view.active{display:block}
+/* ── HERO / LANDING ── */
+.hero{min-height:100vh;background:linear-gradient(160deg,var(--dark) 0%,var(--berry) 50%,#3D1F2D 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(201,131,106,.08)}
+.hero::after{content:'';position:absolute;bottom:-150px;left:-80px;width:400px;height:400px;border-radius:50%;background:rgba(109,46,70,.4)}
+.hero-eyebrow{display:inline-block;background:rgba(201,131,106,.2);border:1px solid var(--accent);color:#F5C5A8;font-size:10px;font-family:Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:20px;margin-bottom:28px}
+.hero h1{font-size:clamp(34px,6vw,62px);color:white;line-height:1.1;margin-bottom:16px;font-weight:normal}
+.hero h1 em{color:#F5C5A8;font-style:italic}
+.hero-sub{font-size:17px;color:rgba(236,226,208,.85);max-width:560px;margin:0 auto 48px;font-family:Arial,sans-serif;line-height:1.7}
+/* AUDIENCE PICKER */
+.audience-label{font-size:11px;color:#F5C5A8;font-family:Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
+.audience-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:680px;margin:0 auto 32px}
+.audience-card{padding:14px 24px;border:1.5px solid rgba(255,255,255,.2);border-radius:40px;cursor:pointer;transition:all .25s;color:rgba(255,255,255,.8);font-family:Arial,sans-serif;font-size:14px;background:rgba(255,255,255,.04);position:relative}
+.audience-card:hover{border-color:var(--accent);color:white;background:rgba(201,131,106,.15)}
+.audience-card.selected{border-color:var(--accent);background:var(--accent);color:white;font-weight:600}
+.audience-card .tag{position:absolute;top:-8px;right:8px;background:var(--gold);color:white;font-size:8px;font-family:Arial,sans-serif;padding:2px 7px;border-radius:8px;letter-spacing:1px}
+.btn-start{padding:16px 48px;background:linear-gradient(135deg,var(--accent),var(--berry));color:white;border:none;border-radius:40px;font-size:16px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;transition:all .25s;margin-top:8px}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,46,70,.4)}
+/* social proof */
+.proof-strip{background:rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.1);padding:20px 24px;display:flex;gap:40px;justify-content:center;flex-wrap:wrap}
+.proof-item{text-align:center;color:white}
+.proof-num{font-size:26px;font-family:Georgia,serif;color:#F5C5A8;font-weight:bold}
+.proof-text{font-size:10px;font-family:Arial,sans-serif;opacity:.6;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+/* ── QUIZ VIEW ── */
+.quiz-wrap{min-height:100vh;background:var(--cream);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.quiz-card{background:white;border-radius:24px;max-width:620px;width:100%;box-shadow:0 8px 40px rgba(109,46,70,.1);overflow:hidden}
+.quiz-header{background:linear-gradient(135deg,var(--berry),var(--mid));padding:32px;color:white;text-align:center}
+.quiz-header h2{font-size:24px;margin-bottom:8px;font-weight:normal}
+.quiz-header p{font-size:13px;opacity:.8;font-family:Arial,sans-serif}
+.quiz-progress{height:4px;background:rgba(255,255,255,.2);margin-top:20px;border-radius:2px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s}
+.quiz-body{padding:36px}
+.q-label{font-size:10px;font-family:Arial,sans-serif;color:var(--rose);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.q-text{font-size:20px;color:var(--dark);margin-bottom:24px;line-height:1.4}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-option{padding:14px 18px;border:1.5px solid var(--sand);border-radius:12px;cursor:pointer;font-size:14px;font-family:Arial,sans-serif;color:var(--mid);transition:all .2s;display:flex;align-items:center;gap:12px}
+.q-option:hover{border-color:var(--rose);color:var(--berry)}
+.q-option.selected{border-color:var(--berry);background:linear-gradient(135deg,rgba(109,46,70,.06),rgba(201,131,106,.08));color:var(--berry);font-weight:600}
+.q-option .opt-icon{width:32px;height:32px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.q-option.selected .opt-icon{background:var(--berry);color:white}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:28px;gap:12px}
+.btn-q-back{padding:12px 24px;border:1.5px solid var(--sand);border-radius:10px;background:transparent;color:var(--mid);font-size:14px;font-family:Arial,sans-serif;cursor:pointer}
+.btn-q-next{flex:1;padding:12px 24px;background:var(--berry);color:white;border:none;border-radius:10px;font-size:14px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-q-next:hover{background:var(--mid)}
+/* quiz result */
+.quiz-result{padding:40px;text-align:center;display:none}
+.result-badge{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--berry),var(--accent));display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px}
+.result-level{font-size:11px;color:var(--rose);letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px}
+.result-title{font-size:28px;color:var(--berry);margin-bottom:12px}
+.result-desc{font-size:14px;color:var(--mid);font-family:Arial,sans-serif;line-height:1.7;margin-bottom:28px}
+.result-recs{display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:28px}
+.result-rec{padding:14px 16px;background:var(--cream);border-radius:12px;border-left:3px solid var(--accent)}
+.result-rec .rec-title{font-size:13px;font-weight:600;color:var(--dark);font-family:Arial,sans-serif}
+.result-rec .rec-price{font-size:12px;color:var(--accent);font-family:Arial,sans-serif;margin-top:2px}
+.btn-cta-result{width:100%;padding:15px;background:linear-gradient(135deg,var(--berry),var(--accent));color:white;border:none;border-radius:12px;font-size:15px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer}
+
+/* ── PROGRAMS VIEW ── */
+.programs-hero{background:linear-gradient(160deg,var(--dark),var(--berry));padding:80px 24px 60px;text-align:center;color:white}
+.programs-hero h2{font-size:clamp(26px,5vw,44px);margin-bottom:12px;font-weight:normal}
+.programs-hero h2 em{color:#F5C5A8;font-style:italic}
+.programs-hero p{font-size:15px;opacity:.8;font-family:Arial,sans-serif;max-width:520px;margin:0 auto}
+.section{padding:60px 24px;max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:10px;color:var(--rose);font-family:Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(22px,4vw,34px);color:var(--berry);margin-bottom:8px;font-weight:normal}
+.section-sub{font-size:15px;color:var(--mid);font-family:Arial,sans-serif;max-width:540px;line-height:1.6;margin-bottom:40px}
+/* Program tracks */
+.tracks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.track-card{border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(109,46,70,.08);transition:transform .25s}
+.track-card:hover{transform:translateY(-4px)}
+.track-header{padding:28px;color:white;position:relative}
+.track-header.berry{background:linear-gradient(135deg,var(--berry),var(--mid))}
+.track-header.teal{background:linear-gradient(135deg,var(--teal),#1A5050)}
+.track-header.gold{background:linear-gradient(135deg,#B8860B,var(--accent))}
+.track-icon{font-size:32px;margin-bottom:12px}
+.track-name{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;opacity:.7;margin-bottom:6px}
+.track-title{font-size:22px;font-weight:normal;margin-bottom:8px}
+.track-tagline{font-size:13px;opacity:.8;font-family:Arial,sans-serif;line-height:1.5}
+.track-body{background:white;padding:24px}
+.track-items{list-style:none;margin-bottom:20px}
+.track-items li{font-size:13px;font-family:Arial,sans-serif;color:var(--mid);padding:8px 0;border-bottom:1px solid var(--sand);display:flex;align-items:center;gap:8px}
+.track-items li::before{content:'✓';color:var(--success);font-weight:bold;flex-shrink:0}
+.track-price-row{display:flex;align-items:center;justify-content:space-between}
+.track-price{font-size:24px;color:var(--berry);font-family:Georgia,serif}
+.track-period{font-size:11px;color:var(--rose);font-family:Arial,sans-serif}
+.btn-track{padding:10px 22px;background:var(--berry);color:white;border:none;border-radius:20px;font-size:13px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-track:hover{background:var(--mid)}
+/* Tiers */
+.tiers-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:40px}
+.tier{padding:24px;border-radius:16px;border:1.5px solid var(--sand);background:white;text-align:center;position:relative;transition:all .25s}
+.tier:hover{border-color:var(--berry);box-shadow:0 4px 20px rgba(109,46,70,.1)}
+.tier.featured{border-color:var(--berry);background:linear-gradient(160deg,rgba(109,46,70,.04),white)}
+.tier-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--berry);color:white;font-size:9px;font-family:Arial,sans-serif;padding:3px 12px;border-radius:10px;white-space:nowrap;letter-spacing:1px}
+.tier-name{font-size:10px;font-family:Arial,sans-serif;color:var(--rose);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.tier-price{font-size:36px;color:var(--berry);font-family:Georgia,serif}
+.tier-desc{font-size:12px;color:var(--mid);font-family:Arial,sans-serif;margin:6px 0 16px;line-height:1.5}
+
+/* ── COMMUNITY VIEW ── */
+.community-hero{background:linear-gradient(160deg,#1A3A2A,var(--teal));padding:80px 24px 60px;text-align:center;color:white}
+.channels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:0}
+.channel-card{background:white;border-radius:16px;padding:24px;border:1.5px solid var(--sand);transition:all .25s}
+.channel-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.channel-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.ch-whatsapp{background:#25D366}
+.ch-telegram{background:#229ED9}
+.ch-slack{background:#4A154B}
+.ch-web{background:var(--berry)}
+.channel-name{font-size:16px;font-family:Arial,sans-serif;font-weight:600;color:var(--dark);margin-bottom:6px}
+.channel-desc{font-size:13px;font-family:Arial,sans-serif;color:var(--mid);line-height:1.5;margin-bottom:16px}
+.channel-features{list-style:none;margin-bottom:18px}
+.channel-features li{font-size:12px;font-family:Arial,sans-serif;color:var(--mid);padding:4px 0;display:flex;align-items:center;gap:6px}
+.channel-features li::before{content:'•';color:var(--accent)}
+.btn-channel{width:100%;padding:10px;border-radius:10px;font-size:13px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;border:1.5px solid var(--berry);background:transparent;color:var(--berry);transition:all .2s}
+.btn-channel:hover{background:var(--berry);color:white}
+/* Daily report preview */
+.report-preview{background:var(--dark);border-radius:20px;padding:28px;color:white;margin-top:40px}
+.report-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.report-dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.report-title{font-size:13px;font-family:Arial,sans-serif;font-weight:600;letter-spacing:1px}
+.report-date{font-size:11px;opacity:.5;font-family:Arial,sans-serif;margin-left:auto}
+.report-body{font-size:13px;font-family:Arial,sans-serif;line-height:1.8;color:rgba(255,255,255,.75)}
+.report-body strong{color:#F5C5A8}
+.report-channels{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.report-channel-badge{padding:6px 14px;border-radius:20px;font-size:11px;font-family:Arial,sans-serif;font-weight:600;cursor:pointer;transition:all .2s}
+.rch-wa{background:#25D366;color:white}
+.rch-tg{background:#229ED9;color:white}
+.rch-sl{background:#4A154B;color:white}
+.rch-voice{background:var(--accent);color:white}
+.report-channel-badge:hover{opacity:.85;transform:scale(1.05)}
+
+/* ── CREATOR DASHBOARD ── */
+.dashboard-view{background:var(--light-bg);min-height:100vh}
+.db-top{background:linear-gradient(135deg,var(--dark),var(--berry));padding:32px 24px;color:white}
+.db-greeting{font-size:13px;opacity:.6;font-family:Arial,sans-serif;margin-bottom:6px}
+.db-name{font-size:28px;font-weight:normal;margin-bottom:4px}
+.db-sub{font-size:13px;opacity:.7;font-family:Arial,sans-serif}
+.db-date{font-size:12px;opacity:.5;font-family:Arial,sans-serif;margin-top:4px}
+/* KPI row */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;padding:24px;max-width:1100px;margin:0 auto}
+.kpi{background:white;border-radius:14px;padding:20px;border-left:4px solid transparent}
+.kpi.berry{border-color:var(--berry)}
+.kpi.accent{border-color:var(--accent)}
+.kpi.teal{border-color:var(--teal)}
+.kpi.gold{border-color:var(--gold)}
+.kpi.success{border-color:var(--success)}
+.kpi-label{font-size:10px;font-family:Arial,sans-serif;color:var(--rose);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.kpi-val{font-size:28px;color:var(--dark);font-family:Georgia,serif}
+.kpi-delta{font-size:11px;font-family:Arial,sans-serif;color:var(--success);margin-top:2px}
+.kpi-delta.down{color:#C0392B}
+/* Dashboard grid */
+.db-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:0 24px 32px;max-width:1100px;margin:0 auto}
+.db-card{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.db-card.wide{grid-column:span 2}
+.db-card.full{grid-column:span 3}
+.db-card-title{font-size:12px;font-family:Arial,sans-serif;font-weight:600;color:var(--rose);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.db-card-title .refresh{font-size:11px;color:var(--accent);cursor:pointer;letter-spacing:0;text-transform:none;font-weight:normal}
+/* Content Ideas */
+.content-idea{padding:12px 14px;border-radius:10px;background:var(--light-bg);margin-bottom:8px;border-left:3px solid transparent;cursor:pointer;transition:all .2s}
+.content-idea:hover{border-left-color:var(--accent);background:rgba(201,131,106,.06)}
+.content-idea.pillar-mirror{border-left-color:var(--berry)}
+.content-idea.pillar-proof{border-left-color:var(--teal)}
+.content-idea.pillar-marriage{border-left-color:var(--gold)}
+.content-idea.pillar-stage{border-left-color:var(--rose)}
+.idea-hook{font-size:13px;color:var(--dark);font-family:Arial,sans-serif;font-weight:600;margin-bottom:3px}
+.idea-meta{display:flex;gap:8px;align-items:center}
+.idea-type{font-size:10px;padding:2px 8px;border-radius:8px;font-family:Arial,sans-serif;font-weight:600;letter-spacing:.5px}
+.type-reel{background:rgba(109,46,70,.1);color:var(--berry)}
+.type-carousel{background:rgba(45,125,125,.1);color:var(--teal)}
+.type-story{background:rgba(212,168,83,.15);color:#8A6020}
+.type-post{background:rgba(74,122,89,.1);color:var(--success)}
+.idea-sells{font-size:11px;color:var(--accent);font-family:Arial,sans-serif}
+/* Pipeline */
+.pipeline-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--sand)}
+.pipeline-row:last-child{border-bottom:none}
+.pipeline-stage{font-size:12px;font-family:Arial,sans-serif;color:var(--mid)}
+.pipeline-count{font-size:18px;color:var(--dark);font-family:Georgia,serif;font-weight:bold}
+.pipeline-rev{font-size:12px;color:var(--success);font-family:Arial,sans-serif}
+/* Competitor intel */
+.competitor-item{padding:12px;border-radius:10px;background:var(--light-bg);margin-bottom:8px}
+.comp-name{font-size:13px;font-weight:600;color:var(--dark);font-family:Arial,sans-serif}
+.comp-content{font-size:12px;color:var(--mid);font-family:Arial,sans-serif;margin-top:3px}
+.comp-gap{font-size:11px;color:var(--accent);font-family:Arial,sans-serif;margin-top:4px;font-style:italic}
+/* mini chart bars */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:80px;margin-top:12px}
+.bar{flex:1;border-radius:4px 4px 0 0;transition:height .5s;cursor:pointer;position:relative}
+.bar:hover::after{content:attr(data-val);position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--dark);font-family:Arial,sans-serif;white-space:nowrap}
+.bar-labels{display:flex;gap:8px;margin-top:4px}
+.bar-label{flex:1;font-size:9px;font-family:Arial,sans-serif;color:var(--mid);text-align:center}
+/* intake queue */
+.intake-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--sand)}
+.intake-item:last-child{border-bottom:none}
+.intake-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:Arial,sans-serif;font-weight:bold;color:white;flex-shrink:0}
+.intake-info{flex:1}
+.intake-name{font-size:13px;font-weight:600;color:var(--dark);font-family:Arial,sans-serif}
+.intake-detail{font-size:11px;color:var(--mid);font-family:Arial,sans-serif}
+.intake-badge{padding:4px 10px;border-radius:20px;font-size:10px;font-family:Arial,sans-serif;font-weight:600}
+.badge-new{background:rgba(201,131,106,.15);color:var(--accent)}
+.badge-review{background:rgba(45,125,125,.12);color:var(--teal)}
+.badge-done{background:rgba(74,122,89,.12);color:var(--success)}
+.intake-price{font-size:14px;color:var(--berry);font-family:Georgia,serif;font-weight:bold;flex-shrink:0}
+/* daily report */
+.report-schedule{display:flex;flex-direction:column;gap:8px}
+.schedule-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--light-bg);border-radius:10px}
+.schedule-time{font-size:12px;font-family:Arial,sans-serif;font-weight:600;color:var(--berry);width:60px;flex-shrink:0}
+.schedule-desc{font-size:13px;font-family:Arial,sans-serif;color:var(--dark)}
+.schedule-channel{padding:2px 8px;border-radius:8px;font-size:10px;font-family:Arial,sans-serif;font-weight:600}
+.sch-wa{background:#25D366;color:white}
+.sch-tg{background:#229ED9;color:white}
+.sch-voice{background:var(--accent);color:white}
+.sch-dash{background:var(--berry);color:white}
+
+/* ── REVENUE CALCULATOR ── */
+.calc-section{background:linear-gradient(160deg,var(--dark),#1A0D14);padding:80px 24px;color:white}
+.calc-wrap{max-width:800px;margin:0 auto}
+.calc-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#F5C5A8;font-family:Arial,sans-serif;margin-bottom:12px}
+.calc-title{font-size:clamp(24px,4vw,38px);margin-bottom:8px;font-weight:normal}
+.calc-sub{font-size:14px;opacity:.7;font-family:Arial,sans-serif;margin-bottom:40px;line-height:1.6}
+.calc-sliders{background:rgba(255,255,255,.06);border-radius:20px;padding:32px;border:1px solid rgba(255,255,255,.1);margin-bottom:32px}
+.slider-group{margin-bottom:24px}
+.slider-group:last-child{margin-bottom:0}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:10px}
+.slider-name{font-size:13px;font-family:Arial,sans-serif;opacity:.8}
+.slider-val{font-size:14px;font-family:Georgia,serif;color:#F5C5A8;font-weight:bold}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;background:rgba(255,255,255,.2);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.calc-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.calc-result-card{background:rgba(255,255,255,.08);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.calc-result-val{font-size:32px;font-family:Georgia,serif;color:#F5C5A8;margin-bottom:6px}
+.calc-result-label{font-size:11px;font-family:Arial,sans-serif;opacity:.6;text-transform:uppercase;letter-spacing:1px}
+.time-saved-bar{margin-top:24px;background:rgba(255,255,255,.06);border-radius:12px;padding:16px;display:flex;align-items:center;gap:16px;border:1px solid rgba(255,255,255,.08)}
+.time-icon{font-size:24px}
+.time-text{font-size:13px;font-family:Arial,sans-serif;opacity:.75;line-height:1.5}
+.time-text strong{color:#F5C5A8;opacity:1}
+
+/* ── TABS / SUBNAVS ── */
+.subnav{background:white;border-bottom:1px solid var(--sand);padding:0 24px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.subnav::-webkit-scrollbar{display:none}
+.subnav-item{padding:14px 20px;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.subnav-item:hover{color:var(--berry)}
+.subnav-item.active{color:var(--berry);border-bottom-color:var(--berry);font-weight:600}
+/* ── HAMBURGER MENU ── */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:110}
+.mobile-nav{display:none}
+.hamburger span{display:block;width:22px;height:2px;background:white;margin:5px 0;transition:all .3s;border-radius:1px}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(42,26,32,.7);z-index:104}
+.mobile-menu-overlay.active{display:block}
+
+/* ── MODALS / OVERLAYS ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(42,26,32,.7);z-index:200;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto}
+
+/* ── UTILITY ── */
+.hidden{display:none!important}
+.flex{display:flex}
+.items-center{align-items:center}
+.gap-2{gap:8px}
+.mt-4{margin-top:16px}
+.text-center{text-align:center}
+section.alt-bg{background:white}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:fadeUp .4s ease forwards}
+@keyframes countUp{from{opacity:0}to{opacity:1}}
+
+/* Notification toast */
+.toast{position:fixed;bottom:70px;right:16px;background:var(--dark);color:white;padding:14px 20px;border-radius:12px;font-size:13px;font-family:Arial,sans-serif;z-index:300;transform:translateY(100px);opacity:0;transition:all .3s;border-left:4px solid var(--accent);max-width:calc(100vw - 32px)}
+.toast.show{transform:translateY(0);opacity:1}
+/* ── RESPONSIVE — TABLET ── */
+@media(max-width:900px){
+  .db-grid{grid-template-columns:1fr}
+  .db-card.wide,.db-card.full{grid-column:span 1}
+  nav{padding:0 16px}
+  .nav-name{display:none}
+  .nav-links{gap:2px}
+  .nav-link{padding:6px 10px;font-size:11px}
+  .section{padding:40px 20px}
+  .programs-hero{padding:60px 20px 40px}
+  .community-hero{padding:60px 20px 40px}
+  .hero{padding:60px 20px 40px}
+  .hero-sub{font-size:15px}
+  .calc-sliders{padding:24px}
+  .calc-section{padding:60px 20px}
+  .proof-strip{gap:24px;padding:16px 20px}
+  .proof-num{font-size:22px}
+}
+/* ── RESPONSIVE — MOBILE ── */
+@media(max-width:600px){
+  /* Nav becomes compact with hamburger */
+  nav{height:50px;padding:0 12px}
+  .nav-links{display:none}
+  .creator-toggle{display:none}
+  .hamburger{display:block}
+  /* Mobile nav dropdown */
+  .mobile-nav{display:none;position:fixed;top:86px;left:0;right:0;background:rgba(42,26,32,.98);backdrop-filter:blur(12px);z-index:105;padding:16px;flex-direction:column;gap:4px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav .nav-link{padding:12px 16px;border-radius:10px;font-size:14px}
+  .mobile-nav .nav-link.active{background:var(--berry)}
+  .mobile-nav .creator-toggle{width:100%;margin-top:8px;padding:12px;text-align:center}
+  /* Back bar */
+  #back-bar{padding:.45rem 1rem}
+  #back-bar a{font-size:.5rem}
+  #back-bar span{font-size:.5rem;display:none}
+  /* Hero */
+  .hero{min-height:auto;padding:60px 16px 40px}
+  .hero-eyebrow{font-size:9px;padding:5px 14px}
+  .hero-sub{font-size:14px;margin-bottom:32px}
+  .audience-grid{gap:8px}
+  .audience-card{padding:10px 16px;font-size:12px}
+  .btn-start{padding:14px 32px;font-size:14px}
+  /* Proof strip */
+  .proof-strip{gap:16px;padding:14px 16px}
+  .proof-num{font-size:18px}
+  .proof-text{font-size:8px}
+  /* Sections */
+  .section{padding:32px 16px}
+  .section-title{font-size:22px}
+  .section-sub{font-size:13px;margin-bottom:28px}
+  /* Track cards */
+  .tracks-grid{grid-template-columns:1fr}
+  .track-header{padding:20px}
+  .track-title{font-size:18px}
+  .track-body{padding:18px}
+  /* Tiers */
+  .tiers-row{grid-template-columns:1fr}
+  .tier.featured{grid-column:span 1}
+  .tier{padding:20px}
+  .tier-price{font-size:28px}
+  /* Quiz */
+  .quiz-wrap{padding:20px 12px}
+  .quiz-header{padding:24px 16px}
+  .quiz-body{padding:24px 16px}
+  .q-text{font-size:17px}
+  .q-option{padding:12px 14px;font-size:13px}
+  .quiz-result{padding:28px 16px}
+  .result-title{font-size:22px}
+  /* Community */
+  .channels-grid{grid-template-columns:1fr}
+  .channel-card{padding:20px}
+  .report-preview{padding:20px}
+  .report-header{flex-wrap:wrap}
+  .report-date{margin-left:0;width:100%}
+  /* Calculator */
+  .calc-section{padding:40px 16px}
+  .calc-sliders{padding:20px 16px}
+  .calc-results{grid-template-columns:1fr}
+  .calc-result-val{font-size:28px}
+  .time-saved-bar{flex-direction:column;text-align:center;gap:10px}
+  /* Programs hero */
+  .programs-hero{padding:48px 16px 32px}
+  /* Community hero */
+  .community-hero{padding:48px 16px 32px}
+  /* Dashboard */
+  .db-top{padding:24px 16px}
+  .db-name{font-size:22px}
+  .kpi-row{grid-template-columns:1fr 1fr;padding:16px;gap:10px}
+  .kpi{padding:14px}
+  .kpi-val{font-size:22px}
+  .db-grid{padding:0 16px 24px;gap:14px}
+  .db-card{padding:18px}
+  .pipeline-row{flex-wrap:wrap;gap:4px}
+  .intake-item{flex-wrap:wrap;gap:8px}
+  .intake-info{min-width:0}
+  .intake-detail{font-size:10px}
+  .schedule-item{flex-wrap:wrap;gap:6px}
+  .schedule-time{width:auto}
+  .bar-chart{height:60px}
+  .content-idea{padding:10px 12px}
+  .idea-hook{font-size:12px}
+  /* Bottom CTA bar */
+  .bottom-cta{padding:10px 12px!important;gap:8px!important}
+  .bottom-cta span{font-size:11px!important}
+  .bottom-cta a{font-size:11px!important;padding:8px 16px!important}
+  /* CTA blocks */
+  .cta-block{padding:32px 16px!important}
+  .cta-block a{width:100%;justify-content:center;text-align:center}
+  /* Subnav */
+  .subnav{padding:0 12px}
+  .subnav-item{padding:12px 14px;font-size:12px}
+  /* Modal */
+  #email-gate-modal>div{padding:20px 14px!important;margin:8px!important}
+  #email-gate-form>div:first-child{flex-direction:column!important;gap:8px!important}
+  #email-gate-form>div:first-child>input{width:100%!important}
+}
+</style>
+</head>
+<body>
+<div id="back-bar" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff;border-bottom:1px solid #000;display:flex;align-items:center;justify-content:space-between;padding:0.55rem 2rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <a href="/products" style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;color:#000;opacity:0.55;">&larr; All Products</a>
+  <span style="font-size:0.62rem;font-weight:300;letter-spacing:0.1em;color:#000;opacity:0.35;">The Marriage Coach Method</span>
+  <a href="/" style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;color:#000;opacity:0.55;">Built for You</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">MC</div>
+    <div class="nav-name">Marriage Coach Method</div>
+  </div>
+  <div class="nav-links">
+    <div class="nav-link active" onclick="showView('landing')">Home</div>
+    <div class="nav-link" onclick="showView('quiz')">Free Quiz</div>
+    <div class="nav-link" onclick="showView('programs')">Programs</div>
+    <div class="nav-link" onclick="showView('community')">Community</div>
+    <div class="nav-link" onclick="showView('calculator')">Revenue</div>
+  </div>
+  <button class="creator-toggle" onclick="showView('dashboard')">✦ Creator View</button>
+  <button class="hamburger" id="hamburger-btn" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobile-overlay" onclick="closeMobileNav()"></div>
+<!-- Mobile Nav Dropdown -->
+<div class="mobile-nav" id="mobile-nav">
+  <div class="nav-link active" onclick="showView('landing');closeMobileNav()">Home</div>
+  <div class="nav-link" onclick="showView('quiz');closeMobileNav()">Free Quiz</div>
+  <div class="nav-link" onclick="showView('programs');closeMobileNav()">Programs</div>
+  <div class="nav-link" onclick="showView('community');closeMobileNav()">Community</div>
+  <div class="nav-link" onclick="showView('calculator');closeMobileNav()">Revenue</div>
+  <button class="creator-toggle" onclick="showView('dashboard');closeMobileNav()">✦ Creator View</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 1: LANDING -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-landing">
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Marriage · Parenting · Personal Coaching</div>
+    <h1>You don't need<br>to figure this out <em>alone.</em></h1>
+    <p class="hero-sub"> Marriage Coach has raised 3 adults, stayed married, and built a coaching practice around what actually works — not theory. Here's how she meets you where you are.</p>
+    <p class="audience-label">I am...</p>
+    <div class="audience-grid">
+      <div class="audience-card" onclick="selectAudience('married')">
+        💑 Married<div class="tag">+ coaching</div>
+      </div>
+      <div class="audience-card" onclick="selectAudience('parent')">🧒 A Parent</div>
+      <div class="audience-card" onclick="selectAudience('both')" style="background:rgba(201,131,106,.12);border-color:rgba(201,131,106,.4)">
+        💑🧒 Both<div class="tag">Most popular</div>
+      </div>
+      <div class="audience-card" onclick="selectAudience('single')">🌱 Single / Dating</div>
+      <div class="audience-card" onclick="selectAudience('divorced')">🔄 Divorced / Co-parenting</div>
+    </div>
+    <button class="btn-start" onclick="startJourney()">Take My Free Assessment →</button>
+  </section>
+
+  <div class="proof-strip">
+    <div class="proof-item"><div class="proof-num">3</div><div class="proof-text">Adult Kids. Real Proof.</div></div>
+    <div class="proof-item"><div class="proof-num">25+</div><div class="proof-text">Years of Marriage</div></div>
+    <div class="proof-item"><div class="proof-num">72h</div><div class="proof-text">Insight Delivery</div></div>
+    <div class="proof-item"><div class="proof-num">$47</div><div class="proof-text">Starting Price</div></div>
+  </div>
+
+  <!-- CTA Block -->
+  <div style="background:linear-gradient(135deg,var(--dark),var(--berry));padding:48px 24px;text-align:center;">
+    <div style="max-width:600px;margin:0 auto;">
+      <p style="font-size:10px;font-family:Arial,sans-serif;color:#F5C5A8;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px">Built for You</p>
+      <h2 style="font-size:clamp(22px,4vw,32px);color:white;margin-bottom:12px;font-weight:normal">Want a system like this for your coaching business?</h2>
+      <p style="font-size:14px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;margin-bottom:24px;line-height:1.6">We build complete coaching platforms — intake, delivery, community, and revenue — starting from $1,000.</p>
+      <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:14px 32px;background:linear-gradient(135deg,var(--accent),var(--berry));color:white;border-radius:40px;font-size:15px;font-family:Arial,sans-serif;font-weight:600;text-decoration:none;transition:all .25s;box-shadow:0 8px 30px rgba(109,46,70,.4)">Get this built for your business, starting from $1,000 →</a>
+    </div>
+  </div>
+
+  <!-- Programs preview on landing -->
+  <div style="background:white;padding:60px 24px">
+    <div style="max-width:1000px;margin:0 auto;text-align:center">
+      <p class="section-eyebrow" style="margin-bottom:10px">What She Offers</p>
+      <h2 class="section-title">Three Pathways. One Family.</h2>
+      <p class="section-sub" style="margin:0 auto 40px">Whether you're in a season of conflict, connection, or confusion — there's a place for you here.</p>
+      <div class="tracks-grid">
+        <div class="track-card" onclick="showView('programs')">
+          <div class="track-header berry">
+            <div class="track-icon">🧒</div>
+            <div class="track-name">Parenting</div>
+            <div class="track-title">The Mirror Method</div>
+            <div class="track-tagline">The child most like you is the one you clash with most — and will one day be your closest friend.</div>
+          </div>
+          <div class="track-body">
+            <ul class="track-items">
+              <li>Personalised intake review</li>
+              <li>Stage-specific parenting insight</li>
+              <li>Voice note or written response</li>
+              <li>72-hour delivery</li>
+            </ul>
+            <div class="track-price-row">
+              <div><div class="track-price">$47<span style="font-size:14px;color:var(--rose)"> – $97</span></div><div class="track-period">per insight</div></div>
+              <button class="btn-track">Learn More</button>
+            </div>
+          </div>
+        </div>
+        <div class="track-card" onclick="showView('programs')">
+          <div class="track-header teal">
+            <div class="track-icon">💑</div>
+            <div class="track-name">Marriage</div>
+            <div class="track-title">The Alignment Method</div>
+            <div class="track-tagline">A marriage that lasts isn't built on romance alone. It's built on staying aligned — especially under pressure.</div>
+          </div>
+          <div class="track-body">
+            <ul class="track-items">
+              <li>Couples intake (both partners)</li>
+              <li>Alignment assessment</li>
+              <li>Joint + individual insight</li>
+              <li>Upgrade to live session</li>
+            </ul>
+            <div class="track-price-row">
+              <div><div class="track-price">$97<span style="font-size:14px;color:var(--rose)"> – $297</span></div><div class="track-period">per intake</div></div>
+              <button class="btn-track">Learn More</button>
+            </div>
+          </div>
+        </div>
+        <div class="track-card" onclick="showView('programs')">
+          <div class="track-header gold">
+            <div class="track-icon">⭐</div>
+            <div class="track-name">Live Coaching</div>
+            <div class="track-title">1:1 with  & Husband</div>
+            <div class="track-tagline">For situations that need more than insight. Live, deep, real — both of them in the room with you.</div>
+          </div>
+          <div class="track-body">
+            <ul class="track-items">
+              <li>Pre-call full intake review</li>
+              <li>60-min live coaching session</li>
+              <li>Written action plan</li>
+              <li>30-day email follow-up</li>
+            </ul>
+            <div class="track-price-row">
+              <div><div class="track-price">$497</div><div class="track-period">per session</div></div>
+              <button class="btn-track">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Revenue calculator preview -->
+  <div class="calc-section" id="rev-preview">
+    <div class="calc-wrap" style="text-align:center">
+      <p class="calc-eyebrow">For </p>
+      <h2 class="calc-title">What this unlocks financially.</h2>
+      <p class="calc-sub" style="max-width:500px;margin:0 auto 32px">With async low-ticket products running while she sleeps, and live sessions reserved for high-value moments — here's what conservative numbers look like.</p>
+      <div class="calc-results">
+        <div class="calc-result-card"><div class="calc-result-val">$9.2K</div><div class="calc-result-label">Monthly potential</div></div>
+        <div class="calc-result-card"><div class="calc-result-val">~12h</div><div class="calc-result-label">Active hours/week</div></div>
+        <div class="calc-result-card"><div class="calc-result-val">$767</div><div class="calc-result-label">Per active hour</div></div>
+      </div>
+      <button class="btn-start" style="margin-top:28px" onclick="showView('calculator')">See Full Revenue Model →</button>
+    </div>
+  </div>
+
+  <!-- CTA Block -->
+  <div style="background:white;padding:48px 24px;text-align:center;">
+    <div style="max-width:600px;margin:0 auto;">
+      <p style="font-size:10px;color:var(--rose);font-family:Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Built for You</p>
+      <h2 style="font-size:clamp(22px,4vw,32px);color:var(--berry);margin-bottom:10px;font-weight:normal">See this system in action for your business</h2>
+      <p style="font-size:14px;color:var(--mid);font-family:Arial,sans-serif;margin-bottom:24px;line-height:1.6">We build coaching platforms like this — from intake to delivery to revenue. Starting from $1,000.</p>
+      <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:14px 32px;background:linear-gradient(135deg,var(--berry),var(--accent));color:white;border-radius:40px;font-size:15px;font-family:Arial,sans-serif;font-weight:600;text-decoration:none;transition:all .25s">Get this built for your business, starting from $1,000 →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 2: QUIZ -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-card" id="quizCard">
+
+      <!-- QUESTIONS -->
+      <div class="quiz-header">
+        <h2>Find Your Starting Point</h2>
+        <p>5 questions. Personalised insight in under 2 minutes.</p>
+        <div class="quiz-progress"><div class="quiz-progress-fill" id="qProgress" style="width:20%"></div></div>
+      </div>
+      <div class="quiz-body" id="quizBody">
+        <div id="qStep1">
+          <p class="q-label">Question 1 of 5</p>
+          <p class="q-text">What's the biggest challenge right now in your household?</p>
+          <div class="q-options">
+            <div class="q-option" onclick="selectQ(1,this)"><div class="opt-icon">🔥</div>Constant conflict with a child or partner</div>
+            <div class="q-option" onclick="selectQ(1,this)"><div class="opt-icon">💬</div>We don't communicate — we coexist</div>
+            <div class="q-option" onclick="selectQ(1,this)"><div class="opt-icon">😔</div>Emotional distance and disconnection</div>
+            <div class="q-option" onclick="selectQ(1,this)"><div class="opt-icon">😰</div>I don't know what I'm doing wrong</div>
+          </div>
+          <div class="quiz-nav"><button class="btn-q-next" onclick="nextQ(1)">Next →</button></div>
+        </div>
+        <div id="qStep2" class="hidden">
+          <p class="q-label">Question 2 of 5</p>
+          <p class="q-text">When conflict hits, what happens first?</p>
+          <div class="q-options">
+            <div class="q-option" onclick="selectQ(2,this)"><div class="opt-icon">💥</div>I react. I know it's wrong but I can't stop it</div>
+            <div class="q-option" onclick="selectQ(2,this)"><div class="opt-icon">🚪</div>One of us shuts down and leaves the room</div>
+            <div class="q-option" onclick="selectQ(2,this)"><div class="opt-icon">🔄</div>We fight in circles — same issues, never resolved</div>
+            <div class="q-option" onclick="selectQ(2,this)"><div class="opt-icon">🤐</div>We avoid it entirely. The tension just sits there</div>
+          </div>
+          <div class="quiz-nav"><button class="btn-q-back" onclick="prevQ(2)">← Back</button><button class="btn-q-next" onclick="nextQ(2)">Next →</button></div>
+        </div>
+        <div id="qStep3" class="hidden">
+          <p class="q-label">Question 3 of 5</p>
+          <p class="q-text">How well do you understand <em>why</em> your child or partner triggers you?</p>
+          <div class="q-options">
+            <div class="q-option" onclick="selectQ(3,this)"><div class="opt-icon">🤷</div>Not at all — it just feels personal</div>
+            <div class="q-option" onclick="selectQ(3,this)"><div class="opt-icon">💭</div>I have a vague sense but can't name it</div>
+            <div class="q-option" onclick="selectQ(3,this)"><div class="opt-icon">🔍</div>I think I know — but I don't know what to do with it</div>
+            <div class="q-option" onclick="selectQ(3,this)"><div class="opt-icon">🧠</div>I understand it — I just need better tools</div>
+          </div>
+          <div class="quiz-nav"><button class="btn-q-back" onclick="prevQ(3)">← Back</button><button class="btn-q-next" onclick="nextQ(3)">Next →</button></div>
+        </div>
+        <div id="qStep4" class="hidden">
+          <p class="q-label">Question 4 of 5</p>
+          <p class="q-text">Have you tried to fix this before? What happened?</p>
+          <div class="q-options">
+            <div class="q-option" onclick="selectQ(4,this)"><div class="opt-icon">🆕</div>This is the first time I'm taking it seriously</div>
+            <div class="q-option" onclick="selectQ(4,this)"><div class="opt-icon">📚</div>I've read books / watched content — it helped a little</div>
+            <div class="q-option" onclick="selectQ(4,this)"><div class="opt-icon">💸</div>I've done therapy / coaching — something still feels off</div>
+            <div class="q-option" onclick="selectQ(4,this)"><div class="opt-icon">😩</div>I've tried everything. I'm exhausted and losing hope</div>
+          </div>
+          <div class="quiz-nav"><button class="btn-q-back" onclick="prevQ(4)">← Back</button><button class="btn-q-next" onclick="nextQ(4)">Next →</button></div>
+        </div>
+        <div id="qStep5" class="hidden">
+          <p class="q-label">Question 5 of 5</p>
+          <p class="q-text">What would a win look like 30 days from now?</p>
+          <div class="q-options">
+            <div class="q-option" onclick="selectQ(5,this)"><div class="opt-icon">🕊️</div>Less conflict. More peace in the house</div>
+            <div class="q-option" onclick="selectQ(5,this)"><div class="opt-icon">🤝</div>Actually feeling close to my child / partner again</div>
+            <div class="q-option" onclick="selectQ(5,this)"><div class="opt-icon">🪞</div>Understanding myself better as a parent / spouse</div>
+            <div class="q-option" onclick="selectQ(5,this)"><div class="opt-icon">🚀</div>A concrete plan — not just feelings</div>
+          </div>
+          <div class="quiz-nav"><button class="btn-q-back" onclick="prevQ(5)">← Back</button><button class="btn-q-next" onclick="showResult()">See My Result →</button></div>
+        </div>
+      </div>
+
+      <!-- RESULT (hidden until complete) -->
+      <div class="quiz-result" id="quizResult">
+        <div class="result-badge">🪞</div>
+        <p class="result-level">Your Level</p>
+        <h3 class="result-title" id="resultTitle">The Aware Seeker</h3>
+        <p class="result-desc" id="resultDesc">You know something's off, and you're not running from it. You have emotional awareness but lack a framework to act from. This is actually the most powerful place to start — you're coachable and ready.</p>
+        <div class="result-recs" id="resultRecs"></div>
+        <button class="btn-cta-result" onclick="showView('programs')">See My Recommended Programs →</button>
+        <p style="font-size:12px;color:var(--mid);font-family:Arial,sans-serif;margin-top:16px">Want  to review your answers personally? <a href="#" style="color:var(--accent)" onclick="showView('programs')">Book a $47 Intake →</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 3: PROGRAMS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-programs">
+  <div class="programs-hero">
+    <h2>Choose Your <em>Path</em></h2>
+    <p>Every program is designed to meet you where you are — and move you to where you want to be. No fluff. No generic advice.</p>
+  </div>
+  <div class="subnav">
+    <div class="subnav-item active" onclick="programTab('parenting',this)">🧒 Parenting</div>
+    <div class="subnav-item" onclick="programTab('marriage',this)">💑 Marriage</div>
+    <div class="subnav-item" onclick="programTab('both',this)">⭐ Full Access</div>
+    <div class="subnav-item" onclick="programTab('community',this)">🌍 Community</div>
+  </div>
+
+  <!-- PARENTING TAB -->
+  <div id="ptab-parenting" class="section">
+    <p class="section-eyebrow">Parenting Track</p>
+    <h2 class="section-title">The Mirror Method</h2>
+    <p class="section-sub">The child who triggers you most is the one who mirrors you most. Understanding this changes everything.</p>
+    <div class="tiers-row">
+      <div class="tier">
+        <p class="tier-name">Insight</p>
+        <div class="tier-price">$47</div>
+        <p class="tier-desc">Written parenting insight delivered within 72 hours. 1 follow-up question included.</p>
+        <ul class="track-items" style="text-align:left">
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Full intake profile review</li>
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Written insight (personalised)</li>
+          <li style="padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ 1 follow-up question (7 days)</li>
+        </ul>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Starting intake for $47 Insight...')">Get Started</button>
+      </div>
+      <div class="tier featured">
+        <span class="tier-badge">Most Popular</span>
+        <p class="tier-name">Deep Dive</p>
+        <div class="tier-price">$97</div>
+        <p class="tier-desc">Written + voice note. Priority 48h delivery. 3 follow-up questions over 7 days.</p>
+        <ul class="track-items" style="text-align:left">
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Everything in Insight</li>
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Voice note from </li>
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Priority 48h delivery</li>
+          <li style="padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ 3 follow-up Qs (7 days)</li>
+        </ul>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Starting intake for $97 Deep Dive...')">Get Started</button>
+      </div>
+      <div class="tier">
+        <p class="tier-name">Live Session</p>
+        <div class="tier-price">$497</div>
+        <p class="tier-desc">60-min live coaching with  + husband. Pre-call intake, action plan, 30-day follow-up.</p>
+        <ul class="track-items" style="text-align:left">
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Pre-call intake review</li>
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ 60-min live session (both)</li>
+          <li style="border-bottom:1px solid var(--sand);padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ Written action plan</li>
+          <li style="padding:6px 0;font-size:13px;font-family:Arial,sans-serif;color:var(--mid);display:flex;align-items:center;gap:8px">✓ 30-day email follow-up</li>
+        </ul>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Applying for live session...')">Apply (Limited Spots)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARRIAGE TAB -->
+  <div id="ptab-marriage" class="section hidden">
+    <p class="section-eyebrow">Marriage Track</p>
+    <h2 class="section-title">The Alignment Method</h2>
+    <p class="section-sub">A lasting marriage isn't built on romance. It's built on daily alignment — especially when life gets hard.</p>
+    <div class="tiers-row">
+      <div class="tier">
+        <p class="tier-name">Couples Insight</p>
+        <div class="tier-price">$97</div>
+        <p class="tier-desc">Both partners fill a joint intake. Receive a written alignment assessment within 72 hours.</p>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Opening couples intake...')">Start Together</button>
+      </div>
+      <div class="tier featured">
+        <span class="tier-badge">Best Value</span>
+        <p class="tier-name">Deep Alignment</p>
+        <div class="tier-price">$197</div>
+        <p class="tier-desc">Joint + individual insights. Voice note. 48h priority. 3 follow-up questions each.</p>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Starting deep alignment...')">Get Started</button>
+      </div>
+      <div class="tier">
+        <p class="tier-name">Intensive</p>
+        <div class="tier-price">$797</div>
+        <p class="tier-desc">3-session deep dive with both  and her husband. Full assessment + roadmap.</p>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Applying for intensive...')">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTH / FULL ACCESS TAB -->
+  <div id="ptab-both" class="section hidden">
+    <p class="section-eyebrow">Full Access</p>
+    <h2 class="section-title">Marriage + Parenting Bundle</h2>
+    <p class="section-sub">Because what happens in your marriage shapes what happens in your parenting — and vice versa. This is the whole picture.</p>
+    <div class="tiers-row">
+      <div class="tier featured" style="grid-column:span 2">
+        <span class="tier-badge">Best Offer</span>
+        <p class="tier-name">Family Clarity Bundle</p>
+        <div class="tier-price" style="font-size:44px">$247</div>
+        <p class="tier-desc">One parenting Deep Dive + One Marriage Couples Insight. Delivered within 5 days. Save $47.</p>
+        <button class="btn-track" style="margin-top:16px" onclick="toast('Starting Family Clarity Bundle...')">Get the Bundle</button>
+      </div>
+      <div class="tier">
+        <p class="tier-name">Annual Membership</p>
+        <div class="tier-price">$997<span style="font-size:14px;color:var(--rose)">/yr</span></div>
+        <p class="tier-desc">Unlimited monthly insights (1 each track). Community access. Priority queue. Monthly group call.</p>
+        <button class="btn-track" style="width:100%;margin-top:16px" onclick="toast('Joining annual membership...')">Join</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY TAB -->
+  <div id="ptab-community" class="section hidden">
+    <p class="section-eyebrow">Community</p>
+    <h2 class="section-title">Learn. Grow. Stay Connected.</h2>
+    <p class="section-sub" style="margin-bottom:0">Choose the channel that fits your life. All deliver daily insights, community, and access to 's content.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 4: COMMUNITY -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-community">
+  <div class="community-hero">
+    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;opacity:.6;margin-bottom:12px">COMMUNITY & LEARNING</p>
+    <h2 style="font-size:clamp(26px,5vw,42px);margin-bottom:12px;font-weight:normal">Marriage & Parenting Mastery<br><em style="color:#A0D0C0">wherever you learn best.</em></h2>
+    <p style="font-size:15px;opacity:.75;font-family:Arial,sans-serif;max-width:500px;margin:0 auto">Daily insights, literacy modules, and community — delivered on the platform you already live on.</p>
+  </div>
+
+  <div class="section" style="padding-top:40px">
+    <div class="channels-grid">
+      <div class="channel-card">
+        <div class="channel-icon ch-whatsapp">💬</div>
+        <div class="channel-name">WhatsApp Community</div>
+        <div class="channel-desc">Daily voice note or written insight from . Fast, personal, feels like a group chat with your wisest friend.</div>
+        <ul class="channel-features">
+          <li>Daily 2-min voice insight (6am)</li>
+          <li>Weekly Q&A thread</li>
+          <li>Parenting + marriage tips</li>
+          <li>Monthly challenge drops</li>
+        </ul>
+        <button class="btn-channel" onclick="toast('Opening WhatsApp community link...')">Join WhatsApp</button>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon ch-telegram">✈️</div>
+        <div class="channel-name">Telegram Channel</div>
+        <div class="channel-desc">Higher volume content, articles, thread discussions, and behind-the-scenes parenting/marriage insights.</div>
+        <ul class="channel-features">
+          <li>Daily written insight</li>
+          <li>Article + resource drops</li>
+          <li>Polls & discussion threads</li>
+          <li>First access to new offers</li>
+        </ul>
+        <button class="btn-channel" onclick="toast('Opening Telegram channel...')">Join Telegram</button>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon ch-slack">⚡</div>
+        <div class="channel-name">Slack Workspace</div>
+        <div class="channel-desc">For the community members who want structured channels — separate rooms for parenting, marriage, and coaching Q&As.</div>
+        <ul class="channel-features">
+          <li>#parenting-wins (daily)</li>
+          <li>#marriage-alignment</li>
+          <li>#ask-temitope (weekly)</li>
+          <li>#member-spotlight</li>
+        </ul>
+        <button class="btn-channel" onclick="toast('Joining Slack workspace...')">Join Slack</button>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon ch-web">🌐</div>
+        <div class="channel-name">Mastery Hub (Web)</div>
+        <div class="channel-desc">The full learning platform. Modules, progress tracking, library of insights, and direct booking — all in one place.</div>
+        <ul class="channel-features">
+          <li>20+ literacy modules</li>
+          <li>Progress tracking</li>
+          <li>Insight library & search</li>
+          <li>1-click booking upgrades</li>
+        </ul>
+        <button class="btn-channel" onclick="toast('Opening Mastery Hub...')">Access Hub</button>
+      </div>
+    </div>
+
+    <!-- Daily report preview -->
+    <div class="report-preview" style="margin-top:40px">
+      <div class="report-header">
+        <div class="report-dot"></div>
+        <div class="report-title">Daily Report Preview</div>
+        <div class="report-date">Monday, June 15 — 6:00am</div>
+      </div>
+      <div class="report-body">
+        <strong>🌅 Good morning from .</strong><br><br>
+        Today's insight is about the <strong>Mirror Child</strong> — the one who seems to push every single button you have.<br><br>
+        Here's what I've learned from raising three of them: the child who antagonises you most is the one who reflects you most accurately. They're not attacking you. They're showing you yourself.<br><br>
+        <strong>Today's practice:</strong> The next time they trigger you, pause and ask — "What part of me do I see in this?"<br><br>
+        <em>New this week: 3 parents received their Mirror Method insights. Want yours?</em>
+      </div>
+      <div class="report-channels">
+        <span class="report-channel-badge rch-wa" onclick="toast('Daily report sent to WhatsApp')">📱 WhatsApp</span>
+        <span class="report-channel-badge rch-tg" onclick="toast('Daily report sent to Telegram')">✈️ Telegram</span>
+        <span class="report-channel-badge rch-sl" onclick="toast('Daily report posted to Slack')">⚡ Slack</span>
+        <span class="report-channel-badge rch-voice" onclick="toast('Voice summary played...')">🎙 Voice Note</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 5: REVENUE CALCULATOR -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-calculator">
+  <div class="calc-section" style="min-height:100vh">
+    <div class="calc-wrap">
+      <p class="calc-eyebrow">For  — Revenue Projection</p>
+      <h2 class="calc-title" style="color:white">How much. How fast. How little time.</h2>
+      <p class="calc-sub">Adjust the sliders to model different scenarios. The async model does the heavy lifting — live sessions are the upside.</p>
+
+      <div class="calc-sliders">
+        <div class="slider-group">
+          <div class="slider-label">
+            <span class="slider-name">$47 Insight intakes / month</span>
+            <span class="slider-val" id="v-insight">50</span>
+          </div>
+          <input type="range" min="0" max="200" value="50" oninput="updateCalc();document.getElementById('v-insight').textContent=this.value" id="r-insight">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span class="slider-name">$97 Deep Dive intakes / month</span>
+            <span class="slider-val" id="v-deep">30</span>
+          </div>
+          <input type="range" min="0" max="100" value="30" oninput="updateCalc();document.getElementById('v-deep').textContent=this.value" id="r-deep">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span class="slider-name">$197 Marriage Insight / month</span>
+            <span class="slider-val" id="v-marriage">15</span>
+          </div>
+          <input type="range" min="0" max="60" value="15" oninput="updateCalc();document.getElementById('v-marriage').textContent=this.value" id="r-marriage">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span class="slider-name">$497 Live Sessions / month</span>
+            <span class="slider-val" id="v-live">8</span>
+          </div>
+          <input type="range" min="0" max="20" value="8" oninput="updateCalc();document.getElementById('v-live').textContent=this.value" id="r-live">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label">
+            <span class="slider-name">Review time per async intake (minutes)</span>
+            <span class="slider-val" id="v-time">20</span>
+          </div>
+          <input type="range" min="10" max="45" value="20" oninput="updateCalc();document.getElementById('v-time').textContent=this.value" id="r-time">
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="calc-result-card">
+          <div class="calc-result-val" id="r-monthly">$13.1K</div>
+          <div class="calc-result-label">Monthly Revenue</div>
+        </div>
+        <div class="calc-result-card">
+          <div class="calc-result-val" id="r-annual">$157K</div>
+          <div class="calc-result-label">Annual Revenue</div>
+        </div>
+        <div class="calc-result-card">
+          <div class="calc-result-val" id="r-async">$7.7K</div>
+          <div class="calc-result-label">Async Only (no live)</div>
+        </div>
+        <div class="calc-result-card">
+          <div class="calc-result-val" id="r-hours">18h</div>
+          <div class="calc-result-label">Active Hours/Week</div>
+        </div>
+        <div class="calc-result-card">
+          <div class="calc-result-val" id="r-per-hour">$728</div>
+          <div class="calc-result-label">Revenue Per Hour</div>
+        </div>
+      </div>
+
+      <div class="time-saved-bar" style="margin-top:24px">
+        <div class="time-icon">⏱</div>
+        <div class="time-text">
+          At this volume, <strong id="r-time-saved">82%</strong> of her revenue comes from async work — meaning she's generating income while doing anything else.
+          Live sessions are <strong>optional upside</strong>, not a requirement.
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.06);border-radius:16px;padding:24px;margin-top:24px;border:1px solid rgba(255,255,255,.1)">
+        <p style="font-size:11px;color:#F5C5A8;font-family:Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">The Time Breakdown</p>
+        <div id="timeBreakdown">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;font-family:Arial,sans-serif;color:rgba(255,255,255,.75)">
+            <span>Async intake reviews</span><span id="t-async">~31h/month</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;font-family:Arial,sans-serif;color:rgba(255,255,255,.75)">
+            <span>Live sessions</span><span id="t-live">~8h/month</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;font-family:Arial,sans-serif;color:rgba(255,255,255,.75)">
+            <span>Content creation (batched)</span><span>~6h/month</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW 6: CREATOR DASHBOARD -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-dashboard">
+  <div class="dashboard-view">
+    <div class="db-top">
+      <div class="db-greeting">Welcome back 👋</div>
+      <div class="db-name"> Marriage Coach</div>
+      <div class="db-sub">Here's what's happening across your business today.</div>
+      <div class="db-date">Monday, June 15, 2026  ·  Week 3 of Month 1</div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi berry"><div class="kpi-label">Monthly Revenue</div><div class="kpi-val">$6,840</div><div class="kpi-delta">↑ +$1,240 vs last month</div></div>
+      <div class="kpi accent"><div class="kpi-label">Intakes This Week</div><div class="kpi-val">14</div><div class="kpi-delta">↑ +3 vs last week</div></div>
+      <div class="kpi teal"><div class="kpi-label">Community Members</div><div class="kpi-val">312</div><div class="kpi-delta">↑ +28 this week</div></div>
+      <div class="kpi gold"><div class="kpi-label">Live Sessions Booked</div><div class="kpi-val">4</div><div class="kpi-delta">= 2 slots remaining</div></div>
+      <div class="kpi success"><div class="kpi-label">Hours Worked</div><div class="kpi-val">9h</div><div class="kpi-delta">↓ 40% less than Week 1</div></div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="db-grid">
+
+      <!-- Intake Queue -->
+      <div class="db-card wide">
+        <div class="db-card-title">Intake Queue <span class="refresh">↻ Refresh</span></div>
+        <div class="intake-item">
+          <div class="intake-avatar" style="background:var(--berry)">A</div>
+          <div class="intake-info"><div class="intake-name">Adaeze M.</div><div class="intake-detail">Parenting · Teenager (15) · Mirror Dynamic · Deep Dive</div></div>
+          <span class="intake-badge badge-new">NEW</span>
+          <div class="intake-price">$97</div>
+        </div>
+        <div class="intake-item">
+          <div class="intake-avatar" style="background:var(--teal)">K</div>
+          <div class="intake-info"><div class="intake-name">Kemi & Seun O.</div><div class="intake-detail">Marriage · Couples Insight · Alignment issues</div></div>
+          <span class="intake-badge badge-new">NEW</span>
+          <div class="intake-price">$97</div>
+        </div>
+        <div class="intake-item">
+          <div class="intake-avatar" style="background:var(--accent)">F</div>
+          <div class="intake-info"><div class="intake-name">Funmi B.</div><div class="intake-detail">Parenting · Toddler (3) + Teen (17) · Conflict cycle · Insight</div></div>
+          <span class="intake-badge badge-review">IN REVIEW</span>
+          <div class="intake-price">$47</div>
+        </div>
+        <div class="intake-item">
+          <div class="intake-avatar" style="background:var(--success)">J</div>
+          <div class="intake-info"><div class="intake-name">Jessica A.</div><div class="intake-detail">Parenting · Young adult (22) · Emotional distance · Deep Dive</div></div>
+          <span class="intake-badge badge-done">DELIVERED</span>
+          <div class="intake-price">$97</div>
+        </div>
+        <div class="intake-item">
+          <div class="intake-avatar" style="background:var(--gold)">T</div>
+          <div class="intake-info"><div class="intake-name">Tolu & Michael R.</div><div class="intake-detail">Live Session · June 20 · Marriage + Parenting combined</div></div>
+          <span class="intake-badge badge-review">BOOKED</span>
+          <div class="intake-price">$497</div>
+        </div>
+      </div>
+
+      <!-- Pipeline -->
+      <div class="db-card">
+        <div class="db-card-title">Revenue Pipeline</div>
+        <div class="pipeline-row"><div><div class="pipeline-stage">$47 Insight</div><div style="font-size:11px;color:var(--mid);font-family:Arial,sans-serif">Async — ~15 min/review</div></div><div class="pipeline-count">18</div><div class="pipeline-rev">$846</div></div>
+        <div class="pipeline-row"><div><div class="pipeline-stage">$97 Deep Dive</div><div style="font-size:11px;color:var(--mid);font-family:Arial,sans-serif">Async — ~25 min/review</div></div><div class="pipeline-count">12</div><div class="pipeline-rev">$1,164</div></div>
+        <div class="pipeline-row"><div><div class="pipeline-stage">$197 Marriage</div><div style="font-size:11px;color:var(--mid);font-family:Arial,sans-serif">Async — ~30 min/review</div></div><div class="pipeline-count">6</div><div class="pipeline-rev">$1,182</div></div>
+        <div class="pipeline-row"><div><div class="pipeline-stage">$497 Live</div><div style="font-size:11px;color:var(--mid);font-family:Arial,sans-serif">Live — 60 min + prep</div></div><div class="pipeline-count">4</div><div class="pipeline-rev">$1,988</div></div>
+        <div style="border-top:2px solid var(--sand);padding-top:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-family:Arial,sans-serif;color:var(--mid)">This month (so far)</span>
+          <span style="font-size:22px;color:var(--berry);font-family:Georgia,serif;font-weight:bold">$5,180</span>
+        </div>
+      </div>
+
+      <!-- Content Ideas -->
+      <div class="db-card wide">
+        <div class="db-card-title">Content to Post This Week <span class="refresh" onclick="toast('Regenerating ideas from your analytics...')">↻ Regenerate</span></div>
+        <div class="content-idea pillar-mirror" onclick="toast('Copying hook to clipboard...')">
+          <div class="idea-hook">"The child you clash with most is the one who mirrors you most accurately. Here's what your 3 adult kids would say..."</div>
+          <div class="idea-meta"><span class="idea-type type-reel">REEL</span><span class="idea-sells">Sells: Mirror Method $47–$97</span></div>
+        </div>
+        <div class="content-idea pillar-proof" onclick="toast('Copying hook to clipboard...')">
+          <div class="idea-hook">"I asked my 3 adult kids: what did I get wrong as a parent? Their answers surprised me."</div>
+          <div class="idea-meta"><span class="idea-type type-carousel">CAROUSEL</span><span class="idea-sells">Sells: Deep Dive $97 + Live Session</span></div>
+        </div>
+        <div class="content-idea pillar-marriage" onclick="toast('Copying hook to clipboard...')">
+          <div class="idea-hook">"The #1 reason marriages fail isn't cheating or money. It's invisible misalignment that never got named."</div>
+          <div class="idea-meta"><span class="idea-type type-story">STORY SERIES</span><span class="idea-sells">Sells: Marriage Alignment $97–$197</span></div>
+        </div>
+        <div class="content-idea pillar-stage" onclick="toast('Copying hook to clipboard...')">
+          <div class="idea-hook">"Teenage defiance isn't about you. Here's what it's actually about (and how to respond instead of react)"</div>
+          <div class="idea-meta"><span class="idea-type type-post">POST</span><span class="idea-sells">Sells: Parenting Insight $47</span></div>
+        </div>
+        <div class="content-idea" onclick="toast('Copying hook to clipboard...')">
+          <div class="idea-hook">"What our marriage looked like at year 5 vs year 25 — and the one shift that changed everything."</div>
+          <div class="idea-meta"><span class="idea-type type-reel">REEL</span><span class="idea-sells">Sells: Couples Live Session $497</span></div>
+        </div>
+      </div>
+
+      <!-- Competitor Intel -->
+      <div class="db-card">
+        <div class="db-card-title">Competitor Content Gaps <span class="refresh" onclick="toast('Scanning competitor posts...')">↻ Scan</span></div>
+        <div class="competitor-item">
+          <div class="comp-name">Rachel Hollis / Marriage Coaches</div>
+          <div class="comp-content">Posting: communication scripts, date night ideas</div>
+          <div class="comp-gap">Gap: No lived proof. No adult kids validating the advice. → Your edge.</div>
+        </div>
+        <div class="competitor-item">
+          <div class="comp-name">General Parenting Creators</div>
+          <div class="comp-content">Posting: toddler tips, screen time debates</div>
+          <div class="comp-gap">Gap: No mirror dynamic content. No stage-to-stage journey narrative.</div>
+        </div>
+        <div class="competitor-item">
+          <div class="comp-name">Nigerian Family Coaches</div>
+          <div class="comp-content">Posting: traditional values, discipline frameworks</div>
+          <div class="comp-gap">Gap: No psychology-informed approach. No couples coaching angle.</div>
+        </div>
+      </div>
+
+      <!-- Revenue Bar Chart -->
+      <div class="db-card">
+        <div class="db-card-title">Weekly Revenue</div>
+        <div class="bar-chart">
+          <div class="bar" style="height:40%;background:var(--sand)" data-val="$1,240"></div>
+          <div class="bar" style="height:55%;background:var(--rose)" data-val="$1,710"></div>
+          <div class="bar" style="height:48%;background:var(--rose)" data-val="$1,490"></div>
+          <div class="bar" style="height:72%;background:var(--berry)" data-val="$2,240"></div>
+          <div class="bar" style="height:85%;background:var(--accent);border:2px dashed rgba(255,255,255,.3)" data-val="$2,640 (proj)"></div>
+        </div>
+        <div class="bar-labels">
+          <div class="bar-label">Wk 1</div><div class="bar-label">Wk 2</div><div class="bar-label">Wk 3</div><div class="bar-label">Wk 4</div><div class="bar-label">Wk 5↑</div>
+        </div>
+      </div>
+
+      <!-- Daily Report Schedule -->
+      <div class="db-card">
+        <div class="db-card-title">Daily Report Schedule</div>
+        <div class="report-schedule">
+          <div class="schedule-item"><div class="schedule-time">6:00am</div><div class="schedule-desc">Voice insight + daily affirmation</div><span class="schedule-channel sch-wa">WhatsApp</span></div>
+          <div class="schedule-item"><div class="schedule-time">6:05am</div><div class="schedule-desc">Same insight (text version)</div><span class="schedule-channel sch-tg">Telegram</span></div>
+          <div class="schedule-item"><div class="schedule-time">8:00am</div><div class="schedule-desc">Intake summary + revenue snapshot</div><span class="schedule-channel sch-dash">Dashboard</span></div>
+          <div class="schedule-item"><div class="schedule-time">12:00pm</div><div class="schedule-desc">New intake notifications</div><span class="schedule-channel sch-wa">WhatsApp</span></div>
+          <div class="schedule-item"><div class="schedule-time">6:00pm</div><div class="schedule-desc">Day summary + tomorrow's queue</div><span class="schedule-channel sch-voice">Voice</span></div>
+        </div>
+      </div>
+
+      <!-- Community Activity -->
+      <div class="db-card">
+        <div class="db-card-title">Community Growth</div>
+        <div class="pipeline-row"><div class="pipeline-stage">WhatsApp</div><div class="pipeline-count">147</div><div class="pipeline-rev">↑ +12 wk</div></div>
+        <div class="pipeline-row"><div class="pipeline-stage">Telegram</div><div class="pipeline-count">89</div><div class="pipeline-rev">↑ +8 wk</div></div>
+        <div class="pipeline-row"><div class="pipeline-stage">Slack</div><div class="pipeline-count">54</div><div class="pipeline-rev">↑ +6 wk</div></div>
+        <div class="pipeline-row"><div class="pipeline-stage">Web Hub</div><div class="pipeline-count">22</div><div class="pipeline-rev">↑ +4 wk</div></div>
+        <div style="margin-top:16px;padding:12px;background:rgba(74,122,89,.08);border-radius:10px;border-left:3px solid var(--success)">
+          <p style="font-size:12px;font-family:Arial,sans-serif;color:var(--success)">🎯 At this growth rate: <strong>1,000 members by Week 12</strong></p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="db-card">
+        <div class="db-card-title">Quick Actions</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button onclick="toast('Opening intake review panel...')" style="padding:12px;background:var(--berry);color:white;border:none;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:left">📋  Review New Intakes (2 waiting)</button>
+          <button onclick="toast('Opening content scheduler...')" style="padding:12px;background:var(--teal);color:white;border:none;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:left">📅  Schedule This Week's Posts</button>
+          <button onclick="toast('Sending daily insight to all channels...')" style="padding:12px;background:var(--accent);color:white;border:none;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:left">🎙  Send Today's Voice Insight</button>
+          <button onclick="toast('Opening live session calendar...')" style="padding:12px;background:var(--gold);color:white;border:none;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:left">📞  Manage Live Session Slots (2 left)</button>
+          <button onclick="showView('calculator')" style="padding:12px;background:var(--light-bg);color:var(--dark);border:1.5px solid var(--sand);border-radius:10px;font-family:Arial,sans-serif;font-size:13px;cursor:pointer;text-align:left">💰  Revenue Calculator</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── VIEW ROUTING ──
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  const map = {landing:'Home',quiz:'Free Quiz',programs:'Programs',community:'Community',calculator:'Revenue',dashboard:null};
+  if(map[id]) {
+    document.querySelectorAll('.nav-link').forEach(l => { if(l.textContent===map[id]) l.classList.add('active'); });
+  }
+  window.scrollTo(0,0);
+  closeMobileNav();
+}
+
+// ── MOBILE NAV ──
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const overlay = document.getElementById('mobile-overlay');
+  const hamburger = document.getElementById('hamburger-btn');
+  nav.classList.toggle('open');
+  overlay.classList.toggle('active');
+  hamburger.classList.toggle('open');
+}
+function closeMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const overlay = document.getElementById('mobile-overlay');
+  const hamburger = document.getElementById('hamburger-btn');
+  if(nav) nav.classList.remove('open');
+  if(overlay) overlay.classList.remove('active');
+  if(hamburger) hamburger.classList.remove('open');
+}
+
+// ── AUDIENCE PICKER ──
+let selectedAudience = 'both';
+function selectAudience(type) {
+  selectedAudience = type;
+  document.querySelectorAll('.audience-card').forEach(c => c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+function startJourney() {
+  setQuizForAudience(selectedAudience);
+  showView('quiz');
+  resetQuiz();
+}
+
+// ── QUIZ ──
+let currentQ = 1;
+const totalQs = 5;
+function selectQ(n, el) {
+  document.querySelectorAll('#qStep'+n+' .q-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function nextQ(n) {
+  if(n < totalQs) {
+    document.getElementById('qStep'+n).classList.add('hidden');
+    document.getElementById('qStep'+(n+1)).classList.remove('hidden');
+    currentQ = n+1;
+    document.getElementById('qProgress').style.width = (currentQ/totalQs*100)+'%';
+  }
+}
+function prevQ(n) {
+  document.getElementById('qStep'+n).classList.add('hidden');
+  document.getElementById('qStep'+(n-1)).classList.remove('hidden');
+  currentQ = n-1;
+  document.getElementById('qProgress').style.width = (currentQ/totalQs*100)+'%';
+}
+function resetQuiz() {
+  currentQ=1;
+  document.querySelectorAll('[id^=qStep]').forEach((s,i) => s.classList.toggle('hidden', i>0));
+  document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('qProgress').style.width='20%';
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizBody').style.display='block';
+}
+function showResult() {
+  document.getElementById('qProgress').style.width='100%';
+  document.getElementById('quizBody').style.display='none';
+  const result = document.getElementById('quizResult');
+  result.style.display='block';
+  // Vary result based on audience
+  const titles = {
+    married: { t:'The Aligned Seeker', d:'You\'re committed to your marriage and know something\'s off. You need a framework — not just feelings. The Alignment Method is your starting point.' },
+    parent: { t:'The Aware Parent', d:'You love your kids deeply and know your patterns are showing up at home. Understanding the Mirror Dynamic will change the way you parent forever.' },
+    both: { t:'The Both-and Parent', d:'You\'re navigating marriage and parenting simultaneously — which means the stress multiplies. The Family Clarity Bundle is designed exactly for you.' },
+    single: { t:'The Intentional One', d:'You\'re building the foundation before things get complicated. This is the wisest move. Start with the literacy hub and community.' },
+    divorced: { t:'The Rebuilder', d:'Co-parenting is one of the hardest things. You deserve support that understands the complexity of your situation without judgment.' }
+  };
+  const r = titles[selectedAudience] || titles.both;
+  document.getElementById('resultTitle').textContent = r.t;
+  document.getElementById('resultDesc').textContent = r.d;
+  const recsMap = {
+    married: [['The Alignment Method — Couples Insight','$97'],['Marriage Deep Dive + Voice Note','$197']],
+    parent: [['Mirror Method — Insight','$47'],['Mirror Method — Deep Dive + Voice','$97']],
+    both: [['Family Clarity Bundle','$247'],['Mirror Method Deep Dive','$97']],
+    single: [['Mastery Hub Access','Free community'],['Mirror Method — Single','$47']],
+    divorced: [['Co-Parenting Insight','$97'],['Live Session','$497']]
+  };
+  const recs = recsMap[selectedAudience] || recsMap.both;
+  document.getElementById('resultRecs').innerHTML = recs.map(r =>
+    `<div class="result-rec"><div class="rec-title">${r[0]}</div><div class="rec-price">${r[1]}</div></div>`
+  ).join('');
+}
+function setQuizForAudience(a) { /* questions already generic enough */ }
+
+// ── PROGRAMS TABS ──
+function programTab(tab, el) {
+  document.querySelectorAll('[id^=ptab-]').forEach(t => t.classList.add('hidden'));
+  document.querySelectorAll('.subnav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('ptab-'+tab).classList.remove('hidden');
+  el.classList.add('active');
+}
+
+// ── REVENUE CALCULATOR ──
+function updateCalc() {
+  const insight  = +document.getElementById('r-insight').value;
+  const deep     = +document.getElementById('r-deep').value;
+  const marriage = +document.getElementById('r-marriage').value;
+  const live     = +document.getElementById('r-live').value;
+  const minPer   = +document.getElementById('r-time').value;
+
+  const asyncRev = insight*47 + deep*97 + marriage*197;
+  const liveRev  = live*497;
+  const total    = asyncRev + liveRev;
+  const asyncH   = ((insight+deep+marriage)*minPer) / 60;
+  const liveH    = live * 1.5;
+  const totalH   = asyncH + liveH;
+  const weekH    = (totalH / 4.3).toFixed(1);
+  const perH     = totalH > 0 ? Math.round(total / totalH) : 0;
+  const asyncPct = total > 0 ? Math.round(asyncRev/total*100) : 0;
+
+  document.getElementById('r-monthly').textContent = '$'+fmtK(total);
+  document.getElementById('r-annual').textContent  = '$'+fmtK(total*12);
+  document.getElementById('r-async').textContent   = '$'+fmtK(asyncRev);
+  document.getElementById('r-hours').textContent   = weekH+'h';
+  document.getElementById('r-per-hour').textContent= '$'+perH.toLocaleString();
+  document.getElementById('r-time-saved').textContent = asyncPct+'%';
+  document.getElementById('t-async').textContent   = '~'+Math.round(asyncH)+'h/month';
+  document.getElementById('t-live').textContent    = '~'+Math.round(liveH)+'h/month';
+}
+function fmtK(n) {
+  if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'K';
+  return n.toLocaleString();
+}
+updateCalc();
+
+  // ── TOAST ──
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Email Gate
+  (function() {
+    var clickCount = 0;
+    var gateShown = false;
+    var submittedKey = 'demo_gate_shown';
+    var triggeredKey = 'demo_gate_triggered';
+
+    function trackClick() {
+      if (gateShown) return;
+      clickCount++;
+      if (clickCount >= 7) {
+        showGate();
+      }
+    }
+
+    function showGate() {
+      gateShown = true;
+      localStorage.setItem(triggeredKey, 'true');
+      var modal = document.getElementById('email-gate-modal');
+      if (modal) modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideGate() {
+      var modal = document.getElementById('email-gate-modal');
+      if (modal) modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem(submittedKey)) {
+        gateShown = true;
+      } else if (localStorage.getItem(triggeredKey)) {
+        showGate();
+      }
+
+      // Form submission
+      var form = document.getElementById('email-gate-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var firstName = document.getElementById('gate-first-name').value;
+          var lastName = document.getElementById('gate-last-name').value;
+          var email = document.getElementById('gate-email').value;
+          var role = document.getElementById('gate-role').value;
+
+          if (!firstName || !lastName || !email || !role) {
+            document.getElementById('gate-error').style.display = 'block';
+            document.getElementById('gate-error').textContent = 'All fields are required';
+            return;
+          }
+
+          fetch('/api/demo-gate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, role: role })
+          }).then(function() {
+            localStorage.setItem(submittedKey, 'true');
+            hideGate();
+          }).catch(function() {
+            hideGate();
+          });
+        });
+      }
+    });
+
+    document.addEventListener('click', trackClick);
+  })();
+  </script>
+
+  <style>@media(max-width:480px){#email-gate-modal>div{padding:24px 16px!important;margin:8px!important;max-height:calc(100vh - 16px)!important;overflow-y:auto!important}#email-gate-form>div:first-child{flex-direction:column!important;gap:10px!important}#email-gate-form>div:first-child>input{width:100%!important;flex:1 1 100%!important}}</style>
+
+<!-- Email Gate Modal -->
+  <div id="email-gate-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center">
+    <div style="background:#ffffff;border:1px solid #000000;border-radius:6px;padding:32px;max-width:420px;width:90%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#957DAD;margin-bottom:12px">Continue Exploring</div>
+      <h2 style="font-size:22px;font-weight:500;line-height:1.2;margin-bottom:8px;font-family:'Cormorant Garamond',Georgia,serif; color:#a78bfa">Get full access to this demo</h2>
+      <p style="font-size:14px;color:#666666;line-height:1.6;margin-bottom:20px">Enter your details to continue exploring. We'll also send you similar tools built for your role.</p>
+      <form id="email-gate-form" style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px">
+          <input type="text" id="gate-first-name" placeholder="First Name" required style="flex:1;padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+          <input type="text" id="gate-last-name" placeholder="Last Name" required style="flex:1;padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+        </div>
+        <input type="email" id="gate-email" placeholder="Email" required style="padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+        <select id="gate-role" required style="padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;background:#ffffff;outline:none">
+          <option value="" disabled selected>I am a...</option>
+          <option value="Professional">Professional</option>
+          <option value="Founder">Founder</option>
+          <option value="Creator">Creator</option>
+          <option value="Company">Company</option>
+          <option value="Coach">Coach</option>
+        </select>
+        <button type="submit" style="padding:12px 20px;background:#957DAD;color:#000000;border:none;border-radius:3px;font-size:13px;font-weight:500;letter-spacing:0.02em;cursor:pointer;transition:background 0.15s">Continue to Demo</button>
+        <div id="gate-error" style="color:#C05252;font-size:12px;display:none"></div>
+      </form>
+    </div>
+  </div>
+  <div class="bottom-cta" style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:linear-gradient(135deg,#111827,#1f2937);border-top:1px solid rgba(108,99,255,0.3);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 -4px 20px rgba(0,0,0,0.3);"><span style="color:rgba(255,255,255,0.7);font-size:13px;letter-spacing:0.02em;">Like what you see?</span><a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a></div></body>
+  </html>

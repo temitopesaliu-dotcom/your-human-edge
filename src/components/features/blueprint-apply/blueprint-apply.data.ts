@@ -59,7 +59,7 @@ export const BUDGET_OPTIONS = [
   { value: "2500-5000", label: "$3,500–$5,000" },
   { value: "5000-10000", label: "$5,000–$10,000" },
   { value: "10000-plus", label: "$10,000+" },
-  { value: "not-sure", label: "Not sure yet — the Blueprint will help me decide" },
+  { value: "not-sure", label: "Not sure yet — the Audit will help me decide" },
 ];
 
 export const LOW_BUDGET_VALUES = ["under-1000", "1000-2500"];

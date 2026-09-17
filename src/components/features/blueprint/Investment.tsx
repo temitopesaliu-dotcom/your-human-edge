@@ -14,7 +14,7 @@ export default function Investment() {
             <p className="body-lg mt-4 mb-5">
               Most businesses spend weeks — and tens of thousands of dollars —
               building AI tools that don&apos;t connect or deliver results. The
-              Blueprint costs $1,000 and gives you a complete, written
+              Audit costs $1,000 and gives you a complete, written
               architecture for your AI OS before a single tool is built.
             </p>
 
@@ -37,7 +37,7 @@ export default function Investment() {
           </div>
 
           <div className="blueprint-pricing-card fade-up delay-1">
-            <p className="label mb-4">AI Operating System Blueprint</p>
+            <p className="label mb-4">AI Operating System Audit</p>
             <div style={{ marginBottom: "var(--space-3)" }}>
               <span className="price-currency">$</span>
               <span className="price-amount">1,000</span>
@@ -72,7 +72,7 @@ export default function Investment() {
               className="btn btn-primary btn-lg btn-arrow"
               style={{ width: "100%", justifyContent: "center" }}
             >
-              Apply to Book Your Blueprint
+              Apply to Book Your Audit
             </Link>
             <p
               style={{

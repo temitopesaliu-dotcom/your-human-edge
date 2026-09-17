@@ -7,6 +7,7 @@ import Reframe from "@/components/features/blueprint-audit/Reframe";
 import Solution from "@/components/features/blueprint-audit/Solution";
 import Outcomes from "@/components/features/blueprint-audit/Outcomes";
 import Process from "@/components/features/blueprint-audit/Process";
+import About from "@/components/features/blueprint-audit/About";
 import Blueprint from "@/components/features/blueprint-audit/Blueprint";
 import SocialProof from "@/components/features/blueprint-audit/SocialProof";
 import Faq from "@/components/features/blueprint-audit/Faq";
@@ -24,6 +25,7 @@ export default function AiosLandingPage() {
       <Solution />
       <Outcomes />
       <Process />
+      <About />
       <Blueprint />
       <Faq />
       <FinalCta />

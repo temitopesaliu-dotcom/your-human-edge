@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yourhumanedge — Content Intelligence Platform</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #07070f;
+  --bg2: #0e0e1a;
+  --bg3: #14142a;
+  --card: #111120;
+  --card2: #181830;
+  --border: #2a2a4a;
+  --border2: #3a3a6a;
+  --accent: #6c63ff;
+  --accent2: #a78bfa;
+  --gold: #f59e0b;
+  --gold2: #fbbf24;
+  --green: #10b981;
+  --red: #ef4444;
+  --orange: #f97316;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --glow: rgba(108,99,255,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+/* LAYOUT */
+#app { display: flex; height: 100vh; overflow: hidden; }
+#sidebar { width: 220px; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+#main { flex: 1; overflow-y: auto; padding-bottom: 70px; }
+/* SIDEBAR */
+.brand { padding: 20px 18px 16px; border-bottom: 1px solid var(--border); }
+.brand-name { font-size: 13px; font-weight: 700; color: var(--accent2); letter-spacing: 0.5px; }
+.brand-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.nav { padding: 12px 0; flex: 1; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 18px; cursor: pointer; font-size: 13px; color: var(--text2); transition: all 0.15s; border-left: 2px solid transparent; }
+.nav-item:hover { background: var(--glow); color: var(--text); }
+.nav-item.active { background: var(--glow); color: var(--accent2); border-left-color: var(--accent); }
+.nav-icon { width: 16px; text-align: center; font-size: 14px; }
+.sidebar-footer { padding: 14px 18px; border-top: 1px solid var(--border); }
+.sync-btn { width: 100%; padding: 8px; background: var(--accent); color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600; transition: opacity 0.2s; }
+.sync-btn:hover { opacity: 0.85; }
+/* HEADER */
+.page-header { padding: 24px 28px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg); position: sticky; top: 0; z-index: 10; }
+.page-title { font-size: 18px; font-weight: 700; }
+.page-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.btn-sm { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border2); background: var(--card2); color: var(--text2); transition: all 0.15s; }
+.btn-sm:hover { border-color: var(--accent); color: var(--accent2); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-primary:hover { opacity: 0.85; color: white; }
+/* TABS */
+.tab-nav { display: flex; gap: 4px; padding: 0 28px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.tab { padding: 10px 14px; font-size: 12px; color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+.tab:hover { color: var(--text2); }
+.tab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+/* CONTENT */
+.page-content { padding: 24px 28px; }
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+.card-sm { padding: 14px; }
+.card-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+/* GRID LAYOUTS */
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+/* STAT CARDS */
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.stat-label { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-change { font-size: 11px; margin-top: 4px; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.neutral { color: var(--text3); }
+/* PLATFORM BADGES */
+.platform-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+.badge-ig { background: rgba(225,48,108,0.15); color: #e1306c; }
+.badge-tt { background: rgba(0,0,0,0.3); color: #fff; border: 1px solid #333; }
+.badge-yt { background: rgba(255,0,0,0.12); color: #ff4444; }
+.badge-li { background: rgba(0,119,181,0.15); color: #0077b5; }
+.badge-tw { background: rgba(29,161,242,0.12); color: #1da1f2; }
+.badge-sub { background: rgba(255,102,0,0.12); color: #ff6600; }
+.badge-bsky { background: rgba(0,133,255,0.12); color: #0085ff; }
+.badge-fb { background: rgba(24,119,242,0.12); color: #1877f2; }
+/* CONTENT ITEMS */
+.content-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; transition: border-color 0.15s; cursor: pointer; }
+.content-item:hover { border-color: var(--border2); }
+.content-item.expanded { border-color: var(--accent); }
+.ci-top { display: flex; align-items: flex-start; gap: 12px; }
+.ci-thumb { width: 60px; height: 60px; border-radius: 6px; background: var(--bg3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.ci-info { flex: 1; min-width: 0; }
+.ci-caption { font-size: 13px; color: var(--text); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ci-metrics { display: flex; gap: 14px; margin-top: 10px; }
+.metric-item { text-align: center; }
+.metric-val { font-size: 16px; font-weight: 700; }
+.metric-lbl { font-size: 10px; color: var(--text3); }
+.score-ring { width: 52px; height: 52px; flex-shrink: 0; }
+/* SCORE */
+.perf-score { font-size: 28px; font-weight: 800; }
+.score-hi { color: var(--green); }
+.score-mid { color: var(--gold); }
+.score-lo { color: var(--red); }
+/* INSIGHTS PANEL */
+.insight-panel { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-top: 12px; }
+.insight-title { font-size: 11px; color: var(--accent2); font-weight: 600; margin-bottom: 8px; }
+.insight-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.insight-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; background: var(--card2); color: var(--text3); border: 1px solid var(--border); }
+.tag-good { background: rgba(16,185,129,0.1); color: var(--green); border-color: rgba(16,185,129,0.2); }
+.tag-warn { background: rgba(245,158,11,0.1); color: var(--gold); border-color: rgba(245,158,11,0.2); }
+.tag-bad { background: rgba(239,68,68,0.1); color: var(--red); border-color: rgba(239,68,68,0.2); }
+.tag-ad { background: rgba(108,99,255,0.1); color: var(--accent2); border-color: rgba(108,99,255,0.2); }
+/* COMMENTS */
+.comment-item { padding: 12px; background: var(--bg3); border-radius: 8px; margin-bottom: 8px; }
+.comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.comment-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--card2); display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.comment-user { font-size: 12px; font-weight: 600; }
+.comment-text { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.sentiment-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sent-pos { background: var(--green); }
+.sent-neu { background: var(--text3); }
+.sent-neg { background: var(--red); }
+.sent-buy { background: var(--gold); }
+/* PROGRESS BARS */
+.progress-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+/* AD STRATEGY */
+.ad-candidate { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+.ad-score-bar { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.ad-score-label { font-size: 11px; color: var(--text3); width: 90px; flex-shrink: 0; }
+/* PLATFORM CONNECTION */
+.platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.platform-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.platform-icon { font-size: 24px; }
+.platform-name { font-size: 14px; font-weight: 600; }
+.platform-status { font-size: 11px; }
+.status-connected { color: var(--green); }
+.status-disconnected { color: var(--text3); }
+.input-field { width: 100%; padding: 8px 10px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 12px; outline: none; transition: border-color 0.15s; }
+.input-field:focus { border-color: var(--accent); }
+.input-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; display: block; }
+.connect-btn { width: 100%; margin-top: 10px; padding: 8px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px; color: var(--text2); font-size: 12px; cursor: pointer; font-weight: 600; transition: all 0.15s; }
+.connect-btn:hover { border-color: var(--accent); color: var(--accent2); }
+.connect-btn.active { background: rgba(108,99,255,0.15); border-color: var(--accent); color: var(--accent2); }
+/* CHARTS */
+.chart-wrap { position: relative; height: 180px; }
+/* SECTION SPACING */
+.section { margin-bottom: 22px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.section-title { font-size: 13px; font-weight: 700; }
+.section-action { font-size: 11px; color: var(--accent2); cursor: pointer; }
+/* LOADING SPINNER */
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text3); }
+.empty-icon { font-size: 36px; margin-bottom: 12px; }
+.empty-title { font-size: 14px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.empty-sub { font-size: 12px; }
+/* ALERT */
+.alert { padding: 10px 14px; border-radius: 8px; font-size: 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.alert-info { background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.2); color: var(--accent2); }
+.alert-warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); color: var(--gold2); }
+.alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--green); }
+/* MONETIZATION */
+.money-signal { display: flex; align-items: flex-start; gap: 10px; padding: 12px; background: var(--bg3); border-radius: 8px; margin-bottom: 8px; }
+.signal-icon { font-size: 18px; flex-shrink: 0; }
+.signal-body { flex: 1; }
+.signal-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.signal-desc { font-size: 11px; color: var(--text3); }
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+/* TOOLTIP */
+[data-tip] { position: relative; }
+[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--card2); color: var(--text); font-size: 11px; padding: 4px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--border); z-index: 100; pointer-events: none; }
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+/* HAMBURGER MENU */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 1001; }
+.hamburger span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: all 0.3s; border-radius: 1px; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; }
+.sidebar-overlay.active { display: block; }
+/* RESPONSIVE — TABLET */
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2-1 { grid-template-columns: 1fr; }
+  .page-header { padding: 18px 20px 14px; }
+  .page-content { padding: 18px 20px; }
+  .tab-nav { padding: 0 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .cta-block { padding: 22px 24px; }
+}
+/* RESPONSIVE — MOBILE */
+@media (max-width: 600px) {
+  /* Sidebar becomes off-canvas overlay */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    display: flex;
+    box-shadow: none;
+  }
+  #sidebar.open {
+    left: 0;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+  }
+  /* Show hamburger */
+  .hamburger { display: block; }
+  /* Page header stacks */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px 12px;
+  }
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .header-actions .btn-sm, .header-actions select {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  /* Tab nav scrolls horizontally */
+  .tab-nav {
+    padding: 0 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab { padding: 8px 10px; font-size: 11px; }
+  /* Content */
+  .page-content { padding: 14px 16px; }
+  /* Grids collapse */
+  .grid-4, .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+  /* Stat cards */
+  .stat-value { font-size: 20px; }
+  .stat-card { padding: 12px; }
+  /* Content items stack */
+  .ci-top { flex-direction: column; gap: 8px; }
+  .ci-thumb { width: 100%; height: 44px; border-radius: 6px; }
+  .ci-info { min-width: 0; }
+  .ci-caption { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ci-metrics { flex-wrap: wrap; gap: 10px; }
+  .metric-item { min-width: 60px; }
+  .metric-val { font-size: 14px; }
+  /* Score on content cards */
+  .perf-score { font-size: 20px; }
+  /* Charts */
+  .chart-wrap { height: 160px; }
+  /* Cards */
+  .card { padding: 14px; }
+  /* Section */
+  .section { margin-bottom: 16px; }
+  .section-title { font-size: 12px; }
+  /* Platform health grid */
+  #platform-health.grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  /* Money signal items */
+  .money-signal { flex-direction: column; gap: 6px; }
+  /* Ad strategy */
+  .ad-score-bar { flex-wrap: wrap; }
+  .ad-score-label { width: auto; }
+  /* Readiness breakdown rows */
+  .readiness-row { flex-wrap: wrap; }
+  /* Back bar */
+  #back-bar { padding: 0.5rem 1rem; }
+  #back-bar a { font-size: 0.55rem; }
+  #back-bar .bar-title { font-size: 0.55rem; display: none; }
+  /* Bottom CTA bar */
+  .bottom-cta { padding: 12px 14px !important; gap: 8px !important; }
+  .bottom-cta span { font-size: 11px !important; }
+  .bottom-cta a { font-size: 11px !important; padding: 8px 16px !important; }
+  /* Ensure content doesn't hide behind fixed footer on mobile */
+  #main { padding-bottom: 90px !important; }
+  /* Comment items */
+  .comment-header { flex-wrap: wrap; gap: 4px; }
+  /* CTA blocks */
+  .cta-block { padding: 18px 16px !important; text-align: center; }
+  .cta-block a { width: 100%; justify-content: center; }
+  /* Alert */
+  .alert { font-size: 11px; padding: 8px 10px; }
+  /* Modal */
+  #email-gate-modal > div { padding: 20px 14px !important; margin: 8px !important; }
+  #email-gate-form > div:first-child { flex-direction: column !important; gap: 8px !important; }
+  #email-gate-form > div:first-child > input { width: 100% !important; }
+  /* Sync button */
+  .sync-btn { font-size: 11px; padding: 7px; }
+  /* Nav items */
+  .nav-item { padding: 10px 16px; font-size: 12px; }
+  /* Growth page cards */
+  .grid-2 > .card { padding: 12px; }
+  /* Platform card */
+  .platform-card { padding: 12px; }
+  /* Input fields */
+  .input-field { font-size: 13px; padding: 10px; }
+  /* Section header */
+  .section-header { flex-wrap: wrap; gap: 6px; }
+  .section-action { font-size: 10px; }
+  /* Boost candidate captions */
+  .ad-candidate { padding: 12px; }
+  /* Funnel map items */
+  #funnel-map > div { flex-direction: column; gap: 4px; }
+  #funnel-map > div > div:first-child { align-self: flex-start; }
+}
+#back-bar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#ffffff;border-bottom:1px solid #000;display:flex;align-items:center;justify-content:space-between;padding:0.55rem 2rem;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+#back-bar a{font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;color:#000;opacity:0.55;transition:opacity 0.15s;}
+#back-bar a:hover{opacity:1;}
+#back-bar .bar-title{font-size:0.62rem;font-weight:300;letter-spacing:0.1em;color:#000;opacity:0.35;}
+</style>
+</head>
+<body>
+<div id="back-bar">
+  <a href="products.html">&larr; All Products</a>
+  <span class="bar-title">Content Intelligence Platform</span>
+  <a href="index.html">Built for You</a>
+</div>  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div id="app" style="padding-top:36px;">
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="brand">
+      <div class="brand-name">Content Intelligence System</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-item active" onclick="showPage('dashboard')">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage('content')">
+        <span class="nav-icon">🎬</span> Content Lab
+      </div>
+      <div class="nav-item" onclick="showPage('comments')">
+        <span class="nav-icon">💬</span> Comment Intelligence
+      </div>
+      <div class="nav-item" onclick="showPage('monetization')">
+        <span class="nav-icon">💰</span> Monetization
+      </div>
+      <div class="nav-item" onclick="showPage('ads')">
+        <span class="nav-icon">🚀</span> Ad Strategy
+      </div>
+      <div class="nav-item" onclick="showPage('growth')">
+        <span class="nav-icon">📈</span> Growth Engine
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="sync-btn" onclick="syncAll()">⟳ Sync All Platforms</button>
+      <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:6px" id="last-sync">Never synced</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Command Center</div>
+            <div class="page-sub">All platforms · Last 30 days</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <select class="btn-sm" id="date-range" onchange="refreshDashboard()">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="page-content">
+        <!-- ALERT IF NO PLATFORMS CONNECTED -->
+        <div id="no-platforms-alert" class="alert alert-warn" style="display:none">
+          ⚠️ No platforms connected. Go to <span style="cursor:pointer;text-decoration:underline" onclick="showPage('settings')">Connections</span> to add your API keys.
+        </div>
+        <!-- CROSS-PLATFORM STATS -->
+        <div class="section">
+          <div class="grid-4">
+            <div class="stat-card">
+              <div class="stat-label">Total Reach</div>
+              <div class="stat-value" id="stat-reach">—</div>
+              <div class="stat-change" id="stat-reach-chg">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Avg Engagement Rate</div>
+              <div class="stat-value" id="stat-er">—</div>
+              <div class="stat-change" id="stat-er-chg">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Pieces Published</div>
+              <div class="stat-value" id="stat-posts">—</div>
+              <div class="stat-change" id="stat-posts-chg">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Content Score</div>
+              <div class="stat-value" id="stat-score" style="color:var(--accent2)">—</div>
+              <div class="stat-change" id="stat-score-chg">—</div>
+            </div>
+          </div>
+        </div>
+        <!-- PLATFORM BREAKDOWN + CHART -->
+        <div class="grid-2-1 section">
+          <div class="card">
+            <div class="card-title">Engagement Over Time</div>
+            <div class="chart-wrap"><canvas id="chart-engagement"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Platform Split</div>
+            <div class="chart-wrap"><canvas id="chart-platform"></canvas></div>
+          </div>
+        </div>
+        <!-- TOP PERFORMERS -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">🔥 Top Performing Content</div>
+            <div class="section-action" onclick="showPage('content')">View all →</div>
+          </div>
+          <div id="top-performers"></div>
+        </div>
+        <!-- AI WEEKLY BRIEF -->
+        <div class="section">
+          <div class="card">
+            <div class="card-title">⚡ AI Weekly Brief</div>
+            <div id="ai-brief" class="insight-text" style="min-height:60px">
+              <span class="spinner"></span> Generating insights...
+            </div>
+          </div>
+        </div>
+        <!-- CTA BLOCK -->
+        <div class="cta-block" style="background:linear-gradient(135deg,#111827,#1f2937);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;border:1px solid var(--border2);">
+          <span style="color:rgba(255,255,255,.7);font-size:13px;white-space:nowrap">Want a content intelligence system like this?</span>
+          <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a>
+        </div>
+
+        <!-- PLATFORM HEALTH -->
+        <div class="section">
+          <div class="section-header"><div class="section-title">Platform Health</div></div>
+          <div id="platform-health" class="grid-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT LAB -->
+    <div id="page-content" class="page" style="display:none">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Content Lab</div>
+            <div class="page-sub">All content across platforms</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <select class="btn-sm" id="filter-platform" onchange="filterContent()">
+            <option value="all">All Platforms</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="twitter">X / Twitter</option>
+            <option value="facebook">Facebook</option>
+            <option value="substack">Substack</option>
+            <option value="bluesky">Bluesky</option>
+          </select>
+          <select class="btn-sm" id="sort-content" onchange="filterContent()">
+            <option value="date">Newest First</option>
+            <option value="views">Most Views</option>
+            <option value="er">Best Engagement</option>
+            <option value="score">AI Score</option>
+          </select>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="tab-nav">
+          <div class="tab active" onclick="setContentTab('all', this)">All Content</div>
+          <div class="tab" onclick="setContentTab('top', this)">Top Performers</div>
+          <div class="tab" onclick="setContentTab('flops', this)">Underperformers</div>
+          <div class="tab" onclick="setContentTab('ad-ready', this)">Ad-Ready</div>
+        </div>
+        <div style="padding-top:16px">
+          <div id="content-feed"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMENT INTELLIGENCE -->
+    <div id="page-comments" class="page" style="display:none">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Comment Intelligence</div>
+            <div class="page-sub">Sentiment · Themes · Signals</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-sm btn-primary" onclick="analyzeComments()">⚡ Analyze All</button>
+        </div>
+      </div>
+      <div class="page-content">
+        <!-- SENTIMENT OVERVIEW -->
+        <div class="section">
+          <div class="grid-4">
+            <div class="stat-card">
+              <div class="stat-label">😊 Positive</div>
+              <div class="stat-value up" id="sent-pos-pct">—</div>
+              <div class="stat-change neutral" id="sent-pos-count">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">😐 Neutral</div>
+              <div class="stat-value neutral" id="sent-neu-pct">—</div>
+              <div class="stat-change neutral" id="sent-neu-count">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">😠 Negative</div>
+              <div class="stat-value down" id="sent-neg-pct">—</div>
+              <div class="stat-change neutral" id="sent-neg-count">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">💰 Buy Signals</div>
+              <div class="stat-value" style="color:var(--gold)" id="sent-buy-pct">—</div>
+              <div class="stat-change neutral" id="sent-buy-count">—</div>
+            </div>
+          </div>
+        </div>
+        <!-- THEMES + COMMENTS -->
+        <div class="grid-2">
+          <div>
+            <div class="section">
+              <div class="section-title" style="margin-bottom:12px">🧠 Top Themes From Audience</div>
+              <div id="comment-themes"></div>
+            </div>
+            <div class="section">
+              <div class="section-title" style="margin-bottom:12px">💡 Content Ideas from Comments</div>
+              <div id="comment-ideas"></div>
+            </div>
+          </div>
+          <div>
+            <div class="section">
+              <div class="section-title" style="margin-bottom:12px">💬 Latest Comments</div>
+              <div id="comment-list"></div>
+            </div>
+          </div>
+        </div>
+        <!-- BUY SIGNALS -->
+        <div class="section">
+          <div class="section-header"><div class="section-title">🛒 Purchase Intent Signals</div></div>
+          <div class="alert alert-info">These are comments where your audience is signaling readiness to pay. Prioritize these for offers & DMs.</div>
+          <div id="buy-signals"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONETIZATION -->
+    <div id="page-monetization" class="page" style="display:none">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Monetization Intelligence</div>
+            <div class="page-sub">Revenue signals · Product-market fit · Opportunity map</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="grid-2-1 section">
+          <div>
+            <div class="section">
+              <div class="section-header"><div class="section-title">💡 Monetization Opportunities</div></div>
+              <div id="mono-opportunities"></div>
+            </div>
+            <div class="section">
+              <div class="section-header"><div class="section-title">🎯 Content → Funnel Mapping</div></div>
+              <div id="funnel-map"></div>
+            </div>
+          </div>
+          <div>
+            <div class="card section">
+              <div class="card-title">Audience Readiness Score</div>
+              <div style="text-align:center;padding:20px 0">
+                <div class="perf-score score-mid" id="audience-readiness">—</div>
+                <div style="font-size:12px;color:var(--text3);margin-top:6px">/ 100</div>
+              </div>
+              <div id="readiness-breakdown"></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Best Revenue Plays Now</div>
+              <div id="revenue-plays"></div>
+            </div>
+          </div>
+        </div>
+        <!-- CTA BLOCK -->
+        <div class="cta-block" style="background:linear-gradient(135deg,#111827,#1f2937);border-radius:12px;padding:28px 32px;text-align:center;margin-bottom:22px;border:1px solid var(--border2);">
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;">Ready to monetize your content?</div>
+          <div style="font-size:13px;color:var(--text3);margin-bottom:16px;">We build content intelligence systems like this — starting from $1,000.</div>
+          <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a>
+        </div>
+
+        <!-- PRODUCT SIGNALS -->
+        <div class="section">
+          <div class="section-header"><div class="section-title">📦 Product-Market Fit Signals</div></div>
+          <div id="pmf-signals"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD STRATEGY -->
+    <div id="page-ads" class="page" style="display:none">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Ad Strategy Engine</div>
+            <div class="page-sub">Turn your best organic into paid fuel</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-sm btn-primary" onclick="generateAdStrategy()">⚡ Generate Strategy</button>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="alert alert-info">📌 Strategy mode active — no ad accounts connected yet. Connect Meta Ads or TikTok Ads in Settings to unlock live spend data.</div>
+        <!-- AD SCORE -->
+        <div class="grid-3 section">
+          <div class="stat-card">
+            <div class="stat-label">Ad-Ready Content</div>
+            <div class="stat-value" id="ad-ready-count" style="color:var(--accent2)">—</div>
+            <div class="stat-change neutral">pieces ready to boost</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Organic Score</div>
+            <div class="stat-value" id="avg-organic-score">—</div>
+            <div class="stat-change neutral">higher = better ad ROI</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Top Platform for Ads</div>
+            <div class="stat-value" style="font-size:18px" id="top-ad-platform">—</div>
+            <div class="stat-change neutral">based on your data</div>
+          </div>
+        </div>
+        <!-- AD STRATEGY FRAMEWORK -->
+        <div class="grid-2 section">
+          <div class="card">
+            <div class="card-title">📋 Your Ad Strategy Framework</div>
+            <div id="ad-strategy-text" class="insight-text" style="min-height:120px"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">💸 Suggested Budget Allocation</div>
+            <div class="chart-wrap"><canvas id="chart-budget"></canvas></div>
+          </div>
+        </div>
+        <!-- BOOST CANDIDATES -->
+        <div class="section">
+          <div class="section-header"><div class="section-title">🔥 Top Boost Candidates</div><div class="section-action">Ranked by organic performance + ad potential</div></div>
+          <div id="boost-candidates"></div>
+        </div>
+        <!-- AD COPY GENERATOR -->
+        <div class="section">
+          <div class="card">
+            <div class="card-title">✍️ Ad Copy Generator</div>
+            <div style="margin-bottom:12px">
+              <select class="input-field" id="ad-copy-source" style="margin-bottom:8px">
+                <option value="">Select a piece of content to generate ad copy from...</option>
+              </select>
+              <select class="input-field" id="ad-copy-platform" style="margin-bottom:8px">
+                <option value="meta">Meta (Facebook/Instagram)</option>
+                <option value="tiktok">TikTok Spark Ad</option>
+                <option value="youtube">YouTube Pre-roll</option>
+              </select>
+              <button class="btn-sm btn-primary" onclick="generateAdCopy()" style="width:100%;padding:10px">⚡ Generate Ad Copy</button>
+            </div>
+            <div id="ad-copy-output"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROWTH ENGINE -->
+    <div id="page-growth" class="page" style="display:none">
+      <div class="page-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <div class="page-title">Growth Engine</div>
+            <div class="page-sub">Follower trends · Best times · Content pillars</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="grid-2 section">
+          <div class="card">
+            <div class="card-title">Follower Growth (All Platforms)</div>
+            <div class="chart-wrap"><canvas id="chart-followers"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Content Pillar Performance</div>
+            <div class="chart-wrap"><canvas id="chart-pillars"></canvas></div>
+          </div>
+        </div>
+        <div class="grid-2 section">
+          <div class="card">
+            <div class="card-title">⏰ Best Times to Post</div>
+            <div id="best-times"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">📐 Content Mix Recommendation</div>
+            <div id="content-mix"></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="card">
+            <div class="card-title">🎯 90-Day Growth Playbook</div>
+            <div id="growth-playbook" class="insight-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// =====================================================
+// STATE
+// =====================================================
+const STATE = {
+  config: {},
+  data: { content: [], comments: [] },
+  activeContentTab: 'all',
+  mockMode: false
+};
+
+// =====================================================
+// INIT
+// =====================================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadConfig();
+  renderPlatformKeys();
+  initMockMode();
+  showPage('dashboard');
+});
+
+// =====================================================
+// CONFIG / LOCALSTORAGE
+// =====================================================
+function loadConfig() {
+  try {
+    STATE.config = JSON.parse(localStorage.getItem('yhe_config') || '{}');
+    STATE.mockMode = STATE.config.mockMode || false;
+    if (document.getElementById('mock-mode')) document.getElementById('mock-mode').checked = STATE.mockMode;
+    if (document.getElementById('cors-proxy')) document.getElementById('cors-proxy').value = STATE.config.corsProxy || '';
+    // Restore API keys to inputs
+    const keys = ['claude','instagram','tiktok','youtube','linkedin','twitter','facebook','substack'];
+    keys.forEach(k => {
+      const el = document.getElementById('key-'+k);
+      if (el && STATE.config['key_'+k]) { el.value = STATE.config['key_'+k]; checkKey(k); }
+    });
+  } catch(e) {}
+}
+
+function saveConfig() {
+  localStorage.setItem('yhe_config', JSON.stringify(STATE.config));
+}
+
+function saveSetting(key, val) {
+  STATE.config[key] = val;
+  saveConfig();
+}
+
+function saveAllKeys() {
+  const keys = ['claude','instagram','tiktok','youtube','linkedin','twitter','facebook','substack','bluesky'];
+  keys.forEach(k => {
+    const el = document.getElementById('key-'+k);
+    if (el && el.value.trim()) {
+      STATE.config['key_'+k] = el.value.trim();
+    }
+  });
+  saveConfig();
+  showToast('✅ Keys saved!');
+}
+
+function checkKey(platform) {
+  const el = document.getElementById('key-'+platform);
+  const statusEl = document.getElementById(platform+'-status');
+  if (el && el.value.trim()) {
+    STATE.config['key_'+platform] = el.value.trim();
+    if (statusEl) { statusEl.textContent = '● Connected'; statusEl.className = 'platform-status status-connected'; }
+    const btn = document.getElementById(platform+'-btn');
+    if (btn) btn.classList.add('active');
+  } else {
+    if (statusEl) { statusEl.textContent = '○ Not connected'; statusEl.className = 'platform-status status-disconnected'; }
+  }
+}
+
+// =====================================================
+// NAVIGATION
+// =====================================================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if (page) page.style.display = 'block';
+  const nav = document.querySelector(`.nav-item[onclick="showPage('${id}')"]`);
+  if (nav) nav.classList.add('active');
+  closeSidebar();
+  // Load page data
+  if (id === 'dashboard') loadDashboard();
+  if (id === 'content') loadContentFeed();
+  if (id === 'comments') loadComments();
+  if (id === 'monetization') loadMonetization();
+  if (id === 'ads') loadAdStrategy();
+  if (id === 'growth') loadGrowth();
+}
+
+// =====================================================
+// MOCK DATA
+// =====================================================
+const MOCK_CONTENT = [
+  { id:'c1', platform:'instagram', type:'reel', caption:'Most people think AI will replace their jobs. The truth? AI won\'t replace you. But the person who uses AI better than you might. Here\'s how to use it to your advantage 👇', publishedAt: new Date(Date.now()-2*86400000), metrics: { views:48200, reach:52000, likes:3840, comments:294, shares:1200, saves:2100, engagementRate:8.4 }, adScore:88, performanceScore:91, aiInsight:'Hook taps into job anxiety — high relatable fear. "The person who uses AI better" creates competitive urgency. Saves:Views ratio of 4.4% signals deep resonance, this is bookmark-worthy content. The educational format with personal authority positions you as a trusted guide.' },
+  { id:'c2', platform:'tiktok', type:'video', caption:'I talked to 200 people about AI anxiety. What I found changed how I teach this 🧠', publishedAt: new Date(Date.now()-4*86400000), metrics: { views:124000, reach:124000, likes:8900, comments:612, shares:3400, saves:0, engagementRate:10.3 }, adScore:94, performanceScore:96, aiInsight:'Viral because it opens a curiosity gap immediately. "200 people" = social proof + scale of research. The phrase "changed how I teach" signals authority evolution. Comment rate of 0.49% is 3x platform average — audience wants to know what you found.' },
+  { id:'c3', platform:'linkedin', type:'post', caption:'The bridge between AI and human psychology is where the real opportunity lives. Most people are standing on one side. Here\'s what I see from the middle:', publishedAt: new Date(Date.now()-6*86400000), metrics: { views:18400, reach:18400, likes:892, comments:147, shares:203, saves:0, engagementRate:6.8 }, adScore:72, performanceScore:74, aiInsight:'Strong on LinkedIn because your ICP here is professionals who feel the tension between AI and identity. The "standing on one side" metaphor is vivid. Comments are high for LinkedIn (0.8% rate). Could perform better with a stronger personal story hook.' },
+  { id:'c4', platform:'youtube', type:'short', caption:'Why human connection is your biggest competitive advantage in the AI era', publishedAt: new Date(Date.now()-8*86400000), metrics: { views:22300, reach:22300, likes:1840, comments:89, shares:340, saves:0, engagementRate:10.2 }, adScore:81, performanceScore:79, aiInsight:'10.2% engagement on YouTube is excellent (avg is 2-3%). Title is SEO-friendly and speaks to a core fear. Retention likely drops after 30s based on comment patterns — audience wants more concrete examples, less framing.' },
+  { id:'c5', platform:'instagram', type:'post', caption:'Monday reminder: your ability to think, create and empathize is not a bug in the AI era. It\'s the feature.', publishedAt: new Date(Date.now()-10*86400000), metrics: { views:9200, reach:11000, likes:1240, comments:78, shares:290, saves:680, engagementRate:9.7 }, adScore:65, performanceScore:68, aiInsight:'High saves:likes ratio (54%) means this is inspirational/quotable. Static post with strong copy. Low reach growth suggests not reaching new people — mostly your existing base. Great for brand reinforcement, weak for discovery.' },
+  { id:'c6', platform:'tiktok', type:'video', caption:'Stop thinking AI is coming for you. Start thinking it\'s coming FOR you 🔮', publishedAt: new Date(Date.now()-12*86400000), metrics: { views:67000, reach:67000, likes:4200, comments:389, shares:1800, saves:0, engagementRate:9.5 }, adScore:86, performanceScore:84, aiInsight:'The wordplay "coming for you" vs "coming FOR you" is memorable and shareable. Strong hook energy. 389 comments suggests this sparked debate — check comment section for objections to address in future content.' },
+  { id:'c7', platform:'facebook', type:'post', caption:'3 ways AI is actually making us more human, not less. Thread 🧵', publishedAt: new Date(Date.now()-15*86400000), metrics: { views:5400, reach:7200, likes:342, comments:54, shares:89, saves:0, engagementRate:6.9 }, adScore:58, performanceScore:52, aiInsight:'Underperforming relative to your other platforms. Facebook organic is declining across the board but particularly for creator content. The framing "more human" is solid. Consider repurposing this as a LinkedIn article or newsletter where this ICP skews.' },
+  { id:'c8', platform:'substack', type:'article', caption:'The Permission Problem: Why Most People Are Waiting for Someone to Tell Them It\'s Okay to Use AI', publishedAt: new Date(Date.now()-18*86400000), metrics: { views:3800, reach:3800, likes:312, comments:68, shares:145, saves:0, engagementRate:13.8 }, adScore:45, performanceScore:88, aiInsight:'Highest engagement rate of any piece this month at 13.8%. The "Permission Problem" title nails a core psychological pain point in your audience. Comments are substantive and long — this topic needs to become a pillar series. Not ad-ready (long-form) but perfect for lead magnet.' },
+];
+
+const MOCK_COMMENTS = [
+  { id:'cm1', platform:'tiktok', contentId:'c2', user:'@career_pivot_2025', text:'This is exactly why I\'ve been terrified. I don\'t even know where to start with AI', sentiment:'negative', buySignal:true, date: new Date(Date.now()-4*86400000) },
+  { id:'cm2', platform:'tiktok', contentId:'c2', user:'@Nkechi_works', text:'Do you have a course on this? I genuinely need hand holding through this whole thing', sentiment:'positive', buySignal:true, date: new Date(Date.now()-4*86400000) },
+  { id:'cm3', platform:'instagram', contentId:'c1', user:'@michael.builds', text:'I sent this to my entire team. The competitive angle is what actually landed for them', sentiment:'positive', buySignal:false, date: new Date(Date.now()-2*86400000) },
+  { id:'cm4', platform:'instagram', contentId:'c1', user:'@sarah_in_hr', text:'How do I help my employees who are scared? I\'m a manager and I don\'t know what to tell them', sentiment:'neutral', buySignal:true, date: new Date(Date.now()-2*86400000) },
+  { id:'cm5', platform:'linkedin', contentId:'c3', user:'David Okafor', text:'The "standing on one side" metaphor is sharp. I\'ve been in tech 15 years and I still feel paralyzed by this', sentiment:'positive', buySignal:false, date: new Date(Date.now()-6*86400000) },
+  { id:'cm6', platform:'tiktok', contentId:'c6', user:'@femi_thinks', text:'Ok but HOW. What does it actually look like day to day to use AI in a meaningful way', sentiment:'neutral', buySignal:true, date: new Date(Date.now()-12*86400000) },
+  { id:'cm7', platform:'tiktok', contentId:'c6', user:'@tech_skeptic_real', text:'Every AI guru says this but none of them show the actual psychological work', sentiment:'negative', buySignal:false, date: new Date(Date.now()-12*86400000) },
+  { id:'cm8', platform:'substack', contentId:'c8', user:'Adaeze M.', text:'The permission thing is SO real. I\'ve been waiting for my company to "approve" me learning this. You just gave me that permission. Thank you.', sentiment:'positive', buySignal:false, date: new Date(Date.now()-18*86400000) },
+  { id:'cm9', platform:'instagram', contentId:'c5', user:'@growth.daily', text:'Do you do 1:1 coaching? I\'ve been looking for exactly this perspective', sentiment:'positive', buySignal:true, date: new Date(Date.now()-10*86400000) },
+  { id:'cm10', platform:'tiktok', contentId:'c2', user:'@justLearning2024', text:'Where can I learn more from you? Do you have a newsletter or community?', sentiment:'positive', buySignal:true, date: new Date(Date.now()-4*86400000) },
+];
+
+function initMockMode() {
+  const mockCheck = document.getElementById('mock-mode');
+  if (!STATE.config.mockMode && !STATE.config['key_claude']) {
+    STATE.mockMode = true;
+    STATE.config.mockMode = true;
+    if (mockCheck) mockCheck.checked = true;
+    saveConfig();
+  }
+}
+
+function toggleMockMode(on) {
+  STATE.mockMode = on;
+  saveSetting('mockMode', on);
+  showToast(on ? '🎭 Mock data enabled' : '📡 Using live data');
+  loadDashboard();
+}
+
+function getData() {
+  if (STATE.mockMode) return MOCK_CONTENT;
+  return STATE.data.content.length ? STATE.data.content : MOCK_CONTENT;
+}
+
+function getComments() {
+  if (STATE.mockMode) return MOCK_COMMENTS;
+  return STATE.data.comments.length ? STATE.data.comments : MOCK_COMMENTS;
+}
+
+// =====================================================
+// DASHBOARD
+// =====================================================
+function loadDashboard() {
+  const content = getData();
+  const days = parseInt(document.getElementById('date-range')?.value || 30);
+  const cutoff = new Date(Date.now() - days * 86400000);
+  const filtered = content.filter(c => c.publishedAt >= cutoff);
+
+  const totalReach = filtered.reduce((s,c) => s + (c.metrics.reach||0), 0);
+  const avgER = filtered.length ? (filtered.reduce((s,c) => s + c.metrics.engagementRate, 0) / filtered.length).toFixed(1) : 0;
+  const avgScore = filtered.length ? Math.round(filtered.reduce((s,c) => s + c.performanceScore, 0) / filtered.length) : 0;
+
+  setEl('stat-reach', fmtNum(totalReach));
+  setEl('stat-reach-chg', '<span class="up">↑ 18% vs prev period</span>');
+  setEl('stat-er', avgER + '%');
+  setEl('stat-er-chg', avgER > 6 ? '<span class="up">↑ Above avg (4.2%)</span>' : '<span class="neutral">Near avg</span>');
+  setEl('stat-posts', filtered.length);
+  setEl('stat-posts-chg', '<span class="neutral">Across all platforms</span>');
+  setEl('stat-score', avgScore + '/100');
+  setEl('stat-score-chg', '<span class="up">↑ Strong performance</span>');
+
+  // Top performers
+  const top3 = [...filtered].sort((a,b) => b.performanceScore - a.performanceScore).slice(0,3);
+  setEl('top-performers', top3.map(c => miniContentCard(c)).join(''));
+
+  renderEngagementChart(filtered);
+  renderPlatformChart(filtered);
+  renderPlatformHealth(filtered);
+  generateAIBrief(filtered);
+}
+
+function refreshDashboard() { loadDashboard(); }
+
+function renderEngagementChart(items) {
+  const ctx = document.getElementById('chart-engagement');
+  if (!ctx) return;
+  if (ctx._chart) ctx._chart.destroy();
+  // Group by date
+  const byDate = {};
+  items.forEach(item => {
+    const d = item.publishedAt.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    if (!byDate[d]) byDate[d] = 0;
+    byDate[d] += item.metrics.reach;
+  });
+  const labels = Object.keys(byDate).slice(-14);
+  const data = labels.map(l => byDate[l]);
+  ctx._chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Reach',
+        data,
+        fill: true,
+        backgroundColor: 'rgba(108,99,255,0.1)',
+        borderColor: 'rgba(108,99,255,0.8)',
+        tension: 0.4,
+        pointRadius: 3
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b', font:{size:10} }, grid: { color: 'rgba(255,255,255,0.03)' } }, y: { ticks: { color: '#64748b', font:{size:10}, callback: v => fmtNum(v) }, grid: { color: 'rgba(255,255,255,0.03)' } } } }
+  });
+}
+
+function renderPlatformChart(items) {
+  const ctx = document.getElementById('chart-platform');
+  if (!ctx) return;
+  if (ctx._chart) ctx._chart.destroy();
+  const byPlatform = {};
+  items.forEach(c => { byPlatform[c.platform] = (byPlatform[c.platform]||0) + c.metrics.reach; });
+  const labels = Object.keys(byPlatform);
+  const data = labels.map(l => byPlatform[l]);
+  const colors = { instagram:'#e1306c', tiktok:'#69c9d0', youtube:'#ff0000', linkedin:'#0077b5', twitter:'#1da1f2', facebook:'#1877f2', substack:'#ff6600', bluesky:'#0085ff' };
+  ctx._chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: labels.map(l => l.charAt(0).toUpperCase()+l.slice(1)), datasets: [{ data, backgroundColor: labels.map(l => colors[l]||'#6c63ff'), borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font:{size:10}, boxWidth: 10 } } } }
+  });
+}
+
+function renderPlatformHealth(items) {
+  const byP = {};
+  items.forEach(c => {
+    if (!byP[c.platform]) byP[c.platform] = { reach:0, er:[], posts:0 };
+    byP[c.platform].reach += c.metrics.reach;
+    byP[c.platform].er.push(c.metrics.engagementRate);
+    byP[c.platform].posts++;
+  });
+  const icons = { instagram:'📸', tiktok:'🎵', youtube:'▶️', linkedin:'💼', twitter:'🐦', facebook:'👥', substack:'📝', bluesky:'🦋' };
+  const html = Object.entries(byP).map(([p, d]) => {
+    const avgER = (d.er.reduce((s,v)=>s+v,0)/d.er.length).toFixed(1);
+    const score = Math.min(100, Math.round(avgER * 8 + d.posts * 5));
+    return `<div class="stat-card"><div class="stat-label">${icons[p]||'📱'} ${p.charAt(0).toUpperCase()+p.slice(1)}</div><div class="stat-value" style="font-size:18px">${fmtNum(d.reach)}</div><div class="stat-change neutral">${avgER}% ER · ${d.posts} posts</div><div style="margin-top:8px"><div class="progress-bar"><div class="progress-fill" style="width:${score}%;background:${score>70?'var(--green)':score>40?'var(--gold)':'var(--red)'}"></div></div></div></div>`;
+  }).join('');
+  setEl('platform-health', html || '<div class="empty-state"><div class="empty-sub">No data yet. Connect platforms or enable mock data.</div></div>');
+}
+
+async function generateAIBrief(items) {
+  const el = document.getElementById('ai-brief');
+  if (!el) return;
+  if (!STATE.config.key_claude) {
+    const topPost = items.sort((a,b)=>b.performanceScore-a.performanceScore)[0];
+    el.innerHTML = `<strong>This week's headline:</strong> Your TikTok is your fastest growth engine right now with 10.3% avg engagement — 4x industry average. Your "AI anxiety" angle is resonating most deeply. Substack has your highest quality audience (13.8% engagement) even with smaller reach. <strong>Priority:</strong> Repurpose your top TikToks as Instagram Reels within 48 hours. <strong>Monetization signal:</strong> 6 comments this week directly asked about courses or coaching. Your audience is ready.`;
+    return;
+  }
+  el.innerHTML = '<span class="spinner"></span> Generating AI brief...';
+  const summary = items.slice(0,5).map(c => `${c.platform}: "${c.caption.slice(0,80)}" — ${c.metrics.views} views, ${c.metrics.engagementRate}% ER`).join('\n');
+  const insight = await claudeInsight(`You are a content strategist for a personal brand called "yourhumanedge with AI" by Temitope — an authority on AI and human psychology helping people cross the psychological bridge from AI fear to AI empowerment. Analyze this week's content performance and give a 3-4 sentence strategic brief: what's working, what's not, and the #1 priority action. Be direct, specific, no fluff.\n\nContent this period:\n${summary}`);
+  el.innerHTML = insight;
+}
+
+// =====================================================
+// CONTENT FEED
+// =====================================================
+function loadContentFeed() {
+  filterContent();
+}
+
+function setContentTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  STATE.activeContentTab = tab;
+  filterContent();
+}
+
+function filterContent() {
+  const platform = document.getElementById('filter-platform')?.value || 'all';
+  const sort = document.getElementById('sort-content')?.value || 'date';
+  let items = getData();
+  if (platform !== 'all') items = items.filter(c => c.platform === platform);
+  if (STATE.activeContentTab === 'top') items = items.filter(c => c.performanceScore >= 75);
+  if (STATE.activeContentTab === 'flops') items = items.filter(c => c.performanceScore < 60);
+  if (STATE.activeContentTab === 'ad-ready') items = items.filter(c => c.adScore >= 75);
+  if (sort === 'views') items.sort((a,b) => b.metrics.views - a.metrics.views);
+  else if (sort === 'er') items.sort((a,b) => b.metrics.engagementRate - a.metrics.engagementRate);
+  else if (sort === 'score') items.sort((a,b) => b.performanceScore - a.performanceScore);
+  else items.sort((a,b) => b.publishedAt - a.publishedAt);
+  setEl('content-feed', items.length ? items.map(c => contentCard(c)).join('') : '<div class="empty-state"><div class="empty-icon">🎬</div><div class="empty-title">No content found</div><div class="empty-sub">Connect platforms or enable mock data</div></div>');
+}
+
+function contentCard(c) {
+  const scoreClass = c.performanceScore >= 75 ? 'score-hi' : c.performanceScore >= 50 ? 'score-mid' : 'score-lo';
+  const adBadge = c.adScore >= 75 ? `<span class="tag tag-ad">🚀 Ad-Ready</span>` : '';
+  return `<div class="content-item" id="ci-${c.id}" onclick="toggleContentExpand('${c.id}')">
+    <div class="ci-top">
+      <div class="ci-thumb">${platformEmoji(c.platform)}</div>
+      <div class="ci-info">
+        <div class="ci-caption">${c.caption}</div>
+        <div class="ci-meta">
+          ${platformBadge(c.platform)}
+          <span class="tag">${c.type}</span>
+          <span style="font-size:10px;color:var(--text3)">${timeAgo(c.publishedAt)}</span>
+          ${adBadge}
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;padding-left:12px">
+        <div class="perf-score ${scoreClass}" style="font-size:22px">${c.performanceScore}</div>
+        <div style="font-size:10px;color:var(--text3)">score</div>
+      </div>
+    </div>
+    <div class="ci-metrics">
+      <div class="metric-item"><div class="metric-val">${fmtNum(c.metrics.views||c.metrics.reach)}</div><div class="metric-lbl">Views</div></div>
+      <div class="metric-item"><div class="metric-val">${c.metrics.engagementRate}%</div><div class="metric-lbl">Eng. Rate</div></div>
+      <div class="metric-item"><div class="metric-val">${fmtNum(c.metrics.likes)}</div><div class="metric-lbl">Likes</div></div>
+      <div class="metric-item"><div class="metric-val">${fmtNum(c.metrics.comments)}</div><div class="metric-lbl">Comments</div></div>
+      <div class="metric-item"><div class="metric-val">${fmtNum(c.metrics.shares)}</div><div class="metric-lbl">Shares</div></div>
+      ${c.metrics.saves ? `<div class="metric-item"><div class="metric-val">${fmtNum(c.metrics.saves)}</div><div class="metric-lbl">Saves</div></div>` : ''}
+    </div>
+    <div class="insight-panel" id="expand-${c.id}" style="display:none">
+      <div class="insight-title">⚡ AI Analysis</div>
+      <div class="insight-text" id="insight-${c.id}">${c.aiInsight || '<span class="spinner"></span>'}</div>
+      <div class="insight-tags" id="tags-${c.id}">
+        ${c.performanceScore>=75?'<span class="tag tag-good">✓ High Performer</span>':''}
+        ${c.adScore>=75?'<span class="tag tag-ad">🚀 Boost This</span>':''}
+        ${c.metrics.saves>500?'<span class="tag tag-good">💾 High Saves</span>':''}
+        ${c.metrics.comments/c.metrics.views*100>0.4?'<span class="tag tag-good">💬 High Comment Rate</span>':''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function miniContentCard(c) {
+  return `<div class="content-item" onclick="showPage('content')">
+    <div class="ci-top">
+      <div class="ci-thumb">${platformEmoji(c.platform)}</div>
+      <div class="ci-info">
+        <div class="ci-caption">${c.caption.slice(0,90)}...</div>
+        <div class="ci-meta">${platformBadge(c.platform)}<span style="font-size:10px;color:var(--text3)">${timeAgo(c.publishedAt)}</span></div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;padding-left:12px">
+        <div class="perf-score ${c.performanceScore>=75?'score-hi':c.performanceScore>=50?'score-mid':'score-lo'}" style="font-size:20px">${c.performanceScore}</div>
+        <div style="font-size:10px;color:var(--text3)">${fmtNum(c.metrics.views)} views</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function toggleContentExpand(id) {
+  const panel = document.getElementById('expand-'+id);
+  const item = document.getElementById('ci-'+id);
+  if (!panel) return;
+  const open = panel.style.display === 'block';
+  panel.style.display = open ? 'none' : 'block';
+  item.classList.toggle('expanded', !open);
+  if (!open) {
+    const content = getData().find(c => c.id === id);
+    if (content && !content.aiInsight && STATE.config.key_claude) {
+      const el = document.getElementById('insight-'+id);
+      const insight = await claudeInsight(`Analyze this social media post performance for "yourhumanedge with AI" brand: Platform: ${content.platform}, Caption: "${content.caption}", Views: ${content.metrics.views}, Engagement Rate: ${content.metrics.engagementRate}%, Likes: ${content.metrics.likes}, Comments: ${content.metrics.comments}, Shares: ${content.metrics.shares}. Give a 2-3 sentence analysis of WHY it performed this way and 1 specific improvement tip. Be direct.`);
+      if (el) el.innerHTML = insight;
+    }
+  }
+}
+
+// =====================================================
+// COMMENTS
+// =====================================================
+function loadComments() {
+  const comments = getComments();
+  const pos = comments.filter(c => c.sentiment === 'positive').length;
+  const neu = comments.filter(c => c.sentiment === 'neutral').length;
+  const neg = comments.filter(c => c.sentiment === 'negative').length;
+  const buy = comments.filter(c => c.buySignal).length;
+  const total = comments.length;
+
+  setEl('sent-pos-pct', Math.round(pos/total*100) + '%');
+  setEl('sent-pos-count', pos + ' comments');
+  setEl('sent-neu-pct', Math.round(neu/total*100) + '%');
+  setEl('sent-neu-count', neu + ' comments');
+  setEl('sent-neg-pct', Math.round(neg/total*100) + '%');
+  setEl('sent-neg-count', neg + ' comments');
+  setEl('sent-buy-pct', Math.round(buy/total*100) + '%');
+  setEl('sent-buy-count', buy + ' comments');
+
+  // Themes
+  const themes = [
+    { theme: 'AI Anxiety & Fear', count: 4, icon: '😨' },
+    { theme: 'Seeking Guidance', count: 5, icon: '🧭' },
+    { theme: 'Career Transition', count: 3, icon: '🔄' },
+    { theme: 'Course/Product Interest', count: 4, icon: '📚' },
+    { theme: 'Sharing with Others', count: 2, icon: '🔗' },
+  ];
+  setEl('comment-themes', themes.map(t => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span style="font-size:16px">${t.icon}</span>
+      <div style="flex:1">
+        <div style="font-size:12px;margin-bottom:4px">${t.theme}</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${t.count/5*100}%;background:var(--accent)"></div></div>
+      </div>
+      <span style="font-size:11px;color:var(--text3)">${t.count}</span>
+    </div>`).join(''));
+
+  // Content ideas
+  const ideas = [
+    '💡 "What to do when your company asks you to use AI but you don\'t know how"',
+    '💡 "The 5 stages of AI anxiety (and which one you\'re in)"',
+    '💡 "How to explain AI to your manager without sounding scared or arrogant"',
+    '💡 Day-in-the-life: how I actually use AI to think, create and communicate',
+  ];
+  setEl('comment-ideas', ideas.map(i => `<div style="padding:8px 12px;background:var(--bg3);border-radius:6px;font-size:12px;color:var(--text2);margin-bottom:6px">${i}</div>`).join(''));
+
+  // Comments list
+  setEl('comment-list', comments.slice(0,6).map(c => `
+    <div class="comment-item">
+      <div class="comment-header">
+        <div class="sentiment-dot sent-${c.sentiment === 'positive' ? 'pos' : c.sentiment === 'negative' ? 'neg' : 'neu'}"></div>
+        <div class="comment-user">${c.user}</div>
+        <span style="font-size:10px;color:var(--text3);margin-left:auto">${platformBadge(c.platform)}</span>
+        ${c.buySignal ? '<span class="tag tag-ad" style="font-size:9px">💰 Buy signal</span>' : ''}
+      </div>
+      <div class="comment-text">${c.text}</div>
+    </div>`).join(''));
+
+  // Buy signals
+  const buyers = comments.filter(c => c.buySignal);
+  setEl('buy-signals', buyers.map(c => `
+    <div class="money-signal">
+      <div class="signal-icon">💰</div>
+      <div class="signal-body">
+        <div class="signal-title">${c.user} <span style="font-weight:400;color:var(--text3)">on ${c.platform}</span></div>
+        <div class="signal-desc">"${c.text}"</div>
+      </div>
+    </div>`).join(''));
+}
+
+async function analyzeComments() {
+  if (!STATE.config.key_claude) { showToast('Add Claude API key in Settings first'); return; }
+  const comments = getComments();
+  const text = comments.map(c => c.text).join('\n');
+  const el = document.getElementById('comment-themes');
+  el.innerHTML = '<span class="spinner"></span> Analyzing with AI...';
+  const insight = await claudeInsight(`Analyze these comments from a personal brand account about AI & human psychology. Extract: 1) Top 5 emotional themes, 2) Most common questions/objections, 3) Signals of purchase intent, 4) Content ideas the audience is asking for. Be specific and actionable.\n\nComments:\n${text}`);
+  document.getElementById('comment-ideas').innerHTML = `<div class="insight-panel"><div class="insight-text">${insight}</div></div>`;
+}
+
+// =====================================================
+// MONETIZATION
+// =====================================================
+function loadMonetization() {
+  setEl('audience-readiness', '72');
+  setEl('readiness-breakdown', `
+    <div style="margin-top:8px">
+      ${readinessRow('Trust Score', 85)}
+      ${readinessRow('Engagement Depth', 78)}
+      ${readinessRow('Buy Signal Rate', 60)}
+      ${readinessRow('Audience Size', 55)}
+    </div>`);
+
+  const opportunities = [
+    { icon:'📚', title:'Digital Course: AI Onboarding for Humans', signal:'6 direct asks in comments this month', priority:'HIGH', revenue:'$2K–$15K/launch' },
+    { icon:'🤝', title:'1:1 Coaching / Consulting', signal:'3 DM-style comments asking for personal help', priority:'HIGH', revenue:'$1,000–$2K/client' },
+    { icon:'💌', title:'Paid Newsletter Tier (Substack)', signal:'13.8% engagement = subscriber loyalty', priority:'MEDIUM', revenue:'$10–$30/mo recurring' },
+    { icon:'🏢', title:'Corporate Keynotes / Workshops', signal:'HR & manager audience on LinkedIn asking for team help', priority:'MEDIUM', revenue:'$3K–$15K/booking' },
+    { icon:'🎁', title:'Community / Membership', signal:'Multiple "where can I learn more" comments', priority:'LOW-MED', revenue:'$29–$99/mo' },
+  ];
+  setEl('mono-opportunities', opportunities.map(o => `
+    <div class="money-signal">
+      <div class="signal-icon">${o.icon}</div>
+      <div class="signal-body">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="signal-title">${o.title}</div>
+          <span class="tag ${o.priority==='HIGH'?'tag-good':o.priority.includes('MEDIUM')?'tag-warn':''}" style="font-size:9px">${o.priority}</span>
+        </div>
+        <div class="signal-desc">${o.signal} · <strong style="color:var(--gold)">${o.revenue}</strong></div>
+      </div>
+    </div>`).join(''));
+
+  const funnelItems = [
+    { content: 'TikTok "200 people" video', stage: 'Discovery', action: 'CTA → Newsletter signup' },
+    { content: 'IG "AI won\'t replace you" Reel', stage: 'Interest', action: 'CTA → Free lead magnet' },
+    { content: 'Substack "Permission Problem"', stage: 'Consideration', action: 'Upgrade prompt → Paid tier' },
+    { content: 'LinkedIn Bridge post', stage: 'Intent', action: 'DM → Book a call' },
+  ];
+  setEl('funnel-map', funnelItems.map((f,i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg3);border-radius:8px;margin-bottom:6px">
+      <div style="font-size:18px;flex-shrink:0">${['🎯','💡','🔥','💰'][i]}</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600">${f.content}</div>
+        <div style="font-size:11px;color:var(--text3)">${f.stage} stage → ${f.action}</div>
+      </div>
+    </div>`).join(''));
+
+  setEl('revenue-plays', [
+    '💌 Pin a "Join my newsletter" link in every TikTok bio',
+    '📞 Post 1 "Book a call" CTA weekly on LinkedIn',
+    '🎁 Create a free AI Starter Kit lead magnet from your Substack article',
+    '🔁 Reply to every buy-signal comment with a soft offer',
+  ].map(p => `<div style="font-size:12px;padding:8px;border-bottom:1px solid var(--border);color:var(--text2)">${p}</div>`).join(''));
+
+  setEl('pmf-signals', [
+    { signal: 'Unsolicited course asks', count: 6, strength: 'Strong' },
+    { signal: 'Comment saves content to share', count: 4, strength: 'Medium' },
+    { signal: '"Do you have a community?" asks', count: 3, strength: 'Medium' },
+    { signal: 'DM-style coaching requests in comments', count: 3, strength: 'Strong' },
+    { signal: '"Thank you, you gave me permission" moments', count: 2, strength: 'Strong' },
+  ].map(s => `
+    <div class="money-signal">
+      <div class="signal-icon">📡</div>
+      <div class="signal-body">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="signal-title">${s.signal}</div>
+          <span class="tag ${s.strength==='Strong'?'tag-good':'tag-warn'}" style="font-size:9px">${s.strength}</span>
+          <span style="font-size:11px;color:var(--text3);margin-left:auto">${s.count}x this month</span>
+        </div>
+      </div>
+    </div>`).join(''));
+}
+
+function readinessRow(label, score) {
+  return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+    <div style="font-size:11px;color:var(--text3);width:130px">${label}</div>
+    <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:${score}%;background:${score>70?'var(--green)':score>40?'var(--gold)':'var(--red)'}"></div></div>
+    <div style="font-size:11px;color:var(--text3);width:30px;text-align:right">${score}</div>
+  </div>`;
+}
+
+// =====================================================
+// AD STRATEGY
+// =====================================================
+function loadAdStrategy() {
+  const content = getData();
+  const adReady = content.filter(c => c.adScore >= 75);
+  const avgOrganic = Math.round(content.reduce((s,c)=>s+c.performanceScore,0)/content.length);
+
+  setEl('ad-ready-count', adReady.length);
+  setEl('avg-organic-score', avgOrganic + '/100');
+
+  // Top ad platform based on organic perf
+  const byP = {};
+  content.forEach(c => { byP[c.platform] = (byP[c.platform]||0) + c.metrics.engagementRate; });
+  const topP = Object.entries(byP).sort((a,b)=>b[1]-a[1])[0];
+  setEl('top-ad-platform', topP ? topP[0].charAt(0).toUpperCase()+topP[0].slice(1) : 'TikTok');
+
+  // Strategy text
+  setEl('ad-strategy-text', `<strong>Your organic data says:</strong> TikTok has your highest engagement rate (10.3%) and your "AI anxiety" angle consistently outperforms. Start there with Spark Ads — you're not paying to make new creative, you're amplifying what already proven to work.<br><br><strong>Phase 1 (No spend yet):</strong> Identify your top 3 TikToks and set them up as Spark Ad candidates. Build your pixel/tracking now.<br><br><strong>Phase 2 ($300-500/mo):</strong> Spark Ads on top TikToks, targeted at 25-45 professionals feeling career anxiety about AI. Goal: newsletter signups, not sales yet.<br><br><strong>Phase 3 (Scale):</strong> Retarget engagers with lead magnet → course offer. Your comment buy signals show conversion will be high.`);
+
+  // Budget chart
+  const ctx = document.getElementById('chart-budget');
+  if (ctx) {
+    if (ctx._chart) ctx._chart.destroy();
+    ctx._chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['TikTok Spark Ads', 'Meta Reels Boost', 'LinkedIn Sponsored', 'Testing Reserve'],
+        datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#69c9d0','#e1306c','#0077b5','#6c63ff'], borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font:{size:10}, boxWidth: 10 } } } }
+    });
+  }
+
+  // Boost candidates
+  const sorted = [...content].sort((a,b) => b.adScore - a.adScore).slice(0,5);
+  setEl('boost-candidates', sorted.map((c,i) => `
+    <div class="ad-candidate">
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="font-size:20px;font-weight:800;color:var(--text3);width:24px">#${i+1}</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            ${platformBadge(c.platform)}
+            <span style="font-size:12px;color:var(--text)">${c.caption.slice(0,80)}...</span>
+          </div>
+          <div class="ad-score-bar">
+            <span class="ad-score-label">Ad Potential</span>
+            <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:${c.adScore}%;background:var(--accent)"></div></div>
+            <span style="font-size:11px;color:var(--accent2);width:35px;text-align:right">${c.adScore}/100</span>
+          </div>
+          <div class="ad-score-bar">
+            <span class="ad-score-label">Organic Score</span>
+            <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:${c.performanceScore}%;background:var(--green)"></div></div>
+            <span style="font-size:11px;color:var(--green);width:35px;text-align:right">${c.performanceScore}/100</span>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px">
+            ${fmtNum(c.metrics.views)} views · ${c.metrics.engagementRate}% ER ·
+            <span style="color:var(--gold)">Est. CPM: $${(15 - c.adScore * 0.08).toFixed(2)} if boosted</span>
+          </div>
+        </div>
+      </div>
+    </div>`).join(''));
+
+  // Populate ad copy dropdown
+  const sel = document.getElementById('ad-copy-source');
+  if (sel) {
+    sel.innerHTML = '<option value="">Select content...</option>' + content.slice(0,8).map((c,i) => `<option value="${i}">${c.platform} — ${c.caption.slice(0,50)}...</option>`).join('');
+  }
+}
+
+async function generateAdStrategy() {
+  if (!STATE.config.key_claude) { showToast('Add Claude API key in Settings first'); return; }
+  const content = getData();
+  const top3 = [...content].sort((a,b)=>b.adScore-a.adScore).slice(0,3);
+  const el = document.getElementById('ad-strategy-text');
+  el.innerHTML = '<span class="spinner"></span> Generating strategy...';
+  const insight = await claudeInsight(`You are a performance marketing strategist for "yourhumanedge with AI" — a personal brand by Temitope focused on AI and human psychology. The creator is NOT yet running ads. Based on this organic content data, build a specific ad strategy recommendation:\n\n${top3.map(c=>`"${c.caption.slice(0,100)}" — ${c.platform}, ${c.metrics.views} views, ${c.metrics.engagementRate}% ER, Ad Score: ${c.adScore}/100`).join('\n')}\n\nInclude: (1) which platform to start with and why, (2) what campaign objective to use, (3) who to target, (4) how much to start spending, (5) what the funnel looks like. Be specific.`);
+  el.innerHTML = insight;
+}
+
+async function generateAdCopy() {
+  const sel = document.getElementById('ad-copy-source');
+  const platform = document.getElementById('ad-copy-platform')?.value || 'meta';
+  const idx = parseInt(sel?.value);
+  if (isNaN(idx)) { showToast('Select a content piece first'); return; }
+  const content = getData()[idx];
+  const el = document.getElementById('ad-copy-output');
+  el.innerHTML = '<span class="spinner"></span> Writing ad copy...';
+  if (!STATE.config.key_claude) {
+    el.innerHTML = `<div class="insight-panel"><div class="insight-title">Meta Ad Copy — Awareness Campaign</div><div class="insight-text"><strong>Primary Text:</strong> Most people are waiting for permission to use AI. I'm telling you — you already have it. Your human skills aren't a liability in the AI era. They're your biggest asset. Here's what I mean →<br><br><strong>Headline:</strong> Your Human Edge in the AI Era<br><br><strong>Description:</strong> Stop fearing AI. Start using it to amplify what makes you irreplaceable.<br><br><strong>CTA:</strong> Learn More → [Newsletter signup]</div></div>`;
+    return;
+  }
+  const copy = await claudeInsight(`Write ad copy for a ${platform} ad based on this organic content that performed well: "${content.caption}". The brand is "yourhumanedge with AI" by Temitope — expert in AI and human psychology. Target: professionals 25-45 feeling AI anxiety. Format: Primary Text (2-3 sentences), Headline (5-7 words), Description (1 sentence), CTA button text. Make it feel human, not salesy.`);
+  el.innerHTML = `<div class="insight-panel"><div class="insight-title">Generated Ad Copy — ${platform.charAt(0).toUpperCase()+platform.slice(1)}</div><div class="insight-text">${copy}</div></div>`;
+}
+
+// =====================================================
+// GROWTH
+// =====================================================
+function loadGrowth() {
+  // Follower chart
+  const ctx1 = document.getElementById('chart-followers');
+  if (ctx1 && !ctx1._chart) {
+    const labels = ['Week 1','Week 2','Week 3','Week 4','Week 5','Week 6','Week 7','Week 8'];
+    ctx1._chart = new Chart(ctx1, {
+      type: 'line',
+      data: { labels, datasets: [
+        { label:'TikTok', data:[2100,2800,4200,5900,8100,11400,16200,22800], borderColor:'#69c9d0', tension:0.4, fill:false, pointRadius:2 },
+        { label:'Instagram', data:[3200,3800,4500,5200,6100,7300,8800,10400], borderColor:'#e1306c', tension:0.4, fill:false, pointRadius:2 },
+        { label:'LinkedIn', data:[1800,2100,2600,3200,3900,4700,5600,6700], borderColor:'#0077b5', tension:0.4, fill:false, pointRadius:2 },
+      ]},
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#94a3b8',font:{size:10},boxWidth:10}}}, scales:{ x:{ticks:{color:'#64748b',font:{size:10}},grid:{color:'rgba(255,255,255,0.03)'}}, y:{ticks:{color:'#64748b',font:{size:10},callback:v=>fmtNum(v)},grid:{color:'rgba(255,255,255,0.03)'}} } }
+    });
+  }
+
+  // Pillar chart
+  const ctx2 = document.getElementById('chart-pillars');
+  if (ctx2 && !ctx2._chart) {
+    ctx2._chart = new Chart(ctx2, {
+      type: 'bar',
+      data: { labels:['AI Anxiety','Identity','Career','Relationships','Spirituality','Money'], datasets:[{ label:'Avg ER%', data:[10.2,8.4,7.1,6.8,5.9,6.2], backgroundColor:['rgba(108,99,255,0.7)','rgba(167,139,250,0.7)','rgba(99,102,241,0.7)','rgba(139,92,246,0.7)','rgba(124,58,237,0.7)','rgba(109,40,217,0.7)'], borderRadius:4 }] },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{ticks:{color:'#64748b',font:{size:10}},grid:{display:false}}, y:{ticks:{color:'#64748b',font:{size:10}},grid:{color:'rgba(255,255,255,0.03)'}} } }
+    });
+  }
+
+  setEl('best-times', [
+    { platform:'TikTok', times:['7-9am', '12-1pm', '8-10pm'], tz:'EST' },
+    { platform:'Instagram', times:['8-10am', '6-8pm'], tz:'EST' },
+    { platform:'LinkedIn', times:['7-9am Tue-Thu'], tz:'EST' },
+  ].map(p => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:600;width:90px">${p.platform}</div>
+      <div style="flex:1;font-size:12px;color:var(--text2)">${p.times.join(' · ')}</div>
+      <div style="font-size:10px;color:var(--text3)">${p.tz}</div>
+    </div>`).join(''));
+
+  setEl('content-mix', [
+    { type:'Educational / How-to', pct:40, color:'var(--accent)' },
+    { type:'Storytelling / Personal', pct:25, color:'var(--gold)' },
+    { type:'Hot Takes / Opinion', pct:20, color:'#ef4444' },
+    { type:'Social Proof / Results', pct:10, color:'var(--green)' },
+    { type:'Promotional / Offers', pct:5, color:'var(--text3)' },
+  ].map(m => `
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
+        <span>${m.type}</span><span style="color:${m.color}">${m.pct}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${m.pct*2}%;background:${m.color}"></div></div>
+    </div>`).join(''));
+
+  setEl('growth-playbook', `<strong>Month 1 — Establish Velocity:</strong> Post 5x/week on TikTok (your #1 growth engine). Repurpose every TikTok to Instagram Reels within 48 hours. Start a weekly LinkedIn post using your Substack drafts. Goal: 50K total reach/week.<br><br><strong>Month 2 — Build the Bridge:</strong> Launch free lead magnet (AI Starter Kit for Humans). Every high-performing video ends with newsletter CTA. Start replying to every buy-signal comment with a DM invitation. Goal: 2,000 email subscribers.<br><br><strong>Month 3 — Monetize the Trust:</strong> Launch beta cohort of digital course (pre-sell to your email list). Pitch 3 corporate keynote opportunities via LinkedIn. Set up paid Substack tier. Goal: $15K–$30K first revenue month.`);
+}
+
+// =====================================================
+// PLATFORM CONNECTIONS UI
+// =====================================================
+const PLATFORM_CONFIGS = [
+  { id:'instagram', name:'Instagram', icon:'📸', keyLabel:'Access Token', keyPlaceholder:'IGQVJxxxxxxx...', docLink:'https://developers.facebook.com/docs/instagram-api', corsRequired:true },
+  { id:'tiktok', name:'TikTok', icon:'🎵', keyLabel:'Access Token', keyPlaceholder:'act.xxxxxxx...', docLink:'https://developers.tiktok.com', corsRequired:true },
+  { id:'youtube', name:'YouTube', icon:'▶️', keyLabel:'API Key', keyPlaceholder:'AIzaSyxxxxxxx...', docLink:'https://console.cloud.google.com', corsRequired:false },
+  { id:'linkedin', name:'LinkedIn', icon:'💼', keyLabel:'Access Token', keyPlaceholder:'AQXXXX...', docLink:'https://www.linkedin.com/developers', corsRequired:true },
+  { id:'twitter', name:'X / Twitter', icon:'🐦', keyLabel:'Bearer Token', keyPlaceholder:'AAAAAAAAAA...', docLink:'https://developer.twitter.com', corsRequired:true },
+  { id:'facebook', name:'Facebook', icon:'👥', keyLabel:'Access Token (same as IG)', keyPlaceholder:'EAAxxxxxxx...', docLink:'https://developers.facebook.com', corsRequired:true },
+  { id:'substack', name:'Substack', icon:'📝', keyLabel:'Publication URL', keyPlaceholder:'yourhuman.substack.com', docLink:'https://substack.com', corsRequired:false },
+  { id:'bluesky', name:'Bluesky', icon:'🦋', keyLabel:'App Password', keyPlaceholder:'xxxx-xxxx-xxxx-xxxx', docLink:'https://bsky.app/settings/app-passwords', corsRequired:false },
+];
+
+function renderPlatformKeys() {
+  const grid = document.getElementById('platform-keys-grid');
+  if (!grid) return;
+  grid.innerHTML = PLATFORM_CONFIGS.map(p => `
+    <div class="platform-card">
+      <div class="platform-header">
+        <span class="platform-icon">${p.icon}</span>
+        <div>
+          <div class="platform-name">${p.name}</div>
+          <div class="platform-status status-disconnected" id="${p.id}-status">○ Not connected</div>
+        </div>
+      </div>
+      <label class="input-label">${p.keyLabel}</label>
+      <input type="password" class="input-field" id="key-${p.id}" placeholder="${p.keyPlaceholder}" oninput="checkKey('${p.id}')">
+      ${p.corsRequired ? `<div style="font-size:10px;color:var(--text3);margin-top:4px">⚠️ Requires CORS proxy on localhost</div>` : ''}
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button class="connect-btn" id="${p.id}-btn" onclick="testPlatformKey('${p.id}')">Test</button>
+        <a href="${p.docLink}" target="_blank" style="display:flex;align-items:center;padding:6px 10px;border-radius:6px;border:1px solid var(--border);font-size:11px;color:var(--text3);text-decoration:none">Docs ↗</a>
+      </div>
+    </div>`).join('');
+  // Restore saved keys
+  PLATFORM_CONFIGS.forEach(p => {
+    const el = document.getElementById('key-'+p.id);
+    if (el && STATE.config['key_'+p.id]) { el.value = STATE.config['key_'+p.id]; checkKey(p.id); }
+  });
+}
+
+async function testClaudeKey() {
+  const key = document.getElementById('key-claude')?.value?.trim();
+  if (!key) { showToast('Enter an API key first'); return; }
+  const btn = document.getElementById('claude-btn');
+  btn.textContent = 'Testing...';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'x-api-key':key, 'anthropic-version':'2023-06-01', 'content-type':'application/json' },
+      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:10, messages:[{role:'user',content:'hi'}] })
+    });
+    if (res.ok) {
+      STATE.config.key_claude = key;
+      saveConfig();
+      document.getElementById('claude-status').textContent = '● Connected';
+      document.getElementById('claude-status').className = 'platform-status status-connected';
+      btn.textContent = '✓ Connected';
+      btn.classList.add('active');
+      showToast('✅ Claude API connected!');
+    } else {
+      btn.textContent = '✗ Invalid key';
+      showToast('Invalid API key');
+    }
+  } catch(e) {
+    btn.textContent = 'Test Connection';
+    showToast('Connection failed — check CORS or key');
+  }
+}
+
+async function testPlatformKey(platform) {
+  const key = document.getElementById('key-'+platform)?.value?.trim();
+  if (!key) { showToast('Enter a key first'); return; }
+  STATE.config['key_'+platform] = key;
+  saveConfig();
+  checkKey(platform);
+  showToast(`✅ ${platform} key saved. Live sync will use this.`);
+}
+
+// =====================================================
+// API: SYNC ALL
+// =====================================================
+async function syncAll() {
+  const btn = document.querySelector('.sync-btn');
+  btn.textContent = '⟳ Syncing...';
+  // In production: call each platform API
+  // For now: show toast and update timestamp
+  await delay(1500);
+  btn.textContent = '⟳ Sync All Platforms';
+  document.getElementById('last-sync').textContent = 'Synced just now';
+  showToast('✅ Sync complete!');
+  loadDashboard();
+}
+
+// =====================================================
+// CLAUDE API
+// =====================================================
+async function claudeInsight(prompt) {
+  const key = STATE.config.key_claude;
+  if (!key) return '<em style="color:var(--text3)">Add Claude API key in Settings to enable AI insights.</em>';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'x-api-key':key, 'anthropic-version':'2023-06-01', 'content-type':'application/json' },
+      body: JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:400,
+        messages:[{ role:'user', content:prompt }]
+      })
+    });
+    if (!res.ok) throw new Error('API error '+res.status);
+    const data = await res.json();
+    return data.content[0].text.replace(/\n/g,'<br>');
+  } catch(e) {
+    return `<em style="color:var(--red)">API error: ${e.message}</em>`;
+  }
+}
+
+// =====================================================
+// UTILS
+// =====================================================
+function setEl(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function fmtNum(n) {
+  if (!n) return '0';
+  if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+  if (n >= 1000) return (n/1000).toFixed(1)+'K';
+  return n.toString();
+}
+
+function timeAgo(date) {
+  const diff = Date.now() - date.getTime();
+  const d = Math.floor(diff/86400000);
+  if (d === 0) return 'Today';
+  if (d === 1) return 'Yesterday';
+  return d + 'd ago';
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function platformBadge(platform) {
+  const map = { instagram:'📸 IG', tiktok:'🎵 TT', youtube:'▶️ YT', linkedin:'💼 LI', twitter:'🐦 X', facebook:'👥 FB', substack:'📝 Sub', bluesky:'🦋 Sky' };
+  const cls = { instagram:'badge-ig', tiktok:'badge-tt', youtube:'badge-yt', linkedin:'badge-li', twitter:'badge-tw', facebook:'badge-fb', substack:'badge-sub', bluesky:'badge-bsky' };
+  return `<span class="platform-badge ${cls[platform]||''}">${map[platform]||platform}</span>`;
+}
+
+function platformEmoji(platform) {
+  const map = { instagram:'📸', tiktok:'🎵', youtube:'▶️', linkedin:'💼', twitter:'🐦', facebook:'👥', substack:'📝', bluesky:'🦋' };
+  return map[platform] || '📱';
+}
+
+  function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const hamburger = document.getElementById('hamburger-btn');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('active');
+  hamburger.classList.toggle('open');
+}
+
+function closeSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const hamburger = document.getElementById('hamburger-btn');
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+  hamburger.classList.remove('open');
+}
+
+function showToast(msg) {
+    const t = document.createElement('div');
+    const isMobile = window.innerWidth <= 600;
+    t.style.cssText = `position:fixed;bottom:${isMobile ? '70px' : '24px'};right:${isMobile ? '16px' : '24px'};left:${isMobile ? '16px' : 'auto'};background:var(--card2);border:1px solid var(--border2);color:var(--text);padding:10px 16px;border-radius:8px;font-size:13px;z-index:9999;animation:fadeIn 0.2s ease;box-shadow:0 4px 20px rgba(0,0,0,0.5);text-align:center`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+
+  // Email Gate
+  (function() {
+    var clickCount = 0;
+    var gateShown = false;
+    var submittedKey = 'demo_gate_shown';
+    var triggeredKey = 'demo_gate_triggered';
+
+    function trackClick() {
+      if (gateShown) return;
+      clickCount++;
+      if (clickCount >= 7) {
+        showGate();
+      }
+    }
+
+    function showGate() {
+      gateShown = true;
+      localStorage.setItem(triggeredKey, 'true');
+      var modal = document.getElementById('email-gate-modal');
+      if (modal) modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideGate() {
+      var modal = document.getElementById('email-gate-modal');
+      if (modal) modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem(submittedKey)) {
+        gateShown = true;
+      } else if (localStorage.getItem(triggeredKey)) {
+        showGate();
+      }
+
+      // Form submission
+      var form = document.getElementById('email-gate-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var firstName = document.getElementById('gate-first-name').value;
+          var lastName = document.getElementById('gate-last-name').value;
+          var email = document.getElementById('gate-email').value;
+          var role = document.getElementById('gate-role').value;
+
+          if (!firstName || !lastName || !email || !role) {
+            document.getElementById('gate-error').style.display = 'block';
+            document.getElementById('gate-error').textContent = 'All fields are required';
+            return;
+          }
+
+          fetch('/api/demo-gate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, role: role })
+          }).then(function() {
+            localStorage.setItem(submittedKey, 'true');
+            hideGate();
+          }).catch(function() {
+            hideGate();
+          });
+        });
+      }
+    });
+
+    document.addEventListener('click', trackClick);
+  })();
+  </script>
+
+  <style>@media(max-width:480px){#email-gate-modal>div{padding:24px 16px!important;margin:8px!important;max-height:calc(100vh - 16px)!important;overflow-y:auto!important}#email-gate-form>div:first-child{flex-direction:column!important;gap:10px!important}#email-gate-form>div:first-child>input{width:100%!important;flex:1 1 100%!important}}</style>
+
+<!-- Email Gate Modal -->
+  <div id="email-gate-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center">
+    <div style="background:#ffffff;border:1px solid #000000;border-radius:6px;padding:32px;max-width:420px;width:90%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#957DAD;margin-bottom:12px">Continue Exploring</div>
+      <h2 style="font-size:22px;font-weight:500;line-height:1.2;margin-bottom:8px;font-family:'Cormorant Garamond',Georgia,serif; color:#a78bfa;">Get full access to this demo</h2>
+      <p style="font-size:14px;color:#666666;line-height:1.6;margin-bottom:20px">Enter your details to continue exploring. We'll also send you similar tools built for your role.</p>
+      <form id="email-gate-form" style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px">
+          <input type="text" id="gate-first-name" placeholder="First Name" required style="flex:1;padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+          <input type="text" id="gate-last-name" placeholder="Last Name" required style="flex:1;padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+        </div>
+        <input type="email" id="gate-email" placeholder="Email" required style="padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;outline:none">
+        <select id="gate-role" required style="padding:10px 12px;border:1px solid #000000;border-radius:3px;font-size:14px;background:#ffffff;outline:none">
+          <option value="" disabled selected>I am a...</option>
+          <option value="Professional">Professional</option>
+          <option value="Founder">Founder</option>
+          <option value="Creator">Creator</option>
+          <option value="Company">Company</option>
+          <option value="Coach">Coach</option>
+        </select>
+        <button type="submit" style="padding:12px 20px;background:#957DAD;color:#000000;border:none;border-radius:3px;font-size:13px;font-weight:500;letter-spacing:0.02em;cursor:pointer;transition:background 0.15s">Continue to Demo</button>
+        <div id="gate-error" style="color:#C05252;font-size:12px;display:none"></div>
+      </form>
+    </div>
+  </div>
+  <div class="bottom-cta" style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:linear-gradient(135deg,#111827,#1f2937);border-top:1px solid rgba(108,99,255,0.3);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 -4px 20px rgba(0,0,0,0.3);"><span style="color:rgba(255,255,255,0.7);font-size:13px;letter-spacing:0.02em;">Like what you see?</span><a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a></div></body>
+  </html>

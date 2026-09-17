@@ -16,7 +16,7 @@ export default function WhatIsThis() {
               away with a pitch, not a plan.
             </p>
             <p className="body-md mb-4">
-              The Blueprint is a paid consulting engagement with one
+              The Audit is a paid consulting engagement with one
               deliverable: a complete, written strategy document that tells
               you exactly what your AI Operating System should look like, what
               to build first, what tools to use, what it will cost, and what

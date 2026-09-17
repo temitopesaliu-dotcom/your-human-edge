@@ -12,8 +12,7 @@ export default function Process() {
             From first conversation to running system.
           </h2>
           <p className="body-lg mt-3">
-            A defined path. No ambiguity. No wasted time on either side.<br></br>
-            Most implementations range from $3,500-$10,000+ depending on complexity.
+            A defined path. No ambiguity. No wasted time on either side.
           </p>
         </div>
 
@@ -42,7 +41,7 @@ export default function Process() {
           <div className="timeline-step highlight" data-default>
             <div className="timeline-number">3</div>
             <p className="timeline-step-label">The Starting Point</p>
-            <h3 className="timeline-step-title">Blueprint Session</h3>
+            <h3 className="timeline-step-title">Audit Session</h3>
             <p className="timeline-step-desc">
               A focused 90-minute strategy session where we map your business,
               identify AI opportunities, and design the architecture of your
@@ -58,20 +57,19 @@ export default function Process() {
             <p className="timeline-step-label">Within 5 Business Days</p>
             <h3 className="timeline-step-title">Architecture Delivery</h3>
             <p className="timeline-step-desc">
-              You receive a written Blueprint document with your workflow map,
-              AI architecture, technology recommendations, priority matrix, the
-              build sequence, and a costed estimate for the build itself.
+              You receive a written Audit document with your workflow map,
+              AI architecture, technology recommendations, priority sequence,
+              and a costed estimate for the scope.
             </p>
           </div>
           <div className="timeline-step">
             <div className="timeline-number">5</div>
-            <p className="timeline-step-label">Your Build, Your Way</p>
+            <p className="timeline-step-label">Your Plan, Your Way</p>
             <h3 className="timeline-step-title">Handover</h3>
             <p className="timeline-step-desc">
-              You own the architecture. Take it to your own team, your own
-              developer, or ask us to point you to implementation partners who
-              build to this kind of specification. Either way you leave with a
-              plan you can hand to anyone — not a dependency on us.
+              You own the architecture. You leave with a plan you can hand to
+              anyone — your own team, a developer, or to us. What we do next
+              is something we talk through together on the call.
             </p>
           </div>
         </div>

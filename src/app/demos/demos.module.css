@@ -1,0 +1,436 @@
+/* Demo grid page (/demos) — matches /the-blueprint-audit design system
+   (dark charcoal + gold accent, Cormorant Garamond × Inter) */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+.page {
+  --bg:            #080808;
+  --bg-1:          #0D0D0D;
+  --bg-2:          #121212;
+  --bg-3:          #1A1A1A;
+  --demos-border:  #232323;
+  --text:          #F0EDE8;
+  --text-2:        #9A9894;
+  --text-3:        #555552;
+  --gold:          #C8A96E;
+  --gold-light:    #D9BA80;
+  --gold-dim:      rgba(200, 169, 110, 0.10);
+  --gold-dim-2:    rgba(200, 169, 110, 0.05);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Ambient background (gold glow + faint grid, like the audit hero) ── */
+.bgGlow,
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bgGlow {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200, 169, 110, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 85% 40%, rgba(200, 169, 110, 0.03) 0%, transparent 50%);
+}
+
+.bgGrid {
+  background-image:
+    linear-gradient(rgba(240, 237, 232, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240, 237, 232, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.4;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black, transparent);
+}
+
+/* ── Nav ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  height: 72px;
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--demos-border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.navLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.navLogoDot {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.navBack {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-2);
+  transition: color 0.2s ease;
+}
+
+.navBack:hover {
+  color: var(--gold);
+}
+
+/* ── Page Header ── */
+.pageHeader {
+  padding: 5.5rem 4rem 3.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.label::before,
+.label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+.pageHeader h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--text);
+  margin: 0;
+  max-width: 18ch;
+}
+
+.subhead {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-2);
+  max-width: 52ch;
+  line-height: 1.7;
+}
+
+.demoNotice {
+  display: inline-flex;
+  align-items: flex-start;
+  margin-top: 2.25rem;
+  padding: 0.9rem 1.35rem;
+  border: 1px solid var(--demos-border);
+  border-left: 2px solid var(--gold);
+  background: var(--gold-dim-2);
+  color: var(--text-2);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.65;
+  max-width: 54ch;
+  text-align: left;
+}
+
+.demoNotice strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* ── Demo Grid ── */
+.gridWrapper {
+  flex: 1;
+  padding: 2.5rem 4rem 6.5rem;
+  position: relative;
+  z-index: 1;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.demoCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-1);
+  border: 1px solid var(--demos-border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.demoCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 110, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.demoCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(200, 169, 110, 0.4);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(200, 169, 110, 0.08);
+}
+
+.demoCard:hover::before {
+  opacity: 1;
+}
+
+.demoCardBody {
+  padding: 2.25rem 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.demoCardBody h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.15;
+  margin-bottom: 0.85rem;
+  color: var(--text);
+}
+
+.demoTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.75rem;
+}
+
+.demoTag::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.demoCardBody p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-2);
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+.demoCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.75rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(200, 169, 110, 0.45);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: fit-content;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.demoCard:hover .demoCta {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #080808;
+}
+
+/* ── "Coming soon" placeholder slots ── */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 1px dashed rgba(240, 237, 232, 0.14);
+  border-radius: 12px;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+.placeholderBody {
+  padding: 2.25rem 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.placeholderIcon {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(200, 169, 110, 0.3);
+  transform: rotate(45deg);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.placeholderIcon::after {
+  content: '+';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-45deg);
+  color: rgba(200, 169, 110, 0.55);
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: var(--font-body);
+}
+
+.placeholderTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-3);
+  margin-bottom: 0.6rem;
+}
+
+.placeholderText {
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-3);
+  flex: 1;
+}
+
+.placeholderLabel {
+  margin-top: 2rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border: 1px solid rgba(240, 237, 232, 0.12);
+  padding: 0.55rem 1.1rem;
+}
+
+/* ── Bottom CTA band ── */
+.ctaBand {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--demos-border);
+  background: var(--bg-1);
+  padding: 3.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.ctaText h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.ctaText p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-2);
+  max-width: 60ch;
+  line-height: 1.7;
+}
+
+.ctaBtn {
+  display: inline-block;
+  padding: 0.9rem 2.25rem;
+  background: var(--gold);
+  color: #080808;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.ctaBtn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .nav { padding: 0 1.5rem; }
+  .pageHeader { padding: 3.25rem 1.5rem 2.25rem; }
+  .demoNotice { font-size: 0.76rem; max-width: 100%; }
+  .gridWrapper { padding: 1.5rem 1.5rem 3.5rem; }
+  .grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .demoCardBody { padding: 1.75rem 1.5rem 2rem; }
+  .placeholderBody { padding: 1.75rem 1.5rem 2rem; }
+  .ctaBand { padding: 2.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .pageHeader h1 { font-size: 1.9rem; }
+  .demoCardBody h2 { font-size: 1.45rem; }
+}

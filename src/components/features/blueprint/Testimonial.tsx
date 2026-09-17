@@ -16,7 +16,7 @@ export default function Testimonial() {
                 fontStyle: "italic",
               }}
             >
-              The Blueprint alone was worth the $1,000. I got clarity on what to
+              The Audit alone was worth the $1,000. I got clarity on what to
               build and in what order. We&apos;d been spinning our wheels with
               tools for 18 months. In 90 minutes we had a clear architecture.
               That decision alone saved us months.
