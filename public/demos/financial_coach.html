@@ -313,8 +313,8 @@ input[type=range]{width:100%;accent-color:var(--brand);height:6px;cursor:pointer
     </div>
   </div>
   <div style="background:linear-gradient(135deg,#111827,#1f2937);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
-    <span style="color:rgba(255,255,255,.7);font-size:14px;">Ready to build this for your business?</span>
-    <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a>
+    <span style="color:rgba(255,255,255,.7);font-size:14px;">Want one built for your business?</span>
+    <a href="/the-blueprint-audit/apply" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Apply for Audit →</a>
   </div>
   <div class="features-grid">
     <div class="feat-card" onclick="go('quiz')"><div class="feat-icon">🎯</div><div class="feat-title">Investor Tier Quiz</div><div class="feat-desc">5 questions. Personalised plan. Beginner to pro trader. Prices by tier.</div></div>
@@ -878,8 +878,8 @@ input[type=range]{width:100%;accent-color:var(--brand);height:6px;cursor:pointer
   </div>
   <div style="background:linear-gradient(135deg,var(--brand),#4F46E5);border-radius:16px;padding:28px 32px;text-align:center;color:#fff;margin-top:16px;">
     <div style="font-size:18px;font-weight:800;margin-bottom:8px;">Want this system built for your business?</div>
-    <div style="font-size:14px;opacity:.85;margin-bottom:16px;">We build complete operating systems like this — starting from $1,000.</div>
-    <a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--gold);color:#111;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;">Get this built for your business, starting from $1,000 →</a>
+    <div style="font-size:14px;opacity:.85;margin-bottom:16px;">We build complete operating systems like this — architected around your exact workflow.</div>
+    <a href="/the-blueprint-audit/apply" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--gold);color:#111;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;">Apply for Audit →</a>
   </div>
 </div>
 
@@ -1145,5 +1145,16 @@ updateROI();
       </form>
     </div>
   </div>
-  <div style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:linear-gradient(135deg,#111827,#1f2937);border-top:1px solid rgba(108,99,255,0.3);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 -4px 20px rgba(0,0,0,0.3);"><span style="color:rgba(255,255,255,0.7);font-size:13px;letter-spacing:0.02em;">Like what you see?</span><a href="/checkout" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Get this built for your business, starting from $1,000 →</a></div></body>
+  <div style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:linear-gradient(135deg,#111827,#1f2937);border-top:1px solid rgba(108,99,255,0.3);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 -4px 20px rgba(0,0,0,0.3);"><span style="color:rgba(255,255,255,0.7);font-size:13px;letter-spacing:0.02em;">Want one built for your business?</span><a href="/the-blueprint-audit/apply" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#6c63ff,#4F46E5);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;box-shadow:0 4px 14px rgba(108,99,255,0.4);">Apply for Audit →</a></div>
+
+<!-- ═══ BAOS APPLY-FOR-AUDIT CTA: floating pill ═══ -->
+<style>
+.baos-fab{position:fixed;right:18px;bottom:86px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;background:#141414;color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;letter-spacing:.03em;text-decoration:none;border-radius:999px;border:2px solid #C8A96E;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .2s ease,background .2s ease}
+.baos-fab:hover{transform:translateY(-2px) scale(1.04);background:#000}
+.baos-fab::before{content:'';position:absolute;inset:-2px;border-radius:999px;border:2px solid #C8A96E;animation:baosRing 1.8s ease-out infinite;pointer-events:none}
+@keyframes baosRing{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:640px){.baos-fab{right:12px;bottom:132px;padding:11px 16px;font-size:12px}}
+</style>
+<a class="baos-fab" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+</body>
   </html>

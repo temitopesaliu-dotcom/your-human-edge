@@ -86,6 +86,19 @@ button { font-family: inherit; }
   grid-template-rows: auto 1fr auto;
   transition: opacity 0.6s ease;
 }
+@keyframes baosPulse{0%,100%{box-shadow:0 0 0 0 rgba(139,69,19,.5)}50%{box-shadow:0 0 0 10px rgba(139,69,19,0)}}
+.baos-cta-splash{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 28px;background:var(--accent);color:#fff;font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border-radius:4px;animation:baosPulse 2.2s infinite}
+.baos-cta-splash:hover{background:var(--accent-light)}
+/* Want-one-built CTA (fixed bottom bar) */
+.baos-cta-bar{position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--accent);color:#fff;border-top:2px solid var(--accent-warm);box-shadow:0 -6px 24px rgba(10,10,10,.25);padding:11px 24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.baos-cta-bar .baos-cta-copy{font-size:13px;font-weight:700;color:#fff;letter-spacing:.02em}
+.baos-cta-bar .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:#fff;color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:4px;box-shadow:0 4px 14px rgba(10,10,10,.25);transition:all .2s}
+.baos-cta-bar .baos-cta-btn:hover{background:var(--accent-warm);transform:translateY(-1px)}
+.baos-cta-inline{margin:18px 0 0;padding:22px 28px;background:var(--bg-warm);border:1px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.baos-cta-inline .baos-cta-copy{font-size:15px;font-weight:800;color:var(--ink)}
+.baos-cta-inline .baos-cta-sub{flex-basis:100%;font-size:12px;color:var(--stone);margin-top:-10px}
+.baos-cta-inline .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all .2s}
+.baos-cta-inline .baos-cta-btn:hover{background:var(--accent-light)}
 #splash.leaving { opacity: 0; pointer-events: none; }
 
 .splash-topbar {
@@ -378,7 +391,7 @@ button { font-family: inherit; }
 
 /* MAIN */
 .main {
-  padding-bottom: 60px;
+  padding-bottom: 120px;
   min-height: 100vh;
   background: var(--bg);
 }
@@ -1715,6 +1728,7 @@ button { font-family: inherit; }
       <h1 class="splash-title">A working operating system for the modern atelier.</h1>
       <p class="splash-side-text">Where every enquiry, every measurement, every metre of cloth, and every garment leaving the workroom is accounted for.</p>
       <button class="enter-cta" onclick="enterAtelier()">Enter the Atelier</button>
+      <a class="baos-cta-splash" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Want one built for your business? Apply for Audit →</a>
     </div>
     <div class="splash-body-right">
       <div class="splash-eyebrow" style="color: var(--accent-warm)">The Practice</div>
@@ -3333,6 +3347,7 @@ button { font-family: inherit; }
     </div>
 
     <div class="arch-cta">
+      <a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="background:var(--accent);color:#fff;padding:12px 24px;border-radius:4px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Want one built for your business? Apply for Audit →</a>
       <a href="https://temitopesaliu.com" target="_blank">Visit temitopesaliu.com</a>
     </div>
 
@@ -3345,7 +3360,13 @@ button { font-family: inherit; }
 
   <div class="app-footer">
     <span>Maison Sartore &middot; Atelier OS</span>
-    <span>Created by <strong>Temitope Saliu</strong> &middot; <a href="https://temitopesaliu.com" target="_blank">temitopesaliu.com</a></span>
+    <span>Created by <strong>Temitope Saliu</strong> &middot; <a href="https://temitopesaliu.com" target="_blank">temitopesaliu.com</a> &middot; <a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="color:#fff;font-weight:700;background:var(--accent);padding:6px 14px;border-radius:4px;letter-spacing:.1em;text-transform:uppercase">Want one built for your business? Apply for Audit →</a></span>
+  </div>
+
+  <!-- Want one built for your business? → persistent CTA bar -->
+  <div class="baos-cta-bar">
+    <span class="baos-cta-copy">Want one built for your business?</span>
+    <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
   </div>
 </div>
 
@@ -3537,6 +3558,22 @@ document.addEventListener("keydown", function(e) {
 
 document.body.style.overflow = "hidden";
 
+</script>
+
+<!-- ═══ BAOS APPLY-FOR-AUDIT CTA: floating pill + per-view injector ═══ -->
+<style>
+.baos-fab{position:fixed;right:18px;bottom:86px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;background:#141414;color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;letter-spacing:.03em;text-decoration:none;border-radius:999px;border:2px solid #C8A96E;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .2s ease,background .2s ease}
+.baos-fab:hover{transform:translateY(-2px) scale(1.04);background:#000}
+.baos-fab::before{content:'';position:absolute;inset:-2px;border-radius:999px;border:2px solid #C8A96E;animation:baosRing 1.8s ease-out infinite;pointer-events:none}
+@keyframes baosRing{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:640px){.baos-fab{right:12px;bottom:132px;padding:11px 16px;font-size:12px}}
+</style>
+<a class="baos-fab" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+<script>
+(function(){
+  var C='<div class="baos-cta-inline"><span class="baos-cta-copy">Want one built for your business?</span><a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a><span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span></div>';
+  document.querySelectorAll('.view,.dash,.db-panel').forEach(function(v){ if(!v.querySelector('.baos-cta-inline')) v.insertAdjacentHTML('beforeend',C); });
+})();
 </script>
 
 </body>

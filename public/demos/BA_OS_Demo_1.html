@@ -261,17 +261,26 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .gf-left{font-size:10px;font-weight:700;color:var(--muted);font-family:var(--mono);white-space:nowrap}
 .gf-left span{color:var(--o)}
 .gf-right{font-size:10px;color:var(--muted);font-family:var(--mono);white-space:nowrap;text-align:right}
-/* lift float chat above footer */
-.float-chat-btn{bottom:46px!important}
-.float-chat-panel{bottom:88px!important}
-/* lift main content above footer */
-.main{padding-bottom:110px!important}
+/* lift float chat above footer + CTA bar */
+.float-chat-btn{bottom:100px!important}
+.float-chat-panel{bottom:142px!important}
+/* lift main content above footer + CTA bar */
+.main{padding-bottom:170px!important}
 
 /* ── SPLASH OVERLAY ── */
-.splash{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:#fff;z-index:3000;
-  display:flex;align-items:center;justify-content:center;
+@keyframes baosPulse{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,.5)}50%{box-shadow:0 0 0 10px rgba(124,58,237,0)}}
+.baos-cta-splash{display:inline-flex;align-items:center;gap:8px;width:100%;justify-content:center;padding:13px 24px;margin-top:10px;background:#111;color:#fff;font-size:13px;font-weight:800;letter-spacing:.02em;text-decoration:none;border-radius:10px;animation:baosPulse 2.2s infinite}
+.baos-cta-splash:hover{background:#000}
+/* Want-one-built CTA (fixed bottom bar) */
+.baos-cta-bar{position:fixed;bottom:44px;left:0;right:0;z-index:140;background:linear-gradient(90deg,#1E1145,#3B1D86);border-top:2px solid var(--o);box-shadow:0 -6px 24px rgba(0,0,0,.18);padding:11px 20px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.baos-cta-bar .baos-cta-copy{font-size:13px;font-weight:700;color:#fff;letter-spacing:.02em}
+.baos-cta-bar .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:var(--o);color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border-radius:8px;box-shadow:0 4px 14px rgba(124,58,237,.4);transition:all .2s}
+.baos-cta-bar .baos-cta-btn:hover{background:var(--od);transform:translateY(-1px)}
+.baos-cta-inline{margin:14px 0;padding:22px 28px;background:linear-gradient(135deg,#1E1145,#3B1D86);border:1px solid var(--o);border-radius:12px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.baos-cta-inline .baos-cta-copy{font-size:15px;font-weight:800;color:#fff}
+.baos-cta-inline .baos-cta-sub{flex-basis:100%;font-size:12px;color:rgba(255,255,255,.7);margin-top:-10px}
+.baos-cta-inline .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:var(--o);color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border-radius:8px;transition:all .2s}
+.baos-cta-inline .baos-cta-btn:hover{background:var(--od)}
   padding:30px;
 }
 .splash-box{
@@ -361,6 +370,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <!-- HOME -->
 <div class="dash on" id="d-home">
+<!-- Want one built for your business? → in-content CTA -->
+<div class="baos-cta-inline">
+  <span class="baos-cta-copy">Want one built for your business?</span>
+  <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+  <span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span>
+</div>
 <div class="ey">Business Architecture Operating System</div>
 <div class="dt">Apex Group — Command Centre</div>
 <div class="ds">Venture-building institution · growing team · 35+ countries · 3 revenue streams + 5 new identified. Everything running. the CEO in strategy.</div>
@@ -1057,6 +1072,12 @@ var doneC=0;
 var pinBuffer='';
 var CORRECT_PIN='0000';
 
+// ── WANT-ONE-BUILT CTA INJECTION (tabs)
+(function(){
+  var C='<div class="baos-cta-inline"><span class="baos-cta-copy">Want one built for your business?</span><a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a><span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span></div>';
+  document.querySelectorAll('.dash').forEach(function(d){ if(!d.querySelector('.baos-cta-inline')) d.insertAdjacentHTML('beforeend',C); });
+})();
+
 // ── TAB NAVIGATION
 function showTab(id,ev){
   document.querySelectorAll('.dash').forEach(function(d){d.classList.remove('on');});
@@ -1527,6 +1548,7 @@ window.addEventListener('DOMContentLoaded',function(){
       <span class="splash-copy-text">© 2026 Temitope Saliu. All Rights Reserved.</span>
       <span class="splash-copy-text">Demo Version · temitopesaliu.com</span>
     </div>
+    <a class="baos-cta-splash" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Want one built for your business? Apply for Audit →</a>
     <button class="splash-enter" onclick="enterSystem()">Enter System →</button>
   </div>
 </div>
@@ -1535,8 +1557,23 @@ window.addEventListener('DOMContentLoaded',function(){
 <!-- GLOBAL FOOTER -->
 <div class="global-footer">
   <div class="gf-left">Business Architecture Operating System · <span>Demo Version</span></div>
-  <div class="gf-right">© 2026 <span style="color:var(--o);font-weight:700">Temitope Saliu</span>. All Rights Reserved. · Demo Version · temitopesaliu.com</div>
+  <div class="gf-right">© 2026 <span style="color:var(--o);font-weight:700">Temitope Saliu</span>. All Rights Reserved. · Demo Version · temitopesaliu.com · <a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="color:#fff;background:var(--o);padding:4px 12px;border-radius:6px;font-weight:800">Want one built for your business? Apply for Audit →</a></div>
 </div>
 
+<!-- ═══ BAOS APPLY-FOR-AUDIT CTA: floating pill + per-tab injector ═══ -->
+<style>
+.baos-fab{position:fixed;right:18px;bottom:62px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;background:#141414;color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;letter-spacing:.03em;text-decoration:none;border-radius:999px;border:2px solid #7C3AED;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .2s ease,background .2s ease}
+.baos-fab:hover{transform:translateY(-2px) scale(1.04);background:#000}
+.baos-fab::before{content:'';position:absolute;inset:-2px;border-radius:999px;border:2px solid #7C3AED;animation:baosRing 1.8s ease-out infinite;pointer-events:none}
+@keyframes baosRing{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:640px){.baos-fab{right:12px;bottom:56px;padding:11px 16px;font-size:12px}}
+</style>
+<a class="baos-fab" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+<script>
+(function(){
+  var C='<div class="baos-cta-inline"><span class="baos-cta-copy">Want one built for your business?</span><a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a><span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span></div>';
+  document.querySelectorAll('.view,.dash,.db-panel').forEach(function(v){ if(!v.querySelector('.baos-cta-inline')) v.insertAdjacentHTML('beforeend',C); });
+})();
+</script>
 </body>
 </html>

@@ -2,9 +2,6 @@ import Link from "next/link";
 import { demos, type Demo } from "@/data/demos";
 import styles from "./demos.module.css";
 
-// Number of open "Coming soon" slots kept at the end of the grid.
-const PLACEHOLDER_SLOTS = 4;
-
 function DemoCard({ demo }: { demo: Demo }) {
   return (
     <a
@@ -20,22 +17,6 @@ function DemoCard({ demo }: { demo: Demo }) {
         <span className={styles.demoCta}>Open Demo →</span>
       </div>
     </a>
-  );
-}
-
-function PlaceholderCard() {
-  return (
-    <div className={styles.placeholder} aria-hidden="true">
-      <div className={styles.placeholderBody}>
-        <div className={styles.placeholderIcon} />
-        <h3 className={styles.placeholderTitle}>Your product here</h3>
-        <p className={styles.placeholderText}>
-          The next demo is in the works — a system built around a specific
-          business, its workflow and its goals.
-        </p>
-        <span className={styles.placeholderLabel}>Coming Soon</span>
-      </div>
-    </div>
   );
 }
 
@@ -69,7 +50,7 @@ export default function DemosPage() {
         <h1>What a system built for you looks like.</h1>
         <p className={styles.subhead}>
           Every system below was built around how a specific business actually
-          runs. Open one — see what an AI Operating System looks like in
+          runs. Open one — see what a Business Operating System with AI looks like in
           practice.
         </p>
         <span className={styles.demoNotice}>
@@ -85,9 +66,6 @@ export default function DemosPage() {
         <div className={styles.grid}>
           {demos.map((demo) => (
             <DemoCard key={demo.slug} demo={demo} />
-          ))}
-          {Array.from({ length: PLACEHOLDER_SLOTS }).map((_, i) => (
-            <PlaceholderCard key={`placeholder-${i}`} />
           ))}
         </div>
       </section>
@@ -105,6 +83,11 @@ export default function DemosPage() {
           Apply for the Audit →
         </Link>
       </div>
+
+      {/* Floating "Apply for Audit" pill — always on screen */}
+      <Link href="/the-blueprint-audit/apply" className={styles.fab}>
+        Apply for Audit →
+      </Link>
     </div>
   );
 }

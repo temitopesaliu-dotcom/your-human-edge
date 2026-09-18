@@ -25,6 +25,19 @@ body{font-family:var(--f-body);background:var(--bg);color:var(--ivory);overflow-
 
 /* SPLASH */
 .splash{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#0A0908 0%,var(--bg) 40%,#1A1510 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;transition:opacity .8s,visibility .8s}
+@keyframes baosPulse{0%,100%{box-shadow:0 0 0 0 rgba(184,150,90,.55)}50%{box-shadow:0 0 0 10px rgba(184,150,90,0)}}
+.baos-cta-splash{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 28px;background:var(--brass);color:var(--bg);font-family:var(--f-body);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:6px;animation:baosPulse 2.2s infinite}
+.baos-cta-splash:hover{background:var(--brass-light)}
+/* Want-one-built CTA (fixed bottom bar) */
+.baos-cta-bar{position:fixed;bottom:0;left:0;right:0;z-index:900;background:linear-gradient(90deg,#4A1616,#2A0F0F);border-top:2px solid var(--brass);box-shadow:0 -6px 24px rgba(0,0,0,.5);padding:11px 24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.baos-cta-bar .baos-cta-copy{font-size:13px;font-weight:700;color:var(--ivory);letter-spacing:.02em}
+.baos-cta-bar .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:var(--brass);color:var(--bg);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:6px;box-shadow:0 4px 14px rgba(184,150,90,.35);transition:all .2s}
+.baos-cta-bar .baos-cta-btn:hover{background:var(--brass-light);transform:translateY(-1px)}
+.baos-cta-inline{margin:18px 0 0;padding:22px 28px;background:linear-gradient(135deg,#4A1616,#2A0F0F);border:1px solid var(--brass);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.baos-cta-inline .baos-cta-copy{font-size:15px;font-weight:800;color:var(--ivory)}
+.baos-cta-inline .baos-cta-sub{flex-basis:100%;font-size:12px;color:var(--stone);margin-top:-10px}
+.baos-cta-inline .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:var(--brass);color:var(--bg);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:6px;transition:all .2s}
+.baos-cta-inline .baos-cta-btn:hover{background:var(--brass-light)}
 .splash.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .splash-mark{width:80px;height:80px;border:1.5px solid var(--brass);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-family:var(--f-display);font-size:32px;color:var(--brass);letter-spacing:4px}
 .splash-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--stone);margin-bottom:20px}
@@ -47,7 +60,7 @@ body{font-family:var(--f-body);background:var(--bg);color:var(--ivory);overflow-
 .nav-num{font-family:var(--f-mono);font-size:10px;color:var(--brass);opacity:.6;width:18px}
 
 /* MAIN */
-.main{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.main{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column;padding-bottom:64px}
 .topbar{height:48px;background:var(--panel);border-bottom:1px solid var(--rule);display:flex;align-items:center;padding:0 28px;gap:8px;position:sticky;top:0;z-index:40}
 .crumb{font-size:11px;color:var(--stone)}
 .crumb-sep{color:var(--rule);margin:0 4px}
@@ -219,6 +232,7 @@ td.brass{color:var(--brass)}
   <h1 class="splash-title">Meridian Interiors</h1>
   <p class="splash-sub">Flagship showroom. Bespoke atelier. Residential and superyacht interiors across the Gulf.</p>
   <button class="splash-enter" id="splashBtn">Enter System</button>
+  <a class="baos-cta-splash" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Want one built for your business? Apply for Audit →</a>
   <div class="splash-credit">Built by Temitope Saliu</div>
 </div>
 <div class="app">
@@ -816,6 +830,13 @@ td.brass{color:var(--brass)}
       <div class="hl"><div class="hl-title">UK Global Talent Visa &mdash; Exceptional Talent</div><div class="hl-desc">Endorsed by the UK Home Office under the Global Talent visa programme with Exceptional Talent designation, one of the most competitive endorsements available to practitioners in the technology and innovation sector.</div></div>
       <div class="hl"><div class="hl-title">Teaching and Training Consultants</div><div class="hl-desc">Runs the Business Architect Programme, through which she trains consultants to design and implement AI-powered business architecture for their own clients. Practitioners from multiple countries have been trained through this programme to deliver what she built.</div></div>
     </div>
+    <!-- Want one built for your business? → mid-content CTA -->
+    <div class="baos-cta-inline">
+      <span class="baos-cta-copy">Want one built for your business?</span>
+      <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+      <span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span>
+    </div>
+
     <div class="arch-licence">
       <div class="arch-licence-eyebrow">Licence &amp; Intellectual Property Notice</div>
       <div class="arch-licence-body">
@@ -827,7 +848,7 @@ td.brass{color:var(--brass)}
     </div>
     <div class="arch-contact">
       <div class="arch-contact-brand"><div class="arch-contact-mark">T</div><span>BAOS &middot; Business Architecture Operating System</span></div>
-      <div class="arch-contact-links"><a href="https://temitopesaliu.com" target="_blank">temitopesaliu.com &rarr;</a></div>
+      <div class="arch-contact-links"><a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="background:var(--brass);color:var(--bg);padding:10px 20px;border-radius:6px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase">Want one built for your business? Apply for Audit →</a><a href="https://temitopesaliu.com" target="_blank">temitopesaliu.com &rarr;</a></div>
     </div>
   </div>
 </div>
@@ -837,8 +858,14 @@ td.brass{color:var(--brass)}
 </div>
 <footer class="footer">
   <span>Meridian Interiors &middot; Business Architecture Operating System</span>
-  <span>&copy; 2026 Temitope Saliu. All Rights Reserved.</span>
+  <span>&copy; 2026 Temitope Saliu. All Rights Reserved. · <a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="color:var(--brass);font-weight:700">Want one built for your business? Apply for Audit →</a></span>
 </footer>
+
+<!-- Want one built for your business? → persistent CTA bar -->
+<div class="baos-cta-bar">
+  <span class="baos-cta-copy">Want one built for your business?</span>
+  <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+</div>
 <script>
 function enterSystem(){
   var s=document.getElementById('splash');
@@ -936,6 +963,22 @@ function initCharts(){
   var e7=document.getElementById('chart-revshare');
   if(e7){new Chart(e7,{type:'doughnut',data:{labels:['Residential','Atelier','Commercial','Showroom','Yacht','Consultation'],datasets:[{data:[8.5,4.8,3.6,3.2,2.8,1.2],backgroundColor:[BRASS,WALNUT,INFO,LIVE,BUSY,IVORY],borderColor:'#12100E',borderWidth:2}]},options:{maintainAspectRatio:false,responsive:true,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:IVORY,boxWidth:12,boxHeight:12,padding:10,font:{size:10}}},tooltip:ttip}}});}
 }
+</script>
+
+<!-- ═══ BAOS APPLY-FOR-AUDIT CTA: floating pill + per-view injector ═══ -->
+<style>
+.baos-fab{position:fixed;right:18px;bottom:86px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;background:#141414;color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;letter-spacing:.03em;text-decoration:none;border-radius:999px;border:2px solid #C8A96E;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .2s ease,background .2s ease}
+.baos-fab:hover{transform:translateY(-2px) scale(1.04);background:#000}
+.baos-fab::before{content:'';position:absolute;inset:-2px;border-radius:999px;border:2px solid #C8A96E;animation:baosRing 1.8s ease-out infinite;pointer-events:none}
+@keyframes baosRing{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:640px){.baos-fab{right:12px;bottom:132px;padding:11px 16px;font-size:12px}}
+</style>
+<a class="baos-fab" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+<script>
+(function(){
+  var C='<div class="baos-cta-inline"><span class="baos-cta-copy">Want one built for your business?</span><a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a><span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span></div>';
+  document.querySelectorAll('.view,.dash,.db-panel').forEach(function(v){ if(!v.querySelector('.baos-cta-inline')) v.insertAdjacentHTML('beforeend',C); });
+})();
 </script>
 </body>
 </html>

@@ -29,6 +29,19 @@ body{font-family:'Georgia',serif;background:var(--cream);color:var(--dark);overf
 
 /* ── SPLASH ── */
 .splash{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,var(--maroon-deep) 0%,var(--maroon) 55%,#3D0A1A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;transition:opacity .6s,visibility .6s}
+@keyframes baosPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.55)}50%{box-shadow:0 0 0 10px rgba(201,168,76,0)}}
+.baos-cta-splash{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 28px;background:var(--gold);color:#1A0509;font-size:13px;font-family:Arial,sans-serif;font-weight:800;letter-spacing:.5px;text-decoration:none;border-radius:40px;animation:baosPulse 2.2s infinite}
+.baos-cta-splash:hover{background:var(--pink)}
+/* Want-one-built CTA (fixed bottom bar) */
+.baos-cta-bar{position:fixed;bottom:0;left:0;right:0;z-index:900;background:linear-gradient(90deg,var(--maroon-deep),var(--maroon));border-top:2px solid var(--gold);box-shadow:0 -6px 24px rgba(0,0,0,.35);padding:11px 24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.baos-cta-bar .baos-cta-copy{font-size:13px;font-family:Arial,sans-serif;font-weight:700;color:white;letter-spacing:.3px}
+.baos-cta-bar .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:var(--gold);color:#1A0509;font-size:12px;font-family:Arial,sans-serif;font-weight:800;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border-radius:40px;box-shadow:0 4px 14px rgba(201,168,76,.4);transition:all .2s}
+.baos-cta-bar .baos-cta-btn:hover{background:var(--pink);transform:translateY(-1px)}
+.baos-cta-inline{margin:18px 0 0;padding:22px 28px;background:linear-gradient(135deg,var(--maroon-deep),var(--maroon));border:1px solid var(--gold);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.baos-cta-inline .baos-cta-copy{font-size:15px;font-family:Arial,sans-serif;font-weight:800;color:white}
+.baos-cta-inline .baos-cta-sub{flex-basis:100%;font-size:12px;font-family:Arial,sans-serif;color:rgba(255,255,255,.65);margin-top:-10px}
+.baos-cta-inline .baos-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:var(--gold);color:#1A0509;font-size:12px;font-family:Arial,sans-serif;font-weight:800;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border-radius:40px;transition:all .2s}
+.baos-cta-inline .baos-cta-btn:hover{background:var(--pink)}
 .splash.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .splash-mark{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:28px;color:white;margin:0 auto 24px;font-style:italic}
 .splash-eyebrow{font-size:10px;font-family:Arial,sans-serif;letter-spacing:4px;text-transform:uppercase;color:var(--pink);margin-bottom:20px;opacity:.8}
@@ -52,7 +65,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(92,15,30,0.9
 .creator-toggle:hover{opacity:.85}
 
 /* ── VIEWS ── */
-.view{display:none;padding-top:60px;min-height:100vh}
+.view{display:none;padding-top:60px;padding-bottom:70px;min-height:100vh}
 .view.active{display:block}
 
 /* ── HERO ── */
@@ -384,6 +397,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
   <h1 class="splash-title">Parenting &amp; Motherhood<br><em>by Lisa</em></h1>
   <p class="splash-sub">Your platform. Your practice. Your revenue — working even when you're not.</p>
   <button class="splash-enter" id="splashBtn">Enter System &rarr;</button>
+  <a class="baos-cta-splash" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Want one built for your business? Apply for Audit →</a>
   <div class="splash-credit">Built by Temitope Saliu &middot; temitopesaliu.com</div>
 </div>
 
@@ -1174,6 +1188,13 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
           <div class="hl"><div class="hl-title">UK Global Talent Visa &mdash; Exceptional Talent</div><div class="hl-desc">Endorsed by the UK Home Office under the Global Talent visa programme with Exceptional Talent designation, one of the most competitive endorsements available to practitioners in the technology and innovation sector.</div></div>
           <div class="hl"><div class="hl-title">Teaching and Training Consultants</div><div class="hl-desc">Runs the Business Architect Programme, through which she trains consultants to design and implement AI-powered business architecture for their own clients. Practitioners from multiple countries have been trained through this programme to deliver what she built.</div></div>
         </div>
+        <!-- Want one built for your business? → mid-content CTA -->
+        <div class="baos-cta-inline">
+          <span class="baos-cta-copy">Want one built for your business?</span>
+          <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+          <span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span>
+        </div>
+
         <div class="arch-licence">
           <div class="arch-licence-eyebrow">Licence &amp; Intellectual Property Notice</div>
           <div class="arch-licence-body">
@@ -1189,6 +1210,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
             <span>BAOS &middot; Business Architecture Operating System</span>
           </div>
           <div class="arch-contact-links">
+            <a href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer" style="background:var(--maroon);color:white;padding:10px 20px;border-radius:40px;font-weight:700">Want one built for your business? Apply for Audit →</a>
             <a href="https://temitopesaliu.com" target="_blank">temitopesaliu.com &rarr;</a>
           </div>
         </div>
@@ -1306,6 +1328,28 @@ updateCalc();
 
 // ── TOAST ──
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+
+<!-- Want one built for your business? → persistent CTA bar -->
+<div class="baos-cta-bar">
+  <span class="baos-cta-copy">Want one built for your business?</span>
+  <a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+</div>
+
+<!-- ═══ BAOS APPLY-FOR-AUDIT CTA: floating pill + per-view injector ═══ -->
+<style>
+.baos-fab{position:fixed;right:18px;bottom:86px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:13px 20px;background:#141414;color:#fff;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;letter-spacing:.03em;text-decoration:none;border-radius:999px;border:2px solid #C8A96E;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .2s ease,background .2s ease}
+.baos-fab:hover{transform:translateY(-2px) scale(1.04);background:#000}
+.baos-fab::before{content:'';position:absolute;inset:-2px;border-radius:999px;border:2px solid #C8A96E;animation:baosRing 1.8s ease-out infinite;pointer-events:none}
+@keyframes baosRing{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:640px){.baos-fab{right:12px;bottom:132px;padding:11px 16px;font-size:12px}}
+</style>
+<a class="baos-fab" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a>
+<script>
+(function(){
+  var C='<div class="baos-cta-inline"><span class="baos-cta-copy">Want one built for your business?</span><a class="baos-cta-btn" href="/the-blueprint-audit/apply" target="_blank" rel="noopener noreferrer">Apply for Audit →</a><span class="baos-cta-sub">This is a demo instance. Your version gets architected around your exact workflow.</span></div>';
+  document.querySelectorAll('.view,.dash,.db-panel').forEach(function(v){ if(!v.querySelector('.baos-cta-inline')) v.insertAdjacentHTML('beforeend',C); });
+})();
 </script>
 </body>
 </html>
