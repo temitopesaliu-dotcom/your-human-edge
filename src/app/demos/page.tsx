@@ -83,11 +83,6 @@ export default function DemosPage() {
           Apply for the Audit →
         </Link>
       </div>
-
-      {/* Floating "Apply for Audit" pill — always on screen */}
-      <Link href="/the-blueprint-audit/apply" className={styles.fab}>
-        Apply for Audit →
-      </Link>
     </div>
   );
 }
