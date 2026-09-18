@@ -61,6 +61,14 @@ export const demos: Demo[] = [
     description:
       "Program delivery, session scheduling and client resources — built around how marriage and parenting coaches work.",
   },
+    {
+    slug: "finance-flow",
+    file: "/demos/FinanceFlow_OS.html",
+    title: "Finance OS",
+    tag: "Coaching · Programs · Community · and others",
+    description:
+      "A full operating system for financial coaching practices.",
+  },
 
   // ── Empty slots: the grid fills the rest with "Coming soon" cards ──
   // To add a demo, move its object above this line.
