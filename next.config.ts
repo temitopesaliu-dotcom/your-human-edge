@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { source: '/book', destination: '/book.html' },
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
+      { source: '/ai-operator-suite', destination: '/ai-operator-suite.html' },
     ];
   },
   async redirects() {
