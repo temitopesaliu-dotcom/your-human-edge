@@ -59,7 +59,7 @@ export default function Faq() {
             {[
               {
                 q: "How long does the Audit take?",
-                a: "The Audit Session runs 90 minutes. Your written Audit document is delivered within 5 business days. From there, the timeline for taking your architecture forward depends on scope and how you choose to action it — your Audit sets out the sequence and the dependencies so everything is defined in advance.",
+                a: "The Audit Session runs 90 minutes. Your written Audit document is delivered within 7 business days. From there, the timeline for taking your architecture forward depends on scope and how you choose to action it — your Audit sets out the sequence and the dependencies so everything is defined in advance.",
               },
               {
                 q: "What tools and software do you work with?",

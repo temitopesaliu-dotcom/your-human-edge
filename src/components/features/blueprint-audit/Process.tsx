@@ -54,7 +54,7 @@ export default function Process() {
           </div>
           <div className="timeline-step">
             <div className="timeline-number">4</div>
-            <p className="timeline-step-label">Within 5 Business Days</p>
+            <p className="timeline-step-label">Within 7 Business Days</p>
             <h3 className="timeline-step-title">Architecture Delivery</h3>
             <p className="timeline-step-desc">
               You receive a written Audit document with your workflow map,
