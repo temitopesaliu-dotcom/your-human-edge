@@ -16,7 +16,9 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * same reason as the Business Architect route: the number the page renders
  * and the number Stripe charges both come from PRICE_CENTS below, so they
  * cannot drift apart. When the launch price rises from $9.99 to $27 after the
- * first 50 sales, that is a one-line change here plus the copy on the page.
+ * first 10 sales, that is a one-line change here plus the copy on the page.
+ * There is deliberately no automatic threshold logic: the price rise is a
+ * manual decision, made once the sales count says so, not on a timer.
  *
  * payment_method_types is pinned to ['card'] on purpose: async methods can
  * reach the webhook with payment_status !== 'paid', which would skip
