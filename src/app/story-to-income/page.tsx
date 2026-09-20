@@ -193,13 +193,13 @@ export default function StoryToIncomePage() {
             </figure>
             <figure className="sti-proof">
               <img
-                src="/images/story-to-income/proof/growth-insights-30day.jpg"
-                alt="Instagram audience insights showing 9,041 followers, up 61.8 percent over 30 days, with the follower growth graph"
+                src="/images/story-to-income/proof/profile-11-9k.jpg"
+                alt="Instagram profile for Temitope Saliu showing 386 posts, 11.9 thousand followers and 927 following"
                 loading="lazy"
               />
               <figcaption>
-                The 30 days after that. 9,041 followers, up 61.8 percent. It is
-                11.9K now.
+                Where it stands now. 11.9K followers, built from the same
+                approach.
               </figcaption>
             </figure>
             <figure className="sti-proof">
