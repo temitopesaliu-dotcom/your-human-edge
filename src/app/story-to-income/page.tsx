@@ -89,7 +89,7 @@ export default function StoryToIncomePage() {
 
           <div className="sti-price-line">
             <span className="now">{PRICE_LABEL}</span>
-            <span className="then">Launch price. Rises to $27.</span>
+            <span className="then">Launch price. First 10 copies.</span>
           </div>
 
           <div ref={heroCtaRef}>
