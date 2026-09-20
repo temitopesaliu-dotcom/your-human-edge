@@ -405,7 +405,7 @@ export default function StoryToIncomePage() {
 
             <div className="rises">
               <strong>Launch price.</strong> This goes to $27 after the first
-              100 copies. If you are reading this and it still says{' '}
+              50 copies. If you are reading this and it still says{' '}
               {PRICE_LABEL}, you are early.
             </div>
 
