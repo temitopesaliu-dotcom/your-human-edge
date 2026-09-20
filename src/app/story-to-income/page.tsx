@@ -405,9 +405,7 @@ export default function StoryToIncomePage() {
 
             <div className="rises">
               <strong>Launch price.</strong> Only the first 10 copies go at
-              this price. It goes to $27 after that. If you are reading this
-              and it still says{' '}
-              {PRICE_LABEL}, you are early.
+              this price.
             </div>
 
             <ul className="sti-ticks" style={{ marginTop: 0 }}>
