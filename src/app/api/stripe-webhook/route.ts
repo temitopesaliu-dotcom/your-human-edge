@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite } from '@/lib/services/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite } from '@/lib/services/mailer';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
@@ -55,11 +55,18 @@ async function persistSessionRecord(sessionId: string, record: SessionRecord): P
 }
 
 const MAILER_DISPATCH: Partial<Record<ProductType, {
-  send: (email: string, name: string, archetype: ArchetypeKey, accessLink: string) => Promise<void>;
+  send: (
+    email: string,
+    name: string,
+    archetype: ArchetypeKey,
+    accessLink: string,
+    pdfDownloadLink: string
+  ) => Promise<void>;
   errorLabel: string;
 }>> = {
   playbook: {
-    send: (email, name, archetype, accessLink) => addBuyerToMailerLite(email, name, archetype, accessLink),
+    send: (email, name, archetype, accessLink, pdfDownloadLink) =>
+      addBuyerToMailerLite(email, name, archetype, accessLink, pdfDownloadLink),
     errorLabel: 'addBuyerToMailerLite',
   },
   'stadium-live': {
@@ -86,6 +93,11 @@ const MAILER_DISPATCH: Partial<Record<ProductType, {
     send: (email, name) => addBlueprintAuditPriorityBuyerToMailerLite(email, name),
     errorLabel: 'addBlueprintAuditPriorityBuyerToMailerLite',
   },
+  'story-to-income': {
+    send: (email, name, _archetype, accessLink) =>
+      addStoryToIncomeBuyerToMailerLite(email, name, accessLink),
+    errorLabel: 'addStoryToIncomeBuyerToMailerLite',
+  },
 };
 
 async function notifyMailerLite(
@@ -93,14 +105,15 @@ async function notifyMailerLite(
   buyerEmail: string,
   buyerName: string,
   archetype: ArchetypeKey,
-  accessLink: string
+  accessLink: string,
+  pdfDownloadLink: string
 ): Promise<void> {
   if (!buyerEmail) return;
   const entry = MAILER_DISPATCH[product];
   if (!entry) return;
 
   try {
-    await entry.send(buyerEmail, buyerName, archetype, accessLink);
+    await entry.send(buyerEmail, buyerName, archetype, accessLink, pdfDownloadLink);
   } catch (err: unknown) {
     console.error(`[webhook] ${entry.errorLabel} failed:`, err instanceof Error ? err.message : String(err));
   }
@@ -126,9 +139,16 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
 
   // The archetype/access-link flow only applies to the playbook quiz funnel;
   // blueprint-audit buyers get their booking link via the MailerLite paid group.
-  const accessLink = product === 'blueprint-audit'
-    ? `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id=${session.id}`
-    : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
+  const accessLink =
+    product === 'blueprint-audit'
+      ? `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id=${session.id}`
+      : product === 'story-to-income'
+        ? `${siteUrl}/story-to-income/download?session_id=${session.id}`
+        : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
+
+  // The buyer's own payment-checked PDF URL. Replaces the public Google Drive
+  // link that previously went out in every playbook buyer email.
+  const pdfDownloadLink = `${siteUrl}/api/playbook/pdf?session_id=${session.id}`;
 
   await persistSessionRecord(session.id, {
     createdAt: Date.now(),
@@ -144,7 +164,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
     webhookSource: true,
   });
 
-  await notifyMailerLite(product, buyerEmail, buyerName, archetype, accessLink);
+  await notifyMailerLite(product, buyerEmail, buyerName, archetype, accessLink, pdfDownloadLink);
 
   // Report the sale to Meta server-side, for every product, so ad attribution
   // does not depend on per-page pixel wiring. sendMetaPurchaseEvent never

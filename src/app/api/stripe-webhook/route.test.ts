@@ -135,8 +135,14 @@ describe("POST /api/stripe-webhook", () => {
       "buyer@example.com",
       "Buyer Name",
       "S",
+      expect.stringContaining("cs_test_123"),
       expect.stringContaining("cs_test_123")
     );
+    // The PDF link must be the payment-checked route. It was previously a
+    // public Google Drive URL that worked for anyone it was forwarded to.
+    const pdfLink = vi.mocked(addBuyerToMailerLite).mock.calls[0][4];
+    expect(pdfLink).toContain("/api/playbook/pdf");
+    expect(pdfLink).not.toContain("drive.google.com");
   });
 
   it("does not duplicate the KV session record when one already exists", async () => {
