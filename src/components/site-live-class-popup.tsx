@@ -13,6 +13,7 @@ const EXCLUDED_PATH_PREFIXES = [
   "/the-blueprint-audit/apply",
   "/payment-successful",
   "/expert-profile",
+  "/story-to-income",
 ];
 
 export default function SiteLiveClassPopup() {

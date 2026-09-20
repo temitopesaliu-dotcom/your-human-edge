@@ -1,23 +1,30 @@
 "use client";
 
 import { useState, useEffect, lazy, Suspense } from "react";
-import { type ArchetypeKey } from "@/lib/utils/archetypes";
 import PurchaseTracker from "@/components/purchase-tracker";
 
 // Import PDF CSS eagerly so it's available before the lazy-loaded renderer mounts
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-const PDF_MAP: Record<ArchetypeKey, string> = {
-  H: "/pdfs/Human_Bridge_Premium_Playbook.pdf",
-  C: "/pdfs/Creative_Amplifier_Premium_Playbook.pdf",
-  S: "/pdfs/Systems_Architect_Premium_Playbook.pdf",
-  G: "/pdfs/Growth_Catalyst_Premium_Playbook.pdf",
-};
+/**
+ * Every archetype reads from the same route. The PDFs are no longer public
+ * files, and the route picks the correct one from the verified purchase, so
+ * the archetype is never sent from the browser.
+ *
+ * The session id is passed explicitly rather than relying on the access cookie.
+ * pdf.js fetches the file itself, and we do not control whether it sends
+ * credentials; a same-origin request should carry the cookie, but "should" is
+ * not good enough for the file a buyer paid for. The route accepts either.
+ */
+const pdfUrlFor = (sessionId?: string) =>
+  sessionId
+    ? `/api/playbook/pdf?session_id=${encodeURIComponent(sessionId)}`
+    : "/api/playbook/pdf";
 
 interface PlaybookPdfViewerProps {
-  archetypeKey: ArchetypeKey;
   userEmail?: string;
+  sessionId?: string;
 }
 
 const PdfRenderer = lazy(() => import("./pdf-renderer"));
@@ -25,8 +32,8 @@ const PdfRenderer = lazy(() => import("./pdf-renderer"));
 const TOAST_STORAGE_KEY = "yhe_email_toast_shown";
 
 export default function PlaybookPdfViewer({
-  archetypeKey,
   userEmail,
+  sessionId,
 }: PlaybookPdfViewerProps) {
   const [mounted, setMounted] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -44,16 +51,6 @@ export default function PlaybookPdfViewer({
       setShowToast(!alreadyShown);
     }
   }, [userEmail]);
-
-  const pdfUrl = PDF_MAP[archetypeKey];
-
-  if (!pdfUrl) {
-    return (
-      <div style={errorStyles.container}>
-        <p>No premium playbook available for this archetype.</p>
-      </div>
-    );
-  }
 
   if (!mounted) {
     return (
@@ -126,7 +123,7 @@ export default function PlaybookPdfViewer({
             </>
           }
         >
-          <PdfRenderer pdfUrl={pdfUrl} />
+          <PdfRenderer pdfUrl={pdfUrlFor(sessionId)} />
         </Suspense>
       </div>
     </>
@@ -220,11 +217,3 @@ const navStyles: Record<string, React.CSSProperties> = {
   },
 };
 
-const errorStyles: Record<string, React.CSSProperties> = {
-  container: {
-    textAlign: "center",
-    padding: "60px 24px",
-    color: "var(--ds-muted, #655f74)",
-    fontSize: "1rem",
-  },
-};
