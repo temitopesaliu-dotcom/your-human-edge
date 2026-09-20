@@ -204,6 +204,17 @@ export default function StoryToIncomePage() {
             </figure>
             <figure className="sti-proof">
               <img
+                src="/images/story-to-income/proof/reach-265k.jpg"
+                alt="Instagram insights showing 265,624 accounts reached, with 540 thousand views on reels, 31 thousand on stories and 4.5 thousand on posts"
+                loading="lazy"
+              />
+              <figcaption>
+                265,624 accounts reached. 540K of those views came off reels,
+                which is the format the prompts are written for.
+              </figcaption>
+            </figure>
+            <figure className="sti-proof">
+              <img
                 src="/images/story-to-income/proof/automation-comment-to-dm.jpg"
                 alt="Instagram automation flow where a comment triggers an automatic direct message that delivers an offer"
                 loading="lazy"

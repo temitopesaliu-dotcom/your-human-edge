@@ -260,13 +260,15 @@
   background: var(--purple);
 }
 
-/* align-items: start stops a short card being stretched to the height of a
-   tall neighbour, which otherwise leaves a block of dead white under its
-   caption. */
-.sti-proof-grid { display: grid; gap: 16px; margin-top: 20px; align-items: start; }
+/* CSS columns rather than grid. The screenshots are wildly different heights,
+   and a grid row is as tall as its tallest card, so a short card next to a
+   tall one left a visible block of dead space underneath it. Columns pack the
+   cards vertically instead, so each one starts where the previous one ended. */
+.sti-proof-grid { columns: 1; column-gap: 16px; margin-top: 20px; }
 
 .sti-proof {
-  margin: 0;
+  break-inside: avoid;
+  margin: 0 0 16px;
   border: 1px solid #e4dff1;
   border-radius: 14px;
   background: var(--white);
@@ -581,7 +583,7 @@
   .sti-btn { width: auto; display: inline-block; min-width: 340px; }
   .sti-btn-note { text-align: left; }
 
-  .sti-proof-grid { grid-template-columns: 1fr 1fr; }
+  .sti-proof-grid { columns: 2; }
   .sti-dm-grid { grid-template-columns: 1fr 1fr; align-items: start; }
   .sti-proof img { max-height: 480px; }
 
