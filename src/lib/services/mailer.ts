@@ -167,18 +167,18 @@ export async function addBuyerToMailerLite(
   email: string,
   name: string,
   archetype: ArchetypeKey,
-  accessLink: string
+  accessLink: string,
+  pdfDownloadLink: string
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const buyersGroup = process.env.MAILERLITE_BUYERS_GROUP_ID;
   if (!apiKey) return;
 
-  const pdfLinks: Record<ArchetypeKey, string> = {
-    H: 'https://drive.google.com/uc?export=download&id=1x4qsoiiPFMozkBFgSCdnvjEGPDticUJE',
-    C: 'https://drive.google.com/uc?export=download&id=1uvxoEnVJkDLqnmyDuLPMQs9FSu1G2IRv',
-    S: 'https://drive.google.com/uc?export=download&id=1AnXFT8x8WOvbefxymlYhUNZSTz2Gh4JU',
-    G: 'https://drive.google.com/uc?export=download&id=1x9HTtZyxgsOLW1a4rCB78EBZirHQZ0X1',
-  };
+  // pdf_download_link used to be a public Google Drive URL, shared with
+  // "anyone with the link". That link went out in every buyer email and worked
+  // for anyone it was forwarded to, which handed a paid product away. It is now
+  // the payment-checked route, which verifies the buyer's Stripe session on
+  // every request.
 
   try {
     // Ensure all buyers land in GROUP_ALL regardless of whether they
@@ -200,7 +200,7 @@ export async function addBuyerToMailerLite(
           ai_archetype: ARCHETYPES[archetype].name,
           is_buyer: 'true',
           access_link: accessLink,
-          pdf_download_link: pdfLinks[archetype],
+          pdf_download_link: pdfDownloadLink,
         },
         groups: groupsToAdd,
       },
@@ -531,6 +531,57 @@ export async function addIntelligenceLayerPaidSubscriber(
 }
 
 
+
+/**
+ * Buyers of The Story to Income Blueprint.
+ *
+ * Delivery itself happens on-site: checkout sends the buyer to a verified
+ * download page immediately, so nobody is waiting on an email that might land
+ * in spam. This exists so the buyer's email is owned and segmented, and so the
+ * verified download link is stored on the record and can be resent by hand if
+ * a buyer ever loses it. No automation is attached to this group by design.
+ */
+export async function addStoryToIncomeBuyerToMailerLite(
+  email: string,
+  name: string,
+  accessLink: string
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const paidGroup = process.env.MAILERLITE_STORY_TO_INCOME_GROUP_ID;
+  if (!apiKey || !paidGroup) {
+    console.warn('[mailer] MAILERLITE_API_KEY or STORY_TO_INCOME group not set — skipping');
+    return;
+  }
+
+  try {
+    const groups: string[] = [];
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    if (allGroup) groups.push(allGroup);
+    groups.push(paidGroup);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: {
+          name,
+          is_buyer: 'true',
+          subscriber_type: 'story-to-income-buyer',
+          access_link: accessLink,
+        },
+        groups,
+      },
+    });
+    if (!result.ok) {
+      console.error('[mailer] Story to Income buyer add failed:', result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error(
+      '[mailer] Story to Income buyer error:',
+      err instanceof Error ? err.message : String(err)
+    );
+  }
+}
 
 /**
  * Business details for the $1,000 build audit (the /your-business form,
