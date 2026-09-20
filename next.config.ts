@@ -1,6 +1,14 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Paid PDFs live in private-assets/ rather than public/ so no URL serves them
+  // without a payment check. Files outside public/ are not bundled into a
+  // serverless function unless traced explicitly, and a missing trace fails
+  // only in production, so both reading routes are listed here.
+  outputFileTracingIncludes: {
+    '/api/story-to-income/download': ['./private-assets/pdfs/**'],
+    '/api/playbook/pdf': ['./private-assets/pdfs/**'],
+  },
   experimental: {
     serverActions: {
       allowedOrigins: ['temitopesaliu.com', 'www.temitopesaliu.com'],
