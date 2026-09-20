@@ -1,0 +1,601 @@
+/* =========================================================================
+   The Story to Income Blueprint sales page.
+   Everything is namespaced under .sti-page so it cannot leak into, or be
+   overwritten by, the other funnels on the site. Tokens are declared locally
+   rather than imported from another funnel's stylesheet, which is what stops
+   the variable collisions that bit the AIOS pages.
+
+   Written mobile first. Every rule below is the phone layout; the only
+   media query widens things at 860px and up. Instagram is the only traffic
+   source for this page, so the phone view is the real view.
+   ========================================================================= */
+
+.sti-page {
+  --ink: #15102e;
+  --ink-soft: #4a4362;
+  --muted: #6f6885;
+  --paper: #faf8f4;
+  --white: #ffffff;
+  --line: #e6e1f0;
+
+  --red: #ff5a5f;
+  --gold: #ffb800;
+  --teal: #00c2a8;
+  --teal-deep: #00918a;
+  --purple: #6c4fd6;
+  --pink: #ff3d9a;
+
+  --radius: 16px;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.sti-page * { box-sizing: border-box; }
+
+.sti-page h1,
+.sti-page h2,
+.sti-page h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  margin: 0;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.sti-page p { margin: 0 0 16px; line-height: 1.65; }
+
+.sti-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sti-section { padding: 52px 0; }
+
+/* ---------- hero ---------- */
+
+.sti-hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 44px 0 52px;
+}
+
+.sti-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+}
+
+.sti-hero h1 {
+  font-size: 34px;
+  color: var(--white);
+}
+
+.sti-hero h1 em {
+  font-style: italic;
+  color: var(--pink);
+}
+
+.sti-hero .sti-sub {
+  font-size: 16px;
+  color: #cfc8e6;
+  margin-top: 18px;
+}
+
+.sti-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 26px 0 6px;
+}
+
+.sti-chain span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border-radius: 20px;
+  color: var(--white);
+}
+
+.sti-chain .c1 { background: var(--red); }
+.sti-chain .c2 { background: var(--gold); color: var(--ink); }
+.sti-chain .c3 { background: var(--teal); }
+.sti-chain .c4 { background: var(--purple); }
+.sti-chain .c5 { background: var(--pink); }
+
+/* ---------- buttons ---------- */
+
+.sti-btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  background: var(--pink);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 19px 22px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(255, 61, 154, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  /* 19px vertical padding puts the tap target well over the 44px minimum */
+}
+
+.sti-btn:active { transform: translateY(1px); }
+.sti-btn:disabled { opacity: 0.6; cursor: wait; }
+
+.sti-btn-note {
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+  margin: 12px 0 0;
+}
+
+.sti-hero .sti-btn-note { color: #a79bd0; }
+
+.sti-price-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 26px 0 16px;
+}
+
+.sti-price-line .now {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.sti-price-line .then {
+  font-size: 13.5px;
+  color: #a79bd0;
+  font-weight: 600;
+}
+
+.sti-err {
+  background: #fff0f0;
+  border: 1px solid #ffc9c9;
+  color: #b42318;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 13.5px;
+  margin-top: 14px;
+}
+
+/* ---------- generic blocks ---------- */
+
+.sti-section h2 {
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+
+.sti-lead { font-size: 16.5px; color: var(--ink-soft); }
+
+.sti-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--purple);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin: 14px 0;
+}
+
+.sti-card h3 {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.sti-card p:last-child { margin-bottom: 0; }
+
+.sti-card .sti-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 20px;
+  color: var(--white);
+  margin-bottom: 11px;
+}
+
+.sti-card.k1 { border-left-color: var(--red); }
+.sti-card.k1 .sti-num { background: var(--red); }
+.sti-card.k2 { border-left-color: var(--gold); }
+.sti-card.k2 .sti-num { background: var(--gold); color: var(--ink); }
+.sti-card.k3 { border-left-color: var(--teal); }
+.sti-card.k3 .sti-num { background: var(--teal); }
+.sti-card.k4 { border-left-color: var(--purple); }
+.sti-card.k4 .sti-num { background: var(--purple); }
+.sti-card.k5 { border-left-color: var(--pink); }
+.sti-card.k5 .sti-num { background: var(--pink); }
+
+.sti-dark {
+  background: var(--ink);
+  color: #efeafc;
+}
+
+.sti-dark h2 { color: var(--white); }
+.sti-dark p { color: #cfc8e6; }
+
+/* ---------- the chain / proof ---------- */
+
+.sti-steps { margin: 22px 0 0; padding: 0; list-style: none; }
+
+.sti-steps li {
+  position: relative;
+  padding-left: 42px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sti-steps li .n {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--purple);
+}
+
+/* align-items: start stops a short card being stretched to the height of a
+   tall neighbour, which otherwise leaves a block of dead white under its
+   caption. */
+.sti-proof-grid { display: grid; gap: 16px; margin-top: 20px; align-items: start; }
+
+.sti-proof {
+  margin: 0;
+  border: 1px solid #e4dff1;
+  border-radius: 14px;
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(26, 16, 64, 0.05);
+}
+
+/* Screenshots arrive at wildly different aspect ratios (a tall insights page,
+   a wide chart). A fixed box with object-fit would crop the very numbers the
+   image exists to show, so height is capped instead and the whole frame stays
+   visible. */
+.sti-proof img {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: top center;
+  background: #12131a;
+}
+
+.sti-proof figcaption {
+  padding: 13px 16px 15px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  border-top: 1px solid #efecf7;
+}
+
+.sti-proof-sub {
+  margin-top: 44px;
+  font-size: 22px;
+}
+
+.sti-dm-grid { display: grid; gap: 12px; margin-top: 18px; }
+
+.sti-dm {
+  margin: 0;
+  border: 1px solid #e4dff1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #12131a;
+}
+
+.sti-dm img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sti-proof-note {
+  margin-top: 20px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- lists ---------- */
+
+.sti-ticks { list-style: none; margin: 18px 0 0; padding: 0; }
+
+.sti-ticks li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 13px;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.sti-ticks li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.sti-ticks.no li::before { background: var(--red); }
+
+/* ---------- price box ---------- */
+
+.sti-buybox {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 26px 22px;
+  box-shadow: 0 10px 34px rgba(21, 16, 46, 0.07);
+}
+
+.sti-buybox .amount {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.sti-buybox .amount small {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.sti-buybox .rises {
+  background: #fff9e6;
+  border: 1px solid #ffe08a;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 16px 0 20px;
+}
+
+/* ---------- faq ---------- */
+
+.sti-faq { border-top: 1px solid var(--line); }
+
+.sti-faq details {
+  border-bottom: 1px solid var(--line);
+}
+
+.sti-faq summary {
+  font-weight: 600;
+  font-size: 15.5px;
+  cursor: pointer;
+  /* Padding lives here, not on the parent, so the whole row is the tap
+     target rather than just the 22px line of text. */
+  padding: 18px 0;
+  min-height: 56px;
+  align-items: center;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.sti-faq summary::-webkit-details-marker { display: none; }
+
+.sti-faq summary::after {
+  content: '+';
+  font-size: 22px;
+  line-height: 1;
+  color: var(--purple);
+  flex-shrink: 0;
+}
+
+.sti-faq details[open] summary::after { content: '–'; }
+
+.sti-faq details p {
+  margin: -4px 0 18px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- about ---------- */
+
+.sti-about {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sti-about-photo {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 16px;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  margin: 0 auto;
+  display: block;
+}
+
+.sti-about-creds { list-style: none; margin: 16px 0 0; padding: 0; }
+
+.sti-about-creds li {
+  font-size: 14.5px;
+  line-height: 1.55;
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 10px;
+  color: var(--ink-soft);
+}
+
+.sti-about-creds li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 2px;
+  background: var(--gold);
+}
+
+/* ---------- sticky mobile bar ---------- */
+
+.sti-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: rgba(250, 248, 244, 0.97);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(120%);
+  transition: transform 0.25s ease;
+}
+
+.sti-sticky.show { transform: translateY(0); }
+
+.sti-sticky .s-price {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sti-sticky .sti-btn {
+  width: auto;
+  flex: 1;
+  padding: 15px 18px;
+  font-size: 15.5px;
+  box-shadow: none;
+}
+
+/* globals.css styles the bare `footer` element site-wide as
+   `position: fixed; bottom: 0; z-index: 80` with a grid layout, for the main
+   site chrome. That rule reaches any <footer> on any page, including this
+   one, and it pinned this footer over the middle of the page. Everything
+   below is an explicit reset of that rule, scoped to this funnel only.
+   Do not remove it: the footer will detach and float again. */
+.sti-page footer.sti-footer {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+  box-shadow: none;
+  background: var(--ink);
+  color: #a79bd0;
+  text-align: center;
+  font-size: 13px;
+  /* Bottom padding clears the fixed sticky buy bar on phones. */
+  padding: 40px 0 110px;
+}
+
+.sti-page footer.sti-footer > *:last-child { justify-self: auto; }
+
+.sti-page footer.sti-footer strong,
+.sti-page footer.sti-footer .f-name {
+  font-family: inherit;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.sti-footer a { color: var(--teal); text-decoration: none; font-weight: 600; }
+
+/* <strong> defaults to 700, which Inter does not ship here. Pin it to the
+   heaviest weight actually loaded so bold text is real, not synthesised. */
+.sti-page strong { font-weight: 600; }
+
+/* ---------- download page ---------- */
+
+.sti-dl-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 10px 34px rgba(21, 16, 46, 0.07);
+}
+
+.sti-dl-tick {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+/* =========================================================================
+   Desktop and large tablet. Nothing below here changes the phone layout.
+   ========================================================================= */
+
+@media (min-width: 860px) {
+  .sti-wrap { padding: 0 28px; }
+
+  .sti-section { padding: 78px 0; }
+
+  .sti-hero { padding: 66px 0 74px; }
+  .sti-hero h1 { font-size: 52px; }
+  .sti-hero .sti-sub { font-size: 18px; max-width: 580px; }
+
+  .sti-section h2 { font-size: 36px; }
+
+  .sti-btn { width: auto; display: inline-block; min-width: 340px; }
+  .sti-btn-note { text-align: left; }
+
+  .sti-proof-grid { grid-template-columns: 1fr 1fr; }
+  .sti-dm-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  .sti-proof img { max-height: 480px; }
+
+  .sti-buybox { padding: 34px 32px; }
+
+  .sti-about {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 36px;
+  }
+  .sti-about-photo { flex: 0 0 220px; max-width: 220px; margin: 0; }
+
+  /* The sticky bar is a phone affordance. On desktop the buy box is always
+     a short scroll away and a fixed bar just covers content. */
+  .sti-sticky { display: none; }
+  .sti-page footer.sti-footer { padding-bottom: 46px; }
+}
