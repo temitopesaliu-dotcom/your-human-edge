@@ -111,7 +111,7 @@ export default async function StoryToIncomeDownloadPage({
           <div className="sti-card k3" style={{ marginTop: '26px' }}>
             <h3>Let me see what you make with it</h3>
             <p style={{ marginBottom: 0 }}>
-              When you post your first one, send it to me at{' '}
+              When you post your first one, tag me at{' '}
               <a
                 href="https://www.instagram.com/temitopesaliu"
                 target="_blank"
