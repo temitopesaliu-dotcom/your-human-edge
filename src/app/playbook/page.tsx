@@ -57,10 +57,7 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     }
     return (
       <div style={{ minHeight: '100dvh' }}>
-        <PlaybookPdfViewer
-          archetypeKey={arch.key}
-          userEmail={access.email || undefined}
-        />
+        <PlaybookPdfViewer userEmail={access.email || undefined} sessionId={access.sessionId} />
       </div>
     );
   }
@@ -89,10 +86,7 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
 
   return (
     <div style={{ minHeight: '100dvh' }}>
-      <PlaybookPdfViewer
-        archetypeKey={arch.key}
-        userEmail={access.email || undefined}
-      />
+      <PlaybookPdfViewer userEmail={access.email || undefined} sessionId={access.sessionId} />
     </div>
   );
 }
