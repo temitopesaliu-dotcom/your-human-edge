@@ -1,0 +1,135 @@
+import Link from 'next/link';
+import PurchaseTracker from '@/components/purchase-tracker';
+import { validatePurchaseAccess } from '@/lib/services/purchase-access';
+import '../story-to-income.css';
+
+export const metadata = {
+  title: 'Your download — The Story to Income Blueprint',
+  robots: 'noindex, nofollow',
+};
+
+/**
+ * Post-payment delivery page for The Story to Income Blueprint.
+ *
+ * Deliberately NOT /payment-successful, which is hard-coded to the AI Stadium
+ * Live Class and fires a $97 purchase event under "stadium-live". Sending
+ * buyers there would log every $9.99 sale as a $97 stadium ticket in GA4 and
+ * the Meta Pixel.
+ *
+ * The session is verified server-side against Stripe before the download link
+ * renders, so the link is not exposed to anyone who simply guesses this URL.
+ * PurchaseTracker is only mounted inside the verified branch for the same
+ * reason: a failed verification must not log revenue that never happened.
+ */
+
+/**
+ * Not a static file path. The PDF is served by a route that re-verifies the
+ * Stripe session on every request, so the URL is useless to anyone who has not
+ * paid, even if a buyer shares it.
+ */
+const downloadHref = (sessionId: string) =>
+  `/api/story-to-income/download?session_id=${encodeURIComponent(sessionId)}`;
+
+export default async function StoryToIncomeDownloadPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const { session_id: sessionId } = await searchParams;
+  const access = sessionId
+    ? await validatePurchaseAccess(sessionId, 'story-to-income')
+    : { ok: false as const };
+
+  if (!access.ok) {
+    return (
+      <div className="sti-page">
+        <section className="sti-section">
+          <div className="sti-wrap">
+            <div className="sti-dl-card">
+              <h2 style={{ fontSize: '26px' }}>We could not verify that payment</h2>
+              <p style={{ marginTop: '14px' }}>
+                This page needs a valid checkout link to release the download.
+                If you have just paid and landed here, nothing is lost. Your
+                Stripe receipt is proof of purchase.
+              </p>
+              <p>
+                Send that receipt to{' '}
+                <a
+                  href="mailto:hello@temitopesaliu.com?subject=Story%20to%20Income%20Blueprint%20download"
+                  style={{ color: '#6c4fd6', fontWeight: 700 }}
+                >
+                  hello@temitopesaliu.com
+                </a>{' '}
+                and the blueprint will be sent straight to you.
+              </p>
+              <p style={{ marginBottom: 0 }}>
+                <Link href="/story-to-income" style={{ color: '#6c4fd6', fontWeight: 700 }}>
+                  Back to the page
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  const firstName = access.name ? access.name.split(' ')[0] : '';
+
+  return (
+    <div className="sti-page">
+      <PurchaseTracker
+        productId="story-to-income"
+        productName="The Story to Income Blueprint"
+        value={9.99}
+        currency="USD"
+      />
+
+      <section className="sti-section">
+        <div className="sti-wrap">
+          <div className="sti-dl-card">
+            <div className="sti-dl-tick">✓</div>
+            <h2 style={{ fontSize: '28px' }}>
+              {firstName ? `It's yours, ${firstName}.` : "It's yours."}
+            </h2>
+            <p style={{ marginTop: '14px' }}>
+              The Story to Income Blueprint is ready. Save it to your phone, you
+              will be copying prompts out of it.
+            </p>
+
+            <div style={{ marginTop: '24px' }}>
+              <a className="sti-btn" href={downloadHref(access.sessionId)}>
+                Download the blueprint
+              </a>
+            </div>
+
+            <p className="sti-btn-note" style={{ textAlign: 'center' }}>
+              15-page PDF. Bookmark this page, the link keeps working.
+            </p>
+          </div>
+
+          <div className="sti-card k3" style={{ marginTop: '26px' }}>
+            <h3>Start here, not at page one</h3>
+            <p>
+              Open it, go to page 2, and set up the three chats before you read
+              anything else. Pin them. Then record one voice note into Chat 2
+              today and post whatever comes back.
+            </p>
+            <p style={{ marginBottom: 0 }}>
+              Tag me at{' '}
+              <a
+                href="https://www.instagram.com/temitopesaliu"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#00918a', fontWeight: 700 }}
+              >
+                @temitopesaliu
+              </a>{' '}
+              when you post your first one. I want to see it.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
