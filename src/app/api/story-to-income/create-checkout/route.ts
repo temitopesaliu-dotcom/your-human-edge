@@ -16,7 +16,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * same reason as the Business Architect route: the number the page renders
  * and the number Stripe charges both come from PRICE_CENTS below, so they
  * cannot drift apart. When the launch price rises from $9.99 to $27 after the
- * first 100 sales, that is a one-line change here plus the copy on the page.
+ * first 50 sales, that is a one-line change here plus the copy on the page.
  *
  * payment_method_types is pinned to ['card'] on purpose: async methods can
  * reach the webhook with payment_status !== 'paid', which would skip
@@ -44,10 +44,10 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      // Needed for a discount code box at checkout. Without it a promotion
-      // code cannot be entered at all, which is what makes a cheap end-to-end
-      // test on the live site possible.
-      allow_promotion_codes: true,
+      // Deliberately no allow_promotion_codes. A discount box on a low-ticket
+      // impulse buy sends people off to hunt for a code they will not find,
+      // and makes the ones without a code feel overcharged. It was switched on
+      // only long enough to run a paid end-to-end test, then switched back off.
       // Adaptive Pricing off so a buyer outside the US sees the same number
       // the page showed them, rather than a converted amount carrying
       // Stripe's own conversion fee.
