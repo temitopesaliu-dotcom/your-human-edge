@@ -4,7 +4,7 @@ import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 import '../story-to-income.css';
 
 export const metadata = {
-  title: 'Your download — The Story to Income Blueprint',
+  title: 'Your download: The Story to Income Blueprint',
   robots: 'noindex, nofollow',
 };
 
@@ -93,8 +93,8 @@ export default async function StoryToIncomeDownloadPage({
               {firstName ? `It's yours, ${firstName}.` : "It's yours."}
             </h2>
             <p style={{ marginTop: '14px' }}>
-              The Story to Income Blueprint is ready. Save it to your phone, you
-              will be copying prompts out of it.
+              The Story to Income Blueprint is ready. Save it to your phone
+              preferably, or your laptop, you will be copying prompts out of it.
             </p>
 
             <div style={{ marginTop: '24px' }}>
@@ -109,14 +109,9 @@ export default async function StoryToIncomeDownloadPage({
           </div>
 
           <div className="sti-card k3" style={{ marginTop: '26px' }}>
-            <h3>Start here, not at page one</h3>
-            <p>
-              Open it, go to page 2, and set up the three chats before you read
-              anything else. Pin them. Then record one voice note into Chat 2
-              today and post whatever comes back.
-            </p>
+            <h3>Let me see what you make with it</h3>
             <p style={{ marginBottom: 0 }}>
-              Tag me at{' '}
+              When you post your first one, send it to me at{' '}
               <a
                 href="https://www.instagram.com/temitopesaliu"
                 target="_blank"
@@ -124,8 +119,10 @@ export default async function StoryToIncomeDownloadPage({
                 style={{ color: '#00918a', fontWeight: 700 }}
               >
                 @temitopesaliu
-              </a>{' '}
-              when you post your first one. I want to see it.
+              </a>
+              . I share the ones that land with my own audience, so your work
+              gets in front of people who would never have found you otherwise.
+              That is the whole point of doing this in public.
             </p>
           </div>
         </div>
