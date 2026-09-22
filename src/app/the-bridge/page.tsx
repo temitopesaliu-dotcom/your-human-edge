@@ -2,165 +2,137 @@ import Link from 'next/link';
 import './the-bridge.css';
 
 /**
- * The Bridge: a values/guide page for cold traffic.
- *
- * Sits in front of /story-to-income. Nothing here is gated and nothing here
- * asks for money. It gives a real, usable idea about crossing from AI
- * avoidance to AI as a working tool, then points to the paid blueprint for
- * the specific mechanics (the prompts, the automation, the system).
- *
- * If a listed type existed for a plain content/guide page this would be
- * built as one; it does not, so this is a hand-built static page, matching
- * the story-to-income funnel's pattern of a small scoped stylesheet.
+ * The Bridge: free guide page for cold traffic, in front of the
+ * Storytelling to Income sales page (/story-to-income). Gives real value
+ * without the paid framework or prompts, and every section ends with a CTA
+ * matched to what the reader just read.
  */
 
 export const metadata = {
-  title: 'The Bridge: crossing over to the other side of AI',
+  title: 'Storytelling to Income: how to get people to stop, watch, resonate and buy',
   description:
-    'A short guide on why AI feels distant even when you already have what it takes, and the four psychological shifts that close the gap.',
+    'A free guide on how attention moves through the human mind, awareness and conversion storytelling, finding your lane and building your offer.',
 };
 
 export default function TheBridgePage() {
   return (
     <div className="tb-page">
-      <section className="tb-hero">
-        <div className="tb-wrap">
-          <div className="tb-eyebrow">The Bridge</div>
-          <h1>
-            You are not behind on AI. You are standing on the{' '}
-            <em>wrong side</em> of it.
-          </h1>
-          <p className="tb-lead">
-            Most people do not have a skills problem. They have a psychology
-            problem. Here is the actual gap, and what closes it.
-          </p>
-        </div>
-      </section>
 
-      <section className="tb-section tb-intro">
-        <div className="tb-wrap">
-          <p>
-            You already have something worth building on. A skill, a job, a
-            way of explaining things, years of doing something well. That is
-            not what is missing.
-          </p>
-          <p>
-            What is missing is permission. Most people wait to feel ready for
-            AI, the same way they waited to feel ready to post, to charge
-            more, to be seen. Readiness is not a feeling that arrives. It is
-            something you build by crossing before you feel ready.
-          </p>
-          <p>
-            <strong>This is that bridge.</strong> Four honest shifts, not
-            tricks. If you want the exact mechanics after this, the way to
-            turn what you already know into content and income, that is a
-            separate thing, and it comes at the end.
-          </p>
-        </div>
-      </section>
+<section className="tb-hero"><div className="tb-wrap">
+  <div className="tb-eyebrow">The Bridge</div>
+  <h1>You don&apos;t need more followers. You need people to <em>stop, watch, resonate &amp; buy</em>.</h1>
+  <p className="tb-lead">You don&apos;t need a niche, a ring light, or perfect content. You need to understand how attention works, a story worth telling, and a lane you already own. Here&apos;s the start.</p>
+</div></section>
 
-      <section className="tb-section tb-guide">
-        <div className="tb-wrap">
-          <h2>Four shifts, not four tools</h2>
-          <p className="tb-lead">
-            None of these need a course. They need you to actually do them
-            once.
-          </p>
+{/* 1. ATTENTION (most important) */}
+<section className="tb-section tb-key"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 1 &middot; Start here</div>
+  <h2>How attention actually moves through a human mind</h2>
+  <p>People don&apos;t decide to watch your video. Their brain decides for them in about a second, before they&apos;re even aware of it. It&apos;s scanning for one thing: <strong>is this about me, or is this something I didn&apos;t expect?</strong> If the answer is no, the thumb keeps moving.</p>
+  <p>The posts that stop people in their tracks almost always use one of these patterns:</p>
+  <div className="tb-points">
+    <div className="tb-point"><h3>The Contrarian</h3><p>Says the opposite of what everyone accepts as true. The brain flags it as a threat to what it already believes, and it has to check.</p></div>
+    <div className="tb-point"><h3>The Mirror Moment</h3><p>Describes a scene so specific the viewer feels caught. &quot;If you&apos;ve ever rewritten a caption five times and still not posted it...&quot; Being seen is the fastest way to be heard.</p></div>
+    <div className="tb-point"><h3>The Unfinished Loop</h3><p>Opens a question and holds the answer back. The mind hates an open loop and will stay until it&apos;s closed.</p></div>
+    <div className="tb-point"><h3>The Confession</h3><p>Says out loud what people think privately and would never post. It creates instant trust because it feels unperformed.</p></div>
+    <div className="tb-point"><h3>The Reversal</h3><p>Builds toward an obvious ending, then flips it in the last line. Surprise is memorable, and memorable gets shared.</p></div>
+  </div>
+  <p>These are patterns, not scripts. Knowing them gets you a head start. Turning a raw thought into one of them, in your own voice, every single time, is where most people get stuck.</p>
+  <div className="tb-inline-cta">
+    <h3>Stopping them is step one.</h3>
+    <p>The guide goes deeper into how the mind moves from stopping, to feeling, to trusting, and shows you how to build that journey into every piece of content you post.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-          <div className="tb-points">
-            <div className="tb-point">
-              <span className="tb-point-num">1</span>
-              <h3>Ignorance is not the block. Vagueness is.</h3>
-              <p>
-                &quot;I do not understand AI&quot; is almost never true.
-                What is true is &quot;I have not asked it one specific thing
-                and watched what came back.&quot; Pick one real task you did
-                this week. Ask AI to do a rough version of it. You will
-                understand more from that ten minutes than from a month of
-                reading about it.
-              </p>
-            </div>
+{/* 2. AWARENESS */}
+<section className="tb-section"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 2</div>
+  <h2>Awareness storytelling</h2>
+  <p>Awareness storytelling is how a stranger goes from &quot;who is this?&quot; to &quot;wait, that&apos;s me.&quot; It isn&apos;t about your product. It isn&apos;t about you, really. It&apos;s about naming something your viewer has lived through, so accurately that they feel understood before they know what you sell.</p>
+  <p>This is the content that builds your audience. People don&apos;t follow experts. They follow the person who made them feel seen first.</p>
+  <p>The good news: you already have these stories. They come out when you talk, not when you sit down to &quot;write content.&quot;</p>
+  <div className="tb-inline-cta">
+    <h3>Your voice note is already a story.</h3>
+    <p>The guide shows you how to take a raw voice note, just you talking, and turn it into an awareness story that stops the scroll and pulls people in. No writing required.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-            <div className="tb-point">
-              <span className="tb-point-num">2</span>
-              <h3>Fear usually means the stakes are imagined too high.</h3>
-              <p>
-                People treat their first attempt like it has to be their
-                best work, publicly, forever. It does not. Give yourself
-                one attempt that nobody sees. Draft an email, a caption, an
-                outline. Delete it after. The fear was never about AI. It
-                was about being watched while you learn.
-              </p>
-            </div>
+{/* 3. CONVERSION */}
+<section className="tb-section"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 3</div>
+  <h2>Conversion storytelling</h2>
+  <p>Awareness gets them to relate. Conversion gets them to act. Once someone already feels understood by you, conversion storytelling shows them what changes when they have the thing you sell, and makes the next step feel obvious rather than pushy.</p>
+  <p>Same honesty, same voice. The difference is direction: every conversion story is pointed at one specific offer and one specific outcome.</p>
+  <p>Most people either never sell at all, or they sell so hard it breaks the trust their awareness content built. Conversion storytelling is the middle path.</p>
+  <div className="tb-inline-cta">
+    <h3>From &ldquo;that&rsquo;s me&rdquo; to &ldquo;take my money.&rdquo;</h3>
+    <p>The guide shows you how to turn a voice note and your offer into the story that moves people from watching to buying. One per offer.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-            <div className="tb-point">
-              <span className="tb-point-num">3</span>
-              <h3>Anxiety drops the moment you narrow the question.</h3>
-              <p>
-                &quot;How do I use AI in my business&quot; is too big a
-                question for anyone to answer, which is exactly why it
-                keeps circling in your head. &quot;How do I use AI to
-                write the first draft of my Monday newsletter&quot; is a
-                question with an answer. Shrink the question before you
-                touch the tool.
-              </p>
-            </div>
+{/* 4. LANE */}
+<section className="tb-section"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 4</div>
+  <h2>Find your lane</h2>
+  <p>Most people freeze on what to post because they think they need a &quot;niche.&quot; You don&apos;t. You need a lane: one thing you know, that other people are stuck on, said in your own words.</p>
+  <div className="tb-compare">
+    <div className="tb-weak"><b>Weak</b>Post whatever comes to mind that day and hope something lands.</div>
+    <div className="tb-strong"><b>Strong</b>Pick one problem you already solve for people, at work, in conversation, in your DMs, and become known for it.</div>
+  </div>
+  <p>Your lane isn&apos;t your job title. It&apos;s the transformation you can talk about with zero research, because you&apos;ve already done the work.</p>
+  <div className="tb-inline-cta">
+    <h3>You&rsquo;ve already done the work. Now name it.</h3>
+    <p>The guide walks you through finding your lane in one sitting, pulled straight out of what you already know. No guessing.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-            <div className="tb-point">
-              <span className="tb-point-num">4</span>
-              <h3>Nonchalance is protection wearing a disguise.</h3>
-              <p>
-                &quot;It is not for me&quot; or &quot;I will get to it
-                eventually&quot; is rarely apathy. It is a way to avoid
-                trying and possibly being bad at something new, in public,
-                at your age or stage. The fix is not motivation. It is
-                lowering what &quot;trying&quot; costs you, which is what
-                shift one and two already did.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+{/* 5. OFFER */}
+<section className="tb-section"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 5</div>
+  <h2>Turn that lane into an offer</h2>
+  <p>Content without an offer is a hobby. Once you know your lane, you need something to sell from it, even something small.</p>
+  <div className="tb-compare">
+    <div className="tb-weak"><b>Weak</b>&quot;I help people with their mindset.&quot;</div>
+    <div className="tb-strong"><b>Strong</b>&quot;A 15-minute guide that helps first-time posters land their first paying customer.&quot;</div>
+  </div>
+  <p>The offer doesn&apos;t need to be big. It needs to be clear enough that a stranger scrolling past knows exactly what they&apos;d get, and who it&apos;s for.</p>
+  <div className="tb-inline-cta">
+    <h3>Make it something they can say yes to.</h3>
+    <p>The guide takes the lane you just found and shapes it into an offer people will actually pay for. One sitting.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-      <section className="tb-section tb-transition">
-        <div className="tb-wrap">
-          <p>
-            Crossing the bridge is a decision. What you build once you are
-            on the other side is a system.
-          </p>
-          <p className="tb-sub">
-            That system is what actually turns a skill into content, and
-            content into income, without you needing to become a different
-            person to do it.
-          </p>
-        </div>
-      </section>
+{/* 6. WHAT YOU NEED */}
+<section className="tb-section"><div className="tb-wrap">
+  <div className="tb-eyebrow">Part 6</div>
+  <h2>What you actually need to start</h2>
+  <p>I use my phone and natural light. That&apos;s it. No ring light, no mic, no studio. The gear was never what stood between you and posting.</p>
+  <div className="tb-inline-cta">
+    <h3>Your phone is enough. The system is what&rsquo;s missing.</h3>
+    <p>Everything else, the tools and system that turn posts into paying customers, is in the 15-page guide.</p>
+    <a href="#get-it">Get the guide &rarr;</a>
+  </div>
+</div></section>
 
-      <section className="tb-section">
-        <div className="tb-wrap">
-          <div className="tb-ctabox">
-            <div className="tb-eyebrow">Once you are across</div>
-            <h2>Here is the system, not just the mindset</h2>
-            <p>
-              The exact prompts I use to find my lane, build an offer, write
-              the stories that make strangers stop scrolling, and the one
-              automation that turns a comment into a paying customer while
-              I sleep. $9.99, first 10 copies.
-            </p>
-            <Link href="/story-to-income#get-it" className="tb-btn">
-              See the blueprint
-            </Link>
-            <div className="tb-note">
-              15-page PDF. Instant download. Works in ChatGPT, Claude or
-              Gemini.
-            </div>
-          </div>
-        </div>
-      </section>
+{/* FINAL CTA */}
+<section className="tb-section" id="get-it" style={{ border: 0 }}><div className="tb-wrap">
+  <div className="tb-ctabox">
+    <div className="tb-eyebrow">Storytelling to Income</div>
+    <h2>You&apos;ve seen the map. Here&apos;s the whole system.</h2>
+    <p>The 15-page guide that shows you how to find your lane, build your offer, and turn a voice note into awareness and conversion stories, plus the tools and automation that turn comments into customers.</p>
+    <div className="tb-price">$9.99</div>
+    <div className="tb-price-note">Launch price. Rising to $27.</div>
+    <Link className="tb-btn" href="/story-to-income#get-it">Get the guide</Link>
+    <div className="tb-note">15-page PDF. Instant download. Works in ChatGPT, Claude or Gemini.</div>
+  </div>
+</div></section>
 
-      <footer className="tb-footer">
-        <Link href="/story-to-income">Skip ahead to the blueprint</Link>
-      </footer>
-    </div>
+<footer className="tb-footer"><Link href="/story-to-income">Skip ahead to the guide</Link></footer>
+</div>
   );
 }

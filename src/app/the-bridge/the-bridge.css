@@ -1,229 +1,43 @@
-/* =========================================================================
-   The Bridge: a values/guide page that sits in front of the Story to
-   Income Blueprint sales page. Cold traffic lands here first, gets a real
-   idea before any offer, then is pointed at /story-to-income.
-
-   Namespaced under .tb-page, tokens declared locally, same pattern as the
-   story-to-income funnel so nothing leaks or collides.
-   ========================================================================= */
-
-.tb-page {
-  --ink: #15102e;
-  --ink-soft: #4a4362;
-  --muted: #6f6885;
-  --paper: #faf8f4;
-  --white: #ffffff;
-  --line: #e6e1f0;
-
-  --gold: #ffb800;
-  --teal-deep: #00918a;
-  --purple: #6c4fd6;
-  --pink: #ff3d9a;
-
-  --radius: 16px;
-
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-.tb-page * { box-sizing: border-box; }
-
-.tb-page h1,
-.tb-page h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  margin: 0;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
-}
-
-.tb-page p { margin: 0 0 16px; line-height: 1.65; }
-
-.tb-wrap {
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.tb-section { padding: 48px 0; }
-
-/* ---------- hero ---------- */
-.tb-hero {
-  background: var(--ink);
-  color: var(--white);
-  padding: 56px 0 44px;
-}
-
-.tb-eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-}
-
-.tb-hero h1 {
-  font-size: 30px;
-  color: var(--white);
-}
-
-.tb-hero h1 em {
-  font-style: italic;
-  color: var(--pink);
-}
-
-.tb-hero .tb-lead {
-  margin-top: 16px;
-  font-size: 16px;
-  color: #d8d3e8;
-  max-width: 52ch;
-}
-
-/* ---------- intro / who this is for ---------- */
-.tb-intro p {
-  font-size: 16.5px;
-  color: var(--ink-soft);
-}
-
-.tb-intro strong { color: var(--ink); }
-
-/* ---------- guide list ---------- */
-.tb-guide h2 {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.tb-guide .tb-lead {
-  color: var(--muted);
-  font-size: 15px;
-  margin-bottom: 28px;
-}
-
-.tb-points {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.tb-point {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 20px 20px 4px;
-}
-
-.tb-point-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--purple);
-  color: var(--white);
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tb-point h3 {
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  margin: 0 0 8px;
-  color: var(--ink);
-}
-
-.tb-point p {
-  font-size: 14.5px;
-  color: var(--ink-soft);
-}
-
-/* ---------- bridge line / transition ---------- */
-.tb-transition {
-  background: var(--white);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.tb-transition p {
-  font-size: 17px;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.tb-transition .tb-sub {
-  font-size: 14.5px;
-  color: var(--muted);
-  font-weight: 400;
-}
-
-/* ---------- CTA card ---------- */
-.tb-ctabox {
-  background: var(--ink);
-  border-radius: var(--radius);
-  padding: 30px 26px;
-  text-align: center;
-}
-
-.tb-ctabox .tb-eyebrow { color: var(--gold); }
-
-.tb-ctabox h2 {
-  color: var(--white);
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.tb-ctabox p {
-  color: #d8d3e8;
-  font-size: 14.5px;
-  margin-bottom: 22px;
-}
-
-.tb-btn {
-  display: inline-block;
-  background: var(--pink);
-  color: var(--white);
-  font-weight: 700;
-  font-size: 16px;
-  padding: 15px 30px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: transform 0.15s ease;
-}
-
-.tb-btn:active { transform: scale(0.98); }
-
-.tb-note {
-  margin-top: 14px;
-  font-size: 12.5px;
-  color: #a89fc4;
-}
-
-/* ---------- footer ---------- */
-.tb-page footer.tb-footer {
-  text-align: center;
-  padding: 30px 0 40px;
-  font-size: 12.5px;
-  color: var(--muted);
-}
-
-.tb-page footer.tb-footer a {
-  color: var(--purple);
-  text-decoration: none;
-}
-
-/* ---------- desktop ---------- */
-@media (min-width: 860px) {
-  .tb-hero { padding: 76px 0 60px; }
-  .tb-hero h1 { font-size: 42px; }
-  .tb-hero .tb-lead { font-size: 18px; }
-  .tb-section { padding: 64px 0; }
-  .tb-points { gap: 16px; }
-  .tb-ctabox { padding: 44px 40px; }
-  .tb-ctabox h2 { font-size: 28px; }
-}
+/* The Bridge: free guide page in front of the Storytelling to Income sales page.
+   Namespaced under .tb-page. */
+.tb-page{--ink:#15102e;--ink-soft:#4a4362;--muted:#6f6885;--paper:#faf8f4;--white:#fff;--line:#e6e1f0;--gold:#ffb800;--purple:#6c4fd6;--pink:#ff3d9a;--radius:16px;background:var(--paper);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.tb-page *{box-sizing:border-box}
+.tb-page h1,.tb-page h2{font-family:'Playfair Display',Georgia,serif;margin:0;letter-spacing:-.5px;line-height:1.15}
+.tb-page p{margin:0 0 16px;line-height:1.65}
+.tb-wrap{max-width:640px;margin:0 auto;padding:0 20px}
+.tb-section{padding:48px 0;border-bottom:1px solid var(--line)}
+.tb-hero{background:var(--ink);color:#fff;padding:56px 0 44px}
+.tb-eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.tb-section .tb-eyebrow{color:var(--purple)}
+.tb-hero h1{font-size:30px}
+.tb-hero h1 em{color:var(--pink)}
+.tb-lead{margin-top:16px;font-size:16px;color:#d8d3e8}
+.tb-section h2{font-size:26px;margin-bottom:14px}
+.tb-section p{font-size:16px;color:var(--ink-soft)}
+.tb-section strong{color:var(--ink)}
+.tb-key{background:var(--white)}
+.tb-points{display:flex;flex-direction:column;gap:14px;margin:22px 0}
+.tb-point{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px 4px}
+.tb-key .tb-point{background:#fff}
+.tb-point h3{font-size:16.5px;margin:0 0 6px}
+.tb-point p{font-size:14.5px}
+.tb-compare{display:grid;gap:12px;margin:20px 0}
+.tb-compare div{border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.55}
+.tb-weak{background:#f1eef6;color:var(--muted)}
+.tb-strong{background:#fff;border:1px solid var(--purple);color:var(--ink)}
+.tb-compare b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.tb-inline-cta{margin-top:30px;background:var(--ink);border-radius:var(--radius);padding:28px 24px;text-align:center}
+.tb-inline-cta h3{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:22px;line-height:1.2;margin:0 0 10px}
+.tb-inline-cta p{font-size:15px;color:#d8d3e8 !important;margin-bottom:20px}
+.tb-inline-cta a{display:inline-block;background:var(--pink);color:#fff;font-weight:700;font-size:15.5px;padding:14px 26px;border-radius:999px;text-decoration:none}
+@media(min-width:860px){.tb-inline-cta{padding:36px 36px}.tb-inline-cta h3{font-size:26px}}
+.tb-ctabox{background:var(--ink);border-radius:var(--radius);padding:30px 26px;text-align:center}
+.tb-ctabox h2{color:#fff;font-size:24px;margin-bottom:10px}
+.tb-ctabox p{color:#d8d3e8;font-size:15px}
+.tb-price{font-family:'Playfair Display',serif;font-size:40px;color:#fff;margin:6px 0 2px}
+.tb-price-note{color:var(--gold);font-size:13px;font-weight:700;margin-bottom:22px}
+.tb-btn{display:inline-block;background:var(--pink);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+.tb-note{margin-top:14px;font-size:12.5px;color:#a89fc4}
+.tb-footer{text-align:center;padding:30px 0 40px;font-size:12.5px}
+.tb-footer a{color:var(--purple);text-decoration:none}
+@media(min-width:860px){.tb-hero{padding:76px 0 60px}.tb-hero h1{font-size:42px}.tb-section{padding:64px 0}.tb-section h2{font-size:32px}.tb-compare{grid-template-columns:1fr 1fr}}
