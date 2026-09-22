@@ -4,12 +4,12 @@ import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 import '../story-to-income.css';
 
 export const metadata = {
-  title: 'Your download: The Story to Income Blueprint',
+  title: 'Your download: Storytelling to Income',
   robots: 'noindex, nofollow',
 };
 
 /**
- * Post-payment delivery page for The Story to Income Blueprint.
+ * Post-payment delivery page for Storytelling to Income.
  *
  * Deliberately NOT /payment-successful, which is hard-coded to the AI Stadium
  * Live Class and fires a $97 purchase event under "stadium-live". Sending
@@ -55,12 +55,12 @@ export default async function StoryToIncomeDownloadPage({
               <p>
                 Send that receipt to{' '}
                 <a
-                  href="mailto:hello@temitopesaliu.com?subject=Story%20to%20Income%20Blueprint%20download"
+                  href="mailto:hello@temitopesaliu.com?subject=Storytelling%20to%20Income%20download"
                   style={{ color: '#6c4fd6', fontWeight: 700 }}
                 >
                   hello@temitopesaliu.com
                 </a>{' '}
-                and the blueprint will be sent straight to you.
+                and the guide will be sent straight to you.
               </p>
               <p style={{ marginBottom: 0 }}>
                 <Link href="/story-to-income" style={{ color: '#6c4fd6', fontWeight: 700 }}>
@@ -80,7 +80,7 @@ export default async function StoryToIncomeDownloadPage({
     <div className="sti-page">
       <PurchaseTracker
         productId="story-to-income"
-        productName="The Story to Income Blueprint"
+        productName="Storytelling to Income"
         value={9.99}
         currency="USD"
       />
@@ -93,13 +93,13 @@ export default async function StoryToIncomeDownloadPage({
               {firstName ? `It's yours, ${firstName}.` : "It's yours."}
             </h2>
             <p style={{ marginTop: '14px' }}>
-              The Story to Income Blueprint is ready. Save it to your phone
+              Storytelling to Income is ready. Save it to your phone
               preferably, or your laptop, you will be copying prompts out of it.
             </p>
 
             <div style={{ marginTop: '24px' }}>
               <a className="sti-btn" href={downloadHref(access.sessionId)}>
-                Download the blueprint
+                Download the guide
               </a>
             </div>
 
