@@ -5,7 +5,7 @@ import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 
 /**
- * The Story to Income Blueprint checkout.
+ * The Storytelling to Income checkout.
  *
  * Low-ticket digital product, sold direct from Instagram with no free
  * lead-magnet step in front of it. The launch experiment is deliberately
@@ -15,8 +15,9 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * Price is built inline with `price_data` rather than a Payment Link for the
  * same reason as the Business Architect route: the number the page renders
  * and the number Stripe charges both come from PRICE_CENTS below, so they
- * cannot drift apart. When the launch price rises from $9.99 to $27 after the
- * first 10 sales, that is a one-line change here plus the copy on the page.
+ * cannot drift apart. The page says the launch price is rising to $27, but the
+ * price only changes when Temitope says so: a one-line change here plus the
+ * copy on the page.
  * There is deliberately no automatic threshold logic: the price rise is a
  * manual decision, made once the sales count says so, not on a timer.
  *
@@ -29,7 +30,7 @@ const PRICE_CENTS = 999;
 
 const PRODUCT = {
   product: 'story-to-income',
-  name: 'The Story to Income Blueprint (Using AI)',
+  name: 'Storytelling to Income (Using AI)',
   description:
     'A 15-page PDF: four AI prompts for finding your content lane, building your offer, writing awareness stories and writing conversion scripts, plus the comment-to-inbox automation setup, the filming approach and the full tool stack.',
 } as const;
