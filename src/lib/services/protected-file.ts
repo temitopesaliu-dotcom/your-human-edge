@@ -20,7 +20,7 @@ const PRIVATE_DIR = path.join(process.cwd(), 'private-assets', 'pdfs');
 export const PROTECTED_PDFS = {
   'story-to-income': {
     file: 'story-to-income-blueprint.pdf',
-    downloadName: 'The-Story-to-Income-Blueprint.pdf',
+    downloadName: 'Storytelling-to-Income.pdf',
   },
   'playbook-H': {
     file: 'Human_Bridge_Premium_Playbook.pdf',
