@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import './story-to-income.css';
 
 /**
- * The Story to Income Blueprint sales page.
+ * Storytelling to Income sales page.
  *
  * Sold direct from Instagram with no free lead-magnet step in front of it.
  * A previous free-value funnel produced dormant leads rather than buyers, so
@@ -66,35 +66,33 @@ export default function StoryToIncomePage() {
       {/* ================= HERO ================= */}
       <header className="sti-hero">
         <div className="sti-wrap">
-          <div className="sti-eyebrow">The Story to Income Blueprint</div>
+          <div className="sti-eyebrow">Storytelling to Income</div>
           <h1>
-            5,000 followers in <em>30 days</em>.
-            <br />
-            Now 11,900, and over $10,000.
+            <em>$10,000</em> in 30 days.
           </h1>
           <p className="sti-sub">
-            All of it from my phone. Not a following I rented with ads. Not a
-            team. The exact prompts, the psychology underneath them, and the one
-            automation that turns a comment into a paying customer while you
-            sleep.
+            I reverse-engineered it all. All of it from my phone. The
+            psychology that makes people{' '}
+            <span className="sti-pink">stop, watch, resonate &amp; buy</span>,
+            and the tools and system that made $10,000 in 30 days.
           </p>
 
           <div className="sti-chain">
             <span className="c1">Find your lane</span>
             <span className="c2">Build the offer</span>
-            <span className="c3">Awareness story</span>
-            <span className="c4">Conversion story</span>
+            <span className="c3">Awareness storytelling</span>
+            <span className="c4">Conversion storytelling</span>
             <span className="c5">Auto-deliver</span>
           </div>
 
           <div className="sti-price-line">
             <span className="now">{PRICE_LABEL}</span>
-            <span className="then">Launch price. First 10 copies.</span>
+            <span className="then">Launch price. Rising to $27.</span>
           </div>
 
           <div ref={heroCtaRef}>
             <button className="sti-btn" onClick={buy} disabled={loading}>
-              {loading ? 'Opening checkout…' : `Get the blueprint, ${PRICE_LABEL}`}
+              {loading ? 'Opening checkout…' : `Get the guide, ${PRICE_LABEL}`}
             </button>
           </div>
           {error && <div className="sti-err">{error}</div>}
@@ -103,73 +101,6 @@ export default function StoryToIncomePage() {
           </p>
         </div>
       </header>
-
-      {/* ================= PROBLEM ================= */}
-      <section className="sti-section">
-        <div className="sti-wrap">
-          <h2>You are not short of expertise.</h2>
-          <p className="sti-lead">
-            You are short of a way to say it that makes a stranger stop.
-          </p>
-          <p>
-            You already know things people would pay for. That has never been
-            the problem. The problem is that the moment you open the camera,
-            everything interesting you know rearranges itself into something
-            flat and careful, and you post it, and it disappears.
-          </p>
-          <p>
-            So you decide the issue is consistency, or the algorithm, or that
-            you need better lighting first. Six months go by. Somebody less
-            experienced than you, saying simpler things than you know, builds
-            the audience you wanted.
-          </p>
-          <p>
-            The gap between you and them is not knowledge and it is not
-            equipment. It is a repeatable structure for turning what is already
-            in your head into something a stranger cannot scroll past.
-          </p>
-        </div>
-      </section>
-
-      {/* ================= THE CHAIN ================= */}
-      <section className="sti-section sti-dark">
-        <div className="sti-wrap">
-          <div className="sti-eyebrow">What it actually looked like</div>
-          <h2>Followers are not the point.</h2>
-          <p>
-            A follower count proves nothing on its own. Here is the whole chain
-            instead, because the money is in the part most people never show
-            you:
-          </p>
-          <ol className="sti-steps">
-            <li>
-              <span className="n" style={{ background: '#00c2a8' }}>1</span>
-              <strong>Storytelling.</strong> A structure that holds a stranger
-              past the three-second mark, used on every single post.
-            </li>
-            <li>
-              <span className="n" style={{ background: '#ff5a5f' }}>2</span>
-              <strong>Followers.</strong> Those strangers follow, because the
-              value arrives before the ask, never after it.
-            </li>
-            <li>
-              <span className="n" style={{ background: '#ffb800', color: '#15102e' }}>3</span>
-              <strong>Inbound DMs.</strong> They comment one word. The resource
-              lands in their inbox automatically, in seconds, at any hour.
-            </li>
-            <li>
-              <span className="n" style={{ background: '#ff3d9a' }}>4</span>
-              <strong>Revenue.</strong> The conversation is already one to one
-              by the time the offer appears. That is where the $10,000 came
-              from.
-            </li>
-          </ol>
-          <p style={{ marginTop: '22px' }}>
-            Every link in that chain is in the blueprint. Skip any one of them
-            and the chain pays you nothing.
-          </p>
-        </div>
-      </section>
 
       {/* ================= PROOF ================= */}
       <section className="sti-section">
@@ -239,7 +170,7 @@ export default function StoryToIncomePage() {
             These are strangers. Not one of them was asked. This is what happens
             when people can see what you actually do.
           </p>
-          <div className="sti-dm-grid">
+                    <div className="sti-dm-grid">
             <figure className="sti-dm">
               <img
                 src="/images/story-to-income/proof/dm-paying.jpg"
@@ -249,8 +180,8 @@ export default function StoryToIncomePage() {
             </figure>
             <figure className="sti-dm">
               <img
-                src="/images/story-to-income/proof/dm-pricing.jpg"
-                alt="Direct message asking how much the premium option costs"
+                src="/images/story-to-income/proof/dm-services.jpg"
+                alt="Direct message from someone who found the page and is asking about career evaluation services"
                 loading="lazy"
               />
             </figure>
@@ -263,8 +194,22 @@ export default function StoryToIncomePage() {
             </figure>
             <figure className="sti-dm">
               <img
-                src="/images/story-to-income/proof/dm-services.jpg"
-                alt="Direct message from someone who found the page and is asking about career evaluation services"
+                src="/images/story-to-income/proof/dm-monetize.jpg"
+                alt="Direct message from a marketer saying she needs help and is sure her expertise can be monetized, asking for a webinar to learn more"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="sti-dm">
+              <img
+                src="/images/story-to-income/proof/dm-mentor.jpg"
+                alt="Direct message reading: I love what you do. Can you kindly be my mentor?"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="sti-dm">
+              <img
+                src="/images/story-to-income/proof/dm-pricing.jpg"
+                alt="Direct message asking how much the premium option costs"
                 loading="lazy"
               />
             </figure>
@@ -272,6 +217,46 @@ export default function StoryToIncomePage() {
           <p className="sti-proof-note">
             None of that is the point on its own. The point is that it started
             with one post, and the post started with one voice note.
+          </p>
+        </div>
+      </section>
+
+      {/* ================= THE CHAIN ================= */}
+      <section className="sti-section sti-dark">
+        <div className="sti-wrap">
+          <div className="sti-eyebrow">What it actually looked like</div>
+          <h2>Followers aren&apos;t the point. Income is.</h2>
+          <p>
+            Anyone can chase a follower count. It pays nothing on its own.
+            What you just saw is a chain, and the money sits in the part most
+            people never show you:
+          </p>
+          <ol className="sti-steps">
+            <li>
+              <span className="n" style={{ background: '#00c2a8' }}>1</span>
+              <strong>Storytelling.</strong> A structure that holds a stranger
+              past the three-second mark, used on every single post.
+            </li>
+            <li>
+              <span className="n" style={{ background: '#ff5a5f' }}>2</span>
+              <strong>Followers.</strong> Those strangers follow, because the
+              value arrives before the ask, never after it.
+            </li>
+            <li>
+              <span className="n" style={{ background: '#ffb800', color: '#15102e' }}>3</span>
+              <strong>Inbound DMs.</strong> They comment one word. The resource
+              lands in their inbox automatically, in seconds, at any hour.
+            </li>
+            <li>
+              <span className="n" style={{ background: '#ff3d9a' }}>4</span>
+              <strong>Revenue.</strong> The conversation is already one to one
+              by the time the offer appears. That is where the $10,000 came
+              from.
+            </li>
+          </ol>
+          <p style={{ marginTop: '22px' }}>
+            Every link in that chain is in the guide. Skip any one of them
+            and the chain pays you nothing.
           </p>
         </div>
       </section>
@@ -284,8 +269,9 @@ export default function StoryToIncomePage() {
             Four prompts you paste once, and the setup that makes them pay.
           </p>
 
+          <div className="sti-cards">
           <div className="sti-card k1">
-            <span className="sti-num">Prompt 01</span>
+            <span className="sti-num">Track 01</span>
             <h3>Find your lane</h3>
             <p>
               Finds the subject you could talk about at 2am with no notes, which
@@ -296,7 +282,7 @@ export default function StoryToIncomePage() {
           </div>
 
           <div className="sti-card k2">
-            <span className="sti-num">Prompt 02</span>
+            <span className="sti-num">Track 02</span>
             <h3>Build the offer</h3>
             <p>
               Turns that lane into three offers at three price points, matched
@@ -306,7 +292,7 @@ export default function StoryToIncomePage() {
           </div>
 
           <div className="sti-card k3">
-            <span className="sti-num">Prompt 03</span>
+            <span className="sti-num">Track 03</span>
             <h3>Awareness storytelling</h3>
             <p>
               My actual working prompt, the one I use, not a rewritten version.
@@ -318,7 +304,7 @@ export default function StoryToIncomePage() {
           </div>
 
           <div className="sti-card k4">
-            <span className="sti-num">Prompt 04</span>
+            <span className="sti-num">Track 04</span>
             <h3>Conversion storytelling</h3>
             <p>
               Set it up once with your offer, then ask for five scripts across
@@ -326,6 +312,8 @@ export default function StoryToIncomePage() {
               each time, every one a complete package. This is the half almost
               nobody builds, and it is the half that sells.
             </p>
+          </div>
+
           </div>
 
           <div className="sti-card k5">
@@ -354,7 +342,7 @@ export default function StoryToIncomePage() {
             all I need.
           </p>
           <p>
-            There is a page in the blueprint about this on purpose. The
+            There is a page in the guide about this on purpose. The
             shopping list is where most people go to hide. If you are waiting
             on equipment to arrive before you start, the equipment is not the
             thing stopping you.
@@ -387,18 +375,6 @@ export default function StoryToIncomePage() {
               about their work or their own story, and get better at it.
             </li>
           </ul>
-
-          <h2 style={{ marginTop: '44px' }}>Who it is not for</h2>
-          <ul className="sti-ticks no">
-            <li>
-              Anyone wanting followers for their own sake, with nothing to sell
-              and no intention of selling.
-            </li>
-            <li>
-              Anyone who wants it done for them. These are prompts and a method.
-              You still have to speak, film and post.
-            </li>
-          </ul>
         </div>
       </section>
 
@@ -406,8 +382,9 @@ export default function StoryToIncomePage() {
       <section className="sti-section" id="get-it">
         <div className="sti-wrap">
           <div className="sti-buybox">
+            <div className="sti-buy-left">
             <div className="sti-eyebrow" style={{ color: '#6c4fd6' }}>
-              The Story to Income Blueprint
+              Storytelling to Income
             </div>
             <div className="amount">
               {PRICE_LABEL}
@@ -415,18 +392,10 @@ export default function StoryToIncomePage() {
             </div>
 
             <div className="rises">
-              <strong>Launch price.</strong> Only the first 10 copies go at
-              this price.
+              <strong>Launch price.</strong> Rising to $27.
             </div>
 
-            <ul className="sti-ticks" style={{ marginTop: 0 }}>
-              <li>15-page PDF, instant download</li>
-              <li>All four prompts, copy and paste ready</li>
-              <li>My real awareness prompt, unedited</li>
-              <li>The comment-to-inbox automation setup</li>
-              <li>The psychology behind why the frame works</li>
-              <li>Filming approach and full tool stack, tutorials linked</li>
-            </ul>
+            
 
             <div style={{ marginTop: '24px' }}>
               <button className="sti-btn" onClick={buy} disabled={loading}>
@@ -438,6 +407,14 @@ export default function StoryToIncomePage() {
               Secure checkout by Stripe. The download page opens the moment you
               pay.
             </p>
+            </div>
+            <ul className="sti-ticks" style={{ marginTop: 0 }} data-buy-list>
+              <li>15-page PDF, instant download</li>
+              <li>Readily available copy and paste prompts for use</li>
+              <li>The comment-to-inbox automation setup</li>
+              <li>The psychology behind why the frame works</li>
+              <li>Full tool stack, external tutorials linked</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -452,26 +429,32 @@ export default function StoryToIncomePage() {
               className="sti-about-photo"
             />
             <div>
-              <h2>Who is teaching this</h2>
+              <h2>The person behind the results</h2>
               <p>
-                I am Temitope Saliu. I work at the intersection of AI and
-                human psychology, which is the only reason this blueprint is
-                about attention mechanics rather than posting tips. The
-                prompts work because of what is underneath them.
+                I am Temitope Saliu. I sit at the intersection of AI and human
+                psychology, which is why this guide is about how attention
+                actually works, not posting tips.
               </p>
               <p>
-                The relevant part is not the credentials, it is that I ran
-                this on my own account, from my own kitchen, and it produced
-                the chain on this page. But for the record:
+                Everything in it ran on my own account, from my own kitchen,
+                and produced the results on this page. Before that, I spent
+                over a decade building and training at scale:
               </p>
               <ul className="sti-about-creds">
                 <li>
-                  Google Elite Trainer, one of three women selected as
-                  Sub-Saharan Africa partners
+                  Google &amp; Meta Elite Trainer, over 3,000 professionals and
+                  business owners trained
                 </li>
-                <li>Delivered Microsoft Africa developer training</li>
-                <li>Over a decade in marketing, products and partnerships</li>
-                <li>Women&apos;s Economic Forum Iconic Award recipient</li>
+                <li>One of 20 Google Digital Skills Partners</li>
+                <li>One of 5 Microsoft Developer Programme Partners</li>
+                <li>
+                  USAID &amp; Peace Corps education curriculum developer and
+                  trainer
+                </li>
+                <li>
+                  Google Digital Innovation Award, Women Economic Forum Iconic
+                  Award, Global Exceptional Tech Talent (UK)
+                </li>
               </ul>
             </div>
           </div>
@@ -504,7 +487,7 @@ export default function StoryToIncomePage() {
             <details>
               <summary>Do I need to buy equipment?</summary>
               <p>
-                No, and there is a page in the blueprint arguing specifically
+                No, and there is a page in the guide arguing specifically
                 against it. I use my phone and daylight. A microphone and a
                 light are worth it later, once you have hit a problem they
                 actually solve.
@@ -515,7 +498,7 @@ export default function StoryToIncomePage() {
               <p>
                 No. The first prompt is built to meet you where you are and does
                 not assume you have credentials, an audience or an offer. If you
-                have never posted, you start at Prompt 01 like everyone else.
+                have never posted, you start at Track 01 like everyone else.
               </p>
             </details>
             <details>
@@ -540,7 +523,7 @@ export default function StoryToIncomePage() {
               <summary>How long before this makes me money?</summary>
               <p>
                 Nobody honest can promise you a timeline, and I am not going to.
-                What I can tell you is what the blueprint removes: not knowing
+                What I can tell you is what the guide removes: not knowing
                 what to say, not knowing what to sell, and having no way to
                 deliver it automatically. The posting is still yours to do.
               </p>
@@ -576,7 +559,7 @@ export default function StoryToIncomePage() {
       <div className={`sti-sticky${showSticky ? ' show' : ''}`}>
         <span className="s-price">{PRICE_LABEL}</span>
         <button className="sti-btn" onClick={buy} disabled={loading}>
-          {loading ? 'Opening…' : 'Get the blueprint'}
+          {loading ? 'Opening…' : 'Get the guide'}
         </button>
       </div>
     </div>

@@ -83,6 +83,8 @@
   color: var(--pink);
 }
 
+.sti-hero .sti-pink { color: #ff3d9a; font-weight: 700; }
+
 .sti-hero .sti-sub {
   font-size: 16px;
   color: #cfc8e6;
@@ -302,7 +304,8 @@
   font-size: 22px;
 }
 
-.sti-dm-grid { display: grid; gap: 12px; margin-top: 18px; }
+.sti-dm-grid { columns: 1; column-gap: 12px; margin-top: 18px; }
+.sti-dm-grid .sti-dm { break-inside: avoid; margin-bottom: 12px; }
 
 .sti-dm {
   margin: 0;
@@ -570,7 +573,24 @@
    ========================================================================= */
 
 @media (min-width: 860px) {
-  .sti-wrap { padding: 0 28px; }
+  .sti-wrap { padding: 0 40px; max-width: 1160px; }
+  .sti-lead, .sti-section > .sti-wrap > p { max-width: 760px; }
+
+  .sti-hero .sti-wrap { max-width: 1160px; }
+
+  /* the chain: four steps side by side */
+  .sti-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .sti-steps li { padding: 48px 18px 18px; background: rgba(255,255,255,0.06); border-radius: 14px; margin: 0; }
+  .sti-steps li .n { left: 18px; top: 14px; }
+
+  /* tracks as a 2x2 grid, setup card full width under it */
+  .sti-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .sti-cards .sti-card { margin: 0; }
+  .sti-card.k5 { margin-top: 18px; }
+
+  /* buy box: price and button left, what you get right */
+  .sti-buybox { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .sti-buybox [data-buy-list] { margin: 0; }
 
   .sti-section { padding: 78px 0; }
 
@@ -583,11 +603,11 @@
   .sti-btn { width: auto; display: inline-block; min-width: 340px; }
   .sti-btn-note { text-align: left; }
 
-  .sti-proof-grid { columns: 2; }
-  .sti-dm-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  .sti-proof-grid { columns: 3; }
+  .sti-dm-grid { columns: 3; }
   .sti-proof img { max-height: 480px; }
 
-  .sti-buybox { padding: 34px 32px; }
+  .sti-buybox { padding: 44px 48px; }
 
   .sti-about {
     flex-direction: row;
