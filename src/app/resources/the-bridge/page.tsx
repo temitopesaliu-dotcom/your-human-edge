@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import SiteNav from '@/components/site-nav';
+import SiteFooter from '@/components/site-footer';
 import './the-bridge.css';
 
 /**
@@ -9,7 +11,7 @@ import './the-bridge.css';
  */
 
 export const metadata = {
-  title: 'Storytelling to Income: how to get people to stop, watch, resonate and buy',
+  title: 'Storytelling to Income: how to get people to stop, watch, resonate and buy | Free Resource',
   description:
     'A free guide on how attention moves through the human mind, awareness and conversion storytelling, finding your lane and building your offer.',
 };
@@ -17,6 +19,7 @@ export const metadata = {
 export default function TheBridgePage() {
   return (
     <div className="tb-page">
+      <SiteNav />
 
 <section className="tb-hero"><div className="tb-wrap">
   <div className="tb-eyebrow">The Bridge</div>
@@ -133,6 +136,7 @@ export default function TheBridgePage() {
 </div></section>
 
 <footer className="tb-footer"><Link href="/story-to-income">Skip ahead to the guide</Link></footer>
+      <SiteFooter />
 </div>
   );
 }

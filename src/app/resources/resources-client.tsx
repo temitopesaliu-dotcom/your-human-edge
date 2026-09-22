@@ -39,6 +39,16 @@ const RESOURCES: Resource[] = [
     category: 'individual',
   },
   {
+    id: 'the-bridge',
+    icon: '',
+    title: 'Storytelling to Income: The Bridge',
+    description:
+      'A free guide on how attention actually works — how people stop, watch, resonate and buy. Learn awareness storytelling, conversion storytelling, finding your lane, and turning it into an offer, in six short parts.',
+    href: '/resources/the-bridge',
+    cta: 'Read the guide',
+    category: 'individual',
+  },
+  {
     id: 'the-merge-method',
     icon: '',
     title: 'The Merge Method',
