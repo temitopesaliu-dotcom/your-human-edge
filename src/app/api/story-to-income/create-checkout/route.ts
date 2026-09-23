@@ -35,6 +35,26 @@ const PRODUCT = {
     'A 15-page PDF: four AI prompts for finding your content lane, building your offer, writing awareness stories and writing conversion scripts, plus the comment-to-inbox automation setup, the filming approach and the full tool stack.',
 } as const;
 
+/**
+ * UTM tags forwarded from the sales page URL, so each sale in Stripe records
+ * which email (or post) sent the buyer. Values are lowercased and limited to
+ * a short slug so nothing arbitrary from a URL ends up in Stripe metadata.
+ */
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign'] as const;
+const UTM_VALUE = /^[a-z0-9][a-z0-9_-]{0,39}$/;
+
+function cleanUtm(body: unknown): Partial<Record<(typeof UTM_KEYS)[number], string>> {
+  const out: Partial<Record<(typeof UTM_KEYS)[number], string>> = {};
+  if (!body || typeof body !== 'object') return out;
+  for (const key of UTM_KEYS) {
+    const raw = (body as Record<string, unknown>)[key];
+    if (typeof raw !== 'string') continue;
+    const v = raw.trim().toLowerCase();
+    if (UTM_VALUE.test(v)) out[key] = v;
+  }
+  return out;
+}
+
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
   if (!(await rateLimit(ip, 10, 60, 'story-to-income-checkout'))) {
@@ -43,6 +63,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const siteUrl = resolveSiteUrl(req);
+    const utm = cleanUtm(await req.json().catch(() => null));
+    // Carried to the download page so the GA4 purchase event can name the
+    // campaign too, not only Stripe.
+    const campaignParam = utm.utm_campaign
+      ? `&c=${encodeURIComponent(utm.utm_campaign)}`
+      : '';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -60,6 +86,7 @@ export async function POST(req: NextRequest) {
       metadata: {
         product: PRODUCT.product,
         source: 'story-to-income',
+        ...utm,
       },
       line_items: [
         {
@@ -74,7 +101,7 @@ export async function POST(req: NextRequest) {
           },
         },
       ],
-      success_url: `${siteUrl}/story-to-income/download?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${siteUrl}/story-to-income/download?session_id={CHECKOUT_SESSION_ID}${campaignParam}`,
       cancel_url: `${siteUrl}/story-to-income#get-it`,
     });
 
