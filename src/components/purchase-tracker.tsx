@@ -31,6 +31,8 @@ interface PurchaseTrackerProps {
    * transaction; without one it falls back to this, then to the product id.
    */
   dedupKey?: string;
+  /** Extra GA4 event parameters, e.g. { campaign: 'email-one' }. */
+  extraParams?: Record<string, string>;
 }
 
 /**
@@ -44,6 +46,7 @@ export default function PurchaseTracker({
   currency = 'USD',
   transactionId,
   dedupKey,
+  extraParams,
 }: PurchaseTrackerProps) {
   useEffect(() => {
     const key = purchaseDedupKey({ transactionId, dedupKey, productId });
@@ -64,6 +67,7 @@ export default function PurchaseTracker({
       value,
       currency,
       items,
+      ...extraParams,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
