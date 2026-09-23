@@ -25,6 +25,8 @@ const pdfUrlFor = (sessionId?: string) =>
 interface PlaybookPdfViewerProps {
   userEmail?: string;
   sessionId?: string;
+  /** What Stripe actually charged, for the GA4 purchase event. */
+  purchase?: { value: number; currency: string };
 }
 
 const PdfRenderer = lazy(() => import("./pdf-renderer"));
@@ -34,6 +36,7 @@ const TOAST_STORAGE_KEY = "yhe_email_toast_shown";
 export default function PlaybookPdfViewer({
   userEmail,
   sessionId,
+  purchase,
 }: PlaybookPdfViewerProps) {
   const [mounted, setMounted] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -72,8 +75,9 @@ export default function PlaybookPdfViewer({
       <PurchaseTracker
         productId="playbook"
         productName="Archetype Playbook"
-        value={9.99}
-        currency="GBP"
+        value={purchase?.value ?? 9.99}
+        currency={purchase?.currency ?? "GBP"}
+        transactionId={sessionId}
         dedupKey="ga_purchase_playbook"
       />
       <style>{`

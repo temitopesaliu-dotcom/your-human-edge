@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { trackEvent } from '@/lib/services/analytics';
+import { claimPurchase, purchaseDedupKey } from '@/lib/utils/purchase-dedup';
 
 interface PurchaseItem {
   item_id: string;
@@ -17,12 +18,17 @@ interface PurchaseTrackerProps {
   value: number;
   /** ISO currency code — defaults to USD */
   currency?: string;
-  /** Optional transaction ID. Uses crypto.randomUUID() if not provided. */
+  /**
+   * Stripe Checkout Session id. Always pass it when the page has one: GA4
+   * drops a second purchase with the same transaction_id, so a buyer who
+   * reopens their link on another device is not counted twice.
+   * Falls back to crypto.randomUUID() only for legacy pages with no session.
+   */
   transactionId?: string;
   /**
-   * If set, the event fires only once per user by storing this key in localStorage.
-   * Use for pages users might revisit (e.g. /playbook).
-   * Omit for one-shot pages (e.g. /payment-successful, /confirmation).
+   * Browser-side de-dupe key, used only when there is no transactionId.
+   * Every purchase is de-duped: with a transactionId the key is per
+   * transaction; without one it falls back to this, then to the product id.
    */
   dedupKey?: string;
 }
@@ -40,14 +46,14 @@ export default function PurchaseTracker({
   dedupKey,
 }: PurchaseTrackerProps) {
   useEffect(() => {
-    if (dedupKey) {
-      try {
-        if (localStorage.getItem(dedupKey) === 'true') return;
-        localStorage.setItem(dedupKey, 'true');
-      } catch {
-        /* localStorage unavailable — fire anyway */
-      }
+    const key = purchaseDedupKey({ transactionId, dedupKey, productId });
+    let storage: Storage | null = null;
+    try {
+      storage = window.localStorage;
+    } catch {
+      /* access itself can throw when storage is blocked */
     }
+    if (!claimPurchase(key, storage)) return;
 
     const items: PurchaseItem[] = [
       { item_id: productId, item_name: productName, price: value, quantity: 1 },
