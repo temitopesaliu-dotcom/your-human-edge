@@ -1,6 +1,5 @@
 import { isValidEmail } from "@/lib/utils/validation";
 import {
-  PLAYBOOK_LIST_PRICE_LABEL,
   PLAYBOOK_PRICE_LABEL,
 } from "@/lib/utils/playbook-pricing";
 import type { ArchetypeConfig } from "./types";
@@ -32,9 +31,8 @@ export default function Paywall({
         <p className="pw-sub">
           Your free results show you <em>who</em> you are. The Playbook shows you exactly <em>what to do</em> — every AI career path, income strategy, tool stack made for your brain, and 90-day action plan built for The {config.name}.
         </p>
-        <div className="pw-price-was">{PLAYBOOK_LIST_PRICE_LABEL}</div>
         <div className="pw-price">{PLAYBOOK_PRICE_LABEL}</div>
-        <div className="pw-badge">Discount applied automatically. No code needed.</div>
+        <div className="pw-badge">🔥 Launch Price — Going up to $27</div>
         <div>
           {showEmailInput && (
             <div style={{ marginBottom: "16px" }}>
