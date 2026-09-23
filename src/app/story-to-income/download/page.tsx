@@ -34,9 +34,12 @@ const downloadHref = (sessionId: string) =>
 export default async function StoryToIncomeDownloadPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string; c?: string }>;
 }) {
-  const { session_id: sessionId } = await searchParams;
+  const { session_id: sessionId, c } = await searchParams;
+  // Campaign tag from checkout (e.g. email-one), re-checked here because it
+  // arrives in the URL. Only used to label the GA4 purchase event.
+  const campaign = c && /^[a-z0-9][a-z0-9_-]{0,39}$/.test(c) ? c : undefined;
   const access = sessionId
     ? await validatePurchaseAccess(sessionId, 'story-to-income')
     : { ok: false as const };
@@ -86,6 +89,7 @@ export default async function StoryToIncomeDownloadPage({
         value={paid?.value ?? 9.99}
         currency={paid?.currency ?? 'USD'}
         transactionId={access.sessionId}
+        extraParams={campaign ? { campaign } : undefined}
       />
 
       <section className="sti-section">
