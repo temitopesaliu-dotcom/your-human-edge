@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import PurchaseTracker from '@/components/purchase-tracker';
 import { validatePurchaseAccess } from '@/lib/services/purchase-access';
+import { getPaidCheckout } from '@/lib/services/paid-checkout';
 import '../story-to-income.css';
 
 export const metadata = {
@@ -75,14 +76,16 @@ export default async function StoryToIncomeDownloadPage({
   }
 
   const firstName = access.name ? access.name.split(' ')[0] : '';
+  const paid = await getPaidCheckout(access.sessionId);
 
   return (
     <div className="sti-page">
       <PurchaseTracker
         productId="story-to-income"
         productName="Storytelling to Income"
-        value={9.99}
-        currency="USD"
+        value={paid?.value ?? 9.99}
+        currency={paid?.currency ?? 'USD'}
+        transactionId={access.sessionId}
       />
 
       <section className="sti-section">

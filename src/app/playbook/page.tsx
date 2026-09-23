@@ -8,6 +8,7 @@ import {
   isValidSessionId,
 } from '@/lib/utils/products';
 import PlaybookPdfViewer from '@/components/playbook-pdf-viewer';
+import { getPaidCheckout } from '@/lib/services/paid-checkout';
 
 export const metadata: Metadata = {
   title: 'Your Premium AI Career Playbook | Your Human Edge',
@@ -55,9 +56,14 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     if (!arch) {
       redirect('/access-denied');
     }
+    const paid = await getPaidCheckout(access.sessionId);
     return (
       <div style={{ minHeight: '100dvh' }}>
-        <PlaybookPdfViewer userEmail={access.email || undefined} sessionId={access.sessionId} />
+        <PlaybookPdfViewer
+          userEmail={access.email || undefined}
+          sessionId={access.sessionId}
+          purchase={paid ?? undefined}
+        />
       </div>
     );
   }
@@ -84,9 +90,14 @@ export default async function PlaybookPage({ searchParams }: PageProps) {
     redirect('/access-denied');
   }
 
+  const paid = await getPaidCheckout(access.sessionId);
   return (
     <div style={{ minHeight: '100dvh' }}>
-      <PlaybookPdfViewer userEmail={access.email || undefined} sessionId={access.sessionId} />
+      <PlaybookPdfViewer
+        userEmail={access.email || undefined}
+        sessionId={access.sessionId}
+        purchase={paid ?? undefined}
+      />
     </div>
   );
 }

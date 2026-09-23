@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PurchaseTracker from "@/components/purchase-tracker";
+import { getPaidCheckout } from "@/lib/services/paid-checkout";
 import { COHORT_START } from "@/components/features/business-architect/business-architect.data";
 
 export const metadata = {
@@ -18,23 +19,29 @@ export const metadata = {
 export default async function BusinessArchitectWelcomePage({
   searchParams,
 }: {
-  searchParams: Promise<{ tier?: string }>;
+  searchParams: Promise<{ tier?: string; session_id?: string }>;
 }) {
-  const { tier } = await searchParams;
+  const { tier, session_id } = await searchParams;
   const isAccelerator = tier === "accelerator";
+  // Only a real, paid Stripe checkout is reported to GA4, at what Stripe
+  // charged. A direct visit to this page is not a sale.
+  const paid = await getPaidCheckout(session_id);
 
   return (
     <div className="bap-welcome">
-      <PurchaseTracker
-        productId={isAccelerator ? "bap-accelerator" : "bap-builder"}
-        productName={
-          isAccelerator
-            ? "Business Architect Programme — Accelerator"
-            : "Business Architect Programme — Builder"
-        }
-        value={isAccelerator ? 997 : 597}
-        currency="USD"
-      />
+      {paid && (
+        <PurchaseTracker
+          productId={isAccelerator ? "bap-accelerator" : "bap-builder"}
+          productName={
+            isAccelerator
+              ? "Business Architect Programme — Accelerator"
+              : "Business Architect Programme — Builder"
+          }
+          value={paid.value}
+          currency={paid.currency}
+          transactionId={paid.sessionId}
+        />
+      )}
 
       <div className="bapw-card">
         <div className="bapw-eyebrow">Payment received</div>

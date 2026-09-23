@@ -2,6 +2,7 @@ import AiosNav from "../../_components/AiosNav";
 import AiosFooter from "../../_components/AiosFooter";
 import Link from "next/link";
 import PurchaseTracker from "@/components/purchase-tracker";
+import { getPaidCheckout } from "@/lib/services/paid-checkout";
 import PriorityPayButton from "@/components/features/blueprint-apply/PriorityPayButton";
 
 export const metadata = {
@@ -48,17 +49,22 @@ export default async function ApplyConfirmationPage({
   searchParams: Promise<{ session_id?: string; email?: string }>;
 }) {
   const params = await searchParams;
+  // `paid` drives what the buyer sees and stays as it was, so a slow Stripe
+  // lookup can never show a real buyer the "pay now" button again.
   const paid = Boolean(params.session_id);
+  // GA4 is stricter: only a checkout Stripe confirms as paid is recorded.
+  const verified = paid ? await getPaidCheckout(params.session_id) : null;
   const applicantEmail = params.email || null;
 
   return (
     <>
-      {paid && (
+      {verified && (
         <PurchaseTracker
           productId="blueprint-audit"
           productName="Blueprint Audit"
-          value={1000}
-          dedupKey="purchase-tracked-blueprint-audit"
+          value={verified.value}
+          currency={verified.currency}
+          transactionId={verified.sessionId}
         />
       )}
       <AiosNav variant="confirmation" />
