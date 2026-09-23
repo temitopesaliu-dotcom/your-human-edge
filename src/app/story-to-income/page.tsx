@@ -16,6 +16,23 @@ import './story-to-income.css';
 
 const PRICE_LABEL = '$9.99';
 
+/**
+ * Carries the email's UTM tags through to Stripe, so every sale records which
+ * email it came from (e.g. utm_campaign=email-one). GA4 already reads UTM tags
+ * from the landing URL on its own; this only forwards them to checkout. The
+ * API re-validates everything, so this is a convenience, not a trust boundary.
+ */
+function readUtm(): Record<string, string> {
+  if (typeof window === 'undefined') return {};
+  const q = new URLSearchParams(window.location.search);
+  const out: Record<string, string> = {};
+  for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) {
+    const v = q.get(k);
+    if (v) out[k] = v;
+  }
+  return out;
+}
+
 export default function StoryToIncomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +46,7 @@ export default function StoryToIncomePage() {
       const res = await fetch('/api/story-to-income/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        body: JSON.stringify(readUtm()),
       });
       const data = await res.json().catch(() => ({}));
 
