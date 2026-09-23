@@ -31,6 +31,17 @@ const nextConfig: NextConfig = {
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // Short links for the Story to Income launch emails. The full UTM-tagged
+      // URL was too long to print in a plain-text email, so /story/one lands on
+      // the sales page tagged utm_campaign=email-one. Only the listed ids
+      // match, so nothing arbitrary reaches analytics. Temporary (307) so the
+      // target can change without browsers caching it.
+      {
+        source: '/story/:id(zero|one|two|three|four|five|one-resend|five-resend)',
+        destination:
+          '/story-to-income?utm_source=mailerlite&utm_medium=email&utm_campaign=email-:id',
+        permanent: false,
+      },
     ];
   },
 };
