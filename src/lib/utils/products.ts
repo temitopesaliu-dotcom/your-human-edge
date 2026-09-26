@@ -1,4 +1,4 @@
-export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'bap-builder' | 'bap-accelerator' | 'blueprint-audit' | 'story-to-income';
+export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'bap-builder' | 'bap-accelerator' | 'blueprint-audit' | 'story-to-income' | 'claude-workbook-1' | 'claude-workbook-2' | 'claude-workbook-3' | 'claude-workbook-4';
 
 export const PLAYBOOK_ACCESS_COOKIE = 'yhe_access';
 export const PURCHASE_COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
@@ -22,6 +22,7 @@ export function normalizeProduct(raw: string | undefined): ProductType {
   if (raw === 'bap-accelerator') return 'bap-accelerator';
   if (raw === 'blueprint-audit') return 'blueprint-audit';
   if (raw === 'story-to-income') return 'story-to-income';
+  if (raw === 'claude-workbook-1' || raw === 'claude-workbook-2' || raw === 'claude-workbook-3' || raw === 'claude-workbook-4') return raw;
   return 'playbook';
 }
 
