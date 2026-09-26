@@ -625,3 +625,73 @@ export async function addBuildAuditApplicantToMailerLite(
     throw new Error(`MailerLite ${result.status}: ${result.errorText}`);
   }
 }
+
+/**
+ * Claude Level Quiz groups. IDs are hard-coded (like BUILD_AUDIT_GROUP_ID)
+ * rather than read from env vars so the funnel works without a Vercel env
+ * change. Each group has a MailerLite automation that emails the result
+ * (level 1-4) or the paid workbook link (buyers) using {$claude_link}.
+ */
+const CLAUDE_QUIZ_LEVEL_GROUPS: Record<1 | 2 | 3 | 4, string> = {
+  1: '199687712927647394',
+  2: '199687713806353643',
+  3: '199687714611659812',
+  4: '199687715423258091',
+};
+const CLAUDE_WORKBOOK_BUYERS_GROUP_ID = '199687717104125060';
+
+/** Quiz taker: store their level and result link, and join the level group. */
+export async function addClaudeQuizTakerToMailerLite(
+  email: string,
+  name: string,
+  level: 1 | 2 | 3 | 4,
+  levelName: string,
+  resultLink: string
+): Promise<boolean> {
+  const groups = [CLAUDE_QUIZ_LEVEL_GROUPS[level]];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: {
+      email,
+      fields: { name, claude_level: levelName, claude_link: resultLink },
+      groups,
+    },
+  });
+  if (!result.ok) {
+    console.error('[mailer] Claude quiz taker add failed:', result.status, result.errorText);
+  }
+  return result.ok;
+}
+
+/** Workbook buyer: store the private workbook link and join the buyers group. */
+export async function addClaudeWorkbookBuyerToMailerLite(
+  email: string,
+  name: string,
+  levelName: string,
+  accessLink: string
+): Promise<void> {
+  const groups = [CLAUDE_WORKBOOK_BUYERS_GROUP_ID];
+  const allGroup = process.env.MAILERLITE_GROUP_ALL;
+  if (allGroup) groups.push(allGroup);
+
+  const result = await mailerLiteRequest('/subscribers', {
+    method: 'POST',
+    body: {
+      email,
+      fields: {
+        name,
+        is_buyer: 'true',
+        subscriber_type: 'claude-workbook-buyer',
+        claude_level: levelName,
+        claude_link: accessLink,
+      },
+      groups,
+    },
+  });
+  if (!result.ok) {
+    console.error('[mailer] Claude workbook buyer add failed:', result.status, result.errorText);
+  }
+}
