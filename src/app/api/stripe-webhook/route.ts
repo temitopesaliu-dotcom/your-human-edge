@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite } from '@/lib/services/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite, addClaudeWorkbookBuyerToMailerLite } from '@/lib/services/mailer';
+import { levelFromProduct } from '@/lib/claude-quiz/levels';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
@@ -98,6 +99,26 @@ const MAILER_DISPATCH: Partial<Record<ProductType, {
       addStoryToIncomeBuyerToMailerLite(email, name, accessLink),
     errorLabel: 'addStoryToIncomeBuyerToMailerLite',
   },
+  'claude-workbook-1': {
+    send: (email, name, _archetype, accessLink) =>
+      addClaudeWorkbookBuyerToMailerLite(email, name, levelFromProduct('claude-workbook-1')?.name ?? '', accessLink),
+    errorLabel: 'addClaudeWorkbookBuyerToMailerLite (1)',
+  },
+  'claude-workbook-2': {
+    send: (email, name, _archetype, accessLink) =>
+      addClaudeWorkbookBuyerToMailerLite(email, name, levelFromProduct('claude-workbook-2')?.name ?? '', accessLink),
+    errorLabel: 'addClaudeWorkbookBuyerToMailerLite (2)',
+  },
+  'claude-workbook-3': {
+    send: (email, name, _archetype, accessLink) =>
+      addClaudeWorkbookBuyerToMailerLite(email, name, levelFromProduct('claude-workbook-3')?.name ?? '', accessLink),
+    errorLabel: 'addClaudeWorkbookBuyerToMailerLite (3)',
+  },
+  'claude-workbook-4': {
+    send: (email, name, _archetype, accessLink) =>
+      addClaudeWorkbookBuyerToMailerLite(email, name, levelFromProduct('claude-workbook-4')?.name ?? '', accessLink),
+    errorLabel: 'addClaudeWorkbookBuyerToMailerLite (4)',
+  },
 };
 
 async function notifyMailerLite(
@@ -144,7 +165,9 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
       ? `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id=${session.id}`
       : product === 'story-to-income'
         ? `${siteUrl}/story-to-income/download?session_id=${session.id}`
-        : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
+        : levelFromProduct(product)
+          ? `${siteUrl}/claude-quiz/workbook?session_id=${session.id}&level=${levelFromProduct(product)!.n}`
+          : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
   // The buyer's own payment-checked PDF URL. Replaces the public Google Drive
   // link that previously went out in every playbook buyer email.
