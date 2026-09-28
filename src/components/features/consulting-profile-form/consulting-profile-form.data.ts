@@ -4,14 +4,12 @@ export const REQUIRED_FIELDS = [
   "core_problem", "proudest_work", "org_types",
   "why_joined", "key_question",
   "ai_confidence", "ai_tools", "ai_transformative",
-  "business_name", "business_industry", "business_challenge", "business_friction", "business_why",
   "six_months_vision", "anything_else",
 ] as const;
 
 export type FieldName =
   | (typeof REQUIRED_FIELDS)[number]
   | "linkedin"
-  | "business_size"
   | "best_workshop"
   | "marketing_consent";
 
@@ -23,9 +21,7 @@ export const FIELD_MAP: Record<string, string> = {
   core_problem: "f-problem", proudest_work: "f-proud", org_types: "f-orgtypes",
   why_joined: "f-why", best_workshop: "f-best", key_question: "f-question",
   ai_confidence: "f-aiconf", ai_tools: "f-aitools", ai_transformative: "f-aitransform",
-  business_name: "f-bizname", business_industry: "f-bizindustry",
-  business_challenge: "f-bizchallenge", business_friction: "f-bizfriction",
-  business_why: "f-bizwhy", six_months_vision: "f-sixmonths",
+  six_months_vision: "f-sixmonths",
   anything_else: "f-anythingelse",
 };
 
@@ -49,11 +45,6 @@ export const ERROR_MESSAGES: Record<string, string> = {
   ai_confidence: "Please select a confidence rating.",
   ai_tools: "Please answer this question.",
   ai_transformative: "Please answer this question.",
-  business_name: "Please enter the business name.",
-  business_industry: "Please enter the industry.",
-  business_challenge: "Please answer this question.",
-  business_friction: "Please answer this question.",
-  business_why: "Please answer this question.",
   six_months_vision: "Please answer this question.",
   anything_else: "Please answer this question.",
 };

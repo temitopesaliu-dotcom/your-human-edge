@@ -14,7 +14,6 @@ import SectionBackground from "@/components/features/consulting-profile-form/Sec
 import SectionExpertise from "@/components/features/consulting-profile-form/SectionExpertise";
 import SectionGoals from "@/components/features/consulting-profile-form/SectionGoals";
 import SectionAiRelationship from "@/components/features/consulting-profile-form/SectionAiRelationship";
-import SectionBusiness from "@/components/features/consulting-profile-form/SectionBusiness";
 import SectionReflection from "@/components/features/consulting-profile-form/SectionReflection";
 import SubmitSection from "@/components/features/consulting-profile-form/SubmitSection";
 import ConfirmationScreen from "@/components/features/consulting-profile-form/ConfirmationScreen";
@@ -80,7 +79,7 @@ export default function ConsultingProfileFormPage() {
     const payload: ConsultingProfileFormRequest = {};
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
-      "linkedin", "business_size", "best_workshop", "marketing_consent",
+      "linkedin", "best_workshop", "marketing_consent",
     ];
     allFields.forEach((name) => {
       const v = (formData[name] || "").trim();
@@ -111,7 +110,6 @@ export default function ConsultingProfileFormPage() {
               <SectionExpertise formData={formData} errors={errors} set={set} />
               <SectionGoals formData={formData} errors={errors} set={set} />
               <SectionAiRelationship formData={formData} errors={errors} set={set} />
-              <SectionBusiness formData={formData} errors={errors} set={set} />
               <SectionReflection formData={formData} errors={errors} set={set} />
               <SubmitSection
                 submitting={status === "submitting"}
