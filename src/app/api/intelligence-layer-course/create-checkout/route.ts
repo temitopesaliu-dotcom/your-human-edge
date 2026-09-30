@@ -1,0 +1,116 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { stripe } from '@/lib/services/stripe';
+import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
+import { rateLimit } from '@/lib/services/rate-limit';
+import { getClientIp } from '@/lib/utils/get-client-ip';
+
+/**
+ * The Intelligence Layer (self-paced) checkout.
+ *
+ * The workshop recording, re-sold as a self-study course: same material as
+ * the live Intelligence Layer + AI working session, delivered as a private
+ * video watched on this site. Delivery is a payment-checked page, not an
+ * emailed link: the buyer lands on /intelligence-layer-course/access the
+ * moment Stripe clears, and the page verifies the session with Stripe
+ * server-side before the video player is ever rendered.
+ *
+ * Price is built inline with `price_data` so the number the page renders and
+ * the number Stripe charges both come from PRICE_CENTS below and cannot
+ * drift apart (same arrangement as workshop and story-to-income).
+ *
+ * payment_method_types is pinned to ['card'] on purpose: async methods can
+ * reach the webhook with payment_status !== 'paid', which would skip
+ * fulfilment. See the note in api/stripe-webhook/route.ts.
+ */
+
+export const COURSE_AMOUNT = 9900; // $99.00 USD
+
+/**
+ * UTM tags forwarded from the sales page URL, so each sale in Stripe records
+ * which email (or post) sent the buyer. Same contract as story-to-income.
+ */
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign'] as const;
+const UTM_VALUE = /^[a-z0-9][a-z0-9_-]{0,39}$/;
+
+function cleanUtm(body: unknown): Partial<Record<(typeof UTM_KEYS)[number], string>> {
+  const out: Partial<Record<(typeof UTM_KEYS)[number], string>> = {};
+  if (!body || typeof body !== 'object') return out;
+  for (const key of UTM_KEYS) {
+    const raw = (body as Record<string, unknown>)[key];
+    if (typeof raw !== 'string') continue;
+    const v = raw.trim().toLowerCase();
+    if (UTM_VALUE.test(v)) out[key] = v;
+  }
+  return out;
+}
+
+export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!(await rateLimit(ip, 10, 60, 'il-course-checkout'))) {
+    return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+  }
+
+  try {
+    const siteUrl = resolveSiteUrl(req);
+    const utm = cleanUtm(await req.json().catch(() => null));
+    // Carried to the access page so the GA4 purchase event can name the
+    // campaign too, not only Stripe.
+    const campaignParam = utm.utm_campaign
+      ? `&c=${encodeURIComponent(utm.utm_campaign)}`
+      : '';
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      // Adaptive Pricing off so a buyer outside the US sees the same $99 the
+      // page showed them, rather than a converted amount carrying Stripe's
+      // own conversion fee. Same decision as workshop and story-to-income.
+      adaptive_pricing: { enabled: false },
+      // metadata.product is what the webhook and the access page both key
+      // off. Without it the purchase completes and delivers nothing.
+      metadata: {
+        product: 'intelligence-layer-course',
+        source: 'intelligence-layer-course',
+        ...utm,
+      },
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: 'usd',
+            unit_amount: COURSE_AMOUNT,
+            product_data: {
+              name: 'The Intelligence Layer — Self-Paced Course',
+              description:
+                'The full Intelligence Layer + AI workshop as a private, self-paced video course. Watch on demand, work through the same builds live attendees did, at your own speed.',
+            },
+          },
+        },
+      ],
+      success_url: `${siteUrl}/intelligence-layer-course/access?session_id={CHECKOUT_SESSION_ID}${campaignParam}`,
+      cancel_url: `${siteUrl}/intelligence-layer-course#get-it`,
+    });
+
+    if (!session.url) {
+      return NextResponse.json(
+        { error: 'Stripe did not return a checkout URL.' },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({ url: session.url });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[intelligence-layer-course/create-checkout] Stripe error:', message);
+
+    return NextResponse.json(
+      {
+        error:
+          process.env.NODE_ENV === 'production'
+            ? 'Failed to start checkout.'
+            : message,
+      },
+      { status: 500 }
+    );
+  }
+}

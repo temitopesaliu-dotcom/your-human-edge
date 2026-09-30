@@ -1,4 +1,9 @@
-export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'bap-builder' | 'bap-accelerator' | 'blueprint-audit' | 'story-to-income';
+/**
+ * The self-paced Intelligence Layer recording is its own product, separate
+ * from the live workshop, so its price, checkout, delivery page and email
+ * segment are all its own and cannot drift into the workshop's.
+ */
+export type ProductType = 'playbook' | 'stadium-live' | 'stadium-6weeks' | 'intelligence-layer-workshop' | 'intelligence-layer-course' | 'bap-builder' | 'bap-accelerator' | 'blueprint-audit' | 'story-to-income';
 
 export const PLAYBOOK_ACCESS_COOKIE = 'yhe_access';
 export const PURCHASE_COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
@@ -16,6 +21,7 @@ export function isValidSessionId(sessionId: string): boolean {
 
 export function normalizeProduct(raw: string | undefined): ProductType {
   if (raw === 'stadium-live') return 'stadium-live';
+  if (raw === 'intelligence-layer-course') return 'intelligence-layer-course';
   if (raw === 'stadium-6weeks') return 'stadium-6weeks';
   if (raw === 'intelligence-layer-workshop') return 'intelligence-layer-workshop';
   if (raw === 'bap-builder') return 'bap-builder';

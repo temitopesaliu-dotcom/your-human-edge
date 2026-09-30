@@ -584,6 +584,58 @@ export async function addStoryToIncomeBuyerToMailerLite(
 }
 
 /**
+ * Buyers of The Intelligence Layer — Self-Paced course.
+ *
+ * Delivery itself happens on-site: checkout sends the buyer to the verified
+ * /intelligence-layer-course/access page immediately, so nobody is waiting
+ * on an email that might land in spam. This exists so the buyer's email is
+ * owned and segmented, and so their personal access link is stored on the
+ * record and can be resent by hand if a buyer ever loses it. No automation
+ * is attached to this group by design.
+ */
+export async function addIntelligenceLayerCourseBuyerToMailerLite(
+  email: string,
+  name: string,
+  accessLink: string
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const paidGroup = process.env.MAILERLITE_IL_COURSE_GROUP_ID;
+  if (!apiKey || !paidGroup) {
+    console.warn('[mailer] MAILERLITE_API_KEY or IL_COURSE group not set — skipping');
+    return;
+  }
+
+  try {
+    const groups: string[] = [];
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    if (allGroup) groups.push(allGroup);
+    groups.push(paidGroup);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: {
+          name,
+          is_buyer: 'true',
+          subscriber_type: 'intelligence-layer-course-buyer',
+          access_link: accessLink,
+        },
+        groups,
+      },
+    });
+    if (!result.ok) {
+      console.error('[mailer] Intelligence Layer course buyer add failed:', result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error(
+      '[mailer] Intelligence Layer course buyer error:',
+      err instanceof Error ? err.message : String(err)
+    );
+  }
+}
+
+/**
  * Business details for the $1,000 build audit (the /your-business form,
  * completed after payment). Stored as a MailerLite subscriber so no lead is
  * lost even if the spreadsheet webhook is unavailable, and so the booking

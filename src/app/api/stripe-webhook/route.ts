@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite } from '@/lib/services/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite, addIntelligenceLayerCourseBuyerToMailerLite } from '@/lib/services/mailer';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
@@ -98,6 +98,11 @@ const MAILER_DISPATCH: Partial<Record<ProductType, {
       addStoryToIncomeBuyerToMailerLite(email, name, accessLink),
     errorLabel: 'addStoryToIncomeBuyerToMailerLite',
   },
+  'intelligence-layer-course': {
+    send: (email, name, _archetype, accessLink) =>
+      addIntelligenceLayerCourseBuyerToMailerLite(email, name, accessLink),
+    errorLabel: 'addIntelligenceLayerCourseBuyerToMailerLite',
+  },
 };
 
 async function notifyMailerLite(
@@ -144,7 +149,9 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
       ? `${siteUrl}/the-blueprint-audit/apply/confirmation?session_id=${session.id}`
       : product === 'story-to-income'
         ? `${siteUrl}/story-to-income/download?session_id=${session.id}`
-        : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
+        : product === 'intelligence-layer-course'
+          ? `${siteUrl}/intelligence-layer-course/access?session_id=${session.id}`
+          : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
   // The buyer's own payment-checked PDF URL. Replaces the public Google Drive
   // link that previously went out in every playbook buyer email.
