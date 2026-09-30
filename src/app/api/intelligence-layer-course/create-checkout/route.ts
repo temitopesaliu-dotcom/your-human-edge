@@ -44,6 +44,51 @@ function cleanUtm(body: unknown): Partial<Record<(typeof UTM_KEYS)[number], stri
   return out;
 }
 
+/**
+ * Coupon support.
+ *
+ * Codes are created in the Stripe Dashboard (Promotion codes), not here, so
+ * expiry, redemption caps and percent/amount-off all live in one place. Two
+ * ways to apply one:
+ *
+ *   1. Manual: the session sets allow_promotion_codes, so Stripe Checkout
+ *      shows the "Add promotion code" box and the buyer types the code.
+ *   2. Pre-applied: a ?coupon=CODE param (email links, stories) is resolved
+ *      to its Stripe promotion-code id here and sent as `discounts`, so the
+ *      discount is already on the session when the buyer lands. Stripe
+ *      forbids combining `discounts` with `allow_promotion_codes`, so a
+ *      pre-applied session shows no box — stacking two codes is impossible.
+ *
+ * Note: this checkout prices with inline price_data, so each session gets an
+ * ad-hoc product. Coupons restricted to a specific product will NOT match;
+ * create the coupon without product restrictions (or duration-only).
+ */
+const COUPON_VALUE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,39}$/;
+
+function cleanCoupon(body: unknown): string | undefined {
+  if (!body || typeof body !== 'object') return undefined;
+  const raw = (body as Record<string, unknown>).coupon;
+  if (typeof raw !== 'string') return undefined;
+  const v = raw.trim();
+  return COUPON_VALUE.test(v) ? v : undefined;
+}
+
+/** Resolve a promotion-code string to its Stripe id. A lookup that fails
+ *  for any reason (network, unknown code) never blocks checkout — the buyer
+ *  just gets the manual box instead of a pre-applied discount. */
+async function resolvePromotionCode(code: string): Promise<string | null> {
+  try {
+    const codes = await stripe.promotionCodes.list({ code, active: true, limit: 1 });
+    return codes.data[0]?.id ?? null;
+  } catch (err: unknown) {
+    console.error(
+      '[intelligence-layer-course/create-checkout] promotion code lookup failed:',
+      err instanceof Error ? err.message : String(err)
+    );
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
   if (!(await rateLimit(ip, 10, 60, 'il-course-checkout'))) {
@@ -52,12 +97,25 @@ export async function POST(req: NextRequest) {
 
   try {
     const siteUrl = resolveSiteUrl(req);
-    const utm = cleanUtm(await req.json().catch(() => null));
+    const body = await req.json().catch(() => null);
+    const utm = cleanUtm(body);
+    const coupon = cleanCoupon(body);
     // Carried to the access page so the GA4 purchase event can name the
     // campaign too, not only Stripe.
     const campaignParam = utm.utm_campaign
       ? `&c=${encodeURIComponent(utm.utm_campaign)}`
       : '';
+
+    // Coupon provisioning — exactly one of the two mechanisms, never both
+    // (Stripe forbids `discounts` together with `allow_promotion_codes`).
+    //   - a ?coupon=CODE that resolves → discounts: pre-applied, no entry box
+    //   - otherwise → allow_promotion_codes: Stripe shows the entry box
+    // An unknown or expired code falls through to the entry box, so a stale
+    // email link degrades to the manual flow instead of blocking checkout.
+    const promoCodeId = coupon ? await resolvePromotionCode(coupon) : null;
+    const discountParams = promoCodeId
+      ? { discounts: [{ promotion_code: promoCodeId }] }
+      : { allow_promotion_codes: true };
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -66,12 +124,18 @@ export async function POST(req: NextRequest) {
       // page showed them, rather than a converted amount carrying Stripe's
       // own conversion fee. Same decision as workshop and story-to-income.
       adaptive_pricing: { enabled: false },
+      // Exactly one coupon mechanism lands here — see discountParams above.
+      ...discountParams,
       // metadata.product is what the webhook and the access page both key
       // off. Without it the purchase completes and delivers nothing.
       metadata: {
         product: 'intelligence-layer-course',
         source: 'intelligence-layer-course',
         ...utm,
+        // Record which code was actually applied, for campaign analysis.
+        // (Only when pre-applied; manually typed codes are visible in
+        // Stripe's own session record.)
+        ...(promoCodeId ? { coupon } : {}),
       },
       line_items: [
         {

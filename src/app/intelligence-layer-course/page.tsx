@@ -23,9 +23,9 @@ import './intelligence-layer-course.css';
 const PRICE_LABEL = '$99';
 
 /**
- * Carries the email's UTM tags through to Stripe, so every sale records
- * which email it came from. The API re-validates everything, so this is a
- * convenience, not a trust boundary.
+ * Carries the email's UTM tags and any ?coupon= code through to Stripe, so
+ * every sale records which email it came from and at what discount. The API
+ * re-validates everything, so this is a convenience, not a trust boundary.
  */
 function readUtm(): Record<string, string> {
   if (typeof window === 'undefined') return {};
@@ -35,6 +35,8 @@ function readUtm(): Record<string, string> {
     const v = q.get(k);
     if (v) out[k] = v;
   }
+  const coupon = q.get('coupon');
+  if (coupon) out.coupon = coupon;
   return out;
 }
 
