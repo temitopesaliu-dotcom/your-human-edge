@@ -103,7 +103,7 @@ export default function IntelligenceLayerCoursePage() {
         <p className="ilcs-sub">
           The full Intelligence Layer + AI working session — the one built
           live with a room of experts — now a private, self-paced course.
-          Same builds, same templates, same 90-day plan. You bring the
+          Same builds, same prompts, same 90-day plan. You bring the
           afternoon; it brings the rest.
         </p>
 
@@ -111,7 +111,7 @@ export default function IntelligenceLayerCoursePage() {
           <span>Map your layer</span>
           <span>Build the AI stack</span>
           <span>90-day GTM plan</span>
-          <span>Keep the templates</span>
+          <span>Keep the prompts</span>
         </div>
 
         <div className="ilcs-price-line">
@@ -167,9 +167,9 @@ export default function IntelligenceLayerCoursePage() {
             </div>
             <div className="ilcs-card">
               <span className="ilcs-num">04</span>
-              <h3>Every working template</h3>
+              <h3>Every working prompt</h3>
               <p>
-                The same templates live attendees walked away with. Nothing
+                The same prompts live attendees walked away with. Nothing
                 held back for the room — the recording is the room.
               </p>
             </div>
@@ -185,7 +185,7 @@ export default function IntelligenceLayerCoursePage() {
           <p style={{ marginTop: 10 }}>
             The live session ran with a room of experts who paid the live
             price to be in it and built their layer in real time. This is that
-            session: every exercise, every build, every template — minus the
+            session: every exercise, every build, every prompt — minus the
             calendar commitment. <strong>Watch at midnight, at 2x, twice. It does not mind.</strong>
           </p>
         </div>
@@ -296,7 +296,7 @@ export default function IntelligenceLayerCoursePage() {
               <li>Watch on this site immediately after payment</li>
               <li>The full Intelligence Layer mapping exercise</li>
               <li>Every AI build, start to finish</li>
-              <li>The 90-day GTM plan + all working templates</li>
+              <li>The 90-day GTM plan + all working prompts</li>
             </ul>
           </div>
         </div>
@@ -316,7 +316,7 @@ export default function IntelligenceLayerCoursePage() {
                 viewing page on this site, where the video plays. Inside are
                 the layer-mapping exercise, every AI build shown start to
                 finish, the 90-day go-to-market plan and all the working
-                templates.
+                prompts.
               </p>
             </details>
             <details>
@@ -340,7 +340,7 @@ export default function IntelligenceLayerCoursePage() {
             <details>
               <summary>I attended the live workshop. Is this for me?</summary>
               <p>
-                You already have the recording and the templates, so no need to
+                You already have the recording and the prompts, so no need to
                 buy this one. This page is for everyone who was not in the room.
               </p>
             </details>
