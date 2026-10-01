@@ -7,6 +7,16 @@ import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 import { getPaidCheckout } from '@/lib/services/paid-checkout';
 import '../intelligence-layer-course.css';
 
+/** "Find Prompts Here" from the delivery email — the working prompts doc
+ *  attendees build from. Swap the URL here if the doc ever moves. */
+const PROMPTS_URL =
+  'https://docs.google.com/document/d/1KQiuHeLd6r7h9-vA1nxSxwNKj7z6r_gtE0mDoszsZXM/edit?usp=drivesdk';
+
+/** Post-payment next step for this funnel. Not indexed (page robots), and
+ *  the target is a static presale page, so a plain <a> is correct here —
+ *  no client-side router involved. */
+const AI_OPERATOR_SUITE_URL = '/ai-operator-suite';
+
 export const metadata: Metadata = {
   title: 'Your course: The Intelligence Layer — Self-Paced',
   // Never indexed: the only public page is the sales page.
@@ -116,9 +126,9 @@ export default async function IntelligenceLayerCourseAccessPage({
             <div className="ilc-tick" aria-hidden="true">✓</div>
             <h1>{firstName ? `It's yours, ${firstName}.` : "It's yours."}</h1>
             <p>
-              The Intelligence Layer, self-paced. One video, the full working
-              session. Bookmark this page: it keeps working with your checkout
-              link, on any device.
+              The Intelligence Layer, self-paced. Everything below is your
+              full work kit, start to finish, at your own pace — the video,
+              the tools, the prompts and the order to do them in.
             </p>
           </div>
 
@@ -142,28 +152,181 @@ export default async function IntelligenceLayerCourseAccessPage({
             </div>
           )}
 
-          <div className="ilc-notes">
-            <div className="ilc-note">
-              <h2>Watch it like a working session</h2>
-              <p>
-                This is not a lecture to put on in the background. Pause at
-                every build and do the step in your own AI tool before moving
-                on. The value is in the doing.
-              </p>
+          {/* Bookmark banner — the single most-read line on this page. It
+              frames the save as protecting their purchase, not as a favour
+              to us. */}
+          <aside className="ilc-bookmark" aria-label="Save this page">
+            <div className="ilc-bookmark-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
             </div>
-            <div className="ilc-note">
-              <h2>Your access, your link</h2>
-              <p>
-                This page is tied to your purchase and checked with Stripe on
-                every visit, so keep your checkout link or this bookmark. If
-                you ever lose it, your Stripe receipt to{' '}
-                <a href="mailto:ts@temitopesaliu.com?subject=Intelligence%20Layer%20course%20access">
-                  ts@temitopesaliu.com
-                </a>{' '}
-                gets you back in.
+            <p>
+              <strong>Bookmark this page right now</strong> — before you press
+              play. It is tied to your purchase and re-checked with Stripe on
+              every visit, so the bookmark is your standing key back in: same
+              video, same kit, any device, whenever you sit down to build.
+              Your checkout link works too, but this page is the one to keep.
+            </p>
+          </aside>
+
+          {/* The work kit, in the order the email gives it: tools signed in
+              first, prompts open, then the video above as the build itself. */}
+          <div className="ilc-kit">
+            <div className="ilc-kit-step ilc-kit-step--first">
+              <div className="ilc-kit-head">
+                <span className="ilc-kit-num">Step 1</span>
+                <h2>Before you press play</h2>
+              </div>
+              <p className="ilc-kit-lead">
+                Open, sign in to and test every one of these. All of them
+                logged in and open in tabs before the video starts. The
+                session moves; you do not want to be creating accounts
+                mid-build.
+              </p>
+              <div className="ilc-tools">
+                <a
+                  className="ilc-tool"
+                  href="/expert-profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="ilc-tool-head">
+                    <span className="ilc-tool-name">Your expert profile</span>
+                    <span className="ilc-tool-tag ilc-tool-tag--req">Required</span>
+                  </span>
+                  <span className="ilc-tool-desc">
+                    temitopesaliu.com/expert-profile — this is what you build
+                    with. Complete it first; it is non-negotiable.
+                  </span>
+                  <span className="ilc-tool-open">Open in a new tab →</span>
+                </a>
+                <a
+                  className="ilc-tool"
+                  href="https://claude.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="ilc-tool-head">
+                    <span className="ilc-tool-name">Claude</span>
+                    <span className="ilc-tool-tag">claude.ai</span>
+                  </span>
+                  <span className="ilc-tool-desc">
+                    Pro recommended. The builds run fastest and cleanest on a
+                    paid plan, but free works to start.
+                  </span>
+                  <span className="ilc-tool-open">Open in a new tab →</span>
+                </a>
+                <a
+                  className="ilc-tool"
+                  href="https://tally.so"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="ilc-tool-head">
+                    <span className="ilc-tool-name">Tally</span>
+                    <span className="ilc-tool-tag">tally.so</span>
+                  </span>
+                  <span className="ilc-tool-desc">
+                    Free. The forms layer of the build — sign in and have it
+                    ready.
+                  </span>
+                  <span className="ilc-tool-open">Open in a new tab →</span>
+                </a>
+                <a
+                  className="ilc-tool"
+                  href="https://sheets.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="ilc-tool-head">
+                    <span className="ilc-tool-name">Google Sheets</span>
+                    <span className="ilc-tool-tag">sheets.google.com</span>
+                  </span>
+                  <span className="ilc-tool-desc">
+                    Sign in with your Google email — the same one you want the
+                    automations writing into.
+                  </span>
+                  <span className="ilc-tool-open">Open in a new tab →</span>
+                </a>
+                <a
+                  className="ilc-tool"
+                  href="https://vercel.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="ilc-tool-head">
+                    <span className="ilc-tool-name">Vercel</span>
+                    <span className="ilc-tool-tag">vercel.com</span>
+                  </span>
+                  <span className="ilc-tool-desc">
+                    Free. This is where what you build gets deployed and stays
+                    up.
+                  </span>
+                  <span className="ilc-tool-open">Open in a new tab →</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="ilc-kit-step">
+              <div className="ilc-kit-head">
+                <span className="ilc-kit-num">Step 2</span>
+                <h2>Open the prompts</h2>
+              </div>
+              <p className="ilc-kit-lead">
+                Every prompt used in the session lives in this document. Have
+                it open in its own tab so you can copy as you go — pausing the
+                video to retype a prompt from the screen is time you do not
+                need to spend.
+              </p>
+              <a
+                className="ilcs-btn ilc-btn-sm"
+                href={PROMPTS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open the prompts document →
+              </a>
+            </div>
+
+            <div className="ilc-kit-step">
+              <div className="ilc-kit-head">
+                <span className="ilc-kit-num">Step 3</span>
+                <h2>Watch the session, build alongside</h2>
+              </div>
+              <p className="ilc-kit-lead">
+                The video above is the full working session. Watch it once
+                straight through, then go back and build alongside the parts
+                you paused on. It is not a lecture for the background: pause at
+                every build and do the step in your own tools before moving on.
+                The value is in the doing.
               </p>
             </div>
           </div>
+
+          {/* What comes next — the email's upsell, for people who finished the
+              video or want the roadmap before starting. */}
+          <section className="ilc-next">
+            <div className="ilc-next-eyebrow">What comes next</div>
+            <h2>
+              The workshop built the first piece. <em>The suite builds the business.</em>
+            </h2>
+            <p className="ilc-next-sub">
+              The AI Operator Suite is six self-paced modules that turn this
+              session into an actual AI-driven business — Personality
+              Intelligence for Sales, Leads &amp; Sales Engine, AI Staff &amp;
+              Agentic Automations, Content to Client, AI Clone Operator, plus
+              the Advanced Build on AI Business Audits &amp; Architecture. The
+              AI Consultant Framework comes free with any purchase.
+            </p>
+            <ul className="ilc-next-list">
+              <li>Content unlocks 6 October 2026</li>
+              <li>Buying now locks in your spot at presale pricing</li>
+            </ul>
+            <a className="ilcs-btn" href={AI_OPERATOR_SUITE_URL}>
+              See the AI Operator Suite →
+            </a>
+          </section>
         </div>
       </section>
 

@@ -321,21 +321,129 @@
 .ilc-player-missing { display: flex; align-items: center; justify-content: center; padding: 40px; aspect-ratio: auto; }
 .ilc-player-missing p { color: rgba(255, 255, 255, 0.85); max-width: 480px; text-align: center; font-size: 0.88rem; line-height: 1.7; }
 
-.ilc-notes {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  max-width: 900px; margin: 28px auto 0;
+/* Bookmark banner — sits right under the player, before the kit steps, so
+   it is read before anything else pulls attention down the page. */
+.ilc-bookmark {
+  display: flex; align-items: flex-start; gap: 16px;
+  max-width: 900px; margin: 20px auto 0;
+  background: var(--ds-tint);
+  border: 1px solid var(--ds-accent);
+  border-radius: var(--ds-radius);
+  padding: 18px 22px;
 }
-.ilc-note {
-  background: var(--ds-surface); border: 1px solid var(--ds-border);
-  border-radius: var(--ds-radius); padding: 24px 26px;
+.ilc-bookmark-icon {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ds-accent-soft); color: var(--ds-accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.ilc-bookmark-icon svg { width: 18px; height: 18px; }
+.ilc-bookmark p { font-size: 0.88rem; color: var(--ds-body); line-height: 1.7; margin: 0; }
+.ilc-bookmark strong { color: var(--ds-ink); }
+
+/* Work kit — numbered steps in the order the email gives them. */
+.ilc-kit {
+  max-width: 900px; margin: 48px auto 0;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.ilc-kit-step {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 30px 32px;
   box-shadow: var(--ds-shadow-card);
 }
-.ilc-note h2 {
-  font-family: var(--ds-font);
-  font-size: 0.98rem; font-weight: 700; color: var(--ds-ink); margin-bottom: 6px;
+.ilc-kit-step--first { border-top: 3px solid var(--ds-accent); }
+.ilc-kit-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.ilc-kit-num {
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ds-accent); background: var(--ds-accent-soft);
+  padding: 4px 12px; border-radius: 40px; white-space: nowrap;
 }
-.ilc-note p { font-size: 0.85rem; color: var(--ds-muted); line-height: 1.7; }
-.ilc-note a { color: var(--ds-accent); font-weight: 600; }
+.ilc-kit-head h2 {
+  font-family: var(--ds-font);
+  font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ds-ink); margin: 0;
+}
+.ilc-kit-lead {
+  font-size: 0.88rem; color: var(--ds-muted); line-height: 1.75;
+  margin: 0 0 18px;
+}
+
+/* Tool cards — five across on desktop, wrapping below. */
+.ilc-tools {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.ilc-tool {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--ds-bg);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-sm);
+  padding: 16px 16px 14px;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.ilc-tool:hover {
+  border-color: var(--ds-accent);
+  box-shadow: 0 4px 14px rgba(108, 79, 214, 0.14);
+  transform: translateY(-2px);
+}
+.ilc-tool-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ilc-tool-name {
+  font-family: var(--ds-font);
+  font-size: 0.9rem; font-weight: 700; color: var(--ds-ink);
+}
+.ilc-tool-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--ds-muted); background: var(--ds-tint);
+  border: 1px solid var(--ds-border);
+  padding: 2px 8px; border-radius: 40px; white-space: nowrap;
+}
+.ilc-tool-tag--req {
+  color: var(--ds-accent); background: var(--ds-accent-soft); border-color: transparent;
+}
+.ilc-tool-desc { font-size: 0.78rem; color: var(--ds-muted); line-height: 1.6; flex: 1; }
+.ilc-tool-open {
+  font-size: 0.72rem; font-weight: 600; color: var(--ds-accent);
+}
+
+/* What comes next — the suite upsell, quiet rather than shouty: this is a
+   delivery page first, a launchpad second. */
+.ilc-next {
+  max-width: 680px; margin: 48px auto 0;
+  text-align: center;
+  background: var(--ds-tint);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 40px 36px;
+}
+.ilc-next-eyebrow {
+  display: inline-block;
+  font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600; color: var(--ds-accent);
+  margin-bottom: 12px;
+}
+.ilc-next h2 {
+  font-family: var(--ds-font);
+  font-size: clamp(1.3rem, 3.4vw, 1.7rem); font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ds-ink); margin-bottom: 12px; line-height: 1.3;
+}
+.ilc-next h2 em { font-style: italic; color: var(--ds-accent); }
+.ilc-next-sub {
+  font-size: 0.88rem; color: var(--ds-muted); line-height: 1.8;
+  margin: 0 auto 18px;
+}
+.ilc-next-list {
+  list-style: none; margin: 0 auto 24px; padding: 0;
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+}
+.ilc-next-list li {
+  position: relative; padding-left: 22px;
+  font-size: 0.82rem; font-weight: 600; color: var(--ds-body);
+}
+.ilc-next-list li::before {
+  content: '✓'; position: absolute; left: 0;
+  color: var(--ds-accent); font-weight: 700;
+}
 
 .ilc-locked { flex: 1; display: flex; align-items: center; justify-content: center; padding: 150px 24px 80px; }
 .ilc-lock-card {
@@ -362,7 +470,11 @@
 
 @media (max-width: 720px) {
   .ilc-access { padding: 120px 16px 56px; }
-  .ilc-notes { grid-template-columns: 1fr; }
+  .ilc-bookmark { flex-direction: column; gap: 10px; padding: 16px 18px; }
+  .ilc-kit-step { padding: 24px 20px; }
+  .ilc-tools { grid-template-columns: 1fr; }
+  .ilc-kit-head { flex-wrap: wrap; }
+  .ilc-next { padding: 30px 20px; }
   .ilc-lock-card { padding: 34px 24px; }
 }
 
