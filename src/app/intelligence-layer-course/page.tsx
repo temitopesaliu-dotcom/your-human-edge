@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SiteNav from '@/components/site-nav';
 import SiteFooter from '@/components/site-footer';
+import { TESTIMONIALS } from '@/components/features/workshop/testimonials.data';
 import './intelligence-layer-course.css';
 
 /**
@@ -44,6 +45,7 @@ export default function IntelligenceLayerCoursePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSticky, setShowSticky] = useState(false);
+  const [playingId, setPlayingId] = useState<string | null>(null);
   const heroCtaRef = useRef<HTMLDivElement | null>(null);
 
   const buy = useCallback(async () => {
@@ -214,6 +216,54 @@ export default function IntelligenceLayerCoursePage() {
               personal styles.
             </li>
           </ul>
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="ilcs-section">
+        <div className="ilcs-wrap">
+          <h2>Hear it from people who have sat in the room.</h2>
+          <p className="ilcs-lead">
+            Real reactions from people who walked in with expertise and walked
+            out with a priced, built offer.
+          </p>
+          <div className="ilcs-testimonials">
+            {TESTIMONIALS.map((video) => (
+              <div
+                key={video.id}
+                className={`ilcs-testimonial ilcs-testimonial--${video.aspect}`}
+              >
+                {playingId === video.id ? (
+                  <iframe
+                    className="ilcs-testimonial-frame"
+                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
+                    title="Workshop testimonial"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    className="ilcs-testimonial-thumb"
+                    onClick={() => setPlayingId(video.id)}
+                    aria-label="Play testimonial video"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail host isn't registered with next/image */}
+                    <img
+                      src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                      alt=""
+                      className="ilcs-testimonial-img"
+                    />
+                    <span className="ilcs-testimonial-play">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

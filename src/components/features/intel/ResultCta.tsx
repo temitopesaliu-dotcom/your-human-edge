@@ -6,17 +6,21 @@ export default function ResultCta() {
       <h3>Go from expert to new income stream</h3>
       <p>
         The Intelligence Layer workshop takes exactly
-        this profile and turns it into a working AI-powered offer in
-        one session. Built for people at your level.
+        this profile and turns it into a working AI-powered offer. The full
+        session, now a self-paced course you build alongside. Built for
+        people at your level.
       </p>
       <a
-        href="/workshop"
+        href="/intelligence-layer-course"
         className="ilp-btn-primary"
         style={{ display: "inline-flex" }}
       >
-        Reserve my seat — $157 early access
+        Start Building Your Offer
         <ArrowRight size={15} />
       </a>
+      <div className="ilp-result-cta-footer">
+        At your own pace · Instant access — $99
+      </div>
     </div>
   );
 }

@@ -159,6 +159,52 @@
   display: flex; align-items: center; justify-content: center;
 }
 
+/* ---------------- TESTIMONIALS ---------------- */
+/* Same arrangement as the workshop page's grid, tokenised. */
+.ilcs-testimonials {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: start;
+}
+.ilcs-testimonial {
+  position: relative;
+  border-radius: var(--ds-radius);
+  overflow: hidden;
+  background: var(--ds-ink);
+  box-shadow: var(--ds-shadow-card);
+}
+.ilcs-testimonial--vertical { aspect-ratio: 9 / 16; }
+.ilcs-testimonial--horizontal { aspect-ratio: 16 / 9; }
+.ilcs-testimonial-thumb {
+  position: relative; display: block; width: 100%; height: 100%;
+  padding: 0; border: none; cursor: pointer; background: none;
+}
+.ilcs-testimonial-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ilcs-testimonial-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.ilcs-testimonial-play svg {
+  display: block; box-sizing: border-box;
+  width: 52px; height: 52px; padding: 15px; border-radius: 50%;
+  background: rgba(34, 31, 26, 0.6); color: #fff;
+  transition: background 0.2s, transform 0.2s;
+}
+.ilcs-testimonial-thumb:hover .ilcs-testimonial-play svg {
+  background: var(--ds-accent); transform: scale(1.06);
+}
+.ilcs-testimonial-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+@media (max-width: 900px) {
+  .ilcs-testimonials { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .ilcs-testimonials { grid-template-columns: 1fr; max-width: 320px; }
+}
+
 /* ---------------- BUYBOX ---------------- */
 .ilcs-buybox {
   display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;

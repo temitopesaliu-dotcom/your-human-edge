@@ -73,8 +73,8 @@ export default async function IntelligenceLayerCourseAccessPage({
             <p>
               If you have just paid and landed here by accident, nothing is
               lost: your Stripe receipt is proof of purchase. Send it to{' '}
-              <a href="mailto:hello@temitopesaliu.com?subject=Intelligence%20Layer%20course%20access">
-                hello@temitopesaliu.com
+              <a href="mailto:ts@temitopesaliu.com?subject=Intelligence%20Layer%20course%20access">
+                ts@temitopesaliu.com
               </a>{' '}
               and access will be sorted straight away.
             </p>
@@ -157,8 +157,8 @@ export default async function IntelligenceLayerCourseAccessPage({
                 This page is tied to your purchase and checked with Stripe on
                 every visit, so keep your checkout link or this bookmark. If
                 you ever lose it, your Stripe receipt to{' '}
-                <a href="mailto:hello@temitopesaliu.com?subject=Intelligence%20Layer%20course%20access">
-                  hello@temitopesaliu.com
+                <a href="mailto:ts@temitopesaliu.com?subject=Intelligence%20Layer%20course%20access">
+                  ts@temitopesaliu.com
                 </a>{' '}
                 gets you back in.
               </p>
