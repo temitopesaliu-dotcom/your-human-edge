@@ -23,6 +23,11 @@ import './intelligence-layer-course.css';
 
 const PRICE_LABEL = '$99';
 
+/** The anchor price: what the live workshop cost. Shown struck-through so
+ *  the $99 reads as the same session for less. Must match the live
+ *  workshop's real price — currently $157 (api/workshop/create-checkout). */
+const WAS_LABEL = '$157';
+
 /**
  * Carries the email's UTM tags and any ?coupon= code through to Stripe, so
  * every sale records which email it came from and at what discount. The API
@@ -115,8 +120,9 @@ export default function IntelligenceLayerCoursePage() {
         </div>
 
         <div className="ilcs-price-line">
+          <span className="was">{WAS_LABEL}</span>
           <span className="now">{PRICE_LABEL}</span>
-          <span className="then">One payment. Lifetime access to the recording.</span>
+          <span className="then">One payment. Lifetime access.</span>
         </div>
 
         <div ref={heroCtaRef}>
@@ -227,11 +233,16 @@ export default function IntelligenceLayerCoursePage() {
             Real reactions from people who walked in with expertise and walked
             out with a priced, built offer.
           </p>
-          <div className="ilcs-testimonials">
+          {/* One masonry wall: video clips and written screenshots flow
+              together, so tall and short tiles pack tightly instead of
+              leaving holes under the horizontal clips. Videos come from the
+              shared workshop testimonial data; screenshots from
+              /public/testimonials. */}
+          <div className="ilcs-wall">
             {TESTIMONIALS.map((video) => (
               <div
                 key={video.id}
-                className={`ilcs-testimonial ilcs-testimonial--${video.aspect}`}
+                className={`ilcs-wall-item ilcs-wall-item--${video.aspect}`}
               >
                 {playingId === video.id ? (
                   <iframe
@@ -263,6 +274,27 @@ export default function IntelligenceLayerCoursePage() {
                 )}
               </div>
             ))}
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13%203.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </div>
       </section>
@@ -276,7 +308,7 @@ export default function IntelligenceLayerCoursePage() {
                 The Intelligence Layer — Self-Paced
               </div>
               <div className="ilcs-amount">
-                {PRICE_LABEL}
+                <s className="ilcs-amount-was">{WAS_LABEL}</s> {PRICE_LABEL}
                 <small>one payment</small>
               </div>
 

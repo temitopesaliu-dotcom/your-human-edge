@@ -15,12 +15,10 @@ export default function ResultCta() {
         className="ilp-btn-primary"
         style={{ display: "inline-flex" }}
       >
-        Start Building Your Offer
+        Get Instant Access
         <ArrowRight size={15} />
       </a>
-      <div className="ilp-result-cta-footer">
-        At your own pace · Instant access — $99
-      </div>
+      <div className="ilp-result-cta-footer">At your own pace</div>
     </div>
   );
 }
