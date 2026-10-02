@@ -12,11 +12,6 @@ import '../expert-framework.css';
 const PROMPTS_URL =
   'https://docs.google.com/document/d/1KQiuHeLd6r7h9-vA1nxSxwNKj7z6r_gtE0mDoszsZXM/edit?usp=drivesdk';
 
-/** Post-payment next step for this funnel. Not indexed (page robots), and
- *  the target is a static presale page, so a plain <a> is correct here —
- *  no client-side router involved. */
-const AI_OPERATOR_SUITE_URL = '/ai-operator-suite';
-
 export const metadata: Metadata = {
   title: 'Your course: The Expert Framework, Self-Paced',
   // Never indexed: the only public page is the sales page.
@@ -303,30 +298,6 @@ export default async function IntelligenceLayerCourseAccessPage({
               </p>
             </div>
           </div>
-
-          {/* What comes next — the email's upsell, for people who finished the
-              video or want the roadmap before starting. */}
-          <section className="ilc-next">
-            <div className="ilc-next-eyebrow">What comes next</div>
-            <h2>
-              The workshop built the first piece. <em>The suite builds the business.</em>
-            </h2>
-            <p className="ilc-next-sub">
-              The AI Operator Suite is six self-paced modules that turn this
-              session into an actual AI-driven business — Personality
-              Intelligence for Sales, Leads &amp; Sales Engine, AI Staff &amp;
-              Agentic Automations, Content to Client, AI Clone Operator, plus
-              the Advanced Build on AI Business Audits &amp; Architecture. The
-              AI Consultant Framework comes free with any purchase.
-            </p>
-            <ul className="ilc-next-list">
-              <li>Content unlocks 6 October 2026</li>
-              <li>Buying now locks in your spot at presale pricing</li>
-            </ul>
-            <a className="ilcs-btn" href={AI_OPERATOR_SUITE_URL}>
-              See the AI Operator Suite →
-            </a>
-          </section>
         </div>
       </section>
 
