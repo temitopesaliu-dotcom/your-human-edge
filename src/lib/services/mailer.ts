@@ -583,6 +583,9 @@ export async function addStoryToIncomeBuyerToMailerLite(
   }
 }
 
+/** MailerLite group "Expert Framework - Self-Paced Buyers". Launch emails exclude it. */
+const EF_BUYERS_GROUP_ID = '200222030371489780';
+
 /**
  * Buyers of The Expert Framework — Self-Paced course.
  *
@@ -599,7 +602,9 @@ export async function addIntelligenceLayerCourseBuyerToMailerLite(
   accessLink: string
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
-  const paidGroup = process.env.MAILERLITE_IL_COURSE_GROUP_ID;
+  // Falls back to the Expert Framework buyers group so a missing env var can
+  // never leave a buyer outside the group that launch emails exclude.
+  const paidGroup = process.env.MAILERLITE_IL_COURSE_GROUP_ID || EF_BUYERS_GROUP_ID;
   if (!apiKey || !paidGroup) {
     console.warn('[mailer] MAILERLITE_API_KEY or IL_COURSE group not set — skipping');
     return;
@@ -610,6 +615,7 @@ export async function addIntelligenceLayerCourseBuyerToMailerLite(
     const allGroup = process.env.MAILERLITE_GROUP_ALL;
     if (allGroup) groups.push(allGroup);
     groups.push(paidGroup);
+    if (!groups.includes(EF_BUYERS_GROUP_ID)) groups.push(EF_BUYERS_GROUP_ID);
 
     const result = await mailerLiteRequest('/subscribers', {
       method: 'POST',
