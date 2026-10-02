@@ -10,10 +10,10 @@ export default function Hero() {
           <div>
             <div className="ws-hero-eyebrow">
               <span className="ws-hero-eyebrow-dot" />
-              Live Workshop · The Intelligence Layer
+              Live Workshop · The Intelligence Framework
             </div>
             <h1>
-              The Intelligence Layer:
+              The Intelligence Framework:
               <br />
               Go <em>From Expertise</em>
               <br />to <span className="checkout-offer-color">Offer.</span>
@@ -59,10 +59,10 @@ export default function Hero() {
                 Live on Zoom · {WORKSHOP_DATE}.
               </div>
               <div className="ws-checkout-title">
-                The Intelligence Layer: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
+                The Intelligence Framework: Go From Expertise to <span className="checkout-offer-color">Offer.</span>
               </div>
               <div className="ws-checkout-sub">
-                The Intelligence Layer — 3-hour working session
+                The Intelligence Framework — 3-hour working session
               </div>
             </div>
             <div className="ws-checkout-body">
@@ -84,7 +84,7 @@ export default function Hero() {
                 </div>
                 {[
                   "3-hour live working session on Zoom",
-                  "Your Intelligence Layer mapped live",
+                  "Your Intelligence Framework mapped live",
                   "AI infrastructure built in the session",
                   "90-day GTM plan you leave with",
                   "Session recording within 72 hours",

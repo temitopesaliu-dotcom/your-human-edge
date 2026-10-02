@@ -68,7 +68,7 @@ export const ARCHETYPES: Record<ArchetypeKey, Archetype> = {
     fear: 'that your systems expertise becomes commoditised as AI makes everyone a builder',
     reframe: 'AI lowered the floor for who can build. It raised the ceiling for what an expert builder can create. The people who understood systems before AI are now the architects of the AI era.',
     tool: 'Make (formerly Integromat) + Claude',
-    useCase: 'Use Make to build multi-step AI automation workflows. Use Claude as the intelligence layer inside those workflows — for decisions, drafting, and routing.',
+    useCase: 'Use Make to build multi-step AI automation workflows. Use Claude as the intelligence framework inside those workflows — for decisions, drafting, and routing.',
     mailerLiteGroupEnvKey: 'MAILERLITE_GROUP_S',
   },
   G: {

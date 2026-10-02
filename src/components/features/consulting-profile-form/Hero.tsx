@@ -4,7 +4,7 @@ export default function Hero() {
       <div className="cpf-hero-inner">
         <div className="cpf-hero-eyebrow">
           <span className="cpf-hero-eyebrow-dot"></span>
-          Intelligence Layer Workshop — September 12th
+          Intelligence Framework Workshop — September 12th
         </div>
         <h1>Your Expert<br /><em>Profile.</em></h1>
         <p className="cpf-hero-sub">

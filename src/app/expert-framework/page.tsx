@@ -24,12 +24,7 @@ import './expert-framework.css';
  * with it.
  */
 
-const PRICE_LABEL = '$99';
-
-/** The anchor price: what the live workshop cost. Shown struck-through so
- *  the $99 reads as the same session for less. Must match the live
- *  workshop's real price — currently $157 (api/workshop/create-checkout). */
-const WAS_LABEL = '$157';
+const PRICE_LABEL = '$157';
 
 /**
  * Carries the email's UTM tags and any ?coupon= code through to Stripe, so
@@ -160,6 +155,9 @@ export default function IntelligenceLayerCoursePage() {
         <h1>
           From expertise to a <em>live offer.</em>
         </h1>
+        <p className="ilcs-hero-tagline">
+          Take your skills and expertise to a consulting business
+        </p>
         <p className="ilcs-sub">
           The full Expert Framework + AI working session, the one built live
           over <strong>five hours</strong> with a room of experts{' '}
@@ -190,7 +188,6 @@ export default function IntelligenceLayerCoursePage() {
         </ol>
 
         <div className="ilcs-price-line">
-          <s>{WAS_LABEL}</s>
           <span className="now">{PRICE_LABEL}</span>
           <span className="then">One payment. Lifetime access.</span>
         </div>
@@ -451,7 +448,6 @@ export default function IntelligenceLayerCoursePage() {
           <div className="ilcs-box ilcs-reveal">
             <div className="ilcs-box-name">The Expert Framework, Self-Paced.</div>
             <div className="ilcs-box-amount">
-              <s>{WAS_LABEL}</s>
               <strong>{PRICE_LABEL}</strong>
             </div>
             <div className="ilcs-box-once">one payment</div>
@@ -553,7 +549,6 @@ export default function IntelligenceLayerCoursePage() {
       <div className={`ilcs-sticky${showSticky ? ' show' : ''}`}>
         <span className="ilcs-sticky-price">
           <b>{PRICE_LABEL}</b>
-          <s>{WAS_LABEL}</s>
         </span>
         <button className="ilcs-btn" onClick={buy} disabled={loading}>
           {loading ? 'Opening…' : 'Get the course'}

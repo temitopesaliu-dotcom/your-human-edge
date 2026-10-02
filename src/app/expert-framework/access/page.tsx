@@ -18,13 +18,13 @@ const PROMPTS_URL =
 const AI_OPERATOR_SUITE_URL = '/ai-operator-suite';
 
 export const metadata: Metadata = {
-  title: 'Your course: The Intelligence Layer — Self-Paced',
+  title: 'Your course: The Expert Framework, Self-Paced',
   // Never indexed: the only public page is the sales page.
   robots: 'noindex, nofollow',
 };
 
 /**
- * Post-payment delivery page for The Intelligence Layer — Self-Paced.
+ * Post-payment delivery page for The Expert Framework — Self-Paced.
  *
  * Security model, in order:
  *   1. The YouTube video is UNLISTED, so it is not searchable and has no
@@ -110,7 +110,7 @@ export default async function IntelligenceLayerCourseAccessPage({
       {paid && (
         <PurchaseTracker
           productId="intelligence-layer-course"
-          productName="The Intelligence Layer — Self-Paced Course"
+          productName="The Expert Framework, Self-Paced Course"
           value={paid.value}
           currency={paid.currency}
           transactionId={paid.sessionId}
@@ -126,7 +126,7 @@ export default async function IntelligenceLayerCourseAccessPage({
             <div className="ilc-tick" aria-hidden="true">✓</div>
             <h1>{firstName ? `It's yours, ${firstName}.` : "It's yours."}</h1>
             <p>
-              The Intelligence Layer, self-paced. Everything below is your
+              The Expert Framework, self-paced. Everything below is your
               full work kit, start to finish, at your own pace — the video,
               the tools, the prompts and the order to do them in.
             </p>
@@ -136,7 +136,7 @@ export default async function IntelligenceLayerCourseAccessPage({
             <div className="ilc-player">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
-                title="The Intelligence Layer — Self-Paced Course"
+                title="The Expert Framework, Self-Paced Course"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />

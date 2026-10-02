@@ -22,7 +22,7 @@ export const Q = [
   {
     key: "years",
     text: "How many years have you been doing this?",
-    hint: "Your experience depth determines the premium your intelligence layer can command.",
+    hint: "Your experience depth determines the premium your intelligence framework can command.",
     type: "options",
     options: [
       "1 to 3 years",
@@ -96,23 +96,23 @@ export const Q = [
 
 export const LAYERS: Record<string, string> = {
   Business:
-    "Your Intelligence Layer is your ability to see around corners — to spot what is breaking in a business before the numbers confirm it. That is not a consultancy skill, that is a pattern library built from years of exposure. AI does not replicate that. It takes your diagnostic instinct and turns it into a deliverable system — audits, frameworks, and decision tools that work without you in the room.",
+    "Your Intelligence Framework is your ability to see around corners — to spot what is breaking in a business before the numbers confirm it. That is not a consultancy skill, that is a pattern library built from years of exposure. AI does not replicate that. It takes your diagnostic instinct and turns it into a deliverable system — audits, frameworks, and decision tools that work without you in the room.",
   Marketing:
-    "Your Intelligence Layer is your ability to read what an audience actually wants versus what they say they want — and to close the gap. That takes taste, lived experience, and a cultural antenna that cannot be prompted. AI does not replace that. It takes your strategic instincts and turns them into campaigns, content systems, and brand frameworks that scale beyond your own hours.",
+    "Your Intelligence Framework is your ability to read what an audience actually wants versus what they say they want — and to close the gap. That takes taste, lived experience, and a cultural antenna that cannot be prompted. AI does not replace that. It takes your strategic instincts and turns them into campaigns, content systems, and brand frameworks that scale beyond your own hours.",
   Finance:
-    "Your Intelligence Layer is your ability to translate numbers into decisions — to tell a founder what the spreadsheet actually means and what they should do about it. That is not accounting. That is judgment. AI handles the model building, the scenario analysis, the data structuring — freeing you to deliver the interpretation your clients are actually paying for.",
-  HR: "Your Intelligence Layer is your ability to read people dynamics and organisational systems simultaneously — to diagnose what is causing attrition, disengagement, or underperformance when everyone else is looking at the wrong variable. AI does not replicate that. It takes your diagnostic frameworks and makes them deliverable at a scale no human team can match alone.",
-  Legal: "Your Intelligence Layer is your ability to hold complexity and risk in tension — to understand not just what the law says but what a client should actually do given their specific exposure. AI handles the research, the document review, the precedent mapping — and frees you to deliver the advice that actually matters.",
-  Health: "Your Intelligence Layer is your ability to see the whole person behind the presenting symptom — to hold clinical knowledge and human context simultaneously. AI handles the documentation, the research, the education materials — freeing you to do the high-value work only you can do.",
+    "Your Intelligence Framework is your ability to translate numbers into decisions — to tell a founder what the spreadsheet actually means and what they should do about it. That is not accounting. That is judgment. AI handles the model building, the scenario analysis, the data structuring — freeing you to deliver the interpretation your clients are actually paying for.",
+  HR: "Your Intelligence Framework is your ability to read people dynamics and organisational systems simultaneously — to diagnose what is causing attrition, disengagement, or underperformance when everyone else is looking at the wrong variable. AI does not replicate that. It takes your diagnostic frameworks and makes them deliverable at a scale no human team can match alone.",
+  Legal: "Your Intelligence Framework is your ability to hold complexity and risk in tension — to understand not just what the law says but what a client should actually do given their specific exposure. AI handles the research, the document review, the precedent mapping — and frees you to deliver the advice that actually matters.",
+  Health: "Your Intelligence Framework is your ability to see the whole person behind the presenting symptom — to hold clinical knowledge and human context simultaneously. AI handles the documentation, the research, the education materials — freeing you to do the high-value work only you can do.",
   Education:
-    "Your Intelligence Layer is your ability to meet learners where they are and design the path that actually works — not the one that looks good on a curriculum map. AI does not replace that. It takes your learning design instincts and turns them into scalable programmes, personalised content, and diagnostic tools that serve hundreds simultaneously.",
+    "Your Intelligence Framework is your ability to meet learners where they are and design the path that actually works — not the one that looks good on a curriculum map. AI does not replace that. It takes your learning design instincts and turns them into scalable programmes, personalised content, and diagnostic tools that serve hundreds simultaneously.",
   Technology:
-    "Your Intelligence Layer is your ability to translate between what a business needs and what a system can do — the most valuable skill in any technology organisation. AI handles the execution, the documentation, the code scaffolding — and frees you to do the architecture and decision-making that determines whether the thing actually works.",
+    "Your Intelligence Framework is your ability to translate between what a business needs and what a system can do — the most valuable skill in any technology organisation. AI handles the execution, the documentation, the code scaffolding — and frees you to do the architecture and decision-making that determines whether the thing actually works.",
   Creative:
-    "Your Intelligence Layer is your taste — your ability to make creative judgements that land with real audiences, built from years of iteration and cultural attunement. AI produces volume. You produce meaning. The opportunity is to use AI for execution and output while you own the strategy, the vision, and the creative direction that makes the work worth paying for.",
+    "Your Intelligence Framework is your taste — your ability to make creative judgements that land with real audiences, built from years of iteration and cultural attunement. AI produces volume. You produce meaning. The opportunity is to use AI for execution and output while you own the strategy, the vision, and the creative direction that makes the work worth paying for.",
   Operations:
-    "Your Intelligence Layer is your ability to see the whole system and identify the one lever that actually matters. AI maps the processes, runs the data, surfaces the patterns — and frees you to do the high-level problem-solving your clients are actually paying for.",
-  Sales: "Your Intelligence Layer is your ability to build trust under pressure — to read a room, anticipate an objection, and close without forcing it. AI handles the research, the outreach, the follow-up sequencing — and frees you to spend your best hours on the conversations that actually convert.",
+    "Your Intelligence Framework is your ability to see the whole system and identify the one lever that actually matters. AI maps the processes, runs the data, surfaces the patterns — and frees you to do the high-level problem-solving your clients are actually paying for.",
+  Sales: "Your Intelligence Framework is your ability to build trust under pressure — to read a room, anticipate an objection, and close without forcing it. AI handles the research, the outreach, the follow-up sequencing — and frees you to spend your best hours on the conversations that actually convert.",
 };
 
 export type StackItem = { i: string; n: string; d: string };
@@ -356,7 +356,7 @@ export const STEPS: Record<string, { w: string; a: string }[]> = {
   "7 to 15 hours a week": [
     {
       w: "Week 1",
-      a: "Map your full Intelligence Layer — the problems you solve, the frameworks you use, the results you create. This becomes your offer architecture.",
+      a: "Map your full Intelligence Framework — the problems you solve, the frameworks you use, the results you create. This becomes your offer architecture.",
     },
     {
       w: "Week 2",
@@ -370,7 +370,7 @@ export const STEPS: Record<string, { w: string; a: string }[]> = {
   "More than 15 hours a week": [
     {
       w: "Week 1",
-      a: "Fully map and document your Intelligence Layer. Build your complete offer stack — entry product, core offer, and premium tier — in draft form.",
+      a: "Fully map and document your Intelligence Framework. Build your complete offer stack — entry product, core offer, and premium tier — in draft form.",
     },
     {
       w: "Week 2",

@@ -49,7 +49,7 @@ export default function TestimonialPage() {
     <div className="tf-body">
       <div className="tf-wrap">
         <div className="tf-header">
-          <div className="tf-eyebrow">The Intelligence Layer Workshop</div>
+          <div className="tf-eyebrow">The Intelligence Framework Workshop</div>
           <h1>Share your experience</h1>
           <p>Your words help the next expert take the step you just took.</p>
         </div>

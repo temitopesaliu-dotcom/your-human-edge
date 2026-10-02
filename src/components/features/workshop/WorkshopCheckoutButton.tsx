@@ -17,7 +17,7 @@ export async function startWorkshopCheckout(): Promise<string | null> {
     items: [
       {
         item_id: "intelligence-layer-workshop",
-        item_name: "The Intelligence Layer + AI — Live Working Session",
+        item_name: "The Intelligence Framework + AI — Live Working Session",
         price: 157,
         quantity: 1,
       },

@@ -5,10 +5,10 @@ import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 
 /**
- * The Intelligence Layer (self-paced) checkout.
+ * The Expert Framework (self-paced) checkout.
  *
  * The workshop recording, re-sold as a self-study course: same material as
- * the live Intelligence Layer + AI working session, delivered as a private
+ * the live Intelligence Framework + AI working session, delivered as a private
  * video watched on this site. Delivery is a payment-checked page, not an
  * emailed link: the buyer lands on /expert-framework/access the
  * moment Stripe clears, and the page verifies the session with Stripe
@@ -23,7 +23,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * fulfilment. See the note in api/stripe-webhook/route.ts.
  */
 
-export const COURSE_AMOUNT = 9900; // $99.00 USD
+export const COURSE_AMOUNT = 15700; // $157.00 USD
 
 /**
  * UTM tags forwarded from the sales page URL, so each sale in Stripe records
@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      // Adaptive Pricing off so a buyer outside the US sees the same $99 the
+      // Adaptive Pricing off so a buyer outside the US sees the same $157 the
       // page showed them, rather than a converted amount carrying Stripe's
       // own conversion fee. Same decision as workshop and story-to-income.
       adaptive_pricing: { enabled: false },
@@ -144,9 +144,9 @@ export async function POST(req: NextRequest) {
             currency: 'usd',
             unit_amount: COURSE_AMOUNT,
             product_data: {
-              name: 'The Intelligence Layer — Self-Paced Course',
+              name: 'The Expert Framework, Self-Paced',
               description:
-                'The full Intelligence Layer + AI workshop as a private, self-paced video course. Watch on demand, work through the same builds live attendees did, at your own speed.',
+                'The full Expert Framework + AI workshop as a private, self-paced video course. Watch on demand, work through the same builds live attendees did, at your own speed.',
             },
           },
         },

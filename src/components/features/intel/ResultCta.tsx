@@ -5,7 +5,7 @@ export default function ResultCta() {
     <div className="ilp-result-cta">
       <h3>Go from expert to new income stream</h3>
       <p>
-        The Intelligence Layer workshop takes exactly
+        The Intelligence Framework workshop takes exactly
         this profile and turns it into a working AI-powered offer. The full
         session, now a self-paced course you build alongside. Built for
         people at your level.

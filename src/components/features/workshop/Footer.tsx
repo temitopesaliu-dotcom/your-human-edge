@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="ws-container">
 
         <div className="ws-footer-copy">
-          2026 Temitope Saliu. The Intelligence Layer is a proprietary
+          2026 Temitope Saliu. The Intelligence Framework is a proprietary
           methodology. All rights reserved.
         </div>
       </div>

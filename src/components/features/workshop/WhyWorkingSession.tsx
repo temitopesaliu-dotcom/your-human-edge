@@ -18,7 +18,7 @@ export default function WhyWorkingSession() {
             </p>
             <p style={{ marginTop: "1rem" }}>
               The level of specificity required to actually build your
-              Intelligence Layer, price it correctly, and map the
+              Intelligence Framework, price it correctly, and map the
               go-to-market requires a room that stays small.{" "}
               <strong className="ws-urgent-text">
                 Only 50 seats are available

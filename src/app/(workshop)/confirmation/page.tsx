@@ -17,7 +17,7 @@ export default async function WorkshopConfirmationPage({
       {paid && (
         <PurchaseTracker
           productId="intelligence-layer-workshop"
-          productName="Intelligence Layer Workshop"
+          productName="Intelligence Framework Workshop"
           value={paid.value}
           currency={paid.currency}
           transactionId={paid.sessionId}
@@ -163,7 +163,7 @@ export default async function WorkshopConfirmationPage({
 
       <nav className="ws-nav">
         <Link href="/" className="ws-nav-logo">
-          Your Intelligence Layer + AI<span>.</span>
+          Your Intelligence Framework + AI<span>.</span>
         </Link>
       </nav>
 
@@ -208,7 +208,7 @@ export default async function WorkshopConfirmationPage({
       <footer className="ws-site-footer">
         <div>
         <div className="ws-footer-copy">
-          2026 Temitope Saliu. The Intelligence Layer is a proprietary
+          2026 Temitope Saliu. The Intelligence Framework is a proprietary
           methodology. All rights reserved.
         </div>
         </div>

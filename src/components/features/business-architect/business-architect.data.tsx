@@ -32,9 +32,9 @@ export const tracks: {
 }[] = [
   {
     num: "Track 01",
-    title: <><em>Intelligence Layer</em> Mastery</>,
-    benefit: "Turn your Intelligence Layer into language that closes deals.",
-    desc: "The workshop named it. This is where you own it. You pressure-test your Intelligence Layer against real market signals, refine the language until it converts, and confirm the foundation before everything else is built on top of it. Most experts pivot two or three times before it lands. This track collapses that into one deliberate process.",
+    title: <><em>Intelligence Framework</em> Mastery</>,
+    benefit: "Turn your Intelligence Framework into language that closes deals.",
+    desc: "The workshop named it. This is where you own it. You pressure-test your Intelligence Framework against real market signals, refine the language until it converts, and confirm the foundation before everything else is built on top of it. Most experts pivot two or three times before it lands. This track collapses that into one deliberate process.",
   },
   {
     num: "Track 02",
@@ -46,7 +46,7 @@ export const tracks: {
     num: "Track 03",
     title: <>From <em>Content</em> to Clients</>,
     benefit: "A content system that brings in clients without daily posting.",
-    desc: "A content system that works while you are not. Short-form video, yap sessions, written content — all derived from your Intelligence Layer so it sounds like you and attracts exactly who you serve. Not content for the sake of content. Content that converts.",
+    desc: "A content system that works while you are not. Short-form video, yap sessions, written content — all derived from your Intelligence Framework so it sounds like you and attracts exactly who you serve. Not content for the sake of content. Content that converts.",
   },
   {
     num: "Track 04",
@@ -99,7 +99,7 @@ export const sum = (rows: { value: number }[]) =>
 export const money = (n: number) => `$${n.toLocaleString("en-US")}`;
 
 /* ── SOCIAL PROOF ───
-   Real quotes supplied by Temitope 2026-08-15 from Intelligence Layer Workshop
+   Real quotes supplied by Temitope 2026-08-15 from Intelligence Framework Workshop
    participants. Adi's is condensed — every word is his, with cuts marked by an
    ellipsis. Nothing added, nothing paraphrased. No photos or artifact
    screenshots: he asked for those to be left out for now. */
@@ -190,7 +190,7 @@ export const compareRows: {
 export const faqs: { q: string; a: string }[] = [
   {
     q: "I already built my offer at the workshop. What is actually left to do?",
-    a: "You built the foundation — the Intelligence Layer, the ICP, the site. What you do not have yet is a price the market has tested, a repeatable way to get in front of the people who pay it, a delivery system you can hand over, and a brand that holds the rate. That is the six weeks. You are not starting again; you are building the business around what you already made.",
+    a: "You built the foundation — the Intelligence Framework, the ICP, the site. What you do not have yet is a price the market has tested, a repeatable way to get in front of the people who pay it, a delivery system you can hand over, and a brand that holds the rate. That is the six weeks. You are not starting again; you are building the business around what you already made.",
   },
   {
     q: "Who do I bring as my Builder Seat in the Accelerator?",
@@ -202,7 +202,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "What do I walk away with after six weeks?",
-    a: "A refined Intelligence Layer the market pays for. A personal brand with a content system behind it. A complete client acquisition process from first contact to signed contract. A delivered or ready-to-deliver AI Operating System. A business identity that commands premium rates. Accelerator members also walk away with a reviewed proposal that has already been in front of a real client.",
+    a: "A refined Intelligence Framework the market pays for. A personal brand with a content system behind it. A complete client acquisition process from first contact to signed contract. A delivered or ready-to-deliver AI Operating System. A business identity that commands premium rates. Accelerator members also walk away with a reviewed proposal that has already been in front of a real client.",
   },
   {
     q: "Who teaches the specialist tracks?",

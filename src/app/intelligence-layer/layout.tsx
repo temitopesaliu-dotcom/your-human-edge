@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Intelligence Layer Profile — Temitope Saliu",
+  title: "The Intelligence Framework Profile — Temitope Saliu",
   description:
     "Discover exactly how your expertise becomes an AI-powered offer — and what someone with your background can charge.",
   icons: {

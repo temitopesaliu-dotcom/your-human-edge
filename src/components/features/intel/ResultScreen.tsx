@@ -16,7 +16,7 @@ export default function ResultScreen({ result }: { result: IntelResult }) {
       <div className="ilp-result-body">
         <div className="ilp-result-section">
           <div className="ilp-section-eyebrow">
-            Your intelligence layer
+            Your intelligence framework
           </div>
           <div className="ilp-section-body">{result.layer}</div>
         </div>

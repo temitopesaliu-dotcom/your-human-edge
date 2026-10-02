@@ -1,5 +1,5 @@
 /**
- * The self-paced Intelligence Layer recording is its own product, separate
+ * The self-paced Expert Framework recording is its own product, separate
  * from the live workshop, so its price, checkout, delivery page and email
  * segment are all its own and cannot drift into the workshop's.
  */

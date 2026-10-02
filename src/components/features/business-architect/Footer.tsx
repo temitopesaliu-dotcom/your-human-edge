@@ -5,7 +5,7 @@ export default function Footer() {
         The Business <em>Architect</em> Programme
       </div>
       <div className="footer-copy">
-        2026 temitopesaliu.com · Intelligence Layer Workshop · Founding
+        2026 temitopesaliu.com · Intelligence Framework Workshop · Founding
         Cohort
       </div>
     </footer>

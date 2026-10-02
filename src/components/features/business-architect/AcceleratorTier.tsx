@@ -87,7 +87,7 @@ export default function AcceleratorTier() {
             <div>
               <div className="stitle">Opening strategy session</div>
               <div className="sdesc">
-                Your Intelligence Layer mapped to your specific
+                Your Intelligence Framework mapped to your specific
                 market opportunity. Your offer, your positioning,
                 your first 90 days — built before the programme
                 begins so you start with clarity, not questions.

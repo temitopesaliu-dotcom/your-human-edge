@@ -23,7 +23,7 @@ export default function GateScreen({
         <MailIcon />
       </div>
       <h2 className="ilp-gate-title">
-        Your Intelligence Layer Profile is ready.
+        Your Intelligence Framework Profile is ready.
       </h2>
       <p className="ilp-gate-sub">
         Where should I send your full breakdown? You will also receive

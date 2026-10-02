@@ -12,7 +12,7 @@ export default function Solution() {
             What a Business Operating System with AI looks like.
           </h2>
           <p className="body-lg mt-3">
-            Not a collection of tools. A connected intelligence layer that
+            Not a collection of tools. A connected intelligence framework that
             sits across your entire business.
           </p>
         </div>

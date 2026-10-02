@@ -444,10 +444,10 @@ export async function addIntelligenceLayerFreeSubscriber(
       },
     });
     if (!result.ok) {
-      console.error('[mailer] Intelligence Layer free subscriber add failed:', result.status, result.errorText);
+      console.error('[mailer] Intelligence Framework free subscriber add failed:', result.status, result.errorText);
     }
   } catch (err: unknown) {
-    console.error('[mailer] Intelligence Layer free subscriber error:', err instanceof Error ? err.message : String(err));
+    console.error('[mailer] Intelligence Framework free subscriber error:', err instanceof Error ? err.message : String(err));
   }
 }
 
@@ -516,7 +516,7 @@ export async function addIntelligenceLayerPaidSubscriber(
       },
     });
     if (!result.ok) {
-      console.error('[mailer] Intelligence Layer paid subscriber add failed:', result.status, result.errorText);
+      console.error('[mailer] Intelligence Framework paid subscriber add failed:', result.status, result.errorText);
     }
     const freeGroup = process.env.MAILERLITE_FREE_INTELLIGENCE_LAYER_GROUP;
     if (freeGroup){
@@ -526,7 +526,7 @@ export async function addIntelligenceLayerPaidSubscriber(
       }
     }
   } catch (err: unknown) {
-    console.error('[mailer] Intelligence Layer paid subscriber error:', err instanceof Error ? err.message : String(err));
+    console.error('[mailer] Intelligence Framework paid subscriber error:', err instanceof Error ? err.message : String(err));
   }
 }
 
@@ -584,7 +584,7 @@ export async function addStoryToIncomeBuyerToMailerLite(
 }
 
 /**
- * Buyers of The Intelligence Layer — Self-Paced course.
+ * Buyers of The Expert Framework — Self-Paced course.
  *
  * Delivery itself happens on-site: checkout sends the buyer to the verified
  * /expert-framework/access page immediately, so nobody is waiting
@@ -625,11 +625,11 @@ export async function addIntelligenceLayerCourseBuyerToMailerLite(
       },
     });
     if (!result.ok) {
-      console.error('[mailer] Intelligence Layer course buyer add failed:', result.status, result.errorText);
+      console.error('[mailer] Intelligence Framework course buyer add failed:', result.status, result.errorText);
     }
   } catch (err: unknown) {
     console.error(
-      '[mailer] Intelligence Layer course buyer error:',
+      '[mailer] Intelligence Framework course buyer error:',
       err instanceof Error ? err.message : String(err)
     );
   }

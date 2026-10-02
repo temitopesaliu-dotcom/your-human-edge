@@ -7,7 +7,7 @@ export default function EntryScreen({ onStart }: { onStart: () => void }) {
         <StarIcon />
       </div>
       <h2 className="ilp-entry-title">
-        The Intelligence Layer Profile
+        The Intelligence Framework Profile
       </h2>
       <p className="ilp-entry-sub">
         Answer 7 questions and get a personalised breakdown of exactly

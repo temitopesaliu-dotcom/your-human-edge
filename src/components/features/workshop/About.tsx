@@ -42,7 +42,7 @@ export default function About() {
                 understands exactly what it costs to bet on yourself before
                 anyone else does.
               </strong>{" "}
-              The Intelligence Layer is the structured methodology she built
+              The Intelligence Framework is the structured methodology she built
               from that journey.
             </p>
             <p>

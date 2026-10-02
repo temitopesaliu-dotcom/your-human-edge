@@ -6,7 +6,7 @@ export default function Nav() {
   return (
     <nav className="ws-nav">
       <Link href="/" className="ws-nav-logo">
-        Your Intelligence Layer + AI<span>.</span>
+        Your Intelligence Framework + AI<span>.</span>
       </Link>
       <div className="ws-nav-right">
         <WorkshopCheckoutButton className="ws-nav-cta" showArrow={false}>
