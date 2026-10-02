@@ -10,7 +10,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * The workshop recording, re-sold as a self-study course: same material as
  * the live Intelligence Layer + AI working session, delivered as a private
  * video watched on this site. Delivery is a payment-checked page, not an
- * emailed link: the buyer lands on /intelligence-layer-course/access the
+ * emailed link: the buyer lands on /expert-framework/access the
  * moment Stripe clears, and the page verifies the session with Stripe
  * server-side before the video player is ever rendered.
  *
@@ -151,8 +151,8 @@ export async function POST(req: NextRequest) {
           },
         },
       ],
-      success_url: `${siteUrl}/intelligence-layer-course/access?session_id={CHECKOUT_SESSION_ID}${campaignParam}`,
-      cancel_url: `${siteUrl}/intelligence-layer-course#get-it`,
+      success_url: `${siteUrl}/expert-framework/access?session_id={CHECKOUT_SESSION_ID}${campaignParam}`,
+      cancel_url: `${siteUrl}/expert-framework#get-it`,
     });
 
     if (!session.url) {

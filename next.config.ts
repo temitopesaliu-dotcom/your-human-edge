@@ -31,6 +31,15 @@ const nextConfig: NextConfig = {
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // The Expert Framework course page used to live at
+      // /intelligence-layer-course. Permanent (308) so it is cached, and
+      // query strings (session_id, UTM tags) survive the hop, so access
+      // links already sent to buyers keep working.
+      {
+        source: '/intelligence-layer-course/:path*',
+        destination: '/expert-framework/:path*',
+        permanent: true,
+      },
       // Short links for the Story to Income launch emails. The full UTM-tagged
       // URL was too long to print in a plain-text email, so /story/one lands on
       // the sales page tagged utm_campaign=email-one. Only the listed ids

@@ -11,7 +11,7 @@ export default function ResultCta() {
         people at your level.
       </p>
       <a
-        href="/intelligence-layer-course"
+        href="/expert-framework"
         className="ilp-btn-primary"
         style={{ display: "inline-flex" }}
       >

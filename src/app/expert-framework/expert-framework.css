@@ -1,0 +1,702 @@
+/* ============================================================
+   The Expert Framework, Self-Paced — course sales page.
+   Uses ONLY the design-system tokens from globals.css (--ds-*),
+   the shared SiteNav/SiteFooter chrome, and the system font
+   stack. No new colors, no extra fonts.
+   ============================================================ */
+
+.ilcs-page { flex: 1; }
+
+/* 900px is the reading measure (access page, FAQ); --wide is the
+   1040px canvas the sales-page grids (cards, wall, buy) use. */
+.ilcs-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.ilcs-wrap--wide { max-width: 1040px; }
+
+/* ---------------- HERO ---------------- */
+/* White hero: layered accent glows plus a fading dot grid. */
+.ilcs-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(108, 79, 214, 0.13), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 90% 30%, rgba(108, 79, 214, 0.06), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 50%, rgba(108, 79, 214, 0.05), transparent 70%),
+    var(--ds-bg);
+  padding: 150px 24px 72px;
+  text-align: center;
+}
+.ilcs-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(108, 79, 214, 0.12) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 20%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 20%, #000 0%, transparent 75%);
+  pointer-events: none;
+}
+.ilcs-hero > * { position: relative; }
+
+.ilcs-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ds-accent);
+  background: var(--ds-accent-soft);
+  border: 1px solid var(--ds-border);
+  padding: 7px 16px; border-radius: 40px;
+}
+.ilcs-eyebrow i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ds-accent);
+  box-shadow: 0 0 0 4px rgba(108, 79, 214, 0.15);
+}
+
+.ilcs-hero h1 {
+  font-family: var(--ds-font);
+  font-size: clamp(2.5rem, 7vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  color: var(--ds-ink);
+  max-width: 1000px;
+  margin: 26px auto 22px;
+}
+.ilcs-hero h1 em { font-style: italic; color: var(--ds-accent); }
+.ilcs-sub {
+  font-size: clamp(1.03rem, 2vw, 1.19rem);
+  color: var(--ds-muted);
+  max-width: 640px;
+  margin: 0 auto 46px;
+  line-height: 1.75;
+}
+.ilcs-sub strong { color: var(--ds-ink); font-weight: 600; }
+
+/* The four steps as one connected line. */
+.ilcs-path {
+  list-style: none; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 860px; margin: 0 auto 48px;
+  position: relative;
+}
+.ilcs-path::before {
+  content: '';
+  position: absolute; top: 21px; left: 12.5%; right: 12.5%; height: 2px;
+  background: linear-gradient(90deg, var(--ds-accent-soft), var(--ds-accent), var(--ds-accent-soft));
+}
+.ilcs-path li {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 0 8px;
+}
+.ilcs-path-dot {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ds-surface);
+  border: 2px solid var(--ds-accent);
+  color: var(--ds-accent);
+  font-weight: 700; font-size: 0.875rem;
+  display: grid; place-items: center;
+  box-shadow: 0 0 0 6px var(--ds-bg), var(--ds-shadow-pop);
+}
+.ilcs-path li:last-child .ilcs-path-dot { background: var(--ds-accent); color: #fff; }
+.ilcs-path li > span:last-child {
+  font-size: 0.9rem; font-weight: 600; line-height: 1.35;
+  color: var(--ds-ink); max-width: 160px;
+}
+
+.ilcs-price-line {
+  display: flex; align-items: baseline; justify-content: center; gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+.ilcs-price-line s {
+  font-size: 1.375rem; font-weight: 600;
+  color: var(--ds-muted);
+}
+.ilcs-price-line .now {
+  font-family: var(--ds-font);
+  font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+  color: var(--ds-ink);
+}
+.ilcs-price-line .then { font-size: 0.875rem; color: var(--ds-muted); }
+
+/* Proof strip: live workshop -> self-paced recording. */
+.ilcs-proof {
+  display: flex; align-items: center; justify-content: center;
+  max-width: 560px; margin: 56px auto 0;
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow-pop);
+}
+.ilcs-proof > div { flex: 1; padding: 20px 12px; text-align: center; }
+.ilcs-proof-lbl {
+  display: block;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600; color: var(--ds-muted); margin-bottom: 6px;
+}
+.ilcs-proof b {
+  display: block;
+  font-family: var(--ds-font);
+  font-size: 1.875rem; font-weight: 700; line-height: 1.1;
+  color: var(--ds-ink);
+}
+.ilcs-proof > div:last-child b { color: var(--ds-accent); }
+.ilcs-proof-arrow {
+  flex: 0 0 auto;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ds-accent-soft); color: var(--ds-accent);
+  display: grid; place-items: center;
+}
+.ilcs-proof-arrow svg { width: 18px; height: 18px; }
+
+.ilcs-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--ds-accent); color: #fff;
+  font-family: var(--ds-font);
+  font-size: 1rem; font-weight: 600;
+  padding: 17px 36px; border-radius: 50px; border: none;
+  cursor: pointer; text-decoration: none;
+  box-shadow: 0 8px 24px rgba(108, 79, 214, 0.28);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.ilcs-btn:hover { transform: translateY(-2px); background: var(--ds-accent-dark); box-shadow: 0 12px 30px rgba(108, 79, 214, 0.34); }
+.ilcs-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+/* Sized to the comp (.btn svg): without this the arrow renders at its
+   default replaced-element size and stretches the button. */
+.ilcs-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.2s; }
+.ilcs-btn:hover svg { transform: translateX(3px); }
+
+/* Same error treatment as .form-error in globals.css. */
+.ilcs-err {
+  max-width: 440px; margin: 14px auto 0;
+  color: #c0392b; font-size: 0.82rem;
+  background: #fdf0ea;
+  padding: 8px 12px; border-radius: 8px;
+}
+
+/* ---------------- SECTIONS ---------------- */
+.ilcs-section { padding: 96px 0; }
+.ilcs-tint {
+  background: var(--ds-tint);
+  border-top: 1px solid var(--ds-border);
+  border-bottom: 1px solid var(--ds-border);
+}
+.ilcs-head { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+.ilcs-kicker {
+  display: block;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600; color: var(--ds-accent); margin-bottom: 14px;
+}
+.ilcs-head h2 {
+  font-family: var(--ds-font);
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  font-weight: 700; line-height: 1.12; letter-spacing: -0.015em;
+  color: var(--ds-ink);
+}
+.ilcs-head h2 em { font-style: italic; color: var(--ds-accent); }
+.ilcs-lead { color: var(--ds-muted); font-size: 1.06rem; margin-top: 14px; line-height: 1.75; }
+
+/* Reveal-on-scroll (JS adds .ilcs-in the first time a block shows). */
+.ilcs-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.ilcs-reveal.ilcs-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ilcs-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------------- CARDS ---------------- */
+.ilcs-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ilcs-card {
+  position: relative; overflow: hidden;
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: 18px;
+  padding: 34px 32px 32px;
+  box-shadow: var(--ds-shadow-card);
+  text-align: left;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.ilcs-card:hover { transform: translateY(-4px); box-shadow: var(--ds-shadow-pop); border-color: #d8cdf6; }
+.ilcs-card-n {
+  position: absolute; right: 22px; top: 6px;
+  font-size: 5.5rem; font-weight: 700; font-style: italic; line-height: 1;
+  color: var(--ds-accent-soft);
+  pointer-events: none;
+}
+.ilcs-card-ic {
+  position: relative;
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--ds-accent-soft); color: var(--ds-accent);
+  display: grid; place-items: center;
+  margin-bottom: 22px;
+}
+.ilcs-card-ic svg { width: 22px; height: 22px; }
+.ilcs-card h3 {
+  position: relative;
+  font-family: var(--ds-font);
+  font-size: 1.5rem; font-weight: 700; line-height: 1.2;
+  color: var(--ds-ink);
+  margin-bottom: 10px;
+}
+.ilcs-card p { position: relative; font-size: 0.97rem; color: var(--ds-muted); line-height: 1.7; }
+.ilcs-card--feature {
+  background: linear-gradient(160deg, var(--ds-surface) 40%, var(--ds-accent-soft));
+  border-color: #d8cdf6;
+}
+
+/* Prompts band — dark strip under the cards. */
+.ilcs-prompts {
+  margin-top: 20px;
+  display: flex; align-items: center; gap: 22px;
+  background: var(--ink); color: #fff;
+  border-radius: 18px; padding: 28px 32px;
+  position: relative; overflow: hidden;
+}
+.ilcs-prompts::after {
+  content: '';
+  position: absolute; right: -60px; top: -60px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(108, 79, 214, 0.55), transparent 70%);
+}
+.ilcs-prompts-plus {
+  position: relative; z-index: 1; flex-shrink: 0;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--ds-accent);
+  display: grid; place-items: center;
+  font-size: 1.6rem; font-weight: 600;
+}
+.ilcs-prompts p { position: relative; z-index: 1; color: rgba(255, 255, 255, 0.82); font-size: 0.97rem; }
+.ilcs-prompts strong { color: #fff; }
+
+/* ---------------- WHO IT'S FOR ---------------- */
+.ilcs-who-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px; align-items: stretch;
+}
+.ilcs-who-main {
+  background: var(--ds-accent); color: #fff;
+  border-radius: 18px; padding: 40px 36px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(108, 79, 214, 0.28);
+}
+.ilcs-who-main::after {
+  content: '';
+  position: absolute; inset: auto -80px -80px auto;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 70%);
+}
+.ilcs-who-tag {
+  display: inline-block;
+  font-size: 0.69rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 12px; border-radius: 40px;
+  margin-bottom: 22px;
+}
+.ilcs-who-main h3 {
+  position: relative; z-index: 1;
+  font-family: var(--ds-font);
+  font-size: clamp(1.6rem, 3vw, 2rem); line-height: 1.2; font-weight: 700;
+  margin-bottom: 14px;
+}
+.ilcs-who-main p { position: relative; z-index: 1; color: rgba(255, 255, 255, 0.85); font-size: 1rem; }
+.ilcs-who-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ilcs-who-list li {
+  position: relative;
+  display: flex; align-items: center; min-height: 68px;
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 18px 20px 18px 56px;
+  font-size: 0.97rem; color: var(--ds-body);
+  box-shadow: var(--ds-shadow-card);
+}
+.ilcs-who-list li::before {
+  content: '';
+  position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--ds-accent-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c4fd6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center/13px no-repeat;
+}
+
+/* ---------------- TESTIMONIALS ---------------- */
+/* One masonry wall (CSS columns): vertical clips, horizontal clips and
+   written screenshots all flow together, so short tiles never leave a
+   hole under them the way the fixed 4-column grid did. */
+.ilcs-wall { columns: 4; column-gap: 16px; }
+.ilcs-wall-item {
+  position: relative;
+  break-inside: avoid;
+  margin: 0 0 16px;
+  border-radius: var(--ds-radius);
+  overflow: hidden;
+  background: var(--ink);
+  border: 1px solid var(--ds-border);
+  box-shadow: var(--ds-shadow-pop);
+}
+.ilcs-wall-item--vertical { aspect-ratio: 9 / 16; }
+.ilcs-wall-item--horizontal { aspect-ratio: 16 / 9; }
+.ilcs-testimonial-thumb {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  padding: 0; border: none; cursor: pointer; background: none;
+}
+.ilcs-testimonial-thumb::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(26, 16, 64, 0.45));
+}
+.ilcs-testimonial-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.ilcs-testimonial-thumb:hover .ilcs-testimonial-img { transform: scale(1.04); }
+.ilcs-testimonial-play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.ilcs-testimonial-play svg {
+  display: block; box-sizing: border-box;
+  width: 56px; height: 56px; padding: 17px; margin-left: 3px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95); color: var(--ds-accent);
+  box-shadow: 0 8px 22px rgba(26, 16, 64, 0.3);
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+}
+.ilcs-testimonial-thumb:hover .ilcs-testimonial-play svg {
+  background: var(--ds-accent); color: #fff; transform: scale(1.08);
+}
+.ilcs-testimonial-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.ilcs-wall-shot { background: var(--ds-surface); }
+.ilcs-wall-shot img { width: 100%; height: auto; display: block; }
+
+/* ---------------- BUY ---------------- */
+/* Dark section: --ink is the deep-accent ground the comp uses. */
+.ilcs-buy {
+  position: relative; overflow: hidden;
+  background: var(--ink); color: #fff;
+}
+.ilcs-buy::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 15% 20%, rgba(108, 79, 214, 0.55), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 90% 90%, rgba(108, 79, 214, 0.35), transparent 70%);
+}
+.ilcs-buy > .ilcs-wrap {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+}
+.ilcs-buy .ilcs-kicker { color: #c4b5fd; }
+.ilcs-buy-copy h2 {
+  font-family: var(--ds-font);
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  font-weight: 700; line-height: 1.12; letter-spacing: -0.015em;
+  color: #fff;
+}
+.ilcs-buy-copy h2 em { font-style: italic; color: #c4b5fd; }
+.ilcs-buy .ilcs-lead { color: rgba(255, 255, 255, 0.75); }
+.ilcs-box {
+  background: var(--ds-surface); color: var(--ds-ink);
+  border-radius: 22px; padding: 38px 36px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+}
+.ilcs-box-name {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600; color: var(--ds-accent);
+}
+.ilcs-box-amount { display: flex; align-items: baseline; gap: 12px; margin: 12px 0 2px; }
+.ilcs-box-amount s { font-size: 1.375rem; font-weight: 600; color: var(--ds-muted); }
+.ilcs-box-amount strong {
+  font-family: var(--ds-font);
+  font-size: 3.375rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+}
+.ilcs-box-once { font-size: 0.875rem; color: var(--ds-muted); }
+.ilcs-box ul {
+  list-style: none; margin: 24px 0 28px; padding: 22px 0 0;
+  border-top: 1px solid var(--ds-border);
+  display: grid; gap: 11px;
+}
+.ilcs-box li { position: relative; padding-left: 32px; font-size: 0.94rem; color: var(--ds-body); line-height: 1.5; }
+.ilcs-box li::before {
+  content: '';
+  position: absolute; left: 0; top: 1px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--ds-accent-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c4fd6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center/11px no-repeat;
+}
+.ilcs-box .ilcs-btn { width: 100%; }
+.ilcs-secure {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-size: 0.81rem; color: var(--ds-muted); margin-top: 14px;
+}
+.ilcs-secure svg { width: 14px; height: 14px; }
+
+/* ---------------- FAQ ---------------- */
+.ilcs-faq { max-width: 720px; margin: 0 auto; }
+.ilcs-faq details {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  margin-bottom: 12px;
+  box-shadow: var(--ds-shadow-card);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ilcs-faq details[open] { border-color: #d8cdf6; box-shadow: var(--ds-shadow-pop); }
+.ilcs-faq summary {
+  cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 20px 24px;
+  font-family: var(--ds-font);
+  font-weight: 600; font-size: 1rem;
+  color: var(--ds-ink);
+}
+.ilcs-faq summary::-webkit-details-marker { display: none; }
+.ilcs-faq summary::after {
+  content: '';
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ds-accent-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c4fd6' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E")
+    center/14px no-repeat;
+  transition: transform 0.25s;
+}
+.ilcs-faq details[open] summary::after { transform: rotate(45deg); }
+.ilcs-faq details p { padding: 0 24px 22px; font-size: 0.97rem; color: var(--ds-muted); line-height: 1.75; }
+.ilcs-faq a { color: var(--ds-accent); font-weight: 600; }
+
+/* ---------------- STICKY ---------------- */
+/* Shows at every viewport once the hero button scrolls away; slides off
+   screen until .show is set, so it is never on top of the hero CTA. */
+.ilcs-sticky {
+  position: fixed; left: 12px; right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 120;
+  display: flex;
+  align-items: center; justify-content: space-between; gap: 12px;
+  max-width: 520px; margin: 0 auto;
+  background: rgba(26, 16, 64, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 10px 12px 10px 20px;
+  box-shadow: 0 18px 44px rgba(26, 16, 64, 0.25);
+  backdrop-filter: blur(18px);
+  transform: translateY(140%);
+  transition: transform 0.3s ease;
+}
+.ilcs-sticky.show { transform: translateY(0); }
+.ilcs-sticky-price { color: #fff; font-weight: 600; font-size: 0.875rem; line-height: 1.3; }
+.ilcs-sticky-price b { font-family: var(--ds-font); font-size: 1.25rem; margin-right: 6px; }
+.ilcs-sticky-price s { color: rgba(255, 255, 255, 0.5); font-size: 0.81rem; }
+.ilcs-sticky .ilcs-btn { padding: 12px 22px; font-size: 0.875rem; box-shadow: none; }
+
+/* ---------------- ACCESS PAGE (gated) ---------------- */
+.ilc-access { flex: 1; padding: 140px 24px 72px; }
+.ilc-welcome { text-align: center; max-width: 560px; margin: 0 auto 36px; }
+.ilc-tick {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ds-accent-soft);
+  border: 3px solid var(--ds-accent);
+  color: var(--ds-accent); font-size: 1.6rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.ilc-welcome h1 {
+  font-family: var(--ds-font);
+  font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ds-ink); margin-bottom: 10px;
+}
+.ilc-welcome p { font-size: 0.92rem; color: var(--ds-muted); line-height: 1.8; }
+
+.ilc-player {
+  max-width: 900px; margin: 0 auto;
+  background: var(--ds-ink);
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow-pop);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+.ilc-player iframe { width: 100%; height: 100%; border: 0; display: block; }
+.ilc-player-missing { display: flex; align-items: center; justify-content: center; padding: 40px; aspect-ratio: auto; }
+.ilc-player-missing p { color: rgba(255, 255, 255, 0.85); max-width: 480px; text-align: center; font-size: 0.88rem; line-height: 1.7; }
+
+/* Bookmark banner — sits right under the player, before the kit steps, so
+   it is read before anything else pulls attention down the page. */
+.ilc-bookmark {
+  display: flex; align-items: flex-start; gap: 16px;
+  max-width: 900px; margin: 20px auto 0;
+  background: var(--ds-tint);
+  border: 1px solid var(--ds-accent);
+  border-radius: var(--ds-radius);
+  padding: 18px 22px;
+}
+.ilc-bookmark-icon {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ds-accent-soft); color: var(--ds-accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.ilc-bookmark-icon svg { width: 18px; height: 18px; }
+.ilc-bookmark p { font-size: 0.88rem; color: var(--ds-body); line-height: 1.7; margin: 0; }
+.ilc-bookmark strong { color: var(--ds-ink); }
+
+/* Work kit — numbered steps in the order the email gives them. */
+.ilc-kit {
+  max-width: 900px; margin: 48px auto 0;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.ilc-kit-step {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 30px 32px;
+  box-shadow: var(--ds-shadow-card);
+}
+.ilc-kit-step--first { border-top: 3px solid var(--ds-accent); }
+.ilc-kit-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.ilc-kit-num {
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ds-accent); background: var(--ds-accent-soft);
+  padding: 4px 12px; border-radius: 40px; white-space: nowrap;
+}
+.ilc-kit-head h2 {
+  font-family: var(--ds-font);
+  font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ds-ink); margin: 0;
+}
+.ilc-kit-lead {
+  font-size: 0.88rem; color: var(--ds-muted); line-height: 1.75;
+  margin: 0 0 18px;
+}
+
+/* Tool cards — five across on desktop, wrapping below. */
+.ilc-tools {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.ilc-tool {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--ds-bg);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-sm);
+  padding: 16px 16px 14px;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.ilc-tool:hover {
+  border-color: var(--ds-accent);
+  box-shadow: 0 4px 14px rgba(108, 79, 214, 0.14);
+  transform: translateY(-2px);
+}
+.ilc-tool-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ilc-tool-name {
+  font-family: var(--ds-font);
+  font-size: 0.9rem; font-weight: 700; color: var(--ds-ink);
+}
+.ilc-tool-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--ds-muted); background: var(--ds-tint);
+  border: 1px solid var(--ds-border);
+  padding: 2px 8px; border-radius: 40px; white-space: nowrap;
+}
+.ilc-tool-tag--req {
+  color: var(--ds-accent); background: var(--ds-accent-soft); border-color: transparent;
+}
+.ilc-tool-desc { font-size: 0.78rem; color: var(--ds-muted); line-height: 1.6; flex: 1; }
+.ilc-tool-open {
+  font-size: 0.72rem; font-weight: 600; color: var(--ds-accent);
+}
+
+/* What comes next — the suite upsell, quiet rather than shouty: this is a
+   delivery page first, a launchpad second. */
+.ilc-next {
+  max-width: 680px; margin: 48px auto 0;
+  text-align: center;
+  background: var(--ds-tint);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 40px 36px;
+}
+.ilc-next-eyebrow {
+  display: inline-block;
+  font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600; color: var(--ds-accent);
+  margin-bottom: 12px;
+}
+.ilc-next h2 {
+  font-family: var(--ds-font);
+  font-size: clamp(1.3rem, 3.4vw, 1.7rem); font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ds-ink); margin-bottom: 12px; line-height: 1.3;
+}
+.ilc-next h2 em { font-style: italic; color: var(--ds-accent); }
+.ilc-next-sub {
+  font-size: 0.88rem; color: var(--ds-muted); line-height: 1.8;
+  margin: 0 auto 18px;
+}
+.ilc-next-list {
+  list-style: none; margin: 0 auto 24px; padding: 0;
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+}
+.ilc-next-list li {
+  position: relative; padding-left: 22px;
+  font-size: 0.82rem; font-weight: 600; color: var(--ds-body);
+}
+.ilc-next-list li::before {
+  content: '✓'; position: absolute; left: 0;
+  color: var(--ds-accent); font-weight: 700;
+}
+
+.ilc-locked { flex: 1; display: flex; align-items: center; justify-content: center; padding: 150px 24px 80px; }
+.ilc-lock-card {
+  max-width: 480px; width: 100%; text-align: center;
+  background: var(--ds-surface); border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius); box-shadow: var(--ds-shadow-pop);
+  padding: 44px 36px;
+}
+.ilc-lock-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--ds-accent-soft); color: var(--ds-accent);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.ilc-lock-icon svg { width: 26px; height: 26px; }
+.ilc-lock-card h1 {
+  font-family: var(--ds-font);
+  font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ds-ink); margin-bottom: 12px;
+}
+.ilc-lock-card p { font-size: 0.88rem; color: var(--ds-muted); line-height: 1.75; margin-bottom: 12px; }
+.ilc-lock-card a { color: var(--ds-accent); font-weight: 600; }
+.ilc-btn-sm { margin-top: 14px; padding: 12px 28px; font-size: 0.88rem; }
+
+@media (max-width: 720px) {
+  .ilc-access { padding: 120px 16px 56px; }
+  .ilc-bookmark { flex-direction: column; gap: 10px; padding: 16px 18px; }
+  .ilc-kit-step { padding: 24px 20px; }
+  .ilc-tools { grid-template-columns: 1fr; }
+  .ilc-kit-head { flex-wrap: wrap; }
+  .ilc-next { padding: 30px 20px; }
+  .ilc-lock-card { padding: 34px 24px; }
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 900px) {
+  .ilcs-wall { columns: 3; }
+  .ilcs-who-grid { grid-template-columns: 1fr; }
+  .ilcs-buy > .ilcs-wrap { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 760px) {
+  .ilcs-hero { padding: 118px 24px 56px; }
+  .ilcs-section { padding: 68px 0; }
+  .ilcs-head { margin-bottom: 40px; }
+  .ilcs-path { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .ilcs-path::before { display: none; }
+  .ilcs-cards { grid-template-columns: 1fr; }
+  .ilcs-wall { columns: 2; }
+  .ilcs-proof b { font-size: 1.375rem; }
+}
+@media (max-width: 480px) {
+  .ilcs-hero { padding-left: 16px; padding-right: 16px; }
+  .ilcs-hero .ilcs-btn { width: 100%; }
+  .ilcs-card { padding: 28px 22px; }
+  .ilcs-box { padding: 30px 22px; }
+  .ilcs-who-main { padding: 32px 24px; }
+  .ilcs-prompts { flex-direction: column; align-items: flex-start; padding: 24px 22px; }
+  .ilcs-proof-lbl { font-size: 0.625rem; letter-spacing: 0.1em; }
+  .ilcs-faq summary { padding: 18px; }
+  .ilcs-faq details p { padding: 0 18px 20px; }
+}

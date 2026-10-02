@@ -587,7 +587,7 @@ export async function addStoryToIncomeBuyerToMailerLite(
  * Buyers of The Intelligence Layer — Self-Paced course.
  *
  * Delivery itself happens on-site: checkout sends the buyer to the verified
- * /intelligence-layer-course/access page immediately, so nobody is waiting
+ * /expert-framework/access page immediately, so nobody is waiting
  * on an email that might land in spam. This exists so the buyer's email is
  * owned and segmented, and so their personal access link is stored on the
  * record and can be resent by hand if a buyer ever loses it. No automation

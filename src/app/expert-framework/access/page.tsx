@@ -5,7 +5,7 @@ import SiteFooter from '@/components/site-footer';
 import PurchaseTracker from '@/components/purchase-tracker';
 import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 import { getPaidCheckout } from '@/lib/services/paid-checkout';
-import '../intelligence-layer-course.css';
+import '../expert-framework.css';
 
 /** "Find Prompts Here" from the delivery email — the working prompts doc
  *  attendees build from. Swap the URL here if the doc ever moves. */
@@ -88,7 +88,7 @@ export default async function IntelligenceLayerCourseAccessPage({
               </a>{' '}
               and access will be sorted straight away.
             </p>
-            <Link href="/intelligence-layer-course" className="ilcs-btn ilc-btn-sm">
+            <Link href="/expert-framework" className="ilcs-btn ilc-btn-sm">
               Back to the course page
             </Link>
           </div>

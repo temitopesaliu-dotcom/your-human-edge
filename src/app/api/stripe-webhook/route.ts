@@ -150,7 +150,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
       : product === 'story-to-income'
         ? `${siteUrl}/story-to-income/download?session_id=${session.id}`
         : product === 'intelligence-layer-course'
-          ? `${siteUrl}/intelligence-layer-course/access?session_id=${session.id}`
+          ? `${siteUrl}/expert-framework/access?session_id=${session.id}`
           : `${siteUrl}/playbook?session_id=${session.id}&arch=${archetype}`;
 
   // The buyer's own payment-checked PDF URL. Replaces the public Google Drive
