@@ -15,6 +15,7 @@ vi.mock("@/lib/services/mailer", () => ({
   addStadiumBuyerToMailerLite: vi.fn(),
   addIntelligenceLayerPaidSubscriber: vi.fn(),
   addBusinessArchitectBuyerToMailerLite: vi.fn(),
+  addIntelligenceLayerCourseBuyerToMailerLite: vi.fn(),
 }));
 
 import { getSession, setSession } from "@/lib/services/kv";
@@ -23,6 +24,7 @@ import {
   addStadiumBuyerToMailerLite,
   addIntelligenceLayerPaidSubscriber,
   addBusinessArchitectBuyerToMailerLite,
+  addIntelligenceLayerCourseBuyerToMailerLite,
 } from "@/lib/services/mailer";
 import { POST } from "./route";
 
@@ -72,6 +74,7 @@ describe("POST /api/stripe-webhook", () => {
     vi.mocked(addStadiumBuyerToMailerLite).mockClear();
     vi.mocked(addIntelligenceLayerPaidSubscriber).mockClear();
     vi.mocked(addBusinessArchitectBuyerToMailerLite).mockClear();
+    vi.mocked(addIntelligenceLayerCourseBuyerToMailerLite).mockClear();
   });
 
   it("returns 400 when the stripe-signature header is missing", async () => {
@@ -192,6 +195,20 @@ describe("POST /api/stripe-webhook", () => {
     await POST(makeRequest());
 
     expect(addIntelligenceLayerPaidSubscriber).toHaveBeenCalledWith("buyer@example.com", "Buyer Name");
+  });
+
+  it("routes intelligence-layer-course purchases to the course buyer mailer with the access link", async () => {
+    constructEvent.mockReturnValue(
+      checkoutCompletedEvent({ metadata: { product: "intelligence-layer-course" } })
+    );
+
+    await POST(makeRequest());
+
+    expect(addIntelligenceLayerCourseBuyerToMailerLite).toHaveBeenCalledWith(
+      "buyer@example.com",
+      "Buyer Name",
+      expect.stringContaining("/expert-framework/access?session_id=cs_test_123")
+    );
   });
 
   it("falls back to the success_url arch param when metadata has no archetype", async () => {

@@ -159,12 +159,12 @@ export default function IntelligenceLayerCoursePage() {
           Take your skills and expertise to a consulting business
         </p>
         <p className="ilcs-sub">
-          The full Expert Framework + AI working session, the one built live
-          over <strong>five hours</strong> with a room of experts{' '}
-          <strong>across 15 countries</strong>, now a private, self-paced
-          course you can watch in <strong>under an hour</strong>. Same builds,
-          same original prompts, plus 100 companies you can send your offer to
-          immediately.
+          The full Expert Framework + AI working session — the one built live
+          over <strong>five hours</strong> with a room of experts with{' '}
+          <strong>5–30+ years of experience</strong> — is now a private,
+          self-paced course you can watch in <strong>under an hour</strong>.
+          Same builds, same original prompts, plus 100 companies you can
+          immediately send your offer to.
         </p>
 
         {/* The four steps as one connected line. */}
@@ -210,8 +210,87 @@ export default function IntelligenceLayerCoursePage() {
         </div>
       </header>
 
-      {/* ================= WHAT YOU GET ================= */}
+      {/* ================= TESTIMONIALS ================= */}
       <section className="ilcs-section ilcs-tint">
+        <div className="ilcs-wrap ilcs-wrap--wide">
+          <div className="ilcs-head ilcs-reveal">
+            <span className="ilcs-kicker">From the room</span>
+            <h2>
+              Hear it from people who have <em>sat in the room.</em>
+            </h2>
+            <p className="ilcs-lead">
+              Real reactions from people who walked in with expertise and
+              walked out with a priced, built offer.
+            </p>
+          </div>
+
+          {/* One masonry wall: video clips and written screenshots flow
+              together. Videos come from the shared workshop testimonial
+              data; screenshots from /public/testimonials. */}
+          <div className="ilcs-wall">
+            {TESTIMONIALS.map((video) => (
+              <div
+                key={video.id}
+                className={`ilcs-wall-item ilcs-wall-item--${video.aspect}`}
+              >
+                {playingId === video.id ? (
+                  <iframe
+                    className="ilcs-testimonial-frame"
+                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
+                    title="Workshop testimonial"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    className="ilcs-testimonial-thumb"
+                    onClick={() => setPlayingId(video.id)}
+                    aria-label="Play testimonial video"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail host isn't registered with next/image */}
+                    <img
+                      src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                      alt=""
+                      className="ilcs-testimonial-img"
+                      loading="lazy"
+                    />
+                    <span className="ilcs-testimonial-play">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </button>
+                )}
+              </div>
+            ))}
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13%203.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/PHOTO-2026-10-01-09-14-13.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WHAT YOU GET ================= */}
+      <section className="ilcs-section">
         <div className="ilcs-wrap ilcs-wrap--wide">
           <div className="ilcs-head ilcs-reveal">
             <span className="ilcs-kicker">What you get</span>
@@ -348,85 +427,6 @@ export default function IntelligenceLayerCoursePage() {
                 to be done, not watched.
               </li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= TESTIMONIALS ================= */}
-      <section className="ilcs-section ilcs-tint">
-        <div className="ilcs-wrap ilcs-wrap--wide">
-          <div className="ilcs-head ilcs-reveal">
-            <span className="ilcs-kicker">From the room</span>
-            <h2>
-              Hear it from people who have <em>sat in the room.</em>
-            </h2>
-            <p className="ilcs-lead">
-              Real reactions from people who walked in with expertise and
-              walked out with a priced, built offer.
-            </p>
-          </div>
-
-          {/* One masonry wall: video clips and written screenshots flow
-              together. Videos come from the shared workshop testimonial
-              data; screenshots from /public/testimonials. */}
-          <div className="ilcs-wall">
-            {TESTIMONIALS.map((video) => (
-              <div
-                key={video.id}
-                className={`ilcs-wall-item ilcs-wall-item--${video.aspect}`}
-              >
-                {playingId === video.id ? (
-                  <iframe
-                    className="ilcs-testimonial-frame"
-                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
-                    title="Workshop testimonial"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : (
-                  <button
-                    type="button"
-                    className="ilcs-testimonial-thumb"
-                    onClick={() => setPlayingId(video.id)}
-                    aria-label="Play testimonial video"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail host isn't registered with next/image */}
-                    <img
-                      src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                      alt=""
-                      className="ilcs-testimonial-img"
-                      loading="lazy"
-                    />
-                    <span className="ilcs-testimonial-play">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </span>
-                  </button>
-                )}
-              </div>
-            ))}
-            <figure className="ilcs-wall-item ilcs-wall-shot">
-              <img
-                src="/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg"
-                alt="Screenshot message from a workshop attendee"
-                loading="lazy"
-              />
-            </figure>
-            <figure className="ilcs-wall-item ilcs-wall-shot">
-              <img
-                src="/testimonials/PHOTO-2026-10-01-09-14-13%203.jpg"
-                alt="Screenshot message from a workshop attendee"
-                loading="lazy"
-              />
-            </figure>
-            <figure className="ilcs-wall-item ilcs-wall-shot">
-              <img
-                src="/testimonials/PHOTO-2026-10-01-09-14-13.jpg"
-                alt="Screenshot message from a workshop attendee"
-                loading="lazy"
-              />
-            </figure>
           </div>
         </div>
       </section>
