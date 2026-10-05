@@ -16,7 +16,7 @@ export default function SectionAboutYou({ formData, errors, set }: SectionProps)
       <div className="cpf-section-header">
         <div className="cpf-section-num">Section 01</div>
         <div className="cpf-section-title">About You</div>
-        <div className="cpf-section-desc">The basics. So I know who I am talking to before the session.</div>
+        <div className="cpf-section-desc">You're expert framework starts here, everything you feel here is what makes your build, answer to the best of your ability.</div>
       </div>
 
       <div className="cpf-field-row">
