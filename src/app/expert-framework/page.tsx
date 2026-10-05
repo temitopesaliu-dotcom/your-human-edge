@@ -142,6 +142,24 @@ export default function IntelligenceLayerCoursePage() {
     </button>
   );
 
+  const playingVideo = TESTIMONIALS.find((t) => t.id === playingId);
+
+  // While the lightbox is open: Escape closes it and the page behind
+  // stops scrolling.
+  useEffect(() => {
+    if (!playingId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setPlayingId(null);
+    };
+    window.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [playingId]);
+
   return (
     <div className="ds-light ilcs-page">
       <SiteNav ctaLabel="Get the course" onCtaClick={buy} />
@@ -233,35 +251,25 @@ export default function IntelligenceLayerCoursePage() {
                 key={video.id}
                 className={`ilcs-wall-item ilcs-wall-item--${video.aspect}`}
               >
-                {playingId === video.id ? (
-                  <iframe
-                    className="ilcs-testimonial-frame"
-                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
-                    title="Workshop testimonial"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                <button
+                  type="button"
+                  className="ilcs-testimonial-thumb"
+                  onClick={() => setPlayingId(video.id)}
+                  aria-label="Play testimonial video"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail host isn't registered with next/image */}
+                  <img
+                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                    alt=""
+                    className="ilcs-testimonial-img"
+                    loading="lazy"
                   />
-                ) : (
-                  <button
-                    type="button"
-                    className="ilcs-testimonial-thumb"
-                    onClick={() => setPlayingId(video.id)}
-                    aria-label="Play testimonial video"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element -- external YouTube thumbnail host isn't registered with next/image */}
-                    <img
-                      src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                      alt=""
-                      className="ilcs-testimonial-img"
-                      loading="lazy"
-                    />
-                    <span className="ilcs-testimonial-play">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </span>
-                  </button>
-                )}
+                  <span className="ilcs-testimonial-play">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </button>
               </div>
             ))}
             <figure className="ilcs-wall-item ilcs-wall-shot">
@@ -544,6 +552,39 @@ export default function IntelligenceLayerCoursePage() {
       </section>
 
       <SiteFooter />
+
+      {/* ================= TESTIMONIAL LIGHTBOX ================= */}
+      {/* Videos play large in an overlay, not inside their small wall
+          tiles — clicking the backdrop or × closes. */}
+      {playingId && (
+        <div
+          className="ilcs-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Workshop testimonial video"
+          onClick={() => setPlayingId(null)}
+        >
+          <button
+            type="button"
+            className="ilcs-lightbox-close"
+            onClick={() => setPlayingId(null)}
+            aria-label="Close video"
+          >
+            ×
+          </button>
+          <div
+            className={`ilcs-lightbox-inner${playingVideo?.aspect === 'vertical' ? ' ilcs-lightbox-inner--vertical' : ''}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${playingId}?autoplay=1&rel=0`}
+              title="Workshop testimonial"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
 
       {/* ================= STICKY ================= */}
       <div className={`ilcs-sticky${showSticky ? ' show' : ''}`}>

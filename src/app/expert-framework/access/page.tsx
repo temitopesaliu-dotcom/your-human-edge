@@ -130,7 +130,7 @@ export default async function IntelligenceLayerCourseAccessPage({
           {videoId ? (
             <div className="ilc-player">
               <iframe
-                src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
+                src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&cc_load_policy=0`}
                 title="The Expert Framework, Self-Paced Course"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

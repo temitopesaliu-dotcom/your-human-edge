@@ -10,4 +10,6 @@ export const TESTIMONIALS: TestimonialVideo[] = [
   { id: "hro-BuX8FM8", aspect: "horizontal" },
   { id: "bOYlPdVAToQ", aspect: "vertical" },
   { id: "kwkbCK7FQ2A", aspect: "horizontal" },
+  { id: "YjpVVr-57sE", aspect: "vertical" },
+  { id: "D7HRV2KpKMk", aspect: "horizontal" },
 ];
