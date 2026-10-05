@@ -174,7 +174,7 @@ export default function IntelligenceLayerCoursePage() {
           From expertise to a <em>live offer.</em>
         </h1>
         <p className="ilcs-hero-tagline">
-          Take your skills and expertise to a consulting business
+          Turn your skills and expertise to a consulting business
         </p>
         <p className="ilcs-sub">
           The full Expert Framework + AI working session — the one built live
