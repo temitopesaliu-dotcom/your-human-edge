@@ -46,7 +46,7 @@ export default function SectionExpertise({ formData, errors, set }: SectionProps
 
       <div className={fieldClass("core_problem")} id="f-problem">
         <label className="cpf-field-label">In plain language, not professional language, what problem are you exceptionally good at solving? <span className="cpf-req">*</span></label>
-        <div className="cpf-field-hint">Not your job title. Not your LinkedIn headline. The actual problem. The thing people bring to you when something is broken or stuck.</div>
+        <div className="cpf-field-hint">Not your job title. Not your LinkedIn headline. The actual problem. The thing people bring to you when something is broken, stuck or developed.</div>
         <textarea name="core_problem" placeholder="When people come to me they are usually struggling with..." style={{ minHeight: 130 }} value={formData.core_problem || ""} onChange={(e) => set("core_problem", e.target.value)}></textarea>
         <FieldError name="core_problem" errors={errors} />
       </div>
