@@ -45,7 +45,7 @@ const nextConfig: NextConfig = {
       // email is short and clean and each email still traces to its own sale.
       // Only the listed ids match. Temporary (307) so the target can change.
       {
-        source: '/ef/:id(one|two|three|four|five|six|seven|eight|nine|ten|one-resend|two-resend|three-resend|four-resend|five-resend)',
+        source: '/ef/:id(one|two|three|four|five|six|seven|eight|nine|ten|one-resend|two-resend|three-resend|four-resend|five-resend|two-a|two-b|three-a|three-b|four-a|four-b|five-a|five-b|six-a|six-b)',
         destination:
           '/expert-framework?utm_source=mailerlite&utm_medium=email&utm_campaign=ef-email-:id',
         permanent: false,
