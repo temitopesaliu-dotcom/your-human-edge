@@ -1,5 +1,5 @@
 export const REQUIRED_FIELDS = [
-  "full_name", "preferred_name", "email", "country", "timezone", "photo_base64",
+  "full_name", "email", "country", "linkedin", "photo_base64",
   "current_role", "years_experience", "industry", "advice_areas", "greatest_strength",
   "core_problem", "proudest_work", "org_types",
   "why_joined", "key_question",
@@ -14,8 +14,8 @@ export type FieldName =
   | "marketing_consent";
 
 export const FIELD_MAP: Record<string, string> = {
-  full_name: "f-fname", preferred_name: "f-pref",
-  email: "f-email", country: "f-country", timezone: "f-tz", photo_base64: "f-photo",
+  full_name: "f-fname",
+  email: "f-email", country: "f-country", linkedin: "f-linkedin", photo_base64: "f-photo",
   current_role: "f-role", years_experience: "f-years",
   industry: "f-industry", advice_areas: "f-sought", greatest_strength: "f-strength",
   core_problem: "f-problem", proudest_work: "f-proud", org_types: "f-orgtypes",
@@ -27,10 +27,9 @@ export const FIELD_MAP: Record<string, string> = {
 
 export const ERROR_MESSAGES: Record<string, string> = {
   full_name: "Please enter your full name.",
-  preferred_name: "Please enter your preferred name.",
   email: "Please enter a valid email address.",
   country: "Please enter your country.",
-  timezone: "Please enter your time zone.",
+  linkedin: "Please enter your LinkedIn profile URL.",
   photo_base64: "Please upload a photo of yourself.",
   current_role: "Please select your current role.",
   years_experience: "Please select your experience level.",
@@ -39,7 +38,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   greatest_strength: "Please answer this question.",
   core_problem: "Please answer this question.",
   proudest_work: "Please answer this question.",
-  org_types: "Please select at least one organisation type.",
+  org_types: "Please select at least one organisation type, and if you chose Other, write it in.",
   why_joined: "Please answer this question.",
   key_question: "Please answer this question.",
   ai_confidence: "Please select a confidence rating.",

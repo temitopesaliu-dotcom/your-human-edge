@@ -56,6 +56,12 @@ export default function ConsultingProfileFormPage() {
       newErrors.email = true;
     }
 
+    // "Other" ticked but left empty: the typed words are the actual answer,
+    // so they are required before the form can go through.
+    if ((formData.org_types || "").includes("Other:") && !/Other:\s*\S/.test(formData.org_types || "")) {
+      newErrors.org_types = true;
+    }
+
     setErrors(newErrors);
     const hasErrors = Object.keys(newErrors).length > 0;
 
@@ -77,9 +83,11 @@ export default function ConsultingProfileFormPage() {
     if (!validate()) return;
 
     const payload: ConsultingProfileFormRequest = {};
+    // `linkedin` is validated as part of REQUIRED_FIELDS now; these are the
+    // remaining optional extras collected but not required.
     const allFields: FieldName[] = [
       ...REQUIRED_FIELDS,
-      "linkedin", "best_workshop", "marketing_consent",
+      "best_workshop", "marketing_consent",
     ];
     allFields.forEach((name) => {
       const v = (formData[name] || "").trim();

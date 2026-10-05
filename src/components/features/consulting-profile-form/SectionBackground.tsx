@@ -45,9 +45,9 @@ export default function SectionBackground({ formData, errors, set }: SectionProp
       </div>
 
       <div className={fieldClass("greatest_strength")} id="f-strength">
-        <label className="cpf-field-label">What would you consider your single greatest professional strength? <span className="cpf-req">*</span></label>
-        <div className="cpf-field-hint">Not a skill. A strength. The thing that is most distinctly yours.</div>
-        <textarea name="greatest_strength" placeholder="The thing you do that feels ordinary to you but extraordinary to others..." value={formData.greatest_strength || ""} onChange={(e) => set("greatest_strength", e.target.value)}></textarea>
+        <label className="cpf-field-label">What would you consider your greatest professional strengths? <span className="cpf-req">*</span></label>
+        <div className="cpf-field-hint">3-5 things that most distinctly yours.</div>
+        <textarea name="greatest_strength" placeholder="The things you do that feel ordinary to you but extraordinary to others..." value={formData.greatest_strength || ""} onChange={(e) => set("greatest_strength", e.target.value)}></textarea>
         <FieldError name="greatest_strength" errors={errors} />
       </div>
     </div>
