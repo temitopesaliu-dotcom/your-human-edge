@@ -26,6 +26,13 @@ export const DOMAINS = [
 ] as const;
 export const DOMAIN_OTHER = DOMAINS.length - 1;
 
+/** One colour per field, used across the results page. All pass contrast with white text. Index matches DOMAINS. */
+export const DOMAIN_COLORS = [
+  '#1e3a8a', '#be185d', '#1d4ed8', '#0f766e', '#4338ca', '#15803d', '#c2410c', '#0369a1', '#a21caf',
+  '#475569', '#b45309', '#0e7490', '#92400e', '#a16207', '#be123c', '#334155', '#7c3aed',
+];
+export const DEFAULT_ACCENT = '#7c3aed';
+
 /** Short names used in "Example from ..." labels. Index matches DOMAINS (except Other). */
 export const DOMAIN_SHORT = [
   'business', 'marketing', 'finance', 'HR', 'legal', 'health', 'education', 'technology',

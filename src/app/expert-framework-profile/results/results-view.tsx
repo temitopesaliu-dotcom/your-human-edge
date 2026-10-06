@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { DEFAULT_ACCENT } from '@/lib/efp/data';
 import type { EfpCompany, EfpResultRecord } from '@/lib/efp/types';
 
 const WORKSHOP = '/expert-framework';
@@ -23,15 +24,17 @@ function Cta({ position, big = true }: { position: number; big?: boolean }) {
   );
 }
 
-function CompanyColumn({ title, sub, list }: { title: string; sub: string; list: EfpCompany[] }) {
+function CompanyColumn({ title, sub, list, small = false }: { title: string; sub: string; list: EfpCompany[]; small?: boolean }) {
   return (
     <div className="efp-cot">
       <header><b>{title}</b><span>{sub}</span></header>
       {list.map((c, i) => (
-        <div className="efp-co" key={i}>
+        <div className="efp-cocard" key={i}>
           <b>{c[0]}</b>
           <span>{c[1]}</span>
-          <span>{/^(find them|approach)/i.test(c[2]) ? c[2] : `Approach: ${c[2]}`}</span>
+          <span className="efp-how">
+            <em>{small ? 'Where to find them:' : 'How to approach:'}</em> {c[2].replace(/^(find them|approach)\s*:\s*/i, '')}
+          </span>
         </div>
       ))}
     </div>
@@ -57,7 +60,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
   const largeCount = b.companies.large.length;
 
   return (
-    <div className="efp-res">
+    <div className="efp-res" style={{ ['--acc' as string]: record.accent || DEFAULT_ACCENT }}>
       <div className="efp-hello"><h1>{record.firstName}, this prototype is the first step to building your business.</h1></div>
 
       <div className={`efp-gap ${stage(0)}`} data-clarity-mask="true">
@@ -65,7 +68,8 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
         <h2>{b.gap}</h2>
       </div>
 
-      <div className={stage(1)} data-clarity-mask="true" style={{ ['--acc' as string]: '#7c3aed' }}>
+      <div className={stage(1)} data-clarity-mask="true">
+        <span className="efp-label">Your website preview</span>
         <div className="efp-browser">
           <div className="efp-chrome"><div className="efp-dots"><i /><i /><i /></div><div className="efp-url">www.{record.siteSlug}.com</div></div>
           <div className="efp-site">
@@ -101,17 +105,17 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
                 *Estimates based on typical market rates for your field and country. Not a market research study.
               </p>
             </section>
-            <div className="efp-locked efp-first">
-              <p>This is a prototype. Build the real thing from start to finish.</p>
-              <ul><li>How it works</li><li>What&apos;s included</li><li>Is this for you?</li><li>About you</li><li>FAQ</li><li>Live on your own domain</li></ul>
-              <div className="efp-ctarow efp-center"><Cta position={1} /></div>
+            <div className="efp-more efp-inpreview">
+              <div><b>This is a prototype. Build the real thing from start to finish.</b><br /><span>How it works · What&apos;s included · Is this for you? · About you · FAQ · Live on your own domain</span></div>
+              <Cta position={1} />
             </div>
           </div>
         </div>
         <p className="efp-caption">{b.pricingNote}</p>
       </div>
 
-      <section className={`efp-sec ${stage(2)}`} data-clarity-mask="true">
+      <section className={`efp-panel ${stage(2)}`} data-clarity-mask="true">
+        <span className="efp-label">Your buyer and go-to-market</span>
         <h3>Who you&apos;re selling to</h3>
         <p className="efp-why">Built from who brings you the problem and what they&apos;ve already tried.</p>
         <div className="efp-icp">
@@ -119,20 +123,20 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
           <div className="efp-box"><h4>What they want</h4><ul>{b.want.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
           <div className="efp-box"><h4>What they don&apos;t want</h4><ul>{b.dont.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
         </div>
-        <div className="efp-locked">
-          <p>Get your go-to-market strategy</p>
-          <ul><li>Where your buyers are</li><li>What to say first</li><li>Your first 30 days of outreach</li></ul>
-          <div className="efp-ctarow efp-right"><Cta position={2} /></div>
+        <div className="efp-more">
+          <div><b>Get your go-to-market strategy</b><br /><span>Where your buyers are, tailored elevator pitches and your first 30 days of outreach.</span></div>
+          <Cta position={2} />
         </div>
       </section>
 
-      <section className={`efp-sec ${stage(3)}`} data-clarity-mask="true">
+      <section className={`efp-panel ${stage(3)}`} data-clarity-mask="true">
+        <span className="efp-label">Your companies</span>
         <h3>{b.companiesHeading}</h3>
         <p className="efp-why">{b.companiesWhy}</p>
         <div className="efp-cos">
           <CompanyColumn title="Large" sub={largeCount > 1 ? `${largeCount} named, approach first` : 'Who to approach first'} list={b.companies.large} />
           <CompanyColumn title="Medium" sub={b.companies.medium.length > 1 ? `${b.companies.medium.length} named, verify first` : 'Check before you reach out'} list={b.companies.medium} />
-          <CompanyColumn title="Small" sub="Profiles and where to find them" list={b.companies.small} />
+          <CompanyColumn title="Small" sub="Profiles and where to find them" list={b.companies.small} small />
         </div>
         <div className="efp-more">
           <div><b>100 companies, matched to your offer</b><br /><span>Get the full list of 100 companies to send your offer to, generated from what you build.</span></div>
