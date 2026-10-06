@@ -4,6 +4,8 @@ import { getPaidCheckout } from "@/lib/services/paid-checkout";
 import { COHORT_START } from "@/components/features/business-architect/business-architect.data";
 
 export const metadata = {
+  // Clears the programme canonical inherited from the layout.
+  alternates: {},
   title: "You're in — The Business Architect Programme",
   robots: "noindex, nofollow",
 };
