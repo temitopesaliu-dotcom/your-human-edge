@@ -26,11 +26,31 @@ const nextConfig: NextConfig = {
       { source: '/ai-operator-suite', destination: '/ai-operator-suite.html' },
     ];
   },
+  async headers() {
+    return [
+      // Personal results pages stay out of search engines.
+      {
+        source: '/expert-framework-profile/results/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+          { key: 'Referrer-Policy', value: 'no-referrer' },
+        ],
+      },
+      {
+        source: '/expert-framework-profile/results',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' }],
+      },
+    ];
+  },
   async redirects() {
     return [
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // The free quiz moved from /intelligence-layer to the Expert Framework
+      // Profile. Permanent (308), and query strings (UTM tags) survive the hop,
+      // so every link already printed in emails and posts keeps working.
+      { source: '/intelligence-layer', destination: '/expert-framework-profile', permanent: true },
       // The live workshop is retired; its sales page now belongs to the
       // Expert Framework course.
       {
