@@ -72,7 +72,7 @@ export interface EfpResultRecord {
   siteSlug: string;
   currency: string;
   paidEcho: string;
-  source: 'ai' | 'template';
+  source: 'ai';
   build: EfpBuild;
 }
 

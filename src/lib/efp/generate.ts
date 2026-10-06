@@ -7,8 +7,8 @@ export const EFP_MODEL = 'claude-sonnet-5-5';
 const AI_TIMEOUT_MS = 50_000;
 
 export interface GenerateResult {
-  build: EfpBuild;
-  source: 'ai' | 'template';
+  /** Null when the AI could not produce a complete page. There is no fallback version. */
+  build: EfpBuild | null;
   tokensIn?: number;
   tokensOut?: number;
   error?: string;
@@ -134,11 +134,11 @@ function extractJson(text: string): unknown {
   try { return JSON.parse(cleaned.slice(start, end + 1)); } catch { return null; }
 }
 
-/** Ask Claude for the build. Falls back to the template version on any failure, so the person always gets a page. */
+/** Ask Claude for the build. Returns build: null on any failure so the person can try again. */
 export async function generateBuild(a: EfpAnswers): Promise<GenerateResult> {
   const currency = currencyFor(a.country);
   const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return { build: buildTemplate(a), source: 'template', error: 'ANTHROPIC_API_KEY not set' };
+  if (!key) return { build: null, error: 'ANTHROPIC_API_KEY not set' };
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -154,7 +154,7 @@ export async function generateBuild(a: EfpAnswers): Promise<GenerateResult> {
     });
     if (!res.ok) {
       const t = await res.text().catch(() => '');
-      return { build: buildTemplate(a), source: 'template', error: `anthropic ${res.status} ${t.slice(0, 200)}` };
+      return { build: null, error: `anthropic ${res.status} ${t.slice(0, 200)}` };
     }
     const data = (await res.json()) as {
       content?: { type: string; text?: string }[];
@@ -163,94 +163,9 @@ export async function generateBuild(a: EfpAnswers): Promise<GenerateResult> {
     const text = (data.content || []).filter((c) => c.type === 'text').map((c) => c.text || '').join('\n');
     const build = validateBuild(extractJson(text));
     const usage = { tokensIn: data.usage?.input_tokens, tokensOut: data.usage?.output_tokens };
-    if (!build) return { build: buildTemplate(a), source: 'template', error: 'invalid AI output', ...usage };
-    return { build, source: 'ai', ...usage };
+    if (!build) return { build: null, error: 'invalid AI output', ...usage };
+    return { build, ...usage };
   } catch (err) {
-    return { build: buildTemplate(a), source: 'template', error: err instanceof Error ? err.message : String(err) };
+    return { build: null, error: err instanceof Error ? err.message : String(err) };
   }
-}
-
-/* ---------- Template version: no AI, no cost. Used when the AI is off, fails or runs out of credit. ---------- */
-
-const FORMAT_NAMES = [
-  'Advisory Sessions', 'Done-For-You Service', 'Audit and Action Plan', 'Group Programme',
-  'Team Workshop', 'Monthly Partner', 'Toolkit', 'Talk and Workshop',
-];
-/** Core format when the person picks "Not sure", by buyer type. */
-const DEFAULT_CORE = [3, 3, 2, 0, 4, 2, 4, 4, 0];
-
-const BUYER_PROFILES: Record<'large' | 'medium' | 'small', string>[] = [
-  { large: 'Large employers that pay for staff development', medium: 'Mid-size employers with learning or wellbeing budgets', small: 'Communities and associations where these professionals gather' },
-  { large: 'Large institutions and platforms that reach them', medium: 'Local schools, colleges and community organisations', small: 'Groups, clubs and online channels where they gather' },
-  { large: 'National bodies that gather small businesses', medium: 'Regional hubs, workspaces and networking groups', small: 'The small businesses themselves, by type' },
-  { large: 'Accelerators and investors whose founders need this', medium: 'Local startup hubs and founder communities', small: 'Founders by stage and situation' },
-  { large: 'Large companies with many teams facing this problem', medium: 'Mid-size, fast-growing companies', small: 'Small companies, by size and situation' },
-  { large: 'Large companies in your sector', medium: 'Mid-market companies in the same sector', small: 'The teams to approach inside large companies' },
-  { large: 'National agencies and ministries', medium: 'Regional bodies, universities and large NGOs', small: 'Local councils, schools and small NGOs' },
-  { large: 'Professional bodies in your field', medium: 'Training providers and conferences in your field', small: 'Peer communities where practitioners gather' },
-  { large: 'The largest organisations that match your buyer', medium: 'Smaller organisations that match your buyer', small: 'Profiles of your buyer, by situation' },
-];
-
-/** Core price guide in USD by experience (Q2): individual buyers, then organisation buyers. Same table the AI is given. */
-const BANDS = { person: [[150, 300], [300, 600], [500, 1000], [800, 1500], [1200, 2500]], org: [[1000, 2500], [2000, 5000], [4000, 8000], [6000, 12000], [10000, 20000]] };
-/** How far up the band someone starts, from Q9 (never paid to paid regularly). */
-const BAND_POSITION = [0.1, 0.15, 0.5, 0.85];
-/** Small business owners pay less than companies, large companies pay more. Index matches BUYERS. */
-const BUYER_FACTOR = [1, 0.6, 0.45, 0.8, 1, 1.3, 1, 0.5, 1];
-
-const roundPrice = (n: number) => (n >= 10000 ? Math.round(n / 500) * 500 : n >= 1000 ? Math.round(n / 50) * 50 : Math.round(n / 10) * 10);
-const usd = (n: number) => `$${roundPrice(n).toLocaleString('en-US')}`;
-
-/** Sample prices in US dollars for the card version. No AI and no exchange rates involved. */
-export function samplePricesUsd(a: EfpAnswers): { entry: string; core: string; premium: string } {
-  const band = (a.buyer <= 1 ? BANDS.person : BANDS.org)[a.years];
-  const core = (band[0] + (band[1] - band[0]) * BAND_POSITION[a.paid]) * BUYER_FACTOR[a.buyer];
-  return { entry: usd(Math.max(a.buyer <= 1 ? 40 : 150, core * 0.2)), core: usd(core), premium: usd(core * 0.4) };
-}
-
-const firstSentence = (s: string, max = 150) => {
-  const t = s.replace(/[“”"]/g, '').trim();
-  const cut = t.split(/(?<=[.!?])\s/)[0] || t;
-  return cut.length > max ? `${cut.slice(0, max - 1).trim()}…` : cut;
-};
-
-export function buildTemplate(a: EfpAnswers): EfpBuild {
-  const field = a.domain === DOMAIN_OTHER ? (a.domainOther || 'your field') : DOMAINS[a.domain].split(' / ')[0];
-  const core = a.sellFirst === SELL.length - 1 ? DEFAULT_CORE[a.buyer] : a.sellFirst;
-  const coreName = FORMAT_NAMES[core];
-  const brand = `The ${field} ${coreName}`.slice(0, 80);
-  const buyerLabel = a.buyer === BUYER_OTHER ? (a.buyerOther || 'your buyers') : BUYERS[a.buyer].toLowerCase();
-  const profiles = BUYER_PROFILES[a.buyer];
-  const companies = (['large', 'medium', 'small'] as const).reduce((acc, tier) => {
-    acc[tier] = [[profiles[tier], 'Matched to who brings you this problem', tier === 'small' ? 'Find them: in the workshop list' : 'Approach: the team that owns this problem']] as unknown as EfpCompany[];
-    return acc;
-  }, {} as EfpBuild['companies']);
-  const prices = samplePricesUsd(a);
-  return {
-    gap: 'What you already know is worth more than you have been charging for it.',
-    brand,
-    navCta: 'Book a first call',
-    kicker: `${field} expertise for ${buyerLabel}`,
-    h1: firstSentence(a.problem, 140) || `Help for ${buyerLabel}`,
-    lede: `For ${buyerLabel} who have already tried ${firstSentence(a.tried, 90).toLowerCase()}: a ${coreName.toLowerCase()} built on ${YEARS[a.years]} of doing this.`,
-    cta1: 'Book a first call',
-    cta2: 'See how it works',
-    priceline: `From ${prices.entry} · ${YEARS[a.years]} in ${field.toLowerCase()} · Built for ${buyerLabel}`,
-    band: a.noResultYet || !a.result
-      ? [[YEARS[a.years].replace(' years', ' yrs'), `in ${field.toLowerCase()}`], ['1', 'offer, built around you'], ['3', 'ways to work with you'], ['12', 'kinds of buyers to approach']]
-      : [[firstSentence(a.result, 28), 'your best result'], [YEARS[a.years].replace(' years', ' yrs'), `in ${field.toLowerCase()}`], ['3', 'ways to work with you'], ['12', 'kinds of buyers to approach']],
-    thoughts: [firstSentence(a.problem, 160), firstSentence(a.tried, 160), 'I know there has to be a better way to sort this out.'],
-    tiers: [
-      { tag: 'Entry', name: 'First Call', price: prices.entry, unit: 'one-off', why: 'A low-risk first step to see where things stand.' },
-      { tag: 'Core · most chosen', name: coreName, price: prices.core, unit: 'core offer', why: 'The main way you help, built around what you would rather sell.', pick: true },
-      { tag: 'Premium', name: 'Ongoing Partner', price: prices.premium, unit: 'per month', why: 'Continued support for clients who want you close.' },
-    ],
-    pricingNote: `Sample prices in US dollars. Your prices in ${currencyFor(a.country)} are worked out properly in the workshop.`,
-    who: `${BUYERS[a.buyer] === 'Other' ? a.buyerOther : BUYERS[a.buyer]} who bring you this problem.`,
-    want: ['A clear way out of the problem', 'Someone who has done this before', 'Results they can see'],
-    dont: ['Another thing that does not stick', 'Generic advice', 'Wasted time and money'],
-    companiesHeading: `Who to approach in ${a.city}`,
-    companiesWhy: 'Matched on who brings you this problem. The workshop turns these into named companies.',
-    companies,
-  };
 }
