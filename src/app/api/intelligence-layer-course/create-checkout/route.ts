@@ -98,6 +98,8 @@ export async function POST(req: NextRequest) {
   try {
     const siteUrl = resolveSiteUrl(req);
     const body = await req.json().catch(() => null);
+    const efpCookie = req.cookies.get('efp_sid')?.value || '';
+    const efpSubmissionId = /^efp_[a-f0-9]{16}$/.test(efpCookie) ? efpCookie : '';
     const utm = cleanUtm(body);
     const coupon = cleanCoupon(body);
     // Carried to the access page so the GA4 purchase event can name the
@@ -129,6 +131,8 @@ export async function POST(req: NextRequest) {
       // metadata.product is what the webhook and the access page both key
       // off. Without it the purchase completes and delivers nothing.
       metadata: {
+        // Links this sale back to the buyer's Expert Framework Profile answers.
+        ...(efpSubmissionId ? { efp_submission_id: efpSubmissionId } : {}),
         product: 'intelligence-layer-course',
         source: 'intelligence-layer-course',
         ...utm,
