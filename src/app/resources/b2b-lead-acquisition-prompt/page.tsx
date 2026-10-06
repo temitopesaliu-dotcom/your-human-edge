@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import B2BPromptClient from './b2b-prompt-client';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/resources/b2b-lead-acquisition-prompt' },
   title: 'B2B Lead Acquisition Master Prompt | Free Resource',
   description:
     'A master prompt that builds a complete, tailored 7-stage lead acquisition playbook for any B2B company in under 2 minutes. Free resource.',

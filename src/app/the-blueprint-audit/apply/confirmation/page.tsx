@@ -6,6 +6,8 @@ import { getPaidCheckout } from "@/lib/services/paid-checkout";
 import PriorityPayButton from "@/components/features/blueprint-apply/PriorityPayButton";
 
 export const metadata = {
+  // Clears the /the-blueprint-audit/apply canonical inherited from the layout.
+  alternates: {},
   title: "Application Received — AI Operating System",
   robots: "noindex, nofollow",
 };

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import SiteFooter from '@/components/site-footer';
 
 export const metadata: Metadata = {
+  robots: 'noindex, nofollow',
   title: 'Access Denied | Your Human Edge',
 };
 

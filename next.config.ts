@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
       allowedOrigins: ['temitopesaliu.com', 'www.temitopesaliu.com'],
     },
   },
+  async headers() {
+    return [
+      // Personal Expert Framework Profile results, one URL per person. Never
+      // listed by Google, whatever the page itself ships with. A header, not
+      // robots.txt, because a blocked page's noindex is never read.
+      {
+        source: '/expert-framework-profile/results/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+    ];
+  },
   async rewrites() {
     return [
       { source: '/for-lifecoaches', destination: '/for-lifecoaches.html' },

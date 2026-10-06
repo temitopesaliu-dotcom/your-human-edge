@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import QuizClient from './quiz-client';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/quiz' },
   title: 'AI Archetype Quiz | Your Human Edge',
   description:
     'Take the free AI archetype quiz to discover which corner of AI fits your inherent skills, personality and values. 10 questions, 4 archetypes.',

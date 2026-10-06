@@ -21,6 +21,7 @@ function DemoCard({ demo }: { demo: Demo }) {
 }
 
 export const metadata = {
+  alternates: { canonical: '/demos' },
   title: "Sample Solutions — AI Operating System",
   description:
     "Working demos of AI Operating Systems built for real businesses. See what a system built around your workflow looks like in practice.",
