@@ -4,7 +4,7 @@ import {
 import type { EfpAnswers, EfpBuild, EfpCompany, EfpTier } from './types';
 
 export const EFP_MODEL = 'claude-sonnet-5-5';
-const AI_TIMEOUT_MS = 45_000;
+const AI_TIMEOUT_MS = 50_000;
 
 export interface GenerateResult {
   build: EfpBuild;
@@ -50,7 +50,8 @@ Rules:
 - Prices: show every price in the currency given, formatted the way that currency is normally written (e.g. ₦450,000, £2,400, $7,500, QAR 16,500, KSh 120,000). Use your knowledge of typical market rates for this kind of work in this country, then round to clean price points. Guidance for the core price in USD before converting: individual buyers 150 to 300 (1 to 3 years), 300 to 600 (4 to 7), 500 to 1,000 (8 to 12), 800 to 1,500 (13 to 20), 1,200 to 2,500 (20+); organisation buyers 1,000 to 2,500, 2,000 to 5,000, 4,000 to 8,000, 6,000 to 12,000, 10,000 to 20,000. Never paid sits low in the range, paid regularly sits high. Small business owners pay less than companies, large companies pay more. In lower-income markets prices are lower in USD terms.
 - Companies: large and medium follow the buyer. If the buyer is a company, name companies. If the buyer is small business owners or individuals, name the organisations that gather or pay for them (chambers, associations, hubs, employers with staff budgets). Large and medium are real, well-known organisations in or near the given location. Small are profiles only, never invented names, each with where to find them. Never state specific facts about a named company (funding, headcount, news). Keep the reason it fits general and true.
 - Location: match companies to the city and country. Keep place names out of every field except companiesHeading and companiesWhy.
-- If a field or buyer was typed as "Other", interpret the typed text sensibly.`;
+- If a field or buyer was typed as "Other", interpret the typed text sensibly.
+- Keep it short. The whole JSON must stay under 900 words. Each company reason under 10 words, each role under 5 words, each tier "why" under 20 words.`;
 
 function brief(a: EfpAnswers, currency: string): string {
   const field = a.domain === DOMAIN_OTHER ? a.domainOther : DOMAINS[a.domain];
@@ -145,7 +146,7 @@ export async function generateBuild(a: EfpAnswers): Promise<GenerateResult> {
       headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
       body: JSON.stringify({
         model: EFP_MODEL,
-        max_tokens: 4000,
+        max_tokens: 6000,
         system: SYSTEM_PROMPT,
         messages: [{ role: 'user', content: `Build the profile for this person.\n${brief(a, currency)}` }],
       }),
