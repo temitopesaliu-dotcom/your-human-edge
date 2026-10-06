@@ -69,7 +69,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
         <div className="efp-browser">
           <div className="efp-chrome"><div className="efp-dots"><i /><i /><i /></div><div className="efp-url">www.{record.siteSlug}.com</div></div>
           <div className="efp-site">
-            <nav><b>{b.brand}</b><span className="efp-chip">{b.navCta}</span></nav>
+            <div className="efp-snav"><b>{b.brand}</b><span className="efp-chip">{b.navCta}</span></div>
             <div className="efp-shero">
               <p className="efp-kick">{b.kicker}</p>
               <h4>{b.h1}</h4>
@@ -98,9 +98,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
                 ))}
               </div>
               <p className="efp-sh" style={{ margin: '12px 0 0', fontSize: 12.5 }}>
-                {record.source === 'ai'
-                  ? '*Estimates based on typical market rates for your field and country. Not a market research study.'
-                  : '*Sample prices in US dollars, based on typical market rates. Not a market research study.'}
+                *Estimates based on typical market rates for your field and country. Not a market research study.
               </p>
             </section>
             <div className="efp-locked efp-first">
@@ -155,7 +153,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
         <div className="efp-buy"><Cta position={4} /><small>Self-paced. Watch it in under an hour.</small></div>
       </div>
 
-      <footer className="efp-footer">2026 Temitope Saliu. The Expert Framework Profile is proprietary methodology. All rights reserved.</footer>
+      <div className="efp-footer" role="contentinfo">2026 Temitope Saliu. The Expert Framework Profile is proprietary methodology. All rights reserved.</div>
     </div>
   );
 }
