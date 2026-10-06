@@ -5,7 +5,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
 import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 import { sendMetaEvent } from '@/lib/services/meta-capi';
 import {
-  BUYERS, CLIENTS_FROM, DOMAINS, PAID, PAID_ECHO, QUIZ_VERSION, SELL, SITUATIONS, YEARS, currencyFor,
+  BUYERS, CLIENTS_FROM, DOMAINS, DOMAIN_COLORS, PAID, PAID_ECHO, QUIZ_VERSION, SELL, SITUATIONS, YEARS, currencyFor,
 } from '@/lib/efp/data';
 import { parseAnswers, type EfpResultRecord } from '@/lib/efp/types';
 import { generateBuild } from '@/lib/efp/generate';
@@ -100,6 +100,7 @@ export async function POST(req: NextRequest) {
     firstName: a.firstName,
     lastName: a.lastName,
     siteSlug: `${a.firstName}${a.lastName}`.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '') || 'yourname',
+    accent: DOMAIN_COLORS[a.domain],
     currency,
     paidEcho: PAID_ECHO[a.paid],
     source: 'ai',
