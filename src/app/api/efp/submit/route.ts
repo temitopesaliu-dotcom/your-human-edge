@@ -68,19 +68,27 @@ export async function POST(req: NextRequest) {
       results_code: code,
     },
   });
-  const mailer = addEfpSubscriber(a.email, a.firstName, a.lastName, resultsUrl);
-  const lead = sendMetaEvent({
-    eventName: 'Lead',
-    eventId: submissionId,
-    eventSourceUrl: `${siteUrl}/expert-framework-profile`,
-    email: a.email,
-    clientIp: ip,
-    userAgent: req.headers.get('user-agent') || undefined,
-    customData: { content_name: 'Expert Framework Profile' },
-  });
-
   const gen = await generateBuild(a);
-  if (gen.error) console.error('[efp-submit] generation fell back to template:', gen.error);
+
+  if (!gen.build) {
+    console.error('[efp-submit] AI build failed:', gen.error);
+    // Answers are already in the Sheet. Mark the row and let the Sheet script email Temitope.
+    await sheetAppend;
+    await sendToSheet({
+      action: 'update',
+      submission_id: submissionId,
+      fields: {
+        build_status: 'failed',
+        currency,
+        ai_tokens_in: gen.tokensIn ?? '',
+        ai_tokens_out: gen.tokensOut ?? '',
+        // Not a Sheet column: the Sheet script puts it in the alert email.
+        build_error: (gen.error || 'unknown').slice(0, 300),
+      },
+    });
+    return NextResponse.json({ error: 'We couldn’t finish your build just now. Please try again.' }, { status: 502 });
+  }
+  const build = gen.build;
 
   const record: EfpResultRecord = {
     code,
@@ -91,8 +99,8 @@ export async function POST(req: NextRequest) {
     siteSlug: `${a.firstName}${a.lastName}`.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '') || 'yourname',
     currency,
     paidEcho: PAID_ECHO[a.paid],
-    source: gen.source,
-    build: gen.build,
+    source: 'ai',
+    build,
   };
 
   try {
@@ -109,18 +117,25 @@ export async function POST(req: NextRequest) {
       action: 'update',
       submission_id: submissionId,
       fields: {
-        build_status: gen.source,
-        offer_name: gen.build.brand,
+        build_status: 'ai',
+        offer_name: build.brand,
         currency,
-        core_price: gen.build.tiers[1]?.price || '',
+        core_price: build.tiers[1]?.price || '',
         ai_tokens_in: gen.tokensIn ?? '',
         ai_tokens_out: gen.tokensOut ?? '',
-        // Not a Sheet column: the Sheet script uses it to email Temitope when the AI fails.
-        build_error: gen.error ? gen.error.slice(0, 300) : '',
       },
     }),
-    mailer,
-    lead,
+    // Only people who got a results page join the group, because the email links to it.
+    addEfpSubscriber(a.email, a.firstName, a.lastName, resultsUrl),
+    sendMetaEvent({
+      eventName: 'Lead',
+      eventId: submissionId,
+      eventSourceUrl: `${siteUrl}/expert-framework-profile`,
+      email: a.email,
+      clientIp: ip,
+      userAgent: req.headers.get('user-agent') || undefined,
+      customData: { content_name: 'Expert Framework Profile' },
+    }),
   ]);
 
   const res = NextResponse.json({ code, submissionId });
