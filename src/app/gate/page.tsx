@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import GateClient from './gate-client';
 
 export const metadata: Metadata = {
+  // Mid-funnel email gate: only useful straight after the quiz.
+  robots: 'noindex, follow',
   title: 'Unlock Your AI Archetype Results | Your Human Edge',
   description:
     'Enter your details to see your personalized AI archetype results and discover which corner of AI was built for you.',
