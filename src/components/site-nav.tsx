@@ -30,7 +30,7 @@ const DEFAULT_LINKS: SiteNavLink[] = [
     href: "/quiz",
     children: [
       { label: "AI Fit Quiz", href: "/quiz" },
-      { label: "AI For Expert Quiz", href: "/intelligence-layer" }, // URL unchanged: it is printed in live emails
+      { label: "AI For Expert Quiz", href: "/expert-framework-profile" }, // old /intelligence-layer links redirect here
     ],
   },
   { label: "Free Resources", href: "/resources" },

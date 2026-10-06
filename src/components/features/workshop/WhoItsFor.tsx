@@ -68,7 +68,7 @@ export default function WhoItsFor() {
                 <span style={{ color: "var(--purple)", fontWeight: 500 }}>
                   Not sure if this is for you?{" "}
                   <Link
-                    href="/intelligence-layer"
+                    href="/expert-framework-profile"
                     style={{
                       color: "var(--purple)",
                       fontWeight: 700,
