@@ -3,6 +3,8 @@ import AiosFooter from "../../_components/AiosFooter";
 import Link from "next/link";
 
 export const metadata = {
+  // Clears the /the-blueprint-audit/apply canonical inherited from the layout.
+  alternates: {},
   title: "Not the Right Fit — AI Operating System",
   robots: "noindex, nofollow",
 };
