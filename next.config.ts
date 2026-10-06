@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // The live workshop is retired; its sales page now belongs to the
+      // Expert Framework course.
+      {
+        source: '/workshop',
+        destination: '/expert-framework',
+        permanent: true,
+      },
       // The Expert Framework course page used to live at
       // /intelligence-layer-course. Permanent (308) so it is cached, and
       // query strings (session_id, UTM tags) survive the hop, so access
