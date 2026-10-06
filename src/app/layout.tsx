@@ -1,7 +1,14 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import SiteExpertFrameworkPopup from "@/components/site-expert-framework-popup";
+import { CANONICAL_ORIGIN } from "@/lib/seo/site";
 import "./globals.css";
+
+// Lets each page give its canonical as a path (alternates.canonical: "/quiz")
+// and have it resolved to the one production address.
+export const metadata: Metadata = {
+	metadataBase: new URL(CANONICAL_ORIGIN),
+};
 
 export const viewport: Viewport = {
 	width: 'device-width',
