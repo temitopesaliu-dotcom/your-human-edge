@@ -178,5 +178,20 @@ export const EFP_CSS = `
 .efp-buy small{color:var(--mut)}
 .efp-stage{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
 .efp-stage.efp-on{opacity:1;transform:none}
+/* results page: boxed sections in the person's field colour (--acc set inline) */
+.efp-res{--v:var(--acc);--vi:color-mix(in srgb,var(--acc) 78%,#000);--vs:color-mix(in srgb,var(--acc) 11%,var(--s))}
+.efp-res .efp-btn{box-shadow:0 14px 30px -14px color-mix(in srgb,var(--acc) 70%,transparent)}
+.efp-label{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);background:color-mix(in srgb,var(--acc) 11%,transparent);border-radius:999px;padding:4px 12px;margin:0 0 12px}
+.efp-panel{background:var(--s);border:1px solid var(--ln);border-top:4px solid var(--acc);border-radius:18px;padding:24px 22px;margin:30px 0 0;box-shadow:0 18px 40px -30px rgba(34,26,46,.35)}
+.efp-panel h3{font-family:var(--serif);font-size:26px;margin:0 0 4px}
+.efp-panel .efp-more{background:color-mix(in srgb,var(--acc) 9%,var(--s))}
+.efp-inpreview{margin:0 22px 22px;background:color-mix(in srgb,var(--acc) 9%,#fff);color:#1c1917}
+.efp-inpreview span{color:#57534e}
+.efp-cocard{background:var(--p);border:1px solid var(--ln);border-radius:12px;padding:12px;margin-top:10px}
+.efp-cocard b{display:block;font-size:14.5px}
+.efp-cocard span{display:block;font-size:13px;color:var(--mut);margin-top:2px}
+.efp-cocard .efp-how{display:block;margin-top:9px;background:color-mix(in srgb,var(--acc) 10%,var(--s));border-left:3px solid var(--acc);border-radius:8px;padding:7px 10px;color:var(--ink)}
+.efp-how em{font-style:normal;font-weight:700;color:var(--acc)}
+.efp-panel .efp-cot{background:transparent;border:0;padding:0}
 @media (prefers-reduced-motion:reduce){.efp-stage{opacity:1;transform:none;transition:none}.efp-track i,.efp-log li{transition:none}}
 `;
