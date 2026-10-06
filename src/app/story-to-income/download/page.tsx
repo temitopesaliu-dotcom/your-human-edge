@@ -5,6 +5,8 @@ import { getPaidCheckout } from '@/lib/services/paid-checkout';
 import '../story-to-income.css';
 
 export const metadata = {
+  // Clears the /story-to-income canonical inherited from the layout.
+  alternates: {},
   title: 'Your download: Storytelling to Income',
   robots: 'noindex, nofollow',
 };
