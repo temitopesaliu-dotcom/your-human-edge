@@ -77,6 +77,16 @@ const nextConfig: NextConfig = {
           '/expert-framework?utm_source=mailerlite&utm_medium=email&utm_campaign=ef-email-:id',
         permanent: false,
       },
+      // Short links for the Expert Framework Profile invite emails. /efp/1a-r
+      // lands on the quiz tagged utm_campaign=efp-1a-r (email 1, variant A,
+      // retake track; n = new track), so each email traces to its own quiz-takers.
+      // Only the listed ids match. Temporary (307) so the target can change.
+      {
+        source: '/efp/:id(1a-r|1a-n|1b-r|1b-n|2a-r|2a-n|2b-r|2b-n|3a-r|3a-n|3b-r|3b-n|4a-r|4a-n|4b-r|4b-n|5a-r|5a-n|5b-r|5b-n)',
+        destination:
+          '/expert-framework-profile?utm_source=mailerlite&utm_medium=email&utm_campaign=efp-:id',
+        permanent: false,
+      },
       // Short links for the Story to Income launch emails. The full UTM-tagged
       // URL was too long to print in a plain-text email, so /story/one lands on
       // the sales page tagged utm_campaign=email-one. Only the listed ids
