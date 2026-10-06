@@ -5,7 +5,8 @@ import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayer
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
-import { sendMetaPurchaseEvent } from '@/lib/services/meta-capi';
+import { sendMetaPurchaseEvent, toMajorUnits } from '@/lib/services/meta-capi';
+import { sendToSheet } from '@/lib/efp/sheets';
 
 /** Extract archetype from metadata, or fall back to parsing the success_url.
  *  Covers API-created sessions (metadata.archetype) and
@@ -182,6 +183,25 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
     currency: session.currency,
     eventId: session.id,
   });
+
+  // Mark the sale on the buyer's Expert Framework Profile row, so quiz answers
+  // can be compared with who buys. Matches on the quiz submission when the
+  // checkout carried one, otherwise on email. Never blocks fulfilment.
+  const efpSubmissionId = session.metadata?.efp_submission_id;
+  if (efpSubmissionId || product === 'intelligence-layer-course') {
+    const amount = session.amount_total !== null ? toMajorUnits(session.amount_total, session.currency || 'usd') : '';
+    const purchasedAt = new Date().toISOString();
+    const currency = (session.currency || '').toUpperCase();
+    if (efpSubmissionId) {
+      await sendToSheet({
+        action: 'update',
+        submission_id: efpSubmissionId,
+        fields: { purchased: 'yes', purchased_at: purchasedAt, purchase_amount: amount, purchase_currency: currency },
+      });
+    } else if (buyerEmail) {
+      await sendToSheet({ action: 'purchase', email: buyerEmail, purchased_at: purchasedAt, purchase_amount: amount, purchase_currency: currency });
+    }
+  }
 }
 
 export async function POST(req: NextRequest) {
