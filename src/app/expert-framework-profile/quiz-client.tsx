@@ -9,9 +9,9 @@ import {
 type Win = Window & { fbq?: (...args: unknown[]) => void; gtag?: (...args: unknown[]) => void };
 
 const SAMPLES = [
+  { tab: 'Sales', acc: '#b45309', gap: 'One founder’s first sales playbook is worth $7,500. He’s been building them by the hour.', brand: 'The Founder Sales Playbook', navcta: 'Book a Teardown', kicker: 'Sales systems for founder-led startups', h1: 'You’re still the only one who can close. I’ll build the system so you don’t have to be.', lede: 'A 6-week engagement that turns how you sell into a playbook your first sales hire can run.', band: [['12%→31%', 'win rate in two quarters'], ['6 wks', 'to a written playbook'], ['8+ yrs', 'closing B2B deals'], ['1', 'playbook your hire can run']], peek: [['Entry', '$1,500'], ['Core', '$7,500'], ['Premium', '$3,000 / month']] },
   { tab: 'HR & L&D', acc: '#0f766e', gap: 'One cohort of her programme is worth ₦2.8M to one company.', brand: 'The First 90 Days Manager Lab', navcta: 'Book the Diagnostic', kicker: 'Manager development for fast-growing companies', h1: 'Your best performers just became managers. I’ll make sure their teams don’t pay for it.', lede: 'A 6-week in-company programme that turns first-time managers into leaders people stay for.', band: [['6', 'managers coached'], ['30%→8%', 'attrition in 12 months'], ['6 wks', 'programme'], ['1', 'report for the CEO']], peek: [['Entry', '₦450,000'], ['Core', '₦2,800,000'], ['Premium', '₦1.2M / month']] },
   { tab: 'Finance', acc: '#1d4ed8', gap: 'The £38k he found is worth more than his first ten clients will pay him.', brand: 'Profit Clarity Partner', navcta: 'Book an X-Ray', kicker: 'Finance partner for owner-run businesses', h1: 'You’re busy and you’re selling. I’ll show you where the money’s going, and how to keep it.', lede: 'A done-with-you finance partner who finds the leaks and helps you plug them.', band: [['£38k', 'recovered for one client'], ['2 wks', 'to your real profit'], ['15+ yrs', 'in finance'], ['1', 'page dashboard']], peek: [['Entry', '£650'], ['Core', '£2,400'], ['Premium', '£750 / month']] },
-  { tab: 'Sales', acc: '#b45309', gap: 'One founder’s first sales playbook is worth $7,500. He’s been building them by the hour.', brand: 'The Founder Sales Playbook', navcta: 'Book a Teardown', kicker: 'Sales systems for founder-led startups', h1: 'You’re still the only one who can close. I’ll build the system so you don’t have to be.', lede: 'A 6-week engagement that turns how you sell into a playbook your first sales hire can run.', band: [['12%→31%', 'win rate in two quarters'], ['6 wks', 'to a written playbook'], ['8+ yrs', 'closing B2B deals'], ['1', 'playbook your hire can run']], peek: [['Entry', '$1,500'], ['Core', '$7,500'], ['Premium', '$3,000 / month']] },
 ];
 
 const LOG = ['Reading your 10 answers', 'Mapping your expert layer', 'Naming your offer', 'Writing your homepage', 'Pricing your offer', 'Mapping your buyer', 'Finding your 12 companies', 'Putting your name on it'];
@@ -101,17 +101,17 @@ export default function QuizClient() {
     setPhase('building'); setDone(0); setError('');
     const timer = window.setInterval(() => setDone((d) => Math.min(d + 1, LOG.length - 1)), 2600);
     try {
-      const res = await fetch('/api/efp/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const payload = JSON.stringify({
           domain: a.domain, domainOther: a.domainOther, years: a.years, situation: a.situation,
           country: a.country, city: a.city, clientsFrom: a.clientsFrom, buyer: a.buyer, buyerOther: a.buyerOther,
           problem: a.problem, tried: a.tried, result: a.result, noResultYet: a.noResultYet,
           paid: a.paid, sellFirst: a.sellFirst, firstName: a.firstName, lastName: a.lastName, email: a.email, consent: a.consent,
           utm: meta.current.utm, referrer: meta.current.referrer,
-        }),
-      });
+        });
+      const post = () => fetch('/api/efp/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
+      let res = await post();
+      // If the AI could not finish, try once more quietly before asking the person to retry.
+      if (res.status === 502) res = await post();
       const data = (await res.json().catch(() => ({}))) as { code?: string; submissionId?: string; error?: string };
       window.clearInterval(timer);
       if (!res.ok || !data.code) throw new Error(data.error || 'Something went wrong. Please try again.');
@@ -230,7 +230,7 @@ export default function QuizClient() {
 
   return (
     <>
-      <nav className="efp-nav"><div className="efp-wrap"><b>Expert Framework Profile</b><a href="/resources">Free resources</a></div></nav>
+      <div className="efp-nav" role="navigation"><div className="efp-wrap"><b>Expert Framework Profile</b><a href="/resources">Free resources</a></div></div>
 
       <header className="efp-hero efp-wrap">
         <span className="efp-pill">Free profile assessment</span>
@@ -252,7 +252,7 @@ export default function QuizClient() {
             <div className="efp-chrome"><div className="efp-dots"><i /><i /><i /></div><div className="efp-url">www.yourname.com</div></div>
             <div className="efp-gapline"><h3>{s.gap}</h3></div>
             <div className="efp-site" style={{ margin: '18px 30px 0', borderRadius: 14, border: '1px solid var(--ln)', overflow: 'hidden' }}>
-              <nav><b>{s.brand}</b><span className="efp-chip">{s.navcta}</span></nav>
+              <div className="efp-snav"><b>{s.brand}</b><span className="efp-chip">{s.navcta}</span></div>
               <div className="efp-shero"><p className="efp-kick">{s.kicker}</p><h4>{s.h1}</h4><p>{s.lede}</p></div>
               <div className="efp-band">{s.band.map(([v, l]) => <div key={l}><b>{v}</b><span>{l}</span></div>)}</div>
             </div>
@@ -305,7 +305,7 @@ export default function QuizClient() {
         </div>
       </section>
 
-      <footer className="efp-footer"><div className="efp-wrap">2026 Temitope Saliu. The Expert Framework Profile is proprietary methodology. All rights reserved.</div></footer>
+      <div className="efp-footer" role="contentinfo"><div className="efp-wrap">2026 Temitope Saliu. The Expert Framework Profile is proprietary methodology. All rights reserved.</div></div>
     </>
   );
 }

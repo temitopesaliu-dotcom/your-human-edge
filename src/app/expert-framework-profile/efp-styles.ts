@@ -47,8 +47,8 @@ export const EFP_CSS = `
 .efp-gapline h3,.efp-gap h2{font-family:var(--serif);font-size:clamp(22px,3vw,32px);font-weight:600;line-height:1.15;margin:4px 0 0;max-width:26ch}
 .efp-site{background:#f7f7f4;color:#1c1917}
 @media (prefers-color-scheme:dark){.efp-site{background:#1b1622;color:var(--ink)}}
-.efp-site nav{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;gap:12px}
-.efp-site nav b{font-family:var(--serif)}
+.efp-snav{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;gap:12px}
+.efp-snav b{font-family:var(--serif)}
 .efp-chip{background:var(--acc);color:#fff;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;white-space:nowrap}
 .efp-chip.efp-ghost{background:transparent;color:inherit;border:1px solid currentColor}
 .efp-shero{padding:14px 22px 26px}
