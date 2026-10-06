@@ -70,6 +70,8 @@ export interface EfpResultRecord {
   firstName: string;
   lastName?: string;
   siteSlug: string;
+  /** The field's colour (DOMAIN_COLORS). Older records have none and use the default. */
+  accent?: string;
   currency: string;
   paidEcho: string;
   source: 'ai';
