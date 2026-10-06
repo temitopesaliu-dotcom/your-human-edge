@@ -81,3 +81,47 @@ export async function sendMetaPurchaseEvent(params: {
     console.error('[meta-capi] Purchase event failed:', err instanceof Error ? err.message : String(err));
   }
 }
+
+/**
+ * Report a non-purchase event (Lead, ViewContent) to the Meta Conversions API.
+ * `eventId` must match the eventID the page passes to fbq so Meta keeps one
+ * copy. `eventSourceUrl` should never contain a private link or code. Never throws.
+ */
+export async function sendMetaEvent(params: {
+  eventName: 'Lead' | 'ViewContent';
+  eventId: string;
+  eventSourceUrl: string;
+  email?: string;
+  clientIp?: string;
+  userAgent?: string;
+  customData?: Record<string, unknown>;
+}): Promise<void> {
+  const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
+  const pixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+  if (!accessToken || !pixelId) return;
+  try {
+    const userData: Record<string, unknown> = {};
+    if (params.email) userData.em = [hashEmail(params.email)];
+    if (params.clientIp) userData.client_ip_address = params.clientIp;
+    if (params.userAgent) userData.client_user_agent = params.userAgent;
+    const res = await fetch(`https://graph.facebook.com/${GRAPH_API_VERSION}/${pixelId}/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
+      body: JSON.stringify({
+        data: [{
+          event_name: params.eventName,
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: params.eventId,
+          action_source: 'website',
+          event_source_url: params.eventSourceUrl,
+          user_data: userData,
+          custom_data: params.customData || {},
+        }],
+      }),
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!res.ok) console.error('[meta-capi]', params.eventName, res.status, (await res.text()).slice(0, 200));
+  } catch (err) {
+    console.error('[meta-capi]', params.eventName, err instanceof Error ? err.message : String(err));
+  }
+}
