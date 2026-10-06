@@ -101,17 +101,18 @@ export default function QuizClient() {
     setPhase('building'); setDone(0); setError('');
     const timer = window.setInterval(() => setDone((d) => Math.min(d + 1, LOG.length - 1)), 2600);
     try {
-      const payload = JSON.stringify({
+      const payload = (attempt: number) => JSON.stringify({
+          attempt,
           domain: a.domain, domainOther: a.domainOther, years: a.years, situation: a.situation,
           country: a.country, city: a.city, clientsFrom: a.clientsFrom, buyer: a.buyer, buyerOther: a.buyerOther,
           problem: a.problem, tried: a.tried, result: a.result, noResultYet: a.noResultYet,
           paid: a.paid, sellFirst: a.sellFirst, firstName: a.firstName, lastName: a.lastName, email: a.email, consent: a.consent,
           utm: meta.current.utm, referrer: meta.current.referrer,
         });
-      const post = () => fetch('/api/efp/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
-      let res = await post();
+      const post = (attempt: number) => fetch('/api/efp/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload(attempt) });
+      let res = await post(1);
       // If the AI could not finish, try once more quietly before asking the person to retry.
-      if (res.status === 502) res = await post();
+      if (res.status === 502) res = await post(2);
       const data = (await res.json().catch(() => ({}))) as { code?: string; submissionId?: string; error?: string };
       window.clearInterval(timer);
       if (!res.ok || !data.code) throw new Error(data.error || 'Something went wrong. Please try again.');
