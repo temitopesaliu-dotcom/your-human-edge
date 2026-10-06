@@ -11,7 +11,7 @@ import { parseAnswers, type EfpResultRecord } from '@/lib/efp/types';
 import { generateBuild } from '@/lib/efp/generate';
 import { saveResult } from '@/lib/efp/store';
 import { sendToSheet } from '@/lib/efp/sheets';
-import { addEfpSubscriber } from '@/lib/efp/mailerlite';
+import { addEfpFailedSubscriber, addEfpSubscriber } from '@/lib/efp/mailerlite';
 
 /** The AI call takes 15 to 30 seconds; leave headroom for the Sheet and MailerLite writes. */
 export const maxDuration = 60;
@@ -28,6 +28,8 @@ export async function POST(req: NextRequest) {
   const parsed = parseAnswers(body);
   if (!parsed.ok) return NextResponse.json({ error: `Please check: ${parsed.field}` }, { status: 400 });
   const a = parsed.answers;
+  // The quiz page tries twice before showing an error. Only the final failure sends the try-again email.
+  const finalAttempt = (body as { attempt?: unknown }).attempt === 2;
 
   const submissionId = `efp_${randomCode(8)}`;
   const code = randomCode(12);
@@ -86,6 +88,7 @@ export async function POST(req: NextRequest) {
         build_error: (gen.error || 'unknown').slice(0, 300),
       },
     });
+    if (finalAttempt) await addEfpFailedSubscriber(a.email, a.firstName, a.lastName);
     return NextResponse.json({ error: 'We couldn’t finish your build just now. Please try again.' }, { status: 502 });
   }
   const build = gen.build;
