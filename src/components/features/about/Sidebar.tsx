@@ -21,7 +21,7 @@ export default function Sidebar() {
         <Link className="abt-btn-solid" href="/the-blueprint-audit">
           For Businesses →
         </Link>
-        <Link className="abt-btn-outline" href="/intelligence-layer">
+        <Link className="abt-btn-outline" href="/expert-framework-profile">
           For Professionals →
         </Link>
       </div>
