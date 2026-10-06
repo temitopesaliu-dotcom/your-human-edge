@@ -42,7 +42,7 @@ export default function Hero() {
               <WorkshopCheckoutButton className="ws-btn-checkout">
                 Reserve my seat — {WORKSHOP_PRICE}
               </WorkshopCheckoutButton>
-              <Link href="/intelligence-layer" className="ws-btn-secondary">
+              <Link href="/expert-framework-profile" className="ws-btn-secondary">
                 Take the free profile quiz first
               </Link>
             </div>
