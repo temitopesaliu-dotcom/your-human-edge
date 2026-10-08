@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/ai-operator-suite', destination: '/ai-operator-suite.html' },
+      { source: '/expert-framework-intensive', destination: '/expert-framework-intensive.html' },
     ];
   },
   async headers() {
