@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSession, setSession, type SessionRecord } from '@/lib/services/kv';
-import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite, addIntelligenceLayerCourseBuyerToMailerLite } from '@/lib/services/mailer';
+import { addBuyerToMailerLite, addStadiumBuyerToMailerLite, addIntelligenceLayerPaidSubscriber, addBusinessArchitectBuyerToMailerLite, addBlueprintAuditPriorityBuyerToMailerLite, addStoryToIncomeBuyerToMailerLite, addIntelligenceLayerCourseBuyerToMailerLite, addExpertFrameworkIntensiveBuyerToMailerLite } from '@/lib/services/mailer';
 import { type ArchetypeKey } from '@/lib/utils/archetypes';
 import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
@@ -103,6 +103,10 @@ const MAILER_DISPATCH: Partial<Record<ProductType, {
     send: (email, name, _archetype, accessLink) =>
       addIntelligenceLayerCourseBuyerToMailerLite(email, name, accessLink),
     errorLabel: 'addIntelligenceLayerCourseBuyerToMailerLite',
+  },
+  'expert-framework-intensive': {
+    send: (email, name) => addExpertFrameworkIntensiveBuyerToMailerLite(email, name),
+    errorLabel: 'addExpertFrameworkIntensiveBuyerToMailerLite',
   },
 };
 
