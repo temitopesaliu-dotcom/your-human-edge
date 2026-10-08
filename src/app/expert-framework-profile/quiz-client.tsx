@@ -238,7 +238,6 @@ export default function QuizClient() {
         <h1><span className="efp-soft">You have spent years getting good at something.</span> You have not spent a single day getting paid <em>what it is actually worth.</em></h1>
         <p className="efp-lede">Answer 10 questions and watch your expertise become an offer, a website with your name on it, three prices and 12 companies to send it to.</p>
         <div className="efp-facts"><div><b>5 min</b><span>to complete</span></div><div><b>10</b><span>questions</span></div><div><b>1</b><span>personalised build</span></div><div><b>Free</b><span>always</span></div></div>
-        <a className="efp-btn" href="#quiz">Build my profile</a>
       </header>
 
       <section className="efp-wrap" aria-labelledby="efp-sample-h">
