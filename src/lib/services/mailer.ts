@@ -683,3 +683,44 @@ export async function addBuildAuditApplicantToMailerLite(
     throw new Error(`MailerLite ${result.status}: ${result.errorText}`);
   }
 }
+
+/**
+ * Expert Framework Intensive buyers (sold through a Stripe payment link with
+ * metadata.product = 'expert-framework-intensive'). Joining the group fires
+ * the welcome automation in MailerLite; this only adds the buyer.
+ */
+export async function addExpertFrameworkIntensiveBuyerToMailerLite(
+  email: string,
+  name: string,
+): Promise<void> {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  // Group IDs are not secrets. The env var wins if it is ever set; the fallback
+  // is the 'Expert Framework Intensive - Buyers' group so the launch does not
+  // depend on a dashboard change.
+  const group = process.env.MAILERLITE_EXPERT_FRAMEWORK_INTENSIVE_GROUP || '200769583580186191';
+  if (!apiKey || !group) {
+    console.warn('[mailer] MAILERLITE_API_KEY not set, skipping Expert Framework Intensive buyer');
+    return;
+  }
+
+  try {
+    const groups: string[] = [];
+    const allGroup = process.env.MAILERLITE_GROUP_ALL;
+    if (allGroup) groups.push(allGroup);
+    groups.push(group);
+
+    const result = await mailerLiteRequest('/subscribers', {
+      method: 'POST',
+      body: {
+        email,
+        fields: { name, is_buyer: 'true', subscriber_type: 'expert-framework-intensive' },
+        groups,
+      },
+    });
+    if (!result.ok) {
+      console.error('[mailer] Expert Framework Intensive buyer add failed:', result.status, result.errorText);
+    }
+  } catch (err: unknown) {
+    console.error('[mailer] Expert Framework Intensive buyer error:', err instanceof Error ? err.message : String(err));
+  }
+}
