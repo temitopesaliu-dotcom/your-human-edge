@@ -53,6 +53,15 @@ export default function Testimonials() {
               )}
             </div>
           ))}
+          <div className="ws-testimonial-card ws-testimonial-card--horizontal ws-testimonial-shot">
+            {/* eslint-disable-next-line @next/next/no-img-element -- root-level photo keeps routing simple; external-host disable applies because the pattern is the same */}
+            <img
+              src="/PHOTO-2026-10-09-17-38-29.jpg"
+              alt="Screenshot message from a workshop attendee"
+              loading="lazy"
+              className="ws-testimonial-thumb-img"
+            />
+          </div>
         </div>
       </div>
     </section>

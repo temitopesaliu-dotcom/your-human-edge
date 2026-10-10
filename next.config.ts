@@ -52,13 +52,6 @@ const nextConfig: NextConfig = {
       // Profile. Permanent (308), and query strings (UTM tags) survive the hop,
       // so every link already printed in emails and posts keeps working.
       { source: '/intelligence-layer', destination: '/expert-framework-profile', permanent: true },
-      // The live workshop is retired; its sales page now belongs to the
-      // Expert Framework course.
-      {
-        source: '/workshop',
-        destination: '/expert-framework',
-        permanent: true,
-      },
       // The Expert Framework course page used to live at
       // /intelligence-layer-course. Permanent (308) so it is cached, and
       // query strings (session_id, UTM tags) survive the hop, so access

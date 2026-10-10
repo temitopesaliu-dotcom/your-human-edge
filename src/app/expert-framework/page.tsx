@@ -274,6 +274,13 @@ export default function IntelligenceLayerCoursePage() {
             ))}
             <figure className="ilcs-wall-item ilcs-wall-shot">
               <img
+                src="/PHOTO-2026-10-09-17-38-29.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
                 src="/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg"
                 alt="Screenshot message from a workshop attendee"
                 loading="lazy"

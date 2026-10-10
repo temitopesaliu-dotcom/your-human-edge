@@ -156,6 +156,8 @@ body, .ws-page { font-family: 'Inter', sans-serif; background: var(--white); col
 .ws-testimonial-play svg { display: block; box-sizing: border-box; width: 52px; height: 52px; padding: 15px; border-radius: 50%; background: rgba(0,0,0,0.55); color: white; transition: background var(--transition), transform var(--transition); }
 .ws-testimonial-thumb:hover .ws-testimonial-play svg { background: var(--purple); transform: scale(1.06); }
 .ws-testimonial-frame { width: 100%; height: 100%; border: 0; display: block; }
+.ws-testimonial-shot { overflow: hidden; }
+.ws-testimonial-shot img { width: 100%; height: 100%; object-fit: contain; background: #fff; display: block; }
 
 .ws-about-section { background: var(--footer-bg); border-top: 1px solid var(--border); }
 .ws-about-inner { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: start; }

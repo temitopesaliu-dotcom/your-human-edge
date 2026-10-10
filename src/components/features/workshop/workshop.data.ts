@@ -18,6 +18,6 @@
 export const WORKSHOP_PRICE = "$157";
 export const WORKSHOP_PRICE_NEXT = "$299";
 
-export const WORKSHOP_DATE = "September 12, 2026 · 2pm London BST";
-export const WORKSHOP_DATE_SHORT = "September 12, 2026";
-export const WORKSHOP_DATE_DAY = "September 12th";
+export const WORKSHOP_DATE = "October 31, 2026 · 2pm London GMT";
+export const WORKSHOP_DATE_SHORT = "October 31, 2026";
+export const WORKSHOP_DATE_DAY = "October 31st";
