@@ -32,6 +32,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const siteUrl = resolveSiteUrl(req);
+    // Links this sale back to the buyer's Expert Framework Profile answers.
+    const efpCookie = req.cookies.get('efp_sid')?.value || '';
+    const efpSubmissionId = /^efp_[a-f0-9]{16}$/.test(efpCookie) ? efpCookie : '';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -46,6 +49,7 @@ export async function POST(req: NextRequest) {
       metadata: {
         product: 'intelligence-layer-workshop',
         source: 'workshop-page',
+        ...(efpSubmissionId ? { efp_submission_id: efpSubmissionId } : {}),
       },
       line_items: [
         {
