@@ -192,7 +192,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
   // can be compared with who buys. Matches on the quiz submission when the
   // checkout carried one, otherwise on email. Never blocks fulfilment.
   const efpSubmissionId = session.metadata?.efp_submission_id;
-  if (efpSubmissionId || product === 'intelligence-layer-course') {
+  if (efpSubmissionId || product === 'intelligence-layer-course' || product === 'intelligence-layer-workshop') {
     const amount = session.amount_total !== null ? toMajorUnits(session.amount_total, session.currency || 'usd') : '';
     const purchasedAt = new Date().toISOString();
     const currency = (session.currency || '').toUpperCase();
