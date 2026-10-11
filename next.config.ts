@@ -61,6 +61,11 @@ const nextConfig: NextConfig = {
         destination: '/expert-framework/:path*',
         permanent: true,
       },
+      // While the live class runs (31 October 2026), the Expert Framework sales
+      // page sends everyone to /workshop. Exact path only, so buyers' access
+      // links (/expert-framework/access) still work. Temporary (307) so the
+      // page can come back without browsers caching the redirect.
+      { source: '/expert-framework', destination: '/workshop', permanent: false },
       // Short links for the Expert Framework launch emails. /ef/one lands on
       // /expert-framework tagged utm_campaign=ef-email-one, so the address in the
       // email is short and clean and each email still traces to its own sale.
