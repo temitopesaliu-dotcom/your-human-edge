@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_ACCENT } from '@/lib/efp/data';
 import type { EfpCompany, EfpResultRecord } from '@/lib/efp/types';
 
-const WORKSHOP = '/expert-framework';
+/** Every "Get instant access" button goes to the live workshop page. */
+const WORKSHOP = '/workshop';
 
 type Win = Window & {
   fbq?: (...args: unknown[]) => void;
