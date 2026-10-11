@@ -5,7 +5,7 @@ import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 
 /**
- * Intelligence Framework Workshop checkout.
+ * Expert Framework Workshop checkout.
  *
  * Replaces the hard-coded buy.stripe.com Payment Link, which was created for
  * the old $99 price. Two problems with that arrangement:
@@ -58,9 +58,9 @@ export async function POST(req: NextRequest) {
             currency: 'usd',
             unit_amount: WORKSHOP_AMOUNT,
             product_data: {
-              name: 'The Intelligence Framework + AI — Live Working Session',
+              name: 'The Expert Framework + AI — Live Working Session',
               description:
-                '3-hour live working session on Zoom. Your Intelligence Framework mapped live, AI infrastructure built in the session, a 90-day GTM plan, all working templates, and the recording within 72 hours.',
+                '3-hour live working session on Zoom. Your Expert Framework mapped live, AI infrastructure built in the session, a 90-day GTM plan, all working templates, and the recording within 72 hours.',
             },
           },
         },
