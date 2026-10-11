@@ -3,7 +3,7 @@ import COUNTRY_CURRENCY from './country-currency.json';
 /** Bump when questions change, so answers in the Sheet stay comparable. */
 export const QUIZ_VERSION = 'efp-v1';
 
-export const WORKSHOP_URL = '/expert-framework';
+export const WORKSHOP_URL = '/workshop';
 
 export const DOMAINS = [
   'Business / Strategy / Consulting',
