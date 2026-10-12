@@ -26,7 +26,9 @@
  *   fresh tab name and let this script create it cleanly.
  */
 
-var SHEET_ID = 'PASTE_YOUR_SHEET_ID_HERE';
+// Leave blank to have the script create its own sheet on first use and
+// remember it (Script Properties). Paste an ID here to use an existing sheet.
+var SHEET_ID = '';
 var SHEET_NAME = 'Blueprint Quiz Responses';
 
 // One email address per editor who should be alerted on every submission.
@@ -94,7 +96,34 @@ function doPost(e) {
 }
 
 function doGet() {
-  return json_({ ok: true, service: 'blueprint-audit-application', sheet: SHEET_NAME });
+  return json_({ ok: true, service: 'blueprint-quiz-responses', sheet: SHEET_NAME });
+}
+
+/** Opens the configured sheet, or creates "Blueprint Quiz Responses" once and remembers it. */
+function spreadsheet_() {
+  if (SHEET_ID) return SpreadsheetApp.openById(SHEET_ID);
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('SHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  var ss = SpreadsheetApp.create('Blueprint Quiz Responses');
+  props.setProperty('SHEET_ID', ss.getId());
+  return ss;
+}
+
+/** Run once from the editor: authorises the script and creates the sheet. Logs its URL. */
+function setup() {
+  var ss = spreadsheet_();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.getSheets()[0];
+    sheet.setName(SHEET_NAME);
+    var header = COLUMNS.map(function (c) { return c[1]; });
+    sheet.getRange(1, 1, 1, header.length).setValues([header]).setFontWeight('bold');
+    sheet.setFrozenRows(1);
+  }
+  MailApp.getRemainingDailyQuota();
+  Logger.log(ss.getUrl());
+  return ss.getUrl();
 }
 
 /**
@@ -103,7 +132,7 @@ function doGet() {
  * so pre-existing rows never shift out of line with their headers.
  */
 function appendRow_(data) {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = spreadsheet_();
   var sheet = ss.getSheetByName(SHEET_NAME);
   var header;
 
@@ -182,7 +211,7 @@ function sendNotification_(data) {
       subject: subject,
       htmlBody: html,
       body: plain,
-      name: 'Blueprint Audit Applications'
+      name: 'Temitope Saliu Website'
     };
 
     if (data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {

@@ -86,6 +86,10 @@ export default function BlueprintQuiz() {
       setError("We couldn't save your answers. Please try again.");
       return;
     }
+    // Remembered so /book can prefill Calendly and /youre-ready can greet them by name.
+    try {
+      localStorage.setItem("yhe_bq_contact", JSON.stringify({ name: a.firstName.trim(), email: a.email.trim(), company: a.companyName.trim() }));
+    } catch { /* storage blocked: pages fall back to generic copy */ }
     setResult(model);
     go(4);
   };

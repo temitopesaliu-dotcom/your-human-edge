@@ -14,8 +14,8 @@
  */
 
 export const LINKS = {
-  founderSession: "https://buy.stripe.com/4gMaEWbl87JddnL88R6J20g",
-  leadershipSession: "https://buy.stripe.com/4gM9AS3SG8NhgzX4WF6J20h",
+  founderSession: "https://buy.stripe.com/28EaEY8RNb3y9k706f3oA0O",
+  leadershipSession: "https://buy.stripe.com/14A3cwc3ZdbG53R6uD3oA0P",
   intensive: "https://buy.stripe.com/bJe00k1plb3y1RF4mv3oA0N",
   samples: "/demos",
 } as const;
@@ -163,7 +163,8 @@ export const TIMEGO_PHRASE: Record<string, string> = {
   "Not sure, that's why I'm here": "work you can't see clearly yet",
 };
 
-const lc = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+// Lowercase the first letter for mid-sentence use, but leave acronyms ("AI strategy", "CRM") alone.
+const lc = (s: string) => (/^[A-Z]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1));
 export const listJoin = (a: string[]) => (a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]);
 
 export interface ResultModel {
