@@ -388,6 +388,7 @@ export async function addCoachToMailerLite(
 export async function addBlueprintAuditApplicantToMailerLite(
   email: string,
   name: string,
+  route?: string,
 ): Promise<void> {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const blueprintAuditGroup = process.env.MAILERLITE_BLUEPRINT_AUDIT_GROUP;
@@ -407,7 +408,7 @@ export async function addBlueprintAuditApplicantToMailerLite(
       email,
       fields: {
         name,
-        subscriber_type: 'blueprint-audit-applicant',
+        subscriber_type: route ? `blueprint-quiz-${route}` : 'blueprint-audit-applicant',
       },
       groups,
     },

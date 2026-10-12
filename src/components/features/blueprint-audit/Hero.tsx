@@ -29,7 +29,7 @@ export default function Hero() {
             href="#blueprint"
             className="btn btn-primary btn-lg btn-arrow"
           >
-            Apply for Audit
+            Get My Blueprint
           </Link>
           <a href="/demos" className="btn btn-ghost btn-arrow">
             See sample solutions

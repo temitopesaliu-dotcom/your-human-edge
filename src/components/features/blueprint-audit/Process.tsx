@@ -19,47 +19,45 @@ export default function Process() {
         <div className="timeline fade-up delay-1">
           <div className="timeline-step">
             <div className="timeline-number">1</div>
-            <p className="timeline-step-label">First Step</p>
-            <h3 className="timeline-step-title">Application</h3>
+            <p className="timeline-step-label">About three minutes</p>
+            <h3 className="timeline-step-title">Your Blueprint</h3>
             <p className="timeline-step-desc">
-              You complete a focused application that gives us the context
-              needed to assess fit. No lengthy forms. No guesswork.
+              Tap through three short steps about your business. You get a
+              first-draft architecture on the spot: where the time goes, the
+              systems to build first, and your best next step.
             </p>
           </div>
           <div className="timeline-step">
             <div className="timeline-number">2</div>
-            <p className="timeline-step-label">Within 48 hours</p>
-            <h3 className="timeline-step-title">Review & Decision</h3>
+            <p className="timeline-step-label">Straight after</p>
+            <h3 className="timeline-step-title">Book Your Session</h3>
             <p className="timeline-step-desc">
-              We read your application properly and work out the architecture
-              your situation needs. If it is a fit, you receive an acceptance
-              email with your exact price and how to book. If it is not, we
-              tell you clearly why and point you toward better options. Nothing
-              is charged before you have that decision in writing.
+              If a session fits, you pay and pick your time in one go. Then a
+              few questions about your business so the two hours start with
+              architecture, not warm-up.
             </p>
           </div>
           <div className="timeline-step highlight" data-default>
             <div className="timeline-number">3</div>
             <p className="timeline-step-label">The Starting Point</p>
-            <h3 className="timeline-step-title">Audit Session</h3>
+            <h3 className="timeline-step-title">AI Strategy Session</h3>
             <p className="timeline-step-desc">
-              A focused 90-minute strategy session where we map your business,
-              identify AI opportunities, and design the architecture of your
-              operating system. This is a consulting engagement, not a sales
-              call.
+              Two focused hours on your real business. We map where time and
+              money leak, design your first system, and decide who should
+              build it. You leave with a summary document of your next steps.
             </p>
             <span className="timeline-step-badge">
-              From $1,000 — priced to your scope
+              From $500 · 2 hours
             </span>
           </div>
           <div className="timeline-step">
             <div className="timeline-number">4</div>
             <p className="timeline-step-label">Within 7 Business Days</p>
-            <h3 className="timeline-step-title">Architecture Delivery</h3>
+            <h3 className="timeline-step-title">Full Solutions Architecture</h3>
             <p className="timeline-step-desc">
-              You receive a written Audit document with your workflow map,
-              AI architecture, technology recommendations, priority sequence,
-              and a costed estimate for the scope.
+              If you continue: your workflow map, solutions architecture for
+              every priority system, priority matrix, investment estimate and
+              ROI map. From $2,500, less your session fee.
             </p>
           </div>
           <div className="timeline-step">
@@ -67,9 +65,9 @@ export default function Process() {
             <p className="timeline-step-label">Your Plan, Your Way</p>
             <h3 className="timeline-step-title">Handover</h3>
             <p className="timeline-step-desc">
-              You own the architecture. You leave with a plan you can hand to
-              anyone — your own team, a developer, or to us. What we do next
-              is something we talk through together on the call.
+              You own the architecture. Your team or a recommended partner
+              builds it, and Temitope can oversee the build so it lands the
+              way it was designed.
             </p>
           </div>
         </div>

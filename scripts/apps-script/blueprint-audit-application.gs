@@ -27,7 +27,7 @@
  */
 
 var SHEET_ID = 'PASTE_YOUR_SHEET_ID_HERE';
-var SHEET_NAME = 'Blueprint Audit Applications';
+var SHEET_NAME = 'Blueprint Quiz Responses';
 
 // One email address per editor who should be alerted on every submission.
 var NOTIFY_EMAILS = ['ts@temitopesaliu.com'];
@@ -35,24 +35,31 @@ var NOTIFY_EMAILS = ['ts@temitopesaliu.com'];
 // [payload key from the submit route, sheet header label]
 var COLUMNS = [
   ['submittedAt', 'Submitted (UTC)'],
+  ['route', 'Route'],
+  ['bestFit', 'Best fit shown'],
   ['firstName', 'First name'],
-  ['lastName', 'Last name'],
   ['email', 'Email'],
-  ['businessName', 'Business'],
+  ['companyName', 'Company'],
   ['website', 'Website'],
-  ['businessType', 'Business type'],
-  ['industry', 'Industry'],
-  ['teamSize', 'Team size'],
   ['businessDesc', 'What the business does'],
-  ['biggestPain', 'Biggest pain point'],
-  ['bottleneck', 'Where the business stops when they stop'],
-  ['systematize', 'Areas to systematize'],
-  ['currentTools', 'Current tools'],
-  ['implementationBudget', 'Implementation budget'],
-  ['timeline', 'Timeline'],
-  ['howHeard', 'How they found us'],
-  ['additionalContext', 'Anything else'],
-  ['contactPref', 'Preferred contact']
+  ['teamSize', 'Team size'],
+  ['revenue', 'Annual revenue'],
+  ['automate', 'Wants to automate'],
+  ['tools', 'Running on today'],
+  ['dataLives', 'Where data lives'],
+  ['dataOwner', 'Who owns the data'],
+  ['timeGoes', 'Where time goes'],
+  ['manualHours', 'Manual hours per week'],
+  ['lookingFor', 'Looking for'],
+  ['investment', 'Investment answer'],
+  ['techLevel', 'How technical'],
+  ['security', 'Security needs'],
+  ['matters', 'What matters most'],
+  ['timeline', 'When to start'],
+  ['decider', 'Final decision maker'],
+  ['whoDoesWhat', 'Who does what today'],
+  ['breaksDown', 'Where it breaks down'],
+  ['anythingElse', 'Anything else']
 ];
 
 function doPost(e) {
@@ -144,7 +151,7 @@ function appendRow_(data) {
 /** Emails every address in NOTIFY_EMAILS with the full submission. */
 function sendNotification_(data) {
   var name = ((data.firstName || '') + ' ' + (data.lastName || '')).trim() || 'Someone';
-  var subject = 'Blueprint audit application - ' + name;
+  var subject = 'Blueprint quiz: ' + name + (data.companyName ? ', ' + data.companyName : '') + (data.bestFit ? ' (' + data.bestFit + ')' : '');
 
   var rows = COLUMNS.map(function (c) {
     var v = data[c[0]] == null ? '' : String(data[c[0]]);
@@ -159,7 +166,7 @@ function sendNotification_(data) {
   }).join('');
 
   var html = '<div style="max-width:640px;margin:0 auto;padding:28px 24px;font-family:sans-serif">' +
-    '<p style="margin:0 0 4px;font:600 11px/1 sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6a5acd">New application</p>' +
+    '<p style="margin:0 0 4px;font:600 11px/1 sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6a5acd">New Blueprint quiz response</p>' +
     '<h2 style="margin:0 0 6px;font:600 22px/1.25 Georgia,serif;color:#191826">' + escape_(name) + '</h2>' +
     '<p style="margin:0 0 22px;font:400 14px/1.5 sans-serif;color:#6a6a7a">' + escape_(data.email || '') + '</p>' +
     '<table style="width:100%;border-collapse:collapse">' + rows + '</table>' +

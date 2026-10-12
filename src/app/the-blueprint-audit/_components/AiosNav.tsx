@@ -33,7 +33,7 @@ export default function AiosNav({
 
           {variant === "landing" && (
             <div className="nav-links">
-              <Link href="/the-blueprint-audit/apply" className="nav-link">Apply</Link>
+              <Link href="/the-blueprint-audit/apply" className="nav-link">Blueprint</Link>
               <Link href="/demos" className="nav-link">Sample</Link>
               <Link href="/the-blueprint-audit#how-it-works" className="nav-link">Process</Link>
               <Link href="/the-blueprint-audit#about" className="nav-link">About</Link>
@@ -71,12 +71,12 @@ export default function AiosNav({
 
       {variant === "landing" && (
         <div className="nav-mobile-menu" role="navigation" aria-label="Mobile menu">
-          <Link href="/the-blueprint-audit/apply" className="nav-mobile-link">Apply</Link>
+          <Link href="/the-blueprint-audit/apply" className="nav-mobile-link">Blueprint</Link>
           <Link href="/demos" className="nav-mobile-link">Sample</Link>
           <Link href="/the-blueprint-audit#how-it-works" className="nav-mobile-link">Process</Link>
           <Link href="/the-blueprint-audit#about" className="nav-mobile-link">About</Link>
           <Link href="/the-blueprint-audit#faq" className="nav-mobile-link">FAQs</Link>
-          <Link href="/the-blueprint-audit/apply" className="btn btn-primary mt-2">Apply for Audit →</Link>
+          <Link href="/the-blueprint-audit/apply" className="btn btn-primary mt-2">Get My Blueprint →</Link>
         </div>
       )}
 
@@ -84,21 +84,21 @@ export default function AiosNav({
         <div className="nav-mobile-menu" role="navigation" aria-label="Mobile menu">
           <Link href="/the-blueprint-audit#how-it-works" className="nav-mobile-link">How It Works</Link>
           <Link href="/the-blueprint-audit#faq" className="nav-mobile-link">FAQ</Link>
-          <Link href="/the-blueprint-audit/apply" className="btn btn-primary mt-2">Apply for Audit →</Link>
+          <Link href="/the-blueprint-audit/apply" className="btn btn-primary mt-2">Get My Blueprint →</Link>
         </div>
       )}
 
       {variant === "landing" && (
         <div className="sticky-cta-bar" role="complementary">
           <span className="sticky-cta-text">Ready to stop babysitting your business?</span>
-          <Link href="/the-blueprint-audit/apply" className="btn btn-primary btn-sm btn-arrow">Apply for Audit</Link>
+          <Link href="/the-blueprint-audit/apply" className="btn btn-primary btn-sm btn-arrow">Get My Blueprint</Link>
         </div>
       )}
 
       {variant === "blueprint" && (
         <div className="sticky-cta-bar" role="complementary">
-          <span className="sticky-cta-text">AI Operating System Audit — $1,000</span>
-          <Link href="/the-blueprint-audit/apply" className="btn btn-primary btn-sm btn-arrow">Apply Now</Link>
+          <span className="sticky-cta-text">Free AI Blueprint · Sessions from $500</span>
+          <Link href="/the-blueprint-audit/apply" className="btn btn-primary btn-sm btn-arrow">Get My Blueprint</Link>
         </div>
       )}
     </>

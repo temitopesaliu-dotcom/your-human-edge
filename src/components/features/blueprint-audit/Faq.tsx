@@ -19,16 +19,16 @@ export default function Faq() {
 
             {[
               {
-                q: "Why is the Audit paid?",
-                a: "Because it is not a sales call—it is a consulting engagement. In 90 minutes we produce a strategic document that has genuine value on its own: a workflow map, an AI architecture, a priority sequence and a costed estimate. That takes real preparation and expertise. Paying for it also means you arrive prepared and serious, and clients with skin in the game get better outcomes.",
+                q: "Why is the session paid?",
+                a: "Because it is not a sales call. It is two hours of consulting on your real business: a roadmap in priority order, a recommended tool stack, your first system designed, and a clear answer on who should build it and what it should cost. Paying for it also means you arrive prepared, and clients with skin in the game get better outcomes.",
               },
               {
                 q: "How is my price decided?",
-                a: "By what your business actually needs. We read your application, work out the architecture your operation requires, and price the engagement to that scope. Mapping two workflows for a solo consultant is a different job to mapping a twenty-person service business. Audits run from $1,000 to $5,000+, and you receive your exact figure in writing with your acceptance—before you are asked to pay anything.",
+                a: "By the size of your business. Founder-led businesses with up to 20 people book the AI Strategy Session at $500. Companies with 21 or more people, or $2M+ in revenue, book the Leadership session at $1,500, which covers you and up to three of your leaders. The free Blueprint quiz shows you which one fits before you pay anything.",
               },
               {
-                q: "What happens after I get the Audit?",
-                a: "It is yours to act on however you want. You leave with a complete architecture and a defined plan you can take forward with your own team, or with us — we know the specification best because we wrote it. The document is yours either way, with no obligation.",
+                q: "What happens after the session?",
+                a: "You leave with a summary document of your next steps, yours to act on however you want. If you want the full design, the Full Solutions Architecture starts at $2,500 and your session fee comes off it if you continue within 30 days. Your team or a recommended partner builds it, and Temitope can oversee the build.",
               },
               {
                 q: "What exactly do I walk away with?",
@@ -58,8 +58,8 @@ export default function Faq() {
 
             {[
               {
-                q: "How long does the Audit take?",
-                a: "The Audit Session runs 90 minutes. Your written Audit document is delivered within 7 business days. From there, the timeline for taking your architecture forward depends on scope and how you choose to action it — your Audit sets out the sequence and the dependencies so everything is defined in advance.",
+                q: "How long does it take?",
+                a: "The Blueprint quiz takes about three minutes. The session runs two hours. If you continue, your Full Solutions Architecture is delivered within 7 business days of the session. From there, the build timeline depends on scope, and the architecture sets out the sequence and dependencies in advance.",
               },
               {
                 q: "What tools and software do you work with?",
@@ -67,15 +67,15 @@ export default function Faq() {
               },
               {
                 q: "Can you integrate with my existing tech stack?",
-                a: "Almost always, yes. We assess your current tools during the Audit and design around them wherever possible. We only recommend replacements when a tool is genuinely creating more friction than value. We do not push specific platforms.",
+                a: "Almost always, yes. We assess your current tools during the session and design around them wherever possible. We only recommend replacements when a tool is genuinely creating more friction than value. We do not push specific platforms.",
               },
               {
                 q: "Do you work with international clients?",
                 a: "Yes. All engagements are conducted remotely via video. We work with clients across North America, Europe, Africa, the Middle East and Asia-Pacific. Sessions are scheduled to accommodate your timezone.",
               },
               {
-                q: "How much does the Audit cost?",
-                a: "Audits run from $1,000 to $5,000+ depending on how much of your operation the architecture has to cover. What the Audit gives you is a costed estimate for your specific architecture — so you walk into any next conversation with a defined scope and a realistic number, instead of asking someone to price something nobody has specified yet. That estimate is one of the more valuable pages in the document.",
+                q: "How much does it cost?",
+                a: "The Blueprint quiz is free. The AI Strategy Session is $500 for founder-led businesses and $1,500 for leadership teams. The Full Solutions Architecture starts at $2,500, less your session fee if you continue within 30 days.",
               },
             ].map((faq, i) => (
               <div className="faq-item" key={i}>

@@ -59,8 +59,8 @@ export default function SocialProof() {
               label: "Of support queries resolved by AI",
             },
             {
-              number: "48hrs",
-              label: "Application to decision",
+              number: "3 min",
+              label: "To your first blueprint",
             },
           ].map((m, i) => (
             <div className="metric-item" key={i}>
