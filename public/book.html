@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book Your Audit Call — Temitope Saliu</title>
-<meta name="description" content="Pick your time for the Blueprint Audit. Two focused hours on your business.">
+<title>Book Your Strategy Session | Temitope Saliu</title>
+<meta name="description" content="Pick your time for your AI strategy session. Two focused hours on your business.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,16 +169,15 @@
 
 <main>
   <section class="wrap hero" id="hero">
-    <div class="eyebrow">Step 1 of 2</div>
+    <div class="eyebrow">Last step</div>
     <h1>Pick your time.</h1>
     <p class="lede">
-      Two focused hours on your business. <strong>Claim your slot first</strong> &mdash; then I'll ask you
-      a few questions about the business so I can build the architecture before we speak.
+      Two focused hours on your business. Your quiz answers are already with me, so
+      <strong>all that's left is picking a time</strong>.
     </p>
     <div class="steps">
       <span class="pill done">Paid</span>
-      <span class="pill now">Book your call</span>
-      <span class="pill next">Your business details</span>
+      <span class="pill now">Book your session</span>
     </div>
   </section>
 
@@ -194,19 +193,19 @@
         <p class="cal-sub">Calendly can take a few seconds. Nothing is broken.</p>
       </div>
       <div id="calendly-inline"
-           data-url="https://calendly.com/temitope-saliu/1-1-with-temitope?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
+           data-url="https://calendly.com/temitope-saliu/blueprint-bfy-audit?hide_gdpr_banner=1&background_color=ffffff&text_color=211c34&primary_color=4b3f96"></div>
     </div>
     <div class="afterbar">
       <div>
         <div class="ab-t">Already picked your time?</div>
         <div class="ab-d">If this page doesn't move on by itself, carry on here.</div>
       </div>
-      <a class="ghost-btn" href="/your-business">Your business details &rarr;</a>
+      <a class="ghost-btn" href="/youre-ready">I've booked &rarr;</a>
     </div>
     <p class="fallback">
       Calendar not loading? Book directly at
-      <a href="https://calendly.com/temitope-saliu/1-1-with-temitope" target="_blank" rel="noopener">calendly.com/temitope-saliu/1-1-with-temitope</a>,
-      then come back to <a href="/your-business">temitopesaliu.com/your-business</a>.
+      <a href="https://calendly.com/temitope-saliu/blueprint-bfy-audit" target="_blank" rel="noopener">calendly.com/temitope-saliu/blueprint-bfy-audit</a>,
+      then you're all set.
     </p>
   </section>
 
@@ -219,9 +218,8 @@
     <div class="eyebrow">Booked</div>
     <h2>Your call is in the diary.</h2>
     <p>The calendar invite and Zoom link are on their way to your inbox.</p>
-    <p><strong>One last thing</strong> — the questions about your business. It's what I build the session around.</p>
-    <a class="cta-btn" href="/your-business">Continue to your business details &rarr;</a>
-    <p class="autonote">Or wait &mdash; this page moves on by itself in <span id="countdown">20</span> seconds.</p>
+    <a class="cta-btn" href="/youre-ready">See what happens next &rarr;</a>
+    <p class="autonote">Or wait, this page moves on by itself in <span id="countdown">8</span> seconds.</p>
   </section>
 </main>
 
@@ -235,7 +233,7 @@
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
 (function () {
-  var NEXT = '/your-business';
+  var NEXT = '/youre-ready';
   var redirected = false;
 
   function goNext() {
@@ -244,7 +242,6 @@
     if (window.gtag) {
       gtag('event', 'audit_call_booked', {
         page_path: window.location.pathname,
-        value: 1000,
         currency: 'USD'
       });
     }
@@ -259,7 +256,7 @@
     // Long enough to actually read the confirmation. The Continue button is
     // right there for anyone who does not want to wait, and the countdown makes
     // it obvious the page is going to move rather than feeling like a glitch.
-    var left = 20;
+    var left = 8;
     var el = document.getElementById('countdown');
     var tick = setInterval(function () {
       left -= 1;
@@ -288,7 +285,14 @@
     if (box.querySelector('iframe')) { initialised = true; return; }
     if (window.Calendly && typeof window.Calendly.initInlineWidget === 'function') {
       initialised = true;
-      window.Calendly.initInlineWidget({ url: box.getAttribute('data-url'), parentElement: box });
+      // Prefill name and email from the quiz so the buyer does not retype them.
+      var url = box.getAttribute('data-url');
+      try {
+        var c = JSON.parse(localStorage.getItem('yhe_bq_contact') || 'null');
+        if (c && c.name) url += '&name=' + encodeURIComponent(c.name);
+        if (c && c.email) url += '&email=' + encodeURIComponent(c.email);
+      } catch (e) {}
+      window.Calendly.initInlineWidget({ url: url, parentElement: box });
       return;
     }
     if (++tries < 60) setTimeout(ensureWidget, 150);
@@ -321,7 +325,7 @@
         '<p style="font-family:Inter,sans-serif;font-size:15.5px;color:#524b6b;margin-bottom:14px">' +
         'The calendar could not load in this browser.</p>' +
         '<a class="cta-btn" style="text-decoration:none" target="_blank" rel="noopener" ' +
-        'href="https://calendly.com/temitope-saliu/1-1-with-temitope">Open the booking page &rarr;</a>';
+        'href="https://calendly.com/temitope-saliu/blueprint-bfy-audit">Open the booking page &rarr;</a>';
     }
   }, 12000);
 })();
