@@ -163,7 +163,8 @@ export const TIMEGO_PHRASE: Record<string, string> = {
   "Not sure, that's why I'm here": "work you can't see clearly yet",
 };
 
-const lc = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+// Lowercase the first letter for mid-sentence use, but leave acronyms ("AI strategy", "CRM") alone.
+const lc = (s: string) => (/^[A-Z]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1));
 export const listJoin = (a: string[]) => (a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]);
 
 export interface ResultModel {
