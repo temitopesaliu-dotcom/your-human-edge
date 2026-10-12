@@ -26,24 +26,20 @@ export default function Blueprint() {
               What the Audit covers.
             </h3>
             <p className="body-md mb-4">
-              In 90 minutes, we map your entire business operation, identify
-              every AI opportunity, and design an architecture that fits the
-              way you actually work — not a generic template.
+              In two hours, we map your business, identify the AI opportunities
+              that matter, and design your first system around the way you
+              actually work. Not a generic template.
             </p>
 
             <p className="label mb-3">What you receive</p>
             <div className="deliverables-list">
               {[
-                "90-minute strategy session",
-                "Business workflow mapping",
-                "AI opportunity assessment",
-                "Technology recommendations",
-                "Automation architecture design",
-                "Priority sequence",
-                "Priority matrix",
-                "Investment estimate",
-                "ROI opportunity map",
-                "Written Audit document",
+                "2-hour strategy session with Temitope",
+                "A clear AI roadmap in priority order",
+                "A recommended tool stack",
+                "Your first system designed step by step",
+                "Who should build it and what it should cost",
+                "Summary document of your next steps",
               ].map((item, i) => (
                 <div className="deliverable-item" key={i}>
                   <svg viewBox="0 0 16 16" fill="none">
@@ -57,25 +53,24 @@ export default function Blueprint() {
 
             <div className="blueprint-why mt-5">
               <p className="blueprint-why-title">
-              Why does the price vary
+              Why two prices
               </p>
-              <p className="blueprint-why-text">Because every business arrives with a different problem.
-                We read your application, work out the architecture your operation actually needs, and price the engagement to that.
-                Mapping two workflows for a solo consultant is not the same job as mapping a twenty-person service business.
-                Audits run from $1,000 to $5,000+, and you get your exact figure in writing before you are asked to pay anything.</p>
+              <p className="blueprint-why-text">Founder-led businesses with up to 20 people book the AI Strategy Session at $500.
+                Companies with 21 or more people, or $2M+ in revenue, book the Leadership session at $1,500, for you and up to three of your leaders.
+                The Blueprint quiz tells you which one fits before you pay anything.</p>
             </div>
           </div>
 
           <div className="blueprint-pricing-card fade-up delay-2">
-            <p className="label mb-4">Business Operating System Audit</p>
+            <p className="label mb-4">AI Strategy Session</p>
             <div className="price-row" style={{ marginBottom: "var(--space-3)" }}>
               <p className="price-prefix">From</p>
               <div>
                 <span className="price-currency">$</span>
-                <span className="price-amount">1,000</span>
+                <span className="price-amount">500</span>
               </div>
             </div>
-            <p className="body-sm mb-4">Scoped to your business. $1,000 to $5,000+ depending on how much of your operation the architecture has to cover.</p>
+            <p className="body-sm mb-4">$500 for founder-led businesses. $1,500 for leadership teams. Comes off your Full Solutions Architecture if you continue within 30 days.</p>
 
             <div
               style={{
@@ -85,10 +80,10 @@ export default function Blueprint() {
               }}
             >
               {[
-                "90-minute consulting session",
-                "Written Audit document",
-                "Full priority sequence",
-                "Delivered within 7 business days",
+                "2 hours, one-to-one",
+                "Summary document of next steps",
+                "Your first system designed",
+                "Pay, then pick your time",
               ].map((item, i) => (
                 <div className="deliverable-item mb-2" key={i}>
                   <svg viewBox="0 0 16 16" fill="none">
@@ -107,7 +102,7 @@ export default function Blueprint() {
               className="btn btn-primary btn-lg btn-arrow"
               style={{ width: "100%", justifyContent: "center" }}
             >
-              Apply to Book Your Audit
+              Get My Blueprint
             </Link>
 
             <p
@@ -118,9 +113,9 @@ export default function Blueprint() {
                 marginTop: "var(--space-3)",
               }}
             >
-              Applications reviewed within 48 hours.
+              Free. About three minutes.
               <br />
-              Not all applications are accepted.
+              Your best next step is shown on the spot.
             </p>
           </div>
         </div>

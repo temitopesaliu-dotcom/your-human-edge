@@ -20,10 +20,10 @@ export default function FinalCta() {
           href="#blueprint"
           className="btn btn-primary btn-lg btn-arrow"
         >
-          Apply for Your Audit
+          Get My Blueprint
         </Link>
         <p className="final-cta-note">
-        From $1,000 · No payment until you have your price · Applications reviewed within 48 hours
+        Free blueprint in three minutes · Sessions from $500
         </p>
       </div>
     </section>

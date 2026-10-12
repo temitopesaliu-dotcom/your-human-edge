@@ -19,6 +19,11 @@ export interface BlueprintApplyRequest {
   contactPref: string;
 }
 
+/** Every answer from the Blueprint quiz, flattened to strings for the sheet. */
+export type BlueprintQuizRequest = Record<string, string>;
+
+export type BlueprintQuizResponse = { ok: true } | { error: string };
+
 export type BlueprintApplyResponse = { ok: true } | { error: string };
 
 export interface BlueprintCreateCheckoutRequest {

@@ -130,7 +130,9 @@ async function notifyMailerLite(
 }
 
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session): Promise<void> {
-  if (session.payment_status !== 'paid') return;
+  // 'no_payment_required' is a 100%-off promotion code (team test codes):
+  // nothing was charged, but the buyer still needs fulfilment and emails.
+  if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') return;
 
   // NOTE: payment_method_types is restricted to ['card'] in
   // create-checkout to prevent async payment methods (bank transfer, etc.)
