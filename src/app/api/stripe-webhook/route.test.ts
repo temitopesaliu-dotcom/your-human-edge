@@ -16,6 +16,7 @@ vi.mock("@/lib/services/mailer", () => ({
   addIntelligenceLayerPaidSubscriber: vi.fn(),
   addBusinessArchitectBuyerToMailerLite: vi.fn(),
   addIntelligenceLayerCourseBuyerToMailerLite: vi.fn(),
+  addBlueprintAuditPriorityBuyerToMailerLite: vi.fn(),
 }));
 
 import { getSession, setSession } from "@/lib/services/kv";
@@ -25,6 +26,7 @@ import {
   addIntelligenceLayerPaidSubscriber,
   addBusinessArchitectBuyerToMailerLite,
   addIntelligenceLayerCourseBuyerToMailerLite,
+  addBlueprintAuditPriorityBuyerToMailerLite,
 } from "@/lib/services/mailer";
 import { POST } from "./route";
 
@@ -246,5 +248,40 @@ describe("POST /api/stripe-webhook", () => {
     await POST(makeRequest());
 
     expect(addBuyerToMailerLite).not.toHaveBeenCalled();
+  });
+
+  describe("second Stripe account (Glide)", () => {
+    function signedOnlyByGlide(event: unknown) {
+      constructEvent.mockImplementation((_body: string, _sig: string, secret: string) => {
+        if (secret === "whsec_glide") return event;
+        throw new Error("bad signature");
+      });
+    }
+
+    beforeEach(() => {
+      process.env = { ...ORIGINAL_ENV, STRIPE_WEBHOOK_SECRET: "whsec_test", STRIPE_WEBHOOK_SECRET_GLIDE: "whsec_glide" };
+      vi.mocked(addBlueprintAuditPriorityBuyerToMailerLite).mockClear();
+    });
+
+    it("fulfils blueprint-audit sessions signed by the Glide secret", async () => {
+      signedOnlyByGlide(checkoutCompletedEvent({ metadata: { product: "blueprint-audit" } }));
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      expect(addBlueprintAuditPriorityBuyerToMailerLite).toHaveBeenCalledTimes(1);
+    });
+
+    it("ignores untagged Glide sessions so they never fall through to playbook", async () => {
+      signedOnlyByGlide(checkoutCompletedEvent({ metadata: {} }));
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      expect(addBuyerToMailerLite).not.toHaveBeenCalled();
+      expect(setSession).not.toHaveBeenCalled();
+    });
+
+    it("still rejects a signature neither secret accepts", async () => {
+      constructEvent.mockImplementation(() => { throw new Error("bad signature"); });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(400);
+    });
   });
 });
