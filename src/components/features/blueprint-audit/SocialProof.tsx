@@ -13,22 +13,12 @@ export default function SocialProof() {
           </h2>
         </div>
 
-        <div className="testimonials-grid">
+        <div className="testimonials-grid" style={{ gridTemplateColumns: "minmax(0, 720px)", justifyContent: "center" }}>
           {[
             {
-              text: "For the first time i have a full visual representation of a full operating system for my business in one place.",
-              name: "Sarah M.",
-              role: "Executive Coach, 1:1 Practice",
-            },
-            {
-              text: "You get so used to carrying a burden, you almost forget you're carrying one until Temi built my operating system and the weight fell right off. We now have so much time to do so many other things we've always wanted to do.",
-              name: "James O.",
-              role: "Strategy Consultant",
-            },
-            {
               text: "The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale.",
-              name: "Priya K.",
-              role: "Founder, 12-person agency",
+              name: "Olori",
+              role: "Founder of a training institute, trade and export expert",
             },
           ].map((t, i) => (
             <div
@@ -52,16 +42,10 @@ export default function SocialProof() {
 
         <div className="metrics-strip fade-up delay-1">
           {[
-            { number: "8hrs", label: "Avg. weekly time recovered" },
-            { number: "72hrs", label: "Avg. onboarding time → 20 min" },
-            {
-              number: "80%",
-              label: "Of support queries resolved by AI",
-            },
-            {
-              number: "3 min",
-              label: "To your first blueprint",
-            },
+            { number: "3 min", label: "Your free AI blueprint" },
+            { number: "2 hrs", label: "Strategy session with Temitope" },
+            { number: "7 days", label: "Full solutions architecture delivered" },
+            { number: "30 days", label: "To put your session fee toward the architecture" },
           ].map((m, i) => (
             <div className="metric-item" key={i}>
               <div className="metric-number">{m.number}</div>

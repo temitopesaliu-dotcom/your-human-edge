@@ -32,7 +32,7 @@ export default function Hero() {
             Get My Blueprint
           </Link>
           <a href="/demos" className="btn btn-ghost btn-arrow">
-            See sample solutions
+            See what you&apos;d get
           </a>
         </div>
       </div>

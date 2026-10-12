@@ -21,9 +21,9 @@ function DemoCard({ demo }: { demo: Demo }) {
 }
 
 export const metadata = {
-  title: "Sample Solutions — AI Operating System",
+  title: "Sample Builds | AI Operating System",
   description:
-    "Working demos of AI Operating Systems built for real businesses. See what a system built around your workflow looks like in practice.",
+    "Sample AI Operating Systems for five kinds of business. See what an architecture from the Blueprint Audit looks like before you book.",
 };
 
 export default function DemosPage() {
@@ -49,14 +49,14 @@ export default function DemosPage() {
         <span className={styles.label}>Sample Solutions</span>
         <h1>What a system built for you looks like.</h1>
         <p className={styles.subhead}>
-          Every system below was built around how a specific business actually
-          runs. Open one — see what a Business Operating System with AI looks like in
-          practice.
+          Five sample builds, each designed around how that kind of business
+          runs. Open one to see the level of detail your own architecture
+          gets.
         </p>
         <span className={styles.demoNotice}>
           <span>
-            These are example builds. <strong>Every product you see is a
-            demo</strong> — built to show you what&apos;s possible.
+            These are sample builds for fictional businesses. <strong>None
+            of them is client work</strong>. They show what&apos;s possible.
           </span>
         </span>
       </header>
@@ -75,12 +75,12 @@ export default function DemosPage() {
         <div className={styles.ctaText}>
           <h2>Want one built for your business?</h2>
           <p>
-            Everything here is a demo. Your version gets built around your
-            exact workflow, audience, and goals.
+            Start with your free blueprint. It takes about three minutes and
+            shows where AI fits in your business.
           </p>
         </div>
         <Link href="/the-blueprint-audit/apply" className={styles.ctaBtn}>
-          Apply for the Audit →
+          Get My Blueprint →
         </Link>
       </div>
     </div>
