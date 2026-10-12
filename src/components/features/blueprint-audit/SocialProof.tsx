@@ -13,22 +13,12 @@ export default function SocialProof() {
           </h2>
         </div>
 
-        <div className="testimonials-grid">
+        <div className="testimonials-grid" style={{ gridTemplateColumns: "minmax(0, 720px)", justifyContent: "center" }}>
           {[
             {
               text: "The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale.",
               name: "Olori",
               role: "Founder of a training institute, trade and export expert",
-            },
-            {
-              text: "For the first time i have a full visual representation of a full operating system for my business in one place.",
-              name: "Sarah M.",
-              role: "Executive Coach, 1:1 Practice",
-            },
-            {
-              text: "You get so used to carrying a burden, you almost forget you're carrying one until Temi built my operating system and the weight fell right off. We now have so much time to do so many other things we've always wanted to do.",
-              name: "James O.",
-              role: "Strategy Consultant",
             },
           ].map((t, i) => (
             <div
