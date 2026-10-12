@@ -14,8 +14,8 @@
  */
 
 export const LINKS = {
-  founderSession: "https://buy.stripe.com/4gMaEWbl87JddnL88R6J20g",
-  leadershipSession: "https://buy.stripe.com/4gM9AS3SG8NhgzX4WF6J20h",
+  founderSession: "https://buy.stripe.com/28EaEY8RNb3y9k706f3oA0O",
+  leadershipSession: "https://buy.stripe.com/14A3cwc3ZdbG53R6uD3oA0P",
   intensive: "https://buy.stripe.com/bJe00k1plb3y1RF4mv3oA0N",
   samples: "/demos",
 } as const;
