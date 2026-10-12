@@ -86,7 +86,7 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           </button>
 
           <p className="lcp-label">Live Online Training</p>
-          <h2 className="lcp-title">Your Intelligence Framework + AI</h2>
+          <h2 className="lcp-title">Your Expert Framework + AI</h2>
 
           <p className="lcp-date-line">Next cohort — October 31, 2026 · 2pm London GMT.</p>
 
