@@ -42,16 +42,10 @@ export default function SocialProof() {
 
         <div className="metrics-strip fade-up delay-1">
           {[
-            { number: "8hrs", label: "Avg. weekly time recovered" },
-            { number: "72hrs", label: "Avg. onboarding time → 20 min" },
-            {
-              number: "80%",
-              label: "Of support queries resolved by AI",
-            },
-            {
-              number: "3 min",
-              label: "To your first blueprint",
-            },
+            { number: "3 min", label: "Your free AI blueprint" },
+            { number: "2 hrs", label: "Strategy session with Temitope" },
+            { number: "7 days", label: "Full solutions architecture delivered" },
+            { number: "30 days", label: "To put your session fee toward the architecture" },
           ].map((m, i) => (
             <div className="metric-item" key={i}>
               <div className="metric-number">{m.number}</div>
