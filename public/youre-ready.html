@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>You're Ready — Temitope Saliu</title>
-<meta name="description" content="Your business details are in. Here's exactly what happens next.">
+<title>You're Ready | Temitope Saliu</title>
+<meta name="description" content="Your session is booked. Here's exactly what happens next.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,7 +160,7 @@
   <div class="wrap navrow">
     <a class="brand" href="https://temitopesaliu.com">Temitope Saliu</a>
     <nav class="navlinks">
-      <a href="/for-lifecoaches">See a Demo</a>
+      <a href="/demos">Sample builds</a>
       <a href="https://temitopesaliu.com">Home</a>
     </nav>
   </div>
@@ -177,7 +177,7 @@
     <div class="eyebrow">Complete</div>
     <h1 id="headline">You're ready.</h1>
     <p class="lede">
-      Your business details are in and have been received. Your call is booked.
+      Your quiz answers are in and your session is booked.
       Nothing else is needed from you right now.
     </p>
 
@@ -189,13 +189,13 @@
     <div class="card bring">
       <h3>Bring anything you think will help</h3>
       <p>
-        You don't need to prepare a thing &mdash; but if something would show me how you actually
+        You don't need to prepare a thing, but if something would show me how you actually
         work, bring it. The more real material I can see, the further we get in the session.
       </p>
       <ul>
-        <li>Numbers you didn't want to type into a form &mdash; revenue, conversion, list size, ad spend</li>
+        <li>Numbers you didn't want to type into a form: revenue, conversion, list size, ad spend</li>
         <li>A sales page, funnel, or offer you're not happy with</li>
-        <li>Screenshots of the messy bit &mdash; the DMs, the spreadsheet, the inbox</li>
+        <li>Screenshots of the messy bit: the DMs, the spreadsheet, the inbox</li>
         <li>Something half-built that stalled</li>
         <li>A question you've been carrying that doesn't fit anywhere else</li>
       </ul>
@@ -209,13 +209,13 @@
       <h3>Two things worth doing today</h3>
       <ul>
         <li><strong>Whitelist my address.</strong> Add <a href="mailto:ts@temitopesaliu.com">ts@temitopesaliu.com</a> to your contacts so nothing from me lands in spam.</li>
-        <li><strong>Look at the demo again.</strong> Seeing a finished build tends to sharpen what you want from yours &mdash; and the sharper you are, the more we get through.</li>
+        <li><strong>Look at the sample builds.</strong> Seeing a finished architecture tends to sharpen what you want from yours, and the sharper you are, the more we get through.</li>
         <li><strong>Check the invite is in your calendar.</strong> If it isn't there, reschedule from the Calendly email rather than assuming it saved.</li>
       </ul>
     </div>
 
     <div class="btnrow">
-      <a class="cta-btn" href="/for-lifecoaches" data-track="see-demo">See a finished build &rarr;</a>
+      <a class="cta-btn" href="/demos" data-track="see-demo">See the sample builds &rarr;</a>
       <a class="ghost-btn" href="https://temitopesaliu.com">Back to the site</a>
     </div>
 
@@ -237,6 +237,9 @@
 (function () {
   var payload = null;
   try { payload = JSON.parse(sessionStorage.getItem('yhe_yb_done') || 'null'); } catch (e) {}
+  if (!payload) {
+    try { payload = JSON.parse(localStorage.getItem('yhe_bq_contact') || 'null'); } catch (e4) {}
+  }
 
   if (payload && payload.name) {
     var first = String(payload.name).trim().split(/\s+/)[0];
@@ -254,7 +257,7 @@
   try { already = sessionStorage.getItem(FIRED) === '1'; } catch (e2) {}
   if (!already && window.gtag) {
     gtag('event', 'application_complete', {
-      form_id: 'your-business',
+      form_id: 'blueprint-session',
       page_path: window.location.pathname
     });
     try { sessionStorage.setItem(FIRED, '1'); } catch (e3) {}
