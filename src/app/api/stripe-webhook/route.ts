@@ -221,14 +221,34 @@ export async function POST(req: NextRequest) {
   }
 
   const rawBody = await req.text();
-  const verified = verifyWebhookSignature(rawBody, signature, webhookSecret);
+  let verified = verifyWebhookSignature(rawBody, signature, webhookSecret);
+
+  // The Blueprint strategy-session payment links live on the separate "Glide"
+  // Stripe account, which signs with its own secret. That account also sells
+  // unrelated products, and normalizeProduct() falls back to 'playbook', so
+  // events from it are only acted on when they are explicitly tagged
+  // blueprint-audit. Everything else from that account is acknowledged and ignored.
+  let secondaryAccount = false;
+  const glideSecret = process.env.STRIPE_WEBHOOK_SECRET_GLIDE;
+  if (!verified.ok && glideSecret) {
+    const fromGlide = verifyWebhookSignature(rawBody, signature, glideSecret);
+    if (fromGlide.ok) {
+      verified = fromGlide;
+      secondaryAccount = true;
+    }
+  }
+
   if (!verified.ok) {
     console.error('[webhook] Signature failed:', verified.message);
     return NextResponse.json({ error: verified.message }, { status: 400 });
   }
 
   if (verified.event.type === 'checkout.session.completed') {
-    await handleCheckoutSessionCompleted(verified.event.data.object as Stripe.Checkout.Session);
+    const session = verified.event.data.object as Stripe.Checkout.Session;
+    if (secondaryAccount && session.metadata?.product !== 'blueprint-audit') {
+      return NextResponse.json({ received: true, ignored: true });
+    }
+    await handleCheckoutSessionCompleted(session);
   }
 
   return NextResponse.json({ received: true });
