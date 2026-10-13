@@ -74,6 +74,15 @@ function doPost(e) {
     return json_({ ok: false, error: 'Invalid JSON: ' + err });
   }
 
+  // Paid strategy-session buyers (sent by the Stripe webhook on the website).
+  if (data.action === 'blueprint_buyer') {
+    try {
+      return json_(recordBuyer_(data));
+    } catch (err) {
+      return json_({ ok: false, error: 'buyer: ' + err });
+    }
+  }
+
   // The route does not send a timestamp; stamp it here so every row has one.
   if (!data.submittedAt) data.submittedAt = new Date().toUTCString();
 
@@ -233,4 +242,137 @@ function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
     ContentService.MimeType.JSON
   );
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Buyer emails, sent from this Google account instead of MailerLite.  */
+/* ------------------------------------------------------------------ */
+
+var BUYERS_TAB = 'Buyers';
+var BUYER_COLUMNS = ['Paid (UTC)', 'Name', 'Email', 'Tier', 'Stripe session', 'Confirmation sent', 'Reminder sent'];
+var REMINDER_AFTER_HOURS = 48;
+var SENDER_NAME = 'Temitope Saliu';
+var REPLY_TO = 'ts@temitopesaliu.com';
+var BOOK_URL = 'https://temitopesaliu.com/book';
+
+function buyersSheet_() {
+  var ss = spreadsheet_();
+  var sh = ss.getSheetByName(BUYERS_TAB);
+  if (!sh) {
+    sh = ss.insertSheet(BUYERS_TAB);
+    sh.getRange(1, 1, 1, BUYER_COLUMNS.length).setValues([BUYER_COLUMNS]).setFontWeight('bold');
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+
+/** Logs the buyer once per Stripe session and sends the confirmation email straight away. */
+function recordBuyer_(data) {
+  var email = String(data.email || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: 'invalid email' };
+  var session = String(data.sessionId || '');
+
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var sh = buyersSheet_();
+    var last = sh.getLastRow();
+    if (session && last > 1) {
+      var sessions = sh.getRange(2, 5, last - 1, 1).getValues();
+      for (var i = 0; i < sessions.length; i++) {
+        if (sessions[i][0] === session) return { ok: true, duplicate: true };
+      }
+    }
+    var now = new Date();
+    var name = String(data.name || '').trim();
+    var row = sh.getLastRow() + 1;
+    sh.getRange(row, 1, 1, 7).setNumberFormat('@').setValues([[now.toISOString(), name, email, String(data.tier || ''), session, '', '']]);
+    sendBuyerEmail_(email, name, 'confirmation');
+    sh.getRange(row, 6).setValue(new Date().toISOString());
+    return { ok: true, row: row };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/** Runs on a schedule: sends the two-day reminder to buyers who have not had it yet. */
+function sendReminders() {
+  var sh = buyersSheet_();
+  var last = sh.getLastRow();
+  if (last < 2) return;
+  var rows = sh.getRange(2, 1, last - 1, 7).getValues();
+  var cutoff = Date.now() - REMINDER_AFTER_HOURS * 3600 * 1000;
+  for (var i = 0; i < rows.length; i++) {
+    var paid = new Date(rows[i][0]).getTime();
+    if (!paid || paid > cutoff || rows[i][6]) continue;
+    try {
+      sendBuyerEmail_(rows[i][2], rows[i][1], 'reminder');
+      sh.getRange(i + 2, 7).setValue(new Date().toISOString());
+    } catch (err) {
+      Logger.log('reminder failed for row ' + (i + 2) + ': ' + err);
+    }
+  }
+}
+
+/** Run once from the editor: installs the hourly reminder check (safe to run again). */
+function setupReminderTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'sendReminders') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('sendReminders').timeBased().everyHours(1).create();
+  buyersSheet_();
+  return 'ok';
+}
+
+function sendBuyerEmail_(email, name, kind) {
+  var first = String(name || '').trim().split(/\s+/)[0] || 'there';
+  var c = kind === 'reminder' ? reminderEmail_(first) : confirmationEmail_(first);
+  MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+}
+
+function emailShell_(inner) {
+  return '<div style="background:#f6f4fb;padding:32px 16px"><div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:14px;padding:36px 32px;font-family:Georgia,\'Times New Roman\',serif;color:#211c34;font-size:16px;line-height:1.65">' +
+    inner +
+    '<p style="margin:28px 0 0"><em>You owe it to yourself to be great,</em><br>Temitope Saliu.</p></div></div>';
+}
+
+function button_(label) {
+  return '<p style="margin:26px 0"><a href="' + BOOK_URL + '" style="background:#4b3f96;color:#ffffff;text-decoration:none;padding:14px 26px;border-radius:10px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;display:inline-block">' + label + '</a></p>';
+}
+
+function confirmationEmail_(first) {
+  var n = escape_(first);
+  return {
+    subject: "You're in. Your AI strategy session is confirmed.",
+    html: emailShell_(
+      '<p style="margin:0 0 16px">Hi ' + n + ',</p>' +
+      '<p style="margin:0 0 16px">Your payment is in and your AI strategy session is confirmed. Thank you.</p>' +
+      "<p style=\"margin:0 0 16px\">I already have your quiz answers, so we won't spend the first hour on the basics. We start where the real problem is.</p>" +
+      "<p style=\"margin:0 0 6px\"><strong>If you've already picked your time,</strong> you're done. Your calendar invite and Zoom link come from Calendly in a separate email.</p>" +
+      "<p style=\"margin:0\"><strong>If you haven't booked yet,</strong> pick your two hours here:</p>" +
+      button_('Book my session') +
+      '<p style="margin:0 0 10px"><strong>What you get</strong></p>' +
+      '<p style="margin:0 0 16px">Two focused hours with me on how AI fits your business, and a summary document of next steps afterwards. If you go ahead with the full solutions architecture within 30 days, your session fee is credited in full.</p>' +
+      '<p style="margin:0">Add ts@temitopesaliu.com to your contacts so nothing from me lands in spam. Questions before the call? Just reply to this email.</p>'),
+    text: 'Hi ' + first + ",\n\nYour payment is in and your AI strategy session is confirmed. Thank you.\n\nIf you haven't booked yet, pick your two hours here: " + BOOK_URL +
+      "\n\nYou owe it to yourself to be great,\nTemitope Saliu."
+  };
+}
+
+function reminderEmail_(first) {
+  var n = escape_(first);
+  return {
+    subject: 'Is your strategy session in the diary?',
+    html: emailShell_(
+      '<p style="margin:0 0 16px">Hi ' + n + ',</p>' +
+      "<p style=\"margin:0 0 16px\">Quick check. Your AI strategy session is paid for, and I want to make sure it's actually in your diary.</p>" +
+      '<p style="margin:0"><strong>Not booked yet?</strong> It takes a minute:</p>' +
+      button_('Pick my time') +
+      "<p style=\"margin:0 0 16px\"><strong>Already booked?</strong> Then there's nothing to do. Check the Calendly invite is in your calendar, and if it isn't, reschedule from the Calendly email rather than assuming it saved.</p>" +
+      "<p style=\"margin:0 0 16px\">You don't need to prepare anything. If you have something that shows how you really work (a spreadsheet, a messy inbox, a half-built tool, numbers you didn't want to type into a form), bring it. The more real it is, the further we get.</p>" +
+      "<p style=\"margin:0\">Reply to this email if anything's unclear.</p>"),
+    text: 'Hi ' + first + ",\n\nQuick check. Your AI strategy session is paid for. Not booked yet? Pick your time: " + BOOK_URL +
+      "\n\nAlready booked? Nothing to do.\n\nYou owe it to yourself to be great,\nTemitope Saliu."
+  };
 }
