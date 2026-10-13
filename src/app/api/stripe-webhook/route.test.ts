@@ -284,4 +284,29 @@ describe("POST /api/stripe-webhook", () => {
       expect(res.status).toBe(400);
     });
   });
+
+  describe("blueprint buyer emails via Apps Script", () => {
+    it("posts strategy-session buyers to the sheet webhook", async () => {
+      process.env = { ...ORIGINAL_ENV, STRIPE_WEBHOOK_SECRET: "whsec_test", GOOGLE_SHEETS_WEBHOOK_URL: "https://script.example/exec" };
+      const fetchMock = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(async () => new Response("{}", { status: 200 }));
+      vi.stubGlobal("fetch", fetchMock);
+      constructEvent.mockReturnValue(checkoutCompletedEvent({ metadata: { product: "blueprint-audit", tier: "founder" } }));
+      await POST(makeRequest());
+      const call = fetchMock.mock.calls.find((c) => String(c[0]) === "https://script.example/exec");
+      expect(call).toBeTruthy();
+      const body = JSON.parse(String((call as unknown as [string, RequestInit])[1].body));
+      expect(body).toMatchObject({ action: "blueprint_buyer", email: "buyer@example.com", tier: "founder", sessionId: "cs_test_123" });
+      vi.unstubAllGlobals();
+    });
+
+    it("does not post other products", async () => {
+      process.env = { ...ORIGINAL_ENV, STRIPE_WEBHOOK_SECRET: "whsec_test", GOOGLE_SHEETS_WEBHOOK_URL: "https://script.example/exec" };
+      const fetchMock = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(async () => new Response("{}", { status: 200 }));
+      vi.stubGlobal("fetch", fetchMock);
+      constructEvent.mockReturnValue(checkoutCompletedEvent({ metadata: { product: "playbook" } }));
+      await POST(makeRequest());
+      expect(fetchMock.mock.calls.some((c) => String(c[0]) === "https://script.example/exec")).toBe(false);
+      vi.unstubAllGlobals();
+    });
+  });
 });
