@@ -328,7 +328,44 @@ function setupReminderTrigger() {
 function sendBuyerEmail_(email, name, kind) {
   var first = String(name || '').trim().split(/\s+/)[0] || 'there';
   var c = kind === 'reminder' ? reminderEmail_(first) : confirmationEmail_(first);
-  MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+  try {
+    sendFromBusinessAddress_(email, c);
+  } catch (err) {
+    // Fallback so a buyer is never left without an email: plain Gmail sender.
+    Logger.log('send-as ' + REPLY_TO + ' failed, falling back to MailApp: ' + err);
+    MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+  }
+}
+
+/**
+ * Sends through the Gmail API so the From address is ts@temitopesaliu.com,
+ * the "Send mail as" alias already verified in this Gmail account.
+ * Needs the Gmail advanced service and only the gmail.send scope.
+ */
+function sendFromBusinessAddress_(to, c) {
+  var b64 = function (s) { return Utilities.base64Encode(Utilities.newBlob(s).getBytes()); };
+  var boundary = 'b_' + Utilities.getUuid();
+  var mime = [
+    'From: ' + SENDER_NAME + ' <' + REPLY_TO + '>',
+    'To: ' + to,
+    'Reply-To: ' + REPLY_TO,
+    'Subject: =?UTF-8?B?' + b64(c.subject) + '?=',
+    'MIME-Version: 1.0',
+    'Content-Type: multipart/alternative; boundary="' + boundary + '"',
+    '',
+    '--' + boundary,
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64(c.text),
+    '--' + boundary,
+    'Content-Type: text/html; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64(c.html),
+    '--' + boundary + '--'
+  ].join('\r\n');
+  Gmail.Users.Messages.send({ raw: Utilities.base64EncodeWebSafe(Utilities.newBlob(mime).getBytes()) }, 'me');
 }
 
 function emailShell_(inner) {
