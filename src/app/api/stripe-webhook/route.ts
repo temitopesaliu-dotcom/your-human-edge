@@ -160,6 +160,39 @@ async function sendBlueprintBuyerToSheet(
   }
 }
 
+/** Never throws: a failed email must not fail Stripe's webhook delivery. */
+async function sendBusinessArchitectBuyerToSheet(
+  session: Stripe.Checkout.Session,
+  email: string,
+  name: string,
+): Promise<void> {
+  const url = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  if (!url) {
+    console.warn('[webhook] GOOGLE_SHEETS_WEBHOOK_URL not set; skipping Business Architect buyer email');
+    return;
+  }
+  try {
+    const amount = session.amount_total !== null ? toMajorUnits(session.amount_total, session.currency || 'usd') : '';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'bap_buyer',
+        email,
+        name,
+        amount,
+        currency: (session.currency || '').toUpperCase(),
+        sessionId: session.id,
+      }),
+      redirect: 'follow',
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) console.error('[webhook] Business Architect buyer sheet call failed:', res.status);
+  } catch (err: unknown) {
+    console.error('[webhook] Business Architect buyer sheet call error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session): Promise<void> {
   // 'no_payment_required' is a 100%-off promotion code (team test codes):
   // nothing was charged, but the buyer still needs fulfilment and emails.
@@ -216,6 +249,13 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
   // Google Apps Script (it sends from her Gmail and logs a Buyers tab).
   if (product === 'blueprint-audit' && buyerEmail) {
     await sendBlueprintBuyerToSheet(session, buyerEmail, buyerName);
+  }
+
+  // Business Architect Programme buyers (sold through a payment link tagged
+  // 'expert-framework-intensive') get their welcome email from ts@ through the
+  // same Apps Script, which also logs them on a Business Architect Buyers tab.
+  if (product === 'expert-framework-intensive' && buyerEmail) {
+    await sendBusinessArchitectBuyerToSheet(session, buyerEmail, buyerName);
   }
 
   // Report the sale to Meta server-side, for every product, so ad attribution
