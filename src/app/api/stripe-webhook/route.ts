@@ -129,6 +129,37 @@ async function notifyMailerLite(
   }
 }
 
+/** Never throws: a failed email must not fail Stripe's webhook delivery. */
+async function sendBlueprintBuyerToSheet(
+  session: Stripe.Checkout.Session,
+  email: string,
+  name: string,
+): Promise<void> {
+  const url = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  if (!url) {
+    console.warn('[webhook] GOOGLE_SHEETS_WEBHOOK_URL not set; skipping blueprint buyer email');
+    return;
+  }
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'blueprint_buyer',
+        email,
+        name,
+        tier: session.metadata?.tier ?? '',
+        sessionId: session.id,
+      }),
+      redirect: 'follow',
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) console.error('[webhook] blueprint buyer sheet call failed:', res.status);
+  } catch (err: unknown) {
+    console.error('[webhook] blueprint buyer sheet call error:', err instanceof Error ? err.message : String(err));
+  }
+}
+
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session): Promise<void> {
   // 'no_payment_required' is a 100%-off promotion code (team test codes):
   // nothing was charged, but the buyer still needs fulfilment and emails.
@@ -179,6 +210,13 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
   });
 
   await notifyMailerLite(product, buyerEmail, buyerName, archetype, accessLink, pdfDownloadLink);
+
+  // MailerLite's free plan cannot run the buyer sequence, so strategy-session
+  // buyers also get their confirmation and two-day reminder from Temitope's
+  // Google Apps Script (it sends from her Gmail and logs a Buyers tab).
+  if (product === 'blueprint-audit' && buyerEmail) {
+    await sendBlueprintBuyerToSheet(session, buyerEmail, buyerName);
+  }
 
   // Report the sale to Meta server-side, for every product, so ad attribution
   // does not depend on per-page pixel wiring. sendMetaPurchaseEvent never
