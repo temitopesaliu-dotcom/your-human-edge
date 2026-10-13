@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/ai-operator-suite', destination: '/ai-operator-suite.html' },
-      { source: '/expert-framework-intensive', destination: '/expert-framework-intensive.html' },
+      { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
     ];
   },
   async headers() {
@@ -48,6 +48,10 @@ const nextConfig: NextConfig = {
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // The Expert Framework Intensive is now sold as The Business Architect
+      // Programme. Temporary (307) so the old link keeps working without being
+      // cached forever, and query strings (UTM tags) survive the hop.
+      { source: '/expert-framework-intensive', destination: '/the-business-architect-programme', permanent: false },
       // The free quiz moved from /intelligence-layer to the Expert Framework
       // Profile. Permanent (308), and query strings (UTM tags) survive the hop,
       // so every link already printed in emails and posts keeps working.
