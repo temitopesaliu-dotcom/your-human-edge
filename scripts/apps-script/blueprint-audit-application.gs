@@ -83,6 +83,15 @@ function doPost(e) {
     }
   }
 
+  // Business Architect Programme buyers (sent by the Stripe webhook on the website).
+  if (data.action === 'bap_buyer') {
+    try {
+      return json_(recordBapBuyer_(data));
+    } catch (err) {
+      return json_({ ok: false, error: 'bap buyer: ' + err });
+    }
+  }
+
   // The route does not send a timestamp; stamp it here so every row has one.
   if (!data.submittedAt) data.submittedAt = new Date().toUTCString();
 
@@ -440,3 +449,86 @@ function reminderEmail_(first) {
       "\n\nYou owe it to yourself to be great,\nTemitope Saliu."
   };
 }
+
+
+/* ------------------------------------------------------------------ */
+/* Business Architect Programme buyers: log + welcome email from ts@.  */
+/* ------------------------------------------------------------------ */
+
+var BAP_TAB = 'Business Architect Buyers';
+var BAP_COLUMNS = ['Paid (UTC)', 'Name', 'Email', 'Amount', 'Stripe session', 'Welcome sent'];
+
+function bapSheet_() {
+  var ss = spreadsheet_();
+  var sh = ss.getSheetByName(BAP_TAB);
+  if (!sh) {
+    sh = ss.insertSheet(BAP_TAB);
+    sh.getRange(1, 1, 1, BAP_COLUMNS.length).setValues([BAP_COLUMNS]).setFontWeight('bold');
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+
+/** Logs the buyer once per Stripe session and sends the welcome email straight away. */
+function recordBapBuyer_(data) {
+  var email = String(data.email || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: 'invalid email' };
+  var session = String(data.sessionId || '');
+
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var sh = bapSheet_();
+    var last = sh.getLastRow();
+    if (session && last > 1) {
+      var sessions = sh.getRange(2, 5, last - 1, 1).getValues();
+      for (var i = 0; i < sessions.length; i++) {
+        if (sessions[i][0] === session) return { ok: true, duplicate: true };
+      }
+    }
+    var name = String(data.name || '').trim();
+    var amount = data.amount ? String(data.amount) + (data.currency ? ' ' + data.currency : '') : '';
+    var row = sh.getLastRow() + 1;
+    sh.getRange(row, 1, 1, 6).setNumberFormat('@').setValues([[new Date().toISOString(), name, email, amount, session, '']]);
+    var first = name.split(/\s+/)[0] || 'there';
+    var c = bapWelcomeEmail_(first);
+    try {
+      sendFromBusinessAddress_(email, c);
+    } catch (err) {
+      // Fallback so a buyer is never left without an email: plain Gmail sender.
+      Logger.log('send-as ' + REPLY_TO + ' failed, falling back to MailApp: ' + err);
+      MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+    }
+    sh.getRange(row, 6).setValue(new Date().toISOString());
+    return { ok: true, row: row };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function bapWelcomeEmail_(first) {
+  var n = escape_(first);
+  return {
+    subject: "You're in: The Business Architect Programme",
+    html: emailShell_(
+      '<p style="margin:0 0 16px">Hi ' + n + ',</p>' +
+      '<p style="margin:0 0 16px">Your seat in The Business Architect Programme is confirmed. Welcome.</p>' +
+      "<p style=\"margin:0 0 16px\">Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.</p>" +
+      '<p style="margin:0 0 4px"><strong>When:</strong> Saturdays, 2pm London time, starting Saturday, November 7, 2026.</p>' +
+      '<p style="margin:0 0 16px"><strong>Where:</strong> Zoom.</p>' +
+      "<p style=\"margin:0 0 16px\">Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.</p>" +
+      '<p style="margin:0">See you on the 7th. More details will be sent to you closer to the class.</p>'),
+    text: 'Hi ' + first + ',\n\nYour seat in The Business Architect Programme is confirmed. Welcome.\n\n' +
+      "Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.\n\n" +
+      'When: Saturdays, 2pm London time, starting Saturday, November 7, 2026.\nWhere: Zoom.\n\n' +
+      "Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.\n\n" +
+      'See you on the 7th. More details will be sent to you closer to the class.\n\nYou owe it to yourself to be great,\nTemitope Saliu.'
+  };
+}
+
+/** Run from the editor to check the welcome email: sends one copy to ts@ only. */
+function testBapWelcome() {
+  sendFromBusinessAddress_(REPLY_TO, bapWelcomeEmail_('Temitope'));
+  return 'sent to ' + REPLY_TO;
+}
+
