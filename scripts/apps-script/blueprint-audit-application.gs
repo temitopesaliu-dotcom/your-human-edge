@@ -189,7 +189,7 @@ function appendRow_(data) {
 /** Emails every address in NOTIFY_EMAILS with the full submission. */
 function sendNotification_(data) {
   var name = ((data.firstName || '') + ' ' + (data.lastName || '')).trim() || 'Someone';
-  var subject = 'Blueprint quiz: ' + name + (data.companyName ? ', ' + data.companyName : '') + (data.bestFit ? ' (' + data.bestFit + ')' : '');
+  var subject = 'Blueprint audit: ' + name + (data.companyName ? ', ' + data.companyName : '') + (data.bestFit ? ' (' + data.bestFit + ')' : '');
 
   var rows = COLUMNS.map(function (c) {
     var v = data[c[0]] == null ? '' : String(data[c[0]]);
@@ -204,7 +204,7 @@ function sendNotification_(data) {
   }).join('');
 
   var html = '<div style="max-width:640px;margin:0 auto;padding:28px 24px;font-family:sans-serif">' +
-    '<p style="margin:0 0 4px;font:600 11px/1 sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6a5acd">New Blueprint quiz response</p>' +
+    '<p style="margin:0 0 4px;font:600 11px/1 sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6a5acd">New Blueprint audit response</p>' +
     '<h2 style="margin:0 0 6px;font:600 22px/1.25 Georgia,serif;color:#191826">' + escape_(name) + '</h2>' +
     '<p style="margin:0 0 22px;font:400 14px/1.5 sans-serif;color:#6a6a7a">' + escape_(data.email || '') + '</p>' +
     '<table style="width:100%;border-collapse:collapse">' + rows + '</table>' +
@@ -328,7 +328,44 @@ function setupReminderTrigger() {
 function sendBuyerEmail_(email, name, kind) {
   var first = String(name || '').trim().split(/\s+/)[0] || 'there';
   var c = kind === 'reminder' ? reminderEmail_(first) : confirmationEmail_(first);
-  MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+  try {
+    sendFromBusinessAddress_(email, c);
+  } catch (err) {
+    // Fallback so a buyer is never left without an email: plain Gmail sender.
+    Logger.log('send-as ' + REPLY_TO + ' failed, falling back to MailApp: ' + err);
+    MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
+  }
+}
+
+/**
+ * Sends through the Gmail API so the From address is ts@temitopesaliu.com,
+ * the "Send mail as" alias already verified in this Gmail account.
+ * Needs the Gmail advanced service and only the gmail.send scope.
+ */
+function sendFromBusinessAddress_(to, c) {
+  var b64 = function (s) { return Utilities.base64Encode(Utilities.newBlob(s).getBytes()); };
+  var boundary = 'b_' + Utilities.getUuid();
+  var mime = [
+    'From: ' + SENDER_NAME + ' <' + REPLY_TO + '>',
+    'To: ' + to,
+    'Reply-To: ' + REPLY_TO,
+    'Subject: =?UTF-8?B?' + b64(c.subject) + '?=',
+    'MIME-Version: 1.0',
+    'Content-Type: multipart/alternative; boundary="' + boundary + '"',
+    '',
+    '--' + boundary,
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64(c.text),
+    '--' + boundary,
+    'Content-Type: text/html; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64(c.html),
+    '--' + boundary + '--'
+  ].join('\r\n');
+  Gmail.Users.Messages.send({ raw: Utilities.base64EncodeWebSafe(Utilities.newBlob(mime).getBytes()) }, 'me');
 }
 
 function emailShell_(inner) {
@@ -341,6 +378,30 @@ function button_(label) {
   return '<p style="margin:26px 0"><a href="' + BOOK_URL + '" style="background:#4b3f96;color:#ffffff;text-decoration:none;padding:14px 26px;border-radius:10px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;display:inline-block">' + label + '</a></p>';
 }
 
+// What buyers are asked to bring to the session (used in both emails).
+var RESOURCES = [
+  'A company overview or profile',
+  'Where you want the business to be in the next five years',
+  'Your process flows: how work moves from first enquiry to delivery',
+  'Your current objectives or targets',
+  'SOPs, playbooks or training documents',
+  'Recent reports or presentations about the business'
+];
+
+function resourcesHtml_(intro) {
+  return '<p style="margin:0 0 10px"><strong>Bring what you have</strong></p>' +
+    '<p style="margin:0 0 8px">' + intro + '</p>' +
+    '<ul style="margin:0 0 12px;padding-left:20px">' +
+    RESOURCES.map(function (r) { return '<li style="margin:0 0 4px">' + r + '</li>'; }).join('') +
+    '</ul>' +
+    '<p style="margin:0 0 16px">Anything else that explains how your business really runs is welcome. Nothing needs to be polished. Bring it to the call, or send it ahead to ts@temitopesaliu.com so I can read it before we speak.</p>';
+}
+
+function resourcesText_(intro) {
+  return intro + '\n' + RESOURCES.map(function (r) { return '- ' + r; }).join('\n') +
+    '\nAnything else that explains how your business really runs is welcome. Nothing needs to be polished. Bring it to the call, or send it ahead to ts@temitopesaliu.com.';
+}
+
 function confirmationEmail_(first) {
   var n = escape_(first);
   return {
@@ -348,14 +409,16 @@ function confirmationEmail_(first) {
     html: emailShell_(
       '<p style="margin:0 0 16px">Hi ' + n + ',</p>' +
       '<p style="margin:0 0 16px">Your payment is in and your AI strategy session is confirmed. Thank you.</p>' +
-      "<p style=\"margin:0 0 16px\">I already have your quiz answers, so we won't spend the first hour on the basics. We start where the real problem is.</p>" +
+      "<p style=\"margin:0 0 16px\">I already have your audit answers, so we won't spend the first hour on the basics. We start where the real problem is.</p>" +
       "<p style=\"margin:0 0 6px\"><strong>If you've already picked your time,</strong> you're done. Your calendar invite and Zoom link come from Calendly in a separate email.</p>" +
       "<p style=\"margin:0\"><strong>If you haven't booked yet,</strong> pick your two hours here:</p>" +
       button_('Book my session') +
       '<p style="margin:0 0 10px"><strong>What you get</strong></p>' +
       '<p style="margin:0 0 16px">Two focused hours with me on how AI fits your business, and a summary document of next steps afterwards. If you go ahead with the full solutions architecture within 30 days, your session fee is credited in full.</p>' +
+      resourcesHtml_('The more I can see of your business, the more we get done in two hours. If you have any of these, bring them along:') +
       '<p style="margin:0">Add ts@temitopesaliu.com to your contacts so nothing from me lands in spam. Questions before the call? Just reply to this email.</p>'),
     text: 'Hi ' + first + ",\n\nYour payment is in and your AI strategy session is confirmed. Thank you.\n\nIf you haven't booked yet, pick your two hours here: " + BOOK_URL +
+      "\n\n" + resourcesText_('The more I can see of your business, the more we get done in two hours. If you have any of these, bring them along:') +
       "\n\nYou owe it to yourself to be great,\nTemitope Saliu."
   };
 }
@@ -370,9 +433,10 @@ function reminderEmail_(first) {
       '<p style="margin:0"><strong>Not booked yet?</strong> It takes a minute:</p>' +
       button_('Pick my time') +
       "<p style=\"margin:0 0 16px\"><strong>Already booked?</strong> Then there's nothing to do. Check the Calendly invite is in your calendar, and if it isn't, reschedule from the Calendly email rather than assuming it saved.</p>" +
-      "<p style=\"margin:0 0 16px\">You don't need to prepare anything. If you have something that shows how you really work (a spreadsheet, a messy inbox, a half-built tool, numbers you didn't want to type into a form), bring it. The more real it is, the further we get.</p>" +
+      resourcesHtml_("If you haven't gathered them yet, now is a good time. Any of these will make the session sharper:") +
       "<p style=\"margin:0\">Reply to this email if anything's unclear.</p>"),
     text: 'Hi ' + first + ",\n\nQuick check. Your AI strategy session is paid for. Not booked yet? Pick your time: " + BOOK_URL +
-      "\n\nAlready booked? Nothing to do.\n\nYou owe it to yourself to be great,\nTemitope Saliu."
+      "\n\nAlready booked? Nothing to do.\n\n" + resourcesText_("If you haven't gathered them yet, any of these will make the session sharper:") +
+      "\n\nYou owe it to yourself to be great,\nTemitope Saliu."
   };
 }
