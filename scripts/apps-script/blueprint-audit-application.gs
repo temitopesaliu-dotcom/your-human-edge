@@ -516,11 +516,13 @@ function bapWelcomeEmail_(first) {
       "<p style=\"margin:0 0 16px\">Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.</p>" +
       '<p style="margin:0 0 4px"><strong>When:</strong> Saturdays, 2pm London time, starting Saturday, November 7, 2026.</p>' +
       '<p style="margin:0 0 16px"><strong>Where:</strong> Zoom.</p>' +
+      "<p style=\"margin:0 0 16px\">You'll be learning in a closed group of experts from across the world, all building their practices alongside you.</p>" +
       "<p style=\"margin:0 0 16px\">Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.</p>" +
       '<p style="margin:0">See you on the 7th. More details will be sent to you closer to the class.</p>'),
     text: 'Hi ' + first + ',\n\nYour seat in The Business Architect Programme is confirmed. Welcome.\n\n' +
       "Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.\n\n" +
       'When: Saturdays, 2pm London time, starting Saturday, November 7, 2026.\nWhere: Zoom.\n\n' +
+      "You'll be learning in a closed group of experts from across the world, all building their practices alongside you.\n\n" +
       "Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.\n\n" +
       'See you on the 7th. More details will be sent to you closer to the class.\n\nYou owe it to yourself to be great,\nTemitope Saliu.'
   };
