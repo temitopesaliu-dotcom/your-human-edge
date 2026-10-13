@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
       { source: '/book', destination: '/book.html' },
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
-      { source: '/ai-operator-suite', destination: '/ai-operator-suite.html' },
       { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
     ];
   },
@@ -52,6 +51,9 @@ const nextConfig: NextConfig = {
       // Programme. Temporary (307) so the old link keeps working without being
       // cached forever, and query strings (UTM tags) survive the hop.
       { source: '/expert-framework-intensive', destination: '/the-business-architect-programme', permanent: false },
+      // The AI Operator Suite is closed. Temporary (307) so it can reopen later;
+      // visitors land on the programme that is on sale now.
+      { source: '/ai-operator-suite', destination: '/the-business-architect-programme', permanent: false },
       // The free quiz moved from /intelligence-layer to the Expert Framework
       // Profile. Permanent (308), and query strings (UTM tags) survive the hop,
       // so every link already printed in emails and posts keeps working.
