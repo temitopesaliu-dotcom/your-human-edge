@@ -67,7 +67,7 @@ const nextConfig: NextConfig = {
         destination: '/expert-framework/:path*',
         permanent: true,
       },
-      // While the live class runs (31 October 2026), the Expert Framework sales
+      // While the live class runs (7 November 2026), the Expert Framework sales
       // page sends everyone to /workshop. Exact path only, so buyers' access
       // links (/expert-framework/access) still work. Temporary (307) so the
       // page can come back without browsers caching the redirect.
