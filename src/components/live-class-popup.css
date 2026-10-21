@@ -288,3 +288,6 @@
     padding: 10px 14px;
   }
 }
+
+/* Visitor-time line under the date (LocalTime component) */
+.lcp-local-time { color: #666; margin: -10px 0 14px !important; }

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import './live-class-popup.css';
+import { WORKSHOP_DATE, WORKSHOP_START_ISO } from '@/components/features/workshop/workshop.data';
+import LocalTime from '@/components/local-time';
 
 const POPUP_STORAGE_KEY = 'yhe_live_class_popup_last_shown_at';
 const REAPPEAR_AFTER_MS = 24 * 60 * 60 * 1000; // once dismissed/shown, wait a day before showing again
@@ -88,7 +90,8 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           <p className="lcp-label">Live Online Training</p>
           <h2 className="lcp-title">Your Expert Framework + AI</h2>
 
-          <p className="lcp-date-line">Next cohort — October 31, 2026 · 2pm London GMT.</p>
+          <p className="lcp-date-line">Next cohort — {WORKSHOP_DATE}.</p>
+          <LocalTime iso={WORKSHOP_START_ISO} className="lcp-local-time" />
 
           <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
         </div>
