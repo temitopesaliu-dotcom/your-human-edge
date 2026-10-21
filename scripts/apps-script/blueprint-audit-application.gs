@@ -32,7 +32,8 @@ var SHEET_ID = '';
 var SHEET_NAME = 'Blueprint Quiz Responses';
 
 // One email address per editor who should be alerted on every submission.
-var NOTIFY_EMAILS = ['ts@temitopesaliu.com'];
+// Gmail inbox, not ts@: mail this account sends to ts@ only lands in Sent.
+var NOTIFY_EMAILS = ['temitope.saliu@gmail.com'];
 
 // [payload key from the submit route, sheet header label]
 var COLUMNS = [
