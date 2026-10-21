@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { DEFAULT_ACCENT } from '@/lib/efp/data';
 import type { EfpCompany, EfpResultRecord } from '@/lib/efp/types';
+import LocalTime from '@/components/local-time';
+import { WORKSHOP_START_ISO } from '@/components/features/workshop/workshop.data';
 
 /** Every "Get instant access" button goes to the live workshop page. */
 const WORKSHOP = '/workshop';
@@ -148,14 +150,14 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
 
       <div className={`efp-next-sec ${stage(4)}`}>
         <h3>Build the real thing, from start to finish.</h3>
-        <p>You&apos;ve seen a preview. The live workshop on 31 October takes you through the full build, with the same prompts used live with experts.</p>
+        <p>You&apos;ve seen a preview. The live workshop on 7 November takes you through the full build, with the same prompts used live with experts.</p>
         <ol className="efp-steps">
           <li><b>Map your expert layer</b><span>You&apos;ve seen a slice. The workshop maps all of it.</span></li>
           <li><b>Choose your offer</b><span>We picked one for you. You&apos;ll choose from several.</span></li>
           <li><b>Launch your website</b><span>This preview becomes your own live site.</span></li>
           <li><b>Get 100 companies to send it to</b><span>You&apos;ve seen 12. You leave with 100 more.</span></li>
         </ol>
-        <div className="efp-buy"><Cta position={4} /><small>Live on Zoom · October 31, 2pm London time · 3 hours · Recording within 72 hours</small></div>
+        <div className="efp-buy"><Cta position={4} /><small>Live on Zoom · November 7, 2pm London time · 3 hours · Recording within 72 hours</small><LocalTime iso={WORKSHOP_START_ISO} className="efp-local-time" /></div>
       </div>
 
       <div className="efp-footer" role="contentinfo">2026 Temitope Saliu. The Expert Framework Profile is proprietary methodology. All rights reserved.</div>
