@@ -500,10 +500,45 @@ function recordBapBuyer_(data) {
       MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO });
     }
     sh.getRange(row, 6).setValue(new Date().toISOString());
+    // Payment alert to Temitope's real inbox. Mail sent to ts@ from this
+    // account only shows in Sent, so the alert goes to the Gmail inbox.
+    try {
+      sendFromBusinessAddress_(PAYMENT_ALERT_TO, bapPaymentAlert_(name, email, amount, session, row));
+    } catch (err) {
+      Logger.log('payment alert failed: ' + err);
+    }
     return { ok: true, row: row };
   } finally {
     lock.releaseLock();
   }
+}
+
+var PAYMENT_ALERT_TO = 'temitope.saliu@gmail.com';
+
+function bapPaymentAlert_(name, email, amount, session, row) {
+  var who = name || email;
+  var paid = amount || '$0 (100% discount code)';
+  var lines = [
+    ['Name', name || '-'],
+    ['Email', email],
+    ['Amount', paid],
+    ['Stripe session', session || '-'],
+    ['Sheet row', String(row) + ' (Business Architect Buyers tab)'],
+    ['Welcome email', 'Sent from ' + REPLY_TO]
+  ];
+  return {
+    subject: 'New payment: ' + who + ' joined The Business Architect Programme',
+    html: emailShell_(
+      '<p style="margin:0 0 16px"><strong>New Business Architect Programme payment.</strong></p>' +
+      lines.map(function (l) { return '<p style="margin:0 0 6px"><strong>' + escape_(l[0]) + ':</strong> ' + escape_(l[1]) + '</p>'; }).join('')),
+    text: 'New Business Architect Programme payment.\n\n' +
+      lines.map(function (l) { return l[0] + ': ' + l[1]; }).join('\n')
+  };
+}
+
+/** Run from the editor to check the payment alert: sends one copy to the Gmail inbox. */
+function testBapPaymentAlert() {
+  sendFromBusinessAddress_(PAYMENT_ALERT_TO, bapPaymentAlert_('Test Buyer', 'test@example.com', '1599 USD', 'cs_test_alert_check', 0));
 }
 
 function bapWelcomeEmail_(first) {
@@ -514,17 +549,17 @@ function bapWelcomeEmail_(first) {
       '<p style="margin:0 0 16px">Hi ' + n + ',</p>' +
       '<p style="margin:0 0 16px">Your seat in The Business Architect Programme is confirmed. Welcome.</p>' +
       "<p style=\"margin:0 0 16px\">Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.</p>" +
-      '<p style="margin:0 0 4px"><strong>When:</strong> Saturdays, 2pm London time, starting Saturday, November 7, 2026.</p>' +
+      '<p style="margin:0 0 4px"><strong>When:</strong> Saturdays, 2pm London time, starting Saturday, November 14, 2026.</p>' +
       '<p style="margin:0 0 16px"><strong>Where:</strong> Zoom.</p>' +
       "<p style=\"margin:0 0 16px\">You'll be learning in a closed group of experts from across the world, all building their practices alongside you.</p>" +
       "<p style=\"margin:0 0 16px\">Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.</p>" +
-      '<p style="margin:0">See you on the 7th. More details will be sent to you closer to the class.</p>'),
+      '<p style="margin:0">See you on the 14th. More details will be sent to you closer to the class.</p>'),
     text: 'Hi ' + first + ',\n\nYour seat in The Business Architect Programme is confirmed. Welcome.\n\n' +
       "Over six weeks, you'll turn what you already know into a consulting practice you can price, sell and deliver.\n\n" +
-      'When: Saturdays, 2pm London time, starting Saturday, November 7, 2026.\nWhere: Zoom.\n\n' +
+      'When: Saturdays, 2pm London time, starting Saturday, November 14, 2026.\nWhere: Zoom.\n\n' +
       "You'll be learning in a closed group of experts from across the world, all building their practices alongside you.\n\n" +
       "Every session is recorded, and you'll get the resources, prompts and walkthroughs between sessions. Bring your expertise to class.\n\n" +
-      'See you on the 7th. More details will be sent to you closer to the class.\n\nYou owe it to yourself to be great,\nTemitope Saliu.'
+      'See you on the 14th. More details will be sent to you closer to the class.\n\nYou owe it to yourself to be great,\nTemitope Saliu.'
   };
 }
 
