@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import PurchaseTracker from '@/components/purchase-tracker';
 import { getPaidCheckout } from '@/lib/services/paid-checkout';
+import LocalTime from '@/components/local-time';
+import { WORKSHOP_DATE, WORKSHOP_START_ISO } from '@/components/features/workshop/workshop.data';
 
 export default async function WorkshopConfirmationPage({
   searchParams,
@@ -182,8 +184,9 @@ export default async function WorkshopConfirmationPage({
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            October 31, 2026 · 2pm London GMT.
+            {WORKSHOP_DATE}.
           </div>
+          <LocalTime iso={WORKSHOP_START_ISO} className="ws-local-time ws-local-time--center" />
 
           <h1 className="ws-confirm-title">
             Well done betting on yourself.
