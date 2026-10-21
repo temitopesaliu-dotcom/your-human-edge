@@ -18,6 +18,14 @@
 export const WORKSHOP_PRICE = "$157";
 export const WORKSHOP_PRICE_NEXT = "$299";
 
-export const WORKSHOP_DATE = "October 31, 2026 · 2pm London GMT";
-export const WORKSHOP_DATE_SHORT = "October 31, 2026";
-export const WORKSHOP_DATE_DAY = "October 31st";
+export const WORKSHOP_DATE = "November 7, 2026 · 2pm London GMT";
+export const WORKSHOP_DATE_SHORT = "November 7, 2026";
+export const WORKSHOP_DATE_DAY = "November 7th";
+
+/**
+ * The exact moment the class starts, as a UTC instant. LocalTime uses it to
+ * tell each visitor what time that is where they are. London is on GMT
+ * (UTC+0) on 7 November, so 2pm London = 14:00 UTC. If the date or time
+ * changes, change this line together with WORKSHOP_DATE above.
+ */
+export const WORKSHOP_START_ISO = "2026-11-07T14:00:00Z";

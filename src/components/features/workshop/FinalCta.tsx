@@ -1,4 +1,5 @@
-import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT } from "./workshop.data";
+import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT, WORKSHOP_START_ISO } from "./workshop.data";
+import LocalTime from "@/components/local-time";
 import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
 export default function FinalCta() {
@@ -12,6 +13,7 @@ export default function FinalCta() {
             <br />
             <em>{WORKSHOP_DATE}.</em>
           </h2>
+          <LocalTime iso={WORKSHOP_START_ISO} className="ws-local-time ws-local-time--on-dark" />
           <p>
             This is the room where your expertise stops being invisible.
           </p>
