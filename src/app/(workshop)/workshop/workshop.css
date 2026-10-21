@@ -385,3 +385,8 @@ body, .ws-page { font-family: 'Inter', sans-serif; background: var(--white); col
 
 /* ── CHECKOUT TERMS (non-refundable / transferable) ─── */
 .ws-checkout-terms { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 11px; line-height: 1.6; color: var(--text-light); text-align: center; }
+
+/* Visitor's own time zone line (LocalTime component) */
+.ws-hero-meta .ws-local-time { flex-basis: 100%; margin-top: -8px !important; color: var(--text-muted); }
+.ws-local-time--on-dark { color: rgba(255, 255, 255, 0.75); text-align: center; margin: -0.5rem 0 1.25rem !important; }
+.ws-local-time--center { text-align: center; color: var(--text-muted); }
