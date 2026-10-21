@@ -47,7 +47,14 @@ function isTierKey(value: unknown): value is TierKey {
   return value === 'builder' || value === 'accelerator';
 }
 
+// Cohort 1 checkout is closed. Cohort 2 sells through a Stripe payment link
+// on /the-business-architect-programme, so this route no longer opens sessions.
+const COHORT_1_CLOSED = true;
+
 export async function POST(req: NextRequest) {
+  if (COHORT_1_CLOSED) {
+    return NextResponse.json({ error: 'This cohort has closed.' }, { status: 410 });
+  }
   const ip = getClientIp(req.headers);
   if (!(await rateLimit(ip, 10, 60, 'bap-checkout'))) {
     return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
