@@ -390,3 +390,14 @@ body, .ws-page { font-family: 'Inter', sans-serif; background: var(--white); col
 .ws-hero-meta .ws-local-time { flex-basis: 100%; margin-top: -8px !important; color: var(--text-muted); }
 .ws-local-time--on-dark { color: rgba(255, 255, 255, 0.75); text-align: center; margin: -0.5rem 0 1.25rem !important; }
 .ws-local-time--center { text-align: center; color: var(--text-muted); }
+
+/* Attendee message screenshots (Testimonials section) */
+.ws-messages { margin-top: 48px; }
+.ws-messages-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.ws-messages-grid { display: grid; grid-template-columns: 0.8fr 1.2fr 1.2fr; gap: 20px; align-items: start; }
+.ws-message-shot { margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #0f1014; }
+.ws-message-shot img { display: block; width: 100%; height: auto; }
+@media (max-width: 900px) {
+  .ws-messages-grid { grid-template-columns: 1fr; }
+  .ws-message-shot:first-child { max-width: 360px; }
+}
