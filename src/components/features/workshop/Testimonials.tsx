@@ -3,6 +3,13 @@
 import { useState } from "react";
 import { TESTIMONIALS } from "./testimonials.data";
 
+/** Attendee message screenshots, shown exactly as Temitope shared them. Same files as /expert-framework. */
+const MESSAGE_SHOTS = [
+  "/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg",
+  "/testimonials/PHOTO-2026-10-01-09-14-13%203.jpg",
+  "/testimonials/PHOTO-2026-10-01-09-14-13.jpg",
+];
+
 export default function Testimonials() {
   const [playingId, setPlayingId] = useState<string | null>(null);
 
@@ -61,6 +68,17 @@ export default function Testimonials() {
               loading="lazy"
               className="ws-testimonial-thumb-img"
             />
+          </div>
+        </div>
+        <div className="ws-messages">
+          <div className="ws-messages-label">Messages sent after the workshop</div>
+          <div className="ws-messages-grid">
+            {MESSAGE_SHOTS.map((src) => (
+              <figure key={src} className="ws-message-shot">
+                {/* eslint-disable-next-line @next/next/no-img-element -- static screenshot, shown as-is */}
+                <img src={src} alt="Screenshot message from a workshop attendee" loading="lazy" />
+              </figure>
+            ))}
           </div>
         </div>
       </div>
