@@ -10,6 +10,11 @@ import Investment from "@/components/features/blueprint/Investment";
 import Testimonial from "@/components/features/blueprint/Testimonial";
 import FinalCta from "@/components/features/blueprint/FinalCta";
 
+// Title and description come from the-blueprint-audit/layout.tsx.
+export const metadata = {
+  alternates: { canonical: '/the-blueprint-audit/blueprint' },
+};
+
 export default function BlueprintPage() {
   return (
     <>
