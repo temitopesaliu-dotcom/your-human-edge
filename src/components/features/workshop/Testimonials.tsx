@@ -8,6 +8,7 @@ const MESSAGE_SHOTS = [
   "/testimonials/PHOTO-2026-10-01-09-14-13%202.jpg",
   "/testimonials/PHOTO-2026-10-01-09-14-13%203.jpg",
   "/testimonials/PHOTO-2026-10-01-09-14-13.jpg",
+  "/testimonials/workshop-message-2026-10.jpg",
 ];
 
 export default function Testimonials() {
