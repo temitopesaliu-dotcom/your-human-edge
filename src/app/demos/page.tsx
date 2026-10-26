@@ -21,6 +21,7 @@ function DemoCard({ demo }: { demo: Demo }) {
 }
 
 export const metadata = {
+  alternates: { canonical: '/demos' },
   title: "Sample Builds | AI Operating System",
   description:
     "Sample AI Operating Systems for five kinds of business. See what an architecture from the Blueprint Audit looks like before you book.",
