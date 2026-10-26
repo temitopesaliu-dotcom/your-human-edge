@@ -11,6 +11,7 @@ import './the-bridge.css';
  */
 
 export const metadata = {
+  alternates: { canonical: '/resources/the-bridge' },
   title: 'Storytelling to Income: how to get people to stop, watch, resonate and buy | Free Resource',
   description:
     'A free guide on how attention moves through the human mind, awareness and conversion storytelling, finding your lane and building your offer.',
