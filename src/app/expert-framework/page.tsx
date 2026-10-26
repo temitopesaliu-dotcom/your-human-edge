@@ -300,6 +300,13 @@ export default function IntelligenceLayerCoursePage() {
                 loading="lazy"
               />
             </figure>
+            <figure className="ilcs-wall-item ilcs-wall-shot">
+              <img
+                src="/testimonials/workshop-message-2026-10.jpg"
+                alt="Screenshot message from a workshop attendee"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </div>
       </section>
