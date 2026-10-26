@@ -394,10 +394,10 @@ body, .ws-page { font-family: 'Inter', sans-serif; background: var(--white); col
 /* Attendee message screenshots (Testimonials section) */
 .ws-messages { margin-top: 48px; }
 .ws-messages-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
-.ws-messages-grid { display: grid; grid-template-columns: 0.8fr 1.2fr 1.2fr; gap: 20px; align-items: start; }
+.ws-messages-grid { display: grid; grid-template-columns: 0.8fr 1.2fr 1.2fr 0.8fr; gap: 20px; align-items: start; }
 .ws-message-shot { margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #0f1014; }
 .ws-message-shot img { display: block; width: 100%; height: auto; }
 @media (max-width: 900px) {
   .ws-messages-grid { grid-template-columns: 1fr; }
-  .ws-message-shot:first-child { max-width: 360px; }
+  .ws-message-shot:first-child, .ws-message-shot:last-child { max-width: 360px; }
 }
