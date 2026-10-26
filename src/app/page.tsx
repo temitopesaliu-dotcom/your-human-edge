@@ -9,6 +9,7 @@ import WorkshopsCard from "@/components/features/about/WorkshopsCard";
 import AwardsCard from "@/components/features/about/AwardsCard";
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/' },
   title: "About — Temitope Saliu | Your Human Edge",
   icons: {
     icon: "/favicon.png",

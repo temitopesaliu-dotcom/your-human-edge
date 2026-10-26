@@ -13,6 +13,8 @@ const PROMPTS_URL =
   'https://docs.google.com/document/d/1KQiuHeLd6r7h9-vA1nxSxwNKj7z6r_gtE0mDoszsZXM/edit?usp=drivesdk';
 
 export const metadata: Metadata = {
+  // Clears the /expert-framework canonical inherited from the layout.
+  alternates: {},
   title: 'Your course: The Expert Framework, Self-Paced',
   // Never indexed: the only public page is the sales page.
   robots: 'noindex, nofollow',

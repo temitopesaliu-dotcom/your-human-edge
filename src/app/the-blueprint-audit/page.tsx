@@ -13,6 +13,11 @@ import SocialProof from "@/components/features/blueprint-audit/SocialProof";
 import Faq from "@/components/features/blueprint-audit/Faq";
 import FinalCta from "@/components/features/blueprint-audit/FinalCta";
 
+// Title and description come from the-blueprint-audit/layout.tsx.
+export const metadata = {
+  alternates: { canonical: '/the-blueprint-audit' },
+};
+
 export default function AiosLandingPage() {
   return (
     <>

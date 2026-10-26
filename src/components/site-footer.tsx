@@ -22,6 +22,9 @@ export default function SiteFooter() {
           <li>
             <Link href="/the-blueprint-audit">Business audit</Link>
           </li>
+          <li>
+            <Link href="/expert-framework">Expert Framework</Link>
+          </li>
         </ul>
         <div className="sf-copy">
           © 2026 Temitope Saliu · Your Human Edge with AI. All Rights Reserved.

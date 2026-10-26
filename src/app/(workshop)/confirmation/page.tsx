@@ -1,8 +1,14 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import PurchaseTracker from '@/components/purchase-tracker';
 import { getPaidCheckout } from '@/lib/services/paid-checkout';
 import LocalTime from '@/components/local-time';
 import { WORKSHOP_DATE, WORKSHOP_START_ISO } from '@/components/features/workshop/workshop.data';
+
+// Purchase confirmation: reached only after paying, never listed by Google.
+export const metadata: Metadata = {
+  robots: 'noindex, nofollow',
+};
 
 export default async function WorkshopConfirmationPage({
   searchParams,
