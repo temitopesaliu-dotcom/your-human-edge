@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import AiStadiumClient from './ai-stadium-client';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/resources/ai-for-coaches' },
   title: 'AI for Teachers and Coaches | Free Interactive Guide',
   description:
     'An interactive 6-gate guide for teachers, coaches, trainers and facilitators to build an AI clone, grow an audience, monetise knowledge, and project your monthly revenue — all in one browser.',
