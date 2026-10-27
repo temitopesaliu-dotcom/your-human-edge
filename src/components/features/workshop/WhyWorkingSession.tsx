@@ -1,4 +1,4 @@
-import { WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT } from "./workshop.data";
+import { WORKSHOP_PRICE } from "./workshop.data";
 export default function WhyWorkingSession() {
   return (
     <section className="ws-section" style={{ background: "var(--white)" }}>
@@ -42,8 +42,7 @@ export default function WhyWorkingSession() {
                 {WORKSHOP_PRICE}
               </div>
               <div className="ws-why-stat-label">
-                What this cohort pays. The next cohort is{" "}
-                {WORKSHOP_PRICE_NEXT}.
+                What you pay. This is the final live cohort.
               </div>
             </div>
             <div className="ws-why-stat">

@@ -15,8 +15,8 @@ export default function Faq() {
               a: "Your expertise and an honest answer to one question: what problem do you solve better than most people you know? Everything else gets built in the room. No prep slides, no pre-work required.",
             },
             {
-              q: "Is $157 the final price?",
-              a: "For this cohort, yes. $157 is what you pay and there is nothing cheaper — no code, no bundle, no countdown. The next cohort is $299. This one is priced lower because it is earlier, not because there is a sale running.",
+              q: "Will this workshop run live again?",
+              a: "No. This is the final live cohort. After 7 November the workshop will not run live again. $99 is what you pay — no code, no bundle.",
             },
             {
               q: "I already use AI in my work. Is this still relevant?",
@@ -28,7 +28,7 @@ export default function Faq() {
             },
             {
               q: "What if I pay and then cannot attend?",
-              a: "Seats are non-refundable, but they are transferable. Email us before the session and we will move you to the next cohort at no extra cost, even though the price will be higher by then — you keep the price you paid. One transfer per seat. Either way you are not left empty-handed: the full recording and all working documents reach you within 72 hours and are yours to keep.",
+              a: "Seats are non-refundable. Because this is the final live cohort, there is no later date to move to. You are not left empty-handed: the full recording and all working documents reach you within 72 hours and are yours to keep.",
             },
             {
               q: "Do I need any technical background?",

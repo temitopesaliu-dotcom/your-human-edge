@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { trackEvent } from "@/lib/services/analytics";
-import { WORKSHOP_PRICE } from "./workshop.data";
+import { WORKSHOP_PRICE, WORKSHOP_PRICE_VALUE } from "./workshop.data";
 
 /**
  * `begin_checkout` is fired here on purpose. The sitewide /click-tracking.js
@@ -13,12 +13,12 @@ import { WORKSHOP_PRICE } from "./workshop.data";
 export async function startWorkshopCheckout(): Promise<string | null> {
   trackEvent("begin_checkout", {
     currency: "USD",
-    value: 157,
+    value: WORKSHOP_PRICE_VALUE,
     items: [
       {
         item_id: "intelligence-layer-workshop",
         item_name: "The Expert Framework + AI — Live Working Session",
-        price: 157,
+        price: WORKSHOP_PRICE_VALUE,
         quantity: 1,
       },
     ],
@@ -27,7 +27,7 @@ export async function startWorkshopCheckout(): Promise<string | null> {
   if (typeof window !== "undefined" && typeof window.fbq === "function") {
     window.fbq("track", "InitiateCheckout", {
       currency: "USD",
-      value: 157,
+      value: WORKSHOP_PRICE_VALUE,
       content_ids: ["intelligence-layer-workshop"],
       content_type: "product",
     });

@@ -1,4 +1,4 @@
-import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT, WORKSHOP_START_ISO } from "./workshop.data";
+import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_FINAL_NOTE, WORKSHOP_START_ISO } from "./workshop.data";
 import LocalTime from "@/components/local-time";
 import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
@@ -20,7 +20,7 @@ export default function FinalCta() {
           <div style={{ marginBottom: "2rem" }}>
             <div className="ws-final-price-current">{WORKSHOP_PRICE}</div>
             <div className="ws-final-price-badge">
-              This cohort. Next cohort is {WORKSHOP_PRICE_NEXT}.
+              {WORKSHOP_FINAL_NOTE}
             </div>
           </div>
           <WorkshopCheckoutButton className="ws-btn-final">

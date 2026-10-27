@@ -1,10 +1,9 @@
 /**
  * Single source of truth for the workshop date and pricing.
  *
- * WORKSHOP_PRICE_NEXT is what the NEXT cohort pays. It is deliberately not a
- * struck-through "full price": nobody has paid $299 yet, so presenting it as a
- * discount off an established price would be a claim we cannot support. Framed
- * as the next cohort's price it is a promise we control and can keep.
+ * The 7 November 2026 class is the LAST live cohort of this workshop (it goes
+ * self-paced afterwards), so there is no "next cohort" price anywhere on the
+ * page. WORKSHOP_FINAL_NOTE is the line used wherever that used to appear.
  *
  * Every CTA on /workshop must use WorkshopCheckoutButton (or startWorkshopCheckout).
  * Do NOT hardcode a buy.stripe.com URL in a component — that is exactly how
@@ -15,8 +14,9 @@
  * without the other is the bug this file exists to prevent.
  */
 
-export const WORKSHOP_PRICE = "$157";
-export const WORKSHOP_PRICE_NEXT = "$299";
+export const WORKSHOP_PRICE = "$99";
+export const WORKSHOP_PRICE_VALUE = 99; // number form, for analytics events
+export const WORKSHOP_FINAL_NOTE = "This is the final live cohort.";
 
 export const WORKSHOP_DATE = "November 7, 2026 · 2pm London GMT";
 export const WORKSHOP_DATE_SHORT = "November 7, 2026";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_PRICE_NEXT, WORKSHOP_START_ISO } from "./workshop.data";
+import { WORKSHOP_DATE, WORKSHOP_PRICE, WORKSHOP_FINAL_NOTE, WORKSHOP_START_ISO } from "./workshop.data";
 import LocalTime from "@/components/local-time";
 import WorkshopCheckoutButton from "./WorkshopCheckoutButton";
 
@@ -70,10 +70,10 @@ export default function Hero() {
             <div className="ws-checkout-body">
               <div>
                 <div className="ws-price-current">
-                  <sup>$</sup>157
+                  <sup>$</sup>{WORKSHOP_PRICE.replace("$", "")}
                 </div>
                 <div className="ws-price-badge">
-                  This cohort. Next cohort is {WORKSHOP_PRICE_NEXT}.
+                  {WORKSHOP_FINAL_NOTE}
                 </div>
               </div>
               <div className="ws-seats-notice">
@@ -106,8 +106,8 @@ export default function Hero() {
                 Secure checkout via Stripe
               </div>
               <div className="ws-checkout-terms">
-                Seats are non-refundable, but transferable — if you cannot make
-                it, move your seat to the next cohort at no extra cost.
+                Seats are non-refundable. If you cannot make it live, the full
+                recording reaches you within 72 hours.
               </div>
             </div>
           </div>
