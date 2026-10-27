@@ -90,7 +90,7 @@ export default function LiveClassPopup({ onRegister }: LiveClassPopupProps = {})
           <p className="lcp-label">Live Online Training</p>
           <h2 className="lcp-title">Your Expert Framework + AI</h2>
 
-          <p className="lcp-date-line">Next cohort — {WORKSHOP_DATE}.</p>
+          <p className="lcp-date-line">Final live cohort — {WORKSHOP_DATE}.</p>
           <LocalTime iso={WORKSHOP_START_ISO} className="lcp-local-time" />
 
           <button type="button" className="lcp-cta" onClick={handleRegister}>Register now →</button>
