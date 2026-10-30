@@ -29,7 +29,9 @@ export async function POST(req: NextRequest) {
       payment_method_types: ['card'],
       mode: 'payment',
       adaptive_pricing: { enabled: false },
-      ...(EMAIL_RE.test(email) ? { customer_email: email } : {}),
+      ...(EMAIL_RE.test(email)
+        ? { customer_email: email, payment_intent_data: { receipt_email: email } }
+        : {}),
       metadata: { product: 'bridge-vip', source: 'bridge', bridge_sid: clean(body.sid, 40) },
       line_items: [{
         quantity: 1,
