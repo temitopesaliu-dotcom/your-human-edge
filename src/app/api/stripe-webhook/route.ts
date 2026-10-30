@@ -7,6 +7,7 @@ import { normalizeProduct, type ProductType } from '@/lib/utils/products';
 import { stripe } from '@/lib/services/stripe';
 import { sendMetaPurchaseEvent, toMajorUnits } from '@/lib/services/meta-capi';
 import { sendToSheet } from '@/lib/efp/sheets';
+import { sendToBridgeSheet } from '@/lib/bridge/sheet';
 
 /** Extract archetype from metadata, or fall back to parsing the success_url.
  *  Covers API-created sessions (metadata.archetype) and
@@ -256,6 +257,20 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
   // same Apps Script, which also logs them on a Business Architect Buyers tab.
   if (product === 'expert-framework-intensive' && buyerEmail) {
     await sendBusinessArchitectBuyerToSheet(session, buyerEmail, buyerName);
+  }
+
+  // The Bridge VIP ($57 live Q&A). Nothing goes to MailerLite yet: the Bridge
+  // Apps Script stamps the VIP tab and sends the welcome email from ts@.
+  if (product === 'bridge-vip' && buyerEmail) {
+    const amount = session.amount_total !== null ? toMajorUnits(session.amount_total, session.currency || 'usd') : '';
+    await sendToBridgeSheet({
+      action: 'vip_buyer',
+      email: buyerEmail.toLowerCase(),
+      name: buyerName,
+      amount,
+      currency: (session.currency || '').toUpperCase(),
+      order_id: session.id,
+    });
   }
 
   // Report the sale to Meta server-side, for every product, so ad attribution

@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
       { source: '/appreciate', destination: '/appreciate.html' },
       { source: '/appreciated', destination: '/appreciated.html' },
       { source: '/book', destination: '/book.html' },
+      { source: '/bridge', destination: '/bridge.html' },
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
