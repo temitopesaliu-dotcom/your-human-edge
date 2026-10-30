@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
       payment_method_types: ['card'],
       mode: 'payment',
       adaptive_pricing: { enabled: false },
+      allow_promotion_codes: true,
       ...(EMAIL_RE.test(email)
         ? { customer_email: email, payment_intent_data: { receipt_email: email } }
         : {}),
