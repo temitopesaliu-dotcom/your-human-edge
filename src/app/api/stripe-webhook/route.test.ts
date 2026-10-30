@@ -309,4 +309,32 @@ describe("POST /api/stripe-webhook", () => {
       vi.unstubAllGlobals();
     });
   });
+
+  describe("The Bridge VIP via the Bridge Apps Script", () => {
+    const bridgeEnv = { ...ORIGINAL_ENV, STRIPE_WEBHOOK_SECRET: "whsec_test", GOOGLE_SHEETS_BRIDGE_WEBHOOK_URL: "https://bridge.example/exec", BRIDGE_SHEET_SECRET: "s3cret" };
+
+    it("posts a paid VIP to the Bridge sheet script and does not touch MailerLite", async () => {
+      process.env = bridgeEnv;
+      const fetchMock = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(async () => new Response('{"ok":true}', { status: 200 }));
+      vi.stubGlobal("fetch", fetchMock);
+      constructEvent.mockReturnValue({ ...checkoutCompletedEvent({ metadata: { product: "bridge-vip" } }), data: { object: { ...checkoutCompletedEvent({ metadata: { product: "bridge-vip" } }).data.object, amount_total: 5700, currency: "usd" } } });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      const call = fetchMock.mock.calls.find((c) => String(c[0]) === "https://bridge.example/exec");
+      expect(call).toBeTruthy();
+      const body = JSON.parse(String((call as unknown as [string, RequestInit])[1].body));
+      expect(body).toMatchObject({ action: "vip_buyer", email: "buyer@example.com", amount: 57, currency: "USD", order_id: "cs_test_123", secret: "s3cret" });
+      expect(addBuyerToMailerLite).not.toHaveBeenCalled();
+      vi.unstubAllGlobals();
+    });
+
+    it("still acknowledges Stripe when the Bridge sheet script is down", async () => {
+      process.env = bridgeEnv;
+      vi.stubGlobal("fetch", vi.fn(async () => { throw new Error("network down"); }));
+      constructEvent.mockReturnValue(checkoutCompletedEvent({ metadata: { product: "bridge-vip" } }));
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      vi.unstubAllGlobals();
+    });
+  });
 });
