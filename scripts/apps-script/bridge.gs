@@ -179,10 +179,11 @@ function vip_(ss, d) {
     sent = sendVipEmail_(d.email, first, qa, tz);
     if (sent) put_(sh, row, { 'Welcome email sent (UTC)': stamp_() });
   }
-  try {
-    MailApp.sendEmail({ to: ALERT_TO, subject: 'New Bridge VIP: ' + first + ' (' + d.email + ')',
-      body: 'Paid $' + (d.amount || VIP_AMOUNT_DEFAULT) + '. Order ' + d.order_id + '. Welcome email ' + (sent ? 'sent.' : 'NOT sent, check the VIP tab.') });
-  } catch (err) { Logger.log('alert failed: ' + err); }
+  var alert = { subject: 'New Bridge VIP: ' + first + ' (' + d.email + ')',
+    text: 'Paid $' + (d.amount || VIP_AMOUNT_DEFAULT) + '. Order ' + d.order_id + '. Welcome email ' + (sent ? 'sent.' : 'NOT sent, check the VIP tab.') };
+  alert.html = '<p>' + alert.text + '</p>';
+  try { sendFromBusinessAddress_(ALERT_TO, alert); }
+  catch (err) { try { MailApp.sendEmail({ to: ALERT_TO, subject: alert.subject, body: alert.text }); } catch (e2) { Logger.log('alert failed: ' + e2); } }
   return sent;
 }
 
@@ -202,10 +203,11 @@ function vipEmail_(first, qa, tz) {
   var londonLine = qa ? Utilities.formatDate(qa, 'Europe/London', "EEEE, MMMM d, yyyy '·' h:mma") : 'Thursday, November 12, 2026 · 5:00PM';
   londonLine = lc_(londonLine).replace(':00', '') + ' London GMT';
   var local = '';
-  if (qa && tz && tz !== 'Europe/London') {
-    try {
-      local = "That's " + lc_(Utilities.formatDate(qa, tz, 'h:mma')) + ' on ' + Utilities.formatDate(qa, tz, 'EEEE d MMMM') +
-        ' (' + Utilities.formatDate(qa, tz, 'zzzz') + ') where you are.';
+  if (qa && tz) {
+    try { // same shape as the page: "6:00pm Thursday 12 November, your time (Lagos, WAT)"
+      var cityName = String(tz).split('/').pop().replace(/_/g, ' ');
+      local = lc_(Utilities.formatDate(qa, tz, 'h:mma')) + ' ' + Utilities.formatDate(qa, tz, 'EEEE d MMMM') +
+        ', your time (' + cityName + ', ' + Utilities.formatDate(qa, tz, 'z') + ')';
     } catch (err) { local = ''; }
   }
   var items = [
