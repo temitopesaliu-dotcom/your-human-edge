@@ -21,7 +21,11 @@ const nextConfig: NextConfig = {
       { source: '/appreciate', destination: '/appreciate.html' },
       { source: '/appreciated', destination: '/appreciated.html' },
       { source: '/book', destination: '/book.html' },
-      { source: '/bridge', destination: '/bridge.html' },
+      { source: '/thebridge', destination: '/bridge.html' },
+      { source: '/thebridge-webinar', destination: '/bridge.html' },
+      { source: '/thebridge-results', destination: '/bridge.html' },
+      { source: '/thebridge-registered', destination: '/bridge.html' },
+      { source: '/thebridge-vip-confirmed', destination: '/bridge.html' },
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
@@ -45,6 +49,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // The Bridge funnel moved from /bridge to /thebridge. Temporary (307) and
+      // query strings (UTM tags) survive, so links already shared keep working.
+      { source: '/bridge', destination: '/thebridge', permanent: false },
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
