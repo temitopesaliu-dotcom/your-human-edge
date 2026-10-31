@@ -442,7 +442,85 @@ td:first-child{font-weight:700;white-space:nowrap}
 .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:100px;margin-right:6px;background:var(--lav);color:var(--purple)}
 .pill.dark{background:var(--ink);color:#fff}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
-.nr{font-weight:800;font-size:.95rem;margin:6px 0 0;color:var(--ink)}.nr::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#D9480F;margin-right:8px;vertical-align:1px}</style>
+.nr{font-weight:800;font-size:.95rem;margin:6px 0 0;color:var(--ink)}.nr::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#D9480F;margin-right:8px;vertical-align:1px}
+/* ===== training page v3 (dark, long-form) ===== */
+.tv{--t-bg:#0E0B16;--t-bg2:#15111F;--t-card:#1B1626;--t-line:rgba(255,255,255,.08);--t-txt:#F3EFFB;--t-muted:#B8AFCB;--t-hot2:#FF7A3D;--t-purple:#6B3FE4;--t-lav:#CDB9FF;--t-mark:#FFE06B;background:var(--t-bg)}
+.tv-dark{background:var(--t-bg);color:var(--t-txt)}
+.tv-alt{background:var(--t-bg2)}
+.tv-wrap{max-width:980px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.tv-bar{position:sticky;top:0;z-index:40;background:#F2EEF8;color:#16121F;display:flex;align-items:center;justify-content:space-between;padding:10px var(--gr) 10px var(--gl);gap:12px}
+.tv-bar-l{display:flex;align-items:center;gap:10px;min-width:0}
+.tv-z{width:34px;height:34px;border-radius:9px;background:#2D8CFF;color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;flex:none}
+.tv-bar b{display:block;font-size:15px}.tv-bar small{display:block;color:#5E5870;font-size:12.5px}
+.tv-btn{display:inline-block;background:var(--hot);color:#fff;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px;border:0;cursor:pointer;text-align:center}
+.tv-btn.sm{padding:10px 18px;font-size:14px;flex:none}
+.tv-btn.big{font-size:20px;padding:22px 40px;background:linear-gradient(100deg,#FF8A5B 0%,var(--hot) 45%,#B9360A 100%);box-shadow:0 0 0 6px rgba(217,72,15,.18),0 24px 50px -16px rgba(217,72,15,.9);letter-spacing:.02em;text-transform:uppercase}
+.tv-btn.big::after{content:"  \2192"}
+.tv-cta{text-align:center;margin-top:34px}
+.tv-hero{padding:70px 0 60px;text-align:center;background:radial-gradient(60% 50% at 50% 0%,rgba(107,63,228,.35),transparent 70%),var(--t-bg)}
+.tv-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--t-lav);font-weight:700}
+.tv-eyebrow i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--t-hot2);margin-right:8px;box-shadow:0 0 0 4px rgba(255,122,61,.25)}
+.tv-hero h1{font-size:clamp(36px,6vw,64px);line-height:1.08;margin:18px auto 0;max-width:820px;color:#fff}
+.tv-hero h1 .mark{background:var(--t-mark);color:#16121F;padding:0 10px;border-radius:6px;display:inline-block;line-height:1.15}
+.tv-hero h1 .ai{color:var(--t-hot2)}
+.tv-for{font-size:22px;margin-top:14px;color:var(--t-muted)}
+.tv-for b{display:inline-block;color:#fff;background:var(--t-purple);padding:2px 12px;border-radius:8px;font-family:var(--display);font-style:italic;transition:opacity .28s,transform .28s}
+.tv-for b.out{opacity:0;transform:translateY(8px)}
+.tv-lead{display:flex;align-items:center;gap:20px;max-width:720px;margin:34px auto 0;text-align:left}
+.tv-lead img{width:120px;height:120px;border-radius:16px;object-fit:cover;flex:none;transform:rotate(-4deg);box-shadow:0 20px 40px -18px rgba(0,0,0,.8)}
+.tv-lead p{font-size:18px;color:var(--t-muted)}.tv-lead p b{color:#fff}
+.tv-stats{display:flex;gap:22px;margin-top:10px;flex-wrap:wrap}.tv-stats span{font-size:13px;color:var(--t-muted)}.tv-stats span b{display:block;color:#fff;font-size:18px}
+.tv-sticker{display:inline-block;margin-top:-10px;position:relative;background:#E5322D;color:#fff;padding:10px 18px;border-radius:10px;transform:rotate(-2deg);font-size:13px;box-shadow:0 14px 30px -12px rgba(229,50,45,.8)}
+.tv-sticker b{display:block;font-family:var(--display);font-style:italic;font-size:22px}
+.tv-when{margin-top:22px;font-size:15px;color:var(--t-muted)}
+.tv-dark .tv-when b{color:#fff;justify-content:center}.tv-dark .tv-when .loc{color:var(--t-muted)}.tv-dark .tv-when .cal-ic{color:var(--t-hot2)}
+.tv-nr{color:var(--t-hot2);font-weight:700;margin-top:10px;text-align:center}
+.tv-dark .quiz-first{color:var(--t-muted)}.tv-dark .quiz-first a{color:var(--t-lav)}
+.tv-sec{padding:70px 0}
+.tv-sh{font-size:clamp(30px,4.5vw,44px);text-align:center;color:#fff}
+.tv-sub{text-align:center;color:var(--t-muted);margin:12px auto 0;max-width:620px}
+.tv-phase{background:linear-gradient(180deg,var(--t-card),var(--t-bg2));border:1px solid var(--t-line);border-radius:22px;padding:34px;margin-top:28px}
+.tv-phase .num{font-family:var(--display);font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--t-lav)}
+.tv-phase h3{font-size:clamp(22px,3vw,30px);margin-top:10px;max-width:680px;color:#fff;line-height:1.3}
+.tv-phase h3 .mark{background:var(--t-mark);color:#16121F;padding:0 8px;border-radius:5px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tv-ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.tv-ba .box{border:1px solid var(--t-line);border-radius:14px;padding:18px;background:rgba(0,0,0,.25)}
+.tv-ba .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--t-muted);font-weight:700}
+.tv-ba .k.after{color:var(--t-hot2)}
+.tv-ba ul{margin:10px 0 0;padding-left:18px;color:#E7E1F3}.tv-ba li{margin:4px 0}
+.tv-ba .big{font-family:var(--display);font-size:28px;line-height:1.2;margin-top:8px;color:#fff}.tv-ba .big s{color:var(--t-muted);font-weight:400}
+.tv-ways{border-top:1px solid var(--t-line);margin-top:20px}.tv-ways > div{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--t-line)}
+.tv-ways i{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--t-lav);color:var(--t-lav);font-style:normal;font-size:12px;display:grid;place-items:center;font-weight:700}
+.tv-ways b{display:block;color:#fff}.tv-ways span{color:var(--t-muted)}
+.tv-tl{position:relative;padding-left:34px;margin-top:30px}.tv-tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--t-purple),transparent)}
+.tv-tl .item{position:relative;margin-bottom:34px}.tv-tl .item::before{content:"";position:absolute;left:-34px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--t-purple);box-shadow:0 0 0 5px rgba(107,63,228,.25)}
+.tv-tl h4{font-family:var(--body);font-size:20px;font-weight:700;color:#fff}
+.tv-muted{color:var(--t-muted);margin-top:6px}
+.tv-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.tv-proof > div{background:var(--t-card);border:1px solid var(--t-line);border-radius:14px;padding:14px;text-align:center}
+.tv-proof b{display:block;font-family:var(--display);font-size:28px;color:#fff}.tv-proof span{font-size:12px;color:var(--t-muted)}
+.tv-zrows{margin-top:14px}
+.tv-zrows img{border-color:rgba(255,255,255,.12)}
+.tv-get{background:var(--t-mark);color:#16121F;padding:0 10px;border-radius:6px}
+.tv-bonus{background:var(--t-card);border:1px solid var(--t-line);border-radius:18px;padding:24px;margin-top:26px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.tv-bonus .tag{font-family:var(--display);font-style:italic;color:var(--t-lav)}.tv-bonus h4{font-family:var(--body);margin:4px 0 6px;font-size:20px;color:#fff}.tv-bonus p{color:var(--t-muted)}
+.tv-bonus .val b{color:var(--t-mark)}.tv-bonus .when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--t-hot2);font-weight:700;margin-top:8px}
+.tv > section.band:not([style]){background:#fff;color:var(--ink)}
+.tv-foot{scroll-margin-top:0}
+.tv-white{background:#fff;padding:0 0 60px}.tv-white .tv-cta{margin-top:0}
+.tv-foot{padding:60px 0 80px;text-align:center}
+.tv-count{display:flex;justify-content:center;gap:22px;margin-top:22px}.tv-count b{display:block;font-family:var(--display);font-size:36px;color:#fff;font-variant-numeric:tabular-nums}.tv-count span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t-muted)}
+.tv-formwrap{max-width:520px;margin:30px auto 0;text-align:left;color:var(--ink)}
+.tv-formwrap .spot{box-shadow:0 30px 60px -30px rgba(217,72,15,.7)}
+@media (max-width:720px){
+  .tv-ba,.tv-bonus{grid-template-columns:1fr}.tv-proof{grid-template-columns:1fr}
+  .tv-lead{flex-direction:column;text-align:center}.tv-stats{justify-content:center}
+  .tv-btn.big{font-size:16px;padding:18px 22px;width:100%}
+  .tv-phase{padding:24px 18px}.tv-hero{padding-top:44px}
+  .tv-bar small{display:none}.tv-z{display:none}
+  .tv-count{gap:14px}.tv-count b{font-size:30px}
+}
+</style>
 </head>
 <body>
 
@@ -469,93 +547,111 @@ td:first-child{font-weight:700;white-space:nowrap}
 </main>
 
 <!-- ================= 3. TRAINING ================= -->
-<main id="v-training" class="view" hidden>
-  <div class="t-strip"><div class="in">FREE LIVE TRAINING · <span class="js-when-day"></span></div></div>
-  <section class="th2">
-    <div class="th2-grid">
-      <div class="th2-copy">
-        <div class="live-badge2"><i></i>Live on Zoom · Free</div>
-        <h1>The Business of <span class="hot">Teaching</span></h1>
-        <div class="team">with AI as your execution team.</div>
-        <p class="for" aria-live="polite"><span class="fixed">For</span> <span class="word js-rot">coaches</span></p>
-        <p class="lead">Whether you are about to launch, already teaching, or ready to scale. Learn the language your people use, and the seamless systems that take you from where you are to where you want to be.</p>
-        <div><a class="btn hot big" href="#reserve">Reserve my free spot</a></div>
-        <p class="quiz-first js-quiz-first">Not sure where you are? <a href="#quiz">Take the free quiz first.</a></p>
-        <p class="t-when when-line js-when-full"></p>
-        <p class="nr">Live only. There is no replay.</p>
-      </div>
-      <div class="th2-wall"><div class="marq4" aria-hidden="true" id="marq"></div><div class="th2-fade" aria-hidden="true"></div></div>
-    </div>
-  </section>
+<main id="v-training" class="view tv" hidden>
+  <div class="tv-bar">
+    <div class="tv-bar-l"><span class="tv-z" aria-hidden="true">zoom</span><div><b class="js-cd-text">Starts soon</b><small>Free live training · <span class="js-when-day"></span>, 11am London</small></div></div>
+    <a class="tv-btn sm" href="#reserve">Reserve my seat</a>
+  </div>
 
-  <section class="band" id="reserve">
-    <div class="in reserve">
-      <div>
-        <span class="eyebrow" style="color:var(--purple)">In this training</span>
-        <h2 class="sec-h" style="margin-top:8px">What you will learn</h2>
-        <div class="learn4">
-          <div><span class="n">1</span><b>Find your people</b><p>Your niche, the language your people use, and content that brings the right followers.</p></div>
-          <div><span class="n">2</span><b>Launch your offer</b><p>Turn what you teach into a named, priced offer, with AI doing the heavy lifting.</p></div>
-          <div><span class="n">3</span><b>Get paid</b><p>The best ways to earn from teaching, including organisations paying you to teach their people.</p></div>
-          <div><span class="n">4</span><b>Run it on systems</b><p>Automation and AI, so you sell and serve without being online 24/7.</p></div>
+  <header class="tv-dark tv-hero">
+    <div class="tv-wrap">
+      <div class="tv-eyebrow"><i></i>Free live training on Zoom</div>
+      <h1>The Business of <span class="mark">Teaching</span><br><span class="ai">with AI as your execution team</span></h1>
+      <p class="tv-for" aria-live="polite">For <b class="js-rot">coaches</b></p>
+      <div class="tv-lead">
+        <img class="js-portrait" alt="Temitope Saliu">
+        <div>
+          <p>How I turned what I know into offers people pay for, with <b>AI doing the heavy lifting</b>. The same system I use to launch my own courses, products and workshops.</p>
+          <div class="tv-stats"><span><b>3,000+</b>founders and business owners</span><span><b>10+ yrs</b>teaching, marketing, product, partnerships</span></div>
         </div>
       </div>
-      <form class="spot" id="reserve-form" novalidate>
-        <span class="eyebrow" style="color:var(--purple)">Free</span>
-        <h3>Reserve my free spot</h3>
-        <div class="when-box when-line js-when-full"></div>
-        <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
-        <div class="bonus"><b>Bonus for live attendees:</b> the content planning template I use for my own content.</div>
-        <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
-        <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email"></div>
-        <div class="field"><label for="r-cc">WhatsApp number, with country code</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number"></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
-        <button class="btn hot" type="submit">Reserve my free spot</button>
-        <p class="err" id="r-err" role="alert"></p>
-        <p class="small">We will send you an email with everything you need.</p>
-        <p class="small quiz-first js-quiz-first">Not sure if this is for you? <a href="#quiz">Take the free quiz first.</a></p>
-      </form>
+      <div class="tv-cta" style="margin-top:36px"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></div>
+      <div class="tv-sticker">the system I use to launch my own offers<b>Taught live, once. No replay.</b></div>
+      <p class="tv-when when-line js-when-full"></p>
+      <p class="tv-nr">Live only. There is no replay.</p>
+      <p class="quiz-first js-quiz-first">Not sure where you are? <a href="#quiz">Take the free quiz first.</a></p>
     </div>
-  </section>
+  </header>
 
-  <section class="band" style="background:var(--mist);border-block:1px solid var(--line)">
-    <div class="in">
-      <h2 class="sec-h">Is this for you?</h2>
-      <div class="who">
-        <div class="yes"><h4>Yes, if you</h4><ul><li>Coach, teach, train, mentor, advise or support people, or want to start</li><li>Are about to launch, already earning, or ready to scale</li><li>Have people already asking you for help</li><li>Want AI to carry the busywork so you can do the human part</li></ul></div>
-        <div><h4>Not yet, if you</h4><ul><li>Want passive income without doing the thinking</li><li>Want a tour of AI tools</li><li>Want someone to do it all for you</li></ul></div>
-      </div>
-    </div>
-  </section>
+  <section class="tv-dark tv-sec">
+    <div class="tv-wrap">
+      <h2 class="tv-sh">The 4 things I will teach you live</h2>
+      <p class="tv-sub">The path I use for my own offers, and the one I teach the people I work with.</p>
 
-  <section class="band">
-    <div class="in host">
-      <div class="host-photo"><img class="js-portrait" alt="Temitope Saliu, smiling"><div class="cap"><b>Temitope Saliu</b><span>Teacher, Digital Marketer and Tech Strategist</span></div></div>
-      <div>
-        <span class="eyebrow" style="color:var(--purple)">Who is running this</span>
-        <h2>Ten years teaching for the largest brands in the world. Then she taught for herself.</h2>
-        <p>For over ten years Temitope taught for the largest brands in the world: Google, Meta, Microsoft, USAID and Visa. In July 2026 she decided to teach people online, for herself, for the first time.</p>
-        <p><b>She used AI to go from idea to execution: the offer, the content, the systems, the launch.</b> Since July 2026 her teaching practice has made tens of thousands of dollars, all built with AI as her team.</p>
-        <p class="small">Her results, shared to show what is possible. Not a promise of yours.</p>
-        <div class="creds">
-          <div>Google &amp; Meta Elite Trainer. Trained 3,000 professionals and business owners</div>
-          <div>1 of 20 Google Digital Skills Partners</div>
-          <div>1 of 5 Microsoft Developer Programme Partners</div>
-          <div>USAID &amp; Peace Corps education curriculum developer and trainer for Peace Ambassadors</div>
-          <div>Women Economic Forum Iconic Award winner</div>
-          <div>UK Global Exceptional Talent</div>
+      <div class="tv-phase">
+        <div class="num">01</div>
+        <h3>Package what you know: <span class="mark">one offer people ask to buy</span></h3>
+        <div class="tv-ba">
+          <div class="box"><div class="k">Before</div><div class="big"><s>"It depends…"</s></div><ul><li>A custom answer for every enquiry</li><li>Explaining and justifying your price</li><li>One-to-one only, one hour at a time</li></ul></div>
+          <div class="box"><div class="k after">After</div><div class="big">Priced by the result, not the hour</div><ul><li>AI pulls the offer out of your notes, sessions and voice notes</li><li>One named offer with a promise people repeat back to you</li><li>A group version: one hour serves many</li></ul></div>
         </div>
       </div>
+
+      <div class="tv-phase">
+        <div class="num">02</div>
+        <h3>Content that fills it: <span class="mark">the system behind 12,000 followers and $10,000 from one offer, in 30 days</span></h3>
+        <div class="tv-ba">
+          <div class="box"><div class="k">Before</div><ul><li>Staring at a blank page</li><li>Posting when you remember</li><li>Likes, but no enquiries</li></ul></div>
+          <div class="box"><div class="k after">After</div><ul><li>One session you teach becomes a month of posts, in your voice</li><li>Every post points to your offer</li><li>Messages from the right people, not just likes</li></ul></div>
+        </div>
+      </div>
+
+      <div class="tv-phase">
+        <div class="num">03</div>
+        <h3>Get paid three ways: <span class="mark">from the same knowledge</span></h3>
+        <p class="tv-sub" style="text-align:left;margin:10px 0 0;max-width:none">Stop trading every hour. Build income that does not depend on you being in the room:</p>
+        <div class="tv-ways">
+          <div><i>1</i><div><b>Your own offer</b><span>Sessions, small groups, a programme. Booked and paid upfront.</span></div></div>
+          <div><i>2</i><div><b>Organisations</b><span>Companies paying you to train their teams. One contract, many seats. The route behind my work with Google, Meta and Microsoft.</span></div></div>
+          <div><i>3</i><div><b>Digital products</b><span>Guides, templates and courses built from what you already teach. Sold while you sleep.</span></div></div>
+        </div>
+      </div>
+
+      <div class="tv-phase">
+        <div class="num">04</div>
+        <h3>Your AI execution team: <span class="mark">enquiry to payment, without you in every step</span></h3>
+        <div class="tv-ba">
+          <div class="box"><div class="k">Your week now</div><ul><li>Replying to every enquiry yourself</li><li>Chasing people who never book</li><li>Busy, and still underpaid</li></ul></div>
+          <div class="box"><div class="k after">Your week with your AI team</div><ul><li>Enquiry, fit check, price, booking, follow-up: automated</li><li>AI drafts, you approve</li><li>Your time goes on teaching, not admin</li></ul></div>
+        </div>
+      </div>
+      <p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p>
     </div>
   </section>
 
-  <section class="inside">
-    <div class="in">
-      <span class="eyebrow">Inside the live training</span>
-      <h2>Real sessions. Real people, building with me live.</h2>
-      <p>Moments from my live Zoom workshops. Faces blurred for privacy.</p>
+  <section class="tv-dark tv-sec tv-alt">
+    <div class="tv-wrap">
+      <h2 class="tv-sh">Who you will learn from</h2>
+      <div class="tv-tl">
+        <div class="item">
+          <h4>Over ten years in teaching, marketing, products and partnerships, before AI</h4>
+          <div class="tv-proof"><div><b>3,000+</b><span>founders and owners</span></div><div><b>25,000</b><span>paying users grown, 7 countries</span></div><div><b>$355K</b><span>from education partnerships I sealed</span></div></div>
+        </div>
+        <div class="item">
+          <h4>Google and Meta Elite Trainer. Microsoft developer partner.</h4>
+          <p class="tv-muted">1 of 20 Google Digital Skills Partners. 1 of 5 Microsoft Developer Programme Partners. Training and workshops delivered for Google, Meta, Microsoft, Visa with She Leads Africa, USAID and Peace Corps, and the IOM. Live sessions like these, faces blurred for privacy:</p>
+          <div class="zrows tv-zrows" aria-hidden="true" id="zrows"></div>
+        </div>
+        <div class="item">
+          <h4>I build in public: courses, products and apps, with AI as the team</h4>
+          <p class="tv-muted">Every system in this training is one I run on my own business first.</p>
+        </div>
+      </div>
+      <p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p>
     </div>
-    <div class="zrows" aria-hidden="true" id="zrows"></div>
   </section>
+
+  <section class="tv-dark tv-sec">
+    <div class="tv-wrap">
+      <h2 class="tv-sh">Show up live and you <span class="tv-get">GET:</span></h2>
+      <div class="tv-bonus">
+        <div><div class="tag">Your bonus</div><h4>The content planning system behind 12,000 followers and $10,000 from one offer, in 30 days</h4><p>The exact system I plan my content with. Plug in your niche and it tells you what to post, where, and when.</p><div class="when">When you show up live</div></div>
+        <div class="val"><b>FREE</b></div>
+      </div>
+      <p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p>
+    </div>
+  </section>
+
   <section class="band" style="background:var(--lav)">
     <div class="in">
       <span class="eyebrow" style="color:var(--purple)">From The Business Architect Programme</span>
@@ -581,22 +677,29 @@ td:first-child{font-weight:700;white-space:nowrap}
       </div>
     </div>
   </section>
+  <section class="tv-white"><p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p></section>
 
-  <section class="band">
-    <div class="in narrow faq">
-      <h2 class="sec-h">Questions</h2>
-      <details><summary>Is it really free?</summary><p>Yes. Reserve your spot and come live.</p></details>
-      <details><summary>What time is it for me?</summary><p class="when-line js-when-full"></p></details>
-      <details><summary>I have already launched. Is this for me?</summary><p>Yes. It covers launching, growing and scaling with systems. You will leave with a next step for where you are.</p></details>
-      <details><summary>Do I need to be good with AI?</summary><p>No. If you can use a laptop, you can follow along.</p></details>
-    </div>
-  </section>
-
-  <section class="fin">
-    <div class="in" style="padding-block:56px">
-      <h2 style="font-size:clamp(30px,4.4vw,48px);margin-bottom:12px">See you <span class="js-when-day-lc"></span>.</h2>
-      <p style="margin-bottom:22px" class="when-line js-when-full"></p>
-      <a class="btn white on-hot big" href="#reserve">Reserve my free spot</a>
+  <section class="tv-dark tv-foot" id="reserve">
+    <div class="tv-wrap">
+      <h2 class="tv-sh">Claim your free seat</h2>
+      <div class="tv-count" aria-label="Time until the training"><div><b class="js-cd-d">0</b><span>days</span></div><div><b class="js-cd-h">00</b><span>hours</span></div><div><b class="js-cd-m">00</b><span>minutes</span></div><div><b class="js-cd-s">00</b><span>seconds</span></div></div>
+      <div class="tv-formwrap">
+        <form class="spot" id="reserve-form" novalidate>
+        <span class="eyebrow" style="color:var(--purple)">Free</span>
+        <h3>Reserve my free spot</h3>
+        <div class="when-box when-line js-when-full"></div>
+        <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
+        <div class="bonus"><b>Bonus for live attendees:</b> the content planning system behind 12,000 followers and $10,000 from one offer, in 30 days.</div>
+        <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
+        <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email"></div>
+        <div class="field"><label for="r-cc">WhatsApp number, with country code</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number"></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
+        <button class="btn hot" type="submit">Reserve my free spot</button>
+        <p class="err" id="r-err" role="alert"></p>
+        <p class="small">We will send you an email with everything you need.</p>
+        <p class="small quiz-first js-quiz-first">Not sure if this is for you? <a href="#quiz">Take the free quiz first.</a></p>
+      </form>
+      </div>
+      <p class="tv-nr">Live only. There is no replay.</p>
     </div>
   </section>
 </main>
@@ -750,6 +853,19 @@ td:first-child{font-weight:700;white-space:nowrap}
   $$('.js-vip-day').forEach(function(e){ e.innerHTML = whenHtml(VIP); });
   $$('.js-when-day').forEach(function(e){ e.textContent = dayWord; });
   $$('.js-when-day-lc').forEach(function(e){ e.textContent = isToday ? 'today' : 'on Saturday'; });
+  (function(){ /* countdown to the next training */
+    function p2(n){ return (n < 10 ? '0' : '') + n; }
+    function tick(){
+      var ms = NEXT.getTime() - Date.now(), live = ms <= 0; ms = Math.max(0, ms);
+      var d = Math.floor(ms/864e5), h = Math.floor(ms%864e5/36e5), m = Math.floor(ms%36e5/6e4), sc = Math.floor(ms%6e4/1e3);
+      $$('.js-cd-text').forEach(function(e){ e.textContent = live ? 'Live now' : 'Starts in ' + d + 'd ' + p2(h) + 'h ' + p2(m) + 'm'; });
+      $$('.js-cd-d').forEach(function(e){ e.textContent = d; });
+      $$('.js-cd-h').forEach(function(e){ e.textContent = p2(h); });
+      $$('.js-cd-m').forEach(function(e){ e.textContent = p2(m); });
+      $$('.js-cd-s').forEach(function(e){ e.textContent = p2(sc); });
+    }
+    tick(); setInterval(tick, 1000);
+  })();
   (function(){
     function z(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
     var end = new Date(NEXT.getTime() + 90*60000), title = 'Free live training with Temitope Saliu', det = 'Joining details are in your email.';
