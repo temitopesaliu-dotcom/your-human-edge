@@ -305,6 +305,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .when-line b{display:inline-flex;align-items:center;gap:8px;font-weight:700}
 .when-line .cal-ic{color:var(--purple);flex:0 0 auto}
 .when-line .loc{display:block;margin-top:4px;color:var(--muted);font-weight:400;font-size:.92em}
+.quiz-first{margin:12px 0 0;font-size:.95rem;color:var(--muted)}.quiz-first a{color:var(--purple);font-weight:700;text-decoration:underline;text-underline-offset:3px}.quiz-first[hidden]{display:none}
+.offer .vip-terms{color:#CFC8DA;font-size:.85rem;margin:14px 0 0;line-height:1.5}
 .th .t-when{margin-top:16px;font-size:15.5px}
 .th .t-when b{color:var(--ink)}
 .th-photo{position:relative;border-radius:26px;overflow:hidden;background:var(--ink);padding:56px 0;max-width:480px;width:100%;justify-self:center;display:grid;place-items:center}
@@ -478,6 +480,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <p class="for" aria-live="polite"><span class="fixed">For</span> <span class="word js-rot">coaches</span></p>
         <p class="lead">Whether you are about to launch, already teaching, or ready to scale. Learn the language your people use, and the seamless systems that take you from where you are to where you want to be.</p>
         <div><a class="btn hot big" href="#reserve">Reserve my free spot</a></div>
+        <p class="quiz-first js-quiz-first">Not sure where you are? <a href="#quiz">Take the free quiz first.</a></p>
         <p class="t-when when-line js-when-full"></p>
         <p class="nr">Live only. There is no replay.</p>
       </div>
@@ -509,6 +512,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <button class="btn hot" type="submit">Reserve my free spot</button>
         <p class="err" id="r-err" role="alert"></p>
         <p class="small">We will send you an email with everything you need.</p>
+        <p class="small quiz-first js-quiz-first">Not sure if this is for you? <a href="#quiz">Take the free quiz first.</a></p>
       </form>
     </div>
   </section>
@@ -628,12 +632,13 @@ td:first-child{font-weight:700;white-space:nowrap}
         <li>The replay of the training (the only replay there is)</li>
         <li>The prompt pack I use to launch my offers</li>
       </ul>
-      <div class="price"><b>$57</b><span>one payment · no subscription</span></div>
+      <div class="price"><b>$57</b><span>one payment · no subscription · non-refundable</span></div>
       <div class="row">
         <button type="button" class="btn hot" id="vip-buy">Get VIP for $57</button>
         <button type="button" class="skip" id="skip-offer">No thanks, see you on Saturday</button>
       </div>
       <p class="err" id="vip-err" role="alert"></p>
+      <p class="small vip-terms">The VIP payment is non-refundable. The Q&amp;A is live. If you miss it, you still get the replay and the prompt pack.</p>
     </div>
   </div>
 </main>
@@ -724,12 +729,21 @@ td:first-child{font-weight:700;white-space:nowrap}
     if(abbr !== 'BST') abbr = 'GMT';
     var main = lm + ' ' + ldate + ', ' + ly + ' · ' + shortTime(d,'Europe/London',false) + ' London ' + abbr;
     var out = '<b>' + CAL + esc(main) + '</b>';
-    if(userTZ !== 'Europe/London'){
-      var tzName = partVal(partsIn(d,null,{timeZoneName:'long'}),'timeZoneName') || city(userTZ);
-      var day = fmtIn(d,null,{weekday:'long', day:'numeric', month:'long'});
-      out += '<span class="loc">That’s ' + esc(shortTime(d,null,true)) + ' on ' + esc(day) + ' (' + esc(tzName) + ') where you are.</span>';
-    }
+    var day = fmtIn(d,null,{weekday:'long', day:'numeric', month:'long'});
+    out += '<span class="loc">' + esc(shortTime(d,null,true)) + ' ' + esc(day) + ', your time (' + esc(city(userTZ)) + ', ' + esc(tzAbbr(d)) + ')</span>';
     return out;
+  }
+  function tzAbbr(d){ // named abbreviation where the visitor's own locale has one (WAT, EST, GST), else GMT+1 style
+    var locs = [], nl = (navigator.language || ''); if(nl) locs.push(nl); locs.push('en-US','en-GB');
+    var fallback = '';
+    for(var i=0;i<locs.length;i++){
+      try{
+        var v = new Intl.DateTimeFormat(locs[i], {timeZone:userTZ, timeZoneName:'short'}).formatToParts(d).filter(function(p){ return p.type === 'timeZoneName'; })[0].value;
+        if(v && !/^(GMT|UTC)[+\-]/.test(v)) return v;
+        if(v && !fallback) fallback = v;
+      }catch(e){}
+    }
+    return fallback || 'GMT';
   }
   $$('.js-when-full').forEach(function(e){ e.innerHTML = whenHtml(NEXT); });
   var VIP = londonToDate(NEXT.getUTCFullYear(), NEXT.getUTCMonth(), NEXT.getUTCDate() + 5, 17);
@@ -806,7 +820,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     b4:{q:'Who pays you most often?', opts:[['u',"Whoever comes along, even if they're not my ideal person."],['o',"My ideal people. There just isn't enough of me."]]},
     b5:{q:'If you stopped working for a month:', opts:[['u',"Not much would change. There isn't enough coming in yet."],['o','Income would stop. It all depends on me showing up.']]},
     b6:{q:'How do new clients find you?', opts:[['u','Word of mouth, when it happens.'],['o','Referrals and a waitlist.']]},
-    b7:{q:'What would change things most in the next 90 days?', opts:[['u','Charging properly, to people who value it.'],['o','Getting time back without losing income.']]},
+    b7:{q:'What would change things most in the next 30 days?', opts:[['u','Charging properly, to people who value it.'],['o','Getting time back without losing income.']]},
     gap:{q:'How much more a month do you want to earn from this?', ex:'In US dollars. A rough number is fine.', opts:[['500','$500'],['1000','$1,000'],['2500','$2,500'],['5000','$5,000'],['10000','$10,000 or more']]}
   };
   var STAGE_NAME = {quiet:'The Quiet Expert', generous:'The Generous Expert', booked:'The Booked-Out Expert'};
@@ -859,7 +873,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
   }
   function advance(){ st.step++; if(st.step >= seq().length) renderGate(); else renderQ(true); keepCardInView(); }
-  function keepCardInView(){ var c = $('#qcard'), r = c.getBoundingClientRect(); if(r.top < 60 || r.top > window.innerHeight * .5){ c.scrollIntoView({block:'start'}); window.scrollBy(0,-70); } }
+  function keepCardInView(){ var c = $('#qcard'), r = c.getBoundingClientRect(); if(r.top < 60 || r.top > 110){ c.scrollIntoView({block:'start'}); window.scrollBy(0,-70); } }
 
   var CC = [['NG','Nigeria','+234'],['GB','United Kingdom','+44'],['US','United States','+1'],['CA','Canada','+1'],['GH','Ghana','+233'],['KE','Kenya','+254'],['ZA','South Africa','+27'],['IE','Ireland','+353'],['AE','United Arab Emirates','+971'],['DE','Germany','+49'],['NL','Netherlands','+31'],['AU','Australia','+61']];
   function guessCC(){
@@ -1117,6 +1131,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
     if(v === 'quiz' && (!$('#qcard').innerHTML || st.done)){ st = {ans:{}, step:0, name:st.name, email:st.email, phone:st.phone, done:false}; SID = newSid(); renderQ(false); }
     if(v === 'result') renderResult();
+    if(v === 'training'){ var didQuiz = !!(st.done || (function(){ try{ return JSON.parse(localStorage.getItem('bridge_current') || 'null'); }catch(e){ return null; } })()); $$('.js-quiz-first').forEach(function(e){ e.hidden = didQuiz; }); }
     if(toReserve){ $('#reserve').scrollIntoView(); } else window.scrollTo(0,0);
   }
   window.addEventListener('hashchange', function(){ if(window.gtag) gtag('event','page_view',{page_path:'/bridge' + location.hash}); show(); });
