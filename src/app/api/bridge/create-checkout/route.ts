@@ -45,8 +45,8 @@ export async function POST(req: NextRequest) {
           },
         },
       }],
-      success_url: `${siteUrl}/bridge?vip=1#thanks`,
-      cancel_url: `${siteUrl}/bridge#thanks`,
+      success_url: `${siteUrl}/thebridge-vip-confirmed`,
+      cancel_url: `${siteUrl}/thebridge-registered`,
     });
     if (!session.url) return NextResponse.json({ error: 'Stripe did not return a checkout URL.' }, { status: 502 });
     return NextResponse.json({ url: session.url });
