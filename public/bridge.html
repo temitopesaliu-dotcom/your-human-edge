@@ -450,7 +450,7 @@ td:first-child{font-weight:700;white-space:nowrap}
 .tv-wrap{max-width:980px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
 .tv-bar{position:sticky;top:0;z-index:40;background:#F2EEF8;color:#16121F;display:flex;align-items:center;justify-content:space-between;padding:10px var(--gr) 10px var(--gl);gap:12px}
 .tv-bar-l{display:flex;align-items:center;gap:10px;min-width:0}
-.tv-z{width:34px;height:34px;border-radius:9px;background:#2D8CFF;color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;flex:none}
+.tv-z{width:34px;height:34px;border-radius:9px;background:#D9480F;color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;flex:none}
 .tv-bar b{display:block;font-size:15px}.tv-bar small{display:block;color:#5E5870;font-size:12.5px}
 .tv-btn{display:inline-block;background:var(--hot);color:#fff;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px;border:0;cursor:pointer;text-align:center}
 .tv-btn.sm{padding:10px 18px;font-size:14px;flex:none}
@@ -549,19 +549,19 @@ td:first-child{font-weight:700;white-space:nowrap}
 <!-- ================= 3. TRAINING ================= -->
 <main id="v-training" class="view tv" hidden>
   <div class="tv-bar">
-    <div class="tv-bar-l"><span class="tv-z" aria-hidden="true">zoom</span><div><b class="js-cd-text">Starts soon</b><small>Free live training · <span class="js-when-day"></span>, 11am London</small></div></div>
+    <div class="tv-bar-l"><span class="tv-z" aria-hidden="true">LIVE</span><div><b class="js-cd-text">Starts soon</b><small>Free live training · <span class="js-when-day"></span>, 11am London</small></div></div>
     <a class="tv-btn sm" href="#reserve">Reserve my seat</a>
   </div>
 
   <header class="tv-dark tv-hero">
     <div class="tv-wrap">
-      <div class="tv-eyebrow"><i></i>Free live training on Zoom</div>
+      <div class="tv-eyebrow"><i></i>Free live training</div>
       <h1>The Business of <span class="mark">Teaching</span><br><span class="ai">with AI as your execution team</span></h1>
       <p class="tv-for" aria-live="polite">For <b class="js-rot">coaches</b></p>
       <div class="tv-lead">
         <img class="js-portrait" alt="Temitope Saliu">
         <div>
-          <p>How I turned what I know into offers people pay for, with <b>AI doing the heavy lifting</b>. The same system I use to launch my own courses, products and workshops.</p>
+          <p>How I turned what I know into offers people pay for, with <b>AI doing the heavy lifting</b>. The same system I use to launch my own content, courses, products and workshops with zero burnout.</p>
           <div class="tv-stats"><span><b>3,000+</b>founders and business owners</span><span><b>10+ yrs</b>teaching, marketing, product, partnerships</span></div>
         </div>
       </div>
@@ -569,7 +569,7 @@ td:first-child{font-weight:700;white-space:nowrap}
       <div class="tv-sticker">the system I use to launch my own offers<b>Taught live, once. No replay.</b></div>
       <p class="tv-when when-line js-when-full"></p>
       <p class="tv-nr">Live only. There is no replay.</p>
-      <p class="quiz-first js-quiz-first">Not sure where you are? <a href="#quiz">Take the free quiz first.</a></p>
+      <p class="quiz-first js-quiz-first">Not sure where you are? <a href="/thebridge">Take the free quiz first.</a></p>
     </div>
   </header>
 
@@ -696,7 +696,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <button class="btn hot" type="submit">Reserve my free spot</button>
         <p class="err" id="r-err" role="alert"></p>
         <p class="small">We will send you an email with everything you need.</p>
-        <p class="small quiz-first js-quiz-first">Not sure if this is for you? <a href="#quiz">Take the free quiz first.</a></p>
+        <p class="small quiz-first js-quiz-first">Not sure if this is for you? <a href="/thebridge">Take the free quiz first.</a></p>
       </form>
       </div>
       <p class="tv-nr">Live only. There is no replay.</p>
@@ -747,7 +747,7 @@ td:first-child{font-weight:700;white-space:nowrap}
 </main>
 
 <div class="stickybar" id="stickybar" hidden>
-  <div class="in"><span>Free live training · <span class="js-when-day"></span></span><a class="btn white on-hot" href="#training">Save my free seat</a></div>
+  <div class="in"><span>Free live training · <span class="js-when-day"></span></span><a class="btn white on-hot" href="/thebridge-webinar">Save my free seat</a></div>
 </div>
 
 <script>
@@ -1026,7 +1026,7 @@ td:first-child{font-weight:700;white-space:nowrap}
       current = {ans:JSON.parse(JSON.stringify(st.ans)), name:st.name, demo:false};
       try{ localStorage.setItem('bridge_current', JSON.stringify({ans:current.ans, name:current.name})); }catch(e){}
       $('#r-name').value = st.name; $('#r-email').value = st.email;
-      location.hash = 'result';
+      go('result');
     }, reduce ? 300 : 380 + steps.length*380 + 400);
   }
 
@@ -1117,7 +1117,7 @@ td:first-child{font-weight:700;white-space:nowrap}
   }
   function renderResult(){
     var root = $('#result-root');
-    if(!current){ location.hash = 'quiz'; return; }
+    if(!current){ go('quiz', true); return; }
     var a = current.ans, stage = stageOf(a), S = STAGE[stage], yes = a.paid === 'yes';
     var topic = cleanTopic(a.teach) || 'what you teach';
     var T = titleCase(topic);
@@ -1153,7 +1153,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     /* 2. free seat */
     h += '<section class="seat"><div class="in"><span class="eyebrow">This sketch can become real</span><h2>Free Live Training</h2>' +
          '<p>Learn the language your people use, and the seamless systems that take you from where you are to where you want to be.</p>' +
-         '<a class="btn white on-hot big" href="#training">Save my free seat</a></div></section>';
+         '<a class="btn white on-hot big" href="/thebridge-webinar">Save my free seat</a></div></section>';
     /* 3. breakdown */
     h += '<section class="r-hero"><div class="in"><span class="eyebrow stagepill">' + S.stage + '</span>' +
          '<h2>' + name + ', you are ' + S.name + '.</h2><p class="r-line">' + S.line + '</p>' +
@@ -1180,7 +1180,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
     h += '<div class="bridge-cta"><span class="eyebrow">' + ctaTop + '</span>' +
          '<h3>Free Live Training</h3><p>Learn the language those people use, and the seamless systems that take you from where you are to where you want to be.</p>' +
-         '<a class="btn white on-hot big" href="#training">Save my free seat</a></div>' +
+         '<a class="btn white on-hot big" href="/thebridge-webinar">Save my free seat</a></div>' +
          '<p class="small" style="margin-top:22px">Your answers are used to build these results. The sketches are examples, not promises of results.</p></div></section>';
     root.innerHTML = h;
   }
@@ -1217,10 +1217,10 @@ td:first-child{font-weight:700;white-space:nowrap}
       $('#thx-h').textContent = "You're in, " + n + '.';
       if(window.fbq) fbq('track','CompleteRegistration');
       if(window.gtag) gtag('event','generate_lead',{method:'bridge_free_training'});
-      location.hash = 'thanks';
+      go('thanks');
     });
   });
-  $('#skip-offer').addEventListener('click', function(){ location.hash = 'training'; });
+  $('#skip-offer').addEventListener('click', function(){ go('training'); });
   $('#vip-buy').addEventListener('click', function(){
     var b = this, err = $('#vip-err'); err.textContent = ''; b.disabled = true; b.textContent = 'Opening secure checkout...';
     var email = st.regEmail || '';
@@ -1234,14 +1234,35 @@ td:first-child{font-weight:700;white-space:nowrap}
 
   /* ---------- router ---------- */
   var VIEWS = ['quiz','result','training','thanks'];
+  // Every step has its own address so each one can be tracked as a page.
+  var PATHS = {quiz:'/thebridge', result:'/thebridge-results', training:'/thebridge-webinar', thanks:'/thebridge-registered', vip:'/thebridge-vip-confirmed'};
+  function viewFromPath(){
+    var path = location.pathname.replace(/\/+$/,'') || '/';
+    if(/[?&]vip=1(&|$)/.test(location.search)) return 'vip';
+    for(var k in PATHS){ if(PATHS[k] === path) return k; }
+    return 'quiz';
+  }
+  function go(view, replace){
+    var url = PATHS[view] + location.search.replace(/([?&])vip=1(&|$)/,'$1').replace(/[?&]$/,'');
+    history[replace ? 'replaceState' : 'pushState'](null, '', url);
+    show(); track();
+  }
+  function track(){
+    if(window.gtag) gtag('event','page_view',{page_path:location.pathname, page_location:location.href});
+    if(window.fbq) fbq('track','PageView');
+  }
   function show(){
-    var v = location.hash.replace('#','');
-    var toReserve = v === 'reserve';
+    var h = location.hash.replace('#','');
+    var toReserve = h === 'reserve';
+    // Old #quiz / #result / #training / #thanks links move to their own address.
+    if(VIEWS.indexOf(h) >= 0){ history.replaceState(null, '', PATHS[h] + location.search); }
+    var v = viewFromPath();
     if(toReserve) v = 'training';
-    if(VIEWS.indexOf(v) < 0) v = 'quiz';
-    VIEWS.forEach(function(id){ $('#v-' + id).hidden = (id !== v); });
+    var sec = v === 'vip' ? 'thanks' : v;
+    VIEWS.forEach(function(id){ $('#v-' + id).hidden = (id !== sec); });
     $('#stickybar').hidden = (v !== 'result');
-    if(v === 'thanks'){
+    if(v === 'thanks' || v === 'vip'){
+      VIP_PAID = (v === 'vip');
       $('#vip-ok').hidden = !VIP_PAID; $('#vip-offer').hidden = VIP_PAID;
       if(VIP_PAID){ try{ var rg = JSON.parse(localStorage.getItem('bridge_reg') || '{}'); $('#thx-h').textContent = rg.n ? "You're in, " + rg.n + '.' : "You're in."; }catch(e){} }
     }
@@ -1250,7 +1271,14 @@ td:first-child{font-weight:700;white-space:nowrap}
     if(v === 'training'){ var didQuiz = !!(st.done || (function(){ try{ return JSON.parse(localStorage.getItem('bridge_current') || 'null'); }catch(e){ return null; } })()); $$('.js-quiz-first').forEach(function(e){ e.hidden = didQuiz; }); }
     if(toReserve){ $('#reserve').scrollIntoView(); } else window.scrollTo(0,0);
   }
-  window.addEventListener('hashchange', function(){ if(window.gtag) gtag('event','page_view',{page_path:'/bridge' + location.hash}); show(); });
+  window.addEventListener('hashchange', show);
+  window.addEventListener('popstate', function(){ show(); track(); });
+  // Links to another step change the address without reloading the page.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if(!a || a.target === '_blank' || e.metaKey || e.ctrlKey) return;
+    var u = new URL(a.href, location.href); if(u.origin !== location.origin || u.hash) return;
+    for(var k in PATHS){ if(PATHS[k] === u.pathname){ e.preventDefault(); go(k); return; } }
+  });
   show();
 })();
 </script>
