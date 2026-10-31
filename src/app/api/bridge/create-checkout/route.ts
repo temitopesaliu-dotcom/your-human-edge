@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
           unit_amount: VIP_AMOUNT_CENTS,
           product_data: {
             name: 'The Bridge VIP',
-            description: 'VIP live Q&A class with Temitope, the replay of the free training, and the prompt pack. One payment, no subscription.',
+            description: 'VIP live Q&A class with Temitope, the replay of the free training, and the prompt pack. One payment, no subscription, non-refundable.',
           },
         },
       }],
