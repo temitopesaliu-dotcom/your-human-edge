@@ -743,7 +743,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         if(v && !fallback) fallback = v;
       }catch(e){}
     }
-    return fallback || 'GMT';
+    return (fallback || 'GMT').replace(/^(GMT|UTC)[+\-]0(:00)?$/, 'GMT');
   }
   $$('.js-when-full').forEach(function(e){ e.innerHTML = whenHtml(NEXT); });
   var VIP = londonToDate(NEXT.getUTCFullYear(), NEXT.getUTCMonth(), NEXT.getUTCDate() + 5, 17);
