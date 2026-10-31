@@ -215,7 +215,7 @@ function vipEmail_(first, qa, tz) {
     'The replay of the Saturday training. It is the only replay there is.',
     'The prompt pack I use to launch my offers. It will reach you before Thursday.'
   ];
-  var zoom = 'The Zoom link will come to this inbox before the class.';
+  var zoom = 'Your joining link will come to this inbox before the class.';
   var close = 'See you on Thursday. Come with all your questions.';
   var text = 'Hi ' + first + ',\n\nYour VIP spot is confirmed.\n\nWhat you get:\n\n- ' + items.join('\n- ') +
     '\n\nWhen: ' + londonLine + (local ? '\n' + local : '') + '\n\n' + zoom +
@@ -265,12 +265,12 @@ function wrap_(inner) { return '<div style="font-family:Inter,Arial,sans-serif;f
 
 function quizEmail_(first, result) {
   var line = RESULT_LINE[result] || '';
-  var next = 'Next step: the free live training, The Business of Teaching, with AI as your execution team. Reserve your seat: https://temitopesaliu.com/bridge#reserve';
+  var next = 'Next step: the free live training, The Business of Teaching, with AI as your execution team. Reserve your seat: https://temitopesaliu.com/thebridge-webinar#reserve';
   var sg = signOff_();
   return {
     subject: 'Your Bridge result, ' + first,
     text: 'Hi ' + first + ',\n\nYou are ' + result + '.\n\n' + line + '\n\n' + next + '\n\n' + sg.text,
-    html: wrap_('<p>Hi ' + first + ',</p><p>You are <b>' + result + '</b>.</p><p>' + line + '</p><p>Next step: the free live training, <b>The Business of Teaching, with AI as your execution team</b>.</p><p><a href="https://temitopesaliu.com/bridge#reserve" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Reserve my free seat</a></p>' + sg.html)
+    html: wrap_('<p>Hi ' + first + ',</p><p>You are <b>' + result + '</b>.</p><p>' + line + '</p><p>Next step: the free live training, <b>The Business of Teaching, with AI as your execution team</b>.</p><p><a href="https://temitopesaliu.com/thebridge-webinar#reserve" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Reserve my free seat</a></p>' + sg.html)
   };
 }
 
@@ -283,7 +283,7 @@ function webinarEmail_(first, sessionUtc, tz) {
   }
   var sg = signOff_();
   var live = 'It is live only. There is no replay, so be there.';
-  var zoom = 'The Zoom link will come to this inbox before we start.';
+  var zoom = 'Your joining link will come to this inbox before we start.';
   var bonus = 'Bonus for live attendees: the content planning template I use for my own content.';
   return {
     subject: 'Your seat is saved, ' + first,
