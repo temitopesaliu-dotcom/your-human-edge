@@ -7,7 +7,7 @@
  * Actions (JSON string body, Content-Type text/plain):
  *   quiz       Quiz answers. One row per quiz session, filled in as they answer.
  *   webinar    Free training sign-up (name, email, WhatsApp with country code).
- *   vip_buyer  A paid $57 VIP. Stamps the VIP tab and sends the welcome email from ts@.
+ *   vip_buyer  A paid VIP ($57, £47 or naira via Paystack). Stamps the VIP tab and sends the welcome email from ts@.
  *
  * SETUP
  * 1. Project Settings > Script Properties: BRIDGE_SECRET (same value as the
@@ -147,6 +147,8 @@ function webinar_(ss, d) {
 
 /* ---------- VIP buyer ---------- */
 function vip_(ss, d) {
+  var cur = String(d.currency || 'USD').toUpperCase();
+  var paid = (cur === 'NGN' ? '\u20a6' : cur === 'GBP' ? '\u00a3' : '$') + Number(d.amount || 0).toLocaleString('en-GB');
   var sh = ss.getSheetByName(VIP);
   var row = findRow_(sh, 'Payment / order ID', d.order_id);
   if (!row) row = findRow_(sh, 'Email', d.email);
@@ -154,8 +156,9 @@ function vip_(ss, d) {
   if (!row) row = nextRow_(sh);
   var f = {
     'First name': d.first_name, 'Email': d.email, 'WhatsApp (with country code)': d.whatsapp,
-    'Amount paid (USD)': d.amount || VIP_AMOUNT_DEFAULT, 'Payment processor': 'Stripe', 'Payment / order ID': d.order_id
+    'Amount paid': d.amount, 'Currency': cur, 'Payment processor': d.processor || 'Stripe', 'Payment / order ID': d.order_id
   };
+  if (cur === 'USD') f['Amount paid (USD)'] = d.amount;
   if (isNew) f['Paid (UTC)'] = stamp_();
   var tz = '', sessionUtc = '';
   var w = ss.getSheetByName(WEB), wr = findRow_(w, 'Email', d.email);
@@ -180,7 +183,7 @@ function vip_(ss, d) {
     if (sent) put_(sh, row, { 'Welcome email sent (UTC)': stamp_() });
   }
   var alert = { subject: 'New Bridge VIP: ' + first + ' (' + d.email + ')',
-    text: 'Paid $' + (d.amount || VIP_AMOUNT_DEFAULT) + '. Order ' + d.order_id + '. Welcome email ' + (sent ? 'sent.' : 'NOT sent, check the VIP tab.') };
+    text: 'Paid ' + paid + ' via ' + (d.processor || 'Stripe') + '. Order ' + d.order_id + '. Welcome email ' + (sent ? 'sent.' : 'NOT sent, check the VIP tab.') };
   alert.html = '<p>' + alert.text + '</p>';
   try { sendFromBusinessAddress_(ALERT_TO, alert); }
   catch (err) { try { MailApp.sendEmail({ to: ALERT_TO, subject: alert.subject, body: alert.text }); } catch (e2) { Logger.log('alert failed: ' + e2); } }
