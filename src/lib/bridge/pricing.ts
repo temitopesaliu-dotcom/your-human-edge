@@ -80,7 +80,14 @@ export async function vipPrice(currency: Currency): Promise<VipPrice> {
   return { currency, amount, amountMinor: Math.round(amount * 100), display: formatPrice(currency, amount) };
 }
 
-/** Naira is only offered once the Paystack key is in place. */
-export function nairaEnabled(): boolean {
-  return Boolean(process.env.PAYSTACK_SECRET_KEY);
+/**
+ * Naira is shown to real buyers only with a LIVE Paystack key (sk_live_...).
+ * With a test key (sk_test_...) it appears only when the page is opened with
+ * ?paystack_test=1, so the checkout can be tested without any buyer seeing a
+ * test-mode payment page.
+ */
+export function nairaEnabled(testRequested = false): boolean {
+  const key = process.env.PAYSTACK_SECRET_KEY || '';
+  if (key.startsWith('sk_live_')) return true;
+  return testRequested && key.startsWith('sk_test_');
 }

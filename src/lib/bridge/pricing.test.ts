@@ -42,3 +42,18 @@ describe('Paystack webhook signature', () => {
     expect(paystackMetadata('nope')).toEqual({});
   });
 });
+
+describe('naira switch', () => {
+  it('needs a live key for real buyers, test key only on request', async () => {
+    const { nairaEnabled } = await import('./pricing');
+    const old = process.env.PAYSTACK_SECRET_KEY;
+    process.env.PAYSTACK_SECRET_KEY = 'sk_test_x';
+    expect(nairaEnabled()).toBe(false);
+    expect(nairaEnabled(true)).toBe(true);
+    process.env.PAYSTACK_SECRET_KEY = 'sk_live_x';
+    expect(nairaEnabled()).toBe(true);
+    delete process.env.PAYSTACK_SECRET_KEY;
+    expect(nairaEnabled(true)).toBe(false);
+    if (old !== undefined) process.env.PAYSTACK_SECRET_KEY = old;
+  });
+});
