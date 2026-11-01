@@ -22,6 +22,15 @@ export const NAIRA_ROUND_TO = 1000;
 /** Used only when the live rate cannot be fetched. Kept above the market rate. */
 export const FALLBACK_USD_NGN = 1450;
 
+/**
+ * Stopgap while Paystack approves the account: naira buyers go to the Selar
+ * product page at a fixed price. Selar cannot follow the live rate, so this
+ * figure is set by hand (live rate + ₦200 per dollar on 1 Nov 2026) and must
+ * match the price on Selar. Once a live Paystack key is set, Paystack takes over.
+ */
+export const SELAR_VIP_URL = 'https://selar.com/158377b383';
+export const SELAR_VIP_NGN = 89000;
+
 const RATE_URL = 'https://open.er-api.com/v6/latest/USD';
 
 /** UK and the Crown Dependencies pay in pounds, Nigeria in naira, everyone else in dollars. */
@@ -72,9 +81,9 @@ export function formatPrice(currency: Currency, amount: number): string {
   return currency === 'NGN' ? `₦${n}` : currency === 'GBP' ? `£${n}` : `$${n}`;
 }
 
-export async function vipPrice(currency: Currency): Promise<VipPrice> {
+export async function vipPrice(currency: Currency, testRequested = false): Promise<VipPrice> {
   let amount: number;
-  if (currency === 'NGN') amount = nairaPrice((await getUsdNgnRate()).rate);
+  if (currency === 'NGN') amount = nairaVia(testRequested) === 'selar' ? SELAR_VIP_NGN : nairaPrice((await getUsdNgnRate()).rate);
   else if (currency === 'GBP') amount = VIP_GBP;
   else amount = VIP_USD;
   return { currency, amount, amountMinor: Math.round(amount * 100), display: formatPrice(currency, amount) };
@@ -90,4 +99,9 @@ export function nairaEnabled(testRequested = false): boolean {
   const key = process.env.PAYSTACK_SECRET_KEY || '';
   if (key.startsWith('sk_live_')) return true;
   return testRequested && key.startsWith('sk_test_');
+}
+
+/** How naira is taken right now: Paystack when enabled, otherwise the Selar page. */
+export function nairaVia(testRequested = false): 'paystack' | 'selar' {
+  return nairaEnabled(testRequested) ? 'paystack' : 'selar';
 }

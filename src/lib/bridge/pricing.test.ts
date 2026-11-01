@@ -57,3 +57,17 @@ describe('naira switch', () => {
     if (old !== undefined) process.env.PAYSTACK_SECRET_KEY = old;
   });
 });
+
+describe('Selar stopgap', () => {
+  it('uses Selar at the fixed price until Paystack is live', async () => {
+    const { nairaVia, vipPrice, SELAR_VIP_NGN } = await import('./pricing');
+    const old = process.env.PAYSTACK_SECRET_KEY;
+    process.env.PAYSTACK_SECRET_KEY = 'sk_test_x';
+    expect(nairaVia()).toBe('selar');
+    expect((await vipPrice('NGN')).amount).toBe(SELAR_VIP_NGN);
+    expect(nairaVia(true)).toBe('paystack');
+    process.env.PAYSTACK_SECRET_KEY = 'sk_live_x';
+    expect(nairaVia()).toBe('paystack');
+    if (old !== undefined) process.env.PAYSTACK_SECRET_KEY = old; else delete process.env.PAYSTACK_SECRET_KEY;
+  });
+});
