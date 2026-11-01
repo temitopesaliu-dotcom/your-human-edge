@@ -269,6 +269,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session):
       name: buyerName,
       amount,
       currency: (session.currency || '').toUpperCase(),
+      processor: 'Stripe',
       order_id: session.id,
     });
   }
