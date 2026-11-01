@@ -10,9 +10,9 @@ describe('Bridge pricing', () => {
     expect(currencyForCountry('JE')).toBe('GBP');
     for (const cc of ['DE', 'CA', 'AU', 'US', '', null]) expect(currencyForCountry(cc)).toBe('USD');
   });
-  it('adds ₦500 per dollar and rounds up to the next ₦1,000', () => {
-    expect(nairaPrice(1345.49)).toBe(106000); // 57 × 1845.49 = 105,193
-    expect(nairaPrice(1500)).toBe(114000); // 57 × 2000 = 114,000 exactly
+  it('adds ₦200 per dollar and rounds up to the next ₦1,000', () => {
+    expect(nairaPrice(1345.49)).toBe(89000); // 57 × 1545.49 = 88,093
+    expect(nairaPrice(1800)).toBe(114000); // 57 × 2000 = 114,000 exactly
   });
   it('accepts only NGN, GBP or USD', () => {
     expect(parseCurrency('ngn')).toBe('NGN');

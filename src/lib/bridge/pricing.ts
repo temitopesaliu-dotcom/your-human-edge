@@ -6,7 +6,7 @@
  *   Everyone else    USD, paid through Stripe ($57)
  *
  * The naira price is never a straight conversion. It is the live dollar rate
- * plus a cushion of NAIRA_CUSHION_PER_USD on every dollar, rounded UP to the
+ * plus a cushion of NAIRA_CUSHION_PER_USD (₦200) on every dollar, rounded UP to the
  * next NAIRA_ROUND_TO, so the price always sits above the market rate.
  * The server always works the amount out itself; the browser only says which
  * currency it wants.
@@ -17,7 +17,7 @@ export const CURRENCIES: Currency[] = ['NGN', 'GBP', 'USD'];
 
 export const VIP_USD = 57;
 export const VIP_GBP = 47;
-export const NAIRA_CUSHION_PER_USD = 500;
+export const NAIRA_CUSHION_PER_USD = 200;
 export const NAIRA_ROUND_TO = 1000;
 /** Used only when the live rate cannot be fetched. Kept above the market rate. */
 export const FALLBACK_USD_NGN = 1450;
@@ -52,7 +52,7 @@ export async function getUsdNgnRate(): Promise<{ rate: number; live: boolean }> 
   return { rate: FALLBACK_USD_NGN, live: false };
 }
 
-/** $57 at (rate + cushion) naira per dollar, rounded up to the next ₦1,000. */
+/** $57 at (rate + ₦200) naira per dollar, rounded up to the next ₦1,000. */
 export function nairaPrice(usdNgnRate: number, usd = VIP_USD): number {
   const raw = usd * (usdNgnRate + NAIRA_CUSHION_PER_USD);
   return Math.ceil(raw / NAIRA_ROUND_TO) * NAIRA_ROUND_TO;
