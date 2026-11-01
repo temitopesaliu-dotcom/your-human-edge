@@ -1,0 +1,44 @@
+import { describe, it, expect } from 'vitest';
+import { createHmac } from 'crypto';
+import { currencyForCountry, nairaPrice, parseCurrency, formatPrice } from './pricing';
+import { validPaystackSignature, paystackMetadata } from '../services/paystack';
+
+describe('Bridge pricing', () => {
+  it('maps countries to the three currencies', () => {
+    expect(currencyForCountry('NG')).toBe('NGN');
+    expect(currencyForCountry('GB')).toBe('GBP');
+    expect(currencyForCountry('JE')).toBe('GBP');
+    for (const cc of ['DE', 'CA', 'AU', 'US', '', null]) expect(currencyForCountry(cc)).toBe('USD');
+  });
+  it('adds ₦500 per dollar and rounds up to the next ₦1,000', () => {
+    expect(nairaPrice(1345.49)).toBe(106000); // 57 × 1845.49 = 105,193
+    expect(nairaPrice(1500)).toBe(114000); // 57 × 2000 = 114,000 exactly
+  });
+  it('accepts only NGN, GBP or USD', () => {
+    expect(parseCurrency('ngn')).toBe('NGN');
+    expect(parseCurrency('CAD')).toBeNull();
+    expect(parseCurrency(undefined)).toBeNull();
+  });
+  it('formats prices', () => {
+    expect(formatPrice('NGN', 106000)).toBe('₦106,000');
+    expect(formatPrice('GBP', 47)).toBe('£47');
+    expect(formatPrice('USD', 57)).toBe('$57');
+  });
+});
+
+describe('Paystack webhook signature', () => {
+  const key = 'sk_test_example';
+  const body = '{"event":"charge.success"}';
+  const sig = createHmac('sha512', key).update(body).digest('hex');
+  it('accepts a correct signature', () => expect(validPaystackSignature(body, sig, key)).toBe(true));
+  it('rejects a wrong or missing one', () => {
+    expect(validPaystackSignature(body, 'x'.repeat(128), key)).toBe(false);
+    expect(validPaystackSignature(body + ' ', sig, key)).toBe(false);
+    expect(validPaystackSignature(body, null, key)).toBe(false);
+  });
+  it('reads metadata as object or string', () => {
+    expect(paystackMetadata('{"product":"bridge-vip"}').product).toBe('bridge-vip');
+    expect(paystackMetadata({ product: 'bridge-vip' }).product).toBe('bridge-vip');
+    expect(paystackMetadata('nope')).toEqual({});
+  });
+});
