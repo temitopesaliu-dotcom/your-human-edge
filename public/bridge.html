@@ -430,6 +430,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .vip-when b{color:#fff}
 .vip-when .loc{color:#CFC8DA!important}
 .offer .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px}
+.offer .vip-cur{color:#CFC4EA;font-size:13.5px;margin:2px 0 14px}
+.offer .vip-cur button{background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:100px;padding:4px 11px;margin:4px 4px 0 0;font-size:13px;cursor:pointer}
+.offer .vip-cur button[aria-pressed=true]{background:#fff;color:#2A2140;border-color:#fff}
+.offer .vip-email{max-width:380px}
+.offer .vip-email label{color:#fff}
 .offer .skip{color:#CFC4EA;font-size:14px;background:none;border:none;text-decoration:underline;cursor:pointer}
 
 /* notes */
@@ -735,7 +740,9 @@ td:first-child{font-weight:700;white-space:nowrap}
         <li>The replay of the training (the only replay there is)</li>
         <li>The prompt pack I use to launch my offers</li>
       </ul>
-      <div class="price"><b>$57</b><span>one payment · no subscription · non-refundable</span></div>
+      <div class="price"><b id="vip-price">$57</b><span>one payment · no subscription · non-refundable</span></div>
+      <p class="vip-cur" id="vip-cur" hidden></p>
+      <div class="field vip-email" id="vip-email-wrap" hidden><label for="vip-email">Email for your receipt</label><input type="email" id="vip-email" autocomplete="email"></div>
       <div class="row">
         <button type="button" class="btn hot" id="vip-buy">Get VIP for $57</button>
         <button type="button" class="skip" id="skip-offer">No thanks, see you on Saturday</button>
@@ -1221,15 +1228,53 @@ td:first-child{font-weight:700;white-space:nowrap}
     });
   });
   $('#skip-offer').addEventListener('click', function(){ go('training'); });
-  $('#vip-buy').addEventListener('click', function(){
-    var b = this, err = $('#vip-err'); err.textContent = ''; b.disabled = true; b.textContent = 'Opening secure checkout...';
+  /* VIP price in the visitor's currency: Nigeria naira, UK pounds, everyone else dollars. */
+  var VIP = {cur:'USD', display:'$57', amount:57, options:[]};
+  function setVipPrice(d){
+    VIP.cur = d.currency; VIP.display = d.display; VIP.amount = d.amount; VIP.options = d.options || [];
+    $('#vip-price').textContent = d.display;
+    var b = $('#vip-buy'); if(!b.disabled) b.textContent = 'Get VIP for ' + d.display;
+    var box = $('#vip-cur');
+    if(VIP.options.length > 1){
+      box.innerHTML = 'Pay in: ' + VIP.options.map(function(o){ return '<button type="button" data-cur="' + o.currency + '" aria-pressed="' + (o.currency === VIP.cur) + '">' + o.display + '</button>'; }).join('');
+      box.hidden = false;
+    } else box.hidden = true;
+  }
+  function loadVipPrice(cur){
+    fetch('/api/bridge/price' + (cur ? '?currency=' + cur : ''))
+      .then(function(r){ return r.json(); }).then(function(d){ if(d && d.display) setVipPrice(d); }).catch(function(){});
+  }
+  var savedCur = ''; try{ savedCur = localStorage.getItem('bridge_cur') || ''; }catch(e){}
+  loadVipPrice(savedCur);
+  $('#vip-cur').addEventListener('click', function(e){
+    var c = e.target.getAttribute && e.target.getAttribute('data-cur'); if(!c) return;
+    try{ localStorage.setItem('bridge_cur', c); }catch(e2){}
+    loadVipPrice(c);
+  });
+  function vipEmail(){
     var email = st.regEmail || '';
     if(!email){ try{ email = (JSON.parse(localStorage.getItem('bridge_reg') || '{}')).e || ''; }catch(e){} }
-    if(window.fbq) fbq('track','InitiateCheckout',{value:57, currency:'USD'});
-    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, sid:SID})})
+    if(!email) email = ($('#vip-email').value || '').trim();
+    return email;
+  }
+  $('#vip-buy').addEventListener('click', function(){
+    var b = this, err = $('#vip-err'); err.textContent = '';
+    var email = vipEmail(), name = '';
+    try{ name = (JSON.parse(localStorage.getItem('bridge_reg') || '{}')).n || ''; }catch(e){}
+    if(VIP.cur === 'NGN' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      $('#vip-email-wrap').hidden = false; $('#vip-email').focus();
+      err.textContent = 'Add your email so your receipt and VIP details reach you.'; return;
+    }
+    b.disabled = true; b.textContent = 'Opening secure checkout...';
+    if(window.fbq) fbq('track','InitiateCheckout',{value:VIP.amount, currency:VIP.cur});
+    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, name:name, sid:SID, currency:VIP.cur})})
       .then(function(r){ return r.json(); })
-      .then(function(d){ if(d && d.url){ location.href = d.url; } else { throw new Error('no url'); } })
-      .catch(function(){ err.textContent = 'Checkout did not open. Please try again in a moment.'; b.disabled = false; b.textContent = 'Get VIP for $57'; });
+      .then(function(d){
+        if(d && d.url){ location.href = d.url; return; }
+        if(d && d.error === 'email_required'){ $('#vip-email-wrap').hidden = false; err.textContent = 'Add your email so your receipt and VIP details reach you.'; b.disabled = false; b.textContent = 'Get VIP for ' + VIP.display; return; }
+        throw new Error('no url');
+      })
+      .catch(function(){ err.textContent = 'Checkout did not open. Please try again in a moment.'; b.disabled = false; b.textContent = 'Get VIP for ' + VIP.display; });
   });
 
   /* ---------- router ---------- */
