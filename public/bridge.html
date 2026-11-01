@@ -1229,9 +1229,9 @@ td:first-child{font-weight:700;white-space:nowrap}
   });
   $('#skip-offer').addEventListener('click', function(){ go('training'); });
   /* VIP price in the visitor's currency: Nigeria naira, UK pounds, everyone else dollars. */
-  var VIP = {cur:'USD', display:'$57', amount:57, options:[]};
+  var VIP = {cur:'USD', display:'$57', amount:57, options:[], via:'paystack'};
   function setVipPrice(d){
-    VIP.cur = d.currency; VIP.display = d.display; VIP.amount = d.amount; VIP.options = d.options || [];
+    VIP.cur = d.currency; VIP.display = d.display; VIP.amount = d.amount; VIP.options = d.options || []; VIP.via = d.naira_via || 'paystack';
     $('#vip-price').textContent = d.display;
     var b = $('#vip-buy'); if(!b.disabled) b.textContent = 'Get VIP for ' + d.display;
     var box = $('#vip-cur');
@@ -1263,7 +1263,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     var b = this, err = $('#vip-err'); err.textContent = '';
     var email = vipEmail(), name = '';
     try{ name = (JSON.parse(localStorage.getItem('bridge_reg') || '{}')).n || ''; }catch(e){}
-    if(VIP.cur === 'NGN' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    if(VIP.cur === 'NGN' && VIP.via === 'paystack' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
       $('#vip-email-wrap').hidden = false; $('#vip-email').focus();
       err.textContent = 'Add your email so your receipt and VIP details reach you.'; return;
     }
