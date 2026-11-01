@@ -1240,8 +1240,10 @@ td:first-child{font-weight:700;white-space:nowrap}
       box.hidden = false;
     } else box.hidden = true;
   }
+  var PAYSTACK_TEST = /[?&]paystack_test=1(&|$)/.test(location.search);
   function loadVipPrice(cur){
-    fetch('/api/bridge/price' + (cur ? '?currency=' + cur : ''))
+    var q = []; if(cur) q.push('currency=' + cur); if(PAYSTACK_TEST) q.push('paystack_test=1');
+    fetch('/api/bridge/price' + (q.length ? '?' + q.join('&') : ''))
       .then(function(r){ return r.json(); }).then(function(d){ if(d && d.display) setVipPrice(d); }).catch(function(){});
   }
   var savedCur = ''; try{ savedCur = localStorage.getItem('bridge_cur') || ''; }catch(e){}
@@ -1267,7 +1269,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
     b.disabled = true; b.textContent = 'Opening secure checkout...';
     if(window.fbq) fbq('track','InitiateCheckout',{value:VIP.amount, currency:VIP.cur});
-    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, name:name, sid:SID, currency:VIP.cur})})
+    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, name:name, sid:SID, currency:VIP.cur, paystack_test:PAYSTACK_TEST})})
       .then(function(r){ return r.json(); })
       .then(function(d){
         if(d && d.url){ location.href = d.url; return; }
