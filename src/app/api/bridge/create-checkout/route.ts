@@ -11,7 +11,7 @@ import { initializePaystack } from '@/lib/services/paystack';
 /**
  * The Bridge VIP checkout. One button on the page; the currency decides the provider:
  *
- *   NGN  Paystack (card, bank transfer, USSD), price = live rate + ₦500 per dollar
+ *   NGN  Paystack (card, bank transfer, USSD), price = live rate + ₦200 per dollar
  *   GBP  Stripe, charged in pounds (£47, no conversion)
  *   USD  Stripe, charged in dollars ($57)
  *
