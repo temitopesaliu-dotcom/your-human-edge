@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const siteUrl = resolveSiteUrl(req).replace(/\/$/, '');
 
     let currency: Currency = parseCurrency(body.currency) || currencyForCountry(req.headers.get('x-vercel-ip-country'));
-    if (currency === 'NGN' && !nairaEnabled()) currency = 'USD';
+    if (currency === 'NGN' && !nairaEnabled(body.paystack_test === true)) currency = 'USD';
     const price = await vipPrice(currency);
 
     if (currency === 'NGN') {
