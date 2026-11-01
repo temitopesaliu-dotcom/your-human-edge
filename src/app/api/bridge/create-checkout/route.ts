@@ -5,7 +5,7 @@ import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 import { clean, EMAIL_RE } from '@/lib/bridge/sheet';
-import { currencyForCountry, nairaEnabled, parseCurrency, vipPrice, type Currency } from '@/lib/bridge/pricing';
+import { currencyForCountry, nairaVia, parseCurrency, vipPrice, SELAR_VIP_URL, type Currency } from '@/lib/bridge/pricing';
 import { initializePaystack } from '@/lib/services/paystack';
 
 /**
@@ -34,9 +34,13 @@ export async function POST(req: NextRequest) {
     const sid = clean(body.sid, 40);
     const siteUrl = resolveSiteUrl(req).replace(/\/$/, '');
 
-    let currency: Currency = parseCurrency(body.currency) || currencyForCountry(req.headers.get('x-vercel-ip-country'));
-    if (currency === 'NGN' && !nairaEnabled(body.paystack_test === true)) currency = 'USD';
-    const price = await vipPrice(currency);
+    const test = body.paystack_test === true;
+    const currency: Currency = parseCurrency(body.currency) || currencyForCountry(req.headers.get('x-vercel-ip-country'));
+    // Until Paystack is live, naira buyers pay on the Selar product page.
+    if (currency === 'NGN' && nairaVia(test) === 'selar') {
+      return NextResponse.json({ url: SELAR_VIP_URL, currency, via: 'selar' });
+    }
+    const price = await vipPrice(currency, test);
 
     if (currency === 'NGN') {
       if (!EMAIL_RE.test(email)) return NextResponse.json({ error: 'email_required' }, { status: 400 });
