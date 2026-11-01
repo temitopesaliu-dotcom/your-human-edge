@@ -9,7 +9,8 @@ import { currencyForCountry, nairaEnabled, parseCurrency, vipPrice, type Currenc
 export async function GET(req: NextRequest) {
   const country = req.headers.get('x-vercel-ip-country') || '';
   const wanted = parseCurrency(req.nextUrl.searchParams.get('currency')) || currencyForCountry(country);
-  const options: Currency[] = nairaEnabled() ? ['NGN', 'GBP', 'USD'] : ['GBP', 'USD'];
+  const test = req.nextUrl.searchParams.get('paystack_test') === '1';
+  const options: Currency[] = nairaEnabled(test) ? ['NGN', 'GBP', 'USD'] : ['GBP', 'USD'];
   const currency: Currency = options.includes(wanted) ? wanted : 'USD';
   const price = await vipPrice(currency);
   const all = await Promise.all(options.map((c) => vipPrice(c)));
