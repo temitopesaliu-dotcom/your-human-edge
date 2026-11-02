@@ -226,7 +226,7 @@ function vipEmail_(first, qa, tz) {
     'The replay of the Saturday training. It is the only replay there is.',
     'A deep dive into the full framework behind the offer that took me from $0 to $10,000: the content and the systems, taught live in the class.'
   ];
-  var zoom = 'Your joining link will come to this inbox before the class.';
+  var zoom = 'Your joining link will be sent to this inbox the day before the class.';
   var close = 'See you on Sunday. Come with all your questions.';
   var text = 'Hi ' + first + ',\n\nYour VIP spot is confirmed.\n\nWhat you get:\n\n- ' + items.join('\n- ') +
     '\n\nWhen: ' + londonLine + (local ? '\n' + local : '') + '\n\n' + zoom +
@@ -294,7 +294,7 @@ function webinarEmail_(first, sessionUtc, tz) {
   }
   var sg = signOff_();
   var live = 'It is live only. There is no replay, so be there.';
-  var zoom = 'Your joining link will come to this inbox before we start.';
+  var zoom = 'Your joining link will be sent to this inbox the day before the training.';
   return {
     subject: 'Your seat is saved, ' + first,
     text: 'Hi ' + first + ',\n\nYour seat is saved for The Business of Teaching, with AI as your execution team.\n\nWhen: ' + london + (local ? '\n' + local : '') + '\n\n' + live + '\n\n' + zoom + '\n\nSee you Saturday.\n\n' + sg.text,
