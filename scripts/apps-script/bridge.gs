@@ -216,7 +216,7 @@ function vipEmail_(first, qa, tz) {
   var items = [
     'The VIP live Q&A class, a small group. I look at your offer, or what you are trying to build: your offer, your current systems, and what can change. Every question answered by me, no holdbacks.',
     'The replay of the Saturday training. It is the only replay there is.',
-    'The prompt pack I use to launch my offers. It will reach you before Thursday.'
+    'The full framework pack: the exact framework behind my content and my teaching online, from start to finish, with every prompt built in. It will reach you before Thursday.'
   ];
   var zoom = 'Your joining link will come to this inbox before the class.';
   var close = 'See you on Thursday. Come with all your questions.';
@@ -287,11 +287,10 @@ function webinarEmail_(first, sessionUtc, tz) {
   var sg = signOff_();
   var live = 'It is live only. There is no replay, so be there.';
   var zoom = 'Your joining link will come to this inbox before we start.';
-  var bonus = 'Bonus for live attendees: the content planning template I use for my own content.';
   return {
     subject: 'Your seat is saved, ' + first,
-    text: 'Hi ' + first + ',\n\nYour seat is saved for The Business of Teaching, with AI as your execution team.\n\nWhen: ' + london + (local ? '\n' + local : '') + '\n\n' + live + '\n\n' + zoom + '\n\n' + bonus + '\n\nSee you Saturday.\n\n' + sg.text,
-    html: wrap_('<p>Hi ' + first + ',</p><p>Your seat is saved for <b>The Business of Teaching, with AI as your execution team</b>.</p><p><b>When:</b> ' + london + (local ? '<br>' + local : '') + '</p><p><b>' + live + '</b></p><p>' + zoom + '</p><p>' + bonus + '</p><p>See you Saturday.</p>' + sg.html)
+    text: 'Hi ' + first + ',\n\nYour seat is saved for The Business of Teaching, with AI as your execution team.\n\nWhen: ' + london + (local ? '\n' + local : '') + '\n\n' + live + '\n\n' + zoom + '\n\nSee you Saturday.\n\n' + sg.text,
+    html: wrap_('<p>Hi ' + first + ',</p><p>Your seat is saved for <b>The Business of Teaching, with AI as your execution team</b>.</p><p><b>When:</b> ' + london + (local ? '<br>' + local : '') + '</p><p><b>' + live + '</b></p><p>' + zoom + '</p><p>See you Saturday.</p>' + sg.html)
   };
 }
 
