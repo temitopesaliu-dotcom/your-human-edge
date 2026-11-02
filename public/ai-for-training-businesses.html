@@ -579,7 +579,8 @@ function showResult(){
     const answers=Q.map(q=>{const a=ans[q.id]; return q.id+": "+(Array.isArray(a)?a.map(k=>q.o[k][0]).join("; "):(q.o[a]?q.o[a][0]:""));}).join("\n");
     fetch("/api/the-blueprint-audit/submit",{method:"POST",headers:{"Content-Type":"application/json"},keepalive:true,body:JSON.stringify({route:"readiness-"+route,bestFit:band[0]+" ("+overall+"/100)",firstName:ans.fname||"",email:ans.email||"",companyName:ans.firm||"",businessDesc:planText.slice(0,3500),anythingElse:answers.slice(0,3900)})}).catch(()=>{});
   }catch(e){}
-  const r=document.getElementById("result");
+  try{localStorage.setItem("yhe_bq_contact",JSON.stringify({name:ans.fname||"",email:ans.email||"",company:ans.firm||""}));}catch(e){}
+    const r=document.getElementById("result");
   document.getElementById("quiz").hidden=true; r.hidden=false;
   r.innerHTML=`
    <div class="result-head">
