@@ -52,6 +52,8 @@ const nextConfig: NextConfig = {
       // The Bridge funnel moved from /bridge to /thebridge. Temporary (307) and
       // query strings (UTM tags) survive, so links already shared keep working.
       { source: '/bridge', destination: '/thebridge', permanent: false },
+      { source: '/webinar', destination: '/thebridge-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
+      { source: '/thequiz', destination: '/thebridge?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
       // Short, clean links for the live classes (short links help emails reach the Primary tab).
       { source: '/live', destination: 'https://us06web.zoom.us/j/86478394932?pwd=EhqfSwX3jaJLGbwznKmME1SINqWn9m.1', permanent: false },
       { source: '/vip-live', destination: 'https://us06web.zoom.us/j/86398284474?pwd=h5AgQVwovpzJHfNu4tXRQAEOTVKkAq.1', permanent: false },
