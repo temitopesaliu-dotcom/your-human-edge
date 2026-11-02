@@ -190,24 +190,24 @@ function vip_(ss, d) {
   return sent;
 }
 
-/** Thursday 5pm London, five days after the Saturday session. Falls back to the first training date. */
+/** Sunday 4pm London, the day after the Saturday session. Falls back to the first training date. */
 function qaDate_(sessionUtc) {
   var base = sessionUtc ? new Date(sessionUtc) : new Date('2026-11-07T11:00:00Z');
   if (isNaN(base.getTime())) base = new Date('2026-11-07T11:00:00Z');
-  var thu = new Date(base.getTime() + 5 * 86400000);
+  var thu = new Date(base.getTime() + 1 * 86400000);
   var day = Utilities.formatDate(thu, 'Europe/London', 'yyyy-MM-dd');
-  return Utilities.parseDate(day + ' 17:00', 'Europe/London', 'yyyy-MM-dd HH:mm');
+  return Utilities.parseDate(day + ' 16:00', 'Europe/London', 'yyyy-MM-dd HH:mm');
 }
 
 /* ---------- the VIP welcome email ---------- */
 function lc_(s) { return s.replace('AM', 'am').replace('PM', 'pm'); }
 
 function vipEmail_(first, qa, tz) {
-  var londonLine = qa ? Utilities.formatDate(qa, 'Europe/London', "EEEE, MMMM d, yyyy '·' h:mma") : 'Thursday, November 12, 2026 · 5:00PM';
+  var londonLine = qa ? Utilities.formatDate(qa, 'Europe/London', "EEEE, MMMM d, yyyy '·' h:mma") : 'Sunday, November 8, 2026 · 4:00PM';
   londonLine = lc_(londonLine).replace(':00', '') + ' London GMT';
   var local = '';
   if (qa && tz) {
-    try { // same shape as the page: "6:00pm Thursday 12 November, your time (Lagos, WAT)"
+    try { // same shape as the page: "5:00pm Sunday 8 November, your time (Lagos, WAT)"
       var cityName = String(tz).split('/').pop().replace(/_/g, ' ');
       local = lc_(Utilities.formatDate(qa, tz, 'h:mma')) + ' ' + Utilities.formatDate(qa, tz, 'EEEE d MMMM') +
         ', your time (' + cityName + ', ' + Utilities.formatDate(qa, tz, 'z') + ')';
@@ -216,10 +216,10 @@ function vipEmail_(first, qa, tz) {
   var items = [
     'The VIP live Q&A class, a small group. I look at your offer, or what you are trying to build: your offer, your current systems, and what can change. Every question answered by me, no holdbacks.',
     'The replay of the Saturday training. It is the only replay there is.',
-    'The full framework pack: the exact framework behind my content and my teaching online, from start to finish, with every prompt built in. It will reach you before Thursday.'
+    'The full framework pack: the exact content and systems framework behind the offer that took me from $0 to $10,000, with every prompt built in. It will reach you before the Q&A.'
   ];
   var zoom = 'Your joining link will come to this inbox before the class.';
-  var close = 'See you on Thursday. Come with all your questions.';
+  var close = 'See you on Sunday. Come with all your questions.';
   var text = 'Hi ' + first + ',\n\nYour VIP spot is confirmed.\n\nWhat you get:\n\n- ' + items.join('\n- ') +
     '\n\nWhen: ' + londonLine + (local ? '\n' + local : '') + '\n\n' + zoom +
     '\n\n' + close + '\n\nYou owe it to yourself to be great,\nTemitope Saliu.';
