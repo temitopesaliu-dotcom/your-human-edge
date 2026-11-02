@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
       { source: '/appreciate', destination: '/appreciate.html' },
       { source: '/appreciated', destination: '/appreciated.html' },
       { source: '/book', destination: '/book.html' },
+      { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
       { source: '/thebridge', destination: '/bridge.html' },
       { source: '/thebridge-webinar', destination: '/bridge.html' },
       { source: '/thebridge-results', destination: '/bridge.html' },
@@ -55,6 +56,10 @@ const nextConfig: NextConfig = {
       // /apply was the pre-payment application form. The funnel now takes
       // payment first, so anyone landing there belongs on the details form.
       { source: '/apply', destination: '/your-business', permanent: true },
+      // The Blueprint Audit quiz is replaced by the readiness check for coaches
+      // and training firms. Exact path only, so /the-blueprint-audit/apply and
+      // other sub-routes keep working. Temporary (307) so it can be reverted.
+      { source: '/the-blueprint-audit', destination: '/ai-for-training-businesses', permanent: false },
       // The Expert Framework Intensive is now sold as The Business Architect
       // Programme. Temporary (307) so the old link keeps working without being
       // cached forever, and query strings (UTM tags) survive the hop.
