@@ -716,18 +716,18 @@ td:first-child{font-weight:700;white-space:nowrap}
       <span class="eyebrow">VIP confirmed</span>
       <h2>You are in the VIP Q&amp;A.</h2>
       <p>A welcome email with everything you need is on its way from ts@temitopesaliu.com. If it has not arrived in ten minutes, check your spam folder.</p>
-      <p class="vip-when">VIP live Q&amp;A, the Thursday after the training:<br><span class="when-line js-vip-day"></span></p>
+      <p class="vip-when">VIP live Q&amp;A, the Sunday after the training:<br><span class="when-line js-vip-day"></span></p>
     </div>
     <div class="offer" id="vip-offer">
       <span class="eyebrow">Before Saturday</span>
       <h2>Don't wait for the training to start building.</h2>
       <p>Upgrade to VIP and get a small live Q&amp;A class with me after the training, where we look at your offer and answer your questions properly.</p>
-      <p class="vip-when">VIP live Q&amp;A, the Thursday after the training:<br><span class="when-line js-vip-day"></span></p>
+      <p class="vip-when">VIP live Q&amp;A, the Sunday after the training:<br><span class="when-line js-vip-day"></span></p>
       <ul>
-        <li>VIP live Q&amp;A class, small group, after the training</li>
-        <li>Your offer looked at, live</li>
-        <li>The replay of the training (the only replay there is)</li>
-        <li>The full framework pack: the exact framework behind my content and teaching online, start to finish, with every prompt built in</li>
+        <li>VIP live Q&amp;A class, small group, the day after the training.</li>
+        <li>Your offer looked at, live.</li>
+        <li>The replay of the training (the only replay there is).</li>
+        <li>The full framework pack: the exact content and systems framework behind the offer that took me from $0 to $10,000, with every prompt built in.</li>
       </ul>
       <div class="price"><b id="vip-price">$57</b><span>one payment · no subscription · non-refundable</span></div>
       <p class="vip-cur" id="vip-cur" hidden></p>
@@ -799,8 +799,8 @@ td:first-child{font-weight:700;white-space:nowrap}
       var c = new Date(now.getTime() + i*86400000);
       if(c.getUTCDay() !== 6) continue;
       var s = londonToDate(c.getUTCFullYear(), c.getUTCMonth(), c.getUTCDate(), 11);
-      /* the page moves on to the next Saturday at 6pm London on training day */
-      if(londonToDate(c.getUTCFullYear(), c.getUTCMonth(), c.getUTCDate(), 18).getTime() > now.getTime()) return s;
+      /* sign-ups count for this Saturday until the class starts; after that, the next Saturday */
+      if(s.getTime() > now.getTime()) return s;
     }
     return londonToDate(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()+7, 11);
   }
@@ -846,7 +846,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     return (fallback || 'GMT').replace(/^(GMT|UTC)[+\-]0(:00)?$/, 'GMT');
   }
   $$('.js-when-full').forEach(function(e){ e.innerHTML = whenHtml(NEXT); });
-  var VIP = londonToDate(NEXT.getUTCFullYear(), NEXT.getUTCMonth(), NEXT.getUTCDate() + 5, 17);
+  var VIP = londonToDate(NEXT.getUTCFullYear(), NEXT.getUTCMonth(), NEXT.getUTCDate() + 1, 16); /* VIP Q&A: Sunday 4pm London, the day after the training */
   $$('.js-vip-day').forEach(function(e){ e.innerHTML = whenHtml(VIP); });
   $$('.js-when-day').forEach(function(e){ e.textContent = dayWord; });
   $$('.js-when-day-lc').forEach(function(e){ e.textContent = isToday ? 'today' : 'on Saturday'; });
@@ -1219,14 +1219,14 @@ td:first-child{font-weight:700;white-space:nowrap}
   });
   $('#skip-offer').addEventListener('click', function(){ go('training'); });
   /* VIP price in the visitor's currency: Nigeria naira, UK pounds, everyone else dollars. */
-  var VIP = {cur:'USD', display:'$57', amount:57, options:[], via:'paystack'};
+  var VP = {cur:'USD', display:'$57', amount:57, options:[], via:'paystack'};
   function setVipPrice(d){
-    VIP.cur = d.currency; VIP.display = d.display; VIP.amount = d.amount; VIP.options = d.options || []; VIP.via = d.naira_via || 'paystack';
+    VP.cur = d.currency; VP.display = d.display; VP.amount = d.amount; VP.options = d.options || []; VP.via = d.naira_via || 'paystack';
     $('#vip-price').textContent = d.display;
     var b = $('#vip-buy'); if(!b.disabled) b.textContent = 'Get VIP for ' + d.display;
     var box = $('#vip-cur');
-    if(VIP.options.length > 1){
-      box.innerHTML = 'Pay in: ' + VIP.options.map(function(o){ return '<button type="button" data-cur="' + o.currency + '" aria-pressed="' + (o.currency === VIP.cur) + '">' + o.display + '</button>'; }).join('');
+    if(VP.options.length > 1){
+      box.innerHTML = 'Pay in: ' + VP.options.map(function(o){ return '<button type="button" data-cur="' + o.currency + '" aria-pressed="' + (o.currency === VP.cur) + '">' + o.display + '</button>'; }).join('');
       box.hidden = false;
     } else box.hidden = true;
   }
@@ -1253,20 +1253,20 @@ td:first-child{font-weight:700;white-space:nowrap}
     var b = this, err = $('#vip-err'); err.textContent = '';
     var email = vipEmail(), name = '';
     try{ name = (JSON.parse(localStorage.getItem('bridge_reg') || '{}')).n || ''; }catch(e){}
-    if(VIP.cur === 'NGN' && VIP.via === 'paystack' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    if(VP.cur === 'NGN' && VP.via === 'paystack' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
       $('#vip-email-wrap').hidden = false; $('#vip-email').focus();
       err.textContent = 'Add your email so your receipt and VIP details reach you.'; return;
     }
     b.disabled = true; b.textContent = 'Opening secure checkout...';
-    if(window.fbq) fbq('track','InitiateCheckout',{value:VIP.amount, currency:VIP.cur});
-    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, name:name, sid:SID, currency:VIP.cur, paystack_test:PAYSTACK_TEST})})
+    if(window.fbq) fbq('track','InitiateCheckout',{value:VP.amount, currency:VP.cur});
+    fetch('/api/bridge/create-checkout', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email, name:name, sid:SID, currency:VP.cur, paystack_test:PAYSTACK_TEST})})
       .then(function(r){ return r.json(); })
       .then(function(d){
         if(d && d.url){ location.href = d.url; return; }
-        if(d && d.error === 'email_required'){ $('#vip-email-wrap').hidden = false; err.textContent = 'Add your email so your receipt and VIP details reach you.'; b.disabled = false; b.textContent = 'Get VIP for ' + VIP.display; return; }
+        if(d && d.error === 'email_required'){ $('#vip-email-wrap').hidden = false; err.textContent = 'Add your email so your receipt and VIP details reach you.'; b.disabled = false; b.textContent = 'Get VIP for ' + VP.display; return; }
         throw new Error('no url');
       })
-      .catch(function(){ err.textContent = 'Checkout did not open. Please try again in a moment.'; b.disabled = false; b.textContent = 'Get VIP for ' + VIP.display; });
+      .catch(function(){ err.textContent = 'Checkout did not open. Please try again in a moment.'; b.disabled = false; b.textContent = 'Get VIP for ' + VP.display; });
   });
 
   /* ---------- router ---------- */
