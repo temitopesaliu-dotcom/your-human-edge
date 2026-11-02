@@ -325,7 +325,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
   <div class="stats" aria-label="At a glance">
     <div><b>5 min</b><span>Your readiness check</span></div>
-    <div><b>Free</b><span>Summary of next steps, emailed</span></div>
+    <div><b>Free</b><span>Summary of next steps, on screen</span></div>
     <div><b>2 hrs</b><span>Strategy session, if it fits</span></div>
     <div><b>6 weeks</b><span>To build it yourself, one-to-one</span></div>
   </div>
@@ -442,7 +442,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     </div>
     <div class="process">
       <div><span class="n">1</span><span class="when">About five minutes</span><h3>Readiness check</h3><p>Twelve questions about your business, your time and your client work.</p></div>
-      <div><span class="n">2</span><span class="when">Straight after</span><h3>Your summary</h3><p>Your score and next steps on screen, with a copy in your inbox.</p></div>
+      <div><span class="n">2</span><span class="when">Straight after</span><h3>Your summary</h3><p>Your score and next steps on screen, ready to copy and keep.</p></div>
       <div><span class="n">3</span><span class="when">When you're ready</span><h3>Your path</h3><p>A strategy session to have it designed for you, or a free call to build it yourself.</p></div>
       <div><span class="n">4</span><span class="when">Your plan, your way</span><h3>The build</h3><p>Your system goes live, with the human work kept at the centre.</p></div>
     </div>
@@ -546,14 +546,13 @@ function render(){
     }
   } else {
     stepLabel.textContent="Last step";
-    host.innerHTML=`<fieldset class="qblock"><legend>Where should we send your summary?</legend><p class="hint">Your result and your summary of next steps show on the next screen. We email you a copy to keep.</p>
+    host.innerHTML=`<fieldset class="qblock"><legend>Where should we send your summary?</legend><p class="hint">Your result and summary of next steps show on the next screen. I also receive your answers, so any session starts informed.</p>
       <div class="two"><div class="field"><label for="fname">First name</label><input id="fname" autocomplete="given-name" value="${ans.fname||""}"></div>
       <div class="field"><label for="firm">Firm name</label><input id="firm" autocomplete="organization" value="${ans.firm||""}"></div></div>
       <div class="field"><label for="email">Work email</label><input id="email" type="email" autocomplete="email" value="${ans.email||""}"></div>
-      <label class="opt" style="margin-top:14px"><input type="checkbox" id="optin" ${ans.optin?"checked":""}><span>Also send me occasional emails on building with AI. Unsubscribe anytime.</span></label>
-      <p class="note" style="margin-top:12px">Preview: details aren't stored yet. On the live site your summary is emailed to you from ts@temitopesaliu.com.</p></fieldset>`;
+      </fieldset>`;
     next.textContent="See my result";
-    const check=()=>{ans.optin=document.getElementById("optin").checked;ans.fname=val("fname");ans.firm=val("firm");ans.email=val("email");next.disabled=!(ans.fname&&/.+@.+\..+/.test(ans.email));};
+    const check=()=>{ans.fname=val("fname");ans.firm=val("firm");ans.email=val("email");next.disabled=!(ans.fname&&/.+@.+\..+/.test(ans.email));};
     host.querySelectorAll("input").forEach(x=>{x.addEventListener("input",check);x.addEventListener("change",check);}); check();
   }
 }
@@ -576,6 +575,10 @@ function showResult(){
   const route = ans.rev===0 ? "early" : (ans.bud>=2 && ans.rev>=2 ? "A" : "B");
   const nextLine = route==="A" ? `Next: a 2-hour Strategy Session plus your full architecture (${CFG.session}), which comes off your build if you continue within 30 days. Pay and book at ${APPLY} (sessions are booked from 48 hours after payment, so I can read your business before we speak)` : route==="B" ? `Next: build your own operating system one-to-one with Temitope, starting this week. Book a free 20-minute call at ${FITCALL}` : "";
   const planText = `${ans.firm||"Your firm"}: summary of next steps\nScore: ${overall}/100 (${band[0]})\n\n`+(timeList?`Where your time goes: ${timeList}.\n\n`:"")+order.map((k,n)=>`${n+1}. ${PLAYS[k].t}\n${PLAYS[k].d}`).join("\n\n")+`\n\n`+nextLine;
+  try{
+    const answers=Q.map(q=>{const a=ans[q.id]; return q.id+": "+(Array.isArray(a)?a.map(k=>q.o[k][0]).join("; "):(q.o[a]?q.o[a][0]:""));}).join("\n");
+    fetch("/api/the-blueprint-audit/submit",{method:"POST",headers:{"Content-Type":"application/json"},keepalive:true,body:JSON.stringify({route:"readiness-"+route,bestFit:band[0]+" ("+overall+"/100)",firstName:ans.fname||"",email:ans.email||"",companyName:ans.firm||"",businessDesc:planText.slice(0,3500),anythingElse:answers.slice(0,3900)})}).catch(()=>{});
+  }catch(e){}
   const r=document.getElementById("result");
   document.getElementById("quiz").hidden=true; r.hidden=false;
   r.innerHTML=`
@@ -629,7 +632,7 @@ function showResult(){
      <div>
        <p class="eyebrow">Where you are</p>
        <h3 style="font-size:26px;margin-top:6px">Start with your summary</h3>
-       <p>The systems I build work best once you have steady clients and proof. Your summary above shows where to focus first, and a copy is on its way to your inbox. Come back and retake the check when you are there.</p>
+       <p>The systems I build work best once you have steady clients and proof. Your summary above shows where to focus first. Come back and retake the check when you are there.</p>
      </div>
    </div>`}
    <div class="small-actions"><button type="button" class="btn-plain" id="restart">Retake the check</button></div>`;
