@@ -727,7 +727,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <li>VIP live Q&amp;A class, small group, the day after the training.</li>
         <li>Your offer looked at, live.</li>
         <li>The replay of the training (the only replay there is).</li>
-        <li>The full framework pack: the exact content and systems framework behind the offer that took me from $0 to $10,000, with every prompt built in.</li>
+        <li>A deep dive into the full framework behind the offer that took me from $0 to $10,000: the content and the systems, taught live.</li>
       </ul>
       <div class="price"><b id="vip-price">$57</b><span>one payment · no subscription · non-refundable</span></div>
       <p class="vip-cur" id="vip-cur" hidden></p>
@@ -737,7 +737,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <button type="button" class="skip" id="skip-offer">No thanks, see you on Saturday</button>
       </div>
       <p class="err" id="vip-err" role="alert"></p>
-      <p class="small vip-terms">The VIP payment is non-refundable. The Q&amp;A is live. If you miss it, you still get the replay and the framework pack.</p>
+      <p class="small vip-terms">The VIP payment is non-refundable. The Q&amp;A is live. If you miss it, you still get the replay.</p>
     </div>
   </div>
 </main>
@@ -846,7 +846,11 @@ td:first-child{font-weight:700;white-space:nowrap}
     return (fallback || 'GMT').replace(/^(GMT|UTC)[+\-]0(:00)?$/, 'GMT');
   }
   $$('.js-when-full').forEach(function(e){ e.innerHTML = whenHtml(NEXT); });
-  var VIP = londonToDate(NEXT.getUTCFullYear(), NEXT.getUTCMonth(), NEXT.getUTCDate() + 1, 16); /* VIP Q&A: Sunday 4pm London, the day after the training */
+  /* VIP Q&A: Sunday 4pm London, the day after the training. Someone who signed up for
+     a Saturday keeps that weekend's Sunday class until it has started. */
+  function vipFor(sat){ return londonToDate(sat.getUTCFullYear(), sat.getUTCMonth(), sat.getUTCDate() + 1, 16); }
+  var VIP = vipFor(NEXT);
+  try{ var regS = new Date((JSON.parse(localStorage.getItem('bridge_reg') || '{}')).s || ''); if(!isNaN(regS) && vipFor(regS).getTime() > Date.now() && vipFor(regS) < VIP) VIP = vipFor(regS); }catch(e){}
   $$('.js-vip-day').forEach(function(e){ e.innerHTML = whenHtml(VIP); });
   $$('.js-when-day').forEach(function(e){ e.textContent = dayWord; });
   $$('.js-when-day-lc').forEach(function(e){ e.textContent = isToday ? 'today' : 'on Saturday'; });
@@ -1208,7 +1212,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     err.textContent = '';
     var rb = $('#reserve-form button[type=submit]'); rb.disabled = true; rb.textContent = 'Saving your seat...';
     st.regName = n; st.regEmail = m;
-    try{ localStorage.setItem('bridge_reg', JSON.stringify({n:n, e:m})); }catch(e){}
+    try{ localStorage.setItem('bridge_reg', JSON.stringify({n:n, e:m, s:NEXT.toISOString()})); }catch(e){}
     wait.then(function(){
       rb.disabled = false; rb.textContent = 'Reserve my free spot';
       $('#thx-h').textContent = "You're in, " + n + '.';
