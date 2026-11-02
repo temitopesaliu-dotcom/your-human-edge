@@ -27,8 +27,8 @@ var SENDER_NAME = 'Temitope Saliu';
 var REPLY_TO = 'ts@temitopesaliu.com';
 var ALERT_TO = 'temitope.saliu@gmail.com'; // Gmail inbox: mail sent to ts@ would only land in Sent
 var VIP_AMOUNT_DEFAULT = 57;
-var ZOOM_TRAINING = 'https://us06web.zoom.us/j/86478394932?pwd=EhqfSwX3jaJLGbwznKmME1SINqWn9m.1'; // Saturday 11am London, weekly
-var ZOOM_VIP = 'https://us06web.zoom.us/j/86398284474?pwd=h5AgQVwovpzJHfNu4tXRQAEOTVKkAq.1'; // Sunday 4pm London, weekly
+var ZOOM_TRAINING = 'https://temitopesaliu.com/live'; // redirects to the Zoom meeting // Saturday 11am London, weekly
+var ZOOM_VIP = 'https://temitopesaliu.com/vip-live'; // redirects to the Zoom meeting // Sunday 4pm London, weekly
 
 var QMAP = { // answer id -> column header
   role: 'Role: Who do you help?', paid: 'Paid to teach before?', teach: 'What they teach', who: 'Who it is for + what changes',
@@ -322,6 +322,82 @@ function previewJourneyEmails_(to, first, result, tz) {
     catch (err) { Logger.log('draft send-as failed: ' + err); try { MailApp.sendEmail({ to: to, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO }); ok++; } catch (e2) { Logger.log(e2); } }
   });
   return ok;
+}
+
+/* ---------- reminders: the day before, 1 hour to go, we are live ---------- */
+var REMINDER_COLS = { day: 'Reminder 24h sent', hour: 'Reminder 1h sent', live: 'Live email sent' };
+
+/** Which reminder (if any) is due for one registrant right now. Times are ms. Pure, so it can be tested. */
+function reminderDue_(now, session, registered, sent) {
+  var H = 3600000;
+  if (!session || isNaN(session)) return '';
+  if (!sent.day && now >= session - 24 * H && now < session - 2 * H && !(registered && registered > session - 24 * H)) return 'day';
+  if (!sent.hour && now >= session - H && now < session - 5 * 60000 && !(registered && registered > session - H)) return 'hour';
+  if (!sent.live && now >= session && now < session + 30 * 60000) return 'live';
+  return '';
+}
+
+function when_(sessionUtc, tz) {
+  var base = new Date(sessionUtc);
+  var london = lc_(Utilities.formatDate(base, 'Europe/London', "EEEE, MMMM d '·' h:mma")).replace(':00', '') + ' London time';
+  var local = '';
+  if (tz && tz !== 'Europe/London') {
+    try { local = "That's " + lc_(Utilities.formatDate(base, tz, 'h:mma')).replace(':00', '') + ' where you are.'; } catch (err) { local = ''; }
+  }
+  return { london: london, local: local };
+}
+
+function reminderEmail_(kind, first, sessionUtc, tz) {
+  var w = when_(sessionUtc, tz), sg = signOff_();
+  var when = w.london + (w.local ? '\n' + w.local : '');
+  var whenHtml = w.london + (w.local ? '<br>' + w.local : '');
+  var subject, lead, cta;
+  if (kind === 'day') { subject = 'Tomorrow: your free live training'; lead = 'A quick reminder: the free live training is tomorrow.'; cta = 'Join link for tomorrow:'; }
+  else if (kind === 'hour') { subject = '1 hour to go, ' + first; lead = 'The free live training starts in 1 hour.'; cta = 'Join here:'; }
+  else { subject = "We're live, " + first; lead = "We're live now. Come in and join me."; cta = 'Join now:'; }
+  var live = 'It is live only, so be there.';
+  return {
+    subject: subject,
+    text: 'Hi ' + first + ',\n\n' + lead + '\n\n' + when + '\n\n' + cta + ' ' + ZOOM_TRAINING + '\n\n' + live + '\n\n' + sg.text,
+    html: wrap_('<p>Hi ' + first + ',</p><p>' + lead + '</p><p>' + whenHtml + '</p><p>' + cta + ' <a href="' + ZOOM_TRAINING + '">' + ZOOM_TRAINING + '</a></p><p>' + live + '</p>' + sg.html)
+  };
+}
+
+/** Runs every 10 minutes (see installReminderTriggers). Sends each reminder once per person. */
+function checkReminders() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return;
+  try {
+    var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(WEB);
+    var map = headers_(sh), last = sh.getLastRow();
+    if (last < 2 || !map['Email'] || !map['Session UTC']) return;
+    var width = sh.getLastColumn(), data = sh.getRange(2, 1, last - 1, width).getValues(), now = Date.now();
+    var pick = function (r, name) { return map[name] ? r[map[name] - 1] : ''; };
+    for (var i = 0; i < data.length; i++) {
+      var r = data[i], email = String(pick(r, 'Email') || '').trim();
+      if (!email) continue;
+      var session = new Date(String(pick(r, 'Session UTC'))).getTime();
+      var regRaw = String(pick(r, 'Registered (UTC)') || ''), reg = regRaw ? new Date(regRaw.replace(' ', 'T') + 'Z').getTime() : 0;
+      var sent = { day: !!pick(r, REMINDER_COLS.day), hour: !!pick(r, REMINDER_COLS.hour), live: !!pick(r, REMINDER_COLS.live) };
+      var kind = reminderDue_(now, session, isNaN(reg) ? 0 : reg, sent);
+      if (!kind) continue;
+      var c = reminderEmail_(kind, String(pick(r, 'First name') || 'there'), String(pick(r, 'Session UTC')), String(pick(r, 'Their time zone') || ''));
+      var ok = false;
+      try { sendFromBusinessAddress_(email, c); ok = true; }
+      catch (err) {
+        try { MailApp.sendEmail({ to: email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO }); ok = true; }
+        catch (err2) { Logger.log('reminder failed ' + email + ': ' + err2); }
+      }
+      if (ok) { var f = {}; f[REMINDER_COLS[kind]] = stamp_(); put_(sh, i + 2, f); }
+    }
+  } finally { lock.releaseLock(); }
+}
+
+/** Run once from the editor: makes checkReminders run every 10 minutes. */
+function installReminderTriggers() {
+  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'checkReminders') ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('checkReminders').timeBased().everyMinutes(10).create();
+  return 'reminder trigger installed';
 }
 
 /* ---------- run from the editor ---------- */
