@@ -646,16 +646,6 @@ td:first-child{font-weight:700;white-space:nowrap}
     </div>
   </section>
 
-  <section class="tv-dark tv-sec">
-    <div class="tv-wrap">
-      <h2 class="tv-sh">Show up live and you <span class="tv-get">GET:</span></h2>
-      <div class="tv-bonus">
-        <div><div class="tag">Your bonus</div><h4>The content planning system behind 12,000 followers and $10,000 from one offer, in 30 days</h4><p>The exact system I plan my content with. Plug in your niche and it tells you what to post, where, and when.</p><div class="when">When you show up live</div></div>
-        <div class="val"><b>FREE</b></div>
-      </div>
-      <p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p>
-    </div>
-  </section>
 
   <section class="band" style="background:var(--lav)">
     <div class="in">
@@ -694,7 +684,6 @@ td:first-child{font-weight:700;white-space:nowrap}
         <h3>Reserve my free spot</h3>
         <div class="when-box when-line js-when-full"></div>
         <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
-        <div class="bonus"><b>Bonus for live attendees:</b> the content planning system behind 12,000 followers and $10,000 from one offer, in 30 days.</div>
         <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
         <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email"></div>
         <div class="field"><label for="r-cc">WhatsApp number, with country code</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number"></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
@@ -738,7 +727,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <li>VIP live Q&amp;A class, small group, after the training</li>
         <li>Your offer looked at, live</li>
         <li>The replay of the training (the only replay there is)</li>
-        <li>The prompt pack I use to launch my offers</li>
+        <li>The full framework pack: the exact framework behind my content and teaching online, start to finish, with every prompt built in</li>
       </ul>
       <div class="price"><b id="vip-price">$57</b><span>one payment · no subscription · non-refundable</span></div>
       <p class="vip-cur" id="vip-cur" hidden></p>
@@ -748,7 +737,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <button type="button" class="skip" id="skip-offer">No thanks, see you on Saturday</button>
       </div>
       <p class="err" id="vip-err" role="alert"></p>
-      <p class="small vip-terms">The VIP payment is non-refundable. The Q&amp;A is live. If you miss it, you still get the replay and the prompt pack.</p>
+      <p class="small vip-terms">The VIP payment is non-refundable. The Q&amp;A is live. If you miss it, you still get the replay and the framework pack.</p>
     </div>
   </div>
 </main>
@@ -810,7 +799,8 @@ td:first-child{font-weight:700;white-space:nowrap}
       var c = new Date(now.getTime() + i*86400000);
       if(c.getUTCDay() !== 6) continue;
       var s = londonToDate(c.getUTCFullYear(), c.getUTCMonth(), c.getUTCDate(), 11);
-      if(s.getTime() + 90*60000 > now.getTime()) return s;
+      /* the page moves on to the next Saturday at 6pm London on training day */
+      if(londonToDate(c.getUTCFullYear(), c.getUTCMonth(), c.getUTCDate(), 18).getTime() > now.getTime()) return s;
     }
     return londonToDate(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()+7, 11);
   }
