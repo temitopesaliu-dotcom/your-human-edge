@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.png">
+<!-- Analytics: GA4 + Meta Pixel + Clarity + sitewide click tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28CRPR339W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-28CRPR339W', { page_path: window.location.pathname });
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','866191869379024');fbq('track','PageView');
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","x0r48qni9r");
+</script>
+<script src="/click-tracking.js" defer></script>
+<title>An AI operating system for your training business | Temitope Saliu</title>
+<meta name="description" content="A readiness check for coaches and training firms, then two routes: have the AI architecture designed for you, or build it yourself with me one to one.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: editorial, text-left hero carousel; white ground, one purple accent from temitopesaliu.com; serif display with purple italics, DM Sans body. Deliberately single light theme, like the live site. */
+:root{
+  --bg:#FFFFFF; --soft:#F7F5FD; --soft2:#EFEBFB; --line:#E6E1F5; --line2:#D9D1F5;
+  --ink:#231E3A; --body:#3A352C; --muted:#655F74; --dim:#8C869A;
+  --purple:#6C4FD6; --purple-deep:#4B33AE; --purple-tint:#C9BEF2;
+  --f-display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--body);font-family:var(--f-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.narrow{max-width:820px}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.05;margin:0;text-wrap:balance;color:var(--ink);letter-spacing:-.01em}
+h2{font-size:clamp(34px,5vw,52px)}
+h3{font-size:28px}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--purple)}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--purple)}
+.lede{color:var(--muted);font-size:19px;max-width:60ch}
+.band{padding-block:96px;border-top:1px solid var(--line)}
+.center{text-align:center}
+.center .lede{margin-inline:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--f-body);font-weight:600;font-size:15px;padding:14px 22px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .15s ease, border-color .15s ease}
+.btn:focus-visible,.opt:focus-within,.link:focus-visible,.path:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+.btn-spot,.btn-go{background:var(--purple);color:#fff}
+.btn-spot:hover,.btn-go:hover{background:var(--purple-deep)}
+.btn-go:disabled{opacity:.35;cursor:not-allowed}
+.btn-ghost{background:#fff;color:var(--purple);border-color:var(--purple-tint)}
+.btn-ghost:hover{border-color:var(--purple)}
+.btn-plain{background:transparent;border:0;color:var(--muted);font:600 15px var(--f-body);cursor:pointer;padding:14px 4px}
+.btn-plain:disabled{opacity:.3;cursor:default}
+.link{color:var(--purple);font-weight:600;font-size:15px;text-decoration:none;border-bottom:1px solid var(--purple-tint);padding-bottom:2px}
+.link:hover{border-color:var(--purple)}
+
+/* nav */
+.topbar{border-bottom:1px solid var(--line);background:#fff}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.brand{font-family:var(--f-display);font-size:22px;color:var(--ink);text-decoration:none}
+.links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.links a{text-decoration:none}
+.links a:hover{color:var(--purple)}
+
+/* hero carousel */
+.hero{padding-block:40px 24px}
+.stage{position:relative;min-height:580px}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;opacity:0;visibility:hidden;transition:opacity .7s ease, visibility 0s linear .7s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .7s ease}
+.slide h1{font-size:clamp(42px,5.4vw,68px);margin-top:14px}
+.slide .lede{margin-top:18px;font-size:18px;max-width:40ch}
+.slide .cta-row{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:28px}
+.slide svg{width:100%;max-width:460px;height:auto;justify-self:center}
+.ctl{display:flex;justify-content:center;align-items:center;margin-top:18px}
+.dots{display:flex;gap:10px}
+.dot{width:34px;height:4px;border-radius:4px;background:var(--soft2);border:0;padding:0;cursor:pointer}
+.dot.on{background:var(--purple)}
+.dot:focus-visible{outline:2px solid var(--purple);outline-offset:4px}
+.arw{display:flex;gap:10px}
+.arw button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:#fff;color:var(--purple);cursor:pointer;font-size:18px;line-height:1}
+.arw button:hover{border-color:var(--purple)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:18px;margin-top:40px;overflow:hidden;background:var(--soft)}
+.stats div{padding:22px 16px;text-align:center}
+.stats div+div{border-left:1px solid var(--line)}
+.stats b{display:block;font-family:var(--f-display);font-size:38px;font-weight:500;color:var(--purple);line-height:1}
+.stats span{display:block;font-size:14px;color:var(--muted);margin-top:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flow{0%{offset-distance:0%;opacity:0}15%{opacity:1}85%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes hand{0%,8%{transform:translateX(0);opacity:1}45%,100%{transform:translateX(150px);opacity:0}}
+@keyframes land{0%,40%{opacity:0;transform:scale(.8)}55%,100%{opacity:1;transform:scale(1)}}
+@keyframes pop{0%,5%{opacity:0;transform:translateY(10px) scale(.9)}15%,85%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes fill{0%,55%{width:0}80%,100%{width:252px}}
+
+/* familiar */
+.said{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
+.said p{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:22px;font-family:var(--f-display);font-style:italic;font-size:22px;line-height:1.3;color:var(--ink);text-align:left}
+
+/* two paths */
+.paths{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:48px}
+.path{border:1px solid var(--line);border-radius:18px;padding:30px;background:#fff;display:grid;gap:14px;align-content:start;text-decoration:none;color:inherit}
+.path.lead{border:2px solid var(--purple);background:var(--soft)}
+a.path:hover{border-color:var(--purple)}
+.path .tag{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+.path ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.path li{padding-left:22px;position:relative;color:var(--muted);font-size:16px}
+.path li::before{content:"";position:absolute;left:0;top:.75em;width:10px;height:2px;border-radius:2px;background:var(--purple)}
+.path .cost{font-family:var(--f-display);font-size:30px;color:var(--ink);margin-top:6px}
+.path .cost small{display:block;font-family:var(--f-body);font-size:13px;color:var(--dim);margin-top:4px}
+.path .go{font-weight:600;font-size:15px;color:var(--purple)}
+.vs{align-self:center;font-family:var(--f-display);font-style:italic;color:var(--dim);font-size:22px}
+
+/* curriculum */
+.weeks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
+.week{border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:8px;align-content:start;background:#fff}
+.week.hi{background:var(--soft);border-color:var(--purple-tint)}
+.week .wk{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+.week h3{font-size:25px}
+.week p{color:var(--muted);font-size:15px}
+
+/* video stories */
+.stories{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:44px}
+.story{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:grid;align-content:start;text-decoration:none;color:inherit;transition:border-color .15s ease}
+a.story:hover{border-color:var(--purple)}
+a.story:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+.thumb{aspect-ratio:9/12;max-width:100%;background:linear-gradient(160deg,var(--soft2),var(--purple-tint));display:grid;place-items:center;position:relative}
+.who{position:absolute;bottom:12px;left:14px;font-family:var(--f-display);font-size:26px;color:var(--ink)}
+.play{width:56px;height:56px;border-radius:50%;background:var(--purple);display:grid;place-items:center}
+.play::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.ph{position:absolute;top:10px;left:10px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:var(--purple-deep);padding:4px 8px;border-radius:6px}
+.story .meta{padding:18px 20px;display:grid;gap:6px}
+.story q{font-family:var(--f-display);font-size:19px;line-height:1.3;color:var(--ink);quotes:"\201C" "\201D"}
+.story span{font-size:13px;color:var(--muted)}
+.story b{color:var(--ink);font-weight:600}
+
+/* check */
+.check{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,44px);margin-top:44px;text-align:left;box-shadow:0 1px 0 var(--line)}
+.progress{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--muted)}
+.track{flex:1;height:4px;border-radius:4px;background:var(--soft2);overflow:hidden}
+.track i{display:block;height:100%;background:var(--purple);width:0;transition:width .25s ease}
+.qblock{margin-top:30px}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.qblock legend{font-family:var(--f-display);font-size:clamp(26px,3.4vw,34px);line-height:1.15;padding:0;margin-bottom:8px;color:var(--ink)}
+.qblock legend .eyebrow{font-family:var(--f-body)}
+.hint{color:var(--muted);font-size:15px;margin-bottom:20px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:flex-start;padding:15px 18px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--purple-tint)}
+.opt input{margin-top:5px;accent-color:var(--purple);flex:none}
+.opt:has(input:checked){border-color:var(--purple);background:var(--soft)}
+.opt span{font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line2);border-radius:999px;cursor:pointer;background:#fff;font-size:15px}
+.chip:hover{border-color:var(--purple-tint)}
+.chip input{accent-color:var(--purple);margin:0}
+.chip:has(input:checked){border-color:var(--purple);background:var(--soft);color:var(--purple-deep)}
+.chip:focus-within{outline:2px solid var(--purple);outline-offset:2px}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;flex-wrap:wrap}
+.field{display:grid;gap:6px;margin-top:14px}
+.field label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field input{font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--line2);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.field input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note{font-size:13px;color:var(--dim)}
+
+/* result */
+.result-head{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center}
+.dial{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--purple) calc(var(--p)*1%), var(--soft2) 0);position:relative}
+.dial::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
+.dial>div{position:relative;z-index:1;text-align:center}
+.dial b{font-family:var(--f-display);font-size:54px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1;color:var(--ink)}
+.dial small{display:block;font-size:12px;color:var(--muted)}
+.band-name{font-family:var(--f-display);font-size:clamp(34px,4.4vw,46px);line-height:1.05;color:var(--ink)}
+.bars{display:grid;gap:14px;margin-top:32px}
+.bar{display:grid;grid-template-columns:minmax(0,190px) 1fr 3.5ch;gap:14px;align-items:center;font-size:15px}
+.bar .lab{color:var(--ink)}
+.bar .tr{height:6px;border-radius:6px;background:var(--soft2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;transition:width .6s ease}
+.bar .v{font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.plan{margin-top:40px;border-top:1px solid var(--line);padding-top:32px}
+.plan h3{font-size:34px}
+.plan .meta{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:18px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:16px;counter-increment:s}
+.steps li::before{content:counter(s);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--soft2);color:var(--purple);font-family:var(--f-display);font-size:22px}
+.steps h4{margin:0 0 4px;font-size:17px;font-weight:600;color:var(--ink)}
+.steps p{color:var(--muted);font-size:16px}
+.offer{margin-top:36px;border:2px solid var(--purple);background:var(--soft);border-radius:18px;padding:clamp(22px,4vw,36px);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
+.offer h3{color:var(--ink)}
+.offer p{color:var(--muted);font-size:16px;margin-top:10px;max-width:60ch}
+.offer ul{margin:14px 0 0;padding-left:18px;font-size:16px;display:grid;gap:6px;color:var(--body)}
+.offer .price{font-family:var(--f-display);font-size:52px;line-height:1;color:var(--ink);margin:0}
+.offer .price small{display:block;font-family:var(--f-body);font-size:13px;color:var(--muted);margin-top:8px}
+.offer .side{display:grid;gap:12px;justify-items:start;min-width:220px}
+.quotes{display:grid;gap:14px}
+blockquote{margin:0;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
+blockquote p{font-family:var(--f-display);font-size:22px;line-height:1.3;color:var(--ink);margin:0;max-width:none}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:13px;color:var(--muted)}
+blockquote cite b{color:var(--ink);font-weight:600}
+.small-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;align-items:center}
+
+/* process, about, faq */
+.process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:48px}
+.process div{border:1px solid var(--line);border-radius:18px;padding:24px;background:#fff;display:grid;gap:10px;align-content:start}
+.process .n{font-family:var(--f-display);font-size:34px;color:var(--purple);line-height:1}
+.process .when{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.process h3{font-size:24px}
+.process p{color:var(--muted);font-size:15px}
+.about{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:22px;background:linear-gradient(160deg,var(--soft2),var(--purple-tint));display:grid;place-items:center;align-content:center;gap:8px;overflow:hidden;border:1px solid var(--line)}
+.portrait span{font-family:var(--f-display);font-size:88px;color:var(--purple);line-height:1}
+.portrait small{font-size:13px;color:var(--muted)}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.photo{background-image:url(/temitope-saliu-portrait.jpg);background-size:cover;background-position:center 20%}
+.connect{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.who-card{grid-column:1 / -1;display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:22px}
+.who-card .mini{width:72px;height:72px;border-radius:50%;background:linear-gradient(160deg,var(--soft2),var(--purple-tint));display:grid;place-items:center;font-family:var(--f-display);font-size:28px;color:var(--purple);overflow:hidden}
+.who-card .mini img{width:100%;height:100%;object-fit:cover}
+.who-card p{margin:0;font-size:15px;color:var(--muted);max-width:none}
+.who-card b{color:var(--ink)}
+.who-card .row{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.creds{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px;color:var(--muted);font-size:15px}
+.creds li{border-top:1px solid var(--line);padding-top:10px}
+details{border-top:1px solid var(--line);padding:20px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{font-family:var(--f-display);font-size:24px;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--purple);font-family:var(--f-body)}
+details[open] summary::after{content:"\2013"}
+details p{color:var(--muted);margin-top:10px;font-size:16px;max-width:65ch}
+footer{border-top:1px solid var(--line);padding-block:36px;font-size:14px;color:var(--muted);background:var(--soft)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.mail{user-select:all;color:var(--ink)}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:860px){
+  .links{display:none}
+  .stage{min-height:820px}
+  .slide{grid-template-columns:1fr;align-content:start;gap:12px}
+  .slide svg{max-width:340px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats div+div{border-left:0}
+  .stats div:nth-child(even){border-left:1px solid var(--line)}
+  .stats div:nth-child(n+3){border-top:1px solid var(--line)}
+  .said,.weeks{grid-template-columns:1fr}
+  .stories{grid-template-columns:1fr 1fr}
+  .paths{grid-template-columns:1fr}
+  .vs{justify-self:center}
+  .about{grid-template-columns:1fr}
+  .process{grid-template-columns:1fr 1fr}
+  .offer{grid-template-columns:1fr}
+  .result-head{grid-template-columns:1fr;justify-items:start}
+  .two{grid-template-columns:1fr}
+  .bar{grid-template-columns:minmax(0,1fr) 3.5ch}
+  .bar .tr{grid-column:1 / -1;grid-row:2}
+}
+@media (min-width:861px) and (max-width:1060px){.stories{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.process{grid-template-columns:1fr}.stage{min-height:860px}}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">Temitope Saliu</a>
+    <nav class="links" aria-label="Sections"><a href="#check">The check</a><a href="#paths">Two paths</a><a href="#learn">Build it yourself</a><a href="#about">About</a><a href="#faq">FAQs</a></nav>
+    <a class="btn btn-ghost" href="#check" style="padding:10px 16px">Take the check</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="wrap hero" aria-roledescription="carousel" aria-label="Highlights">
+  <div class="stage" id="stage">
+
+    <div class="slide on" aria-roledescription="slide" aria-label="1 of 3">
+      <div>
+        <p class="eyebrow">One system, every part connected</p>
+        <h1>One operating system <em>for your training business.</em></h1>
+        <p class="lede">Your offers, clients, delivery and impact, working as one. Take the readiness check to see where you stand.</p>
+        <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a></div>
+      </div>
+      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s1t"><title id="s1t">Eight business areas connected to one AI operating system</title>
+        <g style="transform-origin:150px 130px;animation:spin 40s linear infinite"><circle cx="150" cy="130" r="108" fill="none" stroke="#D9D1F5" stroke-dasharray="3 6"/></g>
+        <g id="spokes"></g>
+        <circle cx="150" cy="130" r="34" fill="#6C4FD6"/><text x="150" y="127" text-anchor="middle" font-size="15" fill="#fff" font-family="Cormorant Garamond,serif">AI</text><text x="150" y="142" text-anchor="middle" font-size="10" fill="#E9E3FB" font-family="DM Sans,sans-serif">OS</text>
+      </svg>
+    </div>
+
+    <div class="slide" aria-roledescription="slide" aria-label="2 of 3">
+      <div>
+        <p class="eyebrow">Built for you, or built by you</p>
+        <h1>Your work is human. <em>Your business shouldn't need you for everything.</em></h1>
+        <p class="lede">You keep the coaching. Your system takes the follow-ups, prep and admin.</p>
+        <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a></div>
+      </div>
+      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s2t"><title id="s2t">Admin tasks move from you to your operating system while coaching stays with you</title>
+        <rect x="10" y="40" width="92" height="180" rx="14" fill="#F7F5FD" stroke="#D9D1F5"/>
+        <text x="56" y="62" text-anchor="middle" font-size="11" fill="#231E3A" font-family="DM Sans,sans-serif" font-weight="600">You</text>
+        <rect x="20" y="182" width="72" height="26" rx="13" fill="#6C4FD6"/><text x="56" y="199" text-anchor="middle" font-size="10" fill="#fff" font-family="DM Sans,sans-serif">Coaching</text>
+        <rect x="198" y="40" width="92" height="180" rx="14" fill="#fff" stroke="#6C4FD6"/>
+        <text x="244" y="62" text-anchor="middle" font-size="11" fill="#6C4FD6" font-family="DM Sans,sans-serif" font-weight="600">Your OS</text>
+        <g id="tasks"></g>
+      </svg>
+    </div>
+
+    <div class="slide" aria-roledescription="slide" aria-label="3 of 3">
+      <div>
+        <p class="eyebrow">AI readiness for coaches and training firms</p>
+        <h1>Your clients are asking about AI. <em>Keep your work human.</em></h1>
+        <p class="lede">A five-minute check, a free summary of your next steps, and the right path for you.</p>
+        <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a></div>
+      </div>
+      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s3t"><title id="s3t">Six business modules come together into one connected system</title>
+        <g id="mods"></g>
+        <rect x="24" y="222" width="252" height="10" rx="5" fill="#EFEBFB"/>
+        <rect x="24" y="222" width="252" height="10" rx="5" fill="#6C4FD6" style="animation:fill 3s ease-in-out infinite"/>
+        <text x="150" y="252" text-anchor="middle" font-size="10" fill="#655F74" font-family="DM Sans,sans-serif">Connected into one system</text>
+      </svg>
+    </div>
+
+  </div>
+  <div class="ctl">
+    <div class="dots"><button class="dot on" aria-label="Show slide 1"></button><button class="dot" aria-label="Show slide 2"></button><button class="dot" aria-label="Show slide 3"></button></div>
+  </div>
+  <div class="stats" aria-label="At a glance">
+    <div><b>5 min</b><span>Your readiness check</span></div>
+    <div><b>Free</b><span>Summary of next steps, emailed</span></div>
+    <div><b>2 hrs</b><span>Strategy session, if it fits</span></div>
+    <div><b>6 weeks</b><span>To build it yourself, one-to-one</span></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap center">
+    <p class="eyebrow">The reality</p>
+    <h2>If any of this sounds <em>familiar.</em></h2>
+    <div class="said">
+      <p>"Clients ask what we're doing about AI, and we don't have a clear answer."</p>
+      <p>"Almost every new client still comes from referrals."</p>
+      <p>"The change in the room is real. Proving it to a CFO is another matter."</p>
+      <p>"Everything still runs through me."</p>
+      <p>"Prep, admin and follow-up eat the week."</p>
+      <p>"Everything I know lives in my head."</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="paths">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Two paths</p>
+      <h2>Built for you, <em>or built by you.</em></h2>
+      <p class="lede" style="margin-top:18px">The readiness check tells you which one fits. Either way, you leave with a summary of your next steps.</p>
+    </div>
+    <div class="paths">
+      <div class="path lead">
+        <span class="tag">Built for you</span>
+        <h3>Your AI operating system, <em>designed for you.</em></h3>
+        <p style="margin:0 0 12px;color:var(--muted);font-size:15px">What you pay for is the architecture: the design of how AI runs through your whole business. It is the blueprint any build follows.</p>
+        <ul><li>A two-hour strategy session with me: where your business is with AI today, and where it needs to be across your whole ecosystem</li><li>Your full architecture, included: where AI is needed from start to finish, across every system and process in your business, in one place</li><li>An AI offer for the organisations you train, matched to what you already sell</li><li>Your architecture arrives within 7 working days of the session</li></ul>
+        <p class="cost">$1,500<small>Session and full architecture. Comes off your build if you continue within 30 days. Builds from $15,000.</small></p>
+        <p style="margin:0 0 10px;color:var(--muted);font-size:13px">Sessions are booked from 48 hours after payment, so I can read your business before we speak.</p>
+        <a class="link js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener" style="margin-bottom:8px">Not sure yet? Book a free 20-minute call</a>
+        <a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a>
+      </div>
+      <span class="vs">or</span>
+      <a class="path" href="#stories">
+        <span class="tag">Built by you</span>
+        <h3>Learn to build it <em>yourself.</em></h3>
+        <ul><li>Six weeks, one-to-one, starting when you're ready</li><li>Your business blueprint, sales and operating system</li><li>Your AI second brain, advertising with AI, agents and automations</li><li>An AI content management system and leads engine</li></ul>
+        <p class="cost">$2,999<small>Six weeks, one-to-one. Starts with a free 20-minute call.</small></p>
+        <span class="go">Watch what past students built &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="stories">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Built by them</p>
+      <h2>Hear it from the people <em>who built it.</em></h2>
+      <p class="lede" style="margin-top:18px">Students of the six-week programme on what they built.</p>
+    </div>
+    <div class="stories">
+      <a class="story" href="https://www.youtube.com/watch?v=kwkbCK7FQ2A" target="_blank" rel="noopener"><div class="thumb"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Audie</span></div><div class="meta"><q>Watch what she built in six weeks.</q><span><b>Audie</b> · Coach</span></div></a>
+      <a class="story" href="https://www.youtube.com/shorts/hc9C9V_PcEM" target="_blank" rel="noopener"><div class="thumb"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Vuyi</span></div><div class="meta"><q>I started off not knowing a lot of things and seven weeks later I have created my first project.</q><span><b>Vuyi</b> · Banker, USA</span></div></a>
+      <a class="story" href="https://www.youtube.com/shorts/D7HRV2KpKMk" target="_blank" rel="noopener"><div class="thumb"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Adi</span></div><div class="meta"><q>I don't think it was necessarily the tools that made the difference. It was the thinking.</q><span><b>Adi</b> · Finance executive, UK</span></div></a>
+      <a class="story" href="https://www.youtube.com/shorts/acJavb_Xj5c" target="_blank" rel="noopener"><div class="thumb"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Rukevwe</span></div><div class="meta"><q>I have left this course feeling extremely capable and confident.</q><span><b>Rukevwe</b> · Senior IT project manager, UK</span></div></a>
+      <a class="story" href="https://www.youtube.com/shorts/bOYlPdVAToQ" target="_blank" rel="noopener"><div class="thumb"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Priscilla</span></div><div class="meta"><q>From personality, to generating leads, to building the actual infrastructure around my idea.</q><span><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="learn">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Build it yourself</p>
+      <h2>What you'll <em>learn.</em></h2>
+      <p class="lede" style="margin-top:18px">One-to-one with me, with AI as your execution team. You finish with a working operating system for your coaching or training business.</p>
+    </div>
+    <div class="weeks">
+      <div class="week"><h3>Your business blueprint</h3><p>Personality intelligence first. Then who you serve, your flagship programme, and how it's packaged and priced.</p></div>
+      <div class="week"><h3>Personality intelligence for sales</h3><p>Read how your buyers decide, from individuals to HR and L&amp;D leads, and sell to that.</p></div>
+      <div class="week"><h3>Your coaching operating system</h3><p>Map enquiry, discovery, enrolment, delivery and renewal, then build the system around it.</p></div>
+      <div class="week hi"><h3>Your AI second brain</h3><p>Your frameworks, session notes, client history and programme material in one searchable brain. Prep, follow-up and new programmes get faster.</p></div>
+      <div class="week"><h3>Advertising with AI</h3><p>Plan, write and test ads with AI, so the right buyers find your programmes without guesswork.</p></div>
+      <div class="week"><h3>Agents and automations</h3><p>AI agents and automations for intake, reminders, follow-ups and reporting, so the admin runs without you.</p></div>
+      <div class="week"><h3>AI content management system</h3><p>One system to plan, create, store and publish your content in your voice, across every channel.</p></div>
+      <div class="week"><h3>Your leads engine</h3><p>A steady flow of the right buyers, from your content, your ads and your client stories.</p></div>
+      <div class="week"><h3>Your AI clone</h3><p>An AI version of you that carries your method between sessions.</p></div>
+    </div>
+    <div class="center" style="margin-top:36px"><a class="btn btn-spot js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener">Book a free 20-minute call</a></div>
+  </div>
+</section>
+
+<section class="band" id="check" style="background:var(--soft)">
+  <div class="wrap center">
+    <p class="eyebrow">Readiness check</p>
+    <h2>Where is your business <em>right now?</em></h2>
+    <p class="lede" style="margin-top:18px">Twelve questions, about five minutes. You get a score across four areas, a summary of your next steps, and the path that fits you.</p>
+    <div class="check" aria-live="polite">
+      <form id="quiz" novalidate>
+        <div class="progress"><span id="stepLabel">Question 1 of 12</span><span class="track"><i id="trackBar"></i></span></div>
+        <div id="qhost"></div>
+        <div class="nav">
+          <button type="button" class="btn-plain" id="back">Back</button>
+          <button type="button" class="btn btn-go" id="next" disabled>Next</button>
+        </div>
+      </form>
+      <div id="result" hidden></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">The process</p>
+      <h2>From first answer <em>to running system.</em></h2>
+    </div>
+    <div class="process">
+      <div><span class="n">1</span><span class="when">About five minutes</span><h3>Readiness check</h3><p>Twelve questions about your business, your time and your client work.</p></div>
+      <div><span class="n">2</span><span class="when">Straight after</span><h3>Your summary</h3><p>Your score and next steps on screen, with a copy in your inbox.</p></div>
+      <div><span class="n">3</span><span class="when">When you're ready</span><h3>Your path</h3><p>A strategy session to have it designed for you, or a free call to build it yourself.</p></div>
+      <div><span class="n">4</span><span class="when">Your plan, your way</span><h3>The build</h3><p>Your system goes live, with the human work kept at the centre.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="about">
+  <div class="wrap about">
+    <div class="portrait photo" role="img" aria-label="Photo of Temitope Saliu"></div>
+    <div class="about-body">
+      <p class="eyebrow">About</p>
+      <h2 style="margin-top:12px">Temitope <em>Saliu.</em></h2>
+      <p class="lede" style="font-size:18px;margin-top:18px">Teacher, business architect and AI strategist with over a decade in marketing, products and partnerships. I lead AI transformation for businesses, and my work sits where AI meets human psychology: personality and buyer behaviour come first, then the systems. I've partnered with Google and Microsoft on tech education across Africa, worked with Meta, Visa and USAID, and I build operating systems for coaches, trainers and institutions that want to scale without losing what makes their work human.</p>
+      <ul class="creds"><li>AI transformation for businesses and institutions</li><li>Tech education partner to Google and Microsoft.</li><li>Google and Meta Elite Trainer, 3,000+ professionals trained</li><li>UK Global Exceptional Talent</li><li>Women Economic Forum Iconic Award winner</li></ul>
+      <div class="connect"><a class="btn btn-spot" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="btn btn-ghost" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap narrow">
+    <div class="center" style="margin-bottom:28px"><p class="eyebrow">Questions</p><h2>Everything you <em>need to know.</em></h2></div>
+    <details><summary>What does a build cost?</summary><p>Most builds start from $15,000. The exact price is set from your architecture, so you know the full scope before you commit. Your $1,500 covers the session and your full architecture, and comes off the build if you continue within 30 days.</p></details>
+    <details><summary>Is the session a sales call?</summary><p>No. It is two hours of paid strategy on your real business, and you keep the summary whether or not you build.</p></details>
+    <details><summary>What if a build is out of reach right now?</summary><p>You still leave with your summary of next steps. If you want to build it yourself, I teach you one-to-one over six weeks, with AI as your execution team.</p></details>
+    <details><summary>What is an AI second brain?</summary><p>Everything you know, in one place your AI can search: your frameworks, session notes, client history and programme material. It means prep, follow-up and new content start from your own thinking, not a blank page.</p></details>
+    <details><summary>Will AI make my work feel less human?</summary><p>That's the risk I work against. AI takes on research, admin and follow-up, so you spend more time on the human work.</p></details>
+    <details><summary>Do I need to be technical?</summary><p>No. You need to know your business. The technical side is handled for you, or taught to you step by step.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>Temitope Saliu · Teacher, Business Architect and AI Strategist</span><span>Email: <span class="mail">ts@temitopesaliu.com</span></span></div>
+</footer>
+
+<script>
+(function(){
+const BOOK = "https://calendly.com/temitope-saliu";
+const DEMO = "https://temitopesaliu.com/demos/BA_OS_Demo_1.html";
+const APPLY = "https://buy.stripe.com/14A3cwc3ZdbG53R6uD3oA0P"; // live $1,500 Leadership AI Strategy Session Stripe link; flows to temitopesaliu.com/book (Calendly blueprint-bfy-audit) then /youre-ready
+const FITCALL = "https://cal.com/temitope-saliu/free-20-minute-call-with-temitope"; // free 20-minute call on Cal.com, weekdays 13:15-14:45 UK, 24h notice
+const LEARN = "#learn";
+const STORIES = "#stories";
+// Prices live here so they are easy to change.
+document.querySelectorAll(".js-fit").forEach(a=>a.href=FITCALL);
+const CFG = {session:"$1,500", buildFrom:"$15,000", turnaround:"7 working days", diy:"$2,999", diyNote:"six weeks one-to-one · starts with a free 20-minute call"};
+const DIMS = {pipe:"Pipeline", demand:"Client AI demand", delivery:"AI in delivery", impact:"Impact proof"};
+const Q = [
+ {id:"pipe1", part:"Your business", dim:"pipe", q:"Where does most of your new work come from?", hint:"Think about the last twelve months.", o:[
+  ["Almost all referrals and repeat clients",0],["Mostly referrals, some outreach",1],["A mix of referrals and our own outreach",2],["A steady engine we run ourselves",3]]},
+ {id:"pipe2", part:"Your business", dim:"pipe", q:"Who owns finding new clients?", hint:"", o:[
+  ["Nobody specifically, it happens when it happens",0],["The founder, when there is time",1],["One person, part-time",2],["A dedicated person or team with a weekly routine",3]]},
+ {id:"imp1", part:"Your business", dim:"impact", q:"How do you show clients the impact of your work?", hint:"", o:[
+  ["Feedback forms at the end",0],["Testimonials and stories",1],["Some before and after measures",2],["Tracked results we report months later",3]]},
+ {id:"imp2", part:"Your business", dim:"impact", q:"How easy is it to win renewals and repeat work?", hint:"", o:[
+  ["Hard, budgets are being cut",0],["It depends on one champion",1],["Usually fine with some effort",2],["Easy, the results speak",3]]},
+ {id:"dem1", part:"Your client work", dim:"demand", q:"How often do clients ask what you are doing about AI?", hint:"", o:[
+  ["Rarely or never",1],["Now and then",2],["Often, and we struggle to answer",0],["Often, and we have a clear answer",3]]},
+ {id:"dem2", part:"Your client work", dim:"demand", q:"If a client asked for an AI-informed programme tomorrow, could you deliver it?", hint:"", o:[
+  ["No",0],["We would improvise something",1],["We have pieces we could adapt",2],["Yes, we already offer one",3]]},
+ {id:"del1", part:"Your client work", dim:"delivery", q:"How do you and your team use AI today?", hint:"Research, materials, admin, follow-up.", o:[
+  ["Hardly at all",0],["A few people use ChatGPT on their own",1],["Some shared tools and habits",2],["It is built into how we work",3]]},
+ {id:"del2", part:"Your client work", dim:"delivery", q:"How do participants practise between sessions?", hint:"", o:[
+  ["They don't, really",0],["Handouts and notes",1],["Some digital follow-up",2],["Structured practice with feedback",3]]},
+ {id:"time", part:"Your time", dim:null, multi:true, q:"Where does your time actually go?", hint:"Tap every one that sounds familiar.", o:[
+  ["Prepping sessions and materials",0],["Following up with clients",0],["Answering the same questions",0],["Scheduling back and forth",0],["Chasing new clients",0],["Creating content",0],["Writing proposals",0],["Reporting impact to clients",0],["Invoicing and admin",0],["Everything lives in my head",0]]},
+ {id:"rev", part:"About you", dim:null, q:"Roughly what does your business bring in each year?", hint:"This decides which next step fits you. It is never shared.", o:[
+  ["Not earning steadily yet",0],["Under $50,000",1],["$50,000 to $250,000",2],["Over $250,000",3]]},
+ {id:"org", part:"About you", dim:null, q:"Do you deliver training or coaching to other organisations?", hint:"For example leadership programmes inside companies, charities or institutions.", o:[
+  ["Yes, regularly",1],["Occasionally",1],["No, mostly individuals",0]]},
+ {id:"bud", part:"About you", dim:null, q:"If the right system paid for itself, what could you invest in having it built?", hint:"Pick the range you could commit to in the next quarter.", o:[
+  ["Under $5,000",0],["$5,000 to $15,000",1],["$15,000 to $30,000",2],["$30,000 or more",3]]},
+];
+const PLAYS = {
+ pipe:{t:"Build a sales engine on your own client stories", d:"Turn your best case stories into a clear map of who you serve and the problems you solve. Then plan research that spots companies showing those signals, plus a weekly outreach routine you can run."},
+ demand:{t:"Give clients a confident AI answer", d:"Pick one flagship programme and design its AI layer: what participants use AI for, and what stays human. Pilot it with a trusted client and use it as your case study."},
+ delivery:{t:"Put AI to work behind the scenes", d:"Start with research, preparation, admin and follow-up. Agree a small set of shared tools and habits, so facilitators spend more of their time on the human work."},
+ impact:{t:"Make impact visible to the CFO", d:"Agree two or three measures with each client before the programme starts. Use simple AI tracking to show the change at 30 and 90 days, and bring it to every renewal conversation."}
+};
+let i=0; const ans={};
+const host=document.getElementById("qhost"), next=document.getElementById("next"), back=document.getElementById("back");
+const stepLabel=document.getElementById("stepLabel"), bar=document.getElementById("trackBar");
+const total=Q.length+1;
+
+function render(){
+  bar.style.width=(i/total*100)+"%";
+  back.disabled = i===0;
+  if(i<Q.length){
+    const q=Q[i];
+    stepLabel.textContent=`Question ${i+1} of ${Q.length}`;
+    host.innerHTML=`<fieldset class="qblock"><legend><span class="eyebrow" style="display:block;margin-bottom:8px">${q.part}</span>${q.q}</legend>${q.hint?`<p class="hint">${q.hint}</p>`:'<p class="hint">Choose the closest.</p>'}
+      <div class="${q.multi?"chips":"opts"}">${q.o.map((o,k)=>q.multi?`<label class="chip"><input type="checkbox" name="${q.id}" id="${q.id}_${k}" value="${k}" ${(ans[q.id]||[]).includes(k)?"checked":""}><span>${o[0]}</span></label>`:`<label class="opt"><input type="radio" name="${q.id}" id="${q.id}_${k}" value="${k}" ${ans[q.id]===k?"checked":""}><span>${o[0]}</span></label>`).join("")}</div></fieldset>`;
+    next.textContent="Next";
+    if(q.multi){
+      next.disabled = !(ans[q.id]&&ans[q.id].length);
+      host.querySelectorAll("input").forEach(r=>r.addEventListener("change",()=>{ans[q.id]=[...host.querySelectorAll("input:checked")].map(x=>+x.value); next.disabled=!ans[q.id].length;}));
+    } else {
+      next.disabled = ans[q.id]===undefined;
+      host.querySelectorAll("input").forEach(r=>r.addEventListener("change",()=>{ans[q.id]=+r.value; next.disabled=false;}));
+    }
+  } else {
+    stepLabel.textContent="Last step";
+    host.innerHTML=`<fieldset class="qblock"><legend>Where should we send your summary?</legend><p class="hint">Your result and your summary of next steps show on the next screen. We email you a copy to keep.</p>
+      <div class="two"><div class="field"><label for="fname">First name</label><input id="fname" autocomplete="given-name" value="${ans.fname||""}"></div>
+      <div class="field"><label for="firm">Firm name</label><input id="firm" autocomplete="organization" value="${ans.firm||""}"></div></div>
+      <div class="field"><label for="email">Work email</label><input id="email" type="email" autocomplete="email" value="${ans.email||""}"></div>
+      <label class="opt" style="margin-top:14px"><input type="checkbox" id="optin" ${ans.optin?"checked":""}><span>Also send me occasional emails on building with AI. Unsubscribe anytime.</span></label>
+      <p class="note" style="margin-top:12px">Preview: details aren't stored yet. On the live site your summary is emailed to you from ts@temitopesaliu.com.</p></fieldset>`;
+    next.textContent="See my result";
+    const check=()=>{ans.optin=document.getElementById("optin").checked;ans.fname=val("fname");ans.firm=val("firm");ans.email=val("email");next.disabled=!(ans.fname&&/.+@.+\..+/.test(ans.email));};
+    host.querySelectorAll("input").forEach(x=>{x.addEventListener("input",check);x.addEventListener("change",check);}); check();
+  }
+}
+const val=id=>document.getElementById(id).value.trim();
+next.addEventListener("click",()=>{ if(i<Q.length){i++;render();} else showResult(); });
+back.addEventListener("click",()=>{ if(i>0){i--;render();} });
+
+function showResult(){
+  const s={pipe:0,demand:0,delivery:0,impact:0};
+  Q.forEach(q=>{ if(q.dim) s[q.dim]+= q.o[ans[q.id]][1]; });
+  const pct={}; Object.keys(s).forEach(k=>pct[k]=Math.round(s[k]/6*100));
+  const overall=Math.round(Object.values(s).reduce((a,b)=>a+b,0)/24*100);
+  const band = overall<40?["Referral-led","Your work is strong, but growth depends on who already knows you. The biggest gains come from the basics below."]
+             : overall<70?["Ready to build","You have real foundations. A clear architecture would turn scattered efforts into a system."]
+             :["Ready to scale","You're ahead of most firms. The next step is joining the pieces into one engine and selling it as part of your offer."];
+  const order=Object.keys(s).sort((a,b)=>s[a]-s[b]).slice(0,3);
+  const colour=v=>v<40?"#C9BEF2":v<70?"#9B85E6":"var(--purple)";
+  const firm=esc(ans.firm||"your firm"), name=esc(ans.fname||"");
+  const timeList=(ans.time||[]).map(k=>Q.find(q=>q.id==="time").o[k][0].toLowerCase()).join(", ");
+  const route = ans.rev===0 ? "early" : (ans.bud>=2 && ans.rev>=2 ? "A" : "B");
+  const nextLine = route==="A" ? `Next: a 2-hour Strategy Session plus your full architecture (${CFG.session}), which comes off your build if you continue within 30 days. Pay and book at ${APPLY} (sessions are booked from 48 hours after payment, so I can read your business before we speak)` : route==="B" ? `Next: build your own operating system one-to-one with Temitope, starting this week. Book a free 20-minute call at ${FITCALL}` : "";
+  const planText = `${ans.firm||"Your firm"}: summary of next steps\nScore: ${overall}/100 (${band[0]})\n\n`+(timeList?`Where your time goes: ${timeList}.\n\n`:"")+order.map((k,n)=>`${n+1}. ${PLAYS[k].t}\n${PLAYS[k].d}`).join("\n\n")+`\n\n`+nextLine;
+  const r=document.getElementById("result");
+  document.getElementById("quiz").hidden=true; r.hidden=false;
+  r.innerHTML=`
+   <div class="result-head">
+     <div class="dial" style="--p:${overall}"><div><b>${overall}</b><small>out of 100</small></div></div>
+     <div><p class="eyebrow">${name?name+", ":""}your readiness</p><p class="band-name">${band[0]}</p><p class="lede" style="margin-top:8px">${band[1]}</p></div>
+   </div>
+   <div class="bars">${Object.keys(DIMS).map(k=>`<div class="bar"><span class="lab">${DIMS[k]}</span><span class="tr"><i style="width:0;background:${colour(pct[k])}" data-w="${pct[k]}"></i></span><span class="v">${pct[k]}</span></div>`).join("")}</div>
+   <div class="plan">
+     <h3>Your summary of next steps</h3>
+     <p class="meta">ONE-PAGE PLAN FOR ${firm.toUpperCase()} · BASED ON YOUR ANSWERS</p>${timeList?`<p style="margin-top:14px;color:var(--muted);font-size:16px"><b style="color:var(--ink)">Where your time goes:</b> ${esc(timeList)}. Your system should take these first.</p>`:""}
+     <ol class="steps">${order.map(k=>`<li><div><h4>${PLAYS[k].t}</h4><p>${PLAYS[k].d}</p></div></li>`).join("")}</ol>
+     <div class="small-actions"><button type="button" class="btn btn-ghost" id="copyPlan" >Copy my summary</button><span class="note" id="copyMsg"></span></div>
+   </div>
+   ${route==="A"?`<div class="offer">
+     <div>
+       <p class="eyebrow">Your next step</p>
+       <h3 style="font-size:26px;margin-top:6px">Your AI architecture, designed for ${firm}</h3>
+       <p>It starts with a two-hour Strategy Session with me. We look at where ${firm} is with AI today and where it needs to be across your whole ecosystem. Then comes your full architecture: where AI is needed, start to finish, across every part of your business and infrastructure, in one place.</p>
+       <p style="margin-top:10px"><b>What you are paying for is the architecture, the design.</b> It is the blueprint any build follows, whether we build it with you or your own team does.</p>
+       <ul><li>Where you are now and where you need to be with AI</li><li>Every system mapped end to end: leads, sales, delivery, content, impact</li><li>What to build, in what order, and what it costs</li>${ans.org<2?`<li>An AI offer for the organisations you already train, matched to what you sell</li>`:""}</ul>
+       <p style="margin-top:14px">Your full architecture is included and arrives within ${CFG.turnaround} of the session. Most builds start from ${CFG.buildFrom}. Your ${CFG.session} comes off the build if you continue within 30 days.</p>
+       <p style="margin-top:12px"><a href="${DEMO}" target="_blank" rel="noopener" class="link">See what it can look like for you</a></p>
+     </div>
+     <div class="side">
+       <p class="price">${CFG.session}<small>Session + full architecture · comes off your build</small></p>
+       <a class="btn btn-spot" href="${APPLY}" target="_blank" rel="noopener">Pay and book your session</a>
+       <p style="font-size:13px;color:var(--muted);margin:8px 0 0">Sessions are booked from 48 hours after payment, so I can read your business before we speak.</p>
+       <a class="link" href="${FITCALL}" target="_blank" rel="noopener">Not sure yet? Book a free 20-minute call</a>
+     </div>
+     <div class="who-card"><div class="mini photo" role="img" aria-label="Photo of Temitope Saliu"></div><div><p><b>You'll work with Temitope Saliu.</b> Teacher, business architect and AI strategist leading AI transformation for businesses. Tech education partner to Google and Microsoft, Google and Meta Elite Trainer with 3,000+ professionals trained, and the architect behind operating systems for training institutes.</p><div class="row"><a class="link" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="link" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div></div></div>
+     <blockquote style="grid-column:1 / -1"><p>"The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale."</p><cite><b>Olori</b> · Founder of a training institute, trade and export expert</cite></blockquote>
+   </div>`:route==="B"?`<div class="offer">
+     <div>
+       <p class="eyebrow">Your next step</p>
+       <h3 style="font-size:26px;margin-top:6px">Build your own operating system, one-to-one</h3>
+       <p>Six weeks with me, starting when you are ready. You build your own coaching or training operating system, with AI as your execution team.</p>
+       <ul><li>Advertising with AI, agents and automations</li><li>An AI content management system</li><li>The business side: offers, pricing, sales</li><li>Scaling and the systems behind it</li><li>Weekly one-to-one sessions, no waiting for a cohort</li></ul>
+       <div class="quotes" style="margin-top:18px">
+         <blockquote><p>"From personality, to generating leads, to building the actual infrastructure around my idea."</p><cite><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</cite></blockquote>
+         <blockquote><p>"I started off not knowing a lot of things and seven weeks later I have created my first project."</p><cite><b>Vuyi</b> · Banker, USA</cite></blockquote>
+       </div>
+     </div>
+     <div class="side">
+       <p class="price">${CFG.diy}<small>${CFG.diyNote}</small></p>
+       <a class="btn btn-spot" href="${FITCALL}" target="_blank" rel="noopener">Book a free 20-minute call</a>
+       <a class="btn btn-ghost" href="${LEARN}">See everything you'll learn</a>
+       <a class="link" href="${STORIES}">Watch what past students built</a>
+     </div>
+   </div>`:`<div class="offer">
+     <div>
+       <p class="eyebrow">Where you are</p>
+       <h3 style="font-size:26px;margin-top:6px">Start with your summary</h3>
+       <p>The systems I build work best once you have steady clients and proof. Your summary above shows where to focus first, and a copy is on its way to your inbox. Come back and retake the check when you are there.</p>
+     </div>
+   </div>`}
+   <div class="small-actions"><button type="button" class="btn-plain" id="restart">Retake the check</button></div>`;
+  requestAnimationFrame(()=>r.querySelectorAll(".bar i").forEach(b=>b.style.width=b.dataset.w+"%"));
+  document.getElementById("copyPlan").addEventListener("click",()=>{
+    const msg=document.getElementById("copyMsg");
+    navigator.clipboard.writeText(planText).then(()=>msg.textContent="Copied").catch(()=>msg.textContent="Copy isn't available here. Select the plan text above instead.");
+  });
+  document.getElementById("restart").addEventListener("click",()=>{Object.keys(ans).forEach(k=>delete ans[k]);i=0;r.hidden=true;document.getElementById("quiz").hidden=false;render();});
+  r.scrollIntoView({behavior:"smooth",block:"start"});
+}
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+render();
+
+const N=["Leads","Clients","Content","Second brain","Delivery","Impact","Calendar","Sales"];
+let sp="";
+N.forEach((n,k)=>{const a=k/N.length*2*Math.PI-Math.PI/2,x=(150+108*Math.cos(a)).toFixed(1),y=(130+108*Math.sin(a)).toFixed(1);
+  sp+=`<line x1="150" y1="130" x2="${x}" y2="${y}" stroke="#E6E1F5"/>`;
+  sp+=`<circle r="3" fill="#6C4FD6" style="offset-path:path('M${x},${y} L150,130');animation:flow 1.6s ease-in ${(k*0.2).toFixed(2)}s infinite"/>`;
+  sp+=`<rect x="${x-34}" y="${y-11}" width="68" height="22" rx="11" fill="#fff" stroke="#C9BEF2"/><text x="${x}" y="${+y+4}" text-anchor="middle" font-size="10" fill="#231E3A" font-family="DM Sans,sans-serif">${n}</text>`;});
+document.getElementById("spokes").innerHTML=sp;
+const T=["Follow-ups","Session prep","Scheduling","Invoices","Reports"];
+let ts="";
+T.forEach((t,k)=>{const y=78+k*20,d=(k*0.35).toFixed(2);
+  ts+=`<g style="animation:hand 3s ease-in-out ${d}s infinite"><rect x="20" y="${y}" width="72" height="16" rx="8" fill="#fff" stroke="#C9BEF2"/><text x="56" y="${y+11.5}" text-anchor="middle" font-size="9" fill="#655F74" font-family="DM Sans,sans-serif">${t}</text></g>`;
+  ts+=`<g style="transform-origin:244px ${y+8}px;animation:land 3s ease-in-out ${d}s infinite"><rect x="208" y="${y}" width="72" height="16" rx="8" fill="#F7F5FD" stroke="#6C4FD6"/><text x="244" y="${y+11.5}" text-anchor="middle" font-size="9" fill="#4B33AE" font-family="DM Sans,sans-serif">${t}</text></g>`;});
+document.getElementById("tasks").innerHTML=ts;
+const M=["Content","Leads","Second brain","Delivery","Sales","Impact"];
+let ms="";
+M.forEach((m,k)=>{const c=k%3,r=Math.floor(k/3),x=24+c*86,y=24+r*92,hi=k===2;
+  ms+=`<g style="animation:pop 3s ease-out ${(k*0.15).toFixed(2)}s infinite"><rect x="${x}" y="${y}" width="78" height="80" rx="12" fill="${hi?'#6C4FD6':'#F7F5FD'}" stroke="#C9BEF2"/><circle cx="${x+16}" cy="${y+18}" r="6" fill="none" stroke="${hi?'#fff':'#6C4FD6'}"/><text x="${x+10}" y="${y+60}" font-size="11" fill="${hi?'#fff':'#231E3A'}" font-family="DM Sans,sans-serif">${m}</text></g>`;});
+document.getElementById("mods").innerHTML=ms;
+const slides=[...document.querySelectorAll(".slide")],dots=[...document.querySelectorAll(".dot")];let si=0,timer;
+const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function show(n){si=(n+slides.length)%slides.length;slides.forEach((s,k)=>{s.classList.toggle("on",k===si);s.setAttribute("aria-hidden",k===si?"false":"true");});dots.forEach((d,k)=>d.classList.toggle("on",k===si));}
+function auto(){clearInterval(timer);if(!reduce)timer=setInterval(()=>show(si+1),3000);}
+dots.forEach((d,k)=>d.addEventListener("click",()=>{show(k);auto();}));
+const stage=document.getElementById("stage");
+stage.addEventListener("mouseenter",()=>clearInterval(timer));stage.addEventListener("mouseleave",auto);
+stage.addEventListener("focusin",()=>clearInterval(timer));
+show(0);auto();
+})();
+</script>
+
+</body>
+</html>
