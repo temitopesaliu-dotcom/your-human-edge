@@ -27,6 +27,8 @@ var SENDER_NAME = 'Temitope Saliu';
 var REPLY_TO = 'ts@temitopesaliu.com';
 var ALERT_TO = 'temitope.saliu@gmail.com'; // Gmail inbox: mail sent to ts@ would only land in Sent
 var VIP_AMOUNT_DEFAULT = 57;
+var ZOOM_TRAINING = 'https://us06web.zoom.us/j/86478394932?pwd=EhqfSwX3jaJLGbwznKmME1SINqWn9m.1'; // Saturday 11am London, weekly
+var ZOOM_VIP = 'https://us06web.zoom.us/j/86398284474?pwd=h5AgQVwovpzJHfNu4tXRQAEOTVKkAq.1'; // Sunday 4pm London, weekly
 
 var QMAP = { // answer id -> column header
   role: 'Role: Who do you help?', paid: 'Paid to teach before?', teach: 'What they teach', who: 'Who it is for + what changes',
@@ -143,6 +145,13 @@ function webinar_(ss, d) {
   var q = ss.getSheetByName(QUIZ), qr = findRow_(q, 'Email', d.email);
   if (qr) f['Quiz result'] = cell_(q, qr, 'Result');
   put_(sh, row, f);
+  if (isNew && d.email) { // instant confirmation with the joining link, from ts@
+    try {
+      var c = webinarEmail_(d.first_name || 'there', d.session_utc, d.tz);
+      try { sendFromBusinessAddress_(d.email, c); }
+      catch (err) { MailApp.sendEmail({ to: d.email, subject: c.subject, htmlBody: c.html, body: c.text, name: SENDER_NAME, replyTo: REPLY_TO }); }
+    } catch (err2) { Logger.log('webinar email failed: ' + err2); }
+  }
 }
 
 /* ---------- VIP buyer ---------- */
@@ -226,7 +235,7 @@ function vipEmail_(first, qa, tz) {
     'The replay of the Saturday training. It is the only replay there is.',
     'A deep dive into the full framework behind the offer that took me from $0 to $10,000: the content and the systems, taught live in the class.'
   ];
-  var zoom = 'Your joining link will be sent to this inbox the day before the class.';
+  var zoom = 'Join the live class here: ' + ZOOM_VIP;
   var close = 'See you on Sunday. Come with all your questions.';
   var text = 'Hi ' + first + ',\n\nYour VIP spot is confirmed.\n\nWhat you get:\n\n- ' + items.join('\n- ') +
     '\n\nWhen: ' + londonLine + (local ? '\n' + local : '') + '\n\n' + zoom +
@@ -234,7 +243,7 @@ function vipEmail_(first, qa, tz) {
   var li = items.map(function (t) { return '<li style="margin:0 0 6px">' + t + '</li>'; }).join('');
   var html = '<div style="font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.6;color:#16121F;max-width:560px">' +
     '<p>Hi ' + first + ',</p><p>Your VIP spot is confirmed.</p><p>What you get:</p><ul style="padding-left:20px">' + li + '</ul>' +
-    '<p><b>When:</b> ' + londonLine + (local ? '<br>' + local : '') + '</p><p>' + zoom + '</p>' +
+    '<p><b>When:</b> ' + londonLine + (local ? '<br>' + local : '') + '</p><p><a href="' + ZOOM_VIP + '" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Join the live class</a><br><span style="font-size:13px;color:#555">' + ZOOM_VIP + '</span></p>' +
     '<p>' + close + '</p>' +
     '<p><i>You owe it to yourself to be great,</i><br>Temitope Saliu.</p></div>';
   return { subject: "You're in the VIP Q&A, " + first, text: text, html: html };
@@ -294,11 +303,11 @@ function webinarEmail_(first, sessionUtc, tz) {
   }
   var sg = signOff_();
   var live = 'It is live only. There is no replay, so be there.';
-  var zoom = 'Your joining link will be sent to this inbox the day before the training.';
+  var zoom = 'Join the live training here: ' + ZOOM_TRAINING;
   return {
     subject: 'Your seat is saved, ' + first,
     text: 'Hi ' + first + ',\n\nYour seat is saved for The Business of Teaching, with AI as your execution team.\n\nWhen: ' + london + (local ? '\n' + local : '') + '\n\n' + live + '\n\n' + zoom + '\n\nSee you Saturday.\n\n' + sg.text,
-    html: wrap_('<p>Hi ' + first + ',</p><p>Your seat is saved for <b>The Business of Teaching, with AI as your execution team</b>.</p><p><b>When:</b> ' + london + (local ? '<br>' + local : '') + '</p><p><b>' + live + '</b></p><p>' + zoom + '</p><p>See you Saturday.</p>' + sg.html)
+    html: wrap_('<p>Hi ' + first + ',</p><p>Your seat is saved for <b>The Business of Teaching, with AI as your execution team</b>.</p><p><b>When:</b> ' + london + (local ? '<br>' + local : '') + '</p><p><b>' + live + '</b>'+'</p><p><a href="' + ZOOM_TRAINING + '" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Join the live training</a><br><span style="font-size:13px;color:#555">' + ZOOM_TRAINING + '</span></p>'+'<p>See you Saturday.</p>' + sg.html)
   };
 }
 
