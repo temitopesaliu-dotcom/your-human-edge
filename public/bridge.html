@@ -504,6 +504,17 @@ td:first-child{font-weight:700;white-space:nowrap}
 .tv-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 .tv-proof > div{background:var(--t-card);border:1px solid var(--t-line);border-radius:14px;padding:14px;text-align:center}
 .tv-proof b{display:block;font-family:var(--display);font-size:28px;color:#fff}.tv-proof span{font-size:12px;color:var(--t-muted)}
+.tv-about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;align-items:start}
+.tv-about-img{border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:var(--t-card);position:sticky;top:70px}
+.tv-about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.tv-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t-lav);margin-bottom:10px}
+.tv-ah{font-size:clamp(28px,4vw,40px);color:#fff;margin-bottom:18px}
+.tv-about-txt p{color:var(--t-muted);margin:0 0 14px}.tv-about-txt p strong{color:#fff}
+.tv-creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.tv-creds div{background:var(--t-card);border:1px solid var(--t-line);border-radius:12px;padding:12px 14px 12px 38px;font-size:14px;position:relative;color:var(--t-txt)}
+.tv-creds div::before{content:"\2713";position:absolute;left:14px;top:11px;color:var(--t-lav);font-weight:800}
+.tv-zcap{margin-top:34px}
+@media (max-width:760px){.tv-about{grid-template-columns:1fr;gap:26px}.tv-about-img{position:static;aspect-ratio:1/1;max-width:420px}.tv-creds{grid-template-columns:1fr}}
 .tv-zrows{margin-top:14px}
 .tv-zrows img{border-color:rgba(255,255,255,.12)}
 .tv-get{background:var(--t-mark);color:#16121F;padding:0 10px;border-radius:6px}
@@ -626,22 +637,27 @@ td:first-child{font-weight:700;white-space:nowrap}
 
   <section class="tv-dark tv-sec tv-alt">
     <div class="tv-wrap">
-      <h2 class="tv-sh">Who you will learn from</h2>
-      <div class="tv-tl">
-        <div class="item">
-          <h4>Over ten years in teaching, marketing, products and partnerships, before AI</h4>
-          <div class="tv-proof"><div><b>3,000+</b><span>founders and owners</span></div><div><b>25,000</b><span>paying users grown, 7 countries</span></div><div><b>$355K</b><span>from education partnerships I sealed</span></div></div>
-        </div>
-        <div class="item">
-          <h4>Google and Meta Elite Trainer. Microsoft developer partner.</h4>
-          <p class="tv-muted">1 of 20 Google Digital Skills Partners. 1 of 5 Microsoft Developer Programme Partners. Training and workshops delivered for Google, Meta, Microsoft, Visa with She Leads Africa, USAID and Peace Corps, and the IOM. Live sessions like these, faces blurred for privacy:</p>
-          <div class="zrows tv-zrows" aria-hidden="true" id="zrows"></div>
-        </div>
-        <div class="item">
-          <h4>I build in public: courses, products and apps, with AI as the team</h4>
-          <p class="tv-muted">Every system in this training is one I run on my own business first.</p>
+      <div class="tv-about">
+        <div class="tv-about-img"><img src="/PHOTO-2026-06-19-12-56-31.jpg" alt="Temitope Saliu" loading="lazy" decoding="async"></div>
+        <div class="tv-about-txt">
+          <span class="tv-eyebrow">Who you will learn from</span>
+          <h2 class="tv-ah">The system she wished existed when she started.</h2>
+          <p>Temitope Saliu sits at the intersection of people, marketing &amp; technology &mdash; building concepts &amp; solutions, go-to-market strategy for brands to increase revenue with the right people, structure and systems.</p>
+          <p>She has been teaching digital marketing for almost 10 years, for brands like Google, Meta, USAID and Peace Corps, and many more.</p>
+          <p>In 2017, she sold a gold chain to fund her first digital marketing course. <strong>That decision &mdash; and everything built from it &mdash; is why she understands exactly what it costs to bet on yourself before anyone else does.</strong> The Business of Teaching Framework is the structured methodology she built from that journey.</p>
+          <p>She does not teach AI basics. She teaches educators how to take what they already know and build something the market will pay a premium for.</p>
+          <div class="tv-creds">
+            <div>Google &amp; Meta Elite Trainer &mdash; Trained 3000 professionals &amp; Business Owners.</div>
+            <div>1 of 20 Google Digital Skills Partners</div>
+            <div>1 of 5 Microsoft Developer Programme Partner</div>
+            <div>USAID &amp; Peace Corp Education Curriculum Developer &amp; Trainer for Peace Ambassadors</div>
+            <div>Women Economic Forum Iconic Award Winner</div>
+            <div>UK Global Exceptional Talent</div>
+          </div>
         </div>
       </div>
+      <p class="tv-muted tv-zcap">Live sessions like these, faces blurred for privacy:</p>
+      <div class="zrows tv-zrows" aria-hidden="true" id="zrows"></div>
       <p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p>
     </div>
   </section>
