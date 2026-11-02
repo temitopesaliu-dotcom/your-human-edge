@@ -20,7 +20,7 @@ import { initializePaystack } from '@/lib/services/paystack';
  * webhook unpaid; Adaptive Pricing off so the buyer pays the price shown.
  * metadata.product = 'bridge-vip' is what both webhooks key off.
  */
-const DESCRIPTION = 'VIP live Q&A class with Temitope, the replay of the free training, and the prompt pack. One payment, no subscription, non-refundable.';
+const DESCRIPTION = 'VIP live Q&A class with Temitope, a deep dive into the full framework, and the replay of the free training. One payment, no subscription, non-refundable.';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
