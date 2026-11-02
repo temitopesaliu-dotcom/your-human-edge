@@ -190,13 +190,21 @@ function vip_(ss, d) {
   return sent;
 }
 
-/** Sunday 4pm London, the day after the Saturday session. Falls back to the first training date. */
+/**
+ * Sunday 4pm London, the day after the Saturday session they signed up for.
+ * If that class has already started (they bought later), the next Sunday class.
+ */
 function qaDate_(sessionUtc) {
   var base = sessionUtc ? new Date(sessionUtc) : new Date('2026-11-07T11:00:00Z');
   if (isNaN(base.getTime())) base = new Date('2026-11-07T11:00:00Z');
-  var thu = new Date(base.getTime() + 1 * 86400000);
-  var day = Utilities.formatDate(thu, 'Europe/London', 'yyyy-MM-dd');
-  return Utilities.parseDate(day + ' 16:00', 'Europe/London', 'yyyy-MM-dd HH:mm');
+  var sun = new Date(base.getTime() + 1 * 86400000);
+  var qa = Utilities.parseDate(Utilities.formatDate(sun, 'Europe/London', 'yyyy-MM-dd') + ' 16:00', 'Europe/London', 'yyyy-MM-dd HH:mm');
+  var now = new Date();
+  while (qa.getTime() <= now.getTime()) {
+    sun = new Date(sun.getTime() + 7 * 86400000);
+    qa = Utilities.parseDate(Utilities.formatDate(sun, 'Europe/London', 'yyyy-MM-dd') + ' 16:00', 'Europe/London', 'yyyy-MM-dd HH:mm');
+  }
+  return qa;
 }
 
 /* ---------- the VIP welcome email ---------- */
@@ -216,7 +224,7 @@ function vipEmail_(first, qa, tz) {
   var items = [
     'The VIP live Q&A class, a small group. I look at your offer, or what you are trying to build: your offer, your current systems, and what can change. Every question answered by me, no holdbacks.',
     'The replay of the Saturday training. It is the only replay there is.',
-    'The full framework pack: the exact content and systems framework behind the offer that took me from $0 to $10,000, with every prompt built in. It will reach you before the Q&A.'
+    'A deep dive into the full framework behind the offer that took me from $0 to $10,000: the content and the systems, taught live in the class.'
   ];
   var zoom = 'Your joining link will come to this inbox before the class.';
   var close = 'See you on Sunday. Come with all your questions.';
