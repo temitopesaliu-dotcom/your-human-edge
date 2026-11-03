@@ -68,6 +68,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .btn.white:hover{background:var(--lav)}
 .btn.big{font-size:18px;padding:18px 36px}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
+.ig-box{text-align:center;max-width:720px}
+.ig-box p{margin:0 auto 14px;max-width:600px}
+.ig-btn{display:inline-flex;align-items:center;gap:10px}
 .linkbtn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--purple);border:1px solid var(--lav-2);border-radius:100px;padding:6px 12px;text-decoration:none;background:#fff}
 
 /* rotating "For ___" */
@@ -663,6 +666,15 @@ td:first-child{font-weight:700;white-space:nowrap}
   </section>
 
 
+  <section class="tv-dark tv-sec ig-sec" id="follow">
+    <div class="tv-wrap ig-box">
+      <span class="tv-eyebrow">Meet the person behind the training</span>
+      <h2 class="tv-ah">Not sure about me yet? Come and see how I think.</h2>
+      <p>I share the lessons, the behind-the-scenes and the real conversations on Instagram, every day. Follow along before the training, so you already know who you are learning from.</p>
+      <p class="tv-cta"><a class="tv-btn big ig-btn" href="https://instagram.com/temitopesaliu" target="_blank" rel="noopener" data-ig="follow">Follow @temitopesaliu on Instagram</a></p>
+    </div>
+  </section>
+
   <section class="band" style="background:var(--lav)">
     <div class="in">
       <span class="eyebrow" style="color:var(--purple)">From The Business Architect Programme</span>
@@ -702,7 +714,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
         <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
         <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email"></div>
-        <div class="field"><label for="r-cc">WhatsApp number, with country code</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number"></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
+        <div class="field"><label for="r-cc">WhatsApp number, with country code (required)</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number" required></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
         <button class="btn hot" type="submit">Reserve my free spot</button>
         <p class="err" id="r-err" role="alert"></p>
         <p class="small">We will send you an email with everything you need.</p>
@@ -725,7 +737,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <a class="linkbtn" id="cal-google" href="#" target="_blank" rel="noopener">Google</a>
         <a class="linkbtn" id="cal-outlook" href="#" target="_blank" rel="noopener">Outlook</a>
         <a class="linkbtn" id="cal-office" href="#" target="_blank" rel="noopener">Office 365</a>
-        <span class="linkbtn" title="Downloads an .ics file on the live site">Apple / other (.ics)</span>
+        <a class="linkbtn" id="cal-ics" href="#">Apple / other (.ics)</a>
       </div>
     </div>
     <div class="offer" id="vip-ok" hidden>
@@ -733,6 +745,12 @@ td:first-child{font-weight:700;white-space:nowrap}
       <h2>You are in the VIP Q&amp;A.</h2>
       <p>A welcome email with everything you need is on its way from ts@temitopesaliu.com. If it has not arrived in ten minutes, check your spam folder.</p>
       <p class="vip-when">VIP live Q&amp;A, the Sunday after the training:<br><span class="when-line js-vip-day"></span></p>
+      <div class="cal"><span>Add the VIP Q&amp;A to your calendar:</span>
+        <a class="linkbtn" id="vcal-google" href="#" target="_blank" rel="noopener">Google</a>
+        <a class="linkbtn" id="vcal-outlook" href="#" target="_blank" rel="noopener">Outlook</a>
+        <a class="linkbtn" id="vcal-office" href="#" target="_blank" rel="noopener">Office 365</a>
+        <a class="linkbtn" id="vcal-ics" href="#">Apple / other (.ics)</a>
+      </div>
     </div>
     <div class="offer" id="vip-offer">
       <span class="eyebrow">Before Saturday</span>
@@ -890,6 +908,14 @@ td:first-child{font-weight:700;white-space:nowrap}
     var q = '?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=' + encodeURIComponent(title) + '&startdt=' + encodeURIComponent(NEXT.toISOString()) + '&enddt=' + encodeURIComponent(end.toISOString()) + '&body=' + encodeURIComponent(det);
     $('#cal-outlook').href = 'https://outlook.live.com/calendar/0/deeplink/compose' + q;
     $('#cal-office').href = 'https://outlook.office.com/calendar/0/deeplink/compose' + q;
+    $('#cal-ics').href = '/api/bridge/calendar?kind=training&start=' + encodeURIComponent(NEXT.toISOString());
+    /* VIP Q&A: same four buttons, for the Sunday class */
+    var vend = new Date(VIP.getTime() + 90*60000), vtitle = 'VIP live Q&A with Temitope Saliu', vdet = 'Join here: https://temitopesaliu.com/vip-live';
+    $('#vcal-google').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(vtitle) + '&dates=' + z(VIP) + '/' + z(vend) + '&details=' + encodeURIComponent(vdet);
+    var vq = '?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=' + encodeURIComponent(vtitle) + '&startdt=' + encodeURIComponent(VIP.toISOString()) + '&enddt=' + encodeURIComponent(vend.toISOString()) + '&body=' + encodeURIComponent(vdet);
+    $('#vcal-outlook').href = 'https://outlook.live.com/calendar/0/deeplink/compose' + vq;
+    $('#vcal-office').href = 'https://outlook.office.com/calendar/0/deeplink/compose' + vq;
+    $('#vcal-ics').href = '/api/bridge/calendar?kind=vip&start=' + encodeURIComponent(VIP.toISOString());
   })();
   function buildRows(el, list, n){
     if(!el || !list) return;
