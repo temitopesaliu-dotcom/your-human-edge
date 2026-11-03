@@ -54,7 +54,15 @@ const nextConfig: NextConfig = {
       { source: '/bridge', destination: '/thebridge', permanent: false },
       { source: '/webinar', destination: '/thebridge-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
       { source: '/thequiz', destination: '/thebridge?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
-      // Short, clean links for the live classes (short links help emails reach the Primary tab).
+      // Short links for the Bridge webinar awareness emails (Kit, 3-6 Nov 2026). /bw/1 lands on the
+  // webinar registration page tagged utm_campaign=bridge-email-1, so each daily email traces to
+  // its own registrations. Only the listed ids match. Temporary (307) so the target can change.
+  {
+    source: '/bw/:id(1|2|3|4)',
+    destination: '/thebridge-webinar?utm_source=kit&utm_medium=email&utm_campaign=bridge-email-:id',
+    permanent: false,
+  },
+  // Short, clean links for the live classes (short links help emails reach the Primary tab).
       { source: '/live', destination: 'https://us06web.zoom.us/j/86478394932?pwd=EhqfSwX3jaJLGbwznKmME1SINqWn9m.1', permanent: false },
       { source: '/vip-live', destination: 'https://us06web.zoom.us/j/86398284474?pwd=h5AgQVwovpzJHfNu4tXRQAEOTVKkAq.1', permanent: false },
       // /apply was the pre-payment application form. The funnel now takes
