@@ -71,6 +71,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .ig-box{text-align:center;max-width:720px}
 .ig-box p{margin:0 auto 14px;max-width:600px}
 .ig-btn{display:inline-flex;align-items:center;gap:10px}
+.wsv-sec{background:var(--mist);border-top:1px solid var(--line)}
+.wsv-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+.wsv-card{position:relative;border-radius:16px;overflow:hidden;background:#0B0B10;border:1px solid var(--line)}
+.wsv-v{aspect-ratio:9/16}.wsv-h{aspect-ratio:16/9}
+.wsv-play{all:unset;cursor:pointer;display:block;position:absolute;inset:0}
+.wsv-play img,.wsv-card iframe{width:100%;height:100%;object-fit:cover;display:block;border:0;position:absolute;inset:0}
+.wsv-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center}
+.wsv-play:focus-visible{outline:3px solid var(--purple)}
+@media(max-width:900px){.wsv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.wsv-grid{grid-template-columns:1fr}.wsv-v{max-width:300px;margin-inline:auto;width:100%}}
 .linkbtn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--purple);border:1px solid var(--lav-2);border-radius:100px;padding:6px 12px;text-decoration:none;background:#fff}
 
 /* rotating "For ___" */
@@ -698,6 +708,13 @@ td:first-child{font-weight:700;white-space:nowrap}
           <div class="shot"><img class="js-img" data-k="t_pota" alt="Message: Thank you for an awesome workshop today! Took a lot away that will be extremely helpful."></div>
         </div>
       </div>
+    </div>
+  </section>
+  <section class="band wsv-sec" id="workshop-voices">
+    <div class="in">
+      <h2 class="sec-h">Hear it from people who have sat in the room</h2>
+      <p class="sec-sub" style="margin-bottom:24px">Attendees of her live workshops, faces blurred for their privacy.</p>
+      <div class="wsv-grid"><div class="wsv-card wsv-v"><button type="button" class="wsv-play" data-yt="rhiUs6ijiXY" aria-label="Play workshop attendee video"><img src="https://img.youtube.com/vi/rhiUs6ijiXY/hqdefault.jpg" alt="" loading="lazy"><span class="wsv-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button></div><div class="wsv-card wsv-h"><button type="button" class="wsv-play" data-yt="Sv-iKS_p7LA" aria-label="Play workshop attendee video"><img src="https://img.youtube.com/vi/Sv-iKS_p7LA/hqdefault.jpg" alt="" loading="lazy"><span class="wsv-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button></div><div class="wsv-card wsv-v"><button type="button" class="wsv-play" data-yt="ZRYcDOSwyz0" aria-label="Play workshop attendee video"><img src="https://img.youtube.com/vi/ZRYcDOSwyz0/hqdefault.jpg" alt="" loading="lazy"><span class="wsv-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button></div><div class="wsv-card wsv-h"><button type="button" class="wsv-play" data-yt="hro-BuX8FM8" aria-label="Play workshop attendee video"><img src="https://img.youtube.com/vi/hro-BuX8FM8/hqdefault.jpg" alt="" loading="lazy"><span class="wsv-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button></div></div>
     </div>
   </section>
   <section class="tv-white"><p class="tv-cta"><a class="tv-btn big" href="#reserve">Reserve my free spot</a></p></section>
@@ -1366,5 +1383,8 @@ td:first-child{font-weight:700;white-space:nowrap}
 })();
 </script>
 
+<script>
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.wsv-play');if(!b)return;var f=document.createElement('iframe');f.src='https://www.youtube.com/embed/'+b.getAttribute('data-yt')+'?autoplay=1&rel=0';f.title='Workshop attendee video';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;b.parentNode.replaceChild(f,b)});
+</script>
 </body>
 </html>
