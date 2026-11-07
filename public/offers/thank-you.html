@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payment received | Temitope Saliu</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/offers/style.css"></head><body>
+<header class="top"><div class="wrap"><a class="brand" href="/offers">Temitope Saliu</a><nav><a href="/offers">All offers</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">Payment received</div>
+<h1>Thank you. You're in.</h1>
+<p class="lead" id="ty-offer">Your payment has been received.</p></section>
+<div class="two" style="margin-bottom:40px">
+<div class="box"><h2>What happens next</h2>
+<ul class="check"><li>Your payment receipt comes from the payment provider you used.</li><li>We will keep you updated by email as we go.</li><li>Live class access starts on 30 November 2026.</li><li>The self-paced course gives you 12 months of access.</li></ul></div>
+<aside class="box"><h2>Confirm your email</h2>
+<p>Enter the email you paid with, so your updates and access details reach you.</p>
+<form id="ty-form" action="https://app.kit.com/forms/10155989/subscriptions" method="post">
+<input type="email" name="email_address" required placeholder="Your email address" aria-label="Your email address" style="width:100%;padding:14px;border:1px solid #d9d2e6;border-radius:10px;font-size:16px;margin:8px 0 12px;box-sizing:border-box">
+<button class="btn" type="submit" style="width:100%;border:0;cursor:pointer">Send my confirmation</button>
+</form>
+<p class="small" id="ty-done" hidden style="margin-top:12px;font-weight:600">Done. Your confirmation email is on its way. Check your spam or promotions folder if you do not see it.</p>
+</aside></div></main>
+<footer><div class="wrap"><p>Temitope Saliu. All sales are non-refundable.</p></div></footer>
+<script>
+(function(){
+  var names={easy:'Easy Content Development',selfpaced12:'Self-paced course, 12 months',group:'The Business of Teaching (group, 6 weeks, live)'};
+  var o=new URLSearchParams(location.search).get('o');
+  if(names[o]) document.getElementById('ty-offer').textContent='Your payment for '+names[o]+' has been received.';
+  var f=document.getElementById('ty-form');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Sending...';
+    fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
+      .then(function(){f.hidden=true;document.getElementById('ty-done').hidden=false;})
+      .catch(function(){btn.disabled=false;btn.textContent='Try again';});
+  });
+})();
+</script>
+</body></html>
