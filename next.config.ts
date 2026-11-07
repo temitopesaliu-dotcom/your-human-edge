@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
+      { source: '/offers', destination: '/offers/index.html' },
     ];
   },
   async headers() {
