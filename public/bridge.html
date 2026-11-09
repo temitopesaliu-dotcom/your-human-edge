@@ -730,8 +730,9 @@ td:first-child{font-weight:700;white-space:nowrap}
         <div class="when-box when-line js-when-full"></div>
         <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
         <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
-        <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email"></div>
+        <div class="field"><label for="r-email">Email (Gmail works best)</label><input type="email" id="r-email" autocomplete="email" inputmode="email"><p class="small" style="margin-top:6px">Please use a Gmail address if you have one. Yahoo often blocks our emails, so your joining link may not reach you.</p><p class="err" id="r-yahoo" role="status" hidden></p></div>
         <div class="field"><label for="r-cc">WhatsApp number, with country code (required)</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number" required></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
+        <div class="field"><label for="r-prof">What do you do? (required)</label><select id="r-prof" required><option value="">Choose the closest one</option><option>Employed professional</option><option>Business owner or entrepreneur</option><option>Coach or consultant</option><option>Teacher or trainer</option><option>Freelancer or creator</option><option>Student</option><option>Between jobs</option><option>Other</option></select></div>
         <button class="btn hot" type="submit">Reserve my free spot</button>
         <p class="err" id="r-err" role="alert"></p>
         <p class="small">We will send you an email with everything you need.</p>
@@ -1255,6 +1256,14 @@ td:first-child{font-weight:700;white-space:nowrap}
     var n = $('#r-name').value.trim(), m = $('#r-email').value.trim(), err = $('#r-err');
     if(!n){ err.textContent = 'Add your first name.'; return; }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){ err.textContent = 'That email looks incomplete. Check it and try again.'; return; }
+    var prof = $('#r-prof').value;
+    if(!prof){ err.textContent = 'Choose what you do. It helps me teach to the right people.'; return; }
+    err.textContent = '';
+    var yh = $('#r-yahoo');
+    if(/@(yahoo|ymail|rocketmail)\./i.test(m) && !yh.getAttribute('data-ack')){
+      yh.hidden = false; yh.textContent = 'Yahoo often blocks our emails, so your link may not reach you. Use a Gmail address if you have one. To keep this Yahoo address, press Reserve my free spot again.';
+      yh.setAttribute('data-ack','1'); $('#r-email').focus(); return;
+    }
     var cc = $('#r-cc').value, raw = $('#r-phone').value.trim(), phone;
     if(cc === 'XX'){
       var d = raw.replace(/[^\d+]/g,'');
@@ -1267,7 +1276,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
     st.phone = phone;
     var dial = cc === 'XX' ? '' : CC.filter(function(c){ return c[0]===cc; })[0][2];
-    var wait = send('webinar', {first_name:n, email:m, whatsapp:phone, dial_code:dial, country_code:cc, session_utc:NEXT.toISOString(), local_time:partVal(partsIn(NEXT,null,{timeZoneName:'long'}),'timeZoneName') + ': ' + shortTime(NEXT,null,true) + ' ' + fmtIn(NEXT,null,{weekday:'long', day:'numeric', month:'long'})});
+    var wait = send('webinar', {first_name:n, email:m, profession:prof, yahoo:/@(yahoo|ymail|rocketmail)\./i.test(m), whatsapp:phone, dial_code:dial, country_code:cc, session_utc:NEXT.toISOString(), local_time:partVal(partsIn(NEXT,null,{timeZoneName:'long'}),'timeZoneName') + ': ' + shortTime(NEXT,null,true) + ' ' + fmtIn(NEXT,null,{weekday:'long', day:'numeric', month:'long'})});
     err.textContent = '';
     var rb = $('#reserve-form button[type=submit]'); rb.disabled = true; rb.textContent = 'Saving your seat...';
     st.regName = n; st.regEmail = m;
@@ -1280,6 +1289,7 @@ td:first-child{font-weight:700;white-space:nowrap}
       go('thanks');
     });
   });
+  $('#r-email').addEventListener('input', function(){ var y=$('#r-yahoo'); y.hidden = true; y.removeAttribute('data-ack'); });
   $('#skip-offer').addEventListener('click', function(){ go('training'); });
   /* VIP price in the visitor's currency: Nigeria naira, UK pounds, everyone else dollars. */
   var VP = {cur:'USD', display:'$57', amount:57, options:[], via:'paystack'};
