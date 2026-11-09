@@ -4,7 +4,7 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
 import { clean, EMAIL_RE, sendToBridgeSheet } from '@/lib/bridge/sheet';
 import { addToKit, BRIDGE_REGISTERED_TAG_ID } from '@/lib/bridge/kit';
 
-/** The Bridge free live training sign-up: first name, email, WhatsApp with country code. */
+/** The Bridge free live training sign-up: first name, email, WhatsApp with country code, profession. */
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
   if (!(await rateLimit(ip, 10, 60, 'bridge-register').catch(() => true))) {
@@ -17,9 +17,12 @@ export async function POST(req: NextRequest) {
   const email = clean(body.email, 200).toLowerCase();
   const whatsapp = clean(body.whatsapp, 20);
   const dialCode = clean(body.dial_code, 8);
+  const profession = clean(body.profession, 80);
   if (!firstName) return NextResponse.json({ error: 'Add your first name.' }, { status: 400 });
   if (!EMAIL_RE.test(email)) return NextResponse.json({ error: 'That email looks incomplete.' }, { status: 400 });
   if (!/^\+\d{7,15}$/.test(whatsapp)) return NextResponse.json({ error: 'Check your WhatsApp number.' }, { status: 400 });
+
+  if (!profession) return NextResponse.json({ error: 'Choose what you do.' }, { status: 400 });
 
   const sessionUtc = clean(body.session_utc, 40);
   const ok = await sendToBridgeSheet({
@@ -27,6 +30,8 @@ export async function POST(req: NextRequest) {
     first_name: firstName,
     email,
     whatsapp,
+    profession,
+    yahoo: body.yahoo === true,
     dial_code: dialCode,
     country_code: clean(body.country_code, 4),
     session_utc: Number.isNaN(Date.parse(sessionUtc)) ? '' : sessionUtc,
