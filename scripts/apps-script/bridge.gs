@@ -137,6 +137,7 @@ function webinar_(ss, d) {
   var london = d.session_utc ? Utilities.formatDate(new Date(d.session_utc), 'Europe/London', "MMMM d, yyyy '·' h:mma").replace('AM', 'am').replace('PM', 'pm') + ' London' : '';
   var f = {
     'First name': d.first_name, 'Email': d.email, 'WhatsApp (with country code)': d.whatsapp,
+    'Profession': d.profession, 'Yahoo address': d.yahoo ? 'Yes' : '',
     'Country code': d.country_code, 'Dial code': d.dial_code,
     'Webinar session (London time)': london, 'Session UTC': d.session_utc,
     'Their time zone': d.tz, 'Their local session time': d.local_time, 'Source / UTM': d.source
