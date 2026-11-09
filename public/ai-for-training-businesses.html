@@ -117,6 +117,7 @@ a.path:hover{border-color:var(--purple)}
 .weeks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
 .week{border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:8px;align-content:start;background:#fff}
 .week.hi{background:var(--soft);border-color:var(--purple-tint)}
+.weeks .w2{grid-column:span 2}
 .week .wk{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
 .week h3{font-size:25px}
 .week p{color:var(--muted);font-size:15px}
@@ -246,6 +247,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .stats div:nth-child(even){border-left:1px solid var(--line)}
   .stats div:nth-child(n+3){border-top:1px solid var(--line)}
   .said,.weeks{grid-template-columns:1fr}
+  .weeks .w2{grid-column:auto}
   .stories{grid-template-columns:1fr 1fr}
   .paths{grid-template-columns:1fr}
   .vs{justify-self:center}
@@ -326,7 +328,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="stats" aria-label="At a glance">
     <div><b>5 min</b><span>Your readiness check</span></div>
     <div><b>Free</b><span>Summary of next steps, on screen</span></div>
-    <div><b>2 hrs</b><span>Strategy session, if it fits</span></div>
+    <div><b>20 min</b><span>Free call with me, if it fits</span></div>
     <div><b>6 weeks</b><span>To build it yourself, one-to-one</span></div>
   </div>
 </section>
@@ -357,20 +359,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="path lead">
         <span class="tag">Built for you</span>
         <h3>Your AI operating system, <em>designed for you.</em></h3>
-        <p style="margin:0 0 12px;color:var(--muted);font-size:15px">What you pay for is the architecture: the design of how AI runs through your whole business. It is the blueprint any build follows.</p>
+        <p style="margin:0 0 12px;color:var(--muted);font-size:15px">What you get is the architecture: the design of how AI runs through your whole business. It is the blueprint any build follows.</p>
         <ul><li>A two-hour strategy session with me: where your business is with AI today, and where it needs to be across your whole ecosystem</li><li>Your full architecture, included: where AI is needed from start to finish, across every system and process in your business, in one place</li><li>An AI offer for the organisations you train, matched to what you already sell</li><li>Your architecture arrives within 7 working days of the session</li></ul>
-        <p class="cost">$1,500<small>Session and full architecture. Comes off your build if you continue within 30 days. Builds from $15,000.</small></p>
-        <p style="margin:0 0 10px;color:var(--muted);font-size:13px">Sessions are booked from 48 hours after payment, so I can read your business before we speak.</p>
-        <a class="link js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener" style="margin-bottom:8px">Not sure yet? Book a free 20-minute call</a>
+        <p class="cost">Free call first<small>We talk through your business for 20 minutes. Pricing comes after, based on what your business needs.</small></p>
+        <a class="btn btn-spot js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener" style="margin:6px 0 12px;justify-self:start">Book a free 20-minute call</a>
         <a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a>
       </div>
       <span class="vs">or</span>
-      <a class="path" href="#stories">
+      <a class="path js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener">
         <span class="tag">Built by you</span>
         <h3>Learn to build it <em>yourself.</em></h3>
-        <ul><li>Six weeks, one-to-one, starting when you're ready</li><li>Your business blueprint, sales and operating system</li><li>Your AI second brain, advertising with AI, agents and automations</li><li>An AI content management system and leads engine</li></ul>
-        <p class="cost">$2,999<small>Six weeks, one-to-one. Starts with a free 20-minute call.</small></p>
-        <span class="go">Watch what past students built &rarr;</span>
+        <ul><li>Six weeks, one-to-one, starting when you're ready</li><li>Your business blueprint and solutions architecture, sales and operating system</li><li>Your AI second brain, advertising with AI, AI video editing, agents and automations</li><li>An AI content management system and a B2B leads engine</li></ul>
+        <p class="cost">Free call first<small>Six weeks, one-to-one. We start with a free 20-minute call, and pricing comes after.</small></p>
+        <span class="btn btn-spot" style="justify-self:start">Book a free 20-minute call</span>
       </a>
     </div>
   </div>
@@ -401,15 +402,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <p class="lede" style="margin-top:18px">One-to-one with me, with AI as your execution team. You finish with a working operating system for your coaching or training business.</p>
     </div>
     <div class="weeks">
-      <div class="week"><h3>Your business blueprint</h3><p>Personality intelligence first. Then who you serve, your flagship programme, and how it's packaged and priced.</p></div>
-      <div class="week"><h3>Personality intelligence for sales</h3><p>Read how your buyers decide, from individuals to HR and L&amp;D leads, and sell to that.</p></div>
+      <div class="week"><h3>Your business blueprint and architecture</h3><p>Start with what your business actually needs. We map its real problems, then build a solutions architecture around them.</p></div>
+      <div class="week"><h3>Consumer intelligence for B2C and B2B sales</h3><p>A steady flow of the right buyers, from your content, your ads and your client stories.</p></div>
       <div class="week"><h3>Your coaching operating system</h3><p>Map enquiry, discovery, enrolment, delivery and renewal, then build the system around it.</p></div>
-      <div class="week hi"><h3>Your AI second brain</h3><p>Your frameworks, session notes, client history and programme material in one searchable brain. Prep, follow-up and new programmes get faster.</p></div>
+      <div class="week hi w2"><h3>Your AI second brain</h3><p>Your frameworks, session notes, client history and programme material in one searchable brain. Prep, follow-up and new programmes get faster.</p></div>
       <div class="week"><h3>Advertising with AI</h3><p>Plan, write and test ads with AI, so the right buyers find your programmes without guesswork.</p></div>
       <div class="week"><h3>Agents and automations</h3><p>AI agents and automations for intake, reminders, follow-ups and reporting, so the admin runs without you.</p></div>
       <div class="week"><h3>AI content management system</h3><p>One system to plan, create, store and publish your content in your voice, across every channel.</p></div>
-      <div class="week"><h3>Your leads engine</h3><p>A steady flow of the right buyers, from your content, your ads and your client stories.</p></div>
-      <div class="week"><h3>Your AI clone</h3><p>An AI version of you that carries your method between sessions.</p></div>
+      <div class="week"><h3>AI video editing</h3><p>Cut, caption and repurpose your recordings and sessions into content with AI, in hours instead of days.</p></div>
+      <div class="week"><h3>Your leads engine</h3><p>Find the right B2B clients and reach out to them to partner, collaborate and take on larger pieces of work together.</p></div>
+      <div class="week w2"><h3>Your AI clone</h3><p>An AI version of you that carries your method between sessions.</p></div>
     </div>
     <div class="center" style="margin-top:36px"><a class="btn btn-spot js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener">Book a free 20-minute call</a></div>
   </div>
@@ -465,8 +467,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <section class="band" id="faq">
   <div class="wrap narrow">
     <div class="center" style="margin-bottom:28px"><p class="eyebrow">Questions</p><h2>Everything you <em>need to know.</em></h2></div>
-    <details><summary>What does a build cost?</summary><p>Most builds start from $15,000. The exact price is set from your architecture, so you know the full scope before you commit. Your $1,500 covers the session and your full architecture, and comes off the build if you continue within 30 days.</p></details>
-    <details><summary>Is the session a sales call?</summary><p>No. It is two hours of paid strategy on your real business, and you keep the summary whether or not you build.</p></details>
+    <details><summary>What does it cost?</summary><p>It depends on what your business needs, so I share pricing on a free 20-minute call once I understand your business. That applies whether I build it for you or teach you to build it yourself.</p></details>
+    <details><summary>What happens on the free call?</summary><p>We talk about your business and what it needs. If there is a fit, I tell you which path suits you and what it costs. Either way, you keep your summary of next steps.</p></details>
     <details><summary>What if a build is out of reach right now?</summary><p>You still leave with your summary of next steps. If you want to build it yourself, I teach you one-to-one over six weeks, with AI as your execution team.</p></details>
     <details><summary>What is an AI second brain?</summary><p>Everything you know, in one place your AI can search: your frameworks, session notes, client history and programme material. It means prep, follow-up and new content start from your own thinking, not a blank page.</p></details>
     <details><summary>Will AI make my work feel less human?</summary><p>That's the risk I work against. AI takes on research, admin and follow-up, so you spend more time on the human work.</p></details>
@@ -483,13 +485,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 (function(){
 const BOOK = "https://calendly.com/temitope-saliu";
 const DEMO = "https://temitopesaliu.com/demos/BA_OS_Demo_1.html";
-const APPLY = "https://buy.stripe.com/14A3cwc3ZdbG53R6uD3oA0P"; // live $1,500 Leadership AI Strategy Session Stripe link; flows to temitopesaliu.com/book (Calendly blueprint-bfy-audit) then /youre-ready
+const APPLY = "https://buy.stripe.com/14A3cwc3ZdbG53R6uD3oA0P"; // NOT linked from the page any more (call-first pricing); send after the call. live $1,500 Leadership AI Strategy Session Stripe link; flows to temitopesaliu.com/book (Calendly blueprint-bfy-audit) then /youre-ready
 const FITCALL = "https://cal.com/temitope-saliu/free-20-minute-call-with-temitope"; // free 20-minute call on Cal.com, weekdays 13:15-14:45 UK, 24h notice
 const LEARN = "#learn";
 const STORIES = "#stories";
 // Prices live here so they are easy to change.
 document.querySelectorAll(".js-fit").forEach(a=>a.href=FITCALL);
-const CFG = {session:"$1,500", buildFrom:"$15,000", turnaround:"7 working days", diy:"$2,999", diyNote:"six weeks one-to-one · starts with a free 20-minute call"};
+const CFG = {turnaround:"7 working days"};
 const DIMS = {pipe:"Pipeline", demand:"Client AI demand", delivery:"AI in delivery", impact:"Impact proof"};
 const Q = [
  {id:"pipe1", part:"Your business", dim:"pipe", q:"Where does most of your new work come from?", hint:"Think about the last twelve months.", o:[
@@ -573,7 +575,7 @@ function showResult(){
   const firm=esc(ans.firm||"your firm"), name=esc(ans.fname||"");
   const timeList=(ans.time||[]).map(k=>Q.find(q=>q.id==="time").o[k][0].toLowerCase()).join(", ");
   const route = ans.rev===0 ? "early" : (ans.bud>=2 && ans.rev>=2 ? "A" : "B");
-  const nextLine = route==="A" ? `Next: a 2-hour Strategy Session plus your full architecture (${CFG.session}), which comes off your build if you continue within 30 days. Pay and book at ${APPLY} (sessions are booked from 48 hours after payment, so I can read your business before we speak)` : route==="B" ? `Next: build your own operating system one-to-one with Temitope, starting this week. Book a free 20-minute call at ${FITCALL}` : "";
+  const nextLine = route==="A" ? `Next: book a free 20-minute call with Temitope to talk through your AI architecture at ${FITCALL}` : route==="B" ? `Next: build your own operating system one-to-one with Temitope, starting this week. Book a free 20-minute call at ${FITCALL}` : "";
   const planText = `${ans.firm||"Your firm"}: summary of next steps\nScore: ${overall}/100 (${band[0]})\n\n`+(timeList?`Where your time goes: ${timeList}.\n\n`:"")+order.map((k,n)=>`${n+1}. ${PLAYS[k].t}\n${PLAYS[k].d}`).join("\n\n")+`\n\n`+nextLine;
   try{
     const answers=Q.map(q=>{const a=ans[q.id]; return q.id+": "+(Array.isArray(a)?a.map(k=>q.o[k][0]).join("; "):(q.o[a]?q.o[a][0]:""));}).join("\n");
@@ -599,16 +601,14 @@ function showResult(){
        <p class="eyebrow">Your next step</p>
        <h3 style="font-size:26px;margin-top:6px">Your AI architecture, designed for ${firm}</h3>
        <p>It starts with a two-hour Strategy Session with me. We look at where ${firm} is with AI today and where it needs to be across your whole ecosystem. Then comes your full architecture: where AI is needed, start to finish, across every part of your business and infrastructure, in one place.</p>
-       <p style="margin-top:10px"><b>What you are paying for is the architecture, the design.</b> It is the blueprint any build follows, whether we build it with you or your own team does.</p>
+       <p style="margin-top:10px"><b>What you get is the architecture, the design.</b> It is the blueprint any build follows, whether we build it with you or your own team does.</p>
        <ul><li>Where you are now and where you need to be with AI</li><li>Every system mapped end to end: leads, sales, delivery, content, impact</li><li>What to build, in what order, and what it costs</li>${ans.org<2?`<li>An AI offer for the organisations you already train, matched to what you sell</li>`:""}</ul>
-       <p style="margin-top:14px">Your full architecture is included and arrives within ${CFG.turnaround} of the session. Most builds start from ${CFG.buildFrom}. Your ${CFG.session} comes off the build if you continue within 30 days.</p>
+       <p style="margin-top:14px">Your full architecture arrives within ${CFG.turnaround} of the session. It starts with a free 20-minute call, where we talk through ${firm} and I share pricing.</p>
        <p style="margin-top:12px"><a href="${DEMO}" target="_blank" rel="noopener" class="link">See what it can look like for you</a></p>
      </div>
      <div class="side">
-       <p class="price">${CFG.session}<small>Session + full architecture · comes off your build</small></p>
-       <a class="btn btn-spot" href="${APPLY}" target="_blank" rel="noopener">Pay and book your session</a>
-       <p style="font-size:13px;color:var(--muted);margin:8px 0 0">Sessions are booked from 48 hours after payment, so I can read your business before we speak.</p>
-       <a class="link" href="${FITCALL}" target="_blank" rel="noopener">Not sure yet? Book a free 20-minute call</a>
+       <p class="price">Free call first<small>20 minutes with me · pricing comes after, based on what ${firm} needs</small></p>
+       <a class="btn btn-spot" href="${FITCALL}" target="_blank" rel="noopener">Book a free 20-minute call</a>
      </div>
      <div class="who-card"><div class="mini photo" role="img" aria-label="Photo of Temitope Saliu"></div><div><p><b>You'll work with Temitope Saliu.</b> Teacher, business architect and AI strategist leading AI transformation for businesses. Tech education partner to Google and Microsoft, Google and Meta Elite Trainer with 3,000+ professionals trained, and the architect behind operating systems for training institutes.</p><div class="row"><a class="link" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="link" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div></div></div>
      <blockquote style="grid-column:1 / -1"><p>"The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale."</p><cite><b>Olori</b> · Founder of a training institute, trade and export expert</cite></blockquote>
@@ -617,14 +617,14 @@ function showResult(){
        <p class="eyebrow">Your next step</p>
        <h3 style="font-size:26px;margin-top:6px">Build your own operating system, one-to-one</h3>
        <p>Six weeks with me, starting when you are ready. You build your own coaching or training operating system, with AI as your execution team.</p>
-       <ul><li>Advertising with AI, agents and automations</li><li>An AI content management system</li><li>The business side: offers, pricing, sales</li><li>Scaling and the systems behind it</li><li>Weekly one-to-one sessions, no waiting for a cohort</li></ul>
+       <ul><li>Advertising with AI, agents and automations</li><li>An AI content management system and AI video editing</li><li>Consumer intelligence and a B2B leads engine</li><li>The business side: offers, pricing, sales</li><li>Scaling and the systems behind it</li><li>Weekly one-to-one sessions, no waiting for a cohort</li></ul>
        <div class="quotes" style="margin-top:18px">
          <blockquote><p>"From personality, to generating leads, to building the actual infrastructure around my idea."</p><cite><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</cite></blockquote>
          <blockquote><p>"I started off not knowing a lot of things and seven weeks later I have created my first project."</p><cite><b>Vuyi</b> · Banker, USA</cite></blockquote>
        </div>
      </div>
      <div class="side">
-       <p class="price">${CFG.diy}<small>${CFG.diyNote}</small></p>
+       <p class="price">Free call first<small>Six weeks one-to-one · pricing comes after the call</small></p>
        <a class="btn btn-spot" href="${FITCALL}" target="_blank" rel="noopener">Book a free 20-minute call</a>
        <a class="btn btn-ghost" href="${LEARN}">See everything you'll learn</a>
        <a class="link" href="${STORIES}">Watch what past students built</a>
