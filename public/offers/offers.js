@@ -1,7 +1,27 @@
 /* ==== CONFIG: edit here only ==== */
-// Fixed end time of the early-bird window (GMT). Set this once, on launch day, as start + 72 hours.
-// It never resets for later visitors.
-var EARLY_END = '2026-11-10T12:00:00Z';
+// Early-bird window repeats automatically: opens every Saturday 12:00 noon UK time
+// (right after the free live class) and runs 72 hours, to Tuesday 12:00 noon UK time.
+// Outside the window, full price applies until the next Saturday noon. DST-safe.
+var TEST_NOW = (new URLSearchParams(location.search)).get('now'); // preview only: ?now=2026-11-14T11:59:00Z
+function nowMs() { return TEST_NOW ? new Date(TEST_NOW).getTime() : Date.now(); }
+function ukParts(ms) {
+  var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hourCycle: 'h23', weekday: 'short',
+    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  var o = {}; f.formatToParts(new Date(ms)).forEach(function (p) { o[p.type] = p.value; });
+  return { wd: o.weekday, y: +o.year, m: +o.month, d: +o.day, h: +o.hour, mi: +o.minute, s: +o.second };
+}
+function ukOffset(ms) { var p = ukParts(ms); return Date.UTC(p.y, p.m - 1, p.d, p.h, p.mi, p.s) - Math.floor(ms / 1000) * 1000; }
+function ukWallToUTC(y, m, d, h) { var g = Date.UTC(y, m - 1, d, h); var t = g - ukOffset(g); return g - ukOffset(t); }
+function windowStart(now) {
+  for (var i = 0; i <= 8; i++) {
+    var p = ukParts(now - i * 864e5);
+    if (p.wd === 'Sat') { var s = ukWallToUTC(p.y, p.m, p.d, 12); if (s <= now) return s; }
+  }
+  return now;
+}
+function windowEndMs(now) { var t = windowStart(now) + 3 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); } // Tuesday 12:00 UK wall clock
+function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); }
+var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 
 // Payment links. Stripe for USD and GBP, Selar for NGN.
 // Early-bird and full-price links are separate.
@@ -41,7 +61,7 @@ function fmt(cur, n) {
   return SYM[cur] + s;
 }
 function q(name) { return new URLSearchParams(location.search).get(name); }
-function isEarly() { return Date.now() < new Date(EARLY_END).getTime(); }
+function isEarly() { return nowMs() < windowEndMs(nowMs()); }
 function detectCur() {
   var c = q('c');
   if (SYM[c]) return c;
@@ -79,18 +99,24 @@ function renderPrices(cur) {
   document.querySelectorAll('[data-early-only]').forEach(function (el) { el.hidden = !early; });
   document.querySelectorAll('[data-full-only]').forEach(function (el) { el.hidden = early; });
   var end = document.querySelector('[data-end]');
+  if (end && end.parentElement) end.parentElement.hidden = !early;
   if (end) {
-    var d = new Date(EARLY_END);
+    var d = new Date(windowEndMs(nowMs()));
     end.textContent = d.toUTCString().replace('GMT', 'GMT') + ' (' + d.toLocaleString('en-GB', { timeZone: 'Africa/Lagos', dateStyle: 'medium', timeStyle: 'short' }) + ' Lagos, ' + d.toLocaleString('en-GB', { timeZone: 'Europe/London', timeStyle: 'short' }) + ' UK)';
   }
 }
+var lastEarly = null;
 function tick() {
   var el = document.querySelector('[data-countdown]');
+  var early = isEarly();
+  if (lastEarly !== null && lastEarly !== early) renderPrices(detectCur());
+  lastEarly = early;
   if (!el) return;
-  var ms = new Date(EARLY_END).getTime() - Date.now();
-  if (ms <= 0) { el.textContent = 'Early-bird has ended.'; renderPrices(detectCur()); return; }
-  var h = Math.floor(ms / 36e5), m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1e3);
-  el.textContent = 'Early-bird ends in ' + h + 'h ' + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+  var now = nowMs();
+  var ms = early ? windowEndMs(now) - now : nextStartMs(now) - now;
+  var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1e3);
+  var t = (early ? Math.floor(ms / 36e5) + 'h ' : (d ? d + 'd ' : '') + h + 'h ') + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+  el.textContent = early ? 'Early-bird ends in ' + t : 'Next early-bird opens Saturday 12:00 UK, in ' + t;
 }
 document.addEventListener('DOMContentLoaded', function () {
   var cur = detectCur();
@@ -98,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-cur-btn]').forEach(function (b) {
     b.addEventListener('click', function () { setCur(b.getAttribute('data-cur-btn')); });
   });
-  tick(); setInterval(tick, 1000);
+  tick(); setInterval(function () { if (!TEST_NOW) tick(); }, 1000);
   // Pay page
   var pk = q('p');
   if (document.querySelector('[data-pay-page]') && PRODUCTS[pk]) {
