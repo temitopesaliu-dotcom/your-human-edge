@@ -4,7 +4,7 @@
  * Never throws: saving a row must not be able to stop someone getting their
  * results, their seat or their VIP email.
  */
-export type BridgeAction = Record<string, unknown> & { action: 'quiz' | 'webinar' | 'vip_buyer' };
+export type BridgeAction = Record<string, unknown> & { action: 'quiz' | 'webinar' | 'vip_buyer' | 'join' };
 
 /** Trim, cap and strip control characters from anything a visitor typed. */
 export function clean(value: unknown, max = 400): string {
