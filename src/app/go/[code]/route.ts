@@ -11,7 +11,12 @@ const LINKS: Record<string, string> = {
   "b5": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b5",
   "b6": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b6",
   "b7": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b7",
-  "b8": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b8"
+  "b8": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b8",
+  "a1": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a1-sat",
+  "a2": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a2-sun",
+  "a3": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a3-mon",
+  "a4": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a4-tue",
+  "m1": "/business-of-expertise-webinar?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-missed&utm_content=m1"
 };
 
 export function GET(req: Request) {
