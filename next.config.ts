@@ -53,6 +53,9 @@ const nextConfig: NextConfig = {
     return [
       // The Bridge funnel moved from /bridge to /thebridge. Temporary (307) and
       // query strings (UTM tags) survive, so links already shared keep working.
+      // Expert Framework retired: the profile and its results go to the webinar. Pages stay in the repo for future use.
+      { source: '/expert-framework-profile', destination: '/business-of-expertise-webinar', permanent: false },
+      { source: '/expert-framework-profile/:path*', destination: '/business-of-expertise-webinar', permanent: false },
       { source: '/bridge', destination: '/thebridge', permanent: false },
       { source: '/thebridge-webinar', destination: '/business-of-expertise-webinar', permanent: false },
       { source: '/webinar', destination: '/business-of-expertise-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
@@ -95,7 +98,7 @@ const nextConfig: NextConfig = {
       // page sends everyone to /workshop. Exact path only, so buyers' access
       // links (/expert-framework/access) still work. Temporary (307) so the
       // page can come back without browsers caching the redirect.
-      { source: '/expert-framework', destination: '/workshop', permanent: false },
+      { source: '/expert-framework', destination: '/business-of-expertise-webinar', permanent: false },
       // Short links for the Expert Framework launch emails. /ef/one lands on
       // /expert-framework tagged utm_campaign=ef-email-one, so the address in the
       // email is short and clean and each email still traces to its own sale.
