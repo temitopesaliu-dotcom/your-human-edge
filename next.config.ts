@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
       { source: '/appreciated', destination: '/appreciated.html' },
       { source: '/book', destination: '/book.html' },
       { source: '/thebridge', destination: '/bridge.html' },
-      { source: '/thebridge-webinar', destination: '/bridge.html' },
+      { source: '/business-of-expertise-webinar', destination: '/bridge.html' },
       { source: '/thebridge-results', destination: '/bridge.html' },
       { source: '/thebridge-registered', destination: '/bridge.html' },
       { source: '/thebridge-vip-confirmed', destination: '/bridge.html' },
@@ -54,14 +54,15 @@ const nextConfig: NextConfig = {
       // The Bridge funnel moved from /bridge to /thebridge. Temporary (307) and
       // query strings (UTM tags) survive, so links already shared keep working.
       { source: '/bridge', destination: '/thebridge', permanent: false },
-      { source: '/webinar', destination: '/thebridge-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
+      { source: '/thebridge-webinar', destination: '/business-of-expertise-webinar', permanent: false },
+      { source: '/webinar', destination: '/business-of-expertise-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
       { source: '/thequiz', destination: '/thebridge?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
       // Short links for the Bridge webinar awareness emails (Kit, 3-6 Nov 2026). /bw/1 lands on the
   // webinar registration page tagged utm_campaign=bridge-email-1, so each daily email traces to
   // its own registrations. Only the listed ids match. Temporary (307) so the target can change.
   {
     source: '/bw/:id(1|2|3|4)',
-    destination: '/thebridge-webinar?utm_source=kit&utm_medium=email&utm_campaign=bridge-email-:id',
+    destination: '/business-of-expertise-webinar?utm_source=kit&utm_medium=email&utm_campaign=bridge-email-:id',
     permanent: false,
   },
   // Short, clean links for the live classes (short links help emails reach the Primary tab).
