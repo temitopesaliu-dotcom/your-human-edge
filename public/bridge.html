@@ -728,6 +728,7 @@ td:first-child{font-weight:700;white-space:nowrap}
 .bx-hero .bx-blob.b3{width:700px;left:-420px;bottom:-280px}
 .bx-hero .bx-blob.b4x{display:none}
 .bx-hero-txt{position:relative;z-index:1}
+.bx-mini{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center 20%;border:4px solid #fff;box-shadow:0 14px 30px -14px rgba(42,14,44,.6);display:block;margin:0 auto 18px}
 @media (max-width:860px){.bx-hero .bx-blob.b1{width:300px;height:300px;right:-190px;top:-150px}.bx-hero .bx-blob.b2{width:200px;height:200px;right:-140px;bottom:-60px}}
 </style>
 </head>
@@ -766,6 +767,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     <span class="bx-blob b1" aria-hidden="true"></span><span class="bx-blob b2" aria-hidden="true"></span><span class="bx-blob b3" aria-hidden="true"></span>
     <div class="bx-wrap bx-hero-in">
       <div class="bx-hero-txt">
+        <img class="js-portrait bx-mini" alt="Temitope Saliu" width="96" height="96">
         <div class="bx-kicker"><i></i>Free live training</div>
         <h1>The Business<br>of Expertise.</h1>
         <p class="bx-tag">Build. Market. Monetise. Scale.</p>
@@ -926,7 +928,7 @@ td:first-child{font-weight:700;white-space:nowrap}
         <div class="when-box when-line js-when-full"></div>
         <p class="nr" style="margin:0 0 10px">Live only. There is no replay.</p>
         <div class="field"><label for="r-name">First name</label><input type="text" id="r-name" autocomplete="given-name"></div>
-        <div class="field"><label for="r-email">Email (Gmail works best)</label><input type="email" id="r-email" autocomplete="email" inputmode="email"><p class="small" style="margin-top:6px">Please use a Gmail address if you have one. Yahoo often blocks our emails, so your joining link may not reach you.</p><p class="err" id="r-yahoo" role="status" hidden></p></div>
+        <div class="field"><label for="r-email">Email</label><input type="email" id="r-email" autocomplete="email" inputmode="email"><p class="err" id="r-yahoo" role="status" hidden></p></div>
         <div class="field"><label for="r-cc">WhatsApp number, with country code (required)</label><div class="phone"><select id="r-cc" aria-label="Country code"></select><input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="801 234 5678" aria-label="WhatsApp number" required></div><p class="small" style="margin-top:6px">Pick your country code, then the number you use on WhatsApp.</p></div>
         <div class="field"><label for="r-prof">What do you do? (required)</label><select id="r-prof" required><option value="">Choose the closest one</option><option>Employed professional</option><option>Business owner or entrepreneur</option><option>Coach or consultant</option><option>Teacher or trainer</option><option>Freelancer or creator</option><option>Student</option><option>Between jobs</option><option>Other</option></select></div>
         
@@ -991,7 +993,7 @@ td:first-child{font-weight:700;white-space:nowrap}
 </main>
 
 <div class="stickybar" id="stickybar" hidden>
-  <div class="in"><span>Free live training · <span class="js-when-day"></span></span><a class="btn white on-hot" href="/thebridge-webinar">Save my free seat</a></div>
+  <div class="in"><span>Free live training · <span class="js-when-day"></span></span><a class="btn white on-hot" href="/business-of-expertise-webinar">Save my free seat</a></div>
 </div>
 
 <script>
@@ -1078,7 +1080,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     var day = fmtIn(d,null,{weekday:'long', day:'numeric', month:'long'});
     var main = day + ' · ' + shortTime(d,null,false) + ' ' + tzAbbr(d);
     var out = '<b>' + CAL + esc(main) + '</b>';
-    out += '<span class="loc">Your time (' + esc(city(userTZ)) + '). That is ' + esc(shortTime(d,'Europe/London',false)) + ' London ' + esc(abbr) + '.</span>';
+    if(userTZ !== 'Europe/London') out += '<span class="loc">Your time (' + esc(city(userTZ)) + '). That is ' + esc(shortTime(d,'Europe/London',false)) + ' London ' + esc(abbr) + '.</span>';
     return out;
   }
   function tzAbbr(d){ // named abbreviation where the visitor's own locale has one (WAT, EST, GST), else GMT+1 style
@@ -1411,7 +1413,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     /* 2. free seat */
     h += '<section class="seat"><div class="in"><span class="eyebrow">This sketch can become real</span><h2>Free Live Training</h2>' +
          '<p>Learn the language your people use, and the seamless systems that take you from where you are to where you want to be.</p>' +
-         '<a class="btn white on-hot big" href="/thebridge-webinar">Save my free seat</a></div></section>';
+         '<a class="btn white on-hot big" href="/business-of-expertise-webinar">Save my free seat</a></div></section>';
     /* 3. breakdown */
     h += '<section class="r-hero"><div class="in"><span class="eyebrow stagepill">' + S.stage + '</span>' +
          '<h2>' + name + ', you are ' + S.name + '.</h2><p class="r-line">' + S.line + '</p>' +
@@ -1438,7 +1440,7 @@ td:first-child{font-weight:700;white-space:nowrap}
     }
     h += '<div class="bridge-cta"><span class="eyebrow">' + ctaTop + '</span>' +
          '<h3>Free Live Training</h3><p>Learn the language those people use, and the seamless systems that take you from where you are to where you want to be.</p>' +
-         '<a class="btn white on-hot big" href="/thebridge-webinar">Save my free seat</a></div>' +
+         '<a class="btn white on-hot big" href="/business-of-expertise-webinar">Save my free seat</a></div>' +
          '<p class="small" style="margin-top:22px">Your answers are used to build these results. The sketches are examples, not promises of results.</p></div></section>';
     root.innerHTML = h;
   }
@@ -1456,11 +1458,6 @@ td:first-child{font-weight:700;white-space:nowrap}
     var prof = $('#r-prof').value;
     if(!prof){ err.textContent = 'Choose what you do. It helps me teach to the right people.'; return; }
     err.textContent = '';
-    var yh = $('#r-yahoo');
-    if(/@(yahoo|ymail|rocketmail)\./i.test(m) && !yh.getAttribute('data-ack')){
-      yh.hidden = false; yh.textContent = 'Yahoo often blocks our emails, so your link may not reach you. Use a Gmail address if you have one. To keep this Yahoo address, press Reserve my free spot again.';
-      yh.setAttribute('data-ack','1'); $('#r-email').focus(); return;
-    }
     var cc = $('#r-cc').value, raw = $('#r-phone').value.trim(), phone;
     if(cc === 'XX'){
       var d = raw.replace(/[^\d+]/g,'');
@@ -1542,11 +1539,12 @@ td:first-child{font-weight:700;white-space:nowrap}
   /* ---------- router ---------- */
   var VIEWS = ['quiz','result','training','thanks'];
   // Every step has its own address so each one can be tracked as a page.
-  var PATHS = {quiz:'/thebridge', result:'/thebridge-results', training:'/thebridge-webinar', thanks:'/thebridge-registered', vip:'/thebridge-vip-confirmed'};
+  var PATHS = {quiz:'/thebridge', result:'/thebridge-results', training:'/business-of-expertise-webinar', thanks:'/thebridge-registered', vip:'/thebridge-vip-confirmed'};
   function viewFromPath(){
     var path = location.pathname.replace(/\/+$/,'') || '/';
     if(/[?&]vip=1(&|$)/.test(location.search)) return 'vip';
     for(var k in PATHS){ if(PATHS[k] === path) return k; }
+    if(path === '/thebridge-webinar') return 'training';
     return 'quiz';
   }
   function go(view, replace){
