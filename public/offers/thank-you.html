@@ -6,29 +6,14 @@
 <p class="lead" id="ty-offer">Your payment has been received.</p></section>
 <div class="two" style="margin-bottom:40px">
 <div class="box"><h2>What happens next</h2>
-<ul class="check"><li>Your payment receipt comes from the payment provider you used.</li><li>We will keep you updated by email as we go.</li><li>Live class access starts on 30 November 2026.</li><li>The self-paced course gives you 12 months of access.</li></ul></div>
-<aside class="box"><h2>Confirm your email</h2>
-<p>Enter the email you paid with, so your updates and access details reach you.</p>
-<form id="ty-form" action="https://app.kit.com/forms/10155989/subscriptions" method="post">
-<input type="email" name="email_address" required placeholder="Your email address" aria-label="Your email address" style="width:100%;padding:14px;border:1px solid #d9d2e6;border-radius:10px;font-size:16px;margin:8px 0 12px;box-sizing:border-box">
-<button class="btn" type="submit" style="width:100%;border:0;cursor:pointer">Send my confirmation</button>
-</form>
-<p class="small" id="ty-done" hidden style="margin-top:12px;font-weight:600">Done. Your confirmation email is on its way. Check your spam or promotions folder if you do not see it.</p>
-</aside></div></main>
+<ul class="check"><li>Your payment receipt comes from the payment provider you used.</li><li>We will keep you updated by email as we go.</li><li>Your access details come by email from ts@temitopesaliu.com.</li><li>The live group starts on 5 December 2026. The self-paced course gives you 6 months of access.</li></ul></div>
+<aside class="box"><h2>Make sure it reaches you</h2><p>Your access email comes from <strong>ts@temitopesaliu.com</strong> and goes to the email you paid with. Add that address to your contacts now so it lands in your main inbox.</p><p class="small" style="margin-top:12px">Not there within the hour? Check Promotions or Spam, move it to your inbox, and reply to it so future emails arrive in the right place.</p></aside></div></main>
 <footer><div class="wrap"><p>Temitope Saliu. All sales are non-refundable.</p></div></footer>
 <script>
 (function(){
-  var names={easy:'Easy Content Development',selfpaced12:'Self-paced course, 12 months',group:'The Business of Teaching (group, 6 weeks, live)'};
+  var names={easy:'Easy Content Development',selfpaced12:'The Business of Expertise, self-paced (6 months access)',group:'The Business of Expertise group (6 weeks, live)'};
   var o=new URLSearchParams(location.search).get('o');
   if(names[o]) document.getElementById('ty-offer').textContent='Your payment for '+names[o]+' has been received.';
-  var f=document.getElementById('ty-form');
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Sending...';
-    fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
-      .then(function(){f.hidden=true;document.getElementById('ty-done').hidden=false;})
-      .catch(function(){btn.disabled=false;btn.textContent='Try again';});
-  });
 })();
 </script>
 </body></html>

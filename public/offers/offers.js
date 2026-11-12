@@ -30,9 +30,9 @@ var PRODUCTS = {
     name: 'Easy Content Development',
     blurb: 'Taking your content development with ease, using AI at every step.',
     full:  { USD: 99,     GBP: 77,     NGN: 181000 },
-    early: { USD: 69.30,  GBP: 54,     NGN: 126700 },
-    pay:   { USD: 'https://buy.stripe.com/8x26oI1plefK0NB6uD3oA0R',  GBP: 'https://buy.stripe.com/fZueVe6JFdbGdAn1aj3oA0T',  NGN: 'https://selar.com/1674914p66?currency=NGN' },
-    payFull: { USD: 'https://buy.stripe.com/9B628s3xt9Zubsf9GP3oA0S', GBP: 'https://buy.stripe.com/9B6aEY3xt9ZueEr7yH3oA0U', NGN: 'https://selar.com/2731826137?currency=NGN' }
+    early: { USD: 69,     GBP: 54,     NGN: 126700 },
+    pay:   { USD: 'https://buy.stripe.com/dRm14o8RN3B62VJ6uD3oA1c',  GBP: 'https://buy.stripe.com/dRm6oI6JF4FadAnf193oA1e',  NGN: 'https://selar.com/1674914p66?currency=NGN' },
+    payFull: { USD: 'https://buy.stripe.com/eVq5kEgkf8Vqbsf06f3oA1b', GBP: 'https://buy.stripe.com/dRm3cw0lh3B6eEr1aj3oA1d', NGN: 'https://selar.com/2731826137?currency=NGN' }
   },
   selfpaced12: {
     name: 'The Business of Expertise, self-paced (6 months access)',
