@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
 import { clean, EMAIL_RE, sendToBridgeSheet } from '@/lib/bridge/sheet';
-import { addToKit, BRIDGE_REGISTERED_TAG_ID } from '@/lib/bridge/kit';
 
 /** The Bridge free live training sign-up: first name, email, WhatsApp with country code, profession. */
 export async function POST(req: NextRequest) {
@@ -39,7 +38,7 @@ export async function POST(req: NextRequest) {
     tz: clean(body.tz, 60),
     source: clean(body.source, 200),
   });
-  await addToKit(email, firstName, BRIDGE_REGISTERED_TAG_ID); // no-op until KIT_API_KEY is set
+  // Email list: the Apps Script behind sendToBridgeSheet adds the registrant to MailerLite (Bridge 0).
   // The visitor still gets their seat page if the Sheet is down; the failure is logged above.
   return NextResponse.json({ ok: true, saved: ok });
 }
