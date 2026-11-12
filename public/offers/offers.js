@@ -45,8 +45,8 @@ var PRODUCTS = {
   group: {
     name: 'The Business of Expertise group, 6 weeks, live',
     blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 5 December 2026.',
-    full:  { USD: 1999,   GBP: 1545,   NGN: 3658000 },
-    early: { USD: 1399,   GBP: 1081,   NGN: 2560000 },
+    full:  { USD: 1999,   GBP: 1545,   NGN: 2857000 },
+    early: { USD: 1399,   GBP: 1081,   NGN: 2000000 },
     pay:   { USD: 'https://buy.stripe.com/bJeeVefgb9Zu7bZdX53oA14',  GBP: 'https://buy.stripe.com/aFa6oIgkf5Je9k7g5d3oA16',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
     payFull: { USD: 'https://buy.stripe.com/3cI3cw7NJ7RmeErcT13oA13', GBP: 'https://buy.stripe.com/fZu4gAfgb0oU1RF1aj3oA15', NGN: 'https://selar.com/231mh7r0i6?currency=NGN' }
   }
@@ -112,6 +112,8 @@ function tick() {
   if (lastEarly !== null && lastEarly !== early) renderPrices(detectCur());
   lastEarly = early;
   if (!el) return;
+  if (!early) { el.hidden = true; el.style.display = "none"; return; }
+  el.hidden = false; el.style.display = "";
   var now = nowMs();
   var ms = early ? windowEndMs(now) - now : nextStartMs(now) - now;
   var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1e3);
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.classList.toggle('disabled', !ready);
       btn.setAttribute('aria-disabled', ready ? 'false' : 'true');
       btn.textContent = link.indexOf('PASTE_') === 0 ? 'Payment link not set yet' : 'Pay ' + fmt(c, early ? p.early[c] : p.full[c]) + ' with ' + provider;
-      btn.setAttribute('href', ready ? link : '#');
+      btn.setAttribute('href', ready ? trackLink(link, c) : '#');
     }
     sync();
     document.querySelectorAll('[data-pay-switch]').forEach(function (a) {
@@ -148,3 +150,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+// Source tracking: remember the email/campaign a visitor came from and pass it to Stripe as client_reference_id.
+(function () {
+  try {
+    var sp = new URLSearchParams(location.search);
+    var cmp = sp.get('utm_campaign'), cnt = sp.get('utm_content');
+    if (cmp) localStorage.setItem('boeSrc', (cmp + '-' + (cnt || 'x')).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 190));
+  } catch (e) {}
+})();
+function trackLink(link, cur) {
+  if (cur === 'NGN') return link;
+  var s = 'direct';
+  try { s = localStorage.getItem('boeSrc') || 'direct'; } catch (e) {}
+  return link + (link.indexOf('?') === -1 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(s);
+}
