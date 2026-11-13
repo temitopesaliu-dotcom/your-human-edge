@@ -7,6 +7,9 @@ import type { EfpCompany, EfpResultRecord } from '@/lib/efp/types';
 /** Every "Save my seat" button goes to the free Business of Expertise live training. */
 const WORKSHOP = '/business-of-expertise-webinar';
 
+/** Same red as the webinar page's "Reserve my free seat" button, so the seat buttons stand out from the purple page. */
+const SEAT_STYLE = { background: '#E5202E', borderColor: '#E5202E', color: '#FFFFFF' };
+
 type Win = Window & {
   fbq?: (...args: unknown[]) => void;
   gtag?: (...args: unknown[]) => void;
@@ -19,8 +22,8 @@ function track(position: number) {
 
 function Cta({ position, big = true }: { position: number; big?: boolean }) {
   return (
-    <a className={`efp-btn${big ? ' efp-big' : ''}`} href={WORKSHOP} onClick={() => track(position)}>
-      Save my seat
+    <a className={`efp-btn${big ? ' efp-big' : ''}`} href={WORKSHOP} style={SEAT_STYLE} onClick={() => track(position)}>
+      Save my free seat
     </a>
   );
 }
@@ -107,7 +110,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
               </p>
             </section>
             <div className="efp-more efp-inpreview">
-              <div><b>This is a prototype. Build the real thing from start to finish.</b><br /><span>How it works · What&apos;s included · Is this for you? · About you · FAQ · Live on your own domain</span></div>
+              <div><b>This is a prototype. See how the real thing is built, start to finish, in the free live training.</b><br /><span>How it works · What&apos;s included · Is this for you? · About you · FAQ · Live on your own domain</span></div>
               <Cta position={1} />
             </div>
           </div>
@@ -125,7 +128,7 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
           <div className="efp-box"><h4>What they don&apos;t want</h4><ul>{b.dont.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
         </div>
         <div className="efp-more">
-          <div><b>Get your go-to-market strategy</b><br /><span>Where your buyers are, tailored elevator pitches and your first 30 days of outreach.</span></div>
+          <div><b>See how to build your go-to-market strategy</b><br /><span>Where your buyers are, tailored elevator pitches and your first 30 days of outreach.</span></div>
           <Cta position={2} />
         </div>
       </section>
@@ -140,20 +143,20 @@ export default function ResultsView({ record, viewEventId }: { record: EfpResult
           <CompanyColumn title="Small" sub="Profiles and where to find them" list={b.companies.small} small />
         </div>
         <div className="efp-more">
-          <div><b>100 companies, matched to your offer</b><br /><span>Get the full list of 100 companies to send your offer to, generated from what you build.</span></div>
+          <div><b>See how to find 100 companies matched to your offer</b><br /><span>The free live training shows you how to build the full list of companies to send your offer to.</span></div>
           <Cta position={3} />
         </div>
         <p className="efp-note">Company suggestions are AI-generated from your answers. Check each one before you reach out.</p>
       </section>
 
       <div className={`efp-next-sec ${stage(4)}`}>
-        <h3>Build the real thing, from start to finish.</h3>
+        <h3>See how the real thing is built, from start to finish.</h3>
         <p>You&apos;ve seen a preview. The free live training, every Saturday at 11am London time, shows you how to turn what you know into an offer, with AI as your execution team.</p>
         <ol className="efp-steps">
           <li><b>Map your expert layer</b><span>You&apos;ve seen a slice. The training shows you how to map all of it.</span></li>
-          <li><b>Choose your offer</b><span>We picked one for you. You&apos;ll choose from several.</span></li>
-          <li><b>Launch your website</b><span>This preview becomes your own live site.</span></li>
-          <li><b>Get 100 companies to send it to</b><span>You&apos;ve seen 12. You leave with 100 more.</span></li>
+          <li><b>Choose your offer</b><span>We picked one for you. See how to choose from several.</span></li>
+          <li><b>Launch your website</b><span>See how this preview becomes your own live site.</span></li>
+          <li><b>Get 100 companies to send it to</b><span>You&apos;ve seen 12. See how to find 100 more.</span></li>
         </ol>
         <div className="efp-buy"><Cta position={4} /><small>Free live training on Zoom · Saturdays 11am London time · Live only, no replay</small></div>
       </div>
