@@ -1007,7 +1007,17 @@ td:first-child{font-weight:700;white-space:nowrap}
   function newSid(){ return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
   var SID = newSid();
   function tzName(){ try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }catch(e){ return ''; } }
-  function srcTag(){ try{ var q = new URLSearchParams(location.search); return [q.get('utm_source'),q.get('utm_medium'),q.get('utm_campaign')].filter(Boolean).join(' / '); }catch(e){ return ''; } }
+  function srcTag(){ try{
+    var q = new URLSearchParams(location.search);
+    var cur = [q.get('utm_source'),q.get('utm_medium'),q.get('utm_campaign'),q.get('utm_content')].filter(Boolean).join(' / ');
+    if (!cur) { var r = document.referrer || '';
+      cur = /instagram/i.test(r) ? 'ig / referral' : /linkedin|lnkd\.in/i.test(r) ? 'linkedin / referral' : /facebook|fb\.com/i.test(r) ? 'facebook / referral' : /whatsapp|wa\.me/i.test(r) ? 'whatsapp / referral' : /youtube/i.test(r) ? 'youtube / referral' : /tiktok/i.test(r) ? 'tiktok / referral' : /threads/i.test(r) ? 'threads / referral' : /(^https?:\/\/)(t\.co|x\.com|twitter)/i.test(r) ? 'x / referral' : /google\./i.test(r) ? 'google / search' : ''; }
+    var KEY = 'yhe_first_src', first = '';
+    try { first = localStorage.getItem(KEY) || ''; } catch(e){}
+    if (cur && !first) { try { localStorage.setItem(KEY, cur); } catch(e){} first = cur; }
+    return first && cur && first !== cur ? first + ' (then ' + cur + ')' : (first || cur);
+  }catch(e){ return ''; } }
+  try { srcTag(); } catch(e) {}
   function send(type, data){
     data.sid = SID; data.tz = tzName(); data.source = srcTag();
     var p = fetch(type === 'quiz' ? '/api/bridge/quiz' : '/api/bridge/register', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data), keepalive:true}).catch(function(){});
