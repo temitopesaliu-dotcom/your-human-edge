@@ -23,8 +23,8 @@ function windowEndMs(now) { var t = windowStart(now) + 3 * 864e5; var p = ukPart
 function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); }
 var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 
-// Payment links. Stripe for USD and GBP. Naira is paid by direct bank transfer:
-// the pay page shows a note and a WhatsApp button that opens a chat for the bank details.
+// Payment links. Stripe for USD and GBP. Naira: Selar for Easy Content and self-paced;
+// the live group (ngnTransfer: true) is paid by direct bank transfer via a WhatsApp chat.
 // Early-bird and full-price links are separate.
 var WHATSAPP_NUMBER = '447776646576'; // digits only with country code, e.g. 447700900123. Empty = button shows 'WhatsApp number not set yet'.
 var WHATSAPP_NAME = 'Temitope';
@@ -46,6 +46,7 @@ var PRODUCTS = {
     payFull: { USD: 'https://buy.stripe.com/eVq00k4Bx8Vqaob5qz3oA17', GBP: 'https://buy.stripe.com/fZueVe3xt8VqbsfbOX3oA19', NGN: 'https://selar.com/b19w4vqi9t?currency=NGN' }
   },
   group: {
+    ngnTransfer: true,
     name: 'The Business of Expertise group, 6 weeks, live',
     blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 5 December 2026.',
     full:  { USD: 2499,   GBP: 1929,   NGN: 3800000 },
@@ -143,10 +144,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var btn = document.querySelector('[data-pay-btn]');
     var amtText = fmt(c, early ? p.early[c] : p.full[c]);
     var ngnNote = document.querySelector('[data-ngn-note]'), cardNote = document.querySelector('[data-card-note]');
-    if (ngnNote) ngnNote.hidden = c !== 'NGN';
-    if (cardNote) cardNote.hidden = c === 'NGN';
+    var transfer = c === 'NGN' && p.ngnTransfer;
+    if (ngnNote) ngnNote.hidden = !transfer;
+    if (cardNote) cardNote.hidden = transfer;
     function sync() {
-      if (c === 'NGN') {
+      if (transfer) {
         var ready = /^\d{8,15}$/.test(WHATSAPP_NUMBER);
         var msg = 'Hello ' + WHATSAPP_NAME + ', I want to pay ' + amtText + ' by bank transfer for ' + p.name + '. Please send me the bank details.';
         var src = ''; try { src = localStorage.getItem('boeSrc') || ''; } catch (e) {}
@@ -161,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var ok = link.indexOf('PASTE_') !== 0;
       btn.classList.toggle('disabled', !ok);
       btn.setAttribute('aria-disabled', ok ? 'false' : 'true');
-      btn.textContent = ok ? 'Pay ' + amtText + ' with Stripe' : 'Payment link not set yet';
+      btn.textContent = ok ? 'Pay ' + amtText + ' with ' + (c === 'NGN' ? 'Selar' : 'Stripe') : 'Payment link not set yet';
       btn.setAttribute('href', ok ? trackLink(link, c) : '#');
     }
     sync();
