@@ -23,8 +23,11 @@ function windowEndMs(now) { var t = windowStart(now) + 3 * 864e5; var p = ukPart
 function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); }
 var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 
-// Payment links. Stripe for USD and GBP, Selar for NGN.
+// Payment links. Stripe for USD and GBP. Naira is paid by direct bank transfer:
+// the pay page shows a note and a WhatsApp button that opens a chat for the bank details.
 // Early-bird and full-price links are separate.
+var WHATSAPP_NUMBER = ''; // digits only with country code, e.g. 447700900123. Empty = button shows 'WhatsApp number not set yet'.
+var WHATSAPP_NAME = 'Temitope';
 var PRODUCTS = {
   easy: {
     name: 'Easy Content Development',
@@ -45,10 +48,10 @@ var PRODUCTS = {
   group: {
     name: 'The Business of Expertise group, 6 weeks, live',
     blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 5 December 2026.',
-    full:  { USD: 1999,   GBP: 1545,   NGN: 2857000 },
-    early: { USD: 1399,   GBP: 1081,   NGN: 2000000 },
-    pay:   { USD: 'https://buy.stripe.com/bJeeVefgb9Zu7bZdX53oA14',  GBP: 'https://buy.stripe.com/aFa6oIgkf5Je9k7g5d3oA16',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
-    payFull: { USD: 'https://buy.stripe.com/3cI3cw7NJ7RmeErcT13oA13', GBP: 'https://buy.stripe.com/fZu4gAfgb0oU1RF1aj3oA15', NGN: 'https://selar.com/231mh7r0i6?currency=NGN' }
+    full:  { USD: 2499,   GBP: 1929,   NGN: 3800000 },
+    early: { USD: 1749,   GBP: 1350,   NGN: 2660000 }, // 30% off
+    pay:   { USD: 'https://buy.stripe.com/8x2aEYaZV8Vq8g35qz3oA1g',  GBP: 'https://buy.stripe.com/5kQ4gAgkf7Rm7bZbOX3oA1i',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
+    payFull: { USD: 'https://buy.stripe.com/fZu7sM6JFfjO3ZN3ir3oA1f', GBP: 'https://buy.stripe.com/bJebJ22tpgnS53R8CL3oA1h', NGN: 'https://selar.com/231mh7r0i6?currency=NGN' }
   }
 };
 /* ==== end config ==== */
@@ -136,13 +139,28 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('[data-pay-cur]').textContent = CUR_LABEL[c];
     var link = early ? p.pay[c] : p.payFull[c];
     var btn = document.querySelector('[data-pay-btn]');
-    var provider = c === 'NGN' ? 'Selar' : 'Stripe';
+    var amtText = fmt(c, early ? p.early[c] : p.full[c]);
+    var ngnNote = document.querySelector('[data-ngn-note]'), cardNote = document.querySelector('[data-card-note]');
+    if (ngnNote) ngnNote.hidden = c !== 'NGN';
+    if (cardNote) cardNote.hidden = c === 'NGN';
     function sync() {
-      var ready = link.indexOf('PASTE_') !== 0;
-      btn.classList.toggle('disabled', !ready);
-      btn.setAttribute('aria-disabled', ready ? 'false' : 'true');
-      btn.textContent = link.indexOf('PASTE_') === 0 ? 'Payment link not set yet' : 'Pay ' + fmt(c, early ? p.early[c] : p.full[c]) + ' with ' + provider;
-      btn.setAttribute('href', ready ? trackLink(link, c) : '#');
+      if (c === 'NGN') {
+        var ready = /^\d{8,15}$/.test(WHATSAPP_NUMBER);
+        var msg = 'Hello ' + WHATSAPP_NAME + ', I want to pay ' + amtText + ' by bank transfer for ' + p.name + '. Please send me the bank details.';
+        var src = ''; try { src = localStorage.getItem('boeSrc') || ''; } catch (e) {}
+        if (src) msg += ' (ref: ' + src + ')';
+        btn.classList.toggle('disabled', !ready);
+        btn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+        btn.textContent = ready ? 'Get bank details on WhatsApp' : 'WhatsApp number not set yet';
+        btn.setAttribute('href', ready ? 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg) : '#');
+        btn.setAttribute('target', '_blank'); btn.setAttribute('rel', 'noopener');
+        return;
+      }
+      var ok = link.indexOf('PASTE_') !== 0;
+      btn.classList.toggle('disabled', !ok);
+      btn.setAttribute('aria-disabled', ok ? 'false' : 'true');
+      btn.textContent = ok ? 'Pay ' + amtText + ' with Stripe' : 'Payment link not set yet';
+      btn.setAttribute('href', ok ? trackLink(link, c) : '#');
     }
     sync();
     document.querySelectorAll('[data-pay-switch]').forEach(function (a) {
