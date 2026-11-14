@@ -26,7 +26,7 @@ var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 // Payment links. Stripe for USD and GBP. Naira is paid by direct bank transfer:
 // the pay page shows a note and a WhatsApp button that opens a chat for the bank details.
 // Early-bird and full-price links are separate.
-var WHATSAPP_NUMBER = ''; // digits only with country code, e.g. 447700900123. Empty = button shows 'WhatsApp number not set yet'.
+var WHATSAPP_NUMBER = '447776646576'; // digits only with country code, e.g. 447700900123. Empty = button shows 'WhatsApp number not set yet'.
 var WHATSAPP_NAME = 'Temitope';
 var PRODUCTS = {
   easy: {
@@ -68,6 +68,7 @@ function isEarly() { return nowMs() < windowEndMs(nowMs()); }
 function detectCur() {
   var c = q('c');
   if (SYM[c]) return c;
+  try { c = localStorage.getItem('offerCur'); if (SYM[c]) return c; } catch (e) {} // the currency they picked on an earlier page
   var tz = '';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
   if (tz === 'Africa/Lagos') return 'NGN';
@@ -125,6 +126,7 @@ function tick() {
 }
 document.addEventListener('DOMContentLoaded', function () {
   var cur = detectCur();
+  try { localStorage.setItem('offerCur', cur); } catch (e) {}
   renderPrices(cur);
   document.querySelectorAll('[data-cur-btn]').forEach(function (b) {
     b.addEventListener('click', function () { setCur(b.getAttribute('data-cur-btn')); });
