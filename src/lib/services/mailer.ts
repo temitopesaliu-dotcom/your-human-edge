@@ -586,6 +586,7 @@ export async function addStoryToIncomeBuyerToMailerLite(
 
 /** MailerLite group "Expert Framework - Self-Paced Buyers". Launch emails exclude it. */
 const EF_BUYERS_GROUP_ID = '200222030371489780';
+const WORKSHOP_PAID_GROUP_ID = '204629129964815551';
 
 /**
  * Buyers of The Expert Framework — Self-Paced course.
@@ -617,6 +618,9 @@ export async function addIntelligenceLayerCourseBuyerToMailerLite(
     if (allGroup) groups.push(allGroup);
     groups.push(paidGroup);
     if (!groups.includes(EF_BUYERS_GROUP_ID)) groups.push(EF_BUYERS_GROUP_ID);
+    // "Paid - Expert Framework Workshop": triggers BOE 12 (payment received now,
+    // access link 48 hours later).
+    if (!groups.includes(WORKSHOP_PAID_GROUP_ID)) groups.push(WORKSHOP_PAID_GROUP_ID);
 
     const result = await mailerLiteRequest('/subscribers', {
       method: 'POST',
