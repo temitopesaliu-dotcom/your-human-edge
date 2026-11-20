@@ -41,6 +41,6 @@ function socialDest(code: string): string | null {
 export function GET(req: Request) {
   const url = new URL(req.url);
   const code = (url.pathname.split("/").pop() || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60);
-  const dest = LINKS[code] || socialDest(code) || "/offers/";
+  const dest = LINKS[code] || socialDest(code) || "/the-business-of-expertise-intensive";
   return NextResponse.redirect(new URL(dest, url.origin), 307);
 }
