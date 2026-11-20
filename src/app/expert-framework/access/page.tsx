@@ -5,7 +5,43 @@ import SiteFooter from '@/components/site-footer';
 import PurchaseTracker from '@/components/purchase-tracker';
 import { validatePurchaseAccess } from '@/lib/services/purchase-access';
 import { getPaidCheckout } from '@/lib/services/paid-checkout';
+import { isEarlyBird } from '@/lib/utils/early-bird';
 import '../expert-framework.css';
+
+/** Cohort 2 upgrade links: Cohort 2 price minus the workshop ($129 / £99).
+ *  Shown only within 7 days of the workshop purchase. Stripe payment links on
+ *  the group product (prod_VaArTnCdoTZnRS), metadata v=boe4. */
+const UPGRADE = {
+  early: {
+    USD: { label: '$1,620', was: '$1,749', href: 'https://buy.stripe.com/6oU5kEaZV3B667V4mv3oA1j' },
+    GBP: { label: '£1,251', was: '£1,350', href: 'https://buy.stripe.com/bJe5kE6JF9ZueEr4mv3oA1l' },
+    NGN: { label: '₦2,424,000', was: '₦2,660,000' },
+  },
+  full: {
+    USD: { label: '$2,370', was: '$2,499', href: 'https://buy.stripe.com/8x2aEYfgbefK9k7aKT3oA1k' },
+    GBP: { label: '£1,830', was: '£1,929', href: 'https://buy.stripe.com/3cI6oIgkf5Je53R3ir3oA1m' },
+    NGN: { label: '₦3,564,000', was: '₦3,800,000' },
+  },
+} as const;
+const UPGRADE_DAYS = 7;
+const WHATSAPP_NUMBER = '447776646576';
+
+/** Server-side, per request: is the 7-day upgrade still open, and at which price. */
+function upgradeState(boughtAt: number) {
+  const now = Date.now();
+  const early = isEarlyBird(now);
+  return {
+    upgradeOpen: boughtAt > 0 && now - boughtAt < UPGRADE_DAYS * 86400000,
+    early,
+    upgrade: early ? UPGRADE.early : UPGRADE.full,
+    upgradeDeadline: new Date(boughtAt + UPGRADE_DAYS * 86400000).toLocaleDateString('en-GB', {
+      timeZone: 'Europe/London',
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    }),
+  };
+}
 
 /** "Find Prompts Here" from the delivery email — the working prompts doc
  *  attendees build from. Swap the URL here if the doc ever moves. */
@@ -100,6 +136,9 @@ export default async function IntelligenceLayerCourseAccessPage({
   // component, never prefixed NEXT_PUBLIC_: the ID must not reach the bundle.
   const videoId = process.env.YOUTUBE_COURSE_VIDEO_ID ?? '';
 
+  // Cohort 2 upgrade: open for 7 days from the workshop purchase.
+  const { upgradeOpen, early, upgrade, upgradeDeadline } = upgradeState(paid?.createdAt ?? 0);
+
   return (
     <div className="ds-light ilcs-page">
       {paid && (
@@ -145,6 +184,38 @@ export default async function IntelligenceLayerCourseAccessPage({
                 is visible to you only because your checkout link verified.
               </p>
             </div>
+          )}
+
+          {upgradeOpen && (
+            <aside className="ilc-upgrade" aria-label="Upgrade to Cohort 2">
+              <p className="ilc-upgrade-kicker">Your workshop comes off Cohort 2</p>
+              <h2>Join The Business of Expertise, Cohort 2, within {UPGRADE_DAYS} days</h2>
+              <p>
+                Six weeks live with Temitope, building the whole practice with AI. Join by{' '}
+                <strong>{upgradeDeadline}</strong> and what you paid for this workshop is taken
+                off the cohort price.
+              </p>
+              <div className="ilc-upgrade-options">
+                <a className="ilcs-btn ilc-btn-sm" href={upgrade.USD.href}>
+                  Pay {upgrade.USD.label} <s>{upgrade.USD.was}</s>
+                </a>
+                <a className="ilcs-btn ilc-btn-sm" href={upgrade.GBP.href}>
+                  Pay {upgrade.GBP.label} <s>{upgrade.GBP.was}</s>
+                </a>
+                <a
+                  className="ilcs-btn ilc-btn-sm"
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                    `Hi Temitope, I bought the Expert Framework Workshop and want to upgrade to Cohort 2 (${upgrade.NGN.label}). Please send bank details. Ref: ${access.sessionId.slice(-10)}`
+                  )}`}
+                >
+                  Naira {upgrade.NGN.label}: bank transfer on WhatsApp
+                </a>
+              </div>
+              <p className="ilc-upgrade-note">
+                {early ? 'Includes the 30% off that runs until Tuesday 12:00 London time. ' : ''}
+                Cohort members can add 6 months of implementation support. All sales are final and non-refundable.
+              </p>
+            </aside>
           )}
 
           {/* Bookmark banner — the single most-read line on this page. It
