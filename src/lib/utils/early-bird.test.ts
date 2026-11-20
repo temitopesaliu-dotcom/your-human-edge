@@ -24,9 +24,9 @@ describe('isEarlyBird', () => {
 
 describe('workshopAmount', () => {
   it('charges the early price inside the window and full price outside', () => {
-    expect(workshopAmount('USD', Date.parse('2026-11-22T10:00:00Z'))).toBe(12700);
+    expect(workshopAmount('USD', Date.parse('2026-11-22T10:00:00Z'))).toBe(9000);
     expect(workshopAmount('USD', Date.parse('2026-11-25T10:00:00Z'))).toBe(12900);
-    expect(workshopAmount('GBP', Date.parse('2026-11-22T10:00:00Z'))).toBe(9800);
+    expect(workshopAmount('GBP', Date.parse('2026-11-22T10:00:00Z'))).toBe(6900);
     expect(workshopAmount('GBP', Date.parse('2026-11-25T10:00:00Z'))).toBe(9900);
   });
 });

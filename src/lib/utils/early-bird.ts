@@ -24,10 +24,11 @@ export function isEarlyBird(nowMs: number = Date.now()): boolean {
   return minutes >= 720 && minutes < 3 * 1440 + 720;
 }
 
-/** The recorded Expert Framework Workshop, in minor units. */
+/** The recorded Expert Framework Workshop, in minor units. Full price $129 / £99;
+ *  30% off in the weekly window: $90 / £69 (129 x 0.7 = 90.30, 99 x 0.7 = 69.30). */
 export const WORKSHOP_PRICES = {
-  USD: { full: 12900, early: 12700 },
-  GBP: { full: 9900, early: 9800 },
+  USD: { full: 12900, early: 9000 },
+  GBP: { full: 9900, early: 6900 },
 } as const;
 
 export type WorkshopCurrency = keyof typeof WORKSHOP_PRICES;
