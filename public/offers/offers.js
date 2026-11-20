@@ -45,6 +45,17 @@ var PRODUCTS = {
     pay:   { USD: 'https://buy.stripe.com/aFadRafgbfjO53R7yH3oA18',  GBP: 'https://buy.stripe.com/00wbJ25FB3B67bZ1aj3oA1a',  NGN: 'https://selar.com/vb15we33t1?currency=NGN' },
     payFull: { USD: 'https://buy.stripe.com/eVq00k4Bx8Vqaob5qz3oA17', GBP: 'https://buy.stripe.com/fZueVe3xt8VqbsfbOX3oA19', NGN: 'https://selar.com/b19w4vqi9t?currency=NGN' }
   },
+  workshop: {
+    // The recorded Expert Framework Workshop. USD/GBP are charged through
+    // /api/intelligence-layer-course/create-checkout (delivery page is
+    // payment-checked); NGN goes to Selar. Early = the weekly 72-hour window.
+    name: 'The Expert Framework Workshop (recorded)',
+    blurb: 'The recorded one-hour workshop, at your own pace.',
+    full:  { USD: 129,    GBP: 99,     NGN: 236000 },
+    early: { USD: 127,    GBP: 98,     NGN: 232000 },
+    pay:   { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-architect-programme#pricing', NGN: 'https://selar.com/99911216d1?currency=NGN' },
+    payFull: { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-architect-programme#pricing', NGN: 'https://selar.com/11y915e11g?currency=NGN' }
+  },
   group: {
     ngnTransfer: true,
     name: 'The Business of Expertise group, 6 weeks, live',
