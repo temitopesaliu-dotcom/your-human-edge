@@ -4,18 +4,18 @@ import { NextResponse } from "next/server";
 // Each code redirects to its page with UTM tags, so clicks can be traced to sales.
 const LINKS: Record<string, string> = {
   "e1": "/business-of-expertise-webinar?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-invite&utm_content=invite1-rename",
-  "b1": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b1-next-year",
-  "b2": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b2-skills",
-  "b3": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b3-decisions",
-  "b4": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b4-one-question",
-  "b5": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b5",
-  "b6": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b6",
-  "b7": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b7",
-  "b8": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b8",
-  "a1": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a1-sat",
-  "a2": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a2-sun",
-  "a3": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a3-mon",
-  "a4": "/offers/?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a4-tue",
+  "b1": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b1-next-year",
+  "b2": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b2-skills",
+  "b3": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b3-decisions",
+  "b4": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b4-one-question",
+  "b5": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b5",
+  "b6": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b6",
+  "b7": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b7",
+  "b8": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-bridge2&utm_content=b8",
+  "a1": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a1-sat",
+  "a2": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a2-sun",
+  "a3": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a3-mon",
+  "a4": "/the-business-of-expertise-intensive?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-earlybird&utm_content=a4-tue",
   "m1": "/business-of-expertise-webinar?utm_source=mailerlite&utm_medium=email&utm_campaign=boe-missed&utm_content=m1"
 };
 
