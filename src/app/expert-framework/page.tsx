@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import SiteNav from '@/components/site-nav';
 import SiteFooter from '@/components/site-footer';
 import { TESTIMONIALS } from '@/components/features/workshop/testimonials.data';
+import { isEarlyBird } from '@/lib/utils/early-bird';
 import './expert-framework.css';
 
 /**
@@ -24,7 +25,10 @@ import './expert-framework.css';
  * with it.
  */
 
-const PRICE_LABEL = '$157';
+// $129, or $127 during the weekly early-bird window (Sat 12:00 to Tue 12:00 London).
+const PRICE_FULL = '$129';
+const PRICE_EARLY = '$127';
+const noopSubscribe = () => () => {};
 
 /**
  * Carries the email's UTM tags and any ?coupon= code through to Stripe, so
@@ -62,6 +66,13 @@ function ArrowIcon() {
 }
 
 export default function IntelligenceLayerCoursePage() {
+  // Server render shows the full price; the browser switches to the
+  // early-bird price inside the window (the checkout route charges the same).
+  const PRICE_LABEL = useSyncExternalStore(
+    noopSubscribe,
+    () => (isEarlyBird() ? PRICE_EARLY : PRICE_FULL),
+    () => PRICE_FULL
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSticky, setShowSticky] = useState(false);
