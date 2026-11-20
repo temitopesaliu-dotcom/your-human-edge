@@ -23,20 +23,12 @@ function windowEndMs(now) { var t = windowStart(now) + 3 * 864e5; var p = ukPart
 function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); }
 var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 
-// Payment links. Stripe for USD and GBP. Naira: Selar for Easy Content and self-paced;
+// Payment links. Stripe for USD and GBP. Naira: Selar for the workshop and self-paced;
 // the live group (ngnTransfer: true) is paid by direct bank transfer via a WhatsApp chat.
 // Early-bird and full-price links are separate.
 var WHATSAPP_NUMBER = '447776646576'; // digits only with country code, e.g. 447700900123. Empty = button shows 'WhatsApp number not set yet'.
 var WHATSAPP_NAME = 'Temitope';
 var PRODUCTS = {
-  easy: {
-    name: 'Easy Content Development',
-    blurb: 'Taking your content development with ease, using AI at every step.',
-    full:  { USD: 99,     GBP: 77,     NGN: 181000 },
-    early: { USD: 69,     GBP: 54,     NGN: 126700 },
-    pay:   { USD: 'https://buy.stripe.com/dRm14o8RN3B62VJ6uD3oA1c',  GBP: 'https://buy.stripe.com/dRm6oI6JF4FadAnf193oA1e',  NGN: 'https://selar.com/1674914p66?currency=NGN' },
-    payFull: { USD: 'https://buy.stripe.com/eVq5kEgkf8Vqbsf06f3oA1b', GBP: 'https://buy.stripe.com/dRm3cw0lh3B6eEr1aj3oA1d', NGN: 'https://selar.com/2731826137?currency=NGN' }
-  },
   selfpaced12: {
     name: 'The Business of Expertise, self-paced (6 months access)',
     blurb: 'The full course, recorded, with 6 months of access.',
@@ -52,9 +44,9 @@ var PRODUCTS = {
     name: 'The Expert Framework Workshop (recorded)',
     blurb: 'The recorded one-hour workshop, at your own pace.',
     full:  { USD: 129,    GBP: 99,     NGN: 236000 },
-    early: { USD: 127,    GBP: 98,     NGN: 232000 },
-    pay:   { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-architect-programme#pricing', NGN: 'https://selar.com/99911216d1?currency=NGN' },
-    payFull: { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-architect-programme#pricing', NGN: 'https://selar.com/11y915e11g?currency=NGN' }
+    early: { USD: 90,     GBP: 69,     NGN: 165200 },
+    pay:   { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-of-expertise-intensive#pricing', NGN: 'https://selar.com/99911216d1?currency=NGN' },
+    payFull: { USD: '/the-business-of-expertise-intensive#pricing', GBP: '/the-business-of-expertise-intensive#pricing', NGN: 'https://selar.com/11y915e11g?currency=NGN' }
   },
   group: {
     ngnTransfer: true,

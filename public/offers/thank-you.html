@@ -11,10 +11,10 @@
 <footer><div class="wrap"><p>Temitope Saliu. All sales are non-refundable.</p></div></footer>
 <script>
 (function(){
-  var names={easy:'Easy Content Development',selfpaced12:'The Business of Expertise, self-paced (6 months access)',group:'The Business of Expertise group (6 weeks, live)',workshop:'The Expert Framework Workshop (recorded)'};
+  var names={selfpaced12:'The Business of Expertise, self-paced (6 months access)',group:'The Business of Expertise group (6 weeks, live)',workshop:'The Expert Framework Workshop (recorded)'};
   var o=new URLSearchParams(location.search).get('o');
   if(names[o]) document.getElementById('ty-offer').textContent='Your payment for '+names[o]+' has been received.';
-  if(o==='workshop') document.getElementById('ty-when').textContent='Your private workshop access link comes by email within 24 hours. Join Cohort 2 within 7 days and what you paid comes off.';
+  if(o==='workshop') document.getElementById('ty-when').textContent='Payment received. Your private workshop access link comes by email within 48 hours. Join Cohort 2 within 7 days and what you paid comes off.';
   if(o==='group') document.getElementById('ty-when').textContent='Cohort 2 classes start on 5 December 2026.';
 })();
 </script>
