@@ -3,6 +3,7 @@ import { stripe } from '@/lib/services/stripe';
 import { resolveSiteUrl } from '@/lib/utils/resolve-site-url';
 import { rateLimit } from '@/lib/services/rate-limit';
 import { getClientIp } from '@/lib/utils/get-client-ip';
+import { isEarlyBird, workshopAmount, type WorkshopCurrency } from '@/lib/utils/early-bird';
 
 /**
  * The Expert Framework (self-paced) checkout.
@@ -23,7 +24,26 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * fulfilment. See the note in api/stripe-webhook/route.ts.
  */
 
-export const COURSE_AMOUNT = 15700; // $157.00 USD
+/**
+ * Price: $129 / £99, or $127 / £98 during the weekly early-bird window
+ * (Saturday 12:00 to Tuesday 12:00 London). Amounts live in
+ * lib/utils/early-bird.ts so the sales pages and this route agree.
+ * Buyers who join Cohort 2 within 7 days get this amount taken off
+ * (upgrade links on the access page).
+ */
+function cleanCurrency(body: unknown): WorkshopCurrency {
+  if (body && typeof body === 'object') {
+    const raw = (body as Record<string, unknown>).cur;
+    if (raw === 'GBP') return 'GBP';
+  }
+  return 'USD';
+}
+
+/** Where the buyer came from, so cancelling returns them to that page. */
+function cleanFrom(body: unknown): 'boe' | 'ef' {
+  if (body && typeof body === 'object' && (body as Record<string, unknown>).from === 'boe') return 'boe';
+  return 'ef';
+}
 
 /**
  * UTM tags forwarded from the sales page URL, so each sale in Stripe records
@@ -102,6 +122,11 @@ export async function POST(req: NextRequest) {
     const efpSubmissionId = /^efp_[a-f0-9]{16}$/.test(efpCookie) ? efpCookie : '';
     const utm = cleanUtm(body);
     const coupon = cleanCoupon(body);
+    const cur = cleanCurrency(body);
+    const from = cleanFrom(body);
+    const now = Date.now();
+    const amount = workshopAmount(cur, now);
+    const tier = isEarlyBird(now) ? 'early' : 'full';
     // Carried to the access page so the GA4 purchase event can name the
     // campaign too, not only Stripe.
     const campaignParam = utm.utm_campaign
@@ -134,7 +159,8 @@ export async function POST(req: NextRequest) {
         // Links this sale back to the buyer's Expert Framework Profile answers.
         ...(efpSubmissionId ? { efp_submission_id: efpSubmissionId } : {}),
         product: 'intelligence-layer-course',
-        source: 'intelligence-layer-course',
+        source: from === 'boe' ? 'business-of-expertise-page' : 'intelligence-layer-course',
+        tier,
         ...utm,
         // Record which code was actually applied, for campaign analysis.
         // (Only when pre-applied; manually typed codes are visible in
@@ -145,18 +171,21 @@ export async function POST(req: NextRequest) {
         {
           quantity: 1,
           price_data: {
-            currency: 'usd',
-            unit_amount: COURSE_AMOUNT,
+            currency: cur.toLowerCase(),
+            unit_amount: amount,
             product_data: {
-              name: 'The Expert Framework, Self-Paced',
+              name: 'The Expert Framework Workshop (recorded)',
               description:
-                'The full Expert Framework + AI workshop as a private, self-paced video course. Watch on demand, work through the same builds live attendees did, at your own speed.',
+                'The recorded Expert Framework Workshop, watched at your own pace. Join Cohort 2 of The Business of Expertise within 7 days and this payment comes off.',
             },
           },
         },
       ],
       success_url: `${siteUrl}/expert-framework/access?session_id={CHECKOUT_SESSION_ID}${campaignParam}`,
-      cancel_url: `${siteUrl}/expert-framework#get-it`,
+      cancel_url:
+        from === 'boe'
+          ? `${siteUrl}/the-business-of-expertise-intensive#pricing`
+          : `${siteUrl}/expert-framework#get-it`,
     });
 
     if (!session.url) {
