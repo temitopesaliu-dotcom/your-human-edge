@@ -8,10 +8,12 @@ import { getPaidCheckout } from '@/lib/services/paid-checkout';
 import { isEarlyBird } from '@/lib/utils/early-bird';
 import '../expert-framework.css';
 
-/** Cohort 2 upgrade links: Cohort 2 price minus the workshop ($129 / £99).
- *  Shown only within 7 days of the workshop purchase. Stripe payment links on
- *  the group product (prod_VaArTnCdoTZnRS), metadata v=boe4. */
-const UPGRADE = {
+/** Cohort 2 upgrade links: Cohort 2 price minus what the buyer paid for the
+ *  workshop. Shown only within 7 days of the workshop purchase. Stripe payment
+ *  links on the group product (prod_VaArTnCdoTZnRS).
+ *  UPGRADE_FULL_CREDIT: workshop bought at full price ($129 / £99 / ₦236,000), v=boe4.
+ *  UPGRADE_EARLY_CREDIT: workshop bought at 30% off ($90 / £69 / ₦165,200), v=boe5. */
+const UPGRADE_FULL_CREDIT = {
   early: {
     USD: { label: '$1,620', was: '$1,749', href: 'https://buy.stripe.com/6oU5kEaZV3B667V4mv3oA1j' },
     GBP: { label: '£1,251', was: '£1,350', href: 'https://buy.stripe.com/bJe5kE6JF9ZueEr4mv3oA1l' },
@@ -23,17 +25,52 @@ const UPGRADE = {
     NGN: { label: '₦3,564,000', was: '₦3,800,000' },
   },
 } as const;
+const UPGRADE_EARLY_CREDIT = {
+  early: {
+    USD: { label: '$1,659', was: '$1,749', href: 'https://buy.stripe.com/aFadRa8RNb3yeErf193oA1n' },
+    GBP: { label: '£1,281', was: '£1,350', href: 'https://buy.stripe.com/4gM5kE5FBefKfIvaKT3oA1p' },
+    NGN: { label: '₦2,494,800', was: '₦2,660,000' },
+  },
+  full: {
+    USD: { label: '$2,409', was: '$2,499', href: 'https://buy.stripe.com/dRmdRa7NJ7Rm7bZg5d3oA1o' },
+    GBP: { label: '£1,860', was: '£1,929', href: 'https://buy.stripe.com/fZu8wQ3xt3B6dAn6uD3oA1q' },
+    NGN: { label: '₦3,634,800', was: '₦3,800,000' },
+  },
+} as const;
+/** Every buyer waits 48 hours from payment before the workshop opens. */
+const ACCESS_DELAY_MS = 48 * 3600000;
 const UPGRADE_DAYS = 7;
 const WHATSAPP_NUMBER = '447776646576';
 
+/** Server-side, per request: is the buyer still inside the 48-hour hold. */
+function holdState(paidAt: number) {
+  const opensAt = paidAt > 0 ? paidAt + ACCESS_DELAY_MS : 0;
+  const onHold = opensAt > Date.now();
+  const opensLabel = onHold
+    ? new Date(opensAt).toLocaleString('en-GB', {
+        timeZone: 'Europe/London',
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+      }) + ' London time'
+    : '';
+  return { onHold, opensLabel };
+}
+
 /** Server-side, per request: is the 7-day upgrade still open, and at which price. */
-function upgradeState(boughtAt: number) {
+function upgradeState(boughtAt: number, paidValue: number, paidCurrency: string) {
   const now = Date.now();
   const early = isEarlyBird(now);
+  // Credit what was actually paid: the 30%-off workshop ($90 / £69) or full price.
+  const boughtAt30Off =
+    (paidCurrency === 'USD' && paidValue < 100) || (paidCurrency === 'GBP' && paidValue < 80);
+  const table = boughtAt30Off ? UPGRADE_EARLY_CREDIT : UPGRADE_FULL_CREDIT;
   return {
     upgradeOpen: boughtAt > 0 && now - boughtAt < UPGRADE_DAYS * 86400000,
     early,
-    upgrade: early ? UPGRADE.early : UPGRADE.full,
+    upgrade: early ? table.early : table.full,
     upgradeDeadline: new Date(boughtAt + UPGRADE_DAYS * 86400000).toLocaleDateString('en-GB', {
       timeZone: 'Europe/London',
       weekday: 'long',
@@ -137,7 +174,77 @@ export default async function IntelligenceLayerCourseAccessPage({
   const videoId = process.env.YOUTUBE_COURSE_VIDEO_ID ?? '';
 
   // Cohort 2 upgrade: open for 7 days from the workshop purchase.
-  const { upgradeOpen, early, upgrade, upgradeDeadline } = upgradeState(paid?.createdAt ?? 0);
+  const { upgradeOpen, early, upgrade, upgradeDeadline } = upgradeState(
+    paid?.createdAt ?? 0,
+    paid?.value ?? 0,
+    paid?.currency ?? ''
+  );
+
+  // 48-hour hold: access opens 48 hours after payment, for every buyer.
+  const { onHold, opensLabel } = holdState(paid?.createdAt ?? 0);
+
+  const upgradeBox = upgradeOpen && (
+    <aside className="ilc-upgrade" aria-label="Upgrade to Cohort 2">
+      <p className="ilc-upgrade-kicker">Your workshop comes off Cohort 2</p>
+      <h2>Join The Business of Expertise, Cohort 2, within {UPGRADE_DAYS} days</h2>
+      <p>
+        Six weeks live with Temitope, building the whole practice with AI. Join by{' '}
+        <strong>{upgradeDeadline}</strong> and what you paid for this workshop is taken
+        off the cohort price.
+      </p>
+      <div className="ilc-upgrade-options">
+        <a className="ilcs-btn ilc-btn-sm" href={upgrade.USD.href}>
+          Pay {upgrade.USD.label} <s>{upgrade.USD.was}</s>
+        </a>
+        <a className="ilcs-btn ilc-btn-sm" href={upgrade.GBP.href}>
+          Pay {upgrade.GBP.label} <s>{upgrade.GBP.was}</s>
+        </a>
+        <a
+          className="ilcs-btn ilc-btn-sm"
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+            `Hi Temitope, I bought the Expert Framework Workshop and want to upgrade to Cohort 2 (${upgrade.NGN.label}). Please send bank details. Ref: ${access.sessionId.slice(-10)}`
+          )}`}
+        >
+          Naira {upgrade.NGN.label}: bank transfer on WhatsApp
+        </a>
+      </div>
+      <p className="ilc-upgrade-note">
+        {early ? 'Includes the 30% off that runs until Tuesday 12:00 London time. ' : ''}
+        Optional after joining: 6 months of continued implementation plus accountability. All sales are final and non-refundable.
+      </p>
+    </aside>
+  );
+
+  if (onHold && paid) {
+    return (
+      <div className="ds-light ilcs-page">
+        <PurchaseTracker
+          productId="intelligence-layer-course"
+          productName="The Expert Framework Workshop (recorded)"
+          value={paid.value}
+          currency={paid.currency}
+          transactionId={paid.sessionId}
+          extraParams={campaign ? { campaign } : undefined}
+        />
+        <SiteNav />
+        <section className="ilc-access">
+          <div className="ilcs-wrap">
+            <div className="ilc-welcome">
+              <div className="ilc-tick" aria-hidden="true">✓</div>
+              <h1>{firstName ? `Payment received, ${firstName}.` : 'Payment received.'}</h1>
+              <p>
+                Thank you. Your access to The Expert Framework Workshop opens within 48 hours,
+                on <strong>{opensLabel}</strong>. We will email your private access link to the
+                address you paid with. You do not need to do anything else.
+              </p>
+            </div>
+            {upgradeBox}
+          </div>
+        </section>
+        <SiteFooter />
+      </div>
+    );
+  }
 
   return (
     <div className="ds-light ilcs-page">
@@ -186,37 +293,7 @@ export default async function IntelligenceLayerCourseAccessPage({
             </div>
           )}
 
-          {upgradeOpen && (
-            <aside className="ilc-upgrade" aria-label="Upgrade to Cohort 2">
-              <p className="ilc-upgrade-kicker">Your workshop comes off Cohort 2</p>
-              <h2>Join The Business of Expertise, Cohort 2, within {UPGRADE_DAYS} days</h2>
-              <p>
-                Six weeks live with Temitope, building the whole practice with AI. Join by{' '}
-                <strong>{upgradeDeadline}</strong> and what you paid for this workshop is taken
-                off the cohort price.
-              </p>
-              <div className="ilc-upgrade-options">
-                <a className="ilcs-btn ilc-btn-sm" href={upgrade.USD.href}>
-                  Pay {upgrade.USD.label} <s>{upgrade.USD.was}</s>
-                </a>
-                <a className="ilcs-btn ilc-btn-sm" href={upgrade.GBP.href}>
-                  Pay {upgrade.GBP.label} <s>{upgrade.GBP.was}</s>
-                </a>
-                <a
-                  className="ilcs-btn ilc-btn-sm"
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                    `Hi Temitope, I bought the Expert Framework Workshop and want to upgrade to Cohort 2 (${upgrade.NGN.label}). Please send bank details. Ref: ${access.sessionId.slice(-10)}`
-                  )}`}
-                >
-                  Naira {upgrade.NGN.label}: bank transfer on WhatsApp
-                </a>
-              </div>
-              <p className="ilc-upgrade-note">
-                {early ? 'Includes the 30% off that runs until Tuesday 12:00 London time. ' : ''}
-                Cohort members can add 6 months of implementation support. All sales are final and non-refundable.
-              </p>
-            </aside>
-          )}
+          {upgradeBox}
 
           {/* Bookmark banner — the single most-read line on this page. It
               frames the save as protecting their purchase, not as a favour
