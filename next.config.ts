@@ -29,10 +29,8 @@ const nextConfig: NextConfig = {
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/the-business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
-      { source: '/the-business-architect-programme', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/business-of-expertise', destination: '/bridge.html' },
       { source: '/business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
-      { source: '/offers', destination: '/offers/index.html' },
       { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
     ];
   },
@@ -59,6 +57,15 @@ const nextConfig: NextConfig = {
       // The workshop is retired and hidden. The page stays in the repo for future use;
       // anyone landing on it goes to the free webinar instead.
       { source: '/workshop', destination: '/business-of-expertise-webinar', permanent: false },
+      // /offers is shut. Only the payment step (pay.html), thank-you page and assets stay live.
+      { source: '/offers', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      { source: '/offers/', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      { source: '/offers/index.html', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      { source: '/offers/self-paced-12-months.html', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      { source: '/offers/group-6-weeks.html', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      // The Business Architect Programme URL is shut. /welcome stays for past buyers.
+      { source: '/the-business-architect-programme', destination: '/the-business-of-expertise-intensive', permanent: false },
+      { source: '/the-business-architect-programme.html', destination: '/the-business-of-expertise-intensive', permanent: false },
       { source: '/offers/easy-content-development.html', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
       { source: '/offers/pay.html', has: [{ type: 'query', key: 'p', value: 'easy' }], destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
       { source: '/bridge', destination: '/thebridge', permanent: false },
@@ -82,10 +89,10 @@ const nextConfig: NextConfig = {
       // The Expert Framework Intensive is now sold as The Business Architect
       // Programme. Temporary (307) so the old link keeps working without being
       // cached forever, and query strings (UTM tags) survive the hop.
-      { source: '/expert-framework-intensive', destination: '/the-business-architect-programme', permanent: false },
+      { source: '/expert-framework-intensive', destination: '/the-business-of-expertise-intensive', permanent: false },
       // The AI Operator Suite is closed. Temporary (307) so it can reopen later;
       // visitors land on the programme that is on sale now.
-      { source: '/ai-operator-suite', destination: '/the-business-architect-programme', permanent: false },
+      { source: '/ai-operator-suite', destination: '/the-business-of-expertise-intensive', permanent: false },
       // The free quiz moved from /intelligence-layer to the Expert Framework
       // Profile. Permanent (308), and query strings (UTM tags) survive the hop,
       // so every link already printed in emails and posts keeps working.
