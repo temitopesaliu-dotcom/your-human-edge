@@ -16,11 +16,12 @@ describe('getPaidCheckout', () => {
   });
 
   it('returns what Stripe actually charged for a paid session', async () => {
-    retrieve.mockResolvedValue({ payment_status: 'paid', amount_total: 999, currency: 'gbp' });
+    retrieve.mockResolvedValue({ payment_status: 'paid', amount_total: 999, currency: 'gbp', created: 1795000000 });
     await expect(getPaidCheckout(SESSION)).resolves.toEqual({
       sessionId: SESSION,
       value: 9.99,
       currency: 'GBP',
+      createdAt: 1795000000000,
     });
   });
 

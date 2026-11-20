@@ -8,6 +8,8 @@ export interface PaidCheckout {
   value: number;
   /** ISO code, upper case (e.g. "USD"). */
   currency: string;
+  /** When the checkout session was created, in ms since epoch. */
+  createdAt: number;
 }
 
 /**
@@ -29,6 +31,7 @@ export async function getPaidCheckout(sessionId: string | undefined): Promise<Pa
       sessionId,
       value: toMajorUnits(session.amount_total, session.currency),
       currency: session.currency.toUpperCase(),
+      createdAt: session.created * 1000,
     };
   } catch (err: unknown) {
     console.error(
