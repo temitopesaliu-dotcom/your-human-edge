@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
       { source: '/youre-ready', destination: '/youre-ready.html' },
       { source: '/the-business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/the-business-architect-programme', destination: '/the-business-of-expertise-intensive.html' },
-      { source: '/business-of-expertise', destination: '/the-business-of-expertise-intensive.html' },
+      { source: '/business-of-expertise', destination: '/bridge.html' },
       { source: '/business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/offers', destination: '/offers/index.html' },
       { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
@@ -59,6 +59,8 @@ const nextConfig: NextConfig = {
       // The workshop is retired and hidden. The page stays in the repo for future use;
       // anyone landing on it goes to the free webinar instead.
       { source: '/workshop', destination: '/business-of-expertise-webinar', permanent: false },
+      { source: '/offers/easy-content-development.html', destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
+      { source: '/offers/pay.html', has: [{ type: 'query', key: 'p', value: 'easy' }], destination: '/the-business-of-expertise-intensive#pricing', permanent: false },
       { source: '/bridge', destination: '/thebridge', permanent: false },
       { source: '/thebridge-webinar', destination: '/business-of-expertise-webinar', permanent: false },
       { source: '/webinar', destination: '/business-of-expertise-webinar?utm_source=whatsapp&utm_medium=dm&utm_campaign=bridge-nov7', permanent: false },
