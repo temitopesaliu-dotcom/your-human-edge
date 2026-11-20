@@ -28,7 +28,10 @@ const nextConfig: NextConfig = {
       { source: '/thebridge-vip-confirmed', destination: '/bridge.html' },
       { source: '/your-business', destination: '/your-business.html' },
       { source: '/youre-ready', destination: '/youre-ready.html' },
-      { source: '/the-business-architect-programme', destination: '/the-business-architect-programme.html' },
+      { source: '/the-business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
+      { source: '/the-business-architect-programme', destination: '/the-business-of-expertise-intensive.html' },
+      { source: '/business-of-expertise', destination: '/the-business-of-expertise-intensive.html' },
+      { source: '/business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/offers', destination: '/offers/index.html' },
       { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
     ];
