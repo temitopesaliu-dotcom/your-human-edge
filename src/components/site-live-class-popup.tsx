@@ -14,6 +14,7 @@ const EXCLUDED_PATH_PREFIXES = [
   "/payment-successful",
   "/expert-profile",
   "/story-to-income",
+  "/implementation-programme",
 ];
 
 export default function SiteLiveClassPopup() {
