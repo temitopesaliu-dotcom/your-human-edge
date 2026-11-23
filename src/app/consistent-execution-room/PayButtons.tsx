@@ -11,7 +11,7 @@ export default function PayButtons() {
     setError("");
     setBusy(currency);
     try {
-      const res = await fetch("/api/implementation-programme/create-checkout", {
+      const res = await fetch("/api/consistent-execution-room/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ currency, accepted }),
@@ -38,9 +38,9 @@ export default function PayButtons() {
           onChange={(e) => setAccepted(e.target.checked)}
         />
         <span>
-          I have read and accept the programme terms above: the weekly implementation
-          standard, the removal rule, six monthly payments, and that payments are
-          non-refundable.
+          I have read and accept the membership terms above: billed on the 1st of
+          each month until I cancel, payments are non-refundable, and the
+          implementation standard applies.
         </span>
       </label>
       <div className="btns">
@@ -50,7 +50,7 @@ export default function PayButtons() {
           disabled={!accepted || busy !== null}
           onClick={() => start("gbp")}
         >
-          {busy === "gbp" ? "Opening checkout..." : "Pay £190 / month (UK)"}
+          {busy === "gbp" ? "Opening checkout..." : "Join for £200 / month (UK)"}
         </button>
         <button
           type="button"
@@ -58,7 +58,7 @@ export default function PayButtons() {
           disabled={!accepted || busy !== null}
           onClick={() => start("usd")}
         >
-          {busy === "usd" ? "Opening checkout..." : "Pay $250 / month (USD)"}
+          {busy === "usd" ? "Opening checkout..." : "Join for $250 / month (USD)"}
         </button>
       </div>
       <p className="err" role="alert">{error}</p>

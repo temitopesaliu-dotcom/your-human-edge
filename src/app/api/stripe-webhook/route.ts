@@ -194,38 +194,15 @@ async function sendBusinessArchitectBuyerToSheet(
   }
 }
 
-// Implementation and Accountability Programme: a six-payment subscription.
-// Checkout cannot set an end date, so it is set here. Charges land on the 1st
-// at 00:00 UTC from 1 Dec 2026; cancel_at on 2 May 2027 allows the sixth charge
-// (1 May) and stops a seventh. Handled before normalizeProduct(), which would
-// otherwise fall back to 'playbook' and send the wrong email.
-const IAP_CANCEL_AT = Math.floor(Date.UTC(2027, 4, 2, 0, 0, 0) / 1000);
-
-async function handleImplementationProgramme(session: Stripe.Checkout.Session): Promise<void> {
-  const sub = session.subscription;
-  const subId = typeof sub === 'string' ? sub : sub?.id;
-  if (!subId) {
-    console.error('[webhook] implementation-programme session has no subscription:', session.id);
-    return;
-  }
-  try {
-    await stripe.subscriptions.update(subId, { cancel_at: IAP_CANCEL_AT });
-  } catch (err: unknown) {
-    // Throw so Stripe retries: an uncapped subscription would bill forever.
-    console.error('[webhook] failed to cap implementation-programme subscription:', err instanceof Error ? err.message : String(err));
-    throw err;
-  }
-}
-
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session): Promise<void> {
   // 'no_payment_required' is a 100%-off promotion code (team test codes):
   // nothing was charged, but the buyer still needs fulfilment and emails.
   if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') return;
 
-  if (session.metadata?.product === 'implementation-programme') {
-    await handleImplementationProgramme(session);
-    return;
-  }
+  // The Consistent Execution Room is an ongoing alumni membership with no
+  // automated fulfilment. Stop here so normalizeProduct() does not fall back
+  // to 'playbook' and send members the playbook email.
+  if (session.metadata?.product === 'consistent-execution-room') return;
 
   // NOTE: payment_method_types is restricted to ['card'] in
   // create-checkout to prevent async payment methods (bank transfer, etc.)
