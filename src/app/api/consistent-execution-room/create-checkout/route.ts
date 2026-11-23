@@ -9,11 +9,12 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  *
  * Custom route rather than a Payment Link because a Payment Link cannot
  * anchor billing to a calendar day. Billing works like this:
- *   - At sign-up the member pays one full month up front (a one-time line
- *     item), which covers next month.
- *   - The monthly subscription then starts on the 1st of the month after
- *     next and charges the full amount on the 1st of every month.
- *   e.g. join 23 Nov: pay today, next charge 1 Jan, then every 1st.
+ *   - At sign-up the member pays a one-month down payment (a one-time line
+ *     item). It secures their seat for the January 2027 class.
+ *   - The monthly subscription starts on 1 February 2027 and charges the full
+ *     amount on the 1st of every month after. Anyone joining later than that
+ *     starts on the 1st of the month after next.
+ *   e.g. join 23 Nov: pay today, next charge 1 Feb, then every 1st.
  * The gap is held with trial_end because Stripe caps billing_cycle_anchor at
  * one billing period ahead. No end date: runs until the member cancels.
  *
@@ -34,10 +35,14 @@ const PRICES = {
 
 type CurrencyKey = keyof typeof PRICES;
 
-/** The 1st of the month after next, 00:00 UTC. */
+/** First monthly charge for the January 2027 class: 1 February 2027, 00:00 UTC. */
+const FIRST_COHORT_CHARGE_UTC = Date.UTC(2027, 1, 1);
+
+/** The later of 1 Feb 2027 and the 1st of the month after next, 00:00 UTC. */
 function firstRecurringChargeUtc(now: number): number {
   const d = new Date(now);
-  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 2, 1);
+  const monthAfterNext = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 2, 1);
+  return Math.max(FIRST_COHORT_CHARGE_UTC, monthAfterNext);
 }
 
 function formatDate(ms: number): string {
@@ -76,7 +81,7 @@ export async function POST(req: NextRequest) {
     const now = Date.now();
     const acceptedAt = new Date(now).toISOString();
     const firstRecurring = firstRecurringChargeUtc(now);
-    const submitMessage = `You pay ${price.label} today for your first month. Your next payment of ${price.label} is on ${formatDate(firstRecurring)}, then on the 1st of every month until you cancel. Payments are non-refundable.`;
+    const submitMessage = `Your ${price.label} payment today is a down payment that secures your seat in the January class. Your next payment of ${price.label} is on ${formatDate(firstRecurring)}, then on the 1st of every month until you cancel. Payments are non-refundable.`;
 
     const base = {
       mode: 'subscription' as const,
@@ -100,12 +105,12 @@ export async function POST(req: NextRequest) {
           },
         },
         {
-          // First month, paid up front at sign-up.
+          // Down payment, paid up front at sign-up.
           quantity: 1,
           price_data: {
             currency: price.currency,
             unit_amount: price.amount,
-            product_data: { name: 'First month: The Consistent Execution Room' },
+            product_data: { name: 'Down payment: your seat in the January class' },
           },
         },
       ],

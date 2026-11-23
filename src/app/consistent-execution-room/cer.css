@@ -38,6 +38,9 @@
 .cer-page .btn:disabled{background:var(--pm);cursor:not-allowed}
 .cer-page .err{color:var(--red);font-size:14px;margin-top:12px;min-height:20px}
 .cer-page .note{font-size:13px;color:var(--muted);margin-top:14px}
+.cer-page .signoff{padding:56px 0 8px;text-align:center}
+.cer-page .signoff img{width:160px;height:200px;object-fit:cover;border-radius:14px;display:block;margin:0 auto 20px}
+.cer-page .signoff .sig{font-family:'Playfair Display',serif;font-size:22px;line-height:1.5;color:var(--ink,#4A3E3D)}
 .cer-page .foot{padding:32px 0 48px;font-size:13px;color:var(--muted);border-top:1px solid var(--bd)}
 @media(max-width:600px){.cer-page .hero{padding:44px 0 28px}.cer-page td:first-child{white-space:normal}.cer-page .pay{padding:20px}.cer-page table{font-size:14px}}
 .cer-page .tag{font-size:16px;font-weight:600;color:var(--pd);margin-bottom:18px}

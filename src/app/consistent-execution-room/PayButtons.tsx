@@ -38,8 +38,8 @@ export default function PayButtons() {
           onChange={(e) => setAccepted(e.target.checked)}
         />
         <span>
-          I have read and accept the membership terms above: first month paid today,
-          then billed on the 1st of each month until I cancel, payments are non-refundable, and the
+          I have read and accept the membership terms above: down payment today secures my seat in the January class,
+          then billed on the 1st of each month from 1 February until I cancel, payments are non-refundable, and the
           implementation standard applies.
         </span>
       </label>

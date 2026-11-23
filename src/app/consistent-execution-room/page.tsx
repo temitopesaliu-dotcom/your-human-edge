@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PayButtons from "./PayButtons";
 
 const PILLARS = [
@@ -183,7 +184,7 @@ export default function ConsistentExecutionRoomPage() {
             <div className="callout">
               <b>Membership terms</b>
               <ul>
-                <li>You pay one full month when you join, which covers the coming month. After that, payment is taken on the 1st of every month. For example: join in November, pay today, next payment 1 January.</li>
+                <li>You pay a down payment of one month when you join. It secures your seat in the January class. After that, payment is taken on the 1st of every month, starting 1 February.</li>
                 <li>Continues for as long as you choose to remain. Cancel future renewals at any time by telling Temitope before the next 1st.</li>
                 <li>Payments already made are non-refundable.</li>
                 <li>Membership means implementing: a short weekly update on what shipped, what is stuck and your next action. Members who stop implementing may be asked to leave, with no further charges.</li>
@@ -210,6 +211,13 @@ export default function ConsistentExecutionRoomPage() {
           <p>The Consistent Execution Room is your opportunity to continue that journey.</p>
           <p className="strong" style={{ color: "#fff" }}>You don&apos;t need another six weeks of information. You need to keep building.</p>
           <p style={{ marginTop: 20 }}><b>Welcome to The Consistent Execution Room.</b><br />For alumni. For builders. For people who are ready to execute.</p>
+        </div>
+      </div>
+
+      <div className="signoff">
+        <div className="wrap">
+          <Image src="/temitope-saliu-portrait.jpg" alt="Temitope Saliu" width={160} height={200} sizes="160px" />
+          <p className="sig"><em>You owe it to yourself to be great,</em><br />Temitope Saliu.</p>
         </div>
       </div>
 
