@@ -8,6 +8,7 @@ const PILLARS = [
       "This isn't a space where you simply listen to someone teach.",
       "You'll have an environment that keeps you accountable to the business goals and projects you've committed to.",
       "We focus on what you're building, what's been completed, what's holding you back and what needs to happen next.",
+      "Live calls every two weeks keep the work moving and give you a fixed point to report progress, get unstuck and set your next commitment.",
     ],
   },
   {
@@ -45,6 +46,16 @@ const PILLARS = [
       "Your environment matters.",
       "You'll be surrounded by other professionals, experts, consultants, coaches and business owners who have invested in developing their capabilities and are actively working towards building something.",
       "This is an environment for people who want to move beyond consuming information and start creating tangible results.",
+    ],
+  },
+  {
+    n: "06",
+    t: "The Signal OS",
+    p: [
+      "Effort feels like progress. Signal is proof of it.",
+      "The Signal OS is the live operating system of the room: a running build log where every member submits what they put in and what came out of it. Outreach sent, offers launched, calls booked, systems shipped, revenue earned.",
+      "Every input and every output is counted, so you can see your execution rate climbing, spot where you stall, and know exactly what is moving your business and what is just noise.",
+      "It comes with the tools, templates and processes that make implementation the default, plus a resource library that is continually updated and sent to you as the room builds.",
     ],
   },
 ];
@@ -166,7 +177,7 @@ export default function ConsistentExecutionRoomPage() {
         <div className="wrap">
           <h2>Your <em>membership</em></h2>
           <p><b>An ongoing monthly membership for programme alumni.</b></p>
-          <p>Your membership includes access to the ongoing implementation and accountability environment, practical business guidance, strategic problem-solving and a community of fellow alumni.</p>
+          <p>Your membership includes access to the ongoing implementation and accountability environment, live calls every two weeks, practical business guidance, strategic problem-solving, the Signal OS and a community of fellow alumni.</p>
           <div className="pay">
             <div className="price">$250 <small>/ month</small></div>
             <div className="price" style={{ fontSize: 28, marginTop: 4 }}>£200 <small>/ month</small></div>
@@ -174,7 +185,7 @@ export default function ConsistentExecutionRoomPage() {
             <div className="callout">
               <b>Membership terms</b>
               <ul>
-                <li>Billed on the 1st of each month, starting 1 December 2026. Join later and you pay for the rest of that month, then the full amount on the 1st.</li>
+                <li>Billed on the 1st of each month. When you join, you pay for the rest of that month, then the full amount on the 1st.</li>
                 <li>Continues for as long as you choose to remain. Cancel future renewals at any time by telling Temitope before the next 1st.</li>
                 <li>Payments already made are non-refundable.</li>
                 <li>Membership means implementing: a short weekly update on what shipped, what is stuck and your next action. Members who stop implementing may be asked to leave, with no further charges.</li>
@@ -182,7 +193,12 @@ export default function ConsistentExecutionRoomPage() {
               </ul>
             </div>
 
-            <p className="note">UK members can choose Direct Debit at checkout. Everyone else pays by card.</p>
+            <p className="note">Pay by card. Your card is saved and charged automatically on the 1st.</p>
+            <div className="callout">
+              <b>Boundaries</b>
+              <p>This is group implementation and strategic support. It is not unlimited private consulting, and it is not done-for-you implementation. You do the building. The room keeps you executing, sharpens your decisions and helps you through the blocks.</p>
+            </div>
+
             <PayButtons />
           </div>
           <p className="note">Your acceptance is recorded with the date and time when you continue to checkout.</p>
