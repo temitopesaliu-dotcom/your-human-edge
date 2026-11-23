@@ -8,9 +8,9 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * The Consistent Execution Room: ongoing monthly alumni membership.
  *
  * Custom route rather than a Payment Link because a Payment Link cannot
- * anchor billing to a calendar day. Every charge lands on the 1st: a member
- * pays a prorated amount today for the rest of the month, then the full
- * amount on the 1st of every month. Works for every cohort with no dates to
+ * anchor billing to a calendar day. Every charge lands on the 1st: nothing is
+ * charged at checkout (the card is saved), then the full monthly amount is
+ * taken on the 1st of every month. No prorated odd amounts. Works for every cohort with no dates to
  * maintain. No end date: the membership runs until the member cancels.
  *
  * Line items attach to the Stripe product 'consistent-execution-room' so
@@ -63,9 +63,9 @@ export async function POST(req: NextRequest) {
     const acceptedAt = new Date(now).toISOString();
     const timing = {
       billing_cycle_anchor: Math.floor(nextFirstOfMonthUtc(now) / 1000),
-      proration_behavior: 'create_prorations' as const,
+      proration_behavior: 'none' as const,
     };
-    const submitMessage = `Today you pay only for the rest of this month. After that, ${price.label} is charged on the 1st of every month until you cancel. Payments are non-refundable.`;
+    const submitMessage = `Nothing is charged today. ${price.label} is taken on the 1st of every month until you cancel. Payments are non-refundable.`;
 
     const base = {
       mode: 'subscription' as const,

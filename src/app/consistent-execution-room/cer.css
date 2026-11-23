@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
 .cer-page{--p:#7C3AED;--pd:#5B21B6;--pl:#EDE9FD;--pm:#C4B5FD;--ink:#4A3E3D;--dark:#2D2120;--muted:#7A6E6D;--bd:#E4E2ED;--bg:#F8F7FC;--red:#DC2626;font-family:'Inter',sans-serif;color:var(--ink);background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .cer-page *,.cer-page *::before,.cer-page *::after{box-sizing:border-box;margin:0;padding:0}
-.cer-page .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.cer-page .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .cer-page .nav{border-bottom:1px solid var(--bd);padding:16px 0;font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:var(--ink)}
 .cer-page .nav em{font-style:italic;color:var(--p)}
 .cer-page .hero{padding:64px 0 40px;background:radial-gradient(ellipse at top,var(--pl),#fff 70%)}
@@ -41,7 +41,13 @@
 .cer-page .foot{padding:32px 0 48px;font-size:13px;color:var(--muted);border-top:1px solid var(--bd)}
 @media(max-width:600px){.cer-page .hero{padding:44px 0 28px}.cer-page td:first-child{white-space:normal}.cer-page .pay{padding:20px}.cer-page table{font-size:14px}}
 .cer-page .tag{font-size:16px;font-weight:600;color:var(--pd);margin-bottom:18px}
-.cer-page .pillars{display:grid;gap:14px;margin-top:20px}
+.cer-page .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+@media(max-width:980px){.cer-page .pillars{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.cer-page .pillars{grid-template-columns:1fr}}
+.cer-page ul.cols{columns:2;column-gap:40px}
+.cer-page ul.cols li{break-inside:avoid}
+@media(max-width:640px){.cer-page ul.cols{columns:1}}
+.cer-page .pay{max-width:760px}
 .cer-page .pillar{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:20px}
 .cer-page .pillar .num{font-family:'Playfair Display',serif;font-style:italic;color:var(--p);font-size:20px}
 .cer-page .pillar h3{font-size:17px;color:var(--dark);margin:2px 0 8px}
