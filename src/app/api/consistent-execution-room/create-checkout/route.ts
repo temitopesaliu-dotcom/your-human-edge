@@ -8,10 +8,14 @@ import { getClientIp } from '@/lib/utils/get-client-ip';
  * The Consistent Execution Room: ongoing monthly alumni membership.
  *
  * Custom route rather than a Payment Link because a Payment Link cannot
- * anchor billing to a calendar day. Every charge lands on the 1st: nothing is
- * charged at checkout (the card is saved), then the full monthly amount is
- * taken on the 1st of every month. No prorated odd amounts. Works for every cohort with no dates to
- * maintain. No end date: the membership runs until the member cancels.
+ * anchor billing to a calendar day. Billing works like this:
+ *   - At sign-up the member pays one full month up front (a one-time line
+ *     item), which covers next month.
+ *   - The monthly subscription then starts on the 1st of the month after
+ *     next and charges the full amount on the 1st of every month.
+ *   e.g. join 23 Nov: pay today, next charge 1 Jan, then every 1st.
+ * The gap is held with trial_end because Stripe caps billing_cycle_anchor at
+ * one billing period ahead. No end date: runs until the member cancels.
  *
  * Line items attach to the Stripe product 'consistent-execution-room' so
  * every member sits under one product rather than a new one per checkout.
@@ -30,9 +34,19 @@ const PRICES = {
 
 type CurrencyKey = keyof typeof PRICES;
 
-function nextFirstOfMonthUtc(now: number): number {
+/** The 1st of the month after next, 00:00 UTC. */
+function firstRecurringChargeUtc(now: number): number {
   const d = new Date(now);
-  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 2, 1);
+}
+
+function formatDate(ms: number): string {
+  return new Date(ms).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -61,11 +75,8 @@ export async function POST(req: NextRequest) {
     const siteUrl = resolveSiteUrl(req);
     const now = Date.now();
     const acceptedAt = new Date(now).toISOString();
-    const timing = {
-      billing_cycle_anchor: Math.floor(nextFirstOfMonthUtc(now) / 1000),
-      proration_behavior: 'none' as const,
-    };
-    const submitMessage = `Nothing is charged today. ${price.label} is taken on the 1st of every month until you cancel. Payments are non-refundable.`;
+    const firstRecurring = firstRecurringChargeUtc(now);
+    const submitMessage = `You pay ${price.label} today for your first month. Your next payment of ${price.label} is on ${formatDate(firstRecurring)}, then on the 1st of every month until you cancel. Payments are non-refundable.`;
 
     const base = {
       mode: 'subscription' as const,
@@ -88,9 +99,18 @@ export async function POST(req: NextRequest) {
             product: STRIPE_PRODUCT_ID,
           },
         },
+        {
+          // First month, paid up front at sign-up.
+          quantity: 1,
+          price_data: {
+            currency: price.currency,
+            unit_amount: price.amount,
+            product_data: { name: 'First month: The Consistent Execution Room' },
+          },
+        },
       ],
       subscription_data: {
-        ...timing,
+        trial_end: Math.floor(firstRecurring / 1000),
         description: 'The Consistent Execution Room: monthly membership',
         metadata: {
           product: 'consistent-execution-room',

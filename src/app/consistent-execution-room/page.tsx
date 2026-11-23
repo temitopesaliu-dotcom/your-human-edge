@@ -183,7 +183,7 @@ export default function ConsistentExecutionRoomPage() {
             <div className="callout">
               <b>Membership terms</b>
               <ul>
-                <li>Billed on the 1st of each month. Nothing is charged when you join: your card is saved and the full monthly amount is taken on the 1st.</li>
+                <li>You pay one full month when you join, which covers the coming month. After that, payment is taken on the 1st of every month. For example: join in November, pay today, next payment 1 January.</li>
                 <li>Continues for as long as you choose to remain. Cancel future renewals at any time by telling Temitope before the next 1st.</li>
                 <li>Payments already made are non-refundable.</li>
                 <li>Membership means implementing: a short weekly update on what shipped, what is stuck and your next action. Members who stop implementing may be asked to leave, with no further charges.</li>
@@ -191,7 +191,7 @@ export default function ConsistentExecutionRoomPage() {
               </ul>
             </div>
 
-            <p className="note">Pay by card. Your card is saved and charged automatically on the 1st.</p>
+            <p className="note">Pay by card. Your card is saved and charged automatically on the 1st of each month.</p>
             <div className="callout">
               <b>Note</b>
               <p>This is group implementation and strategic support. It is not unlimited private consulting, and it is not done-for-you implementation. You do the building. The room keeps you executing, sharpens your decisions and helps you through the blocks.</p>
