@@ -86,6 +86,9 @@ export async function POST(req: NextRequest) {
     const base = {
       mode: 'subscription' as const,
       adaptive_pricing: { enabled: false },
+      // Lets the two alumni who already paid a $250 deposit enter a one-time
+      // 100% off code. The card is still collected and saved for 1 Feb.
+      allow_promotion_codes: true,
       billing_address_collection: 'required' as const,
       metadata: {
         product: 'consistent-execution-room',
