@@ -147,6 +147,10 @@ a.story:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
 .thumb.cover .who{color:#fff;z-index:1}
 .thumb.cover .play,.thumb.cover .ph{z-index:1}
 .tedx{color:#EB0028;font-weight:700}
+.story{cursor:pointer}
+.story:hover{border-color:var(--purple)}
+.story:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+.thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
 /* check */
 .check{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,44px);margin-top:44px;text-align:left;box-shadow:0 1px 0 var(--line)}
 .progress{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--muted)}
@@ -383,11 +387,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <p class="lede" style="margin-top:18px">Experts, coaches and professionals on what they built with me.</p>
     </div>
     <div class="stories">
-      <a class="story" href="https://www.youtube.com/shorts/D7HRV2KpKMk" target="_blank" rel="noopener"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/D7HRV2KpKMk/hqdefault.jpg)"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Adi</span></div><div class="meta"><q>I have left this course feeling extremely capable and confident.</q><span><b>Adi</b> · Coach and mentor, <span class="tedx">TEDx</span> speaker, finance executive, UK</span></div></a>
-      <a class="story" href="https://www.youtube.com/shorts/acJavb_Xj5c" target="_blank" rel="noopener"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/acJavb_Xj5c/hqdefault.jpg)"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Rukevwe</span></div><div class="meta"><q>I don't think it was necessarily the tools that made the difference. It was the thinking.</q><span><b>Rukevwe</b> · Project manager coach, senior IT project manager, UK</span></div></a>
-      <a class="story" href="https://www.youtube.com/watch?v=kwkbCK7FQ2A" target="_blank" rel="noopener"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/kwkbCK7FQ2A/hqdefault.jpg)"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Ody</span></div><div class="meta"><q>Watch what she built in six weeks.</q><span><b>Ody</b> · Financial analyst, USA</span></div></a>
-      <a class="story" href="https://www.youtube.com/shorts/hc9C9V_PcEM" target="_blank" rel="noopener"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/hc9C9V_PcEM/hqdefault.jpg)"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Vuyi</span></div><div class="meta"><q>I started off not knowing a lot of things and seven weeks later I have created my first project.</q><span><b>Vuyi</b> · Banker, USA</span></div></a>
-      <a class="story" href="https://www.youtube.com/shorts/bOYlPdVAToQ" target="_blank" rel="noopener"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/bOYlPdVAToQ/hqdefault.jpg)"><span class="ph">Watch on YouTube</span><span class="play" aria-hidden="true"></span><span class="who">Priscilla</span></div><div class="meta"><q>From personality, to generating leads, to building the actual infrastructure around my idea.</q><span><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</span></div></a>
+      <div class="story" role="button" tabindex="0" data-vid="D7HRV2KpKMk" aria-label="Play video"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/D7HRV2KpKMk/hqdefault.jpg)"><span class="play" aria-hidden="true"></span><span class="who">Adi</span></div><div class="meta"><q>I have left this course feeling extremely capable and confident.</q><span><b>Adi</b> · Coach and mentor, <span class="tedx">TEDx</span> speaker, finance executive, UK</span></div></div>
+      <div class="story" role="button" tabindex="0" data-vid="acJavb_Xj5c" aria-label="Play video"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/acJavb_Xj5c/hqdefault.jpg)"><span class="play" aria-hidden="true"></span><span class="who">Rukevwe</span></div><div class="meta"><q>I don't think it was necessarily the tools that made the difference. It was the thinking.</q><span><b>Rukevwe</b> · Project manager coach, senior IT project manager, UK</span></div></div>
+      <div class="story" role="button" tabindex="0" data-vid="kwkbCK7FQ2A" aria-label="Play video"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/kwkbCK7FQ2A/hqdefault.jpg)"><span class="play" aria-hidden="true"></span><span class="who">Ody</span></div><div class="meta"><q>What Temi actually teaches is a way of thinking with AI.</q><span><b>Ody</b> · Financial analyst, USA</span></div></div>
+      <div class="story" role="button" tabindex="0" data-vid="hc9C9V_PcEM" aria-label="Play video"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/hc9C9V_PcEM/hqdefault.jpg)"><span class="play" aria-hidden="true"></span><span class="who">Vuyi</span></div><div class="meta"><q>I started off not knowing a lot of things and seven weeks later I have created my first project.</q><span><b>Vuyi</b> · Banker, USA</span></div></div>
+      <div class="story" role="button" tabindex="0" data-vid="bOYlPdVAToQ" aria-label="Play video"><div class="thumb cover" style="background-image:url(https://i.ytimg.com/vi/bOYlPdVAToQ/hqdefault.jpg)"><span class="play" aria-hidden="true"></span><span class="who">Priscilla</span></div><div class="meta"><q>From personality, to generating leads, to building the actual infrastructure around my idea.</q><span><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</span></div></div>
     </div>
   </div>
 </section>
@@ -643,6 +647,12 @@ function showResult(){
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 render();
 
+document.querySelectorAll(".story[data-vid]").forEach(card=>{
+  const play=()=>{const th=card.querySelector(".thumb"); if(th.querySelector("iframe"))return;
+    th.insertAdjacentHTML("beforeend",`<iframe src="https://www.youtube-nocookie.com/embed/${card.dataset.vid}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="Testimonial video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`);};
+  card.addEventListener("click",play);
+  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();play();}});
+});
 const W=["Blueprint and architecture","Consumer intelligence for sales","Meta ads with AI","Your content system","Website, video and carousels","Email marketing with AI","Leads engine and automations","Your AI clone and avatar"];
 let p8="";
 W.forEach((w,k)=>{const y=22+k*30,d=(k*0.45).toFixed(2);
