@@ -434,7 +434,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       </div>
       <div class="side">
         <p class="price">Free call first<small>20 minutes with me, about your institute and whether we are a fit</small></p>
-        <a class="btn btn-spot js-fit" href="https://cal.com/temitope-saliu/free-20-minute-call-with-temitope" target="_blank" rel="noopener">Book a free 20-minute call</a>
+        <a class="btn btn-spot js-fit" href="/free-call">Book a free 20-minute call</a>
         <a class="link" href="https://temitopesaliu.com/demos/BA_OS_Demo_1.html" target="_blank" rel="noopener">See what it can look like for you</a>
       </div>
     </div>
@@ -514,10 +514,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <script>
 (function(){
 const DEMO = "https://temitopesaliu.com/demos/BA_OS_Demo_1.html";
-const FITCALL = "https://cal.com/temitope-saliu/free-20-minute-call-with-temitope"; // free 20-minute call on Cal.com, weekdays 12:00-16:00 UK
+const FITCALL = "https://temitopesaliu.com/free-call"; // free 20-minute Zoom call, Cal.com embedded on temitopesaliu.com/free-call, weekdays 12:00-16:00 UK
 const SHEET_HOOK = "https://script.google.com/macros/s/AKfycbxzQqNN0DtIQnNmC_DDTwvh2-GB8hqQmvGIK9pVLMpZkRefjjYTcv8JTAIFAyUfrbHk2A/exec"; // Apps Script web app "Blueprint Quiz Responses": action readiness_check writes to the "Readiness Check Results" sheet, tab Institutes
 function sendToSheet(page, fields){try{fetch(SHEET_HOOK,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"readiness_check",page:page,fields:fields})}).catch(()=>{});}catch(e){}}
-document.querySelectorAll(".js-fit").forEach(a=>a.href=FITCALL);
+document.querySelectorAll(".js-fit").forEach(a=>{a.href="/free-call";a.removeAttribute("target");});
 const CFG = {turnaround:"7 working days"};
 const DIMS = {pipe:"Pipeline", demand:"Client AI demand", delivery:"AI in delivery", impact:"Impact proof"};
 const Q = [
@@ -643,7 +643,7 @@ function showResult(){
      </div>
      <div class="side">
        <p class="price">Free call first<small>20 minutes with me, about ${firm} and whether we are a fit</small></p>
-       <a class="btn btn-spot" href="${FITCALL}" target="_blank" rel="noopener">Book a free 20-minute call</a>
+       <a class="btn btn-spot" href="/free-call">Book a free 20-minute call</a>
      </div>
      <div class="who-card"><div class="mini photo" role="img" aria-label="Photo of Temitope Saliu"></div><div><p><b>You'll work with Temitope Saliu.</b> Teacher, business architect and AI strategist leading AI transformation for businesses. Tech education partner to Google and Microsoft, Google and Meta Elite Trainer with 3,000+ professionals trained, and the architect behind operating systems for training institutes.</p><div class="row"><a class="link" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="link" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div></div></div>
      <blockquote style="grid-column:1 / -1"><p>"The thinking behind the architecture is strong and we can clearly see how this can become a foundational operating system for the institution as we continue to scale."</p><cite><b>Founder of a training institute</b>, trade and export expert.</cite></blockquote>
