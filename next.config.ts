@@ -31,8 +31,7 @@ const nextConfig: NextConfig = {
       { source: '/the-business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/business-of-expertise', destination: '/bridge.html' },
       { source: '/business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
-      { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
-      { source: '/ai-for-institutes', destination: '/ai-for-training-businesses.html' },
+      { source: '/ai-for-institutes-and-training-businesses', destination: '/ai-for-institutes-and-training-businesses.html' },
       { source: '/ai-for-coaches', destination: '/ai-for-coaches.html' },
       { source: '/free-call', destination: '/free-call.html' },
     ];
@@ -55,6 +54,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // One institutes page, one URL. Every older address goes to it.
+      { source: '/ai-for-institutes', destination: '/ai-for-institutes-and-training-businesses', permanent: false },
+      { source: '/ai-for-training-businesses', destination: '/ai-for-institutes-and-training-businesses', permanent: false },
+      { source: '/ai-for-training-businesses.html', destination: '/ai-for-institutes-and-training-businesses', permanent: false },
       // The Bridge funnel moved from /bridge to /thebridge. Temporary (307) and
       // query strings (UTM tags) survive, so links already shared keep working.
       // The workshop is retired and hidden. The page stays in the repo for future use;
