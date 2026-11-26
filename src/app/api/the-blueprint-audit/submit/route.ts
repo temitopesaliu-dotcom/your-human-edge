@@ -68,9 +68,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<Blueprint
     return NextResponse.json({ error: "Could not save your answers." }, { status: 502 });
   }
 
-  addBlueprintAuditApplicantToMailerLite(email, payload.firstName, payload.route).catch((err) =>
-    console.error("[blueprint-quiz] MailerLite add failed:", err instanceof Error ? err.message : err)
-  );
+  // Readiness checks (coaches / institutes pages) live in the Google Sheet only.
+  // They are deliberately NOT added to MailerLite.
+  if (!payload.route.startsWith("readiness-")) {
+    addBlueprintAuditApplicantToMailerLite(email, payload.firstName, payload.route).catch((err) =>
+      console.error("[blueprint-quiz] MailerLite add failed:", err instanceof Error ? err.message : err)
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
