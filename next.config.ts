@@ -34,6 +34,7 @@ const nextConfig: NextConfig = {
       { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
       { source: '/ai-for-institutes', destination: '/ai-for-training-businesses.html' },
       { source: '/ai-for-coaches', destination: '/ai-for-coaches.html' },
+      { source: '/free-call', destination: '/free-call.html' },
     ];
   },
   async headers() {
