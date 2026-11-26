@@ -32,6 +32,8 @@ const nextConfig: NextConfig = {
       { source: '/business-of-expertise', destination: '/bridge.html' },
       { source: '/business-of-expertise-intensive', destination: '/the-business-of-expertise-intensive.html' },
       { source: '/ai-for-training-businesses', destination: '/ai-for-training-businesses.html' },
+      { source: '/ai-for-institutes', destination: '/ai-for-training-businesses.html' },
+      { source: '/ai-for-coaches', destination: '/ai-for-coaches.html' },
     ];
   },
   async headers() {
