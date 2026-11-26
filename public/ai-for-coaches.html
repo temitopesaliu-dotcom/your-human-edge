@@ -94,6 +94,11 @@ a{color:inherit}
 @keyframes land{0%,40%{opacity:0;transform:scale(.8)}55%,100%{opacity:1;transform:scale(1)}}
 @keyframes pop{0%,5%{opacity:0;transform:translateY(10px) scale(.9)}15%,85%{opacity:1;transform:none}100%{opacity:0}}
 @keyframes fill{0%,55%{width:0}80%,100%{width:252px}}
+@keyframes lit{0%,4%{fill:#fff;stroke:#C9BEF2}12%,88%{fill:#6C4FD6;stroke:#6C4FD6}100%{fill:#fff;stroke:#C9BEF2}}
+.hero-photo{position:relative;justify-self:center;width:min(360px,100%);aspect-ratio:4/5;max-width:100%;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,var(--soft2),var(--purple-tint));border:1px solid var(--line)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.hchip{position:absolute;left:14px;background:#fff;color:var(--purple-deep);font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;box-shadow:0 6px 18px rgba(35,30,58,.12)}
+.h1c{bottom:58px}.h2c{bottom:16px}
 
 /* familiar */
 .said{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
@@ -242,6 +247,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .stage{min-height:820px}
   .slide{grid-template-columns:1fr;align-content:start;gap:12px}
   .slide svg{max-width:340px}
+  .hero-photo{width:min(300px,100%)}
   .stats{grid-template-columns:1fr 1fr}
   .stats div+div{border-left:0}
   .stats div:nth-child(even){border-left:1px solid var(--line)}
@@ -261,15 +267,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 }
 @media (min-width:861px) and (max-width:1060px){.stories{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:480px){.process{grid-template-columns:1fr}.stage{min-height:860px}}
-
-/* coaches hero */
-.me{width:100%;max-width:380px;aspect-ratio:4/5;justify-self:center;margin:0;border-radius:22px;border:1px solid var(--line);position:relative;background-color:var(--soft2);background-size:cover;background-position:center 20%}
-.me figcaption{position:absolute;left:16px;bottom:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--muted);line-height:1.3}
-.me figcaption b{display:block;font-family:var(--f-display);font-size:24px;font-weight:500;color:var(--purple)}
-@keyframes travel{0%{offset-distance:0%}100%{offset-distance:100%}}
-@keyframes out{0%,30%{opacity:1}50%,100%{opacity:0}}
-@keyframes in{0%,30%{opacity:0}50%,100%{opacity:1}}
-@media (max-width:860px){.me{max-width:260px}}
 </style>
 </head>
 <body>
@@ -289,37 +286,36 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div>
         <p class="eyebrow">For coaches at six and seven figures</p>
         <h1>You've built the practice. <em>Now learn to run it with AI, from start to finish.</em></h1>
-        <p class="lede">Eight weeks of one-to-one coaching with me. You build your whole coaching business with AI as your execution team.</p>
+        <p class="lede">Eight weeks of one-to-one coaching with me. You build your offers, leads, content and delivery into one system, with AI as your execution team.</p>
         <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="#learn">See what you'll build</a></div>
       </div>
-      <figure class="me photo" role="img" aria-label="Photo of Temitope Saliu"><figcaption><b>One-to-one</b>with Temitope, for eight weeks</figcaption></figure>
+      <div class="hero-photo"><img src="/70b1d12e-9faf-4534-87e5-c719dde5f0b9.jpg" alt="Temitope Saliu" width="360" height="450"><span class="hchip h1c">8 weeks, one-to-one</span><span class="hchip h2c">AI as your execution team</span></div>
     </div>
 
     <div class="slide" aria-roledescription="slide" aria-label="2 of 3">
       <div>
-        <p class="eyebrow">Eight weeks, one-to-one</p>
-        <h1>Learn it <em>by building it.</em></h1>
-        <p class="lede">Each week you build one part of your coaching business with me, with AI as your execution team. By week eight, it runs as one system.</p>
+        <p class="eyebrow">One-to-one, not another course</p>
+        <h1>Eight weeks. <em>One coaching business, built by you.</em></h1>
+        <p class="lede">Each week you build one working piece of your business with me, so you learn to do it and finish with it running.</p>
         <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="#learn">See what you'll build</a></div>
       </div>
-      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s2t"><title id="s2t">An eight-week path, one part of your coaching business built each week</title>
-        <line x1="34" y1="20" x2="34" y2="240" stroke="#E6E1F5" stroke-width="2"/>
-        <g id="track"></g>
-        <circle r="9" fill="none" stroke="#6C4FD6" stroke-width="2" style="offset-path:path('M34,20 L34,240');animation:travel 5s ease-in-out infinite"/>
+      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s2t"><title id="s2t">An eight-week path, from your blueprint in week one to your AI clone in week eight</title>
+        <line x1="30" y1="22" x2="30" y2="232" stroke="#E6E1F5" stroke-width="2"/>
+        <g id="path8"></g>
       </svg>
     </div>
 
     <div class="slide" aria-roledescription="slide" aria-label="3 of 3">
       <div>
-        <p class="eyebrow">Your week, rebuilt</p>
+        <p class="eyebrow">Your week, before and after</p>
         <h1>You keep the coaching. <em>AI handles everything else.</em></h1>
-        <p class="lede">Your sessions stay in your calendar. Content, follow-ups, prep and admin move to AI.</p>
+        <p class="lede">A five-minute check, a free summary of your next steps, and a 20-minute call with me if it fits.</p>
         <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="#offer">How it works</a></div>
       </div>
-      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s3t"><title id="s3t">A coaching week where sessions stay and content, follow-ups, prep and admin move to AI</title>
-        <g id="week"></g>
-        <rect x="30" y="236" width="12" height="12" rx="3" fill="#6C4FD6"/><text x="48" y="246" font-size="10" fill="#655F74" font-family="DM Sans,sans-serif">Your sessions</text>
-        <rect x="160" y="236" width="12" height="12" rx="3" fill="#fff" stroke="#6C4FD6"/><text x="178" y="246" font-size="10" fill="#655F74" font-family="DM Sans,sans-serif">Handled by AI</text>
+      <svg viewBox="0 0 300 260" role="img" aria-labelledby="s3t"><title id="s3t">Your week now, with you doing everything, and after eight weeks, with only coaching left to you</title>
+        <text x="75" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#231E3A" font-family="DM Sans,sans-serif">Your week now</text>
+        <text x="225" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#6C4FD6" font-family="DM Sans,sans-serif">After eight weeks</text>
+        <g id="week2"></g>
       </svg>
     </div>
 
@@ -329,8 +325,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
   <div class="stats" aria-label="At a glance">
     <div><b>8 weeks</b><span>One-to-one coaching with me</span></div>
-    <div><b>9</b><span>Parts of your business you build</span></div>
-    <div><b>5 min</b><span>Your readiness check</span></div>
+    <div><b>1:1</b><span>Every session, no cohort to wait for</span></div>
+    <div><b>9</b><span>Systems you build into your business</span></div>
     <div><b>20 min</b><span>Free call to start</span></div>
   </div>
 </section>
@@ -642,23 +638,18 @@ function showResult(){
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 render();
 
-const W=["Blueprint and architecture","Consumer intelligence for sales","Content system","Website, video and carousels","Meta ads with AI","Email marketing","Your leads engine","Agents, automations and your clone"];
-let tr="";
-W.forEach((w,k)=>{const y=(20+k*(220/7)).toFixed(1);
-  tr+=`<circle cx="34" cy="${y}" r="5" fill="${k===7?'#6C4FD6':'#fff'}" stroke="#6C4FD6" stroke-width="1.5"/><text x="54" y="${+y-2}" font-size="8" fill="#8C869A" font-family="DM Sans,sans-serif" letter-spacing=".08em">WEEK ${k+1}</text><text x="54" y="${+y+9}" font-size="11" fill="#231E3A" font-family="DM Sans,sans-serif">${w}</text>`;});
-document.getElementById("track").innerHTML=tr;
-const D=["Mon","Tue","Wed","Thu","Fri"], SES={"0-0":1,"1-1":1,"2-0":1,"2-2":1,"3-1":1,"4-0":1,"1-3":1,"3-3":1};
-const JOBS=["Content","Follow-ups","Prep","Admin"];
-let wk="",j=0;
-D.forEach((d,c)=>{const x=22+c*54;
-  wk+=`<text x="${x+23}" y="20" text-anchor="middle" font-size="10" fill="#655F74" font-family="DM Sans,sans-serif" font-weight="600">${d}</text>`;
-  for(let r=0;r<4;r++){const y=32+r*48;
-    if(SES[c+"-"+r]){wk+=`<rect x="${x}" y="${y}" width="46" height="40" rx="8" fill="#6C4FD6"/><text x="${x+23}" y="${y+24}" text-anchor="middle" font-size="9" fill="#fff" font-family="DM Sans,sans-serif">Session</text>`;}
-    else {const job=JOBS[j++%JOBS.length],dl=((c+r)*0.12).toFixed(2);
-      wk+=`<g style="animation:in 5s ease-in-out ${dl}s infinite"><rect x="${x}" y="${y}" width="46" height="40" rx="8" fill="#fff" stroke="#6C4FD6"/><text x="${x+23}" y="${y+18}" text-anchor="middle" font-size="9" fill="#4B33AE" font-family="DM Sans,sans-serif" font-weight="600">AI</text><text x="${x+23}" y="${y+30}" text-anchor="middle" font-size="8" fill="#655F74" font-family="DM Sans,sans-serif">${job}</text></g>`;
-      wk+=`<g style="animation:out 5s ease-in-out ${dl}s infinite"><rect x="${x}" y="${y}" width="46" height="40" rx="8" fill="#EFEBFB"/><text x="${x+23}" y="${y+24}" text-anchor="middle" font-size="9" fill="#655F74" font-family="DM Sans,sans-serif">${job}</text></g>`;}
-  }});
-document.getElementById("week").innerHTML=wk;
+const W=["Blueprint and architecture","Consumer intelligence for sales","Meta ads with AI","Your content system","Website, video and carousels","Email marketing with AI","Leads engine and automations","Your AI clone and avatar"];
+let p8="";
+W.forEach((w,k)=>{const y=22+k*30,d=(k*0.45).toFixed(2);
+  p8+=`<circle cx="30" cy="${y}" r="9" fill="#fff" stroke="#C9BEF2" stroke-width="2" style="animation:lit 6s ease-in-out ${d}s infinite"/>`;
+  p8+=`<text x="50" y="${y-1}" font-size="9" fill="#8C869A" font-family="DM Sans,sans-serif" letter-spacing=".08em">WEEK ${k+1}</text><text x="50" y="${y+11}" font-size="11" fill="#231E3A" font-family="DM Sans,sans-serif">${w}</text>`;});
+document.getElementById("path8").innerHTML=p8;
+const R=["Coaching sessions","Content","Follow-ups","Finding leads","Admin and invoices"];
+let wk="";
+R.forEach((r,k)=>{const y=40+k*40,coach=k===0,d=(0.4+k*0.35).toFixed(2);
+  wk+=`<rect x="10" y="${y}" width="130" height="30" rx="8" fill="#F7F5FD" stroke="#D9D1F5"/><text x="20" y="${y+19}" font-size="10" fill="#231E3A" font-family="DM Sans,sans-serif">${r}</text><text x="130" y="${y+19}" text-anchor="end" font-size="9" fill="#8C869A" font-family="DM Sans,sans-serif">You</text>`;
+  wk+=`<g style="transform-origin:225px ${y+15}px;animation:land 4s ease-in-out ${d}s infinite"><rect x="160" y="${y}" width="130" height="30" rx="8" fill="${coach?'#6C4FD6':'#fff'}" stroke="#6C4FD6"/><text x="170" y="${y+19}" font-size="10" fill="${coach?'#fff':'#231E3A'}" font-family="DM Sans,sans-serif">${r}</text><text x="280" y="${y+19}" text-anchor="end" font-size="9" font-weight="600" fill="${coach?'#E9E3FB':'#6C4FD6'}" font-family="DM Sans,sans-serif">${coach?'You':'AI'}</text></g>`;});
+document.getElementById("week2").innerHTML=wk;
 const slides=[...document.querySelectorAll(".slide")],dots=[...document.querySelectorAll(".dot")];let si=0,timer;
 const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 function show(n){si=(n+slides.length)%slides.length;slides.forEach((s,k)=>{s.classList.toggle("on",k===si);s.setAttribute("aria-hidden",k===si?"false":"true");});dots.forEach((d,k)=>d.classList.toggle("on",k===si));}
