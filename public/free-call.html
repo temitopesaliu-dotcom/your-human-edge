@@ -286,6 +286,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .calbox{max-width:1000px;margin:32px auto 0;border:1px solid var(--line);border-radius:18px;background:#fff;min-height:640px;overflow:hidden}
 #cal-inline{width:100%;min-height:640px}
 .calfallback{padding:24px;text-align:center;color:var(--muted);font-size:15px}
+
+#added{display:none;max-width:720px;margin:18px auto 0;padding:18px 20px;border:2px solid #6C4FD6;border-radius:14px;background:#F6F3FF;text-align:center}
+#added h2{margin:0 0 6px;font-size:20px}
+#added p{margin:0 0 12px;color:#4a4560}
+#added .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+#added a{display:inline-block;padding:12px 18px;border-radius:10px;background:#6C4FD6;color:#fff;font-weight:700;text-decoration:none}
+#added a.alt{background:#fff;color:#6C4FD6;border:2px solid #6C4FD6}
 </style>
 </head>
 <body>
@@ -305,6 +312,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <p class="once"><b>This is a one-time call.</b> Once you book, add it to your calendar and please show up on time.</p>
   <div class="calbox">
     <div id="cal-inline"></div>
+    <div id="added"><h2>You are booked. Add it to your calendar now.</h2><p>It is a one-time call, so please show up on time. Your Zoom link is in your confirmation email.</p><div class="btns"><a id="addG" target="_blank" rel="noopener">Google Calendar</a><a id="addO" class="alt" target="_blank" rel="noopener">Outlook</a><a id="addI" class="alt" download="call-with-temitope.ics">Apple / other (.ics)</a></div></div>
     <noscript><p class="calfallback">Turn on JavaScript to see available times.</p></noscript>
   </div>
 </main>
@@ -319,7 +327,24 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   Cal("init", "free-call", { origin: "https://cal.com" });
   Cal.ns["free-call"]("inline", { elementOrSelector: "#cal-inline", config: cfg, calLink: "temitope-saliu/free-20-minute-call-with-temitope" });
   Cal.ns["free-call"]("ui", { cssVarsPerTheme: { light: { "cal-brand": "#6C4FD6" } }, hideEventTypeDetails: true, layout: "month_view" });
-  Cal.ns["free-call"]("on", { action: "bookingSuccessful", callback: function () { try { if (window.gtag) gtag("event", "free_call_booked"); if (window.fbq) fbq("track", "Schedule"); } catch (e) {} } });
+
+  function showAdd(e){
+    var d=(e&&e.detail&&e.detail.data)||{};
+    var st=d.date||d.startTime||(d.booking&&d.booking.startTime);
+    var en=d.endTime||(d.booking&&d.booking.endTime);
+    if(!st)return;
+    var a=new Date(st), b=en?new Date(en):new Date(a.getTime()+20*60000);
+    if(isNaN(a)||isNaN(b))return;
+    var f=function(x){return x.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");};
+    var title="Free 20-minute call with Temitope Saliu";
+    var det="Zoom link is in your Cal.com confirmation email. One-time call: please show up on time. Manage booking via that email.";
+    document.getElementById("addG").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(title)+"&dates="+f(a)+"/"+f(b)+"&details="+encodeURIComponent(det);
+    document.getElementById("addO").href="https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject="+encodeURIComponent(title)+"&startdt="+encodeURIComponent(a.toISOString())+"&enddt="+encodeURIComponent(b.toISOString())+"&body="+encodeURIComponent(det);
+    var ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Temitope Saliu//Call//EN\r\nBEGIN:VEVENT\r\nUID:"+f(a)+"@temitopesaliu.com\r\nDTSTAMP:"+f(new Date())+"\r\nDTSTART:"+f(a)+"\r\nDTEND:"+f(b)+"\r\nSUMMARY:"+title+"\r\nDESCRIPTION:"+det+"\r\nEND:VEVENT\r\nEND:VCALENDAR";
+    document.getElementById("addI").href="data:text/calendar;charset=utf-8,"+encodeURIComponent(ics);
+    var box=document.getElementById("added");box.style.display="block";box.scrollIntoView({behavior:"smooth",block:"center"});
+  }
+  Cal.ns["free-call"]("on", { action: "bookingSuccessful", callback: function (e) { try { showAdd(e); } catch (x) {} try { if (window.gtag) gtag("event", "free_call_booked"); if (window.fbq) fbq("track", "Schedule"); } catch (e) {} } });
 })();
 </script>
 </body>
