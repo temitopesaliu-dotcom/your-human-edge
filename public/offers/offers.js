@@ -51,11 +51,11 @@ var PRODUCTS = {
   group: {
     ngnTransfer: true,
     name: 'The Business of Expertise group, 6 weeks, live',
-    blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 5 December 2026.',
-    full:  { USD: 2499,   GBP: 1929,   NGN: 3800000 },
-    early: { USD: 1749,   GBP: 1350,   NGN: 2660000 }, // 30% off
-    pay:   { USD: 'https://buy.stripe.com/8x2aEYaZV8Vq8g35qz3oA1g',  GBP: 'https://buy.stripe.com/5kQ4gAgkf7Rm7bZbOX3oA1i',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
-    payFull: { USD: 'https://buy.stripe.com/fZu7sM6JFfjO3ZN3ir3oA1f', GBP: 'https://buy.stripe.com/bJebJ22tpgnS53R8CL3oA1h', NGN: 'https://selar.com/231mh7r0i6?currency=NGN' }
+    blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 9 January 2027.',
+    full:  { USD: 2000,   GBP: 1545,   NGN: 3040000 },
+    early: { USD: 1400,   GBP: 1082,   NGN: 2128000 }, // 30% off
+    pay:   { USD: 'https://buy.stripe.com/14A4gA8RN7RmfIvdX53oA1s',  GBP: 'https://buy.stripe.com/8x2aEYec78VqgMz6uD3oA1u',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
+    payFull: { USD: 'https://buy.stripe.com/bJeeVeec72x29k77yH3oA1r', GBP: 'https://buy.stripe.com/8x23cw3xt7Rmcwj7yH3oA1t', NGN: 'https://selar.com/231mh7r0i6?currency=NGN' }
   }
 };
 /* ==== end config ==== */

@@ -11,30 +11,30 @@ import '../expert-framework.css';
 /** Cohort 2 upgrade links: Cohort 2 price minus what the buyer paid for the
  *  workshop. Shown only within 7 days of the workshop purchase. Stripe payment
  *  links on the group product (prod_VaArTnCdoTZnRS).
- *  UPGRADE_FULL_CREDIT: workshop bought at full price ($129 / £99 / ₦236,000), v=boe4.
- *  UPGRADE_EARLY_CREDIT: workshop bought at 30% off ($90 / £69 / ₦165,200), v=boe5. */
+ *  UPGRADE_FULL_CREDIT: workshop bought at full price ($129 / £99 / ₦236,000), v=boe6.
+ *  UPGRADE_EARLY_CREDIT: workshop bought at 30% off ($90 / £69 / ₦165,200), v=boe6. */
 const UPGRADE_FULL_CREDIT = {
   early: {
-    USD: { label: '$1,620', was: '$1,749', href: 'https://buy.stripe.com/6oU5kEaZV3B667V4mv3oA1j' },
-    GBP: { label: '£1,251', was: '£1,350', href: 'https://buy.stripe.com/bJe5kE6JF9ZueEr4mv3oA1l' },
-    NGN: { label: '₦2,424,000', was: '₦2,660,000' },
+    USD: { label: '$1,271', was: '$1,400', href: 'https://buy.stripe.com/fZu9AU6JF2x2fIv3ir3oA1v' },
+    GBP: { label: '£983', was: '£1,082', href: 'https://buy.stripe.com/bJedRa4BxefKbsf5qz3oA1z' },
+    NGN: { label: '₦1,892,000', was: '₦2,128,000' },
   },
   full: {
-    USD: { label: '$2,370', was: '$2,499', href: 'https://buy.stripe.com/8x2aEYfgbefK9k7aKT3oA1k' },
-    GBP: { label: '£1,830', was: '£1,929', href: 'https://buy.stripe.com/3cI6oIgkf5Je53R3ir3oA1m' },
-    NGN: { label: '₦3,564,000', was: '₦3,800,000' },
+    USD: { label: '$1,871', was: '$2,000', href: 'https://buy.stripe.com/6oUaEYaZV4Fa53RcT13oA1w' },
+    GBP: { label: '£1,446', was: '£1,545', href: 'https://buy.stripe.com/dRm4gA7NJc7CfIv06f3oA1A' },
+    NGN: { label: '₦2,804,000', was: '₦3,040,000' },
   },
 } as const;
 const UPGRADE_EARLY_CREDIT = {
   early: {
-    USD: { label: '$1,659', was: '$1,749', href: 'https://buy.stripe.com/aFadRa8RNb3yeErf193oA1n' },
-    GBP: { label: '£1,281', was: '£1,350', href: 'https://buy.stripe.com/4gM5kE5FBefKfIvaKT3oA1p' },
-    NGN: { label: '₦2,494,800', was: '₦2,660,000' },
+    USD: { label: '$1,310', was: '$1,400', href: 'https://buy.stripe.com/5kQ5kE4BxefK3ZN7yH3oA1x' },
+    GBP: { label: '£1,013', was: '£1,082', href: 'https://buy.stripe.com/4gMcN66JF4FacwjaKT3oA1B' },
+    NGN: { label: '₦1,962,800', was: '₦2,128,000' },
   },
   full: {
-    USD: { label: '$2,409', was: '$2,499', href: 'https://buy.stripe.com/dRmdRa7NJ7Rm7bZg5d3oA1o' },
-    GBP: { label: '£1,860', was: '£1,929', href: 'https://buy.stripe.com/fZu8wQ3xt3B6dAn6uD3oA1q' },
-    NGN: { label: '₦3,634,800', was: '₦3,800,000' },
+    USD: { label: '$1,910', was: '$2,000', href: 'https://buy.stripe.com/bJe7sMfgb4Fa9k75qz3oA1y' },
+    GBP: { label: '£1,476', was: '£1,545', href: 'https://buy.stripe.com/3cIcN6fgb9Zu0NBg5d3oA1C' },
+    NGN: { label: '₦2,874,800', was: '₦3,040,000' },
   },
 } as const;
 /** Every buyer waits 48 hours from payment before the workshop opens. */
