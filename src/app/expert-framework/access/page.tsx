@@ -16,25 +16,25 @@ import '../expert-framework.css';
 const UPGRADE_FULL_CREDIT = {
   early: {
     USD: { label: '$1,271', was: '$1,400', href: 'https://buy.stripe.com/fZu9AU6JF2x2fIv3ir3oA1v' },
-    GBP: { label: '£983', was: '£1,082', href: 'https://buy.stripe.com/bJedRa4BxefKbsf5qz3oA1z' },
-    NGN: { label: '₦1,892,000', was: '₦2,128,000' },
+    GBP: { label: '£1,020', was: '£1,119', href: 'https://buy.stripe.com/aFa3cw6JFfjOdAn1aj3oA1F' },
+    NGN: { label: '₦1,704,000', was: '₦1,940,000' },
   },
   full: {
     USD: { label: '$1,871', was: '$2,000', href: 'https://buy.stripe.com/6oUaEYaZV4Fa53RcT13oA1w' },
-    GBP: { label: '£1,446', was: '£1,545', href: 'https://buy.stripe.com/dRm4gA7NJc7CfIv06f3oA1A' },
-    NGN: { label: '₦2,804,000', was: '₦3,040,000' },
+    GBP: { label: '£1,500', was: '£1,599', href: 'https://buy.stripe.com/cNicN62tp8Vqbsf2en3oA1G' },
+    NGN: { label: '₦2,514,000', was: '₦2,750,000' },
   },
 } as const;
 const UPGRADE_EARLY_CREDIT = {
   early: {
     USD: { label: '$1,310', was: '$1,400', href: 'https://buy.stripe.com/5kQ5kE4BxefK3ZN7yH3oA1x' },
-    GBP: { label: '£1,013', was: '£1,082', href: 'https://buy.stripe.com/4gMcN66JF4FacwjaKT3oA1B' },
-    NGN: { label: '₦1,962,800', was: '₦2,128,000' },
+    GBP: { label: '£1,050', was: '£1,119', href: 'https://buy.stripe.com/8x2dRafgbc7C0NB8CL3oA1H' },
+    NGN: { label: '₦1,774,800', was: '₦1,940,000' },
   },
   full: {
     USD: { label: '$1,910', was: '$2,000', href: 'https://buy.stripe.com/bJe7sMfgb4Fa9k75qz3oA1y' },
-    GBP: { label: '£1,476', was: '£1,545', href: 'https://buy.stripe.com/3cIcN6fgb9Zu0NBg5d3oA1C' },
-    NGN: { label: '₦2,874,800', was: '₦3,040,000' },
+    GBP: { label: '£1,530', was: '£1,599', href: 'https://buy.stripe.com/9B67sM0lhb3ygMz3ir3oA1I' },
+    NGN: { label: '₦2,584,800', was: '₦2,750,000' },
   },
 } as const;
 /** Every buyer waits 48 hours from payment before the workshop opens. */
