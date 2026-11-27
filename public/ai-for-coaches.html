@@ -68,7 +68,7 @@ a{color:inherit}
 
 /* hero carousel */
 .hero{padding-block:40px 24px}
-.stage{position:relative;min-height:580px}
+.stage{position:relative;min-height:780px}
 .slide{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;opacity:0;visibility:hidden;transition:opacity .7s ease, visibility 0s linear .7s}
 .slide.on{opacity:1;visibility:visible;transition:opacity .7s ease}
 .slide h1{font-size:clamp(42px,5.4vw,68px);margin-top:14px}
@@ -100,6 +100,17 @@ a{color:inherit}
 .hchip{position:absolute;left:14px;background:#fff;color:var(--purple-deep);font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;box-shadow:0 6px 18px rgba(35,30,58,.12)}
 .h1c{bottom:58px}.h2c{bottom:16px}
 
+.team{justify-self:center;width:100%;max-width:520px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 24px;box-shadow:0 14px 40px rgba(35,30,58,.08)}
+.team h2{font-size:28px;line-height:1.1;margin:8px 0 6px}
+.team .tsub{font-size:14px;color:var(--muted);margin:0 0 12px}
+.team ol{list-style:none;margin:0;padding:0;counter-reset:t;display:grid;gap:0}
+.team li{counter-increment:t;display:grid;grid-template-columns:24px 1fr;gap:2px 10px;font-size:14px;line-height:1.35;padding:7px 0;border-top:1px solid var(--line);color:var(--muted)}
+.team li::before{content:counter(t);grid-row:1;color:var(--purple);font-weight:700}
+.team li b{color:var(--ink);font-weight:600;grid-column:2}
+.team li span{grid-column:2}
+@media (max-width:860px){.team li span,.team .tsub{display:none}.team li{grid-template-columns:24px 1fr}}
+.team .tfoot{margin:12px 0 0;font-family:var(--f-display);font-style:italic;font-size:19px;color:var(--purple-deep)}
+@media (max-width:860px){.team{padding:18px}.team h2{font-size:24px}.team li{font-size:13px;padding:6px 0}}
 /* familiar */
 .said{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
 .said p{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:22px;font-family:var(--f-display);font-style:italic;font-size:22px;line-height:1.3;color:var(--ink);text-align:left}
@@ -253,7 +264,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media (max-width:860px){
   .links{display:none}
-  .stage{min-height:820px}
+  .stage{min-height:1060px}
   .slide{grid-template-columns:1fr;align-content:start;gap:12px}
   .slide svg{max-width:340px}
   .hero-photo{width:min(300px,100%)}
@@ -275,7 +286,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .bar .tr{grid-column:1 / -1;grid-row:2}
 }
 @media (min-width:861px) and (max-width:1060px){.stories{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:480px){.process{grid-template-columns:1fr}.stage{min-height:860px}}
+@media (max-width:480px){.process{grid-template-columns:1fr}.stage{min-height:1080px}}
+.dwy{margin:28px auto 0;max-width:760px;border:2px solid var(--purple);background:var(--soft);border-radius:16px;padding:18px 22px;color:var(--ink);font-size:17px;line-height:1.5;text-align:center}.dwy b{font-family:var(--f-display);font-size:24px;font-weight:500;display:block;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -295,17 +307,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div>
         <p class="eyebrow">For coaches at six and seven figures</p>
         <h1>You've built the practice. <em>Now learn to run it with AI, from start to finish.</em></h1>
-        <p class="lede">Eight weeks of one-to-one coaching with me. You build your offers, leads, content and delivery into one system, with AI as your execution team.</p>
+        <p class="lede">Eight weeks of one-to-one coaching with me. You learn to build your offers, leads, content and delivery into one system, with AI as your execution team. Done with you, not for you.</p>
         <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="#learn">See what you'll build</a></div>
       </div>
-      <div class="hero-photo"><img src="/70b1d12e-9faf-4534-87e5-c719dde5f0b9.jpg" alt="Temitope Saliu" width="360" height="450"><span class="hchip h1c">8 weeks, one-to-one</span><span class="hchip h2c">AI as your execution team</span></div>
+      <div class="team"><p class="eyebrow">Your whole team, run by AI</p><h2>One coach. Ten roles covered.</h2><p class="tsub">You learn to build each one with me. You keep the coaching, AI handles the rest.</p><ol><li><b>AI as your content planner.</b> <span>A month of posts, in your voice, planned in one sitting.</span></li><li><b>AI as your copywriter.</b> <span>Posts, pages, emails and offers that sound like you.</span></li><li><b>AI as your graphics designer.</b> <span>Carousels, quote cards and thumbnails, on brand.</span></li><li><b>AI as your web designer.</b> <span>Your site and booking pages, live without a developer.</span></li><li><b>AI as your video editor.</b> <span>Cuts, captions and repurposed clips from one recording.</span></li><li><b>AI as your ads manager.</b> <span>Meta ads planned, written and tested.</span></li><li><b>AI as your email marketer.</b> <span>Lists, sequences and launches.</span></li><li><b>AI as your lead researcher.</b> <span>Finds and reaches the right buyers.</span></li><li><b>AI as your virtual assistant.</b> <span>Intake, reminders, follow-ups and reporting.</span></li><li><b>AI as your on-camera self.</b> <span>Your clone or avatar, if you would rather not show your face.</span></li></ol><p class="tfoot">Done with you, not for you.</p></div>
     </div>
 
     <div class="slide" aria-roledescription="slide" aria-label="2 of 3">
       <div>
         <p class="eyebrow">One-to-one, not another course</p>
         <h1>Eight weeks. <em>One coaching business, built by you.</em></h1>
-        <p class="lede">Each week you build one working piece of your business with me, so you learn to do it and finish with it running.</p>
+        <p class="lede">Each week you learn to build one working piece of your business, with me beside you, so you understand it, own it and finish with it running.</p>
         <div class="cta-row"><a class="btn btn-spot" href="#check">Take the readiness check</a><a class="link" href="#learn">See what you'll build</a></div>
       </div>
       <svg viewBox="0 0 300 260" role="img" aria-labelledby="s2t"><title id="s2t">An eight-week path, from your blueprint in week one to your AI clone in week eight</title>
@@ -335,8 +347,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="stats" aria-label="At a glance">
     <div><b>8 weeks</b><span>One-to-one coaching with me</span></div>
     <div><b>1:1</b><span>Every session, no cohort to wait for</span></div>
-    <div><b>9</b><span>Systems you build into your business</span></div>
-    <div><b>20 min</b><span>Free call to start</span></div>
+    <div><b>10</b><span>Systems you learn to build into your business</span></div>
+    <div><b>Apply</b><span>Application only, free 20-min call first</span></div>
   </div>
 </section>
 
@@ -360,18 +372,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="center">
       <p class="eyebrow">The coaching</p>
       <h2>Learn to run your whole practice <em>with AI.</em></h2>
-      <p class="lede" style="margin-top:18px">Eight weeks of one-to-one coaching with me. You build your entire coaching business with AI as your execution team: your offers, leads, content and delivery, around how you already coach.</p>
+      <p class="lede" style="margin-top:18px">Eight weeks of one-to-one coaching with me. You learn to build your entire coaching business with AI as your execution team: your offers, leads, content and delivery, around how you already coach.</p>
     </div>
+    <div class="dwy"><b>Done with you, not done for you.</b> I am not building your business for you. I coach you through building every piece yourself, so you understand it, own it and can run and change it without me.</div>
     <div class="offer" style="margin-top:48px">
       <div>
         <p class="eyebrow">Who it is for</p>
         <h3 style="font-size:28px;margin-top:6px">Coaches already earning six or seven figures</h3>
         <p>You have the clients, the results and the reputation. What you do not have is the architecture behind them: a system that finds buyers, runs the conversation, delivers and follows up without everything going through you.</p>
-        <ul><li>Your coaching business blueprint and AI architecture, so everything you build has a plan</li><li>A leads engine, ads and email that bring in the right buyers</li><li>A content system, video editing and website, in your voice</li><li>Agents and automations for intake, follow-up and reporting</li><li>An AI clone or avatar, if you would rather not be on camera every day</li></ul>
-        <p style="margin-top:14px">You learn to do it, and you finish with it built. It starts with a free 20-minute call, where we talk through your business and whether we are a fit.</p>
+        <ul><li>You learn to design your coaching business blueprint and AI architecture, so everything you build has a plan</li><li>You learn to build a leads engine automated by AI, plus ads, email and your launch funnel and sequence</li><li>You learn to run a content system, video editing and website, in your voice</li><li>You learn to set up agents and automations for intake, follow-up and reporting</li><li>You learn to build an AI clone or avatar, if you would rather not be on camera every day</li></ul>
+        <p style="margin-top:14px">You learn to do it, and you finish with it built. It is application only. It starts with a free 20-minute call, where we talk through your business and whether we are a fit, and where the investment is discussed.</p>
       </div>
       <div class="side">
-        <p class="price">Free call first<small>20 minutes with me, about your business and whether we are a fit</small></p>
+        <p class="price">Application only<small>Investment is discussed on the call. Start with a free 20-minute call about your business and whether we are a fit.</small></p>
         <a class="btn btn-spot js-fit" href="/free-call">Book a free 20-minute call</a>
         <a class="link" href="#check">Or take the readiness check first</a>
       </div>
@@ -400,19 +413,20 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="wrap">
     <div class="center">
       <p class="eyebrow">What you'll build</p>
-      <h2>Everything your practice <em>runs on.</em></h2>
-      <p class="lede" style="margin-top:18px">What you build over eight weeks of one-to-one coaching: the working pieces of a coaching business, built with AI as your execution team, into one operating system.</p>
+      <h2>Everything your practice <em>runs on, and you learn to build it.</em></h2>
+      <p class="lede" style="margin-top:18px">What you learn to build over eight weeks of one-to-one coaching: the working pieces of a coaching business, built by you with me, with AI as your execution team, into one operating system.</p>
     </div>
     <div class="weeks">
-      <div class="week hi"><h3>Your coaching business blueprint and architecture</h3><p>Decide what you sell and to whom, diagnose where your business leaks time and money, then architect the system around it.</p></div>
-      <div class="week"><h3>Consumer intelligence for sales</h3><p>Read how each buyer decides, then shape your discovery, pitch and follow-up around it. No scripts, no pressure.</p></div>
+      <div class="week hi"><h3>Your coaching business blueprint and architecture</h3><p>Decide what you sell and to whom, diagnose where your business leaks time and money, then learn to architect the system around it.</p></div>
+      <div class="week"><h3>Personality intelligence for the people you coach and sell to</h3><p>Understand how each client and buyer thinks, decides and wants to be spoken to, so your discovery, pitch and sessions land. No scripts, no pressure.</p></div>
       <div class="week"><h3>Meta ads with AI</h3><p>Plan, write and test ads with AI, so the right buyers find your offer without guesswork or wasted spend.</p></div>
-      <div class="week"><h3>AI content management system</h3><p>Storytelling, planning and creating, in your voice, in one system that keeps your content moving.</p></div>
+      <div class="week"><h3>AI content management system</h3><p>Quantity, quality and consistency, before the storytelling, planning and creating in your voice. One system that keeps your content moving.</p></div>
       <div class="week"><h3>AI website, video editing and carousels</h3><p>Launch your website with AI, then cut, caption and repurpose your recordings into videos and carousels, in hours instead of days.</p></div>
       <div class="week"><h3>Email marketing with AI</h3><p>From list to sequence to send: your email marketing, built with AI from start to finish.</p></div>
-      <div class="week"><h3>Your AI leads engine</h3><p>Find, reach and convert the right buyers from start to finish, so new conversations stop depending on you chasing them.</p></div>
+      <div class="week"><h3>Your launch funnel and sequence</h3><p>Learn to build your launch funnel and sequence, all done by AI: the page, the emails and the follow-up that take people from interested to enrolled.</p></div>
+      <div class="week"><h3>Your leads engine, automated by AI</h3><p>Find, reach and convert your clients and B2B buyers from start to finish, with the whole engine automated by AI, so new conversations stop depending on you chasing them.</p></div>
       <div class="week"><h3>Agents and automations</h3><p>Agents and automations for intake, reminders, follow-ups and reporting, so the admin runs without you.</p></div>
-      <div class="week hi"><h3>Your AI clone and avatar</h3><p>Content that turns into clients, presented by an AI version of you, trained on your voice and your thinking, if you would rather not be on camera.</p></div>
+      <div class="week hi" style="grid-column:1 / -1"><h3>Content, clients plus clones</h3><p>Content that turns into clients, presented by your AI clone or AI avatar if you want. If you would rather not show your face, build your AI clone and avatar, trained on your voice and your thinking, so your method keeps showing up while you work.</p></div>
     </div>
     <div class="center" style="margin-top:36px"><a class="btn btn-spot js-fit" href="/free-call">Book a free 20-minute call</a></div>
   </div>
@@ -422,7 +436,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="wrap center">
     <p class="eyebrow">Readiness check</p>
     <h2>Is your practice ready <em>to run on AI?</em></h2>
-    <p class="lede" style="margin-top:18px">Fourteen questions, about five minutes. You get a score across four areas, a summary of your next steps, and whether a call with me makes sense. Built for coaches already at six or seven figures.</p>
+    <p class="lede" style="margin-top:18px">Fourteen questions, about five minutes. You get a score across four areas, a summary of your next steps, and whether a call with me makes sense. Built for coaches already at six or seven figures. The programme is application only, and this check is how we see whether you are ready to apply.</p>
     <div class="check" aria-live="polite">
       <form id="quiz" novalidate>
         <div class="progress"><span id="stepLabel">Question 1 of 14</span><span class="track"><i id="trackBar"></i></span></div>
@@ -458,7 +472,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="about-body">
       <p class="eyebrow">About</p>
       <h2 style="margin-top:12px">Temitope <em>Saliu.</em></h2>
-      <p class="lede" style="font-size:18px;margin-top:18px">Teacher, business architect and AI strategist with over a decade in marketing, products and partnerships. My work sits where AI meets human psychology: personality and buyer behaviour come first, then the systems. I've partnered with Google and Microsoft on tech education across Africa, and trained for Meta, Visa, USAID and many more organisations globally. I build and train: I train coaches, trainers and experts to use AI to scale, without losing what makes their work human.</p>
+      <p class="lede" style="font-size:18px;margin-top:18px">Trainer, business architect and AI strategist with over a decade in tech, marketing, products and partnerships. My work sits where AI meets human psychology: personality and buyer behaviour come first, then the systems. I've partnered with Google and Microsoft on tech education across Africa, and trained for Meta, Visa, USAID and many more organisations globally. I build and train: I train coaches, trainers and experts to use AI to scale, without losing what makes their work human.</p>
       <ul class="creds"><li>AI transformation for businesses and institutions</li><li>Tech education partner to Google and Microsoft.</li><li>Google and Meta Elite Trainer, 3,000+ professionals trained</li><li>UK Global Exceptional Talent</li><li>UK Women Economic Forum Iconic Award winner</li></ul>
       <div class="connect"><a class="btn btn-spot" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="btn btn-ghost" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div>
     </div>
@@ -469,7 +483,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="wrap narrow">
     <div class="center" style="margin-bottom:28px"><p class="eyebrow">Questions</p><h2>Everything you <em>need to know.</em></h2></div>
     <details><summary>Who is this for?</summary><p>Individual coaches already earning six or seven figures who want to learn to run their whole business with AI, not just try a few tools. If you are not at six figures yet, the readiness check still gives you a summary of what to focus on first.</p></details>
-    <details><summary>Is this done-for-you implementation?</summary><p>No. It is eight weeks of one-to-one coaching with me. You build your entire coaching business with AI as your execution team, so you learn to do it yourself and finish with it built.</p></details>
+    <details><summary>Is this done for you?</summary><p>No. It is done with you, not for you. It is eight weeks of one-to-one coaching with me. I coach you through building your entire coaching business with AI as your execution team, so you learn to do it yourself, understand how it works, and finish with it built and owned by you.</p></details>
+    <details><summary>How much does it cost, and how do I join?</summary><p>It is application only. The investment is discussed on the free 20-minute call, once we know whether it is a fit. The readiness check is how we see whether you are ready: it asks about your business and what you could invest, so we only speak where it makes sense for both of us.</p></details>
     <details><summary>What happens on the free call?</summary><p>We talk about your business, where AI would make the biggest difference, and whether we are a fit. If we are, I walk you through what the eight weeks involve. Either way, you keep your summary of next steps.</p></details>
     <details><summary>Do I have to show my face on social media?</summary><p>No. You can build an AI clone or avatar trained on your voice and thinking, which presents your content while nothing goes out in your name until you approve it.</p></details>
     <details><summary>Will AI make my coaching feel less human?</summary><p>That's the risk I work against. AI takes on research, admin, content and follow-up, so you spend more time on the human work.</p></details>
@@ -479,7 +494,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </main>
 
 <footer>
-  <div class="wrap"><span>Temitope Saliu · Teacher, Business Architect and AI Strategist · <a href="/ai-for-institutes-and-training-businesses" style="color:var(--purple)">Run a training institute? Go here</a></span></div>
+  <div class="wrap"><span>Temitope Saliu · Trainer, Business Architect and AI Strategist · <a href="/ai-for-institutes-and-training-businesses" style="color:var(--purple)">Run a training institute? Go here</a></span></div>
 </footer>
 
 <script>
@@ -606,16 +621,16 @@ function showResult(){
      <div>
        <p class="eyebrow">Your next step</p>
        <h3 style="font-size:26px;margin-top:6px">Build ${firm} with AI, one-to-one</h3>
-       <p>You're in the range this is built for. Eight weeks of one-to-one coaching with me, where you build your entire coaching business with AI as your execution team: your blueprint and architecture, a leads engine, ads and email, a content system with video editing, agents and automations, and an AI clone if you want one.</p>
+       <p>You're in the range this is built for. Eight weeks of one-to-one coaching with me, where you learn to build your entire coaching business with AI as your execution team: your blueprint and architecture, a leads engine automated by AI, ads, email and your launch funnel and sequence, a content system with video editing, agents and automations, and an AI clone if you want one. It is done with you, not for you, and it is application only.</p>
        <ul><li>Your offer and sales conversation, tightened first</li><li>Each piece built by you, with me, using AI as your execution team</li><li>Everything connected, so it runs without you in the middle</li></ul>
-       <p style="margin-top:14px">It starts with a free 20-minute call, where we talk through ${firm} and whether we are a fit.</p>
+       <p style="margin-top:14px">It starts with a free 20-minute call, where we talk through ${firm}, whether we are a fit, and the investment.</p>
      </div>
      <div class="side">
-       <p class="price">Free call first<small>20 minutes with me, about ${firm} and whether we are a fit</small></p>
+       <p class="price">Application only<small>Investment is discussed on the call. Start with 20 minutes with me, about ${firm}.</small></p>
        <a class="btn btn-spot" href="/free-call">Book a free 20-minute call</a>
        <a class="btn btn-ghost" href="#learn">See everything you'll build</a>
      </div>
-     <div class="who-card"><div class="mini photo" role="img" aria-label="Photo of Temitope Saliu"></div><div><p><b>You'll work with Temitope Saliu.</b> Teacher, business architect and AI strategist. Tech education partner to Google and Microsoft, Google and Meta Elite Trainer with 3,000+ professionals trained.</p><div class="row"><a class="link" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="link" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div></div></div>
+     <div class="who-card"><div class="mini photo" role="img" aria-label="Photo of Temitope Saliu"></div><div><p><b>You'll work with Temitope Saliu.</b> Trainer, business architect and AI strategist. Tech education partner to Google and Microsoft, Google and Meta Elite Trainer with 3,000+ professionals trained.</p><div class="row"><a class="link" href="https://www.linkedin.com/in/temitopesaliu/" target="_blank" rel="noopener">Connect with Temitope on LinkedIn</a><a class="link" href="https://www.instagram.com/temitopesaliu/" target="_blank" rel="noopener">Follow Temitope on Instagram</a></div></div></div>
      <blockquote style="grid-column:1 / -1"><p>"From personality, to generating leads, to building the actual infrastructure around my idea."</p><cite><b>Priscilla</b> · Revenue retention and lead generation consultant, Germany</cite></blockquote>
    </div>`:route==="B"?`<div class="offer">
      <div>
@@ -624,7 +639,7 @@ function showResult(){
        <p>Your practice is at the right stage. Eight weeks of one-to-one coaching is a real commitment, so the free call is where we work out whether it makes sense for ${firm} now, and what it would involve.</p>
      </div>
      <div class="side">
-       <p class="price">Free call first<small>20 minutes with me · no obligation</small></p>
+       <p class="price">Application only<small>Investment is discussed on the call · 20 minutes, no obligation</small></p>
        <a class="btn btn-spot" href="/free-call">Book a free 20-minute call</a>
        <a class="btn btn-ghost" href="#learn">See everything you'll build</a>
      </div>
@@ -653,7 +668,7 @@ document.querySelectorAll(".story[data-vid]").forEach(card=>{
   card.addEventListener("click",play);
   card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();play();}});
 });
-const W=["Blueprint and architecture","Consumer intelligence for sales","Meta ads with AI","Your content system","Website, video and carousels","Email marketing with AI","Leads engine and automations","Your AI clone and avatar"];
+const W=["Blueprint and architecture","Personality intelligence","Meta ads with AI","Your content system","Website, video and carousels","Email and launch funnel","Leads engine and automations","Content, clients plus clones"];
 let p8="";
 W.forEach((w,k)=>{const y=22+k*30,d=(k*0.45).toFixed(2);
   p8+=`<circle cx="30" cy="${y}" r="9" fill="#fff" stroke="#C9BEF2" stroke-width="2" style="animation:lit 6s ease-in-out ${d}s infinite"/>`;
