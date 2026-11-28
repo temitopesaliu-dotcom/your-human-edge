@@ -25,7 +25,7 @@ import './expert-framework.css';
  * with it.
  */
 
-// $129, or $90 (30% off) during the weekly early-bird window (Sat 12:00 to Tue 12:00 London).
+// $129, or $90 (30% off) during the weekly early-bird window (Sat 12:30 to Mon 12:30 London).
 const PRICE_FULL = '$129';
 const PRICE_EARLY = '$90';
 const noopSubscribe = () => () => {};

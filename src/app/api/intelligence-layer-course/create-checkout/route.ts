@@ -26,7 +26,7 @@ import { isEarlyBird, workshopAmount, type WorkshopCurrency } from '@/lib/utils/
 
 /**
  * Price: $129 / £99, or $90 / £69 (30% off) during the weekly early-bird window
- * (Saturday 12:00 to Tuesday 12:00 London). Amounts live in
+ * (Saturday 12:30 to Monday 12:30 London). Amounts live in
  * lib/utils/early-bird.ts so the sales pages and this route agree.
  * Buyers who join Cohort 2 within 7 days get this amount taken off
  * (upgrade links on the access page).
