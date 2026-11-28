@@ -1,7 +1,8 @@
 /* ==== CONFIG: edit here only ==== */
-// Early-bird window repeats automatically: opens every Saturday 12:00 noon UK time
-// (right after the free live class) and runs 72 hours, to Tuesday 12:00 noon UK time.
-// Outside the window, full price applies until the next Saturday noon. DST-safe.
+// Early-bird window repeats automatically: opens every Saturday 12:30 UK time
+// (right after the free live class) and runs 48 hours, to Monday 12:30 UK time.
+// Outside the window, full price applies until the next Saturday 12:30. DST-safe.
+// (Was 72 hours, Sat 12:00 to Tue 12:00, until 28 Nov 2026.)
 var TEST_NOW = (new URLSearchParams(location.search)).get('now'); // preview only: ?now=2026-11-14T11:59:00Z
 function nowMs() { return TEST_NOW ? new Date(TEST_NOW).getTime() : Date.now(); }
 function ukParts(ms) {
@@ -11,16 +12,17 @@ function ukParts(ms) {
   return { wd: o.weekday, y: +o.year, m: +o.month, d: +o.day, h: +o.hour, mi: +o.minute, s: +o.second };
 }
 function ukOffset(ms) { var p = ukParts(ms); return Date.UTC(p.y, p.m - 1, p.d, p.h, p.mi, p.s) - Math.floor(ms / 1000) * 1000; }
-function ukWallToUTC(y, m, d, h) { var g = Date.UTC(y, m - 1, d, h); var t = g - ukOffset(g); return g - ukOffset(t); }
+var EB_H = 12, EB_MI = 30, EB_DAYS = 2; // opens Sat 12:30 UK, lasts 2 days (48h)
+function ukWallToUTC(y, m, d, h, mi) { var g = Date.UTC(y, m - 1, d, h, mi || 0); var t = g - ukOffset(g); return g - ukOffset(t); }
 function windowStart(now) {
   for (var i = 0; i <= 8; i++) {
     var p = ukParts(now - i * 864e5);
-    if (p.wd === 'Sat') { var s = ukWallToUTC(p.y, p.m, p.d, 12); if (s <= now) return s; }
+    if (p.wd === 'Sat') { var s = ukWallToUTC(p.y, p.m, p.d, EB_H, EB_MI); if (s <= now) return s; }
   }
   return now;
 }
-function windowEndMs(now) { var t = windowStart(now) + 3 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); } // Tuesday 12:00 UK wall clock
-function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, 12); }
+function windowEndMs(now) { var t = windowStart(now) + EB_DAYS * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, EB_H, EB_MI); } // Monday 12:30 UK wall clock
+function nextStartMs(now) { var t = windowStart(now) + 7 * 864e5; var p = ukParts(t); return ukWallToUTC(p.y, p.m, p.d, EB_H, EB_MI); }
 var EARLY_END = new Date(windowEndMs(nowMs())).toISOString();
 
 // Payment links. Stripe for USD and GBP. Naira: Selar for the workshop and self-paced;
@@ -30,17 +32,21 @@ var WHATSAPP_NUMBER = '447776646576'; // digits only with country code, e.g. 447
 var WHATSAPP_NAME = 'Temitope';
 var PRODUCTS = {
   selfpaced12: {
-    name: 'The Business of Expertise, self-paced (6 months access)',
-    blurb: 'The full course, recorded, with 6 months of access.',
-    full:  { USD: 550,    GBP: 425,    NGN: 1006500 },
-    early: { USD: 385,    GBP: 298,    NGN: 704500 },
-    pay:   { USD: 'https://buy.stripe.com/aFadRafgbfjO53R7yH3oA18',  GBP: 'https://buy.stripe.com/00wbJ25FB3B67bZ1aj3oA1a',  NGN: 'https://selar.com/vb15we33t1?currency=NGN' },
-    payFull: { USD: 'https://buy.stripe.com/eVq00k4Bx8Vqaob5qz3oA17', GBP: 'https://buy.stripe.com/fZueVe3xt8VqbsfbOX3oA19', NGN: 'https://selar.com/b19w4vqi9t?currency=NGN' }
+    // Self-Paced (28 Nov 2026): $500 / £399 / ₦725,000; 30% off $350 / £279 / ₦522,500.
+    // Stripe links v=boe8 on prod_VaArgcKNUQyN19. Naira by bank transfer on WhatsApp.
+    ngnTransfer: true,
+    name: 'The Business of Expertise, Self-Paced (recordings open 9 January 2027, 6 months access)',
+    blurb: 'The full course, recorded, with 6 months of access. Recordings open 9 January 2027.',
+    full:  { USD: 500,    GBP: 399,    NGN: 725000 },
+    early: { USD: 350,    GBP: 279,    NGN: 522500 }, // 30% off
+    pay:   { USD: 'https://buy.stripe.com/8x2fZi9VR6NigMz2en3oA1K',  GBP: 'https://buy.stripe.com/28E00k7NJ8Vq3ZNbOX3oA1M',  NGN: '' },
+    payFull: { USD: 'https://buy.stripe.com/6oUfZigkf9ZufIv5qz3oA1J', GBP: 'https://buy.stripe.com/eVq6oI5FB1sY67VcT13oA1L', NGN: '' }
   },
   workshop: {
     // The recorded Expert Framework Workshop. USD/GBP are charged through
     // /api/intelligence-layer-course/create-checkout (delivery page is
-    // payment-checked); NGN goes to Selar. Early = the weekly 72-hour window.
+    // payment-checked); NGN goes to Selar. Early = the weekly 48-hour window.
+    // Not sold on the Intensive page since 28 Nov 2026 (folded into Self-Paced).
     name: 'The Expert Framework Workshop (recorded)',
     blurb: 'The recorded one-hour workshop, at your own pace.',
     full:  { USD: 129,    GBP: 99,     NGN: 236000 },
@@ -50,8 +56,8 @@ var PRODUCTS = {
   },
   group: {
     ngnTransfer: true,
-    name: 'The Business of Expertise group, 6 weeks, live',
-    blurb: 'Six weeks live with Temitope: one live call a week, challenges and accountability, plus the full recorded course. Classes start 9 January 2027.',
+    name: 'The Business of Expertise Live Coaching, 6 weeks (includes Self-Paced)',
+    blurb: 'Six weeks of live coaching with Temitope: live group sessions, direct feedback and community, plus full access to the self-paced recordings. Classes start 9 January 2027.',
     full:  { USD: 2000,   GBP: 1599,   NGN: 2750000 },
     early: { USD: 1400,   GBP: 1119,   NGN: 1940000 }, // 30% off
     pay:   { USD: 'https://buy.stripe.com/14A4gA8RN7RmfIvdX53oA1s',  GBP: 'https://buy.stripe.com/14A9AU4BxefKbsfg5d3oA1E',  NGN: 'https://selar.com/1v0440v7v7?currency=NGN' },
@@ -126,7 +132,7 @@ function tick() {
   var ms = early ? windowEndMs(now) - now : nextStartMs(now) - now;
   var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1e3);
   var t = (early ? Math.floor(ms / 36e5) + 'h ' : (d ? d + 'd ' : '') + h + 'h ') + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
-  el.textContent = early ? 'Early-bird ends in ' + t : 'Next early-bird opens Saturday 12:00 UK, in ' + t;
+  el.textContent = early ? 'Early-bird ends in ' + t : 'Next early-bird opens Saturday 12:30 UK, in ' + t;
 }
 document.addEventListener('DOMContentLoaded', function () {
   var cur = detectCur();

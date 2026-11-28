@@ -209,7 +209,7 @@ export default async function IntelligenceLayerCourseAccessPage({
         </a>
       </div>
       <p className="ilc-upgrade-note">
-        {early ? 'Includes the 30% off that runs until Tuesday 12:00 London time. ' : ''}
+        {early ? 'Includes the 30% off that runs until Monday 12:30 London time. ' : ''}
         Optional after joining: 6 months of continued implementation plus accountability. All sales are final and non-refundable.
       </p>
     </aside>
