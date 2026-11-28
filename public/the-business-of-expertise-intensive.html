@@ -420,7 +420,7 @@ footer a{color:#B9AED6}
         <p class="desc">The full course as recordings. Recordings open 9 January 2027 and you keep access for 6 months. Learn at your own pace, with no live sessions or feedback.</p>
         <div class="price">
           <div class="price-row"><span class="amt" data-amt="selfpaced12">$500</span><span class="was" data-was="selfpaced12" hidden></span></div>
-          <span class="pnote" data-note="selfpaced12">One payment</span>
+          <span class="pnote" data-note="selfpaced12">One payment · non-refundable</span>
         </div>
         <a class="btn btn-outline" id="buySelf" href="/offers/pay.html?p=selfpaced12">Get Self-Paced</a>
         <ul class="ticks">
@@ -438,7 +438,7 @@ footer a{color:#B9AED6}
         <p class="desc">Six weeks live with Temitope from 9 January 2027: live group sessions, direct feedback and community, plus full access to the self-paced recordings. For experienced professionals, coaches, consultants, experts and business owners. No technical background needed.</p>
         <div class="price">
           <div class="price-row"><span class="amt" data-amt="group">$2,000</span><span class="was" data-was="group" hidden></span></div>
-          <span class="pnote" data-note="group">One payment</span>
+          <span class="pnote" data-note="group">One payment · non-refundable</span>
         </div>
         <a class="btn btn-white" id="buyGroup" href="/offers/pay.html?p=group">Join Live Coaching</a>
         <ul class="ticks">
@@ -455,7 +455,7 @@ footer a{color:#B9AED6}
 
     <div style="display:flex;flex-direction:column;gap:12px;margin-top:32px">
       <p class="fine" id="earlyFine" hidden>Early bird runs for 48 hours, Saturday 12:30 to Monday 12:30 London time. Then prices go back to $2,000 and $500.</p>
-      <p class="fine">All sales are final and non-refundable.</p>
+      <p class="fine" style="font-weight:600;color:var(--ink-2)">All payments are final and non-refundable.</p>
     </div>
   </div>
 </section>
@@ -519,7 +519,7 @@ footer a{color:#B9AED6}
       amt.textContent = fmt(cur, e ? p.early[cur] : p.full[cur]);
       was.textContent = fmt(cur, p.full[cur]);
       was.hidden = !e;
-      note.textContent = e ? 'Early bird: 30% off for 48 hours only · one payment' : 'One payment';
+      note.textContent = e ? 'Early bird: 30% off for 48 hours only · one payment · non-refundable' : 'One payment · non-refundable';
       note.className = 'pnote' + (e ? ' hot' : '');
     });
     var g = PRODUCTS.group, sp = PRODUCTS.selfpaced12;
